@@ -8,21 +8,24 @@
         },
         "licenseUrl": "http://opensource.org/licenses/MIT",
         "tags": [ "discord", "game" ],
-        "files": {
-            "exclude": [ "Example" ]
-        },
-        "summary": "Base class for text-based games in Discord"
+        "summary": "Base classes for text-based games in Discord"
     },
 
-  "dependencies": {
-    "NETStandard.Library": "1.6.0",
-    "Discord.Net": "1.0.0-dev-*",
-    "Discord.Net.Commands": "1.0.0-dev-*"
-  },
+    "buildOptions": {
+        "compile": {
+            "exclude": [ "Example/**" ]
+        }
+    },
 
-  "frameworks": {
-    "netstandard1.3": {
-      "imports": "dnxcore50"
+    "dependencies": {
+        "NETStandard.Library": "1.6.0",
+        "Discord.Net": "1.0.0-dev-*",
+        "Discord.Net.Commands": "1.0.0-dev-*"
+    },
+
+    "frameworks": {
+        "netstandard1.3": {
+            "imports": "dnxcore50"
+        }
     }
-  }
 }
