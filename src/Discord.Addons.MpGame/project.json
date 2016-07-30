@@ -7,7 +7,11 @@
             "url": "https://github.com/Joe4evr/Discord.Addons"
         },
         "licenseUrl": "http://opensource.org/licenses/MIT",
-        "tags": [ "discord", "game" ]
+        "tags": [ "discord", "game" ],
+        "files": {
+            "exclude": [ "Example" ]
+        },
+        "summary": "Base class for text-based games in Discord"
     },
 
   "dependencies": {

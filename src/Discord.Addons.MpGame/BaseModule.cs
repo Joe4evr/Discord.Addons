@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Discord.WebSocket;
 
@@ -19,24 +20,24 @@ namespace Discord.Addons.MpGame
         protected readonly DiscordSocketClient client;
 
         /// <summary>
-        /// The instance of the game being played.
+        /// The instance of a game being played, keyed by channel.
         /// </summary>
-        protected T game;
+        protected readonly Dictionary<ulong, T> gameList = new Dictionary<ulong, T>();
 
         /// <summary>
-        /// The list of users scheduled to join the game.
+        /// The list of users scheduled to join game, keyed by channel.
         /// </summary>
-        protected List<IGuildUser> playerList;
+        protected readonly Dictionary<ulong, List<IGuildUser>> playerList = new Dictionary<ulong, List<IGuildUser>>();
 
         /// <summary>
-        /// Indicates whether the users can join a game about to start.
+        /// Indicates whether the users can join a game about to start, keyed by channel.
         /// </summary>
-        protected bool openToJoin = false;
+        protected readonly Dictionary<ulong, bool> openToJoin = new Dictionary<ulong, bool>();
 
         /// <summary>
-        /// Indicates whether a game is currently going on.
+        /// Indicates whether a game is currently going on, keyed by channel.
         /// </summary>
-        protected bool gameInProgress = false;
+        protected readonly Dictionary<ulong, bool> gameInProgress = new Dictionary<ulong, bool>();
 
         /// <summary>
         /// Sets up the common logic for a Module that manages a game between Discord users.
