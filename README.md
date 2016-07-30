@@ -1,2 +1,2 @@
 # Discord.Addons
-Useful extensions for Discord.Net
+Useful extensions for Discord.Net 1.0
