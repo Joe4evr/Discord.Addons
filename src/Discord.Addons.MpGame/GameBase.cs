@@ -17,8 +17,8 @@ namespace Discord.Addons.MpGame
         protected IMessageChannel Channel { get; }
 
         /// <summary>
-        /// Represents all the players in this game,
-        /// </summary.
+        /// Represents all the players in this game.
+        /// </summary>
         protected CircularLinkedList<Player> Players { get; }
 
         /// <summary>
