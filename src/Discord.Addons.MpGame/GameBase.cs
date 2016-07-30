@@ -54,7 +54,7 @@ namespace Discord.Addons.MpGame
         private async Task ProcessMessage(IMessage msg)
         {
             var dmch = msg.Channel as IDMChannel;
-            if (dmch != null && Players.Select(p => p.DmChannel.Id).Any(id => id == dmch.Id))
+            if (dmch != null && Players.Any(p => p.DmChannel.Id == dmch.Id))
             {
                 //message was a player's PM
                 await OnDmMessage(msg);
