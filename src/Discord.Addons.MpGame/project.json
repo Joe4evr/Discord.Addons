@@ -12,8 +12,8 @@
 
   "dependencies": {
     "NETStandard.Library": "1.6.0",
-    "Discord.Net": "1.0.0-dev-299",
-    "Discord.Net.Commands": "1.0.0-dev-299"
+    "Discord.Net": "1.0.0-dev-*",
+    "Discord.Net.Commands": "1.0.0-dev-*"
   },
 
   "frameworks": {
