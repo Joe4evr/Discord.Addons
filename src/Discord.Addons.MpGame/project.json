@@ -1,5 +1,8 @@
 ﻿{
     "version": "0.1.0-*",
+    "description": "Base classes for text-based games in Discord",
+    "authors": [ "Joe4evr" ],
+
     "packOptions": {
         "owners": [ "Joe4evr" ],
         "repository": {
@@ -7,8 +10,7 @@
             "url": "https://github.com/Joe4evr/Discord.Addons"
         },
         "licenseUrl": "http://opensource.org/licenses/MIT",
-        "tags": [ "discord", "game" ],
-        "summary": "Base classes for text-based games in Discord"
+        "tags": [ "discord", "game" ]
     },
 
     "buildOptions": {
