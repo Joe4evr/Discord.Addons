@@ -1,5 +1,5 @@
 ﻿{
-    "version": "0.1.0-*",
+    "version": "0.2.1-*",
     "description": "Base classes for text-based games in Discord",
     "authors": [ "Joe4evr" ],
 
@@ -10,6 +10,9 @@
             "url": "https://github.com/Joe4evr/Discord.Addons"
         },
         "licenseUrl": "http://opensource.org/licenses/MIT",
+        "files": {
+            "exclude": [ "Example/**" ]
+        },
         "tags": [ "discord", "game" ]
     },
 

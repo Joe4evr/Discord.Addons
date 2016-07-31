@@ -9,7 +9,8 @@ namespace Discord.Addons.MpGame
     /// <summary>
     /// Base class to represent a game between Discord users.
     /// </summary>
-    public abstract class GameBase
+    /// <typeparam name="TPlayer">The type of this game's kind of <see cref="Player"/> object.</typeparam>
+    public abstract class GameBase<TPlayer> where TPlayer : Player
     {
         /// <summary>
         /// The channel where the public-facing side of the game is played.
@@ -19,12 +20,12 @@ namespace Discord.Addons.MpGame
         /// <summary>
         /// Represents all the players in this game.
         /// </summary>
-        protected CircularLinkedList<Player> Players { get; }
+        protected CircularLinkedList<TPlayer> Players { get; }
 
         /// <summary>
         /// The current turn's player.
         /// </summary>
-        public IGuildUser TurnPlayer { get; protected set; }
+        public Node<TPlayer> TurnPlayer { get; protected set; }
 
         /// <summary>
         /// The <see cref="DiscordSocketClient"/> instance.
@@ -36,14 +37,14 @@ namespace Discord.Addons.MpGame
         /// </summary>
         /// <remarks>Automatically subscribes a handler to
         /// <see cref="DiscordSocketClient.MessageReceived"/>.</remarks>
-        protected GameBase(IMessageChannel channel, IEnumerable<Player> players, DiscordSocketClient client)
+        protected GameBase(IMessageChannel channel, IEnumerable<TPlayer> players, DiscordSocketClient client)
         {
             if (channel == null) throw new ArgumentNullException(nameof(channel));
             if (players == null) throw new ArgumentNullException(nameof(players));
             if (client == null) throw new ArgumentNullException(nameof(client));
 
             Channel = channel;
-            Players = new CircularLinkedList<Player>(players);
+            Players = new CircularLinkedList<TPlayer>(players);
             _client = client;
             client.MessageReceived += ProcessMessage;
         }
@@ -95,11 +96,13 @@ namespace Discord.Addons.MpGame
         /// Perform all actions that happen when the game ends
         /// (e.g.: a win condition is met, or the game is stopped early).
         /// </summary>
-        /// <param name="endmsg">The message that should be displayed announcing the the end of the game.</param>
+        /// <param name="endmsg">The message that should be displayed announcing
+        /// the win condition or forced end of the game.</param>
         /// <remarks>MUST be called to unsubscribe the message handler.</remarks>
-        public virtual async Task EndGame(string endmsg)
+        public async Task EndGame(string endmsg)
         {
-            await Task.Run(() => _client.MessageReceived -= ProcessMessage);
+            _client.MessageReceived -= ProcessMessage;
+            await Channel.SendMessageAsync(endmsg);
         }
 
         /// <summary>

@@ -8,15 +8,16 @@ using Discord;
 
 namespace Example
 {
-    [Module]
-    public sealed class ExampleModule : MpGameModuleBase<ExampleGame>
+    [Module("ex-")] //Needed to load methods as commands
+    public sealed class ExampleModule : MpGameModuleBase<ExampleGame, Player> //Specify the type of the game and the type of its player
     {
         public ExampleModule(DiscordSocketClient client) : base(client)
         {
         }
 
-        [Command("opengame")]
-        public override async Task OpenGame(IMessage msg)
+                              //You may have reasons to not annotate a particular method with [Command],
+        [Command("opengame")] //and you'll likely have to add MORE commands depending on the game
+        public override async Task OpenGameCmd(IMessage msg)
         {
             if (gameInProgress[msg.Channel.Id])
             {
@@ -33,8 +34,9 @@ namespace Example
             }
         }
 
-        [Command("join")]
-        public override async Task JoinGame(IMessage msg)
+                          //Note that we should always check if the channel already has a game going
+        [Command("join")] //or wants people to join before taking action
+        public override async Task JoinGameCmd(IMessage msg)
         {
             if (gameInProgress[msg.Channel.Id])
             {
@@ -55,8 +57,8 @@ namespace Example
             }
         }
 
-        [Command("leave")]
-        public override async Task LeaveGame(IMessage msg)
+        [Command("leave")] //Users can leave if the game hasn't started yet
+        public override async Task LeaveGameCmd(IMessage msg)
         {
             if (gameInProgress[msg.Channel.Id])
             {
@@ -71,14 +73,14 @@ namespace Example
                 var author = msg.Author as IGuildUser;
                 if (author != null && playerList[msg.Channel.Id].Any(u => u.Id == author.Id))
                 {
-                    playerList[msg.Channel.Id].Add(author);
+                    playerList[msg.Channel.Id].Remove(author);
                     await msg.Channel.SendMessageAsync($"**{author.Username}** has left.");
                 }
             }
         }
 
-        [Command("cancel")]
-        public override async Task CancelGame(IMessage msg)
+        [Command("cancel")] //Cancel the game if it hasn't started yet
+        public override async Task CancelGameCmd(IMessage msg)
         {
             if (gameInProgress[msg.Channel.Id])
             {
@@ -96,8 +98,8 @@ namespace Example
             }
         }
 
-        [Command("start")]
-        public override async Task StartGame(IMessage msg)
+        [Command("start")] //Start the game
+        public override async Task StartGameCmd(IMessage msg)
         {
             if (gameInProgress[msg.Channel.Id])
             {
@@ -107,22 +109,26 @@ namespace Example
             {
                 await msg.Channel.SendMessageAsync("No game has been opened at this time.");
             }
-            else if (playerList[msg.Channel.Id].Count < 4) //example value
+            else if (playerList[msg.Channel.Id].Count < 4) //Example value if a game has a minimum player requirement
             {
                 await msg.Channel.SendMessageAsync("Not enough players have joined.");
             }
             else
             {
+                //Tip: Shuffle the players before selecting them
+                var players = playerList[msg.Channel.Id].Select(u => new Player(u));
+                //The Player class can also be extended for additional properties
+
                 openToJoin[msg.Channel.Id] = false;
-                gameList[msg.Channel.Id] = new ExampleGame(msg.Channel, playerList[msg.Channel.Id].Select(u => new Player(u)), client);
+                gameList[msg.Channel.Id] = new ExampleGame(msg.Channel, players, client);
                 gameInProgress[msg.Channel.Id] = true;
                 await gameList[msg.Channel.Id].SetupGame();
                 await gameList[msg.Channel.Id].StartGame();
             }
         }
 
-        [Command("turn")]
-        public override async Task NextTurn(IMessage msg)
+        [Command("turn")] //Advance to the next turn
+        public override async Task NextTurnCmd(IMessage msg)
         {
             if (gameInProgress[msg.Channel.Id])
             {
@@ -134,8 +140,9 @@ namespace Example
             }
         }
 
-        [Command("state")]
-        public override async Task GameState(IMessage msg)
+                           //Post a message that represents the game's state
+        [Command("state")] //Remember there's a 2000 character limit
+        public override async Task GameStateCmd(IMessage msg)
         {
             if (gameInProgress[msg.Channel.Id])
             {
@@ -147,17 +154,18 @@ namespace Example
             }
         }
 
-        [Command("end")]
-        public override async Task EndGame(IMessage msg)
+                         //Command to end a game before a win-condition is met
+        [Command("end")] //Should be restricted to mods/admins to prevent abuse
+        public override async Task EndGameCmd(IMessage msg)
         {
             if (!gameInProgress[msg.Channel.Id])
             {
-                await msg.Channel.SendMessageAsync("");
+                await msg.Channel.SendMessageAsync("No game in progress to end.");
             }
             else
             {
-                gameInProgress[msg.Channel.Id] = false;
                 await gameList[msg.Channel.Id].EndGame("Game ended early by moderator.");
+                gameInProgress[msg.Channel.Id] = false;
             }
         }
     }

@@ -163,7 +163,7 @@ namespace Discord.Addons.MpGame
         public void AddAfter(Node<T> node, T item)
         {
             if (node == null)
-                throw new ArgumentNullException("node");
+                throw new ArgumentNullException(nameof(node));
             // ensuring the supplied node belongs to this list
             Node<T> temp = this.FindNode(head, node.Value);
             if (temp != node)
@@ -206,7 +206,7 @@ namespace Discord.Addons.MpGame
         public void AddBefore(Node<T> node, T item)
         {
             if (node == null)
-                throw new ArgumentNullException("node");
+                throw new ArgumentNullException(nameof(node));
             // ensuring the supplied node belongs to this list
             Node<T> temp = this.FindNode(head, node.Value);
             if (temp != node)

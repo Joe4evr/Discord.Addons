@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Discord.WebSocket;
 
@@ -9,10 +8,13 @@ namespace Discord.Addons.MpGame
     /// <summary>
     /// Base class to manage a game between Discord users.
     /// </summary>
-    /// <typeparam name="T">The type of game to manage.</typeparam>
+    /// <typeparam name="TGame">The type of game to manage.</typeparam>
+    /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
     /// <remarks>Inheriting classes should be marked with
     /// <see cref="Commands.ModuleAttribute"/>.</remarks>
-    public abstract class MpGameModuleBase<T> where T : GameBase
+    public abstract class MpGameModuleBase<TGame, TPlayer>
+        where TGame : GameBase<TPlayer>
+        where TPlayer : Player
     {
         /// <summary>
         /// The <see cref="DiscordSocketClient"/> instance.
@@ -20,22 +22,22 @@ namespace Discord.Addons.MpGame
         protected readonly DiscordSocketClient client;
 
         /// <summary>
-        /// The instance of a game being played, keyed by channel.
+        /// The instance of a game being played, keyed by channel ID.
         /// </summary>
-        protected readonly Dictionary<ulong, T> gameList = new Dictionary<ulong, T>();
+        protected readonly Dictionary<ulong, TGame> gameList = new Dictionary<ulong, TGame>();
 
         /// <summary>
-        /// The list of users scheduled to join game, keyed by channel.
+        /// The list of users scheduled to join game, keyed by channel ID.
         /// </summary>
         protected readonly Dictionary<ulong, List<IGuildUser>> playerList = new Dictionary<ulong, List<IGuildUser>>();
 
         /// <summary>
-        /// Indicates whether the users can join a game about to start, keyed by channel.
+        /// Indicates whether the users can join a game about to start, keyed by channel ID.
         /// </summary>
         protected readonly Dictionary<ulong, bool> openToJoin = new Dictionary<ulong, bool>();
 
         /// <summary>
-        /// Indicates whether a game is currently going on, keyed by channel.
+        /// Indicates whether a game is currently going on, keyed by channel ID.
         /// </summary>
         protected readonly Dictionary<ulong, bool> gameInProgress = new Dictionary<ulong, bool>();
 
@@ -52,41 +54,41 @@ namespace Discord.Addons.MpGame
         /// <summary>
         /// Command to open a game for others to join.
         /// </summary>
-        public abstract Task OpenGame(IMessage msg);
+        public abstract Task OpenGameCmd(IMessage msg);
 
         /// <summary>
         /// Command to cancel a game before it started.
         /// </summary>
-        public abstract Task CancelGame(IMessage msg);
+        public abstract Task CancelGameCmd(IMessage msg);
 
         /// <summary>
         /// Command to join a game that is open.
         /// </summary>
-        public abstract Task JoinGame(IMessage msg);
+        public abstract Task JoinGameCmd(IMessage msg);
 
         /// <summary>
         /// Command to leave a game that is not yet started.
         /// </summary>
-        public abstract Task LeaveGame(IMessage msg);
+        public abstract Task LeaveGameCmd(IMessage msg);
 
         /// <summary>
         /// Command to start a game with the players who joined.
         /// </summary>
-        public abstract Task StartGame(IMessage msg);
+        public abstract Task StartGameCmd(IMessage msg);
 
         /// <summary>
         /// Command to advance to the next turn (if applicable).
         /// </summary>
-        public abstract Task NextTurn(IMessage msg);
+        public abstract Task NextTurnCmd(IMessage msg);
 
         /// <summary>
         /// Command to display the current state of the game.
         /// </summary>
-        public abstract Task GameState(IMessage msg);
+        public abstract Task GameStateCmd(IMessage msg);
 
         /// <summary>
         /// Command to end a game in progress early.
         /// </summary>
-        public abstract Task EndGame(IMessage msg);
+        public abstract Task EndGameCmd(IMessage msg);
     }
 }
