@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Addons.MpGame;
-using Discord.WebSocket;
 
 namespace Example
 {
@@ -15,8 +14,8 @@ namespace Example
         private GameState _state = GameState.Setup;
 
         //The base constructor will automatically sub a handler to DiscordSocketClient.MessageReceived
-        public ExampleGame(IMessageChannel channel, IEnumerable<Player> players, DiscordSocketClient client)
-            : base(channel, players, client)
+        public ExampleGame(IMessageChannel channel, IEnumerable<Player> players)
+            : base(channel, players)
         {
         }
 
@@ -58,6 +57,11 @@ namespace Example
             TurnPlayer = TurnPlayer.Next;
             _turn++;
             _state = GameState.StartOfTurn;
+        }
+
+        public override async Task EndGame(string endmsg)
+        {
+            await Channel.SendMessageAsync(endmsg);
         }
 
         //Create a string that represents the current state of the game

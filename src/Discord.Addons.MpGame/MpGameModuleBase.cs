@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
+using System.Linq;
 using System.Threading.Tasks;
 using Discord.WebSocket;
 
@@ -17,38 +18,60 @@ namespace Discord.Addons.MpGame
         where TPlayer : Player
     {
         /// <summary>
-        /// The <see cref="DiscordSocketClient"/> instance.
-        /// </summary>
-        protected readonly DiscordSocketClient client;
-
-        /// <summary>
         /// The instance of a game being played, keyed by channel ID.
         /// </summary>
-        protected readonly Dictionary<ulong, TGame> gameList = new Dictionary<ulong, TGame>();
+        protected readonly ConcurrentDictionary<ulong, TGame> gameList = new ConcurrentDictionary<ulong, TGame>();
 
         /// <summary>
         /// The list of users scheduled to join game, keyed by channel ID.
         /// </summary>
-        protected readonly Dictionary<ulong, List<IGuildUser>> playerList = new Dictionary<ulong, List<IGuildUser>>();
+        protected readonly ConcurrentDictionary<ulong, ConcurrentDictionary<ulong, IGuildUser>> playerList
+            = new ConcurrentDictionary<ulong, ConcurrentDictionary<ulong, IGuildUser>>();
 
         /// <summary>
         /// Indicates whether the users can join a game about to start, keyed by channel ID.
         /// </summary>
-        protected readonly Dictionary<ulong, bool> openToJoin = new Dictionary<ulong, bool>();
+        protected readonly ConcurrentDictionary<ulong, bool> openToJoin = new ConcurrentDictionary<ulong, bool>();
 
         /// <summary>
         /// Indicates whether a game is currently going on, keyed by channel ID.
         /// </summary>
-        protected readonly Dictionary<ulong, bool> gameInProgress = new Dictionary<ulong, bool>();
+        protected readonly ConcurrentDictionary<ulong, bool> gameInProgress = new ConcurrentDictionary<ulong, bool>();
 
         /// <summary>
         /// Sets up the common logic for a Module that manages a game between Discord users.
         /// </summary>
+        /// <remarks>Automatically subscribes a handler to
+        /// <see cref="DiscordSocketClient.MessageReceived"/>.</remarks>
         protected MpGameModuleBase(DiscordSocketClient client)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
-            this.client = client;
+            client.MessageReceived += clientMessageReceived;
+        }
+
+        /// <summary>
+        /// The handler that responds to messages during a game.
+        /// </summary>
+        private async Task clientMessageReceived(IMessage msg)
+        {
+            bool gip;
+            TGame game;
+            if (gameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip &&
+                gameList.TryGetValue(msg.Channel.Id, out game))
+            {
+                var dmch = msg.Channel as IDMChannel;
+                if (dmch != null && game.Players.Any(p => p.DmChannel.Id == dmch.Id))
+                {
+                    //message was a player's PM
+                    await game.OnDmMessage(msg);
+                }
+                else if (msg.Channel.Id == game.Channel.Id)
+                {
+                    //message was in the public channel
+                    await game.OnPublicMessage(msg);
+                }
+            }
         }
 
         /// <summary>
