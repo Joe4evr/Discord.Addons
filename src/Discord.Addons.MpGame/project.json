@@ -1,5 +1,5 @@
 ﻿{
-    "version": "0.3.1-*",
+    "version": "0.3.2-*",
     "description": "Base classes for text-based games in Discord",
     "authors": [ "Joe4evr" ],
 

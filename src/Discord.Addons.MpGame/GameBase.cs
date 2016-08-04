@@ -23,7 +23,7 @@ namespace Discord.Addons.MpGame
         /// <summary>
         /// The current turn's player.
         /// </summary>
-        public Node<TPlayer> TurnPlayer { get; protected set; }
+        protected Node<TPlayer> TurnPlayer { get; set; }
 
         /// <summary>
         /// Sets up the common logic for a multiplayer game.

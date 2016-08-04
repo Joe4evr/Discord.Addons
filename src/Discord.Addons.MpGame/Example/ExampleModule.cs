@@ -22,19 +22,19 @@ namespace Example
         {
             bool gip;
             bool open;
-            if (gameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
+            if (GameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
             {
                 await msg.Channel.SendMessageAsync("Another game already in progress.");
             }
-            else if (openToJoin.TryGetValue(msg.Channel.Id, out open) && open)
+            else if (OpenToJoin.TryGetValue(msg.Channel.Id, out open) && open)
             {
                 await msg.Channel.SendMessageAsync("There is already a game open to join.");
             }
             else
             {
-                if (openToJoin.TryUpdate(msg.Channel.Id, newValue: true, comparisonValue: false))
+                if (OpenToJoin.TryUpdate(msg.Channel.Id, newValue: true, comparisonValue: false))
                 {
-                    playerList[msg.Channel.Id] = new ConcurrentDictionary<ulong, IGuildUser>();
+                    PlayerList[msg.Channel.Id] = new ConcurrentDictionary<ulong, IGuildUser>();
                     await msg.Channel.SendMessageAsync("Opening for a game.");
                 }
             }
@@ -46,11 +46,11 @@ namespace Example
         {
             bool gip;
             bool open;
-            if (gameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
+            if (GameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
             {
                 await msg.Channel.SendMessageAsync("Cannot join a game already in progress.");
             }
-            else if (!openToJoin.TryGetValue(msg.Channel.Id, out open) || !open)
+            else if (!OpenToJoin.TryGetValue(msg.Channel.Id, out open) || !open)
             {
                 await msg.Channel.SendMessageAsync("No game open to join.");
             }
@@ -59,7 +59,7 @@ namespace Example
                 var author = msg.Author as IGuildUser;
                 if (author != null)
                 {
-                    if (playerList[msg.Channel.Id].TryAdd(author.Id, author))
+                    if (PlayerList[msg.Channel.Id].TryAdd(author.Id, author))
                         await msg.Channel.SendMessageAsync($"**{author.Username}** has joined.");
                 }
             }
@@ -70,18 +70,18 @@ namespace Example
         {
             bool gip;
             bool open;
-            if (gameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
+            if (GameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
             {
                 await msg.Channel.SendMessageAsync("Cannot leave a game already in progress.");
             }
-            else if (!openToJoin.TryGetValue(msg.Channel.Id, out open) || !open)
+            else if (!OpenToJoin.TryGetValue(msg.Channel.Id, out open) || !open)
             {
                 await msg.Channel.SendMessageAsync("No game open to leave.");
             }
             else
             {
                 var author = msg.Author as IGuildUser;
-                if (author != null && playerList[msg.Channel.Id].TryRemove(author.Id, out author))
+                if (author != null && PlayerList[msg.Channel.Id].TryRemove(author.Id, out author))
                 {
                     await msg.Channel.SendMessageAsync($"**{author.Username}** has left.");
                 }
@@ -93,19 +93,19 @@ namespace Example
         {
             bool gip;
             bool open;
-            if (gameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
+            if (GameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
             {
                 await msg.Channel.SendMessageAsync("Cannot cancel a game already in progress.");
             }
-            else if (!openToJoin.TryGetValue(msg.Channel.Id, out open) || !open)
+            else if (!OpenToJoin.TryGetValue(msg.Channel.Id, out open) || !open)
             {
                 await msg.Channel.SendMessageAsync("No game open to cancel.");
             }
             else
             {
-                if (openToJoin.TryUpdate(msg.Channel.Id, newValue: false, comparisonValue: true))
+                if (OpenToJoin.TryUpdate(msg.Channel.Id, newValue: false, comparisonValue: true))
                 { 
-                    playerList[msg.Channel.Id].Clear();
+                    PlayerList[msg.Channel.Id].Clear();
                     await msg.Channel.SendMessageAsync("Game was cancelled.");
                 }
             }
@@ -116,29 +116,29 @@ namespace Example
         {
             bool gip;
             bool open;
-            if (gameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
+            if (GameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
             {
                 await msg.Channel.SendMessageAsync("Another game already in progress.");
             }
-            else if (!openToJoin.TryGetValue(msg.Channel.Id, out open) || !open)
+            else if (!OpenToJoin.TryGetValue(msg.Channel.Id, out open) || !open)
             {
                 await msg.Channel.SendMessageAsync("No game has been opened at this time.");
             }
-            else if (playerList[msg.Channel.Id].Count < 4) //Example value if a game has a minimum player requirement
+            else if (PlayerList[msg.Channel.Id].Count < 4) //Example value if a game has a minimum player requirement
             {
                 await msg.Channel.SendMessageAsync("Not enough players have joined.");
             }
             else
             {
                 //Tip: Shuffle the players before selecting them
-                var players = playerList[msg.Channel.Id].Select(u => new Player(u.Value));
+                var players = PlayerList[msg.Channel.Id].Select(u => new Player(u.Value));
                 //The Player class can also be extended for additional properties
 
-                openToJoin[msg.Channel.Id] = false;
-                gameList[msg.Channel.Id] = new ExampleGame(msg.Channel, players);
-                gameInProgress[msg.Channel.Id] = true;
-                await gameList[msg.Channel.Id].SetupGame();
-                await gameList[msg.Channel.Id].StartGame();
+                OpenToJoin[msg.Channel.Id] = false;
+                GameList[msg.Channel.Id] = new ExampleGame(msg.Channel, players);
+                GameInProgress[msg.Channel.Id] = true;
+                await GameList[msg.Channel.Id].SetupGame();
+                await GameList[msg.Channel.Id].StartGame();
             }
         }
 
@@ -146,7 +146,7 @@ namespace Example
         public override async Task NextTurnCmd(IMessage msg)
         {
             ExampleGame game;
-            if (gameList.TryGetValue(msg.Channel.Id, out game))
+            if (GameList.TryGetValue(msg.Channel.Id, out game))
             {
                 await game.NextTurn();
             }
@@ -161,7 +161,7 @@ namespace Example
         public override async Task GameStateCmd(IMessage msg)
         {
             ExampleGame game;
-            if (gameList.TryGetValue(msg.Channel.Id, out game))
+            if (GameList.TryGetValue(msg.Channel.Id, out game))
             {
                 await msg.Channel.SendMessageAsync(game.GetGameState());
             }
@@ -176,15 +176,15 @@ namespace Example
         public override async Task EndGameCmd(IMessage msg)
         {
             bool gip;
-            if (!gameInProgress.TryGetValue(msg.Channel.Id, out gip) || !gip)
+            if (!GameInProgress.TryGetValue(msg.Channel.Id, out gip) || !gip)
             {
                 await msg.Channel.SendMessageAsync("No game in progress to end.");
             }
             else
             {
                 ExampleGame game;
-                if (gameInProgress.TryUpdate(msg.Channel.Id, newValue: false, comparisonValue: true) &&
-                    gameList.TryRemove(msg.Channel.Id, out game))
+                if (GameInProgress.TryUpdate(msg.Channel.Id, newValue: false, comparisonValue: true) &&
+                    GameList.TryRemove(msg.Channel.Id, out game))
                 {
                     await game.EndGame("Game ended early by moderator.");
                 }

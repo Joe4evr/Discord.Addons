@@ -20,23 +20,23 @@ namespace Discord.Addons.MpGame
         /// <summary>
         /// The instance of a game being played, keyed by channel ID.
         /// </summary>
-        protected readonly ConcurrentDictionary<ulong, TGame> gameList = new ConcurrentDictionary<ulong, TGame>();
+        protected readonly ConcurrentDictionary<ulong, TGame> GameList = new ConcurrentDictionary<ulong, TGame>();
 
         /// <summary>
         /// The list of users scheduled to join game, keyed by channel ID.
         /// </summary>
-        protected readonly ConcurrentDictionary<ulong, ConcurrentDictionary<ulong, IGuildUser>> playerList
+        protected readonly ConcurrentDictionary<ulong, ConcurrentDictionary<ulong, IGuildUser>> PlayerList
             = new ConcurrentDictionary<ulong, ConcurrentDictionary<ulong, IGuildUser>>();
 
         /// <summary>
         /// Indicates whether the users can join a game about to start, keyed by channel ID.
         /// </summary>
-        protected readonly ConcurrentDictionary<ulong, bool> openToJoin = new ConcurrentDictionary<ulong, bool>();
+        protected readonly ConcurrentDictionary<ulong, bool> OpenToJoin = new ConcurrentDictionary<ulong, bool>();
 
         /// <summary>
         /// Indicates whether a game is currently going on, keyed by channel ID.
         /// </summary>
-        protected readonly ConcurrentDictionary<ulong, bool> gameInProgress = new ConcurrentDictionary<ulong, bool>();
+        protected readonly ConcurrentDictionary<ulong, bool> GameInProgress = new ConcurrentDictionary<ulong, bool>();
 
         /// <summary>
         /// Sets up the common logic for a Module that manages a game between Discord users.
@@ -57,8 +57,8 @@ namespace Discord.Addons.MpGame
         {
             bool gip;
             TGame game;
-            if (gameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip &&
-                gameList.TryGetValue(msg.Channel.Id, out game))
+            if (GameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip &&
+                GameList.TryGetValue(msg.Channel.Id, out game))
             {
                 var dmch = msg.Channel as IDMChannel;
                 if (dmch != null && game.Players.Any(p => p.DmChannel.Id == dmch.Id))
