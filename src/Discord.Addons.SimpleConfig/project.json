@@ -1,0 +1,35 @@
+﻿{
+    "version": "0.1.0-*",
+    "description": "",
+    "authors": [ "Joe4evr" ],
+
+    "packOptions": {
+        "owners": [ "Joe4evr" ],
+        "repository": {
+            "type": "git",
+            "url": "https://github.com/Joe4evr/Discord.Addons"
+        },
+        "licenseUrl": "http://opensource.org/licenses/MIT",
+        "files": {
+            "exclude": [ "Example/**" ]
+        },
+        "tags": [ "discord", "commands" ]
+    },
+
+    "buildOptions": {
+        "compile": {
+            "exclude": [ "Example/**" ]
+        }
+    },
+
+    "dependencies": {
+        "NETStandard.Library": "1.6.0",
+        "Discord.Net": "1.0.0-dev-*"
+    },
+
+    "frameworks": {
+        "netstandard1.3": {
+            "imports": "dnxcore50"
+        }
+    }
+}
