@@ -1,6 +1,6 @@
 ﻿{
     "version": "0.1.0-*",
-    "description": "",
+    "description": "Interfaces for a basic configuration implementation.",
     "authors": [ "Joe4evr" ],
 
     "packOptions": {
@@ -13,7 +13,7 @@
         "files": {
             "exclude": [ "Example/**" ]
         },
-        "tags": [ "discord", "commands" ]
+        "tags": [ "discord", "config" ]
     },
 
     "buildOptions": {
