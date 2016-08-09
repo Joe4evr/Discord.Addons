@@ -35,6 +35,12 @@ namespace Discord.Addons.SimplePermissions
             _cmdService = cmdService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="cmdname"></param>
+        /// <returns></returns>
         [Command("help"), Permission(MinimumPermission.Everyone)]
         public async Task HelpCmd(IMessage msg, string cmdname = null)
         {

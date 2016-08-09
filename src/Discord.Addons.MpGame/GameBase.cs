@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Discord.Addons.MpGame
@@ -19,6 +20,11 @@ namespace Discord.Addons.MpGame
         /// Represents all the players in this game.
         /// </summary>
         protected internal CircularLinkedList<TPlayer> Players { get; }
+        
+        /// <summary>
+        /// Selects the DM Channels of all the players.
+        /// </summary>
+        public IEnumerable<IDMChannel> PlayerChannels => Players.Select(p => p.DmChannel);
 
         /// <summary>
         /// The current turn's player.
@@ -36,16 +42,6 @@ namespace Discord.Addons.MpGame
             Channel = channel;
             Players = new CircularLinkedList<TPlayer>(players);
         }
-
-        /// <summary>
-        /// Called when a message is received in a DM channel.
-        /// </summary>
-        protected internal abstract Task OnDmMessage(IMessage msg);
-
-        /// <summary>
-        /// Called when a message is received in the game's public channel.
-        /// </summary>
-        protected internal abstract Task OnPublicMessage(IMessage msg);
 
         /// <summary>
         /// Perform the actions that are part of the initial setup.

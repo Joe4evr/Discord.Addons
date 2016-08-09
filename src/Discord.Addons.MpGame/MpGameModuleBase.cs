@@ -43,35 +43,8 @@ namespace Discord.Addons.MpGame
         /// </summary>
         /// <remarks>Automatically subscribes a handler to
         /// <see cref="DiscordSocketClient.MessageReceived"/>.</remarks>
-        protected MpGameModuleBase(DiscordSocketClient client)
+        protected MpGameModuleBase()
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
-
-            client.MessageReceived += clientMessageReceived;
-        }
-
-        /// <summary>
-        /// The handler that responds to messages during a game.
-        /// </summary>
-        private async Task clientMessageReceived(IMessage msg)
-        {
-            bool gip;
-            TGame game;
-            if (GameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip &&
-                GameList.TryGetValue(msg.Channel.Id, out game))
-            {
-                var dmch = msg.Channel as IDMChannel;
-                if (dmch != null && game.Players.Any(p => p.DmChannel.Id == dmch.Id))
-                {
-                    //message was a player's PM
-                    await game.OnDmMessage(msg);
-                }
-                else if (msg.Channel.Id == game.Channel.Id)
-                {
-                    //message was in the public channel
-                    await game.OnPublicMessage(msg);
-                }
-            }
         }
 
         /// <summary>
