@@ -25,7 +25,7 @@ namespace Discord.Addons.MpGame
         readonly IEqualityComparer<T> comparer;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="CircularLinkedList"/>
+        /// Initializes a new instance of <see cref="CircularLinkedList{T}"/>
         /// </summary>
         public CircularLinkedList()
             : this(null, EqualityComparer<T>.Default)
@@ -33,7 +33,7 @@ namespace Discord.Addons.MpGame
         }
 
         /// <summary>
-        /// Initializes a new instance of <see cref="CircularLinkedList"/>
+        /// Initializes a new instance of <see cref="CircularLinkedList{T}"/>
         /// </summary>
         /// <param name="collection">Collection of objects that will be added to linked list</param>
         public CircularLinkedList(IEnumerable<T> collection)
@@ -42,7 +42,7 @@ namespace Discord.Addons.MpGame
         }
 
         /// <summary>
-        /// Initializes a new instance of <see cref="CircularLinkedList"/>
+        /// Initializes a new instance of <see cref="CircularLinkedList{T}"/>
         /// </summary>
         /// <param name="comparer">Comparer used for item comparison</param>
         /// <exception cref="ArgumentNullException">comparer is null</exception>
@@ -52,7 +52,7 @@ namespace Discord.Addons.MpGame
         }
 
         /// <summary>
-        /// Initializes a new instance of <see cref="CircularLinkedList"/>
+        /// Initializes a new instance of <see cref="CircularLinkedList{T}"/>
         /// </summary>
         /// <param name="collection">Collection of objects that will be added to linked list</param>
         /// <param name="comparer">Comparer used for item comparison</param>
@@ -380,6 +380,11 @@ namespace Discord.Addons.MpGame
             return Find(item) != null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="arrayIndex"></param>
         public void CopyTo(T[] array, int arrayIndex)
         {
             if (array == null)
@@ -430,7 +435,7 @@ namespace Discord.Addons.MpGame
         public Node<T> Previous { get; internal set; }
 
         /// <summary>
-        /// Initializes a new <see cref="Node"/> instance
+        /// Initializes a new <see cref="Node{T}"/> instance
         /// </summary>
         /// <param name="item">Value to be assigned</param>
         internal Node(T item)
