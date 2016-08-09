@@ -1,6 +1,6 @@
-{
-    "version": "0.1.3-*",
-    "description": "Interfaces for a basic configuration implementation.",
+﻿{
+    "version": "0.1.0-*",
+    "description": "",
     "authors": [ "Joe4evr" ],
 
     "packOptions": {
@@ -10,15 +10,26 @@
             "url": "https://github.com/Joe4evr/Discord.Addons"
         },
         "licenseUrl": "http://opensource.org/licenses/MIT",
-        "tags": [ "discord", "config" ]
+        "files": {
+            "exclude": [ "Example/**" ]
+        },
+        "tags": [ "discord", "commands" ]
     },
 
-    "buildOptions": {
-        "xmlDoc": true
+    "configurations": {
+        "Release": {
+            "buildOptions": {
+                "compile": {
+                    "exclude": [ "Example/**" ]
+                },
+                "xmlDoc": true
+            }
+        }
     },
 
     "dependencies": {
-        "Discord.Net": "1.0.0-dev-*"
+        "Discord.Net.Commands": "1.0.0-dev-*",
+        "Discord.Addons.SimpleConfig": "0.1.3"
     },
 
     "frameworks": {

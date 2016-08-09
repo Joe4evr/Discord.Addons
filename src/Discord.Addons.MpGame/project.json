@@ -1,5 +1,5 @@
 {
-    "version": "0.3.3-*",
+    "version": "0.3.4-*",
     "description": "Base classes for text-based games in Discord",
     "authors": [ "Joe4evr" ],
 
@@ -16,21 +16,31 @@
         "tags": [ "discord", "game" ]
     },
 
-    "buildOptions": {
-        "compile": {
-            "exclude": [ "Example/**" ]
-        },
-        "xmlDoc": true
+    "configurations": {
+        "Release": {
+            "define": [ "RELEASE" ],
+            "buildOptions": {
+                "compile": {
+                    "exclude": [ "Example/**" ]
+                },
+                "xmlDoc": true
+            }
+        }
     },
 
     "dependencies": {
-        "NETStandard.Library": "1.6.0",
         "Discord.Net": "1.0.0-dev-*",
         "Discord.Net.Commands": "1.0.0-dev-*"
     },
 
     "frameworks": {
         "netstandard1.3": {
+            "dependencies": {
+                "NETStandard.Library": {
+                    "type": "platform",
+                    "version": "1.6.0"
+                }
+            },
             "imports": "dnxcore50"
         }
     }
