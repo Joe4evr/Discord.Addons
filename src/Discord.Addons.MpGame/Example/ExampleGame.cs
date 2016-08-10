@@ -19,24 +19,6 @@ namespace Example
         {
         }
 
-        //Gets called if the MessageReceived handler found it received a PM from a player
-        protected override async Task OnDmMessage(IMessage msg)
-        {
-            if (msg.Author.Id == TurnPlayer.Value.User.Id && _state == GameState.MainPhase)
-            {
-                await msg.Channel.SendMessageAsync("PM received.");
-            }
-        }
-
-        //Gets called if the MessageReceived handler found it received a message in the public channel
-        protected override async Task OnPublicMessage(IMessage msg)
-        {
-            if (msg.Author.Id == TurnPlayer.Value.User.Id && _state == GameState.SpecialPhase)
-            {
-                await Channel.SendMessageAsync("Message acknowledged.");
-            }
-        }
-
         //Call SetupGame() to do the one-time setup happeining prior to a game (think of: shuffling (a) card deck(s))
         public override async Task SetupGame()
         {

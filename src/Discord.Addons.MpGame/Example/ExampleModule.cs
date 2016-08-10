@@ -2,9 +2,8 @@
 using System.Linq;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using Discord.Commands;
 using Discord.Addons.MpGame;
-using Discord.WebSocket;
+using Discord.Commands;
 using Discord;
 
 namespace Example
@@ -12,10 +11,6 @@ namespace Example
     [Module("ex-")] //Needed to load methods as commands
     public sealed class ExampleModule : MpGameModuleBase<ExampleGame, Player> //Specify the type of the game and the type of its player
     {
-        public ExampleModule(DiscordSocketClient client) : base(client)
-        {
-        }
-
                               //You may have reasons to not annotate a particular method with [Command],
         [Command("opengame")] //and you'll likely have to add MORE commands depending on the game
         public override async Task OpenGameCmd(IMessage msg)
