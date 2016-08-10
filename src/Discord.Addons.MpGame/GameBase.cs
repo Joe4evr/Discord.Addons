@@ -20,7 +20,7 @@ namespace Discord.Addons.MpGame
         /// Represents all the players in this game.
         /// </summary>
         protected internal CircularLinkedList<TPlayer> Players { get; }
-        
+
         /// <summary>
         /// Selects the DM Channels of all the players.
         /// </summary>

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Linq;
 using System.Threading.Tasks;
-using Discord.WebSocket;
 
 namespace Discord.Addons.MpGame
 {
@@ -37,15 +35,6 @@ namespace Discord.Addons.MpGame
         /// Indicates whether a game is currently going on, keyed by channel ID.
         /// </summary>
         protected readonly ConcurrentDictionary<ulong, bool> GameInProgress = new ConcurrentDictionary<ulong, bool>();
-
-        /// <summary>
-        /// Sets up the common logic for a Module that manages a game between Discord users.
-        /// </summary>
-        /// <remarks>Automatically subscribes a handler to
-        /// <see cref="DiscordSocketClient.MessageReceived"/>.</remarks>
-        protected MpGameModuleBase()
-        {
-        }
 
         /// <summary>
         /// Command to open a game for others to join.
