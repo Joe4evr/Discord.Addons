@@ -48,25 +48,50 @@ namespace Discord.Addons.SimplePermissions
             if (cmdname == null)
             {
                 var cmds = _cmdService.Commands
-                    .Where(c => c.GetType().GetTypeInfo().GetCustomAttribute<PreconditionAttribute>()
-                        .CheckPermissions(msg, c, this).GetAwaiter().GetResult().IsSuccess)
-                    .Select(c => c.Name);
+                    .Where(c => c.CheckPreconditions(msg).GetAwaiter().GetResult().IsSuccess)
+                    .GroupBy(c => c.Name);
+
                 sb.AppendLine("You can use the following commands:")
-                    .AppendLine($"`{String.Join("`, `", cmds)}`\n");
+                    .AppendLine($"`{String.Join("`, `", cmds.Select(g => g.Select(c => c.Name)).Distinct())}`\n");
 
             }
             else
             {
                 var cmds = _commandLookup[cmdname]
-                    .Where(c => c.GetType().GetTypeInfo().GetCustomAttribute<PreconditionAttribute>()
-                        .CheckPermissions(msg, c, this).GetAwaiter().GetResult().IsSuccess);
-                if (cmds.Count() > 1)
+                    .Where(c => c.CheckPreconditions(msg).GetAwaiter().GetResult().IsSuccess);
+
+                if (cmds.Count() > 0)
                 {
                     sb.AppendLine(cmds.First().Name);
+                    foreach (var cmd in cmds)
+                    {
+                        sb.AppendLine('\t' + cmd.Summary);
+                        sb.AppendLine('\t' + String.Join(" ", cmd.Parameters.Select(p => formatParam(p))));
+                    }
                 }
                 else return;
             }
             await msg.Channel.SendMessageAsync(sb.ToString());
+        }
+
+        private string formatParam(CommandParameter param)
+        {
+            if (param.IsMultiple)
+            {
+                return String.Concat('[', param.Name, "...]");
+            }
+            else if (param.IsOptional)
+            {
+                return String.Concat('[', param.Name, ']');
+            }
+            else if (param.IsRemainder)
+            {
+                return String.Concat('<', param.Name, "...>");
+            }
+            else
+            {
+                return String.Concat('<', param.Name, '>');
+            }
         }
 
         /// <summary>
@@ -75,14 +100,31 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="msg"></param>
         /// <returns></returns>
         [Command("roles"), Permission(MinimumPermission.GuildOwner)]
-        [Description("List this server's roles and their ID.")]
+        [Summary("List this server's roles and their ID.")]
         public async Task ListRoles(IMessage msg)
         {
             var ch = msg.Channel as IGuildChannel;
             if (ch != null)
             {
                 await msg.Channel.SendMessageAsync(
-                    $"This server's roles\n {String.Join("\n", ch.Guild.Roles.Where(r => r.Id != ch.Guild.EveryoneRole.Id).Select(r => $"{r.Name} : {r.Id}"))}");
+                    $"This server's roles:\n {String.Join("\n", ch.Guild.Roles.Where(r => r.Id != ch.Guild.EveryoneRole.Id).Select(r => $"{r.Name} : {r.Id}"))}");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <returns></returns>
+        [Command("modules"), Permission(MinimumPermission.AdminRole)]
+        [Summary("List all the modules loaded in the bot.")]
+        public async Task ListModules(IMessage msg)
+        {
+            var ch = msg.Channel as IGuildChannel;
+            if (ch != null)
+            {
+                await msg.Channel.SendMessageAsync(
+                    $"Loaded modules:\n {String.Join("\n", _cmdService.Modules.Select(m => m.Name))}");
             }
         }
 
@@ -93,7 +135,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="roleId"></param>
         /// <returns></returns>
         [Command("setadmin"), Permission(MinimumPermission.GuildOwner)]
-        [Description("Set the admin role for this server.")]
+        [Summary("Set the admin role for this server.")]
         public async Task SetAdminRole(IMessage msg, ulong roleId)
         {
             var ch = msg.Channel as IGuildChannel;
@@ -119,7 +161,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="roleId"></param>
         /// <returns></returns>
         [Command("setmod"), Permission(MinimumPermission.GuildOwner)]
-        [Description("Set the admin role for this server.")]
+        [Summary("Set the moderator role for this server.")]
         public async Task SetModRole(IMessage msg, ulong roleId)
         {
             var ch = msg.Channel as IGuildChannel;
@@ -132,7 +174,7 @@ namespace Discord.Addons.SimplePermissions
                     return;
                 }
 
-                Config.GuildAdminRole[ch.Guild.Id] = role.Id;
+                Config.GuildModRole[ch.Guild.Id] = role.Id;
                 _configStore.Save(Config);
                 await msg.Channel.SendMessageAsync($"Set **{role.Name}** as the mod role for this server.");
             }
@@ -145,7 +187,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="user"></param>
         /// <returns></returns>
         [Command("addspecial"), Permission(MinimumPermission.AdminRole)]
-        [Description("Give someone special command priveliges in this channel.")]
+        [Summary("Give someone special command priveliges in this channel.")]
         public async Task AddSpecialUser(IMessage msg, IUser user)
         {
             var list = Config.SpecialPermissionUsersList[msg.Channel.Id];
@@ -156,25 +198,71 @@ namespace Discord.Addons.SimplePermissions
             }
         }
 
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="msg"></param>
+        ///// <param name="cmdName"></param>
+        ///// <returns></returns>
+        //[Command("wl"), Permission(MinimumPermission.AdminRole)]
+        //[Description("Whitelist a command for this channel.")]
+        //public async Task WhitelistCommand(IMessage msg, string cmdName)
+        //{
+        //    var ch = msg.Channel as IGuildChannel;
+        //    var cmds = _commandLookup[cmdName];
+        //    if (cmds.Count() > 1)
+        //    {
+        //        if (!Config.ChannelCommandWhitelist[ch.Id].Contains(cmdName))
+        //        {
+        //            Config.ChannelCommandWhitelist[ch.Id].Add(cmdName);
+        //            _configStore.Save(Config);
+        //            await msg.Channel.SendMessageAsync($"Command `{cmds.First().Name}` is now whitelisted in this channel.");
+        //        }
+        //    }
+        //}
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="msg"></param>
+        ///// <param name="cmdName"></param>
+        ///// <returns></returns>
+        //[Command("bl"), Permission(MinimumPermission.AdminRole)]
+        //[Description("Blacklist a command for this channel.")]
+        //public async Task BlacklistCommand(IMessage msg, string cmdName)
+        //{
+        //    var ch = msg.Channel as IGuildChannel;
+        //    var cmds = _commandLookup[cmdName];
+        //    if (cmds.Count() > 1)
+        //    {
+        //        if (Config.ChannelCommandWhitelist[ch.Id].Contains(cmdName))
+        //        {
+        //            Config.ChannelCommandWhitelist[ch.Id].Remove(cmdName);
+        //            _configStore.Save(Config);
+        //            await msg.Channel.SendMessageAsync($"Command `{cmds.First().Name}` is now blacklisted in this channel.");
+        //        }
+        //    }
+        //}
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="msg"></param>
-        /// <param name="cmdName"></param>
+        /// <param name="modName"></param>
         /// <returns></returns>
         [Command("wl"), Permission(MinimumPermission.AdminRole)]
-        [Description("Whitelist a command for this channel.")]
-        public async Task WhitelistCommand(IMessage msg, string cmdName)
+        [Summary("Whitelist a module for this channel.")]
+        public async Task WhitelistModule(IMessage msg, string modName)
         {
             var ch = msg.Channel as IGuildChannel;
-            var cmds = _commandLookup[cmdName];
-            if (cmds.Count() > 1)
+            var mod = _cmdService.Modules.SingleOrDefault(m => m.Name == modName);
+            if (mod != null)
             {
-                if (!Config.ChannelCommandWhitelist[ch.Id].Contains(cmdName))
+                if (!Config.ChannelModuleWhitelist[ch.Id].Contains(mod.Name))
                 {
-                    Config.ChannelCommandWhitelist[ch.Id].Add(cmdName);
+                    Config.ChannelModuleWhitelist[ch.Id].Add(mod.Name);
                     _configStore.Save(Config);
-                    await msg.Channel.SendMessageAsync($"Command `{cmds.First().Name}` is now whitelisted in this channel.");
+                    await msg.Channel.SendMessageAsync($"Module `{mod.Name}` is now whitelisted in this channel.");
                 }
             }
         }
@@ -183,21 +271,21 @@ namespace Discord.Addons.SimplePermissions
         /// 
         /// </summary>
         /// <param name="msg"></param>
-        /// <param name="cmdName"></param>
+        /// <param name="modName"></param>
         /// <returns></returns>
         [Command("bl"), Permission(MinimumPermission.AdminRole)]
-        [Description("Blacklist a command for this channel.")]
-        public async Task BlacklistCommand(IMessage msg, string cmdName)
+        [Summary("Blacklist a module for this channel.")]
+        public async Task BlacklistModule(IMessage msg, string modName)
         {
             var ch = msg.Channel as IGuildChannel;
-            var cmds = _commandLookup[cmdName];
-            if (cmds.Count() > 1)
+            var mod = _cmdService.Modules.SingleOrDefault(m => m.Name == modName);
+            if (mod != null)
             {
-                if (Config.ChannelCommandWhitelist[ch.Id].Contains(cmdName))
+                if (Config.ChannelModuleWhitelist[ch.Id].Contains(mod.Name))
                 {
-                    Config.ChannelCommandWhitelist[ch.Id].Remove(cmdName);
+                    Config.ChannelModuleWhitelist[ch.Id].Remove(mod.Name);
                     _configStore.Save(Config);
-                    await msg.Channel.SendMessageAsync($"Command `{cmds.First().Name}` is now blacklisted in this channel.");
+                    await msg.Channel.SendMessageAsync($"Module `{mod.Name}` is now blacklisted in this channel.");
                 }
             }
         }

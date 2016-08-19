@@ -21,10 +21,10 @@ namespace Discord.Addons.SimplePermissions
         Dictionary<ulong, ulong> GuildModRole { get; }
 
         /// <summary>
-        /// Gets the list of commands that are
+        /// Gets the list of modules that are
         /// whitelisted in a specified channel.
         /// </summary>
-        Dictionary<ulong, List<string>> ChannelCommandWhitelist { get; }
+        Dictionary<ulong, List<string>> ChannelModuleWhitelist { get; }
 
         /// <summary>
         /// Gets the users that are allowed to use

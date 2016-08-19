@@ -50,7 +50,7 @@ namespace Discord.Addons.SimplePermissions
                     {
                             return Task.FromResult(PreconditionResult.FromSuccess());
                     }
-                    else if (cfg.ChannelCommandWhitelist[chan.Id].Contains(executingCommand.Name))
+                    else if (cfg.ChannelModuleWhitelist[chan.Id].Contains(executingCommand.Module.Name))
                     {
                         if (Permission == MinimumPermission.Special &&
                             cfg.SpecialPermissionUsersList[chan.Id].Contains(user.Id))

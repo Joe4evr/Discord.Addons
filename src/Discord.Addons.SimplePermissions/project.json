@@ -1,6 +1,6 @@
 ﻿{
-    "version": "0.1.0-*",
-    "description": "",
+    "version": "0.2.0-*",
+    "description": "Discord.Net module for command permission management.",
     "authors": [ "Joe4evr" ],
 
     "packOptions": {
@@ -29,7 +29,7 @@
 
     "dependencies": {
         "Discord.Net.Commands": "1.0.0-dev-*",
-        "Discord.Addons.SimpleConfig": "0.1.3"
+        "Discord.Addons.SimpleConfig": "0.1.4"
     },
 
     "frameworks": {
