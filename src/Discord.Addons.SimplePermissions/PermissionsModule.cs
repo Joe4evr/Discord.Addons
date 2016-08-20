@@ -208,7 +208,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="user"></param>
         /// <returns></returns>
         [Command("remspecial"), Permission(MinimumPermission.AdminRole)]
-        [Summary("Give someone special command priveliges in this channel.")]
+        [Summary("Remove someone's special command priveliges in this channel.")]
         public async Task RemoveSpecialUser(IMessage msg, IUser user)
         {
             var list = Config.SpecialPermissionUsersList[msg.Channel.Id];
