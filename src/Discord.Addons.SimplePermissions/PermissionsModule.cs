@@ -13,12 +13,12 @@ namespace Discord.Addons.SimplePermissions
     /// 
     /// </summary>
     [Module]
-    public sealed class PermissionsModule/*<TPermissionConfig> where TPermissionConfig : IPermissionConfig*/
+    public sealed class PermissionsModule
     {
         private readonly IConfigStore<IPermissionConfig> _configStore;
         private readonly CommandService _cmdService;
         internal IPermissionConfig Config { get; }
-        internal ILookup<string, Command> _commandLookup => _cmdService.Commands.ToLookup(c => c.Name);
+        private ILookup<string, Command> _commandLookup => _cmdService.Commands.ToLookup(c => c.Name);
 
         /// <summary>
         /// 
@@ -42,6 +42,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="cmdname"></param>
         /// <returns></returns>
         [Command("help"), Permission(MinimumPermission.Everyone)]
+        [Summary("Display commands you can use or how to use them.")]
         public async Task HelpCmd(IMessage msg, string cmdname = null)
         {
             var sb = new StringBuilder();
@@ -52,8 +53,8 @@ namespace Discord.Addons.SimplePermissions
                     .GroupBy(c => c.Name);
 
                 sb.AppendLine("You can use the following commands:")
-                    .AppendLine($"`{String.Join("`, `", cmds.Select(g => g.Select(c => c.Name)).Distinct())}`\n");
-
+                    .AppendLine($"`{String.Join("`, `", cmds.SelectMany(g => g.Select(c => c.Name)).Distinct())}`\n")
+                    .Append("You can use `help <command>` for more information on that command.");
             }
             else
             {
@@ -194,55 +195,30 @@ namespace Discord.Addons.SimplePermissions
             if (!list.Contains(user.Id))
             {
                 list.Add(user.Id);
+                _configStore.Save(Config);
                 await msg.Channel.SendMessageAsync($"Gave **{user.Username}** Special command priveliges.");
             }
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="msg"></param>
-        ///// <param name="cmdName"></param>
-        ///// <returns></returns>
-        //[Command("wl"), Permission(MinimumPermission.AdminRole)]
-        //[Description("Whitelist a command for this channel.")]
-        //public async Task WhitelistCommand(IMessage msg, string cmdName)
-        //{
-        //    var ch = msg.Channel as IGuildChannel;
-        //    var cmds = _commandLookup[cmdName];
-        //    if (cmds.Count() > 1)
-        //    {
-        //        if (!Config.ChannelCommandWhitelist[ch.Id].Contains(cmdName))
-        //        {
-        //            Config.ChannelCommandWhitelist[ch.Id].Add(cmdName);
-        //            _configStore.Save(Config);
-        //            await msg.Channel.SendMessageAsync($"Command `{cmds.First().Name}` is now whitelisted in this channel.");
-        //        }
-        //    }
-        //}
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="msg"></param>
-        ///// <param name="cmdName"></param>
-        ///// <returns></returns>
-        //[Command("bl"), Permission(MinimumPermission.AdminRole)]
-        //[Description("Blacklist a command for this channel.")]
-        //public async Task BlacklistCommand(IMessage msg, string cmdName)
-        //{
-        //    var ch = msg.Channel as IGuildChannel;
-        //    var cmds = _commandLookup[cmdName];
-        //    if (cmds.Count() > 1)
-        //    {
-        //        if (Config.ChannelCommandWhitelist[ch.Id].Contains(cmdName))
-        //        {
-        //            Config.ChannelCommandWhitelist[ch.Id].Remove(cmdName);
-        //            _configStore.Save(Config);
-        //            await msg.Channel.SendMessageAsync($"Command `{cmds.First().Name}` is now blacklisted in this channel.");
-        //        }
-        //    }
-        //}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [Command("remspecial"), Permission(MinimumPermission.AdminRole)]
+        [Summary("Give someone special command priveliges in this channel.")]
+        public async Task RemoveSpecialUser(IMessage msg, IUser user)
+        {
+            var list = Config.SpecialPermissionUsersList[msg.Channel.Id];
+            if (list.Contains(user.Id))
+            {
+                list.Remove(user.Id);
+                _configStore.Save(Config);
+                await msg.Channel.SendMessageAsync($"Removed **{user.Username}** Special command priveliges.");
+            }
+        }
 
         /// <summary>
         /// 
