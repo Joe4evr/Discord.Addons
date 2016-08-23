@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Discord.Addons.SimpleConfig;
+using Discord.WebSocket;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -25,14 +26,49 @@ namespace Discord.Addons.SimplePermissions
         /// </summary>
         /// <param name="configstore"></param>
         /// <param name="cmdService"></param>
-        public PermissionsModule(IConfigStore<IPermissionConfig> configstore, CommandService cmdService)
+        /// <param name="client"></param>
+        public PermissionsModule(
+            IConfigStore<IPermissionConfig> configstore,
+            CommandService cmdService,
+            DiscordSocketClient client)
         {
             if (configstore == null) throw new ArgumentNullException(nameof(configstore));
             if (cmdService == null) throw new ArgumentNullException(nameof(cmdService));
+            if (client == null) throw new ArgumentNullException(nameof(client));
 
             Config = configstore.Load();
             _configStore = configstore;
             _cmdService = cmdService;
+
+            client.GuildAvailable += guild =>
+            {
+                foreach (var chan in guild.GetTextChannels())
+                {
+                    if (Config.ChannelModuleWhitelist[chan.Id].Add(nameof(PermissionsModule)))
+                    {
+                        //Console.WriteLine($"{DateTime.Now}: ");
+                    }
+                }
+                return Task.CompletedTask;
+            };
+            client.ChannelCreated += chan =>
+            {
+                var tChan = chan as ITextChannel;
+                if (tChan != null && Config.ChannelModuleWhitelist[tChan.Id].Add(nameof(PermissionsModule)))
+                {
+                    Console.WriteLine($"{DateTime.Now}: Added permission management to {tChan.Name}.");
+                }
+                return Task.CompletedTask;
+            };
+            client.ChannelDestroyed += chan =>
+            {
+                var tChan = chan as ITextChannel;
+                if (tChan != null && Config.ChannelModuleWhitelist[chan.Id].Remove(nameof(PermissionsModule)))
+                {
+                    Console.WriteLine($"{DateTime.Now}: Removed permission management from {tChan.Name}.");
+                }
+                return Task.CompletedTask;
+            };
         }
 
         /// <summary>
@@ -133,16 +169,15 @@ namespace Discord.Addons.SimplePermissions
         /// 
         /// </summary>
         /// <param name="msg"></param>
-        /// <param name="roleId"></param>
+        /// <param name="role"></param>
         /// <returns></returns>
         [Command("setadmin"), Permission(MinimumPermission.GuildOwner)]
         [Summary("Set the admin role for this server.")]
-        public async Task SetAdminRole(IMessage msg, ulong roleId)
+        public async Task SetAdminRole(IMessage msg, IRole role)
         {
             var ch = msg.Channel as IGuildChannel;
             if (ch != null)
             {
-                var role = ch.Guild.GetRole(roleId);
                 if (role.Id == ch.Guild.EveryoneRole.Id)
                 {
                     await msg.Channel.SendMessageAsync($"Not allowed to set `everyone` as the admin role.");
@@ -159,16 +194,15 @@ namespace Discord.Addons.SimplePermissions
         /// 
         /// </summary>
         /// <param name="msg"></param>
-        /// <param name="roleId"></param>
+        /// <param name="role"></param>
         /// <returns></returns>
         [Command("setmod"), Permission(MinimumPermission.GuildOwner)]
         [Summary("Set the moderator role for this server.")]
-        public async Task SetModRole(IMessage msg, ulong roleId)
+        public async Task SetModRole(IMessage msg, IRole role)
         {
             var ch = msg.Channel as IGuildChannel;
             if (ch != null)
             {
-                var role = ch.Guild.GetRole(roleId);
                 if (role.Id == ch.Guild.EveryoneRole.Id)
                 {
                     await msg.Channel.SendMessageAsync($"Not allowed to set `everyone` as the mod role.");
@@ -192,9 +226,8 @@ namespace Discord.Addons.SimplePermissions
         public async Task AddSpecialUser(IMessage msg, IUser user)
         {
             var list = Config.SpecialPermissionUsersList[msg.Channel.Id];
-            if (!list.Contains(user.Id))
+            if (list.Add(user.Id))
             {
-                list.Add(user.Id);
                 _configStore.Save(Config);
                 await msg.Channel.SendMessageAsync($"Gave **{user.Username}** Special command priveliges.");
             }
@@ -212,9 +245,8 @@ namespace Discord.Addons.SimplePermissions
         public async Task RemoveSpecialUser(IMessage msg, IUser user)
         {
             var list = Config.SpecialPermissionUsersList[msg.Channel.Id];
-            if (list.Contains(user.Id))
+            if (list.Remove(user.Id))
             {
-                list.Remove(user.Id);
                 _configStore.Save(Config);
                 await msg.Channel.SendMessageAsync($"Removed **{user.Username}** Special command priveliges.");
             }
@@ -234,9 +266,8 @@ namespace Discord.Addons.SimplePermissions
             var mod = _cmdService.Modules.SingleOrDefault(m => m.Name == modName);
             if (mod != null)
             {
-                if (!Config.ChannelModuleWhitelist[ch.Id].Contains(mod.Name))
+                if (Config.ChannelModuleWhitelist[ch.Id].Add(mod.Name))
                 {
-                    Config.ChannelModuleWhitelist[ch.Id].Add(mod.Name);
                     _configStore.Save(Config);
                     await msg.Channel.SendMessageAsync($"Module `{mod.Name}` is now whitelisted in this channel.");
                 }
@@ -257,9 +288,8 @@ namespace Discord.Addons.SimplePermissions
             var mod = _cmdService.Modules.SingleOrDefault(m => m.Name == modName);
             if (mod != null)
             {
-                if (Config.ChannelModuleWhitelist[ch.Id].Contains(mod.Name))
+                if (Config.ChannelModuleWhitelist[ch.Id].Remove(mod.Name))
                 {
-                    Config.ChannelModuleWhitelist[ch.Id].Remove(mod.Name);
                     _configStore.Save(Config);
                     await msg.Channel.SendMessageAsync($"Module `{mod.Name}` is now blacklisted in this channel.");
                 }

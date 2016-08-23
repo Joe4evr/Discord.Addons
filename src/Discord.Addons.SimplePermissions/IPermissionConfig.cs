@@ -24,13 +24,13 @@ namespace Discord.Addons.SimplePermissions
         /// Gets the list of modules that are
         /// whitelisted in a specified channel.
         /// </summary>
-        Dictionary<ulong, List<string>> ChannelModuleWhitelist { get; }
+        Dictionary<ulong, HashSet<string>> ChannelModuleWhitelist { get; }
 
         /// <summary>
         /// Gets the users that are allowed to use
         /// commands marked <see cref="MinimumPermission.Special"/>
         /// in a channel.
         /// </summary>
-        Dictionary<ulong, List<ulong>> SpecialPermissionUsersList { get; }
+        Dictionary<ulong, HashSet<ulong>> SpecialPermissionUsersList { get; }
     }
 }

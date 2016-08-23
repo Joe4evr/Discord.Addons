@@ -1,5 +1,5 @@
 ﻿{
-    "version": "0.2.1-*",
+    "version": "0.3.1-*",
     "description": "Discord.Net module for command permission management.",
     "authors": [ "Joe4evr" ],
 
@@ -19,9 +19,7 @@
     "configurations": {
         "Release": {
             "buildOptions": {
-                "compile": {
-                    "exclude": [ "Example/**" ]
-                },
+                "optimize": true,
                 "xmlDoc": true
             }
         }

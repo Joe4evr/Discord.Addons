@@ -13,8 +13,13 @@
         "tags": [ "discord", "config" ]
     },
 
-    "buildOptions": {
-        "xmlDoc": true
+    "configurations": {
+        "Release": {
+            "buildOptions": {
+                "optimize": true,
+                "xmlDoc": true
+            }
+        }
     },
 
     "dependencies": {
