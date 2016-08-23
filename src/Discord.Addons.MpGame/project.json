@@ -1,5 +1,5 @@
 {
-    "version": "0.3.5-*",
+    "version": "0.4.5-*",
     "description": "Base classes for text-based games in Discord",
     "authors": [ "Joe4evr" ],
 
@@ -18,11 +18,11 @@
 
     "configurations": {
         "Release": {
-            "define": [ "RELEASE" ],
             "buildOptions": {
                 "compile": {
                     "exclude": [ "Example/**" ]
                 },
+                "optimize": true,
                 "xmlDoc": true
             }
         }

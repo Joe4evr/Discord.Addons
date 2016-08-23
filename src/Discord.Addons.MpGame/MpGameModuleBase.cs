@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Discord.Addons.MpGame
@@ -16,6 +17,12 @@ namespace Discord.Addons.MpGame
         where TPlayer : Player
     {
         /// <summary>
+        /// A cached instance of <see cref="IEqualityComparer{IGuildUser}"/> to use when
+        /// instantiating the <see cref="PlayerList"/>'s <see cref="HashSet{IGuildUser}"/>.
+        /// </summary>
+        protected static readonly IEqualityComparer<IGuildUser> UserComparer = new EntityEqualityComparer<ulong>();
+
+        /// <summary>
         /// The instance of a game being played, keyed by channel ID.
         /// </summary>
         protected readonly ConcurrentDictionary<ulong, TGame> GameList = new ConcurrentDictionary<ulong, TGame>();
@@ -23,8 +30,12 @@ namespace Discord.Addons.MpGame
         /// <summary>
         /// The list of users scheduled to join game, keyed by channel ID.
         /// </summary>
-        protected readonly ConcurrentDictionary<ulong, ConcurrentDictionary<ulong, IGuildUser>> PlayerList
-            = new ConcurrentDictionary<ulong, ConcurrentDictionary<ulong, IGuildUser>>();
+        /// <remarks>
+        /// When instantiating the <see cref="HashSet{IGuildUser}"/>,
+        /// pass in <see cref="UserComparer"/> for the <see cref="IEqualityComparer{IGuildUser}"/>.
+        /// </remarks>
+        protected readonly ConcurrentDictionary<ulong, HashSet<IGuildUser>> PlayerList
+            = new ConcurrentDictionary<ulong, HashSet<IGuildUser>>();
 
         /// <summary>
         /// Indicates whether the users can join a game about to start, keyed by channel ID.

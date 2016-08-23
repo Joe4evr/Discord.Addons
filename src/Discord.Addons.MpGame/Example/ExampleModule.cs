@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Discord;
 using Discord.Addons.MpGame;
 using Discord.Commands;
-using Discord;
 
 namespace Example
 {
@@ -29,7 +29,7 @@ namespace Example
             {
                 if (OpenToJoin.TryUpdate(msg.Channel.Id, newValue: true, comparisonValue: false))
                 {
-                    PlayerList[msg.Channel.Id] = new ConcurrentDictionary<ulong, IGuildUser>();
+                    PlayerList[msg.Channel.Id] = new HashSet<IGuildUser>(UserComparer);
                     await msg.Channel.SendMessageAsync("Opening for a game.");
                 }
             }
@@ -54,7 +54,7 @@ namespace Example
                 var author = msg.Author as IGuildUser;
                 if (author != null)
                 {
-                    if (PlayerList[msg.Channel.Id].TryAdd(author.Id, author))
+                    if (PlayerList[msg.Channel.Id].Add(author))
                         await msg.Channel.SendMessageAsync($"**{author.Username}** has joined.");
                 }
             }
@@ -76,7 +76,7 @@ namespace Example
             else
             {
                 var author = msg.Author as IGuildUser;
-                if (author != null && PlayerList[msg.Channel.Id].TryRemove(author.Id, out author))
+                if (author != null && PlayerList[msg.Channel.Id].Remove(author))
                 {
                     await msg.Channel.SendMessageAsync($"**{author.Username}** has left.");
                 }
@@ -126,7 +126,7 @@ namespace Example
             else
             {
                 //Tip: Shuffle the players before selecting them
-                var players = PlayerList[msg.Channel.Id].Select(u => new Player(u.Value));
+                var players = PlayerList[msg.Channel.Id].Select(u => new Player(u));
                 //The Player class can also be extended for additional properties
 
                 OpenToJoin[msg.Channel.Id] = false;
