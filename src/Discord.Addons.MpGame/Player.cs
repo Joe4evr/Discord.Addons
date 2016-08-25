@@ -34,6 +34,7 @@ namespace Discord.Addons.MpGame
         /// </summary>
         /// <param name="text">The text to send.</param>
         /// <returns>The message that was sent.</returns>
-        public async Task<IMessage> SendMessageAsync(string text) => await DmChannel.SendMessageAsync(text);
+        public async Task<IMessage> SendMessageAsync(string text)
+            => await DmChannel.SendMessageAsync(text);
     }
 }

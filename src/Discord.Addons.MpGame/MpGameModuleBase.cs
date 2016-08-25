@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Discord.Commands;
 
 namespace Discord.Addons.MpGame
 {
@@ -86,5 +88,24 @@ namespace Discord.Addons.MpGame
         /// Command to end a game in progress early.
         /// </summary>
         public abstract Task EndGameCmd(IMessage msg);
+
+        /// <summary>
+        /// Command to resend a message to someone who had their DMs disabled.
+        /// </summary>
+        [Command("resend")]
+        public async Task ResendCmd(IMessage msg)
+        {
+            bool gip;
+            TGame game;
+            if (GameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip
+                && GameList.TryGetValue(msg.Channel.Id, out game))
+            {
+                var player = game.Players.SingleOrDefault(p => p.User.Id == msg.Author.Id);
+                if (player != null)
+                {
+                    await game.TryResendDMAsync(player);
+                }
+            }
+        }
     }
 }

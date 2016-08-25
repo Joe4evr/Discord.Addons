@@ -29,6 +29,7 @@ namespace Example
             {
                 if (OpenToJoin.TryUpdate(msg.Channel.Id, newValue: true, comparisonValue: false))
                 {
+                    //UserComparer is a property on the base class you can use to determine user-uniqueness
                     PlayerList[msg.Channel.Id] = new HashSet<IGuildUser>(UserComparer);
                     await msg.Channel.SendMessageAsync("Opening for a game.");
                 }

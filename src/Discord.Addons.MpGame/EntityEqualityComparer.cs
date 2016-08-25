@@ -8,7 +8,7 @@ namespace Discord.Addons.MpGame
     {
         public override bool Equals(IEntity<TId> x, IEntity<TId> y)
         {
-            return x.Equals(y);
+            return x.Id.Equals(y.Id);
         }
 
         public override int GetHashCode(IEntity<TId> obj)

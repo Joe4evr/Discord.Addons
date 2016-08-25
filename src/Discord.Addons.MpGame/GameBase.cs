@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Discord.Net;
 
 namespace Discord.Addons.MpGame
 {
@@ -70,5 +72,37 @@ namespace Discord.Addons.MpGame
         /// Get a string that represent the state of the game.
         /// </summary>
         public abstract string GetGameState();
+
+        private Dictionary<ulong, string> _unsentDMs = new Dictionary<ulong, string>();
+        /// <summary>
+        /// Tries to send a DM to a specified player,
+        /// and will cache the message if the target user has DMs disabled.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public async Task TrySendDMAsync(TPlayer player, string text)
+        {
+            try
+            {
+                if (text != null && !_unsentDMs.Keys.Contains(player.User.Id))
+                {
+                    await player.SendMessageAsync(text);
+                }
+                else if (text == null && _unsentDMs.Keys.Contains(player.User.Id))
+                {
+                    await player.SendMessageAsync(_unsentDMs[player.User.Id]);
+                    _unsentDMs.Remove(player.User.Id);
+                }
+            }
+            catch (HttpException ex) when (ex.StatusCode == HttpStatusCode.Forbidden)
+            {
+                if (text != null)
+                    _unsentDMs[player.User.Id] = text;
+
+                await Channel.SendMessageAsync($"Player {player.User.Mention} has their DMs disabled. Please enable DMs and use `resend` to obtain this info.");
+            }
+        }
+        internal async Task TryResendDMAsync(TPlayer player) => await TrySendDMAsync(player, null);
     }
 }
