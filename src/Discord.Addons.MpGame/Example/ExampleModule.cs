@@ -126,8 +126,8 @@ namespace Example
             }
             else
             {
-                //Tip: Shuffle the players before selecting them
-                var players = PlayerList[msg.Channel.Id].Select(u => new Player(u));
+                //Tip: Shuffle the players before projecting them
+                var players = PlayerList[msg.Channel.Id].Select(u => new Player(u, msg.Channel));
                 //The Player class can also be extended for additional properties
 
                 OpenToJoin[msg.Channel.Id] = false;

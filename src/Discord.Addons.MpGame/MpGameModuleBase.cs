@@ -19,7 +19,7 @@ namespace Discord.Addons.MpGame
         where TPlayer : Player
     {
         /// <summary>
-        /// A cached instance of <see cref="IEqualityComparer{IGuildUser}"/> to use when
+        /// A cached <see cref="IEqualityComparer{IGuildUser}"/> instance to use when
         /// instantiating the <see cref="PlayerList"/>'s <see cref="HashSet{IGuildUser}"/>.
         /// </summary>
         protected static readonly IEqualityComparer<IGuildUser> UserComparer = new EntityEqualityComparer<ulong>();
@@ -103,7 +103,7 @@ namespace Discord.Addons.MpGame
                 var player = game.Players.SingleOrDefault(p => p.User.Id == msg.Author.Id);
                 if (player != null)
                 {
-                    await game.TryResendDMAsync(player);
+                    await player.RetrySendMessageAsync();
                 }
             }
         }
