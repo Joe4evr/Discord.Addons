@@ -52,48 +52,48 @@ namespace Discord.Addons.MpGame
         /// <summary>
         /// Command to open a game for others to join.
         /// </summary>
-        public abstract Task OpenGameCmd(IMessage msg);
+        public abstract Task OpenGameCmd(IUserMessage msg);
 
         /// <summary>
         /// Command to cancel a game before it started.
         /// </summary>
-        public abstract Task CancelGameCmd(IMessage msg);
+        public abstract Task CancelGameCmd(IUserMessage msg);
 
         /// <summary>
         /// Command to join a game that is open.
         /// </summary>
-        public abstract Task JoinGameCmd(IMessage msg);
+        public abstract Task JoinGameCmd(IUserMessage msg);
 
         /// <summary>
         /// Command to leave a game that is not yet started.
         /// </summary>
-        public abstract Task LeaveGameCmd(IMessage msg);
+        public abstract Task LeaveGameCmd(IUserMessage msg);
 
         /// <summary>
         /// Command to start a game with the players who joined.
         /// </summary>
-        public abstract Task StartGameCmd(IMessage msg);
+        public abstract Task StartGameCmd(IUserMessage msg);
 
         /// <summary>
         /// Command to advance to the next turn (if applicable).
         /// </summary>
-        public abstract Task NextTurnCmd(IMessage msg);
+        public abstract Task NextTurnCmd(IUserMessage msg);
 
         /// <summary>
         /// Command to display the current state of the game.
         /// </summary>
-        public abstract Task GameStateCmd(IMessage msg);
+        public abstract Task GameStateCmd(IUserMessage msg);
 
         /// <summary>
         /// Command to end a game in progress early.
         /// </summary>
-        public abstract Task EndGameCmd(IMessage msg);
+        public abstract Task EndGameCmd(IUserMessage msg);
 
         /// <summary>
         /// Command to resend a message to someone who had their DMs disabled.
         /// </summary>
         [Command("resend")]
-        public async Task ResendCmd(IMessage msg)
+        public async Task ResendCmd(IUserMessage msg)
         {
             bool gip;
             TGame game;

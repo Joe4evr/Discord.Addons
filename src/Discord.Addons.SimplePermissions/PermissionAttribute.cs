@@ -30,7 +30,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="executingCommand"></param>
         /// <param name="moduleInstance"></param>
         /// <returns></returns>
-        public override Task<PreconditionResult> CheckPermissions(IMessage context, Command executingCommand, object moduleInstance)
+        public override Task<PreconditionResult> CheckPermissions(IUserMessage context, Command executingCommand, object moduleInstance)
         {
             var cfg = (moduleInstance as PermissionsModule)?.Config;
             if (cfg != null)

@@ -8,12 +8,12 @@ using Discord.Commands;
 
 namespace Example
 {
-    [Module("ex-")] //Needed to load methods as commands
+    [Module("ex")] //Needed to load methods as commands
     public sealed class ExampleModule : MpGameModuleBase<ExampleGame, Player> //Specify the type of the game and the type of its player
     {
                               //You may have reasons to not annotate a particular method with [Command],
         [Command("opengame")] //and you'll likely have to add MORE commands depending on the game
-        public override async Task OpenGameCmd(IMessage msg)
+        public override async Task OpenGameCmd(IUserMessage msg)
         {
             bool gip;
             bool open;
@@ -38,7 +38,7 @@ namespace Example
 
                           //Note that we should always check if the channel already has a game going
         [Command("join")] //or wants people to join before taking action
-        public override async Task JoinGameCmd(IMessage msg)
+        public override async Task JoinGameCmd(IUserMessage msg)
         {
             bool gip;
             bool open;
@@ -62,7 +62,7 @@ namespace Example
         }
 
         [Command("leave")] //Users can leave if the game hasn't started yet
-        public override async Task LeaveGameCmd(IMessage msg)
+        public override async Task LeaveGameCmd(IUserMessage msg)
         {
             bool gip;
             bool open;
@@ -85,7 +85,7 @@ namespace Example
         }
 
         [Command("cancel")] //Cancel the game if it hasn't started yet
-        public override async Task CancelGameCmd(IMessage msg)
+        public override async Task CancelGameCmd(IUserMessage msg)
         {
             bool gip;
             bool open;
@@ -108,7 +108,7 @@ namespace Example
         }
 
         [Command("start")] //Start the game
-        public override async Task StartGameCmd(IMessage msg)
+        public override async Task StartGameCmd(IUserMessage msg)
         {
             bool gip;
             bool open;
@@ -139,7 +139,7 @@ namespace Example
         }
 
         [Command("turn")] //Advance to the next turn
-        public override async Task NextTurnCmd(IMessage msg)
+        public override async Task NextTurnCmd(IUserMessage msg)
         {
             ExampleGame game;
             if (GameList.TryGetValue(msg.Channel.Id, out game))
@@ -154,7 +154,7 @@ namespace Example
 
                            //Post a message that represents the game's state
         [Command("state")] //Remember there's a 2000 character limit
-        public override async Task GameStateCmd(IMessage msg)
+        public override async Task GameStateCmd(IUserMessage msg)
         {
             ExampleGame game;
             if (GameList.TryGetValue(msg.Channel.Id, out game))
@@ -169,7 +169,7 @@ namespace Example
 
                          //Command to end a game before a win-condition is met
         [Command("end")] //Should be restricted to mods/admins to prevent abuse
-        public override async Task EndGameCmd(IMessage msg)
+        public override async Task EndGameCmd(IUserMessage msg)
         {
             bool gip;
             if (!GameInProgress.TryGetValue(msg.Channel.Id, out gip) || !gip)
