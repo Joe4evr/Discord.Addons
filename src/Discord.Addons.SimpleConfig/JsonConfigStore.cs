@@ -9,7 +9,8 @@ namespace Discord.Addons.SimpleConfig
     /// a configuration object as JSON on disk using JSON.NET.
     /// </summary>
     /// <typeparam name="TConfig"></typeparam>
-    public sealed class JsonConfigStore<TConfig> : IConfigStore<TConfig> where TConfig : IConfig
+    public sealed class JsonConfigStore<TConfig> : IConfigStore<TConfig>
+        where TConfig : IConfig
     {
         private readonly string _jsonPath;
 
