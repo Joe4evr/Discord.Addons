@@ -85,7 +85,8 @@ namespace Discord.Addons.SimplePermissions
             if (cmdname == null)
             {
                 var cmds = _cmdService.Commands
-                    .Where(c => c.CheckPreconditions(msg).GetAwaiter().GetResult().IsSuccess)
+                    .Where(c => c.CheckPreconditions(msg).GetAwaiter().GetResult().IsSuccess &&
+                        !c.Source.CustomAttributes.Any(a => a.AttributeType.Equals(typeof(HiddenAttribute))))
                     .GroupBy(c => c.Name);
 
                 sb.AppendLine("You can use the following commands:")
@@ -95,7 +96,8 @@ namespace Discord.Addons.SimplePermissions
             else
             {
                 var cmds = _commandLookup[cmdname]
-                    .Where(c => c.CheckPreconditions(msg).GetAwaiter().GetResult().IsSuccess);
+                    .Where(c => c.CheckPreconditions(msg).GetAwaiter().GetResult().IsSuccess &&
+                        !c.Source.CustomAttributes.Any(a => a.AttributeType.Equals(typeof(HiddenAttribute))));
 
                 if (cmds.Count() > 0)
                 {
