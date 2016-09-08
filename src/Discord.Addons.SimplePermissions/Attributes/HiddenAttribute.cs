@@ -7,7 +7,7 @@ namespace Discord.Addons.SimplePermissions
     /// display this particular command or overload. This is a marker attribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public class HiddenAttribute : Attribute
+    public sealed class HiddenAttribute : Attribute
     {
     }
 }
