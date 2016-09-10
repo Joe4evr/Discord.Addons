@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -83,9 +84,8 @@ namespace Discord.Addons.SimplePermissions
             var sb = new StringBuilder();
             if (cmdname == null)
             {
-                var cmds = _cmdService.Commands
-                    .Where(c => c.CheckPreconditions(msg).GetAwaiter().GetResult().IsSuccess &&
-                        !c.Source.CustomAttributes.Any(a => a.AttributeType.Equals(typeof(HiddenAttribute))))
+                var cmds = (await _cmdService.Commands.CheckConditions(msg))
+                    .Where(c => !c.Source.CustomAttributes.Any(a => a.AttributeType.Equals(typeof(HiddenAttribute))))
                     .GroupBy(c => c.Name);
 
                 sb.AppendLine("You can use the following commands:")
@@ -94,9 +94,8 @@ namespace Discord.Addons.SimplePermissions
             }
             else
             {
-                var cmds = _commandLookup[cmdname]
-                    .Where(c => c.CheckPreconditions(msg).GetAwaiter().GetResult().IsSuccess &&
-                        !c.Source.CustomAttributes.Any(a => a.AttributeType.Equals(typeof(HiddenAttribute))));
+                var cmds = (await _commandLookup[cmdname].CheckConditions(msg))
+                    .Where(c => !c.Source.CustomAttributes.Any(a => a.AttributeType.Equals(typeof(HiddenAttribute))));
 
                 if (cmds.Count() > 0)
                 {
@@ -104,7 +103,7 @@ namespace Discord.Addons.SimplePermissions
                     foreach (var cmd in cmds)
                     {
                         sb.AppendLine('\t' + cmd.Summary);
-                        sb.AppendLine('\t' + String.Join(" ", cmd.Parameters.Select(p => formatParam(p))));
+                        sb.AppendLine($"\t\t{String.Join(" ", cmd.Parameters.Select(p => formatParam(p)))}");
                     }
                 }
                 else return;
@@ -114,22 +113,29 @@ namespace Discord.Addons.SimplePermissions
 
         private string formatParam(CommandParameter param)
         {
+            var sb = new StringBuilder();
             if (param.IsMultiple)
             {
-                return $"[({param.ElementType.Name}): {param.Name}...]";
+                sb.Append($"`[({param.ElementType.Name}): {param.Name}...]`");
             }
             else if (param.IsRemainder) //&& IsOptional - decided not to check for the combination
             {
-                return $"<({param.ElementType.Name}): {param.Name}...>";
+                sb.Append($"`<({param.ElementType.Name}): {param.Name}...>`");
             }
             else if (param.IsOptional)
             {
-                return $"[({param.ElementType.Name}): {param.Name}]";
+                sb.Append($"`[({param.ElementType.Name}): {param.Name}]`");
             }
             else
             {
-                return $"<({param.ElementType.Name}): {param.Name}>";
+                sb.Append($"`<({param.ElementType.Name}): {param.Name}>`");
             }
+
+            if (!String.IsNullOrWhiteSpace(param.Summary))
+            {
+                sb.Append($" ({param.Summary})");
+            }
+            return sb.ToString();
         }
 
         /// <summary>
@@ -138,6 +144,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="msg"></param>
         /// <returns></returns>
         [Command("roles"), Permission(MinimumPermission.GuildOwner)]
+        [RequireContext(ContextType.Guild)]
         [Summary("List this server's roles and their ID.")]
         public async Task ListRoles(IUserMessage msg)
         {
@@ -155,6 +162,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="msg"></param>
         /// <returns></returns>
         [Command("modules"), Permission(MinimumPermission.AdminRole)]
+        [RequireContext(ContextType.Guild)]
         [Summary("List all the modules loaded in the bot.")]
         public async Task ListModules(IUserMessage msg)
         {
@@ -173,6 +181,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="role"></param>
         /// <returns></returns>
         [Command("setadmin"), Permission(MinimumPermission.GuildOwner)]
+        [RequireContext(ContextType.Guild)]
         [Summary("Set the admin role for this server.")]
         public async Task SetAdminRole(IUserMessage msg, IRole role)
         {
@@ -198,6 +207,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="role"></param>
         /// <returns></returns>
         [Command("setmod"), Permission(MinimumPermission.GuildOwner)]
+        [RequireContext(ContextType.Guild)]
         [Summary("Set the moderator role for this server.")]
         public async Task SetModRole(IUserMessage msg, IRole role)
         {
@@ -223,7 +233,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="user"></param>
         /// <returns></returns>
         [Command("addspecial"), Permission(MinimumPermission.AdminRole)]
-        [Alias("addsp")]
+        [Alias("addsp"), RequireContext(ContextType.Guild)]
         [Summary("Give someone special command priveliges in this channel.")]
         public async Task AddSpecialUser(IUserMessage msg, IUser user)
         {
@@ -243,7 +253,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="user"></param>
         /// <returns></returns>
         [Command("remspecial"), Permission(MinimumPermission.AdminRole)]
-        [Alias("remsp")]
+        [Alias("remsp"), RequireContext(ContextType.Guild)]
         [Summary("Remove someone's special command priveliges in this channel.")]
         public async Task RemoveSpecialUser(IUserMessage msg, IUser user)
         {
@@ -262,7 +272,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="modName"></param>
         /// <returns></returns>
         [Command("whitelist"), Permission(MinimumPermission.AdminRole)]
-        [Alias("wl")]
+        [Alias("wl"), RequireContext(ContextType.Guild)]
         [Summary("Whitelist a module for this channel.")]
         public async Task WhitelistModule(IUserMessage msg, string modName)
         {
@@ -285,7 +295,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="modName"></param>
         /// <returns></returns>
         [Command("blacklist"), Permission(MinimumPermission.AdminRole)]
-        [Alias("bl")]
+        [Alias("bl"), RequireContext(ContextType.Guild)]
         [Summary("Blacklist a module for this channel.")]
         public async Task BlacklistModule(IUserMessage msg, string modName)
         {
@@ -299,6 +309,23 @@ namespace Discord.Addons.SimplePermissions
                     await msg.Channel.SendMessageAsync($"Module `{mod.Name}` is now blacklisted in this channel.");
                 }
             }
+        }
+    }
+
+    internal static class Ext
+    {
+        public static async Task<IEnumerable<Command>> CheckConditions(
+            this IEnumerable<Command> commands, IUserMessage msg)
+        {
+            var ret = new List<Command>();
+            foreach (var cmd in commands)
+            {
+                if ((await cmd.CheckPreconditions(msg)).IsSuccess)
+                {
+                    ret.Add(cmd);
+                }
+            }
+            return ret;
         }
     }
 }
