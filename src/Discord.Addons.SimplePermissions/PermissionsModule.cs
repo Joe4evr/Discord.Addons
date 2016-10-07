@@ -75,39 +75,48 @@ namespace Discord.Addons.SimplePermissions
         /// 
         /// </summary>
         /// <param name="msg"></param>
+        /// <returns></returns>
+        [Command("help"), Permission(MinimumPermission.Everyone)]
+        [Summary("Display commands you can use or how to use them.")]
+        public async Task HelpCmd(IUserMessage msg)
+        {
+            var sb = new StringBuilder();
+            var cmds = (await _cmdService.Commands.CheckConditions(msg))
+                .Where(c => !c.Source.CustomAttributes.Any(a => a.AttributeType.Equals(typeof(HiddenAttribute))))
+                .GroupBy(c => c.Name);
+
+            sb.AppendLine("You can use the following commands:")
+                .AppendLine($"`{String.Join("`, `", cmds.SelectMany(g => g.Select(c => c.Name)).Distinct())}`\n")
+                .Append("You can use `help <command>` for more information on that command.");
+
+            await msg.Channel.SendMessageAsync(sb.ToString());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="msg"></param>
         /// <param name="cmdname"></param>
         /// <returns></returns>
         [Command("help"), Permission(MinimumPermission.Everyone)]
         [Summary("Display commands you can use or how to use them.")]
-        public async Task HelpCmd(IUserMessage msg, string cmdname = null)
+        public async Task HelpCmd(IUserMessage msg, string cmdname)
         {
             var sb = new StringBuilder();
-            if (cmdname == null)
-            {
-                var cmds = (await _cmdService.Commands.CheckConditions(msg))
-                    .Where(c => !c.Source.CustomAttributes.Any(a => a.AttributeType.Equals(typeof(HiddenAttribute))))
-                    .GroupBy(c => c.Name);
+            var cmds = (await _commandLookup[cmdname].CheckConditions(msg))
+                .Where(c => !c.Source.CustomAttributes.Any(a => a.AttributeType.Equals(typeof(HiddenAttribute))));
 
-                sb.AppendLine("You can use the following commands:")
-                    .AppendLine($"`{String.Join("`, `", cmds.SelectMany(g => g.Select(c => c.Name)).Distinct())}`\n")
-                    .Append("You can use `help <command>` for more information on that command.");
-            }
-            else
+            if (cmds.Count() > 0)
             {
-                var cmds = (await _commandLookup[cmdname].CheckConditions(msg))
-                    .Where(c => !c.Source.CustomAttributes.Any(a => a.AttributeType.Equals(typeof(HiddenAttribute))));
-
-                if (cmds.Count() > 0)
+                sb.AppendLine(cmds.First().Name);
+                foreach (var cmd in cmds)
                 {
-                    sb.AppendLine(cmds.First().Name);
-                    foreach (var cmd in cmds)
-                    {
-                        sb.AppendLine('\t' + cmd.Summary);
-                        sb.AppendLine($"\t\t{String.Join(" ", cmd.Parameters.Select(p => formatParam(p)))}");
-                    }
+                    sb.AppendLine('\t' + cmd.Summary);
+                    sb.AppendLine($"\t\t{String.Join(" ", cmd.Parameters.Select(p => formatParam(p)))}");
                 }
-                else return;
             }
+            else return;
+
             await msg.Channel.SendMessageAsync(sb.ToString());
         }
 
