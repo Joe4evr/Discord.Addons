@@ -175,7 +175,7 @@ namespace Discord.Addons.MpGame
             newNode.Previous = node;
             node.Next = newNode;
 
-            // if the node adding is tail node, then repointing tail node
+            // if the node adding is tail node, then re-pointing tail node
             if (node == tail)
                 tail = newNode;
             ++count;
@@ -218,7 +218,7 @@ namespace Discord.Addons.MpGame
             newNode.Next = node;
             node.Previous = newNode;
 
-            // if the node adding is head node, then repointing head node
+            // if the node adding is head node, then re-pointing head node
             if (node == head)
                 head = newNode;
             ++count;
@@ -251,13 +251,13 @@ namespace Discord.Addons.MpGame
         }
 
         /// <summary>
-        /// Removes the first occurance of the supplied item
+        /// Removes the first occurrence of the supplied item
         /// </summary>
         /// <param name="item">Item to be removed</param>
         /// <returns>TRUE if removed, else FALSE</returns>
         public bool Remove(T item)
         {
-            // finding the first occurance of this item
+            // finding the first occurrence of this item
             Node<T> nodeToRemove = this.Find(item);
             if (nodeToRemove != null)
                 return this.RemoveNode(nodeToRemove);
@@ -281,7 +281,7 @@ namespace Discord.Addons.MpGame
         }
 
         /// <summary>
-        /// Removes all occurances of the supplied item
+        /// Removes all occurrences of the supplied item
         /// </summary>
         /// <param name="item">Item to be removed</param>
         public void RemoveAll(T item)

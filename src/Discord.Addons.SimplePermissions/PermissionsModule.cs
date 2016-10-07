@@ -234,14 +234,14 @@ namespace Discord.Addons.SimplePermissions
         /// <returns></returns>
         [Command("addspecial"), Permission(MinimumPermission.AdminRole)]
         [Alias("addsp"), RequireContext(ContextType.Guild)]
-        [Summary("Give someone special command priveliges in this channel.")]
+        [Summary("Give someone special command privileges in this channel.")]
         public async Task AddSpecialUser(IUserMessage msg, IUser user)
         {
             var list = Config.SpecialPermissionUsersList[msg.Channel.Id];
             if (list.Add(user.Id))
             {
                 _configStore.Save(Config);
-                await msg.Channel.SendMessageAsync($"Gave **{user.Username}** Special command priveliges.");
+                await msg.Channel.SendMessageAsync($"Gave **{user.Username}** Special command privileges.");
             }
         }
 
@@ -254,14 +254,14 @@ namespace Discord.Addons.SimplePermissions
         /// <returns></returns>
         [Command("remspecial"), Permission(MinimumPermission.AdminRole)]
         [Alias("remsp"), RequireContext(ContextType.Guild)]
-        [Summary("Remove someone's special command priveliges in this channel.")]
+        [Summary("Remove someone's special command privileges in this channel.")]
         public async Task RemoveSpecialUser(IUserMessage msg, IUser user)
         {
             var list = Config.SpecialPermissionUsersList[msg.Channel.Id];
             if (list.Remove(user.Id))
             {
                 _configStore.Save(Config);
-                await msg.Channel.SendMessageAsync($"Removed **{user.Username}** Special command priveliges.");
+                await msg.Channel.SendMessageAsync($"Removed **{user.Username}** Special command privileges.");
             }
         }
 

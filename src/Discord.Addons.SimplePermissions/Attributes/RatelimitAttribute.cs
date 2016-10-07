@@ -22,10 +22,12 @@ namespace Discord.Addons.SimplePermissions
         /// </summary>
         /// <param name="times">The number of times a user may use the command within a certain period.</param>
         /// <param name="period">The amount of time since first invoke a user has until the limit is lifted.</param>
-        /// <param name="measure">The scale in which the 'period' parameter should be measuered.</param>
+        /// <param name="measure">The scale in which the 'period' parameter should be measured.</param>
         public RatelimitAttribute(uint times, double period, RateMeasure measure)
         {
             InvokeLimit = times;
+
+            //TODO: C# 7 candidate switch expression
             switch (measure)
             {
                 case RateMeasure.Days: InvokeLimitPeriod = TimeSpan.FromDays(period);

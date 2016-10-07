@@ -102,7 +102,7 @@ namespace Example
                 if (OpenToJoin.TryUpdate(msg.Channel.Id, newValue: false, comparisonValue: true))
                 { 
                     PlayerList[msg.Channel.Id].Clear();
-                    await msg.Channel.SendMessageAsync("Game was cancelled.");
+                    await msg.Channel.SendMessageAsync("Game was canceled.");
                 }
             }
         }

@@ -19,7 +19,7 @@ namespace Example
         {
         }
 
-        //Call SetupGame() to do the one-time setup happeining prior to a game (think of: shuffling (a) card deck(s))
+        //Call SetupGame() to do the one-time setup happening prior to a game (think of: shuffling (a) card deck(s))
         public override async Task SetupGame()
         {
             await Channel.SendMessageAsync("Asserting randomized starting parameters.");

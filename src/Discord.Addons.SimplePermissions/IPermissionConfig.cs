@@ -9,13 +9,13 @@ namespace Discord.Addons.SimplePermissions
     public interface IPermissionConfig : IConfig
     {
         /// <summary>
-        /// Gets the ID of the group that is considerd
+        /// Gets the ID of the group that is considered
         /// the Admin role in a specified guild.
         /// </summary>
         Dictionary<ulong, ulong> GuildAdminRole { get; }
 
         /// <summary>
-        /// Gets the ID of the group that is considerd
+        /// Gets the ID of the group that is considered
         /// the Moderator role in a specified guild.
         /// </summary>
         Dictionary<ulong, ulong> GuildModRole { get; }
