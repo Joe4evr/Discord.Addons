@@ -26,12 +26,12 @@ namespace Discord.Addons.SimplePermissions
         /// 
         /// </summary>
         /// <param name="context"></param>
-        /// <param name="executingCommand"></param>
-        /// <param name="moduleInstance"></param>
+        /// <param name="command"></param>
+        /// <param name="map"></param>
         /// <returns></returns>
-        public async override Task<PreconditionResult> CheckPermissions(IUserMessage context, Command executingCommand, object moduleInstance)
+        public async override Task<PreconditionResult> CheckPermissions(CommandContext context, CommandInfo command, IDependencyMap map)
         {
-            var users = (await (context.Channel as IGuildChannel)?.Guild.GetUsersAsync()).Cast<IPresence>();
+            var users = (await context.Guild.GetUsersAsync()).Cast<IPresence>();
             return ((uint)users.Count(u => u.Status == UserStatus.Online) >= MinimumUsers) ?
                  PreconditionResult.FromSuccess() :
                  PreconditionResult.FromError("Not enough users online.");

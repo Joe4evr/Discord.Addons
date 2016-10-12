@@ -12,9 +12,7 @@ namespace Discord.Addons.MpGame
     /// </summary>
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
-    /// <remarks>Inheriting classes should be marked with
-    /// <see cref="Commands.ModuleAttribute"/>.</remarks>
-    public abstract class MpGameModuleBase<TGame, TPlayer>
+    public abstract class MpGameModuleBase<TGame, TPlayer> : ModuleBase
         where TGame : GameBase<TPlayer>
         where TPlayer : Player
     {
@@ -25,82 +23,94 @@ namespace Discord.Addons.MpGame
         protected static readonly IEqualityComparer<IGuildUser> UserComparer = new EntityEqualityComparer<ulong>();
 
         /// <summary>
-        /// The instance of a game being played, keyed by channel ID.
+        /// Determines if a game in the current channel is open to join or not.
         /// </summary>
-        protected readonly ConcurrentDictionary<ulong, TGame> GameList = new ConcurrentDictionary<ulong, TGame>();
+        protected readonly bool OpenToJoin;
 
         /// <summary>
-        /// The list of users scheduled to join game, keyed by channel ID.
+        /// Determines if a game in the current channel is in progress or not.
         /// </summary>
-        /// <remarks>
-        /// When instantiating the <see cref="HashSet{IGuildUser}"/>,
-        /// pass in <see cref="UserComparer"/> for the <see cref="IEqualityComparer{IGuildUser}"/>.
-        /// </remarks>
-        protected readonly ConcurrentDictionary<ulong, HashSet<IGuildUser>> PlayerList
-            = new ConcurrentDictionary<ulong, HashSet<IGuildUser>>();
+        protected readonly bool GameInProgress;
 
         /// <summary>
-        /// Indicates whether the users can join a game about to start, keyed by channel ID.
+        /// The instance of the game being played (if active).
         /// </summary>
-        protected readonly ConcurrentDictionary<ulong, bool> OpenToJoin = new ConcurrentDictionary<ulong, bool>();
+        protected readonly TGame Game;
 
         /// <summary>
-        /// Indicates whether a game is currently going on, keyed by channel ID.
+        /// The list of users ready to play.
         /// </summary>
-        protected readonly ConcurrentDictionary<ulong, bool> GameInProgress = new ConcurrentDictionary<ulong, bool>();
+        protected readonly HashSet<IGuildUser> PlayerList;
+
+        /// <summary>
+        /// The <see cref="MpGameService{TGame, TPlayer}"/> instance.
+        /// </summary>
+        protected readonly MpGameService<TGame, TPlayer> GameService;
+
+        /// <summary>
+        /// Initializes the <see cref="MpGameModuleBase{TGame, TPlayer}"/> base class.
+        /// </summary>
+        /// <param name="gameService"></param>
+        protected MpGameModuleBase(MpGameService<TGame, TPlayer> gameService)
+        {
+            if (gameService == null) throw new ArgumentNullException(nameof(gameService));
+
+            gameService.OpenToJoin.TryGetValue(Context.Channel.Id, out OpenToJoin);
+            gameService.GameInProgress.TryGetValue(Context.Channel.Id, out GameInProgress);
+            gameService.GameList.TryGetValue(Context.Channel.Id, out Game);
+            gameService.PlayerList.TryGetValue(Context.Channel.Id, out PlayerList);
+            GameService = gameService;
+        }
 
         /// <summary>
         /// Command to open a game for others to join.
         /// </summary>
-        public abstract Task OpenGameCmd(IUserMessage msg);
+        public abstract Task OpenGameCmd();
 
         /// <summary>
         /// Command to cancel a game before it started.
         /// </summary>
-        public abstract Task CancelGameCmd(IUserMessage msg);
+        public abstract Task CancelGameCmd();
 
         /// <summary>
         /// Command to join a game that is open.
         /// </summary>
-        public abstract Task JoinGameCmd(IUserMessage msg);
+        public abstract Task JoinGameCmd();
 
         /// <summary>
         /// Command to leave a game that is not yet started.
         /// </summary>
-        public abstract Task LeaveGameCmd(IUserMessage msg);
+        public abstract Task LeaveGameCmd();
 
         /// <summary>
         /// Command to start a game with the players who joined.
         /// </summary>
-        public abstract Task StartGameCmd(IUserMessage msg);
+        public abstract Task StartGameCmd();
 
         /// <summary>
         /// Command to advance to the next turn (if applicable).
         /// </summary>
-        public abstract Task NextTurnCmd(IUserMessage msg);
+        public abstract Task NextTurnCmd();
 
         /// <summary>
         /// Command to display the current state of the game.
         /// </summary>
-        public abstract Task GameStateCmd(IUserMessage msg);
+        public abstract Task GameStateCmd();
 
         /// <summary>
         /// Command to end a game in progress early.
         /// </summary>
-        public abstract Task EndGameCmd(IUserMessage msg);
+        public abstract Task EndGameCmd();
 
         /// <summary>
         /// Command to resend a message to someone who had their DMs disabled.
         /// </summary>
         [Command("resend")]
-        public async Task ResendCmd(IUserMessage msg)
+        public async Task ResendCmd()
         {
-            bool gip;
-            TGame game;
-            if (GameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip
-                && GameList.TryGetValue(msg.Channel.Id, out game))
+            if (GameInProgress)
             {
-                var player = game.Players.SingleOrDefault(p => p.User.Id == msg.Author.Id);
+                var player = Game.Players.SingleOrDefault(p => p.User.Id == Context.User.Id);
                 if (player != null)
                 {
                     await player.RetrySendMessageAsync();

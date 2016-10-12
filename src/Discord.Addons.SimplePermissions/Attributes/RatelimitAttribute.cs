@@ -23,18 +23,18 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="times">The number of times a user may use the command within a certain period.</param>
         /// <param name="period">The amount of time since first invoke a user has until the limit is lifted.</param>
         /// <param name="measure">The scale in which the 'period' parameter should be measured.</param>
-        public RatelimitAttribute(uint times, double period, RateMeasure measure)
+        public RatelimitAttribute(uint times, double period, Measure measure)
         {
             InvokeLimit = times;
 
             //TODO: C# 7 candidate switch expression
             switch (measure)
             {
-                case RateMeasure.Days: InvokeLimitPeriod = TimeSpan.FromDays(period);
+                case Measure.Days: InvokeLimitPeriod = TimeSpan.FromDays(period);
                     break;
-                case RateMeasure.Hours: InvokeLimitPeriod = TimeSpan.FromHours(period);
+                case Measure.Hours: InvokeLimitPeriod = TimeSpan.FromHours(period);
                     break;
-                case RateMeasure.Minutes: InvokeLimitPeriod = TimeSpan.FromMinutes(period);
+                case Measure.Minutes: InvokeLimitPeriod = TimeSpan.FromMinutes(period);
                     break;
             }
         }
@@ -43,15 +43,15 @@ namespace Discord.Addons.SimplePermissions
         /// 
         /// </summary>
         /// <param name="context"></param>
-        /// <param name="executingCommand"></param>
-        /// <param name="moduleInstance"></param>
+        /// <param name="command"></param>
+        /// <param name="map"></param>
         /// <returns></returns>
-        public override Task<PreconditionResult> CheckPermissions(IUserMessage context, Command executingCommand, object moduleInstance)
+        public override Task<PreconditionResult> CheckPermissions(CommandContext context, CommandInfo command, IDependencyMap map)
         {
             var now = DateTime.UtcNow;
             Timeout timeout;
 
-            if (!InvokeTracker.TryGetValue(context.Author.Id, out timeout) ||
+            if (!InvokeTracker.TryGetValue(context.User.Id, out timeout) ||
                 ((now - timeout.FirstInvoke) > InvokeLimitPeriod))
             {
                 timeout = new Timeout(now);
@@ -61,7 +61,7 @@ namespace Discord.Addons.SimplePermissions
 
             if (timeout.TimesInvoked <= InvokeLimit)
             {
-                InvokeTracker[context.Author.Id] = timeout;
+                InvokeTracker[context.User.Id] = timeout;
                 return Task.FromResult(PreconditionResult.FromSuccess());
             }
             else
@@ -85,7 +85,7 @@ namespace Discord.Addons.SimplePermissions
     /// <summary>
     /// Sets the scale of the period parameter.
     /// </summary>
-    public enum RateMeasure
+    public enum Measure
     {
         /// <summary>
         /// Period is measured in days.

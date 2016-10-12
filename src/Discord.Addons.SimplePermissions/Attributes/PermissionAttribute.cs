@@ -26,58 +26,60 @@ namespace Discord.Addons.SimplePermissions
         /// 
         /// </summary>
         /// <param name="context"></param>
-        /// <param name="executingCommand"></param>
-        /// <param name="moduleInstance"></param>
+        /// <param name="command"></param>
+        /// <param name="map"></param>
         /// <returns></returns>
-        public override Task<PreconditionResult> CheckPermissions(IUserMessage context, Command executingCommand, object moduleInstance)
+        public override Task<PreconditionResult> CheckPermissions(CommandContext context, CommandInfo command, IDependencyMap map)
         {
-            var cfg = (moduleInstance as PermissionsModule)?.Config;
+            var cfg = map.Get<PermissionsService>().Config;
             if (cfg != null)
             {
-                if (Permission <= MinimumPermission.BotOwner &&
-                    context.Author.Id == cfg.OwnerId)
+                if (Permission == MinimumPermission.BotOwner &&
+                context.User.Id == cfg.OwnerId)
                 {
                     return Task.FromResult(PreconditionResult.FromSuccess());
                 }
 
-                var chan = context.Channel as IGuildChannel;
-                var user = context.Author as IGuildUser;
-                if (chan != null && user != null)
+                var chan = context.Channel as ITextChannel;
+                var user = context.User as IGuildUser;
+
+                if (chan != null && user != null &&
+                    cfg.ChannelModuleWhitelist[chan.Id].Contains(command.Module.Name))
                 {
-                    if (Permission <= MinimumPermission.GuildOwner &&
-                        user.Id == chan.Guild.OwnerId)
+                    if (Permission == MinimumPermission.Special &&
+                        cfg.SpecialPermissionUsersList[chan.Id].Contains(user.Id))
                     {
-                            return Task.FromResult(PreconditionResult.FromSuccess());
+                        return Task.FromResult(PreconditionResult.FromSuccess());
                     }
-                    else if (cfg.ChannelModuleWhitelist[chan.Id].Contains(executingCommand.Module.Name))
+                    else if (Permission <= MinimumPermission.GuildOwner &&
+                        user.Id == context.Guild.OwnerId)
                     {
-                        if (Permission == MinimumPermission.Special &&
-                            cfg.SpecialPermissionUsersList[chan.Id].Contains(user.Id))
-                        {
-                                return Task.FromResult(PreconditionResult.FromSuccess());
-                        }
-                        else if (Permission <= MinimumPermission.AdminRole &&
-                            user.Roles.Any(r => r.Id == cfg.GuildAdminRole[chan.Guild.Id]))
-                        {
-                                return Task.FromResult(PreconditionResult.FromSuccess());
-                        }
-                        else if (Permission <= MinimumPermission.ModRole &&
-                            user.Roles.Any(r => r.Id == cfg.GuildModRole[chan.Guild.Id]))
-                        {
-                                return Task.FromResult(PreconditionResult.FromSuccess());
-                        }
-                        else if (Permission == MinimumPermission.Everyone)
-                        {
-                            return Task.FromResult(PreconditionResult.FromSuccess());
-                        }
+                        return Task.FromResult(PreconditionResult.FromSuccess());
+                    }
+                    else if (Permission <= MinimumPermission.AdminRole &&
+                        user.RoleIds.Any(r => r == cfg.GuildAdminRole[context.Guild.Id]))
+                    {
+                        return Task.FromResult(PreconditionResult.FromSuccess());
+                    }
+                    else if (Permission <= MinimumPermission.ModRole &&
+                        user.RoleIds.Any(r => r == cfg.GuildModRole[context.Guild.Id]))
+                    {
+                        return Task.FromResult(PreconditionResult.FromSuccess());
+                    }
+                    else if (Permission == MinimumPermission.Everyone)
+                    {
+                        return Task.FromResult(PreconditionResult.FromSuccess());
+                    }
+                    else
+                    {
+                        return Task.FromResult(PreconditionResult.FromError("Insufficient permission."));
                     }
                 }
                 else
-                {
-                    return Task.FromResult(PreconditionResult.FromError("Insufficient permission."));
-                }
+                    return Task.FromResult(PreconditionResult.FromError("Command not whitelisted"));
             }
-            return Task.FromResult(PreconditionResult.FromError("No config found."));
+            else
+                return Task.FromResult(PreconditionResult.FromError("No config found."));
         }
     }
 }

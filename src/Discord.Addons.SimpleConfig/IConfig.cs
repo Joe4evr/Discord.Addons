@@ -10,9 +10,9 @@
         /// </summary>
         ulong OwnerId { get; }
 
-        /// <summary>
-        /// The bot's login token.
-        /// </summary>
-        string LoginToken { get; }
+        ///// <summary>
+        ///// The bot's login token.
+        ///// </summary>
+        //string LoginToken { get; }
     }
 }

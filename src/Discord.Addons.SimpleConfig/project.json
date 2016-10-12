@@ -1,5 +1,5 @@
 {
-    "version": "0.2.4-*",
+    "version": "0.2.5-*",
     "description": "Interfaces for a basic configuration implementation.",
     "authors": [ "Joe4evr" ],
 
@@ -23,7 +23,7 @@
     },
 
     "dependencies": {
-        "Discord.Net": "1.0.0-beta-*"
+        "Discord.Net": "1.0.0-beta2-*"
     },
 
     "frameworks": {

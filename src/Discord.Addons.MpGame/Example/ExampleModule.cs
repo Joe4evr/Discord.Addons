@@ -8,182 +8,152 @@ using Discord.Commands;
 
 namespace Example
 {
-    [Module("ex")] //Needed to load methods as commands
     public sealed class ExampleModule : MpGameModuleBase<ExampleGame, Player> //Specify the type of the game and the type of its player
     {
-                              //You may have reasons to not annotate a particular method with [Command],
-        [Command("opengame")] //and you'll likely have to add MORE commands depending on the game
-        public override async Task OpenGameCmd(IUserMessage msg)
+        public ExampleModule(MpGameService<ExampleGame, Player> gameService)
+            : base(gameService)
         {
-            bool gip;
-            bool open;
-            if (GameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
+        }
+
+        //You may have reasons to not annotate a particular method with [Command],
+        [Command("opengame")] //and you'll likely have to add MORE commands depending on the game
+        public override async Task OpenGameCmd()
+        {
+            if (GameInProgress)
             {
-                await msg.Channel.SendMessageAsync("Another game already in progress.");
+                await ReplyAsync("Another game already in progress.");
             }
-            else if (OpenToJoin.TryGetValue(msg.Channel.Id, out open) && open)
+            else if (OpenToJoin)
             {
-                await msg.Channel.SendMessageAsync("There is already a game open to join.");
+                await ReplyAsync("There is already a game open to join.");
             }
             else
             {
-                if (OpenToJoin.TryUpdate(msg.Channel.Id, newValue: true, comparisonValue: false))
+                if (GameService.TryUpdateOpenToJoin(Context.Channel.Id, newValue: true, comparisonValue: false))
                 {
                     //UserComparer is a property on the base class you can use to determine user-uniqueness
-                    PlayerList[msg.Channel.Id] = new HashSet<IGuildUser>(UserComparer);
-                    await msg.Channel.SendMessageAsync("Opening for a game.");
+                    GameService.SetPlayerList(Context.Channel.Id, new HashSet<IGuildUser>(UserComparer));
+                    await ReplyAsync("Opening for a game.");
                 }
             }
         }
 
-                          //Note that we should always check if the channel already has a game going
+        //Note that we should always check if the channel already has a game going
         [Command("join")] //or wants people to join before taking action
-        public override async Task JoinGameCmd(IUserMessage msg)
+        public override async Task JoinGameCmd()
         {
-            bool gip;
-            bool open;
-            if (GameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
+            if (GameInProgress)
             {
-                await msg.Channel.SendMessageAsync("Cannot join a game already in progress.");
+                await ReplyAsync("Cannot join a game already in progress.");
             }
-            else if (!OpenToJoin.TryGetValue(msg.Channel.Id, out open) || !open)
+            else if (!OpenToJoin)
             {
-                await msg.Channel.SendMessageAsync("No game open to join.");
+                await ReplyAsync("No game open to join.");
             }
             else
             {
-                var author = msg.Author as IGuildUser;
-                if (author != null)
+                var author = Context.User as IGuildUser;
+                if (author != null && PlayerList.Add(author))
                 {
-                    if (PlayerList[msg.Channel.Id].Add(author))
-                        await msg.Channel.SendMessageAsync($"**{author.Username}** has joined.");
+                    await ReplyAsync($"**{author.Username}** has joined.");
                 }
             }
         }
 
         [Command("leave")] //Users can leave if the game hasn't started yet
-        public override async Task LeaveGameCmd(IUserMessage msg)
+        public override async Task LeaveGameCmd()
         {
-            bool gip;
-            bool open;
-            if (GameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
+            if (GameInProgress)
             {
-                await msg.Channel.SendMessageAsync("Cannot leave a game already in progress.");
+                await ReplyAsync("Cannot leave a game already in progress.");
             }
-            else if (!OpenToJoin.TryGetValue(msg.Channel.Id, out open) || !open)
+            else if (!OpenToJoin)
             {
-                await msg.Channel.SendMessageAsync("No game open to leave.");
+                await ReplyAsync("No game open to leave.");
             }
             else
             {
-                var author = msg.Author as IGuildUser;
-                if (author != null && PlayerList[msg.Channel.Id].Remove(author))
+                var author = Context.User as IGuildUser;
+                if (author != null && PlayerList.Remove(author))
                 {
-                    await msg.Channel.SendMessageAsync($"**{author.Username}** has left.");
+                    await ReplyAsync($"**{author.Username}** has left.");
                 }
             }
         }
 
         [Command("cancel")] //Cancel the game if it hasn't started yet
-        public override async Task CancelGameCmd(IUserMessage msg)
+        public override async Task CancelGameCmd()
         {
-            bool gip;
-            bool open;
-            if (GameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
+            if (GameInProgress)
             {
-                await msg.Channel.SendMessageAsync("Cannot cancel a game already in progress.");
+                await ReplyAsync("Cannot cancel a game already in progress.");
             }
-            else if (!OpenToJoin.TryGetValue(msg.Channel.Id, out open) || !open)
+            else if (!OpenToJoin)
             {
-                await msg.Channel.SendMessageAsync("No game open to cancel.");
+                await ReplyAsync("No game open to cancel.");
             }
             else
             {
-                if (OpenToJoin.TryUpdate(msg.Channel.Id, newValue: false, comparisonValue: true))
-                { 
-                    PlayerList[msg.Channel.Id].Clear();
-                    await msg.Channel.SendMessageAsync("Game was canceled.");
+                if (GameService.TryUpdateOpenToJoin(Context.Channel.Id, newValue: false, comparisonValue: true))
+                {
+                    PlayerList.Clear();
+                    await ReplyAsync("Game was canceled.");
                 }
             }
         }
 
         [Command("start")] //Start the game
-        public override async Task StartGameCmd(IUserMessage msg)
+        public override async Task StartGameCmd()
         {
-            bool gip;
-            bool open;
-            if (GameInProgress.TryGetValue(msg.Channel.Id, out gip) && gip)
+            if (GameInProgress)
             {
-                await msg.Channel.SendMessageAsync("Another game already in progress.");
+                await ReplyAsync("Another game already in progress.");
             }
-            else if (!OpenToJoin.TryGetValue(msg.Channel.Id, out open) || !open)
+            else if (!OpenToJoin)
             {
-                await msg.Channel.SendMessageAsync("No game has been opened at this time.");
+                await ReplyAsync("No game has been opened at this time.");
             }
-            else if (PlayerList[msg.Channel.Id].Count < 4) //Example value if a game has a minimum player requirement
+            else if (PlayerList.Count < 4) //Example value if a game has a minimum player requirement
             {
-                await msg.Channel.SendMessageAsync("Not enough players have joined.");
+                await ReplyAsync("Not enough players have joined.");
             }
             else
             {
                 //Tip: Shuffle the players before projecting them
-                var players = PlayerList[msg.Channel.Id].Select(u => new Player(u, msg.Channel));
+                var players = PlayerList.Select(u => new Player(u, Context.Channel));
                 //The Player class can also be extended for additional properties
 
-                OpenToJoin[msg.Channel.Id] = false;
-                GameList[msg.Channel.Id] = new ExampleGame(msg.Channel, players);
-                GameInProgress[msg.Channel.Id] = true;
-                await GameList[msg.Channel.Id].SetupGame();
-                await GameList[msg.Channel.Id].StartGame();
+                var game = new ExampleGame(Context.Channel, players);
+                GameService.SetOpenToJoin(Context.Channel.Id, false);
+                GameService.AddNewGame(Context.Channel.Id, game);
+                GameService.SetInProgress(Context.Channel.Id, true);
+                await game.SetupGame();
+                await game.StartGame();
             }
         }
 
         [Command("turn")] //Advance to the next turn
-        public override async Task NextTurnCmd(IUserMessage msg)
-        {
-            ExampleGame game;
-            if (GameList.TryGetValue(msg.Channel.Id, out game))
-            {
-                await game.NextTurn();
-            }
-            else
-            {
-                await msg.Channel.SendMessageAsync("No game in progress.");
-            }
-        }
+        public override Task NextTurnCmd()
+            => Game != null ? Game.NextTurn() : ReplyAsync("No game in progress.");
 
-                           //Post a message that represents the game's state
+        //Post a message that represents the game's state
         [Command("state")] //Remember there's a 2000 character limit
-        public override async Task GameStateCmd(IUserMessage msg)
+        public override Task GameStateCmd()
+           => Game != null ? ReplyAsync(Game.GetGameState()) : ReplyAsync("No game in progress.");
+
+        //Command to end a game before a win-condition is met
+        [Command("end")] //Should be restricted to mods/admins to prevent abuse
+        public override async Task EndGameCmd()
         {
             ExampleGame game;
-            if (GameList.TryGetValue(msg.Channel.Id, out game))
+            if (!GameInProgress)
             {
-                await msg.Channel.SendMessageAsync(game.GetGameState());
+                await ReplyAsync("No game in progress to end.");
             }
-            else
+            else if (GameService.TryRemoveGame(Context.Channel.Id, out game))
             {
-                await msg.Channel.SendMessageAsync("No game in progress.");
-            }
-        }
-
-                         //Command to end a game before a win-condition is met
-        [Command("end")] //Should be restricted to mods/admins to prevent abuse
-        public override async Task EndGameCmd(IUserMessage msg)
-        {
-            bool gip;
-            if (!GameInProgress.TryGetValue(msg.Channel.Id, out gip) || !gip)
-            {
-                await msg.Channel.SendMessageAsync("No game in progress to end.");
-            }
-            else
-            {
-                ExampleGame game;
-                if (GameInProgress.TryUpdate(msg.Channel.Id, newValue: false, comparisonValue: true) &&
-                    GameList.TryRemove(msg.Channel.Id, out game))
-                {
-                    await game.EndGame("Game ended early by moderator.");
-                }
+                await game.EndGame("Game ended early by moderator.");
+                GameService.SetInProgress(Context.Channel.Id, false);
             }
         }
     }
