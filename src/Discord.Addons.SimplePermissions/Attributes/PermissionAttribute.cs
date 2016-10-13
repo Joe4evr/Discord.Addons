@@ -32,19 +32,18 @@ namespace Discord.Addons.SimplePermissions
         public override Task<PreconditionResult> CheckPermissions(CommandContext context, CommandInfo command, IDependencyMap map)
         {
             var cfg = map.Get<PermissionsService>().Config;
+            var chan = context.Channel;
+            var user = context.User;
+
             if (cfg != null)
             {
                 if (Permission == MinimumPermission.BotOwner &&
-                context.User.Id == cfg.OwnerId)
+                    user.Id == cfg.OwnerId)
                 {
                     return Task.FromResult(PreconditionResult.FromSuccess());
                 }
 
-                var chan = context.Channel as ITextChannel;
-                var user = context.User as IGuildUser;
-
-                if (chan != null && user != null &&
-                    cfg.ChannelModuleWhitelist[chan.Id].Contains(command.Module.Name))
+                if (cfg.ChannelModuleWhitelist[chan.Id].Contains(command.Module.Name))
                 {
                     if (Permission == MinimumPermission.Special &&
                         cfg.SpecialPermissionUsersList[chan.Id].Contains(user.Id))
@@ -52,17 +51,17 @@ namespace Discord.Addons.SimplePermissions
                         return Task.FromResult(PreconditionResult.FromSuccess());
                     }
                     else if (Permission <= MinimumPermission.GuildOwner &&
-                        user.Id == context.Guild.OwnerId)
+                        context.Guild?.OwnerId == user.Id)
                     {
                         return Task.FromResult(PreconditionResult.FromSuccess());
                     }
                     else if (Permission <= MinimumPermission.AdminRole &&
-                        user.RoleIds.Any(r => r == cfg.GuildAdminRole[context.Guild.Id]))
+                        (user as IGuildUser)?.RoleIds.Any(r => r == cfg.GuildAdminRole[context.Guild.Id]) == true)
                     {
                         return Task.FromResult(PreconditionResult.FromSuccess());
                     }
                     else if (Permission <= MinimumPermission.ModRole &&
-                        user.RoleIds.Any(r => r == cfg.GuildModRole[context.Guild.Id]))
+                        (user as IGuildUser)?.RoleIds.Any(r => r == cfg.GuildModRole[context.Guild.Id]) == true)
                     {
                         return Task.FromResult(PreconditionResult.FromSuccess());
                     }
