@@ -66,11 +66,17 @@ namespace Discord.Addons.MpGame
         /// </summary>
         /// <param name="endmsg">The message that should be displayed announcing
         /// the win condition or forced end of the game.</param>
-        public abstract Task EndGame(string endmsg);
+        public virtual async Task EndGame(string endmsg)
+        {
+            await Channel.SendMessageAsync(endmsg);
+            await GameEnd(Channel.Id);
+        }
 
         /// <summary>
         /// Get a string that represent the state of the game.
         /// </summary>
         public abstract string GetGameState();
+
+        internal event Func<ulong, Task> GameEnd;
     }
 }

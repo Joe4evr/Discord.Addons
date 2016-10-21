@@ -1,5 +1,5 @@
 {
-    "version": "0.6.7",
+    "version": "0.6.8",
     "description": "Base classes for text-based games in Discord",
     "authors": [ "Joe4evr" ],
 
@@ -29,9 +29,7 @@
     },
 
     "dependencies": {
-        "Microsoft.CodeAnalysis.Analyzers": "1.1.0",
-        "Microsoft.CodeAnalysis.CSharp": "1.3.0",
-        "Discord.Net": "1.0.0-beta2-*",
+        "Discord.Net.Core": "1.0.0-beta2-*",
         "Discord.Net.Commands": "1.0.0-beta2-*"
     },
 
@@ -39,11 +37,9 @@
         "netstandard1.3": {
             "dependencies": {
                 "NETStandard.Library": {
-                    "type": "platform",
                     "version": "1.6.0"
                 }
-            },
-            "imports": "dnxcore50"
+            }
         }
     }
 }

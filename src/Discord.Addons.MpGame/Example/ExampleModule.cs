@@ -8,7 +8,7 @@ using Discord.Commands;
 
 namespace Example
 {
-    public sealed class ExampleModule : MpGameModuleBase<ExampleGame, Player> //Specify the type of the game and the type of its player
+    public sealed class ExampleModule : MpGameModuleBase<MpGameService<ExampleGame, Player>, ExampleGame, Player> //Specify the type of the game and the type of its player
     {
         public ExampleModule(MpGameService<ExampleGame, Player> gameService)
             : base(gameService)
@@ -31,8 +31,7 @@ namespace Example
             {
                 if (GameService.TryUpdateOpenToJoin(Context.Channel.Id, newValue: true, comparisonValue: false))
                 {
-                    //UserComparer is a property on the base class you can use to determine user-uniqueness
-                    GameService.SetPlayerList(Context.Channel.Id, new HashSet<IGuildUser>(UserComparer));
+                    GameService.MakeNewPlayerList(Context.Channel.Id);
                     await ReplyAsync("Opening for a game.");
                 }
             }
@@ -119,41 +118,43 @@ namespace Example
             }
             else
             {
-                //Tip: Shuffle the players before projecting them
-                var players = PlayerList.Select(u => new Player(u, Context.Channel));
-                //The Player class can also be extended for additional properties
+                if (GameService.TryUpdateOpenToJoin(Context.Channel.Id, newValue: false, comparisonValue: true))
+                {
+                    //Tip: Shuffle the players before projecting them
+                    var players = PlayerList.Select(u => new Player(u, Context.Channel));
+                    //The Player class can also be extended for additional properties
 
-                var game = new ExampleGame(Context.Channel, players);
-                GameService.SetOpenToJoin(Context.Channel.Id, false);
-                GameService.AddNewGame(Context.Channel.Id, game);
-                GameService.SetInProgress(Context.Channel.Id, true);
-                await game.SetupGame();
-                await game.StartGame();
+                    var game = new ExampleGame(Context.Channel, players);
+                    if (GameService.TryAddNewGame(Context.Channel.Id, game))
+                    {
+                        await game.SetupGame();
+                        await game.StartGame();
+                    }
+                }
             }
         }
 
         [Command("turn")] //Advance to the next turn
         public override Task NextTurnCmd()
-            => Game != null ? Game.NextTurn() : ReplyAsync("No game in progress.");
+            => GameInProgress ? Game.NextTurn() : ReplyAsync("No game in progress.");
 
         //Post a message that represents the game's state
         [Command("state")] //Remember there's a 2000 character limit
         public override Task GameStateCmd()
-           => Game != null ? ReplyAsync(Game.GetGameState()) : ReplyAsync("No game in progress.");
+           => GameInProgress ? ReplyAsync(Game.GetGameState()) : ReplyAsync("No game in progress.");
 
         //Command to end a game before a win-condition is met
         [Command("end")] //Should be restricted to mods/admins to prevent abuse
         public override async Task EndGameCmd()
         {
-            ExampleGame game;
             if (!GameInProgress)
             {
                 await ReplyAsync("No game in progress to end.");
             }
-            else if (GameService.TryRemoveGame(Context.Channel.Id, out game))
+            else
             {
-                await game.EndGame("Game ended early by moderator.");
-                GameService.SetInProgress(Context.Channel.Id, false);
+                await Game.EndGame("Game ended early by moderator.");
+                //GameService.SetInProgress(Context.Channel.Id, false);
             }
         }
     }

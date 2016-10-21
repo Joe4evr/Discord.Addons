@@ -4,7 +4,7 @@
     /// Defines a contract that stores and loads an <see cref="IConfig"/>.
     /// </summary>
     /// <typeparam name="TConfig">Type of the config object.</typeparam>
-    public interface IConfigStore<TConfig>
+    public interface IConfigStore<out TConfig>
         where TConfig : IConfig
     {
         /// <summary>
@@ -16,6 +16,6 @@
         /// <summary>
         /// Save the config object to a persistent location.
         /// </summary>
-        void Save(TConfig config);
+        void Save();
     }
 }

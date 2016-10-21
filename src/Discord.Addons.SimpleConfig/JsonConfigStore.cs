@@ -10,9 +10,10 @@ namespace Discord.Addons.SimpleConfig
     /// </summary>
     /// <typeparam name="TConfig"></typeparam>
     public sealed class JsonConfigStore<TConfig> : IConfigStore<TConfig>
-        where TConfig : IConfig
+        where TConfig : IConfig, new()
     {
         private readonly string _jsonPath;
+        private readonly TConfig _config;
 
         /// <summary>
         /// Initializes a new instance of <see cref="JsonConfigStore{TConfig}"/>.
@@ -22,9 +23,10 @@ namespace Discord.Addons.SimpleConfig
         public JsonConfigStore(string path)
         {
             if (path == null) throw new ArgumentNullException(nameof(path));
-            if (!File.Exists(path)) File.WriteAllText(path, "{}");
+            if (!File.Exists(path)) File.WriteAllText(path, JsonConvert.SerializeObject(new TConfig(), Formatting.Indented));
 
             _jsonPath = path;
+            _config = JsonConvert.DeserializeObject<TConfig>(File.ReadAllText(_jsonPath));
         }
 
         /// <summary>
@@ -33,16 +35,15 @@ namespace Discord.Addons.SimpleConfig
         /// <returns>The configuration object.</returns>
         public TConfig Load()
         {
-            return JsonConvert.DeserializeObject<TConfig>(File.ReadAllText(_jsonPath));
+            return _config;
         }
 
         /// <summary>
         /// Saves the configuration object to disk.
         /// </summary>
-        /// <param name="config">The configuration object.</param>
-        public void Save(TConfig config)
+        public void Save()
         {
-            File.WriteAllText(_jsonPath, JsonConvert.SerializeObject(config));
+            File.WriteAllText(_jsonPath, JsonConvert.SerializeObject(_config, Formatting.Indented));
         }
     }
 }

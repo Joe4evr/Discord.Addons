@@ -1,5 +1,5 @@
 {
-    "version": "0.2.5-*",
+    "version": "0.2.6-*",
     "description": "Interfaces for a basic configuration implementation.",
     "authors": [ "Joe4evr" ],
 
@@ -23,14 +23,13 @@
     },
 
     "dependencies": {
-        "Discord.Net": "1.0.0-beta2-*"
+        "Discord.Net.Core": "1.0.0-beta2-*"
     },
 
     "frameworks": {
         "netstandard1.3": {
             "dependencies": {
                 "NETStandard.Library": {
-                    "type": "platform",
                     "version": "1.6.0"
                 }
             },

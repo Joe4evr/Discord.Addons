@@ -31,7 +31,7 @@ namespace Discord.Addons.SimplePermissions
         /// <returns></returns>
         public override Task<PreconditionResult> CheckPermissions(CommandContext context, CommandInfo command, IDependencyMap map)
         {
-            var cfg = map.Get<PermissionsService>().Config;
+            var cfg = map.Get<PermissionsService>().ConfigStore.Load();
             var chan = context.Channel;
             var user = context.User;
 
@@ -43,7 +43,7 @@ namespace Discord.Addons.SimplePermissions
                     return Task.FromResult(PreconditionResult.FromSuccess());
                 }
 
-                if (cfg.ChannelModuleWhitelist[chan.Id].Contains(command.Module.Name))
+                if (cfg.ChannelModuleWhitelist[chan.Id].Contains(command.Module.Source.FullName))
                 {
                     if (Permission == MinimumPermission.Special &&
                         cfg.SpecialPermissionUsersList[chan.Id].Contains(user.Id))

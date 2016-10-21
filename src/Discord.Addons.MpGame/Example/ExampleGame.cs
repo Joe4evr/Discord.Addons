@@ -41,10 +41,10 @@ namespace Example
             _state = GameState.StartOfTurn;
         }
 
-        public override async Task EndGame(string endmsg)
-        {
-            await Channel.SendMessageAsync(endmsg);
-        }
+        //If you override EndGame() for your own behavior, you MUST call the base implementation
+
+        //public override Task EndGame(string endmsg)
+        //    => base.EndGame(endmsg);
 
         //Create a string that represents the current state of the game
         public override string GetGameState()

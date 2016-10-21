@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Discord.Commands;
@@ -10,37 +11,46 @@ namespace Discord.Addons.SimplePermissions
     /// <summary>
     /// 
     /// </summary>
-    public class PermissionsModule : ModuleBase
+    [Name("Permissions")]
+    public sealed class PermissionsModule : ModuleBase
     {
+        internal static readonly string permModuleName = typeof(PermissionsModule).FullName;
+        private static readonly Type hiddenAttr = typeof(HiddenAttribute);
+        //private static readonly TypeInfo permBase = typeof(PermissionModuleBase).GetTypeInfo();
+
         private readonly PermissionsService _permService;
         private readonly CommandService _cmdService;
+        private readonly IDependencyMap _map;
 
         /// <summary>
         /// 
         /// </summary>
-        public PermissionsModule(PermissionsService permService, CommandService cmdService)
+        public PermissionsModule(
+            PermissionsService permService,
+            CommandService cmdService,
+            IDependencyMap map)
         {
             if (permService == null) throw new ArgumentNullException(nameof(permService));
             if (cmdService == null) throw new ArgumentNullException(nameof(cmdService));
 
             _permService = permService;
             _cmdService = cmdService;
+            _map = map;
         }
 
         /// <summary>
         /// Display commands you can use or how to use them.
         /// </summary>
         [Command("help"), Permission(MinimumPermission.Everyone)]
-        [Summary("Display commands you can use or how to use them.")]
+        [Summary("Display commands you can use.")]
         public async Task HelpCmd()
         {
-            var sb = new StringBuilder();
-            var cmds = (await _cmdService.Commands.CheckConditions(Context))
-                .Where(c => !c.Source.CustomAttributes.Any(a => a.AttributeType.Equals(typeof(HiddenAttribute))))
-                .GroupBy(c => c.Name);
+            var cmds = (await _cmdService.Commands.CheckConditions(Context, _map))
+                .Where(c => !c.Source.CustomAttributes.Any(a => a.AttributeType.Equals(hiddenAttr)))
+                .GroupBy(c => c.Module.Name);
 
-            sb.AppendLine("You can use the following commands:")
-                .AppendLine($"`{String.Join("`, `", cmds.SelectMany(g => g.Select(c => c.Name)).Distinct())}`\n")
+            var sb = new StringBuilder("You can use the following commands:\n")
+                .AppendLine($"`{String.Join("`, `", cmds.SelectMany(g => g.Select(c => c.Text)).Distinct())}`\n")
                 .Append("You can use `help <command>` for more information on that command.");
 
             await ReplyAsync(sb.ToString());
@@ -51,20 +61,21 @@ namespace Discord.Addons.SimplePermissions
         /// </summary>
         /// <param name="cmdname"></param>
         [Command("help"), Permission(MinimumPermission.Everyone)]
-        [Summary("Display commands you can use or how to use them.")]
+        [Summary("Display how you can use a command.")]
         public async Task HelpCmd(string cmdname)
         {
             var sb = new StringBuilder();
-            var cmds = (await _cmdService.Commands.CheckConditions(Context))
-                .Where(c => c.Name.Equals(cmdname, StringComparison.OrdinalIgnoreCase) &&
-                    !c.Source.CustomAttributes.Any(a => a.AttributeType.Equals(typeof(HiddenAttribute))));
+            var cmds = (await _cmdService.Commands.CheckConditions(Context, _map))
+                .Where(c => c.Text.Equals(cmdname, StringComparison.OrdinalIgnoreCase) &&
+                    !c.Source.CustomAttributes.Any(a => a.AttributeType.Equals(hiddenAttr)));
 
             if (cmds.Count() > 0)
             {
-                sb.AppendLine(cmds.First().Name);
+                sb.AppendLine($"`{cmds.First().Text}`");
                 foreach (var cmd in cmds)
                 {
                     sb.AppendLine('\t' + cmd.Summary);
+                    if (cmd.Parameters.Count > 0)
                     sb.AppendLine($"\t\t{String.Join(" ", cmd.Parameters.Select(p => formatParam(p)))}");
                 }
             }
@@ -127,7 +138,19 @@ namespace Discord.Addons.SimplePermissions
             var ch = Context.Channel as IGuildChannel;
             if (ch != null)
             {
-                await ReplyAsync($"All loaded modules:\n {String.Join("\n", _cmdService.Modules.Select(m => m.Name))}");
+                var mods = _cmdService.Modules
+                    .Where(m => m.Source.FullName != permModuleName)
+                    .Select(m => new { m.Name, m.Source.FullName });
+                var index = 1;
+                var sb = new StringBuilder("All loaded modules:\n```");
+                foreach (var m in mods)
+                {
+                    sb.AppendLine($"{index,3}: {m.Name} ({m.FullName})");
+                    index++;
+                }
+                sb.Append("```");
+                    
+                await ReplyAsync(sb.ToString());
             }
         }
 
@@ -224,12 +247,16 @@ namespace Discord.Addons.SimplePermissions
         public async Task WhitelistModule(string modName)
         {
             var ch = Context.Channel as IGuildChannel;
-            var mod = _cmdService.Modules.SingleOrDefault(m => m.Name == modName);
+            var mod = _cmdService.Modules.SingleOrDefault(m => m.Source.FullName == modName);
             if (mod != null)
             {
-                if (_permService.Config.ChannelModuleWhitelist[ch.Id].Add(mod.Name))
+                if (_permService.Config.ChannelModuleWhitelist[ch.Id].Add(mod.Source.FullName))
                 {
                     _permService.SaveConfig();
+                    //if (permBase.IsAssignableFrom(mod.Source))
+                    //{
+                    //    mod.Source.InvokeMember
+                    //}
                     await ReplyAsync($"Module `{mod.Name}` is now whitelisted in this channel.");
                 }
             }
@@ -245,32 +272,19 @@ namespace Discord.Addons.SimplePermissions
         public async Task BlacklistModule(string modName)
         {
             var ch = Context.Channel as IGuildChannel;
-            var mod = _cmdService.Modules.SingleOrDefault(m => m.Name == modName);
+            var mod = _cmdService.Modules.SingleOrDefault(m => m.Source.FullName == modName);
             if (mod != null)
             {
-                if (_permService.Config.ChannelModuleWhitelist[ch.Id].Remove(mod.Name))
+                if (mod.Source.FullName == permModuleName)
+                {
+                    await ReplyAsync($"Not allowed to blacklist {nameof(PermissionsModule)}.");
+                }
+                else if (_permService.Config.ChannelModuleWhitelist[ch.Id].Remove(mod.Source.FullName))
                 {
                     _permService.SaveConfig();
                     await ReplyAsync($"Module `{mod.Name}` is now blacklisted in this channel.");
                 }
             }
-        }
-    }
-
-    internal static class Ext
-    {
-        public static async Task<IEnumerable<CommandInfo>> CheckConditions(
-            this IEnumerable<CommandInfo> commands, CommandContext ctx)
-        {
-            var ret = new List<CommandInfo>();
-            foreach (var cmd in commands)
-            {
-                if ((await cmd.CheckPreconditions(ctx)).IsSuccess)
-                {
-                    ret.Add(cmd);
-                }
-            }
-            return ret;
         }
     }
 }

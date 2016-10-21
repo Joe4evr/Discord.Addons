@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,18 +9,14 @@ namespace Discord.Addons.MpGame
     /// <summary>
     /// Base class to manage a game between Discord users.
     /// </summary>
+    /// <typeparam name="TService">The type of the service managing longer lived objects.</typeparam>
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
-    public abstract class MpGameModuleBase<TGame, TPlayer> : ModuleBase
+    public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase
+        where TService : MpGameService<TGame, TPlayer>
         where TGame : GameBase<TPlayer>
         where TPlayer : Player
     {
-        /// <summary>
-        /// A cached <see cref="IEqualityComparer{IGuildUser}"/> instance to use when
-        /// instantiating the <see cref="PlayerList"/>'s <see cref="HashSet{IGuildUser}"/>.
-        /// </summary>
-        protected static readonly IEqualityComparer<IGuildUser> UserComparer = new EntityEqualityComparer<ulong>();
-
         /// <summary>
         /// Determines if a game in the current channel is open to join or not.
         /// </summary>
@@ -45,20 +40,21 @@ namespace Discord.Addons.MpGame
         /// <summary>
         /// The <see cref="MpGameService{TGame, TPlayer}"/> instance.
         /// </summary>
-        protected readonly MpGameService<TGame, TPlayer> GameService;
+        protected readonly TService GameService;
 
         /// <summary>
-        /// Initializes the <see cref="MpGameModuleBase{TGame, TPlayer}"/> base class.
+        /// Initializes the <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/> base class.
         /// </summary>
         /// <param name="gameService"></param>
-        protected MpGameModuleBase(MpGameService<TGame, TPlayer> gameService)
+        protected MpGameModuleBase(TService gameService)
         {
             if (gameService == null) throw new ArgumentNullException(nameof(gameService));
 
             gameService.OpenToJoin.TryGetValue(Context.Channel.Id, out OpenToJoin);
-            gameService.GameInProgress.TryGetValue(Context.Channel.Id, out GameInProgress);
-            gameService.GameList.TryGetValue(Context.Channel.Id, out Game);
             gameService.PlayerList.TryGetValue(Context.Channel.Id, out PlayerList);
+
+            GameInProgress = gameService.GameList.TryGetValue(Context.Channel.Id, out Game);
+            
             GameService = gameService;
         }
 
