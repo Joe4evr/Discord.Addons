@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using Discord.Net;
 
 namespace Discord.Addons.MpGame
 {
@@ -43,6 +41,7 @@ namespace Discord.Addons.MpGame
 
             Channel = channel;
             Players = new CircularLinkedList<TPlayer>(players);
+            TurnPlayer = Players.Head;
         }
 
         /// <summary>

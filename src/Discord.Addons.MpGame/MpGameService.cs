@@ -14,16 +14,16 @@ namespace Discord.Addons.MpGame
         where TPlayer : Player
     {
         /// <summary>
-        /// A cached <see cref="IEqualityComparer{IGuildUser}"/> instance to use when
-        /// instantiating the <see cref="PlayerList"/>'s <see cref="HashSet{IGuildUser}"/>.
+        /// A cached <see cref="IEqualityComparer{IUser}"/> instance to use when
+        /// instantiating the <see cref="PlayerList"/>'s <see cref="HashSet{IUser}"/>.
         /// </summary>
-        private static readonly IEqualityComparer<IGuildUser> UserComparer = new EntityEqualityComparer<ulong>();
+        private static readonly IEqualityComparer<IUser> UserComparer = new EntityEqualityComparer<ulong>();
 
         private readonly ConcurrentDictionary<ulong, TGame> _gameList
             = new ConcurrentDictionary<ulong, TGame>();
 
-        private readonly ConcurrentDictionary<ulong, HashSet<IGuildUser>> _playerList
-            = new ConcurrentDictionary<ulong, HashSet<IGuildUser>>();
+        private readonly ConcurrentDictionary<ulong, HashSet<IUser>> _playerList
+            = new ConcurrentDictionary<ulong, HashSet<IUser>>();
 
         private readonly ConcurrentDictionary<ulong, bool> _openToJoin
             = new ConcurrentDictionary<ulong, bool>();
@@ -31,18 +31,18 @@ namespace Discord.Addons.MpGame
         /// <summary>
         /// The instance of a game being played, keyed by channel ID.
         /// </summary>
-        public IReadOnlyDictionary<ulong, TGame> GameList => _gameList;
+        internal IReadOnlyDictionary<ulong, TGame> GameList => _gameList;
 
         /// <summary>
         /// The list of users scheduled to join game, keyed by channel ID.
         /// </summary>
-        public IReadOnlyDictionary<ulong, HashSet<IGuildUser>> PlayerList => _playerList;
+        internal IReadOnlyDictionary<ulong, HashSet<IUser>> PlayerList => _playerList;
 
 
         /// <summary>
         /// Indicates whether the users can join a game about to start, keyed by channel ID.
         /// </summary>
-        public IReadOnlyDictionary<ulong, bool> OpenToJoin => _openToJoin;
+        internal IReadOnlyDictionary<ulong, bool> OpenToJoin => _openToJoin;
 
 
         /// <summary>
@@ -63,9 +63,10 @@ namespace Discord.Addons.MpGame
         private Task _onGameEnd(ulong channelId)
         {
             TGame game;
-            HashSet<IGuildUser> users;
-            if (_gameList.TryRemove(channelId, out game) && _playerList.TryRemove(channelId, out users))
+            HashSet<IUser> users;
+            if (_gameList.TryRemove(channelId, out game))
             {
+                _playerList.TryRemove(channelId, out users);
                 game.GameEnd -= _onGameEnd;
             }
             return Task.CompletedTask;
@@ -76,7 +77,7 @@ namespace Discord.Addons.MpGame
         /// </summary>
         /// <param name="channelId">The Channel ID.</param>
         public void MakeNewPlayerList(ulong channelId)
-            => _playerList[channelId] = new HashSet<IGuildUser>(UserComparer);
+            => _playerList[channelId] = new HashSet<IUser>(UserComparer);
 
         /// <summary>
         /// Updates the flag indicating if a game can be joined or not.

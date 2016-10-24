@@ -18,29 +18,33 @@ namespace Discord.Addons.MpGame
         where TPlayer : Player
     {
         /// <summary>
-        /// Determines if a game in the current channel is open to join or not.
-        /// </summary>
-        protected readonly bool OpenToJoin;
-
-        /// <summary>
         /// Determines if a game in the current channel is in progress or not.
         /// </summary>
-        protected readonly bool GameInProgress;
-
-        /// <summary>
-        /// The instance of the game being played (if active).
-        /// </summary>
-        protected readonly TGame Game;
-
-        /// <summary>
-        /// The list of users ready to play.
-        /// </summary>
-        protected readonly HashSet<IGuildUser> PlayerList;
+        protected bool GameInProgress { get; }
 
         /// <summary>
         /// The <see cref="MpGameService{TGame, TPlayer}"/> instance.
         /// </summary>
-        protected readonly TService GameService;
+        protected TService GameService { get; }
+
+        /// <summary>
+        /// Determines if a game in the current channel is open to join or not.
+        /// </summary>
+        protected bool OpenToJoin => _open;
+
+        /// <summary>
+        /// The list of users ready to play.
+        /// </summary>
+        protected HashSet<IUser> PlayerList => _list;
+
+        /// <summary>
+        /// The instance of the game being played (if active).
+        /// </summary>
+        protected TGame Game => _game;
+
+        private readonly bool _open;
+        private readonly HashSet<IUser> _list;
+        private readonly TGame _game;
 
         /// <summary>
         /// Initializes the <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/> base class.
@@ -50,10 +54,10 @@ namespace Discord.Addons.MpGame
         {
             if (gameService == null) throw new ArgumentNullException(nameof(gameService));
 
-            gameService.OpenToJoin.TryGetValue(Context.Channel.Id, out OpenToJoin);
-            gameService.PlayerList.TryGetValue(Context.Channel.Id, out PlayerList);
+            gameService.OpenToJoin.TryGetValue(Context.Channel.Id, out _open);
+            gameService.PlayerList.TryGetValue(Context.Channel.Id, out _list);
 
-            GameInProgress = gameService.GameList.TryGetValue(Context.Channel.Id, out Game);
+            GameInProgress = gameService.GameList.TryGetValue(Context.Channel.Id, out _game);
             
             GameService = gameService;
         }

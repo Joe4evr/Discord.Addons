@@ -11,9 +11,9 @@ namespace Discord.Addons.MpGame
     public class Player
     {
         /// <summary>
-        /// The underlying <see cref="IGuildUser"/> instance.
+        /// The underlying <see cref="IUser"/> instance.
         /// </summary>
-        public IGuildUser User { get; }
+        public IUser User { get; }
 
         /// <summary>
         /// The user's DM Channel instance.
@@ -23,9 +23,11 @@ namespace Discord.Addons.MpGame
         private readonly IMessageChannel pubChannel;
 
         /// <summary>
-        /// Creates a <see cref="Player"/> out of an <see cref="IGuildUser"/>.
+        /// Creates a <see cref="Player"/> out of an <see cref="IUser"/>.
         /// </summary>
-        public Player(IGuildUser user, IMessageChannel channel)
+        /// <param name="user">The user represented.</param>
+        /// <param name="channel">The channel where this game is played.</param>
+        public Player(IUser user, IMessageChannel channel)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
             if (channel == null) throw new ArgumentNullException(nameof(channel));
@@ -66,6 +68,7 @@ namespace Discord.Addons.MpGame
             {
                 if (unsentDm != null)
                 {
+                    await User.CreateDMChannelAsync();
                     await DmChannel.SendMessageAsync(unsentDm);
                     unsentDm = null;
                 }

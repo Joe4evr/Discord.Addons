@@ -8,7 +8,9 @@ using Discord.Commands;
 
 namespace Example
 {
-    public sealed class ExampleModule : MpGameModuleBase<MpGameService<ExampleGame, Player>, ExampleGame, Player> //Specify the type of the game and the type of its player
+    public sealed class ExampleModule : MpGameModuleBase< //Inherit MpGameModuleBase
+        MpGameService<ExampleGame, Player>, //Specify the type of the service that will keep track of running games
+        ExampleGame, Player> //Specify the type of the game and the type of its player
     {
         public ExampleModule(MpGameService<ExampleGame, Player> gameService)
             : base(gameService)
@@ -51,10 +53,9 @@ namespace Example
             }
             else
             {
-                var author = Context.User as IGuildUser;
-                if (author != null && PlayerList.Add(author))
+                if (PlayerList.Add(Context.User))
                 {
-                    await ReplyAsync($"**{author.Username}** has joined.");
+                    await ReplyAsync($"**{Context.User.Username}** has joined.");
                 }
             }
         }
@@ -72,10 +73,9 @@ namespace Example
             }
             else
             {
-                var author = Context.User as IGuildUser;
-                if (author != null && PlayerList.Remove(author))
+                if (PlayerList.Remove(Context.User))
                 {
-                    await ReplyAsync($"**{author.Username}** has left.");
+                    await ReplyAsync($"**{Context.User.Username}** has left.");
                 }
             }
         }
