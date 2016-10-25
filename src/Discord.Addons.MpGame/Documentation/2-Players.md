@@ -35,7 +35,7 @@ public class CardPlayer : Player
 }
 ```
 
-*In reality, there's no *visible* state held. But in case
+\*In reality, there's no *visible* state held. But in case
 a user has their DMs disabled, the message that couldn't
 be sent is cached in there so it can be resent.
 
