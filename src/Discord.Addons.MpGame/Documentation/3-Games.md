@@ -38,7 +38,7 @@ Continuing on with our card game example:
 public class CardGame : GameBase<CardPlayer> //Any player in a 'CardGame' is of type 'CardPlayer'
 {
     //Again, you need to call the base constructor
-    public CardGame(IMessageChannel channel, IEnumerable<TPlayer> players)
+    public CardGame(IMessageChannel channel, IEnumerable<CardPlayer> players)
         : base(channel, players)
     {
     }
