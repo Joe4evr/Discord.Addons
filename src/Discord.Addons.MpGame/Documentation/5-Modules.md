@@ -43,6 +43,15 @@ public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase
 }
 ```
 
+There are 8 methods you can implement, corresponding to certain
+actions needed in a given game. When you implement these, you decorate them with `[Command]`
+so that the command system recognizes them. There may be methods you don't want or need to
+implement, in which case you can omit the `[Command]` attribute so it can't be called.
+Likewise, you'll probably very likely be adding *more* commands in order to control your game.
+
+One command is pre-defined which will retry sending a DM
+to a user after they have been notified to enable DMs.
+
 With your own service class for persistent data, you should derive
 from this class as follows:
 ```cs
@@ -66,12 +75,6 @@ public class CardGameModule : MpGameModuleBase<MpGameService<CardGame, CardPlaye
     }
 }
 ```
-
-There's 8 `abstract` methods you have to implement, corresponding to certain
-actions needed in a given game. When you implement these, you decorate them with `[Command]`
-so that the command system recognizes them. There may be methods you don't want or need to
-implement, in which case you can omit the `[Command]` attribute so it can't be called.
-Likewise, you'll probably very likely be adding *more* commands in order to control your game.
 
 Example implementations for the abstract methods are as follows:
 ```cs
@@ -215,4 +218,4 @@ public override async Task EndGameCmd()
 }
 ```
 
-[<- Part 4 - Services](4-Services.md) - Modules
+[<- Part 4 - Services](4-Services.md) - Modules [Part 6 - Final step ->](6-FinalStep.md)

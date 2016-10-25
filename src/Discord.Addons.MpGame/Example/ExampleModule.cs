@@ -145,17 +145,7 @@ namespace Example
 
         //Command to end a game before a win-condition is met
         [Command("end")] //Should be restricted to mods/admins to prevent abuse
-        public override async Task EndGameCmd()
-        {
-            if (!GameInProgress)
-            {
-                await ReplyAsync("No game in progress to end.");
-            }
-            else
-            {
-                await Game.EndGame("Game ended early by moderator.");
-                //GameService.SetInProgress(Context.Channel.Id, false);
-            }
-        }
+        public override Task EndGameCmd()
+            => !GameInProgress ? ReplyAsync("No game in progress to end.") : Game.EndGame("Game ended early by moderator.");
     }
 }

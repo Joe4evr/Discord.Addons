@@ -32,5 +32,4 @@ public class CardGameService : MpGameService<CardGame, CardPlayer>
 }
 ```
 
-
 [<- Part 3 - Games](3-Games.md) - Services - [Part 5 - Modules ->](5-Modules.md)

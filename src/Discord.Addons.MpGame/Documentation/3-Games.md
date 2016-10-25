@@ -70,6 +70,7 @@ public class CardGame : GameBase<CardPlayer> //Any player in a 'CardGame' is of 
 
         foreach (var p in Players)
         {
+            //Ideally, you would have a '.ToString()' override on the 'Card' type for this
             await p.SendMessageAsync($"Your hand:\n{String.Join("\n", p.Hand)}");
         }
     }
@@ -104,9 +105,10 @@ public class CardGame : GameBase<CardPlayer> //Any player in a 'CardGame' is of 
             sb.AppendLine($"Player {p.User.Username} has {p.Hand.Count} cards in hand.");
         }
 
-        return sb.ToSTring();
+        return sb.ToString();
     }
 
+    //Many more methods
 
     //Example items for keeping track of the game state
     private int _turn = 0;
