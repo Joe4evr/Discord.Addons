@@ -29,6 +29,9 @@ won't involve a lot more trouble than necessary.
 ```cs
 public class CardGameService : MpGameService<CardGame, CardPlayer>
 {
+    //It's generally advised to store your data in a
+    //'Dictionary<ulong, T>' where the key is the channel ID
+    //and replace 'T' with whatever type you have your data in.
 }
 ```
 

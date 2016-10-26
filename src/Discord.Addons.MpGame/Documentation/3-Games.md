@@ -70,6 +70,7 @@ public class CardGame : GameBase<CardPlayer> //Any player in a 'CardGame' is of 
 
         foreach (var p in Players)
         {
+            await Task.Delay(1000);
             //Ideally, you would have a '.ToString()' override on the 'Card' type for this
             await p.SendMessageAsync($"Your hand:\n{String.Join("\n", p.Hand)}");
         }

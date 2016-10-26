@@ -43,11 +43,11 @@ public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase
 }
 ```
 
-There are 8 methods you can implement, corresponding to certain
-actions needed in a given game. When you implement these, you decorate them with `[Command]`
+There are 8 methods you can implement, corresponding to the
+actions needed in most games. When you implement these, you decorate them with `[Command]`
 so that the command system recognizes them. There may be methods you don't want or need to
 implement, in which case you can omit the `[Command]` attribute so it can't be called.
-Likewise, you'll probably very likely be adding *more* commands in order to control your game.
+Likewise, you'll most likely be adding *more* commands in order to control your game.
 
 One command is pre-defined which will retry sending a DM
 to a user after they have been notified to enable DMs.
@@ -60,6 +60,10 @@ public class CardGameModule : MpGameModuleBase<CardGameService, CardGame, CardPl
     public CardGameModule(CardGameService service)
         : base(service)
     {
+        //If you have any persistent data, load
+        //the relevant instance from the dictionary
+        //in your service class here
+        //and store the result in a field
     }
 }
 ```
