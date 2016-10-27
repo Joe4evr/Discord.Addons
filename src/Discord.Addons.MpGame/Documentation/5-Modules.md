@@ -209,17 +209,8 @@ public override Task GameStateCmd()
    => GameInProgress ? ReplyAsync(Game.GetGameState()) : ReplyAsync("No game in progress.");
 
 [Command("end")] //Limit this command to only be used by moderators to prevent abuse
-public override async Task EndGameCmd()
-{
-    if (!GameInProgress)
-    {
-        await ReplyAsync("No game in progress to end.");
-    }
-    else
-    {
-        await Game.EndGame("Game ended early by moderator.");
-    }
-}
+public override Task EndGameCmd()
+    => !GameInProgress ? ReplyAsync("No game in progress to end.") : Game.EndGame("Game ended early by moderator.");
 ```
 
 [<- Part 4 - Services](4-Services.md) - Modules [Part 6 - Final step ->](6-FinalStep.md)
