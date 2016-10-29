@@ -15,6 +15,12 @@ public class MpGameService<TGame, TPlayer>
     where TGame : GameBase<TPlayer>
     where TPlayer : Player
 {
+    public IReadOnlyDictionary<ulong, TGame> GameList { get; }
+
+    public IReadOnlyDictionary<ulong, HashSet<IUser>> PlayerList { get; }
+
+    public IReadOnlyDictionary<ulong, bool> OpenToJoin { get; }
+
     public bool TryAddNewGame(ulong channelId, TGame game);
 
     public void MakeNewPlayerList(ulong channelId);

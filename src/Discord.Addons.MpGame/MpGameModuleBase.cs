@@ -18,6 +18,11 @@ namespace Discord.Addons.MpGame
         where TPlayer : Player
     {
         /// <summary>
+        /// The instance of the game being played (if active).
+        /// </summary>
+        protected TGame Game => _game;
+
+        /// <summary>
         /// Determines if a game in the current channel is in progress or not.
         /// </summary>
         protected bool GameInProgress { get; }
@@ -37,14 +42,9 @@ namespace Discord.Addons.MpGame
         /// </summary>
         protected HashSet<IUser> PlayerList => _list;
 
-        /// <summary>
-        /// The instance of the game being played (if active).
-        /// </summary>
-        protected TGame Game => _game;
-
         private readonly bool _open;
-        private readonly HashSet<IUser> _list;
         private readonly TGame _game;
+        private readonly HashSet<IUser> _list;
 
         /// <summary>
         /// Initializes the <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/> base class.

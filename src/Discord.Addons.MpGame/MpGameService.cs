@@ -31,18 +31,18 @@ namespace Discord.Addons.MpGame
         /// <summary>
         /// The instance of a game being played, keyed by channel ID.
         /// </summary>
-        internal IReadOnlyDictionary<ulong, TGame> GameList => _gameList;
+        public IReadOnlyDictionary<ulong, TGame> GameList => _gameList;
 
         /// <summary>
         /// The list of users scheduled to join game, keyed by channel ID.
         /// </summary>
-        internal IReadOnlyDictionary<ulong, HashSet<IUser>> PlayerList => _playerList;
+        public IReadOnlyDictionary<ulong, HashSet<IUser>> PlayerList => _playerList;
 
 
         /// <summary>
         /// Indicates whether the users can join a game about to start, keyed by channel ID.
         /// </summary>
-        internal IReadOnlyDictionary<ulong, bool> OpenToJoin => _openToJoin;
+        public IReadOnlyDictionary<ulong, bool> OpenToJoin => _openToJoin;
 
 
         /// <summary>
