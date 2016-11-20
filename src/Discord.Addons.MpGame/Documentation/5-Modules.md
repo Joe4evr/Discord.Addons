@@ -12,15 +12,15 @@ public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase
 {
     protected MpGameModuleBase(TService gameService);
 
+    protected TGame Game { get; }
+
     protected bool GameInProgress { get; }
 
     protected TService GameService { get; }
 
     protected bool OpenToJoin { get; }
 
-    protected HashSet<IUser> PlayerList { get; }
-
-    protected TGame Game { get; }
+    protected ImmutableHashSet<IUser> PlayerList { get; }
 
     public abstract Task OpenGameCmd();
 
@@ -49,7 +49,7 @@ so that the command system recognizes them. There may be methods you don't want 
 implement, in which case you can omit the `[Command]` attribute so it can't be called.
 Likewise, you'll most likely be adding *more* commands in order to control your game.
 
-One command is pre-defined which will retry sending a DM
+One command is predefined which will retry sending a DM
 to a user after they have been notified to enable DMs.
 
 With your own service class for persistent data, you should derive
@@ -119,7 +119,7 @@ public override async Task JoinGameCmd()
     }
     else
     {
-        if (PlayerList.Add(Context.User))
+        if (GameService.AddUser(Context.Channel.Id, Context.User))
         {
             await ReplyAsync($"**{Context.User.Username}** has joined.");
         }
@@ -139,7 +139,7 @@ public override async Task LeaveGameCmd()
     }
     else
     {
-        if (PlayerList.Remove(Context.User))
+        if (GameService.RemoveUser(Context.Channel.Id, Context.User))
         {
             await ReplyAsync($"**{Context.User.Username}** has left.");
         }

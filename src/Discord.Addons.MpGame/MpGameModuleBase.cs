@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord.Commands;
@@ -40,11 +40,11 @@ namespace Discord.Addons.MpGame
         /// <summary>
         /// The list of users ready to play.
         /// </summary>
-        protected HashSet<IUser> PlayerList => _list;
+        protected ImmutableHashSet<IUser> PlayerList => _list;
 
         private readonly bool _open;
         private readonly TGame _game;
-        private readonly HashSet<IUser> _list;
+        private readonly ImmutableHashSet<IUser> _list;
 
         /// <summary>
         /// Initializes the <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/> base class.

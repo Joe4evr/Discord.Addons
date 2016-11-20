@@ -33,8 +33,8 @@ namespace Example
             {
                 if (GameService.TryUpdateOpenToJoin(Context.Channel.Id, newValue: true, comparisonValue: false))
                 {
-                    GameService.MakeNewPlayerList(Context.Channel.Id);
-                    await ReplyAsync("Opening for a game.");
+                    if (GameService.MakeNewPlayerList(Context.Channel.Id))
+                        await ReplyAsync("Opening for a game.");
                 }
             }
         }
@@ -53,8 +53,9 @@ namespace Example
             }
             else
             {
-                if (PlayerList.Add(Context.User))
+                if (PlayerList.ToBuilder().Add(Context.User))
                 {
+                    GameService.AddUser(Context.Channel.Id, Context.User);
                     await ReplyAsync($"**{Context.User.Username}** has joined.");
                 }
             }
@@ -73,8 +74,9 @@ namespace Example
             }
             else
             {
-                if (PlayerList.Remove(Context.User))
+                if (PlayerList.ToBuilder().Remove(Context.User))
                 {
+                    GameService.RemoveUser(Context.Channel.Id, Context.User);
                     await ReplyAsync($"**{Context.User.Username}** has left.");
                 }
             }

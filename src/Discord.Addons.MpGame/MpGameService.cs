@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Threading.Tasks;
 
 namespace Discord.Addons.MpGame
@@ -22,8 +23,8 @@ namespace Discord.Addons.MpGame
         private readonly ConcurrentDictionary<ulong, TGame> _gameList
             = new ConcurrentDictionary<ulong, TGame>();
 
-        private readonly ConcurrentDictionary<ulong, HashSet<IUser>> _playerList
-            = new ConcurrentDictionary<ulong, HashSet<IUser>>();
+        private readonly ConcurrentDictionary<ulong, ImmutableHashSet<IUser>> _playerList
+            = new ConcurrentDictionary<ulong, ImmutableHashSet<IUser>>();
 
         private readonly ConcurrentDictionary<ulong, bool> _openToJoin
             = new ConcurrentDictionary<ulong, bool>();
@@ -36,14 +37,12 @@ namespace Discord.Addons.MpGame
         /// <summary>
         /// The list of users scheduled to join game, keyed by channel ID.
         /// </summary>
-        public IReadOnlyDictionary<ulong, HashSet<IUser>> PlayerList => _playerList;
-
+        public IReadOnlyDictionary<ulong, ImmutableHashSet<IUser>> PlayerList => _playerList;
 
         /// <summary>
         /// Indicates whether the users can join a game about to start, keyed by channel ID.
         /// </summary>
         public IReadOnlyDictionary<ulong, bool> OpenToJoin => _openToJoin;
-
 
         /// <summary>
         /// Add a new game to the list of active games.
@@ -60,10 +59,42 @@ namespace Discord.Addons.MpGame
             return success;
         }
 
+        /// <summary>
+        /// Add a user to join an unstarted game.
+        /// </summary>
+        /// <param name="channelId">Public facing channel of this game.</param>
+        /// <param name="user">The user.</param>
+        /// <returns>true if the operation succeeded, otherwise false.</returns>
+        public bool AddUser(ulong channelId, IUser user)
+        {
+            var builder = _playerList[channelId].ToBuilder();
+            var result = builder.Add(user);
+            if (result)
+                _playerList[channelId] = builder.ToImmutable();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Remove a user from an unstarted game.
+        /// </summary>
+        /// <param name="channelId">Public facing channel of this game.</param>
+        /// <param name="user">The user.</param>
+        /// <returns>true if the operation succeeded, otherwise false.</returns>
+        public bool RemoveUser(ulong channelId, IUser user)
+        {
+            var builder = _playerList[channelId].ToBuilder();
+            var result = builder.Remove(user);
+            if (result)
+                _playerList[channelId] = builder.ToImmutable();
+
+            return result;
+        }
+
         private Task _onGameEnd(ulong channelId)
         {
             TGame game;
-            HashSet<IUser> users;
+            ImmutableHashSet<IUser> users;
             if (_gameList.TryRemove(channelId, out game))
             {
                 _playerList.TryRemove(channelId, out users);
@@ -76,8 +107,8 @@ namespace Discord.Addons.MpGame
         /// Sets a new Player List for the specified channel.
         /// </summary>
         /// <param name="channelId">The Channel ID.</param>
-        public void MakeNewPlayerList(ulong channelId)
-            => _playerList[channelId] = new HashSet<IUser>(UserComparer);
+        public bool MakeNewPlayerList(ulong channelId)
+            => _playerList.TryAdd(channelId, ImmutableHashSet.Create(UserComparer));
 
         /// <summary>
         /// Updates the flag indicating if a game can be joined or not.

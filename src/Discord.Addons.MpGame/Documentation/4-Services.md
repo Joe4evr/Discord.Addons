@@ -17,13 +17,17 @@ public class MpGameService<TGame, TPlayer>
 {
     public IReadOnlyDictionary<ulong, TGame> GameList { get; }
 
-    public IReadOnlyDictionary<ulong, HashSet<IUser>> PlayerList { get; }
-
     public IReadOnlyDictionary<ulong, bool> OpenToJoin { get; }
 
-    public bool TryAddNewGame(ulong channelId, TGame game);
+    public IReadOnlyDictionary<ulong, ImmutableHashSet<IUser>> PlayerList { get; }
 
-    public void MakeNewPlayerList(ulong channelId);
+    public bool MakeNewPlayerList(ulong channelId);
+
+    public bool AddUser(ulong channelId, IUser user);
+
+    public bool RemoveUser(ulong channelId, IUser user);
+
+    public bool TryAddNewGame(ulong channelId, TGame game);
 
     public bool TryUpdateOpenToJoin(ulong channelId, bool newValue, bool comparisonValue);
 }
