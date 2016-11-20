@@ -37,15 +37,14 @@ namespace Discord.Addons.SimplePermissions
 
             if (cfg != null)
             {
-                if (Permission == MinimumPermission.BotOwner &&
-                    user.Id == cfg.OwnerId)
+                if (cfg.ChannelModuleWhitelist[chan.Id].Contains(command.Module.Name))
                 {
-                    return Task.FromResult(PreconditionResult.FromSuccess());
-                }
-
-                if (cfg.ChannelModuleWhitelist[chan.Id].Contains(command.Module.Source.FullName))
-                {
-                    if (Permission == MinimumPermission.Special &&
+                    if (Permission == MinimumPermission.BotOwner &&
+                        user.Id == cfg.OwnerId)
+                    {
+                        return Task.FromResult(PreconditionResult.FromSuccess());
+                    }
+                    else if (Permission == MinimumPermission.Special &&
                         cfg.SpecialPermissionUsersList[chan.Id].Contains(user.Id))
                     {
                         return Task.FromResult(PreconditionResult.FromSuccess());

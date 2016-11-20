@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Discord.Commands;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -7,7 +9,11 @@ namespace Discord.Addons.SimplePermissions
     /// display this particular command or overload. This is a marker attribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public sealed class HiddenAttribute : Attribute
+    public sealed class HiddenAttribute : PreconditionAttribute
     {
+        public override Task<PreconditionResult> CheckPermissions(CommandContext context, CommandInfo command, IDependencyMap map)
+        {
+            return Task.FromResult(PreconditionResult.FromSuccess());
+        }
     }
 }
