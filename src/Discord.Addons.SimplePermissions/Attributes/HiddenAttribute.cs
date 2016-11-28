@@ -11,6 +11,13 @@ namespace Discord.Addons.SimplePermissions
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class HiddenAttribute : PreconditionAttribute
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="command"></param>
+        /// <param name="map"></param>
+        /// <returns></returns>
         public override Task<PreconditionResult> CheckPermissions(CommandContext context, CommandInfo command, IDependencyMap map)
         {
             return Task.FromResult(PreconditionResult.FromSuccess());

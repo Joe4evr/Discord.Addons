@@ -1,5 +1,5 @@
 ﻿{
-    "version": "0.6.7-*",
+    "version": "0.6.8-*",
     "description": "Discord.Net module for command permission management.",
     "authors": [ "Joe4evr" ],
 
