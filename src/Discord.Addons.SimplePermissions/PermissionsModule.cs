@@ -12,9 +12,8 @@ namespace Discord.Addons.SimplePermissions
     [Name(permModuleName)]
     public sealed class PermissionsModule : ModuleBase
     {
-        internal const string permModuleName = "Permissions"; //typeof(PermissionsModule).FullName;
+        internal const string permModuleName = "Permissions";
         private static readonly Type hiddenAttr = typeof(HiddenAttribute);
-        //private static readonly TypeInfo permBase = typeof(PermissionModuleBase).GetTypeInfo();
 
         private readonly PermissionsService _permService;
         private readonly CommandService _cmdService;
@@ -74,7 +73,7 @@ namespace Discord.Addons.SimplePermissions
                 {
                     sb.AppendLine('\t' + cmd.Summary);
                     if (cmd.Parameters.Count > 0)
-                    sb.AppendLine($"\t\tParameters: {String.Join(" ", cmd.Parameters.Select(p => formatParam(p)))}");
+                        sb.AppendLine($"\t\tParameters: {String.Join(" ", cmd.Parameters.Select(p => formatParam(p)))}");
                 }
             }
             else return;
@@ -147,7 +146,7 @@ namespace Discord.Addons.SimplePermissions
                     index++;
                 }
                 sb.Append("```");
-                    
+
                 await ReplyAsync(sb.ToString());
             }
         }
@@ -170,7 +169,7 @@ namespace Discord.Addons.SimplePermissions
                     return;
                 }
 
-                _permService.Config.GuildAdminRole[Context.Guild.Id] = role.Id;
+                await _permService.Config.SetGuildAdminRole(Context.Guild.Id, role);
                 _permService.SaveConfig();
                 await ReplyAsync($"Set **{role.Name}** as the admin role for this server.");
             }
@@ -194,7 +193,7 @@ namespace Discord.Addons.SimplePermissions
                     return;
                 }
 
-                _permService.Config.GuildModRole[Context.Guild.Id] = role.Id;
+                await _permService.Config.SetGuildModRole(Context.Guild.Id, role);
                 _permService.SaveConfig();
                 await ReplyAsync($"Set **{role.Name}** as the mod role for this server.");
             }
@@ -209,12 +208,9 @@ namespace Discord.Addons.SimplePermissions
         [Summary("Give someone special command privileges in this channel.")]
         public async Task AddSpecialUser(IUser user)
         {
-            var list = _permService.Config.SpecialPermissionUsersList[Context.Channel.Id];
-            if (list.Add(user.Id))
-            {
-                _permService.SaveConfig();
-                await ReplyAsync($"Gave **{user.Username}** Special command privileges.");
-            }
+            await _permService.Config.AddSpecialUser(Context.Channel.Id, user);
+            _permService.SaveConfig();
+            await ReplyAsync($"Gave **{user.Username}** Special command privileges.");
         }
 
 
@@ -227,12 +223,9 @@ namespace Discord.Addons.SimplePermissions
         [Summary("Remove someone's special command privileges in this channel.")]
         public async Task RemoveSpecialUser(IUser user)
         {
-            var list = _permService.Config.SpecialPermissionUsersList[Context.Channel.Id];
-            if (list.Remove(user.Id))
-            {
-                _permService.SaveConfig();
-                await ReplyAsync($"Removed **{user.Username}** Special command privileges.");
-            }
+            await _permService.Config.RemoveSpecialUser(Context.Channel.Id, user);
+            _permService.SaveConfig();
+            await ReplyAsync($"Removed **{user.Username}** Special command privileges.");
         }
 
         /// <summary>
@@ -248,11 +241,9 @@ namespace Discord.Addons.SimplePermissions
             var mod = _cmdService.Modules.SingleOrDefault(m => m.Name == modName);
             if (mod != null)
             {
-                if (_permService.Config.ChannelModuleWhitelist[ch.Id].Add(mod.Name))
-                {
-                    _permService.SaveConfig();
-                    await ReplyAsync($"Module `{mod.Name}` is now whitelisted in this channel.");
-                }
+                await _permService.Config.WhitelistModule(ch.Id, mod.Name);
+                _permService.SaveConfig();
+                await ReplyAsync($"Module `{mod.Name}` is now whitelisted in this channel.");
             }
         }
 
@@ -273,8 +264,9 @@ namespace Discord.Addons.SimplePermissions
                 {
                     await ReplyAsync($"Not allowed to blacklist {nameof(PermissionsModule)}.");
                 }
-                else if (_permService.Config.ChannelModuleWhitelist[ch.Id].Remove(mod.Name))
+                else
                 {
+                    await _permService.Config.BlacklistModule(ch.Id, mod.Name);
                     _permService.SaveConfig();
                     await ReplyAsync($"Module `{mod.Name}` is now blacklisted in this channel.");
                 }

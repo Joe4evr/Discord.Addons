@@ -19,8 +19,6 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="map"></param>
         /// <returns></returns>
         public override Task<PreconditionResult> CheckPermissions(CommandContext context, CommandInfo command, IDependencyMap map)
-        {
-            return Task.FromResult(PreconditionResult.FromSuccess());
-        }
+            => Task.FromResult(PreconditionResult.FromSuccess());
     }
 }

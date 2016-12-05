@@ -91,6 +91,18 @@ namespace Discord.Addons.MpGame
             return result;
         }
 
+        /// <summary>
+        /// Cancel a game that has not yet started.
+        /// </summary>
+        /// <param name="channelId">Public facing channel of this game.</param>
+        /// <returns>true if the operation succeeded, otherwise false.</returns>
+        public bool CancelGame(ulong channelId)
+        {
+            ImmutableHashSet<IUser> _;
+            return (TryUpdateOpenToJoin(channelId, newValue: false, comparisonValue: true)
+                && _playerList.TryRemove(channelId, out _));
+        }
+
         private Task _onGameEnd(ulong channelId)
         {
             TGame game;

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Discord.WebSocket;
-using Discord.Addons.SimpleConfig;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -43,32 +42,14 @@ namespace Discord.Addons.SimplePermissions
 
             client.GuildAvailable += async guild =>
             {
-                if (!Config.GuildAdminRole.ContainsKey(guild.Id))
-                {
-                    Config.GuildAdminRole[guild.Id] = 0;
-                    ConfigStore.Save();
-                }
-                if (!Config.GuildModRole.ContainsKey(guild.Id))
-                {
-                    Config.GuildModRole[guild.Id] = 0;
-                    ConfigStore.Save();
-                }
+                await Config.AddNewGuild(guild);
+                ConfigStore.Save();
 
                 foreach (var chan in await guild.GetTextChannelsAsync())
                 {
                     if (await CanReadAndWrite(chan))
                     {
-                        if (!Config.ChannelModuleWhitelist.ContainsKey(chan.Id))
-                        {
-                            Config.ChannelModuleWhitelist[chan.Id] = new HashSet<string>();
-                            ConfigStore.Save();
-                        }
-                        if (!Config.SpecialPermissionUsersList.ContainsKey(chan.Id))
-                        {
-                            Config.SpecialPermissionUsersList[chan.Id] = new HashSet<ulong>();
-                            ConfigStore.Save();
-                        }
-                        if (Config.ChannelModuleWhitelist[chan.Id].Add(PermissionsModule.permModuleName))
+                        if (!Config.GetChannelModuleWhitelist(chan.Id).Contains(PermissionsModule.permModuleName))
                         {
                             AddPermissionsModule(chan);
                         }
@@ -80,11 +61,6 @@ namespace Discord.Addons.SimplePermissions
                 var mChan = chan as IMessageChannel;
                 if (mChan != null && (await CanReadAndWrite(mChan)))
                 {
-                    if (!Config.ChannelModuleWhitelist.ContainsKey(chan.Id))
-                    {
-                        Config.ChannelModuleWhitelist[chan.Id] = new HashSet<string>();
-                    }
-
                     AddPermissionsModule(mChan);
                 }
             };
@@ -93,7 +69,7 @@ namespace Discord.Addons.SimplePermissions
                 var mChan = chan as IMessageChannel;
                 if (mChan != null)
                 {
-                    RemoveChannel(mChan);
+                    Config.RemoveChannel(mChan.Id);
                 }
                 return Task.CompletedTask;
             };
@@ -104,7 +80,7 @@ namespace Discord.Addons.SimplePermissions
                 {
                     AddPermissionsModule(mChan);
                 }
-                else if (Config.ChannelModuleWhitelist.ContainsKey(after.Id))
+                else if (Config.GetChannelModuleWhitelist(after.Id).Contains(PermissionsModule.permModuleName))
                 {
                     RemovePermissionsModule(mChan);
                 }
@@ -127,30 +103,18 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
             return Task.CompletedTask;
         }
 
-        private void RemoveChannel(IMessageChannel channel)
-        {
-            if (Config.ChannelModuleWhitelist.ContainsKey(channel.Id))
-            {
-                Config.ChannelModuleWhitelist.Remove(channel.Id);
-            }
-        }
-
         private void RemovePermissionsModule(IMessageChannel channel)
         {
-            if (Config.ChannelModuleWhitelist[channel.Id].Remove(PermissionsModule.permModuleName))
-            {
-                ConfigStore.Save();
-                Console.WriteLine($"{DateTime.Now}: Removed permission management from {channel.Name}.");
-            }
+            Config.BlacklistModule(channel.Id, PermissionsModule.permModuleName);
+            ConfigStore.Save();
+            Console.WriteLine($"{DateTime.Now}: Removed permission management from {channel.Name}.");
         }
 
         private void AddPermissionsModule(IMessageChannel channel)
         {
-            if (Config.ChannelModuleWhitelist[channel.Id].Add(PermissionsModule.permModuleName))
-            {
-                ConfigStore.Save();
-                Console.WriteLine($"{DateTime.Now}: Added permission management to {channel.Name}.");
-            }
+            Config.WhitelistModule(channel.Id, PermissionsModule.permModuleName);
+            ConfigStore.Save();
+            Console.WriteLine($"{DateTime.Now}: Added permission management to {channel.Name}.");
         }
 
         private async Task<bool> CanReadAndWrite(IMessageChannel channel)

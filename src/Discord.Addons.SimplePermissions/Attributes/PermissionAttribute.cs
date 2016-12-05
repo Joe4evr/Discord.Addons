@@ -29,58 +29,59 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="command"></param>
         /// <param name="map"></param>
         /// <returns></returns>
-        public override Task<PreconditionResult> CheckPermissions(CommandContext context, CommandInfo command, IDependencyMap map)
+        public override async Task<PreconditionResult> CheckPermissions(CommandContext context, CommandInfo command, IDependencyMap map)
         {
             if (context.IsPrivate)
-                return Task.FromResult(PreconditionResult.FromSuccess());
+                return PreconditionResult.FromSuccess();
 
             var cfg = map.Get<PermissionsService>().ConfigStore.Load();
             var chan = context.Channel;
             var user = context.User;
+            var ownerId = (await context.Client.GetApplicationInfoAsync()).Owner.Id;
 
             if (cfg != null)
             {
-                if (cfg.ChannelModuleWhitelist[chan.Id].Contains(command.Module.Name))
+                if (cfg.GetChannelModuleWhitelist(chan.Id).Contains(command.Module.Name))
                 {
                     if (Permission == MinimumPermission.BotOwner &&
-                        user.Id == cfg.OwnerId)
+                        user.Id == ownerId)
                     {
-                        return Task.FromResult(PreconditionResult.FromSuccess());
+                        return PreconditionResult.FromSuccess();
                     }
                     else if (Permission == MinimumPermission.Special &&
-                        cfg.SpecialPermissionUsersList[chan.Id].Contains(user.Id))
+                        cfg.GetSpecialPermissionUsersList(chan.Id).Contains(user.Id))
                     {
-                        return Task.FromResult(PreconditionResult.FromSuccess());
+                        return PreconditionResult.FromSuccess();
                     }
                     else if (Permission <= MinimumPermission.GuildOwner &&
                         context.Guild?.OwnerId == user.Id)
                     {
-                        return Task.FromResult(PreconditionResult.FromSuccess());
+                        return PreconditionResult.FromSuccess();
                     }
                     else if (Permission <= MinimumPermission.AdminRole &&
-                        (user as IGuildUser)?.RoleIds.Any(r => r == cfg.GuildAdminRole[context.Guild.Id]) == true)
+                        (user as IGuildUser)?.RoleIds.Any(r => r == cfg.GetGuildAdminRole(context.Guild.Id)) == true)
                     {
-                        return Task.FromResult(PreconditionResult.FromSuccess());
+                        return PreconditionResult.FromSuccess();
                     }
                     else if (Permission <= MinimumPermission.ModRole &&
-                        (user as IGuildUser)?.RoleIds.Any(r => r == cfg.GuildModRole[context.Guild.Id]) == true)
+                        (user as IGuildUser)?.RoleIds.Any(r => r == cfg.GetGuildModRole(context.Guild.Id)) == true)
                     {
-                        return Task.FromResult(PreconditionResult.FromSuccess());
+                        return PreconditionResult.FromSuccess();
                     }
                     else if (Permission == MinimumPermission.Everyone)
                     {
-                        return Task.FromResult(PreconditionResult.FromSuccess());
+                        return PreconditionResult.FromSuccess();
                     }
                     else
                     {
-                        return Task.FromResult(PreconditionResult.FromError("Insufficient permission."));
+                        return PreconditionResult.FromError("Insufficient permission.");
                     }
                 }
                 else
-                    return Task.FromResult(PreconditionResult.FromError("Command not whitelisted"));
+                    return PreconditionResult.FromError("Command not whitelisted");
             }
             else
-                return Task.FromResult(PreconditionResult.FromError("No config found."));
+                return PreconditionResult.FromError("No config found.");
         }
     }
 }

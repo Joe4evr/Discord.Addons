@@ -2,7 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 
-namespace Discord.Addons.SimpleConfig
+namespace Discord.Addons.SimplePermissions
 {
     /// <summary>
     /// Basic implementation of <see cref="IConfigStore{TConfig}"/> that stores and loads
@@ -10,7 +10,7 @@ namespace Discord.Addons.SimpleConfig
     /// </summary>
     /// <typeparam name="TConfig"></typeparam>
     public sealed class JsonConfigStore<TConfig> : IConfigStore<TConfig>
-        where TConfig : IConfig, new()
+        where TConfig : IPermissionConfig, new()
     {
         private readonly string _jsonPath;
         private readonly TConfig _config;

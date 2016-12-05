@@ -1,8 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using Discord;
 using Discord.Addons.MpGame;
 using Discord.Commands;
 
@@ -53,9 +50,8 @@ namespace Example
             }
             else
             {
-                if (PlayerList.ToBuilder().Add(Context.User))
+                if (GameService.AddUser(Context.Channel.Id, Context.User))
                 {
-                    GameService.AddUser(Context.Channel.Id, Context.User);
                     await ReplyAsync($"**{Context.User.Username}** has joined.");
                 }
             }
@@ -74,9 +70,8 @@ namespace Example
             }
             else
             {
-                if (PlayerList.ToBuilder().Remove(Context.User))
+                if (GameService.RemoveUser(Context.Channel.Id, Context.User))
                 {
-                    GameService.RemoveUser(Context.Channel.Id, Context.User);
                     await ReplyAsync($"**{Context.User.Username}** has left.");
                 }
             }
@@ -95,9 +90,8 @@ namespace Example
             }
             else
             {
-                if (GameService.TryUpdateOpenToJoin(Context.Channel.Id, newValue: false, comparisonValue: true))
+                if (GameService.CancelGame(Context.Channel.Id))
                 {
-                    PlayerList.Clear();
                     await ReplyAsync("Game was canceled.");
                 }
             }
