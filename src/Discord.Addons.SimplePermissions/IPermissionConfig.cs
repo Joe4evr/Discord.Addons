@@ -8,15 +8,20 @@ namespace Discord.Addons.SimplePermissions
     /// </summary>
     public interface IPermissionConfig
     {
+        /// <summary>
+        /// Add a new Guild (and all its Channels) to the config.
+        /// </summary>
         Task AddNewGuild(IGuild guild);
 
+        /// <summary>
+        /// Add a new Channel to the config.
+        /// </summary>
         Task AddChannel(IChannel channel);
 
         /// <summary>
         /// Removes the all lists of the specified channel from the config.
         /// </summary>
         Task RemoveChannel(ulong channelId);
-
 
         /// <summary>
         /// Gets the ID of the group that is considered
@@ -48,8 +53,14 @@ namespace Discord.Addons.SimplePermissions
         /// </summary>
         IEnumerable<string> GetChannelModuleWhitelist(ulong channelId);
 
+        /// <summary>
+        /// Whitelist a module in this channel.
+        /// </summary>
         Task WhitelistModule(ulong channelId, string moduleName);
 
+        /// <summary>
+        /// Blacklist a module in this channel.
+        /// </summary>
         Task BlacklistModule(ulong channelId, string moduleName);
 
         /// <summary>
@@ -59,9 +70,14 @@ namespace Discord.Addons.SimplePermissions
         /// </summary>
         IEnumerable<ulong> GetSpecialPermissionUsersList(ulong channelId);
 
+        /// <summary>
+        /// Give a user Special command privileges in a channel.
+        /// </summary>
         Task AddSpecialUser(ulong channelId, IUser user);
 
+        /// <summary>
+        /// Revoke a user's Special command privileges in a channel.
+        /// </summary>
         Task RemoveSpecialUser(ulong channelId, IUser user);
-
     }
 }
