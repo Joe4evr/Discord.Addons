@@ -54,65 +54,65 @@ namespace Discord.Addons.SimplePermissions
             return Task.CompletedTask;
         }
 
-        Task IPermissionConfig.RemoveChannel(ulong channelId)
+        Task IPermissionConfig.RemoveChannel(IChannel channel)
         {
-            ChannelModuleWhitelist.Remove(channelId);
-            SpecialPermissionUsersList.Remove(channelId);
+            ChannelModuleWhitelist.Remove(channel.Id);
+            SpecialPermissionUsersList.Remove(channel.Id);
             return Task.CompletedTask;
         }
 
-        ulong IPermissionConfig.GetGuildAdminRole(ulong guildId)
+        ulong IPermissionConfig.GetGuildAdminRole(IGuild guild)
         {
-            return GuildAdminRole[guildId];
+            return GuildAdminRole[guild.Id];
         }
 
-        ulong IPermissionConfig.GetGuildModRole(ulong guildId)
+        ulong IPermissionConfig.GetGuildModRole(IGuild guild)
         {
-            return GuildModRole[guildId];
+            return GuildModRole[guild.Id];
         }
 
-        Task<bool> IPermissionConfig.SetGuildAdminRole(ulong guildId, IRole role)
+        Task<bool> IPermissionConfig.SetGuildAdminRole(IGuild guild, IRole role)
         {
-            GuildAdminRole[guildId] = role.Id;
+            GuildAdminRole[guild.Id] = role.Id;
             return Task.FromResult(true);
         }
 
-        Task<bool> IPermissionConfig.SetGuildModRole(ulong guildId, IRole role)
+        Task<bool> IPermissionConfig.SetGuildModRole(IGuild guild, IRole role)
         {
-            GuildModRole[guildId] = role.Id;
+            GuildModRole[guild.Id] = role.Id;
             return Task.FromResult(true);
         }
 
-        IEnumerable<string> IPermissionConfig.GetChannelModuleWhitelist(ulong channelId)
+        IEnumerable<string> IPermissionConfig.GetChannelModuleWhitelist(IChannel channel)
         {
-            return ChannelModuleWhitelist[channelId];
+            return ChannelModuleWhitelist[channel.Id];
         }
 
-        Task<bool> IPermissionConfig.WhitelistModule(ulong channelId, string moduleName)
+        Task<bool> IPermissionConfig.WhitelistModule(IChannel channel, string moduleName)
         {
-            return Task.FromResult(ChannelModuleWhitelist[channelId].Add(moduleName));
+            return Task.FromResult(ChannelModuleWhitelist[channel.Id].Add(moduleName));
         }
 
-        Task<bool> IPermissionConfig.BlacklistModule(ulong channelId, string moduleName)
+        Task<bool> IPermissionConfig.BlacklistModule(IChannel channel, string moduleName)
         {
             
-            return Task.FromResult(ChannelModuleWhitelist[channelId].Remove(moduleName));
+            return Task.FromResult(ChannelModuleWhitelist[channel.Id].Remove(moduleName));
         }
 
-        IEnumerable<ulong> IPermissionConfig.GetSpecialPermissionUsersList(ulong channelId)
+        IEnumerable<ulong> IPermissionConfig.GetSpecialPermissionUsersList(IChannel channel)
         {
-            return SpecialPermissionUsersList[channelId];
+            return SpecialPermissionUsersList[channel.Id];
         }
 
-        Task<bool> IPermissionConfig.AddSpecialUser(ulong channelId, IUser user)
+        Task<bool> IPermissionConfig.AddSpecialUser(IChannel channel, IUser user)
         {
             
-            return Task.FromResult(SpecialPermissionUsersList[channelId].Add(user.Id));
+            return Task.FromResult(SpecialPermissionUsersList[channel.Id].Add(user.Id));
         }
 
-        Task<bool> IPermissionConfig.RemoveSpecialUser(ulong channelId, IUser user)
+        Task<bool> IPermissionConfig.RemoveSpecialUser(IChannel channel, IUser user)
         {
-            return Task.FromResult(SpecialPermissionUsersList[channelId].Remove(user.Id));
+            return Task.FromResult(SpecialPermissionUsersList[channel.Id].Remove(user.Id));
         }
     }
 }

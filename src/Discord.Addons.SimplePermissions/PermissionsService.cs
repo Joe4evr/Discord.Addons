@@ -49,7 +49,7 @@ namespace Discord.Addons.SimplePermissions
                 {
                     if (await CanReadAndWrite(chan))
                     {
-                        if (!config.GetChannelModuleWhitelist(chan.Id).Contains(PermissionsModule.permModuleName))
+                        if (!config.GetChannelModuleWhitelist(chan).Contains(PermissionsModule.permModuleName))
                         {
                             AddPermissionsModule(chan);
                         }
@@ -69,7 +69,7 @@ namespace Discord.Addons.SimplePermissions
                 var mChan = chan as IMessageChannel;
                 if (mChan != null)
                 {
-                    _configStore.Load().RemoveChannel(mChan.Id);
+                    _configStore.Load().RemoveChannel(mChan);
                 }
                 return Task.CompletedTask;
             };
@@ -80,7 +80,7 @@ namespace Discord.Addons.SimplePermissions
                 {
                     AddPermissionsModule(mChan);
                 }
-                else if (_configStore.Load().GetChannelModuleWhitelist(after.Id).Contains(PermissionsModule.permModuleName))
+                else if (_configStore.Load().GetChannelModuleWhitelist(after).Contains(PermissionsModule.permModuleName))
                 {
                     RemovePermissionsModule(mChan);
                 }
@@ -105,14 +105,14 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
 
         private void RemovePermissionsModule(IMessageChannel channel)
         {
-            _configStore.Load().BlacklistModule(channel.Id, PermissionsModule.permModuleName);
+            _configStore.Load().BlacklistModule(channel, PermissionsModule.permModuleName);
             _configStore.Save();
             Console.WriteLine($"{DateTime.Now}: Removed permission management from {channel.Name}.");
         }
 
         private void AddPermissionsModule(IMessageChannel channel)
         {
-            _configStore.Load().WhitelistModule(channel.Id, PermissionsModule.permModuleName);
+            _configStore.Load().WhitelistModule(channel, PermissionsModule.permModuleName);
             _configStore.Save();
             Console.WriteLine($"{DateTime.Now}: Added permission management to {channel.Name}.");
         }
@@ -129,55 +129,55 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
             return true;
         }
 
-        internal async Task<bool> SetGuildAdminRole(ulong guildId, IRole role)
+        internal async Task<bool> SetGuildAdminRole(IGuild guild, IRole role)
         {
             await _lock.WaitAsync();
-            var result = await _configStore.Load().SetGuildAdminRole(guildId, role);
+            var result = await _configStore.Load().SetGuildAdminRole(guild, role);
             _configStore.Save();
             _lock.Release();
             return result;
         }
 
-        internal async Task<bool> SetGuildModRole(ulong guildId, IRole role)
+        internal async Task<bool> SetGuildModRole(IGuild guild, IRole role)
         {
             await _lock.WaitAsync();
-            var result = await _configStore.Load().SetGuildModRole(guildId, role);
+            var result = await _configStore.Load().SetGuildModRole(guild, role);
             _configStore.Save();
             _lock.Release();
             return result;
         }
 
-        internal async Task<bool> AddSpecialUser(ulong channelId, IUser user)
+        internal async Task<bool> AddSpecialUser(IChannel channel, IUser user)
         {
             await _lock.WaitAsync();
-            var result = await _configStore.Load().AddSpecialUser(channelId, user);
+            var result = await _configStore.Load().AddSpecialUser(channel, user);
             _configStore.Save();
             _lock.Release();
             return result;
         }
 
-        internal async Task<bool> RemoveSpecialUser(ulong channelId, IUser user)
+        internal async Task<bool> RemoveSpecialUser(IChannel channel, IUser user)
         {
             await _lock.WaitAsync();
-            var result = await _configStore.Load().RemoveSpecialUser(channelId, user);
+            var result = await _configStore.Load().RemoveSpecialUser(channel, user);
             _configStore.Save();
             _lock.Release();
             return result;
         }
 
-        internal async Task<bool> WhitelistModule(ulong channelId, string modName)
+        internal async Task<bool> WhitelistModule(IChannel channel, string modName)
         {
             await _lock.WaitAsync();
-            var result = await _configStore.Load().WhitelistModule(channelId, modName);
+            var result = await _configStore.Load().WhitelistModule(channel, modName);
             _configStore.Save();
             _lock.Release();
             return result;
         }
 
-        internal async Task<bool> BlacklistModule(ulong channelId, string modName)
+        internal async Task<bool> BlacklistModule(IChannel channel, string modName)
         {
             await _lock.WaitAsync();
-            var result = await _configStore.Load().BlacklistModule(channelId, modName);
+            var result = await _configStore.Load().BlacklistModule(channel, modName);
             _configStore.Save();
             _lock.Release();
             return result;

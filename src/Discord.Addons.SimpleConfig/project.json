@@ -1,6 +1,6 @@
 {
     "version": "0.2.6-*",
-    "description": "Interfaces for a basic configuration implementation.",
+    "description": "[DEPRECATED - Use just SimplePermissions now] Interfaces for a basic configuration implementation.",
     "authors": [ "Joe4evr" ],
 
     "packOptions": {

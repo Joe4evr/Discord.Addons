@@ -49,64 +49,64 @@ namespace Discord.Addons.SimplePermissions
             return Task.CompletedTask;
         }
 
-        Task IPermissionConfig.RemoveChannel(ulong channelId)
+        Task IPermissionConfig.RemoveChannel(IChannel channel)
         {
-            Channels.Remove(Channels.Single(c => c.ChannelId == channelId));
+            Channels.Remove(Channels.Single(c => c.ChannelId == channel.Id));
             return Task.CompletedTask;
         }
 
-        ulong IPermissionConfig.GetGuildAdminRole(ulong guildId)
+        ulong IPermissionConfig.GetGuildAdminRole(IGuild guild)
         {
-            return Guilds.Single(g => g.GuildId == guildId).AdminRole;
+            return Guilds.Single(g => g.GuildId == guild.Id).AdminRole;
         }
 
-        ulong IPermissionConfig.GetGuildModRole(ulong guildId)
+        ulong IPermissionConfig.GetGuildModRole(IGuild guild)
         {
-            return Guilds.Single(g => g.GuildId == guildId).ModRole;
+            return Guilds.Single(g => g.GuildId == guild.Id).ModRole;
         }
 
-        Task<bool> IPermissionConfig.SetGuildAdminRole(ulong guildId, IRole role)
+        Task<bool> IPermissionConfig.SetGuildAdminRole(IGuild guild, IRole role)
         {
-            Guilds.Single(g => g.GuildId == guildId).AdminRole = role.Id;
+            Guilds.Single(g => g.GuildId == guild.Id).AdminRole = role.Id;
             return Task.FromResult(true);
         }
 
-        Task<bool> IPermissionConfig.SetGuildModRole(ulong guildId, IRole role)
+        Task<bool> IPermissionConfig.SetGuildModRole(IGuild guild, IRole role)
         {
-            Guilds.Single(g => g.GuildId == guildId).ModRole = role.Id;
+            Guilds.Single(g => g.GuildId == guild.Id).ModRole = role.Id;
             return Task.FromResult(true);
         }
 
-        IEnumerable<string> IPermissionConfig.GetChannelModuleWhitelist(ulong channelId)
+        IEnumerable<string> IPermissionConfig.GetChannelModuleWhitelist(IChannel channel)
         {
-            return Channels.Single(c => c.ChannelId == channelId).WhiteListedModules;
+            return Channels.Single(c => c.ChannelId == channel.Id).WhiteListedModules;
         }
 
-        Task<bool> IPermissionConfig.WhitelistModule(ulong channelId, string moduleName)
+        Task<bool> IPermissionConfig.WhitelistModule(IChannel channel, string moduleName)
         {
             
-            return Task.FromResult(Channels.Single(c => c.ChannelId == channelId).WhiteListedModules.Add(moduleName));
+            return Task.FromResult(Channels.Single(c => c.ChannelId == channel.Id).WhiteListedModules.Add(moduleName));
         }
 
-        Task<bool> IPermissionConfig.BlacklistModule(ulong channelId, string moduleName)
+        Task<bool> IPermissionConfig.BlacklistModule(IChannel channel, string moduleName)
         {
             
-            return Task.FromResult(Channels.Single(c => c.ChannelId == channelId).WhiteListedModules.Remove(moduleName));
+            return Task.FromResult(Channels.Single(c => c.ChannelId == channel.Id).WhiteListedModules.Remove(moduleName));
         }
 
-        IEnumerable<ulong> IPermissionConfig.GetSpecialPermissionUsersList(ulong channelId)
+        IEnumerable<ulong> IPermissionConfig.GetSpecialPermissionUsersList(IChannel channel)
         {
-            return Channels.Single(c => c.ChannelId == channelId).SpecialUsers;
+            return Channels.Single(c => c.ChannelId == channel.Id).SpecialUsers;
         }
 
-        Task<bool> IPermissionConfig.AddSpecialUser(ulong channelId, IUser user)
+        Task<bool> IPermissionConfig.AddSpecialUser(IChannel channel, IUser user)
         {
-            return Task.FromResult(Channels.Single(c => c.ChannelId == channelId).SpecialUsers.Add(user.Id));
+            return Task.FromResult(Channels.Single(c => c.ChannelId == channel.Id).SpecialUsers.Add(user.Id));
         }
 
-        Task<bool> IPermissionConfig.RemoveSpecialUser(ulong channelId, IUser user)
+        Task<bool> IPermissionConfig.RemoveSpecialUser(IChannel channel, IUser user)
         {
-            return Task.FromResult(Channels.Single(c => c.ChannelId == channelId).SpecialUsers.Remove(user.Id));
+            return Task.FromResult(Channels.Single(c => c.ChannelId == channel.Id).SpecialUsers.Remove(user.Id));
         }
     }
 }
