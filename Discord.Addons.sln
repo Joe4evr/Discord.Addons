@@ -18,6 +18,12 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Discord.Addons.SimplePermis
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Discord.Addons.SimpleConfig", "src\Discord.Addons.SimpleConfig\Discord.Addons.SimpleConfig.xproj", "{80CB12E2-C5C7-4454-8422-51BA4ABBB609}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Discord.Addons.TriviaGames", "src\Discord.Addons.Trivia\Discord.Addons.TriviaGames.xproj", "{8AF1C5E3-63EA-409A-88EC-0FD70ACB0334}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Discord.Addons.SimplePermissions.EFProvider", "src\Discord.Addons.SimplePermissions.EFProvider\Discord.Addons.SimplePermissions.EFProvider.xproj", "{F80E5304-1B9A-4870-BCCA-9562409F8067}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Discord.Addons.SimplePermissions.JsonProvider", "src\Discord.Addons.SimplePermissions.JsonProvider\Discord.Addons.SimplePermissions.JsonProvider.xproj", "{F971FB6E-E1BF-4BD5-AB6A-07DC6609D649}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +42,18 @@ Global
 		{80CB12E2-C5C7-4454-8422-51BA4ABBB609}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80CB12E2-C5C7-4454-8422-51BA4ABBB609}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80CB12E2-C5C7-4454-8422-51BA4ABBB609}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AF1C5E3-63EA-409A-88EC-0FD70ACB0334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AF1C5E3-63EA-409A-88EC-0FD70ACB0334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AF1C5E3-63EA-409A-88EC-0FD70ACB0334}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AF1C5E3-63EA-409A-88EC-0FD70ACB0334}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F80E5304-1B9A-4870-BCCA-9562409F8067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F80E5304-1B9A-4870-BCCA-9562409F8067}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F80E5304-1B9A-4870-BCCA-9562409F8067}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F80E5304-1B9A-4870-BCCA-9562409F8067}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F971FB6E-E1BF-4BD5-AB6A-07DC6609D649}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F971FB6E-E1BF-4BD5-AB6A-07DC6609D649}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F971FB6E-E1BF-4BD5-AB6A-07DC6609D649}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F971FB6E-E1BF-4BD5-AB6A-07DC6609D649}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,5 +62,8 @@ Global
 		{C871B626-E2A0-43AD-A281-C8C310FFA6DC} = {07737DD4-1366-42AA-8942-253538B98254}
 		{A926F884-7973-466D-9662-58617890E8FB} = {07737DD4-1366-42AA-8942-253538B98254}
 		{80CB12E2-C5C7-4454-8422-51BA4ABBB609} = {07737DD4-1366-42AA-8942-253538B98254}
+		{8AF1C5E3-63EA-409A-88EC-0FD70ACB0334} = {07737DD4-1366-42AA-8942-253538B98254}
+		{F80E5304-1B9A-4870-BCCA-9562409F8067} = {07737DD4-1366-42AA-8942-253538B98254}
+		{F971FB6E-E1BF-4BD5-AB6A-07DC6609D649} = {07737DD4-1366-42AA-8942-253538B98254}
 	EndGlobalSection
 EndGlobal
