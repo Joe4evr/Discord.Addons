@@ -41,7 +41,7 @@ namespace Discord.Addons.SimplePermissions
 
             if (cfg != null)
             {
-                if (cfg.GetChannelModuleWhitelist(chan.Id).Contains(command.Module.Name))
+                if (cfg.GetChannelModuleWhitelist(chan).Contains(command.Module.Name))
                 {
                     if (Permission == MinimumPermission.BotOwner &&
                         user.Id == ownerId)
@@ -49,7 +49,7 @@ namespace Discord.Addons.SimplePermissions
                         return PreconditionResult.FromSuccess();
                     }
                     else if (Permission == MinimumPermission.Special &&
-                        cfg.GetSpecialPermissionUsersList(chan.Id).Contains(user.Id))
+                        cfg.GetSpecialPermissionUsersList(chan).Contains(user.Id))
                     {
                         return PreconditionResult.FromSuccess();
                     }
@@ -59,12 +59,12 @@ namespace Discord.Addons.SimplePermissions
                         return PreconditionResult.FromSuccess();
                     }
                     else if (Permission <= MinimumPermission.AdminRole &&
-                        (user as IGuildUser)?.RoleIds.Any(r => r == cfg.GetGuildAdminRole(context.Guild.Id)) == true)
+                        (user as IGuildUser)?.RoleIds.Any(r => r == cfg.GetGuildAdminRole(context.Guild)) == true)
                     {
                         return PreconditionResult.FromSuccess();
                     }
                     else if (Permission <= MinimumPermission.ModRole &&
-                        (user as IGuildUser)?.RoleIds.Any(r => r == cfg.GetGuildModRole(context.Guild.Id)) == true)
+                        (user as IGuildUser)?.RoleIds.Any(r => r == cfg.GetGuildModRole(context.Guild)) == true)
                     {
                         return PreconditionResult.FromSuccess();
                     }
