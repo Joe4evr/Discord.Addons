@@ -10,7 +10,7 @@ namespace Discord.Addons.SimplePermissions
     /// </summary>
     /// <typeparam name="TConfig"></typeparam>
     public sealed class JsonConfigStore<TConfig> : IConfigStore<TConfig>
-        where TConfig : JsonConfig, new()
+        where TConfig : JsonConfigBase, new()
     {
         private readonly string _jsonPath;
         private readonly TConfig _config;

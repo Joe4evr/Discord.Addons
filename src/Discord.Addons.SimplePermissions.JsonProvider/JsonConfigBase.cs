@@ -9,7 +9,7 @@ namespace Discord.Addons.SimplePermissions
     /// in-memory collection as a backing store, suitable for
     /// serialization to and from JSON.
     /// </summary>
-    public class JsonConfig : IPermissionConfig
+    public class JsonConfigBase : IPermissionConfig
     {
         /// <summary>
         /// Gets the ID of the group that is considered
