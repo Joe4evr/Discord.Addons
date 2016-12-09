@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Discord.WebSocket;
@@ -14,9 +14,8 @@ namespace Discord.Addons.SimplePermissions
     {
         private readonly CommandService _cService;
         private readonly DiscordSocketClient _client;
-
-        internal readonly IConfigStore<IPermissionConfig> ConfigStore;
-        internal readonly IPermissionConfig Config;
+        private readonly IConfigStore<IPermissionConfig> _configStore;
+        private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
 
         /// <summary>
         /// 
@@ -35,21 +34,22 @@ namespace Discord.Addons.SimplePermissions
 
             _cService = commands;
             _client = client;
-            Config = configstore.Load();
-            ConfigStore = configstore;
+            //Config = configstore.Load();
+            _configStore = configstore;
 
             client.Connected += checkDuplicateModuleNames;
 
             client.GuildAvailable += async guild =>
             {
-                await Config.AddNewGuild(guild);
-                ConfigStore.Save();
+                var config = _configStore.Load();
+                await config.AddNewGuild(guild);
+                _configStore.Save();
 
                 foreach (var chan in await guild.GetTextChannelsAsync())
                 {
                     if (await CanReadAndWrite(chan))
                     {
-                        if (!Config.GetChannelModuleWhitelist(chan.Id).Contains(PermissionsModule.permModuleName))
+                        if (!config.GetChannelModuleWhitelist(chan.Id).Contains(PermissionsModule.permModuleName))
                         {
                             AddPermissionsModule(chan);
                         }
@@ -69,7 +69,7 @@ namespace Discord.Addons.SimplePermissions
                 var mChan = chan as IMessageChannel;
                 if (mChan != null)
                 {
-                    Config.RemoveChannel(mChan.Id);
+                    _configStore.Load().RemoveChannel(mChan.Id);
                 }
                 return Task.CompletedTask;
             };
@@ -80,7 +80,7 @@ namespace Discord.Addons.SimplePermissions
                 {
                     AddPermissionsModule(mChan);
                 }
-                else if (Config.GetChannelModuleWhitelist(after.Id).Contains(PermissionsModule.permModuleName))
+                else if (_configStore.Load().GetChannelModuleWhitelist(after.Id).Contains(PermissionsModule.permModuleName))
                 {
                     RemovePermissionsModule(mChan);
                 }
@@ -105,15 +105,15 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
 
         private void RemovePermissionsModule(IMessageChannel channel)
         {
-            Config.BlacklistModule(channel.Id, PermissionsModule.permModuleName);
-            ConfigStore.Save();
+            _configStore.Load().BlacklistModule(channel.Id, PermissionsModule.permModuleName);
+            _configStore.Save();
             Console.WriteLine($"{DateTime.Now}: Removed permission management from {channel.Name}.");
         }
 
         private void AddPermissionsModule(IMessageChannel channel)
         {
-            Config.WhitelistModule(channel.Id, PermissionsModule.permModuleName);
-            ConfigStore.Save();
+            _configStore.Load().WhitelistModule(channel.Id, PermissionsModule.permModuleName);
+            _configStore.Save();
             Console.WriteLine($"{DateTime.Now}: Added permission management to {channel.Name}.");
         }
 
@@ -129,9 +129,58 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
             return true;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void SaveConfig() => ConfigStore.Save();
+        internal async Task<bool> SetGuildAdminRole(ulong guildId, IRole role)
+        {
+            await _lock.WaitAsync();
+            var result = await _configStore.Load().SetGuildAdminRole(guildId, role);
+            _configStore.Save();
+            _lock.Release();
+            return result;
+        }
+
+        internal async Task<bool> SetGuildModRole(ulong guildId, IRole role)
+        {
+            await _lock.WaitAsync();
+            var result = await _configStore.Load().SetGuildModRole(guildId, role);
+            _configStore.Save();
+            _lock.Release();
+            return result;
+        }
+
+        internal async Task<bool> AddSpecialUser(ulong channelId, IUser user)
+        {
+            await _lock.WaitAsync();
+            var result = await _configStore.Load().AddSpecialUser(channelId, user);
+            _configStore.Save();
+            _lock.Release();
+            return result;
+        }
+
+        internal async Task<bool> RemoveSpecialUser(ulong channelId, IUser user)
+        {
+            await _lock.WaitAsync();
+            var result = await _configStore.Load().RemoveSpecialUser(channelId, user);
+            _configStore.Save();
+            _lock.Release();
+            return result;
+        }
+
+        internal async Task<bool> WhitelistModule(ulong channelId, string modName)
+        {
+            await _lock.WaitAsync();
+            var result = await _configStore.Load().WhitelistModule(channelId, modName);
+            _configStore.Save();
+            _lock.Release();
+            return result;
+        }
+
+        internal async Task<bool> BlacklistModule(ulong channelId, string modName)
+        {
+            await _lock.WaitAsync();
+            var result = await _configStore.Load().BlacklistModule(channelId, modName);
+            _configStore.Save();
+            _lock.Release();
+            return result;
+        }
     }
 }

@@ -39,13 +39,17 @@ namespace Discord.Addons.SimplePermissions
         /// Sets the ID of the group that is considered
         /// the Admin role in a specified guild.
         /// </summary>
-        Task SetGuildAdminRole(ulong guildId, IRole role);
+        /// <returns>A <see cref="bool"/> indicating
+        /// whether the operation succeeded</returns>
+        Task<bool> SetGuildAdminRole(ulong guildId, IRole role);
 
         /// <summary>
         /// Sets the ID of the group that is considered
         /// the Moderator role in a specified guild.
         /// </summary>
-        Task SetGuildModRole(ulong guildId, IRole role);
+        /// <returns>A <see cref="bool"/> indicating
+        /// whether the operation succeeded</returns>
+        Task<bool> SetGuildModRole(ulong guildId, IRole role);
 
         /// <summary>
         /// Gets the list of modules that are
@@ -56,12 +60,16 @@ namespace Discord.Addons.SimplePermissions
         /// <summary>
         /// Whitelist a module in this channel.
         /// </summary>
-        Task WhitelistModule(ulong channelId, string moduleName);
+        /// <returns>A <see cref="bool"/> indicating
+        /// whether the operation succeeded</returns>
+        Task<bool> WhitelistModule(ulong channelId, string moduleName);
 
         /// <summary>
         /// Blacklist a module in this channel.
         /// </summary>
-        Task BlacklistModule(ulong channelId, string moduleName);
+        /// <returns>A <see cref="bool"/> indicating
+        /// whether the operation succeeded</returns>
+        Task<bool> BlacklistModule(ulong channelId, string moduleName);
 
         /// <summary>
         /// Gets the users that are allowed to use
@@ -73,11 +81,15 @@ namespace Discord.Addons.SimplePermissions
         /// <summary>
         /// Give a user Special command privileges in a channel.
         /// </summary>
-        Task AddSpecialUser(ulong channelId, IUser user);
+        /// <returns>A <see cref="bool"/> indicating
+        /// whether the operation succeeded</returns>
+        Task<bool> AddSpecialUser(ulong channelId, IUser user);
 
         /// <summary>
         /// Revoke a user's Special command privileges in a channel.
         /// </summary>
-        Task RemoveSpecialUser(ulong channelId, IUser user);
+        /// <returns>A <see cref="bool"/> indicating
+        /// whether the operation succeeded</returns>
+        Task<bool> RemoveSpecialUser(ulong channelId, IUser user);
     }
 }
