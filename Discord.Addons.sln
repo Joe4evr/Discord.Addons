@@ -1,28 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.25928.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{07737DD4-1366-42AA-8942-253538B98254}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord.Addons.MpGame", "Discord.Addons.MpGame\Discord.Addons.MpGame.csproj", "{4ED9914A-D70D-4E14-A375-3464311AAA43}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Discord.Addons.MpGame", "src\Discord.Addons.MpGame\Discord.Addons.MpGame.xproj", "{C871B626-E2A0-43AD-A281-C8C310FFA6DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord.Addons.Trivia", "Discord.Addons.Trivia\Discord.Addons.Trivia.csproj", "{CBD8192B-CDEE-4363-8410-C05611395FCF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56F72F3F-E637-4916-85BF-890900CF43D7}"
-	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
-		LICENSE = LICENSE
-		README.md = README.md
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord.Addons.SimplePermissions", "Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj", "{FEC77C58-119B-4913-A1FB-3F780E172195}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Discord.Addons.SimplePermissions", "src\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.xproj", "{A926F884-7973-466D-9662-58617890E8FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord.Addons.SimplePermissions.EFProvider", "Discord.Addons.SimplePermissions.EFProvider\Discord.Addons.SimplePermissions.EFProvider.csproj", "{CB4CAB20-D46B-47D1-AAE4-3927DC6E9EEC}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Discord.Addons.SimpleConfig", "src\Discord.Addons.SimpleConfig\Discord.Addons.SimpleConfig.xproj", "{80CB12E2-C5C7-4454-8422-51BA4ABBB609}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Discord.Addons.TriviaGames", "src\Discord.Addons.Trivia\Discord.Addons.TriviaGames.xproj", "{8AF1C5E3-63EA-409A-88EC-0FD70ACB0334}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Discord.Addons.SimplePermissions.EFProvider", "src\Discord.Addons.SimplePermissions.EFProvider\Discord.Addons.SimplePermissions.EFProvider.xproj", "{F80E5304-1B9A-4870-BCCA-9562409F8067}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Discord.Addons.SimplePermissions.JsonProvider", "src\Discord.Addons.SimplePermissions.JsonProvider\Discord.Addons.SimplePermissions.JsonProvider.xproj", "{F971FB6E-E1BF-4BD5-AB6A-07DC6609D649}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord.Addons.SimplePermissions.JsonProvider", "Discord.Addons.SimplePermissions.JsonProvider\Discord.Addons.SimplePermissions.JsonProvider.csproj", "{A1C8B13F-4FF7-4C38-A351-3CDDF8F38413}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,40 +19,28 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C871B626-E2A0-43AD-A281-C8C310FFA6DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C871B626-E2A0-43AD-A281-C8C310FFA6DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C871B626-E2A0-43AD-A281-C8C310FFA6DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C871B626-E2A0-43AD-A281-C8C310FFA6DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A926F884-7973-466D-9662-58617890E8FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A926F884-7973-466D-9662-58617890E8FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A926F884-7973-466D-9662-58617890E8FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A926F884-7973-466D-9662-58617890E8FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{80CB12E2-C5C7-4454-8422-51BA4ABBB609}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{80CB12E2-C5C7-4454-8422-51BA4ABBB609}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{80CB12E2-C5C7-4454-8422-51BA4ABBB609}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{80CB12E2-C5C7-4454-8422-51BA4ABBB609}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8AF1C5E3-63EA-409A-88EC-0FD70ACB0334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8AF1C5E3-63EA-409A-88EC-0FD70ACB0334}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8AF1C5E3-63EA-409A-88EC-0FD70ACB0334}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8AF1C5E3-63EA-409A-88EC-0FD70ACB0334}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F80E5304-1B9A-4870-BCCA-9562409F8067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F80E5304-1B9A-4870-BCCA-9562409F8067}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F80E5304-1B9A-4870-BCCA-9562409F8067}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F80E5304-1B9A-4870-BCCA-9562409F8067}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F971FB6E-E1BF-4BD5-AB6A-07DC6609D649}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F971FB6E-E1BF-4BD5-AB6A-07DC6609D649}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F971FB6E-E1BF-4BD5-AB6A-07DC6609D649}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F971FB6E-E1BF-4BD5-AB6A-07DC6609D649}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ED9914A-D70D-4E14-A375-3464311AAA43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ED9914A-D70D-4E14-A375-3464311AAA43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ED9914A-D70D-4E14-A375-3464311AAA43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ED9914A-D70D-4E14-A375-3464311AAA43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBD8192B-CDEE-4363-8410-C05611395FCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBD8192B-CDEE-4363-8410-C05611395FCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBD8192B-CDEE-4363-8410-C05611395FCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBD8192B-CDEE-4363-8410-C05611395FCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEC77C58-119B-4913-A1FB-3F780E172195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEC77C58-119B-4913-A1FB-3F780E172195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEC77C58-119B-4913-A1FB-3F780E172195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEC77C58-119B-4913-A1FB-3F780E172195}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB4CAB20-D46B-47D1-AAE4-3927DC6E9EEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB4CAB20-D46B-47D1-AAE4-3927DC6E9EEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB4CAB20-D46B-47D1-AAE4-3927DC6E9EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB4CAB20-D46B-47D1-AAE4-3927DC6E9EEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1C8B13F-4FF7-4C38-A351-3CDDF8F38413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1C8B13F-4FF7-4C38-A351-3CDDF8F38413}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1C8B13F-4FF7-4C38-A351-3CDDF8F38413}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1C8B13F-4FF7-4C38-A351-3CDDF8F38413}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{C871B626-E2A0-43AD-A281-C8C310FFA6DC} = {07737DD4-1366-42AA-8942-253538B98254}
-		{A926F884-7973-466D-9662-58617890E8FB} = {07737DD4-1366-42AA-8942-253538B98254}
-		{80CB12E2-C5C7-4454-8422-51BA4ABBB609} = {07737DD4-1366-42AA-8942-253538B98254}
-		{8AF1C5E3-63EA-409A-88EC-0FD70ACB0334} = {07737DD4-1366-42AA-8942-253538B98254}
-		{F80E5304-1B9A-4870-BCCA-9562409F8067} = {07737DD4-1366-42AA-8942-253538B98254}
-		{F971FB6E-E1BF-4BD5-AB6A-07DC6609D649} = {07737DD4-1366-42AA-8942-253538B98254}
 	EndGlobalSection
 EndGlobal
