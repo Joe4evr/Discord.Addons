@@ -1,32 +1,36 @@
-﻿<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
-    <PropertyGroup Label="Configuration">
-        <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-        <Optimize>True</Optimize>
-        <DocumentationFile>\Discord.Addons.Trivia.xml</DocumentationFile>
-    </PropertyGroup>
-    <PropertyGroup>
-        <TargetFramework>netstandard1.3</TargetFramework>
-    </PropertyGroup>
-    <ItemGroup>
-        <Compile Include="**\*.cs" />
-        <Compile Condition="Release" Exclude="Example\**"/>
-        <EmbeddedResource Include="**\*.resx" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Discord.Net.Commands">
-            <Version>1.0.0-beta2-*</Version>
-        </PackageReference>
-        <PackageReference Include="Discord.Net.WebSocket">
-            <Version>1.0.0-beta2-*</Version>
-        </PackageReference>
-        <PackageReference Include="NETStandard.Library">
-            <Version>1.6</Version>
-        </PackageReference>
-        <PackageReference Include="Microsoft.NET.Sdk">
-            <Version>1.0.0-alpha-20161104-2</Version>
-            <PrivateAssets>All</PrivateAssets>
-        </PackageReference>
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+  <PropertyGroup Label="Configuration">
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+      <OutputPath>bin\$(Configuration)\</OutputPath>
+    <Optimize Condition="'$(Configuration)' == 'Release'">True</Optimize>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Condition="'$(Configuration)' == 'Debug'" Include="**\*.cs" />
+    <Compile Condition="'$(Configuration)' == 'Release'" Include="**\*.cs" Exclude="Example\**" />
+    <EmbeddedResource Include="**\*.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Discord.Net.Commands">
+      <Version>1.0.0-beta2-*</Version>
+    </PackageReference>
+    <PackageReference Include="Discord.Net.WebSocket">
+      <Version>1.0.0-beta2-*</Version>
+    </PackageReference>
+    <PackageReference Include="NETStandard.Library">
+      <Version>1.6</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Sdk">
+      <Version>1.0.0-alpha-20161104-2</Version>
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

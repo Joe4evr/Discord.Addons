@@ -1,19 +1,33 @@
-﻿<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
   <PropertyGroup Label="Configuration">
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-    <Optimize>True</Optimize>
-    <DocumentationFile>\Discord.Addons.SimplePermissions.JsonProvider.xml</DocumentationFile>
+      <OutputPath>bin\$(Configuration)\</OutputPath>
+    <Optimize Condition="'$(Configuration)' == 'Release'">True</Optimize>
+      <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs" />
+    <Compile Condition="'$(Configuration)' == 'Debug'" Include="**\*.cs" />
+    <Compile Condition="'$(Configuration)' == 'Release'" Include="**\*.cs" Exclude="Example\**" />
     <EmbeddedResource Include="**\*.resx" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="NETStandard.Library">
+      <Version>1.6.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Sdk">
+      <Version>1.0.0-alpha-20161104-2</Version>
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
