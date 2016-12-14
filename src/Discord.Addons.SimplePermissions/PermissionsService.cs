@@ -85,6 +85,8 @@ namespace Discord.Addons.SimplePermissions
                     RemovePermissionsModule(mChan);
                 }
             };
+
+            Console.WriteLine($"{DateTime.Now,20}: Created Permission service.");
         }
 
         private Task checkDuplicateModuleNames()

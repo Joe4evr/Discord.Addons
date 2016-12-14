@@ -21,6 +21,20 @@ namespace Discord.Addons.SimplePermissions
         /// </summary>
         public DbSet<ConfigChannel> Channels { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbSet<ConfigUser> Users { get; set; }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="modelBuilder"></param>
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+        //}
+
         async Task IPermissionConfig.AddNewGuild(IGuild guild)
         {
             Guilds.Add(new ConfigGuild
@@ -32,9 +46,9 @@ namespace Discord.Addons.SimplePermissions
                     .Select(c => new ConfigChannel
                     {
                         ChannelId = c.Id,
-                        WhiteListedModules = new HashSet<string>(),
-                        SpecialUsers = new HashSet<ulong>()
-                    })
+                        WhiteListedModules = new List<ConfigModule>(),
+                        SpecialUsers = new List<ConfigUser>()
+                    }).ToList()
             });
         }
 
@@ -43,8 +57,8 @@ namespace Discord.Addons.SimplePermissions
             Channels.Add(new ConfigChannel
             {
                 ChannelId = channel.Id,
-                WhiteListedModules = new HashSet<string>(),
-                SpecialUsers = new HashSet<ulong>()
+                WhiteListedModules = new List<ConfigModule>(),
+                SpecialUsers = new List<ConfigUser>()
             });
             return Task.CompletedTask;
         }
@@ -79,34 +93,56 @@ namespace Discord.Addons.SimplePermissions
 
         IEnumerable<string> IPermissionConfig.GetChannelModuleWhitelist(IChannel channel)
         {
-            return Channels.Single(c => c.ChannelId == channel.Id).WhiteListedModules;
+            return Channels.Include(c => c.WhiteListedModules)
+                .Single(c => c.ChannelId == channel.Id)
+                .WhiteListedModules.Select(m => m.ModuleName);
         }
 
         Task<bool> IPermissionConfig.WhitelistModule(IChannel channel, string moduleName)
         {
-            
-            return Task.FromResult(Channels.Single(c => c.ChannelId == channel.Id).WhiteListedModules.Add(moduleName));
+            var chan = Channels.Include(c => c.WhiteListedModules).Single(c => c.ChannelId == channel.Id);
+            var mods = chan.WhiteListedModules.Select(m => m.ModuleName);
+            var hasThis = mods.Contains(moduleName);
+            if (!hasThis)
+            {
+                chan.WhiteListedModules.Add(new ConfigModule { ModuleName = moduleName });
+                //SaveChanges();
+            }
+            return Task.FromResult(!hasThis);
         }
 
         Task<bool> IPermissionConfig.BlacklistModule(IChannel channel, string moduleName)
         {
-            
-            return Task.FromResult(Channels.Single(c => c.ChannelId == channel.Id).WhiteListedModules.Remove(moduleName));
+            var mods = Channels.Include(c => c.WhiteListedModules)
+                .Single(c => c.ChannelId == channel.Id).WhiteListedModules;
+            return Task.FromResult(mods.Remove(mods.Single(m => m.ModuleName == moduleName)));
         }
 
         IEnumerable<ulong> IPermissionConfig.GetSpecialPermissionUsersList(IChannel channel)
         {
-            return Channels.Single(c => c.ChannelId == channel.Id).SpecialUsers;
+            return Channels.Include(c => c.SpecialUsers)
+                .Single(c => c.ChannelId == channel.Id)
+                .SpecialUsers.Select(u => u.UserId);
         }
 
         Task<bool> IPermissionConfig.AddSpecialUser(IChannel channel, IUser user)
         {
-            return Task.FromResult(Channels.Single(c => c.ChannelId == channel.Id).SpecialUsers.Add(user.Id));
+            var spUsers = Channels.Include(c => c.SpecialUsers)
+                .Single(c => c.ChannelId == channel.Id).SpecialUsers;
+            var hasThis = spUsers.Select(u => u.UserId).Contains(user.Id);
+            if (!hasThis)
+            {
+                spUsers.Add(new ConfigUser { UserId = user.Id });
+                //SaveChanges();
+            }
+            return Task.FromResult(!hasThis);
         }
 
         Task<bool> IPermissionConfig.RemoveSpecialUser(IChannel channel, IUser user)
         {
-            return Task.FromResult(Channels.Single(c => c.ChannelId == channel.Id).SpecialUsers.Remove(user.Id));
+            var spUsers = Channels.Include(c => c.SpecialUsers)
+                .Single(c => c.ChannelId == channel.Id).SpecialUsers;
+            return Task.FromResult(spUsers.Remove(spUsers.Single(u => u.UserId == user.Id)));
         }
     }
 }

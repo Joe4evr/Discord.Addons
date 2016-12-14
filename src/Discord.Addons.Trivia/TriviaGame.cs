@@ -23,10 +23,10 @@ namespace Discord.Addons.TriviaGames
         private readonly ConcurrentDictionary<ulong, int> _scoreboard = new ConcurrentDictionary<ulong, int>();
         private readonly HashSet<string> _asked = new HashSet<string>();
         private readonly Random _rng = new Random();
+        private readonly Atomic<bool> _isAnswered = new Atomic<bool>(true);
 
         private QA _currentQuestion;
         private int _turn = 0;
-        private Atomic<bool> _isAnswered = new Atomic<bool>(true);
 
         /// <summary>
         /// 
@@ -87,7 +87,7 @@ namespace Discord.Addons.TriviaGames
             _currentQuestion = _triviaData.Pop();
             _turn++;
             _asked.Add(_currentQuestion.Question);
-            _isAnswered = false;
+            _isAnswered.SetValue(false);
             await _channel.SendMessageAsync(_currentQuestion.Question);
             _questionTimer.Change(TimeSpan.FromSeconds(20), Timeout.InfiniteTimeSpan);
         }
@@ -161,8 +161,9 @@ namespace Discord.Addons.TriviaGames
                 }
             }
 
-            public static implicit operator T(Atomic<T> atomic) => atomic.value;
-            public static implicit operator Atomic<T>(T val) => new Atomic<T>(val);
+            public void SetValue(T newValue) => value = newValue;
+
+            //public static implicit operator T(Atomic<T> atomic) => atomic.value;
         }
     }
 
@@ -190,7 +191,7 @@ namespace Discord.Addons.TriviaGames
                     do
                     {
                         provider.GetBytes(box);
-                        boxSum = box.Sum(b => b);
+                        boxSum = box.Cast<int>().Sum();
                     }
                     while (!(boxSum < n * ((Byte.MaxValue * box.Length) / n)));
                     int k = (boxSum % n);

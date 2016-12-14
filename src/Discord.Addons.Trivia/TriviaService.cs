@@ -36,6 +36,8 @@ namespace Discord.Addons.TriviaGames
                     await game.CheckTrivia(msg);
                 }
             };
+
+            Console.WriteLine($"{DateTime.Now,20}: Created Trivia service.");
         }
 
         /// <summary>
