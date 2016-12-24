@@ -1,5 +1,5 @@
-﻿{
-    "version": "0.7.9-*",
+{
+    "version": "0.7.10",
     "description": "Discord.Net module for command permission management.",
     "authors": [ "Joe4evr" ],
 
@@ -25,10 +25,10 @@
         }
     },
 
-    "dependencies": {
-        "Discord.Net.Commands": "1.0.0-beta2-*",
-        "Discord.Net.WebSocket": "1.0.0-beta2-*"
-    },
+  "dependencies": {
+    "Discord.Net.Commands": "1.0.0-beta2-00499",
+    "Discord.Net.WebSocket": "1.0.0-beta2-00499"
+  },
 
     "frameworks": {
         "netstandard1.3": {

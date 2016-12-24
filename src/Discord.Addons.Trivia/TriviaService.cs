@@ -47,8 +47,8 @@ namespace Discord.Addons.TriviaGames
         /// <param name="game">Instance of the game.</param>
         public void AddNewGame(ulong channelId, TriviaGame game)
         {
-            _triviaGames[channelId] = game;
-            game.GameEnd += _onGameEnd;
+            if (_triviaGames.TryAdd(channelId, game))
+                game.GameEnd += _onGameEnd;
         }
 
         private Task _onGameEnd(ulong channelId)

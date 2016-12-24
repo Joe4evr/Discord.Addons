@@ -104,13 +104,18 @@ namespace Discord.Addons.SimplePermissions
             return SpecialPermissionUsersList[channel.Id];
         }
 
-        Task<bool> IPermissionConfig.AddSpecialUser(IChannel channel, IUser user)
+        Task IPermissionConfig.AddUser(IGuildUser user)
+        {
+            return Task.CompletedTask;
+        }
+
+        Task<bool> IPermissionConfig.AddSpecialUser(IChannel channel, IGuildUser user)
         {
             
             return Task.FromResult(SpecialPermissionUsersList[channel.Id].Add(user.Id));
         }
 
-        Task<bool> IPermissionConfig.RemoveSpecialUser(IChannel channel, IUser user)
+        Task<bool> IPermissionConfig.RemoveSpecialUser(IChannel channel, IGuildUser user)
         {
             return Task.FromResult(SpecialPermissionUsersList[channel.Id].Remove(user.Id));
         }

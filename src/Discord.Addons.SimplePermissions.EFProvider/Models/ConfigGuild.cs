@@ -36,5 +36,10 @@ namespace Discord.Addons.SimplePermissions
         /// 
         /// </summary>
         public ICollection<ConfigChannel> Channels { get; set; } = new List<ConfigChannel>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICollection<ConfigUser> Users { get; set; } = new List<ConfigUser>();
     }
 }

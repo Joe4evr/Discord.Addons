@@ -26,41 +26,57 @@ namespace Discord.Addons.SimplePermissions
         /// </summary>
         public DbSet<ConfigUser> Users { get; set; }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="modelBuilder"></param>
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-        //}
+        protected event Func<ConfigGuild, Task> OnGuildAdd;
+        protected event Func<ConfigChannel, Task> OnChannelAdd;
+        protected event Func<ConfigUser, Task> OnUserAdd;
 
         async Task IPermissionConfig.AddNewGuild(IGuild guild)
         {
-            Guilds.Add(new ConfigGuild
+            var users = await guild.GetUsersAsync();
+            var cUsers = new List<ConfigUser>();
+            foreach (var user in users)
+            {
+                var cu = new ConfigUser { UserId = user.Id, GuildId = user.GuildId };
+                await OnUserAdd?.Invoke(cu);
+                cUsers.Add(cu);
+            }
+
+            var tChannels = await guild.GetTextChannelsAsync();
+            var cChannels = new List<ConfigChannel>();
+            foreach (var chan in tChannels)
+            {
+                var cch = new ConfigChannel
+                {
+                    ChannelId = chan.Id,
+                    WhiteListedModules = new List<ConfigModule>(),
+                    SpecialUsers = new List<ConfigUser>()
+                };
+                await OnChannelAdd?.Invoke(cch);
+                cChannels.Add(cch);
+            }
+
+            var cGuild = new ConfigGuild
             {
                 GuildId = guild.Id,
                 AdminRole = 0ul,
                 ModRole = 0ul,
-                Channels = (await guild.GetTextChannelsAsync())
-                    .Select(c => new ConfigChannel
-                    {
-                        ChannelId = c.Id,
-                        WhiteListedModules = new List<ConfigModule>(),
-                        SpecialUsers = new List<ConfigUser>()
-                    }).ToList()
-            });
+                Users = cUsers,
+                Channels = cChannels
+            };
+            await OnGuildAdd?.Invoke(cGuild);
+            Guilds.Add(cGuild);
         }
 
-        Task IPermissionConfig.AddChannel(IChannel channel)
+        async Task IPermissionConfig.AddChannel(IChannel channel)
         {
-            Channels.Add(new ConfigChannel
+            var cChannel = new ConfigChannel
             {
                 ChannelId = channel.Id,
                 WhiteListedModules = new List<ConfigModule>(),
                 SpecialUsers = new List<ConfigUser>()
-            });
-            return Task.CompletedTask;
+            };
+            await OnChannelAdd?.Invoke(cChannel);
+            Channels.Add(cChannel);
         }
 
         Task IPermissionConfig.RemoveChannel(IChannel channel)
@@ -125,20 +141,27 @@ namespace Discord.Addons.SimplePermissions
                 .SpecialUsers.Select(u => u.UserId);
         }
 
-        Task<bool> IPermissionConfig.AddSpecialUser(IChannel channel, IUser user)
+        async Task IPermissionConfig.AddUser(IGuildUser user)
+        {
+            var cUser = new ConfigUser { UserId = user.Id, GuildId = user.GuildId };
+            await OnUserAdd?.Invoke(cUser);
+            Users.Add(cUser);
+        }
+
+        Task<bool> IPermissionConfig.AddSpecialUser(IChannel channel, IGuildUser user)
         {
             var spUsers = Channels.Include(c => c.SpecialUsers)
                 .Single(c => c.ChannelId == channel.Id).SpecialUsers;
             var hasThis = spUsers.Select(u => u.UserId).Contains(user.Id);
             if (!hasThis)
             {
-                spUsers.Add(new ConfigUser { UserId = user.Id });
+                spUsers.Add(Users.Single(u => u.UserId == user.Id));
                 //SaveChanges();
             }
             return Task.FromResult(!hasThis);
         }
 
-        Task<bool> IPermissionConfig.RemoveSpecialUser(IChannel channel, IUser user)
+        Task<bool> IPermissionConfig.RemoveSpecialUser(IChannel channel, IGuildUser user)
         {
             var spUsers = Channels.Include(c => c.SpecialUsers)
                 .Single(c => c.ChannelId == channel.Id).SpecialUsers;

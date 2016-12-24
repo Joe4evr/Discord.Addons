@@ -204,7 +204,7 @@ namespace Discord.Addons.SimplePermissions
         [Command("addspecial"), Permission(MinimumPermission.AdminRole)]
         [Alias("addsp"), RequireContext(ContextType.Guild)]
         [Summary("Give someone special command privileges in this channel.")]
-        public async Task AddSpecialUser(IUser user)
+        public async Task AddSpecialUser(IGuildUser user)
         {
             if (await _permService.AddSpecialUser(Context.Channel, user))
                 await ReplyAsync($"Gave **{user.Username}** Special command privileges.");
@@ -218,7 +218,7 @@ namespace Discord.Addons.SimplePermissions
         [Command("remspecial"), Permission(MinimumPermission.AdminRole)]
         [Alias("remsp"), RequireContext(ContextType.Guild)]
         [Summary("Remove someone's special command privileges in this channel.")]
-        public async Task RemoveSpecialUser(IUser user)
+        public async Task RemoveSpecialUser(IGuildUser user)
         {
             if (await _permService.RemoveSpecialUser(Context.Channel, user))
                 await ReplyAsync($"Removed **{user.Username}** Special command privileges.");

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace Discord.Addons.SimplePermissions
         private readonly CommandService _cService;
         private readonly DiscordSocketClient _client;
         private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
+        private readonly Dictionary<ulong, FancyHelpMessage> _helpmsgs = new Dictionary<ulong, FancyHelpMessage>();
+
         internal readonly IConfigStore<IPermissionConfig> ConfigStore;
 
         /// <summary>
@@ -34,7 +37,6 @@ namespace Discord.Addons.SimplePermissions
 
             _cService = commands;
             _client = client;
-            //Config = configstore.Load();
             ConfigStore = configstore;
 
             client.Connected += checkDuplicateModuleNames;
@@ -85,6 +87,12 @@ namespace Discord.Addons.SimplePermissions
                     RemovePermissionsModule(mChan);
                 }
             };
+            client.ReactionAdded += (id, msg, reaction) =>
+            {
+
+                return Task.CompletedTask;
+            };
+            client.UserJoined += user => ConfigStore.Load().AddUser(user);
 
             Console.WriteLine($"{DateTime.Now,20}: Created Permission service.");
         }
@@ -149,7 +157,7 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
             return result;
         }
 
-        internal async Task<bool> AddSpecialUser(IChannel channel, IUser user)
+        internal async Task<bool> AddSpecialUser(IChannel channel, IGuildUser user)
         {
             await _lock.WaitAsync();
             var result = await ConfigStore.Load().AddSpecialUser(channel, user);
@@ -158,7 +166,7 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
             return result;
         }
 
-        internal async Task<bool> RemoveSpecialUser(IChannel channel, IUser user)
+        internal async Task<bool> RemoveSpecialUser(IChannel channel, IGuildUser user)
         {
             await _lock.WaitAsync();
             var result = await ConfigStore.Load().RemoveSpecialUser(channel, user);

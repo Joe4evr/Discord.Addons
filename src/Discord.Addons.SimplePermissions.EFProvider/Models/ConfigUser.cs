@@ -19,5 +19,12 @@ namespace Discord.Addons.SimplePermissions
 
         [Column(TypeName = "BIGINT UNSIGNED")]
         public ulong UserId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+
+        [Column(TypeName = "BIGINT UNSIGNED")]
+        public ulong GuildId { get; set; }
     }
 }
