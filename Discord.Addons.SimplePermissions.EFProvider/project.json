@@ -1,0 +1,43 @@
+{
+    "version": "0.1.3",
+    "description": "EF provider for Discord.Addons.SimplePermissions",
+    "authors": [ "Joe4evr" ],
+
+    "packOptions": {
+        "owners": [ "Joe4evr" ],
+        "repository": {
+            "type": "git",
+            "url": "https://github.com/Joe4evr/Discord.Addons"
+        },
+        "licenseUrl": "http://opensource.org/licenses/MIT",
+        "files": {
+            "exclude": [ "Example/**" ]
+        },
+        "tags": [ "discord", "commands" ]
+    },
+
+    "configurations": {
+        "Release": {
+            "buildOptions": {
+                "optimize": true,
+                "xmlDoc": true
+            }
+        }
+    },
+
+    "dependencies": {
+        "Discord.Addons.SimplePermissions": "*",
+        "Microsoft.EntityFrameworkCore": "1.0.2"
+    },
+
+    "frameworks": {
+        "netstandard1.3": {
+            "dependencies": {
+                "NETStandard.Library": {
+                    "version": "1.6.0"
+                }
+            },
+            "imports": "dnxcore50"
+        }
+    }
+}
