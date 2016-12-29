@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Discord.Addons.SimplePermissions
@@ -8,7 +6,7 @@ namespace Discord.Addons.SimplePermissions
     /// <summary>
     /// 
     /// </summary>
-    public class ConfigChannel
+    public class ConfigUser
     {
         /// <summary>
         /// 
@@ -18,17 +16,15 @@ namespace Discord.Addons.SimplePermissions
         /// <summary>
         /// 
         /// </summary>
+
         [Column(TypeName = "BIGINT UNSIGNED")]
-        public ulong ChannelId { get; set; }
+        public ulong UserId { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<ConfigUser> SpecialUsers { get; set; } = new List<ConfigUser>();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public ICollection<ConfigModule> WhiteListedModules { get; set; } = new List<ConfigModule>();
+        [Column(TypeName = "BIGINT UNSIGNED")]
+        public ulong GuildId { get; set; }
     }
 }

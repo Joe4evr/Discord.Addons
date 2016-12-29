@@ -79,17 +79,22 @@ namespace Discord.Addons.SimplePermissions
         IEnumerable<ulong> GetSpecialPermissionUsersList(IChannel channel);
 
         /// <summary>
+        /// Add a new user to the config.
+        /// </summary>
+        Task AddUser(IGuildUser user);
+
+        /// <summary>
         /// Give a user Special command privileges in a channel.
         /// </summary>
         /// <returns>A <see cref="bool"/> indicating
         /// whether the operation succeeded</returns>
-        Task<bool> AddSpecialUser(IChannel channel, IUser user);
+        Task<bool> AddSpecialUser(IChannel channel, IGuildUser user);
 
         /// <summary>
         /// Revoke a user's Special command privileges in a channel.
         /// </summary>
         /// <returns>A <see cref="bool"/> indicating
         /// whether the operation succeeded</returns>
-        Task<bool> RemoveSpecialUser(IChannel channel, IUser user);
+        Task<bool> RemoveSpecialUser(IChannel channel, IGuildUser user);
     }
 }

@@ -1,5 +1,4 @@
-﻿<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup Label="Configuration">
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <Optimize Condition="'$(Configuration)' == 'Release'">True</Optimize>
@@ -15,22 +14,8 @@
     <EmbeddedResource Include="**\*.resx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Discord.Net.Commands">
-      <Version>1.0.0-beta2-*</Version>
-    </PackageReference>
-    <PackageReference Include="Discord.Net.WebSocket">
-      <Version>1.0.0-beta2-*</Version>
-    </PackageReference>
-    <PackageReference Include="NETStandard.Library">
-      <Version>1.6</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.NET.Sdk">
-      <Version>1.0.0-alpha-20161104-2</Version>
-      <PrivateAssets>All</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="Discord.Net.Commands" Version="1.0.0-beta2-00528" />
+    <PackageReference Include="Discord.Net.WebSocket" Version="1.0.0-beta2-00528" />
+    <PackageReference Include="NETStandard.Library" Version="1.6" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

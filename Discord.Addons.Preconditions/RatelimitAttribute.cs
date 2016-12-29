@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Discord.Commands;
 
-namespace Discord.Addons.SimplePermissions
+namespace Discord.Addons.Preconditions
 {
     /// <summary>
     /// Sets how often a user is allowed to use this command.
@@ -46,7 +46,7 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="command"></param>
         /// <param name="map"></param>
         /// <returns></returns>
-        public override Task<PreconditionResult> CheckPermissions(CommandContext context, CommandInfo command, IDependencyMap map)
+        public override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IDependencyMap map)
         {
             var now = DateTime.UtcNow;
             CommandTimeout timeout;

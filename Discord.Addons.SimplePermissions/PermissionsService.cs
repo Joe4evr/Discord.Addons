@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace Discord.Addons.SimplePermissions
         private readonly CommandService _cService;
         private readonly DiscordSocketClient _client;
         private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
+        //private readonly Dictionary<ulong, FancyHelpMessage> _helpmsgs = new Dictionary<ulong, FancyHelpMessage>();
+
         internal readonly IConfigStore<IPermissionConfig> ConfigStore;
 
         /// <summary>
@@ -28,14 +31,9 @@ namespace Discord.Addons.SimplePermissions
             CommandService commands,
             DiscordSocketClient client)
         {
-            if (commands == null) throw new ArgumentNullException(nameof(commands));
-            if (configstore == null) throw new ArgumentNullException(nameof(configstore));
-            if (client == null) throw new ArgumentNullException(nameof(client));
-
-            _cService = commands;
-            _client = client;
-            //Config = configstore.Load();
-            ConfigStore = configstore;
+            _cService = commands ?? throw new ArgumentNullException(nameof(commands));
+            _client = client ?? throw new ArgumentNullException(nameof(client));
+            ConfigStore = configstore ?? throw new ArgumentNullException(nameof(configstore));
 
             client.Connected += checkDuplicateModuleNames;
 
@@ -58,16 +56,14 @@ namespace Discord.Addons.SimplePermissions
             };
             client.ChannelCreated += async chan =>
             {
-                var mChan = chan as IMessageChannel;
-                if (mChan != null && (await CanReadAndWrite(mChan)))
+                if (chan is IMessageChannel mChan && (await CanReadAndWrite(mChan)))
                 {
                     AddPermissionsModule(mChan);
                 }
             };
             client.ChannelDestroyed += chan =>
             {
-                var mChan = chan as IMessageChannel;
-                if (mChan != null)
+                if (chan is IMessageChannel mChan)
                 {
                     ConfigStore.Load().RemoveChannel(mChan);
                 }
@@ -75,16 +71,26 @@ namespace Discord.Addons.SimplePermissions
             };
             client.ChannelUpdated += async (before, after) =>
             {
-                var mChan = after as IMessageChannel;
-                if (mChan != null && (await CanReadAndWrite(mChan)))
+                if (after is IMessageChannel mChan)
                 {
-                    AddPermissionsModule(mChan);
-                }
-                else if (ConfigStore.Load().GetChannelModuleWhitelist(after).Contains(PermissionsModule.permModuleName))
-                {
-                    RemovePermissionsModule(mChan);
+                    if (await CanReadAndWrite(mChan))
+                    {
+                        AddPermissionsModule(mChan);
+                    }
+                    else if (ConfigStore.Load().GetChannelModuleWhitelist(after).Contains(PermissionsModule.permModuleName))
+                    {
+                        RemovePermissionsModule(mChan);
+                    }
                 }
             };
+            client.ReactionAdded += (id, msg, reaction) =>
+            {
+
+                return Task.CompletedTask;
+            };
+            client.UserJoined += user => ConfigStore.Load().AddUser(user);
+
+            Console.WriteLine($"{DateTime.Now,20}: Created Permission service.");
         }
 
         private Task checkDuplicateModuleNames()
@@ -119,8 +125,7 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
 
         private async Task<bool> CanReadAndWrite(IMessageChannel channel)
         {
-            var tChan = channel as ITextChannel;
-            if (tChan != null)
+            if (channel is ITextChannel tChan)
             {
                 var clientPerms = (await tChan.Guild.GetCurrentUserAsync()).GetPermissions(tChan);
                 return (clientPerms.ReadMessages && clientPerms.SendMessages);
@@ -147,7 +152,7 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
             return result;
         }
 
-        internal async Task<bool> AddSpecialUser(IChannel channel, IUser user)
+        internal async Task<bool> AddSpecialUser(IChannel channel, IGuildUser user)
         {
             await _lock.WaitAsync();
             var result = await ConfigStore.Load().AddSpecialUser(channel, user);
@@ -156,7 +161,7 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
             return result;
         }
 
-        internal async Task<bool> RemoveSpecialUser(IChannel channel, IUser user)
+        internal async Task<bool> RemoveSpecialUser(IChannel channel, IGuildUser user)
         {
             await _lock.WaitAsync();
             var result = await ConfigStore.Load().RemoveSpecialUser(channel, user);

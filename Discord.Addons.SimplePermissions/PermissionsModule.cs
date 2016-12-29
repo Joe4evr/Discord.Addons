@@ -27,11 +27,8 @@ namespace Discord.Addons.SimplePermissions
             CommandService cmdService,
             IDependencyMap map)
         {
-            if (permService == null) throw new ArgumentNullException(nameof(permService));
-            if (cmdService == null) throw new ArgumentNullException(nameof(cmdService));
-
-            _permService = permService;
-            _cmdService = cmdService;
+            _permService = permService ?? throw new ArgumentNullException(nameof(permService));
+            _cmdService = cmdService ?? throw new ArgumentNullException(nameof(cmdService));
             _map = map;
         }
 
@@ -81,7 +78,7 @@ namespace Discord.Addons.SimplePermissions
             await ReplyAsync(sb.ToString());
         }
 
-        private string formatParam(Commands.ParameterInfo param)
+        private string formatParam(ParameterInfo param)
         {
             var sb = new StringBuilder();
             if (param.IsMultiple)
@@ -114,14 +111,12 @@ namespace Discord.Addons.SimplePermissions
         [Command("roles"), Permission(MinimumPermission.GuildOwner)]
         [RequireContext(ContextType.Guild)]
         [Summary("List this server's roles and their ID.")]
-        public async Task ListRoles()
+        public Task ListRoles()
         {
-            var ch = Context.Channel as IGuildChannel;
-            if (ch != null)
-            {
-                await ReplyAsync(
-                    $"This server's roles:\n {String.Join("\n", Context.Guild.Roles.Where(r => r.Id != Context.Guild.EveryoneRole.Id).Select(r => $"{r.Name} : {r.Id}"))}");
-            }
+            return (Context.Channel is IGuildChannel ch)
+                ? ReplyAsync(
+                    $"This server's roles:\n {String.Join("\n", Context.Guild.Roles.Where(r => r.Id != Context.Guild.EveryoneRole.Id).Select(r => $"{r.Name} : {r.Id}"))}")
+                : Task.CompletedTask;
         }
 
         /// <summary>
@@ -130,10 +125,9 @@ namespace Discord.Addons.SimplePermissions
         [Command("modules"), Permission(MinimumPermission.AdminRole)]
         [RequireContext(ContextType.Guild)]
         [Summary("List all the modules loaded in the bot.")]
-        public async Task ListModules()
+        public Task ListModules()
         {
-            var ch = Context.Channel as IGuildChannel;
-            if (ch != null)
+            if (Context.Channel is IGuildChannel ch)
             {
                 var mods = _cmdService.Modules
                     .Where(m => m.Name != permModuleName)
@@ -147,8 +141,9 @@ namespace Discord.Addons.SimplePermissions
                 }
                 sb.Append("```");
 
-                await ReplyAsync(sb.ToString());
+                return ReplyAsync(sb.ToString());
             }
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -160,8 +155,7 @@ namespace Discord.Addons.SimplePermissions
         [Summary("Set the admin role for this server.")]
         public async Task SetAdminRole(IRole role)
         {
-            var ch = Context.Channel as IGuildChannel;
-            if (ch != null)
+            if (Context.Channel is IGuildChannel ch)
             {
                 if (role.Id == Context.Guild.EveryoneRole.Id)
                 {
@@ -183,8 +177,7 @@ namespace Discord.Addons.SimplePermissions
         [Summary("Set the moderator role for this server.")]
         public async Task SetModRole(IRole role)
         {
-            var ch = Context.Channel as IGuildChannel;
-            if (ch != null)
+            if (Context.Channel is IGuildChannel ch)
             {
                 if (role.Id == Context.Guild.EveryoneRole.Id)
                 {
@@ -204,7 +197,7 @@ namespace Discord.Addons.SimplePermissions
         [Command("addspecial"), Permission(MinimumPermission.AdminRole)]
         [Alias("addsp"), RequireContext(ContextType.Guild)]
         [Summary("Give someone special command privileges in this channel.")]
-        public async Task AddSpecialUser(IUser user)
+        public async Task AddSpecialUser(IGuildUser user)
         {
             if (await _permService.AddSpecialUser(Context.Channel, user))
                 await ReplyAsync($"Gave **{user.Username}** Special command privileges.");
@@ -218,7 +211,7 @@ namespace Discord.Addons.SimplePermissions
         [Command("remspecial"), Permission(MinimumPermission.AdminRole)]
         [Alias("remsp"), RequireContext(ContextType.Guild)]
         [Summary("Remove someone's special command privileges in this channel.")]
-        public async Task RemoveSpecialUser(IUser user)
+        public async Task RemoveSpecialUser(IGuildUser user)
         {
             if (await _permService.RemoveSpecialUser(Context.Channel, user))
                 await ReplyAsync($"Removed **{user.Username}** Special command privileges.");

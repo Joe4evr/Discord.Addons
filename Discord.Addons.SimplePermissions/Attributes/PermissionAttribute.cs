@@ -29,18 +29,17 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="command"></param>
         /// <param name="map"></param>
         /// <returns></returns>
-        public override async Task<PreconditionResult> CheckPermissions(CommandContext context, CommandInfo command, IDependencyMap map)
+        public override async Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IDependencyMap map)
         {
-            if (context.IsPrivate)
-                return PreconditionResult.FromSuccess();
+            if (context.IsPrivate) return PreconditionResult.FromSuccess();
 
-            var cfg = map.Get<PermissionsService>().ConfigStore.Load();
             var chan = context.Channel;
             var user = context.User;
             var ownerId = (await context.Client.GetApplicationInfoAsync()).Owner.Id;
 
-            if (cfg != null)
+            if (map.TryGet<PermissionsService>(out var svc))
             {
+                var cfg = svc.ConfigStore.Load();
                 if (cfg.GetChannelModuleWhitelist(chan).Contains(command.Module.Name))
                 {
                     if (Permission == MinimumPermission.BotOwner &&

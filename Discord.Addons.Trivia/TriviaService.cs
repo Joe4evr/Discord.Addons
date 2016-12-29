@@ -24,18 +24,16 @@ namespace Discord.Addons.TriviaGames
         /// <param name="client">The <see cref="DiscordSocketClient"/> instance.</param>
         public TriviaService(Dictionary<string, string[]> triviaData, DiscordSocketClient client)
         {
-            if (triviaData == null) throw new ArgumentNullException(nameof(triviaData));
+            TriviaData = triviaData ?? throw new ArgumentNullException(nameof(triviaData));
 
-            TriviaData = triviaData;
-
-            client.MessageReceived += async msg =>
+            client.MessageReceived += msg =>
             {
-                TriviaGame game;
-                if (_triviaGames.TryGetValue(msg.Channel.Id, out game))
-                {
-                    await game.CheckTrivia(msg);
-                }
+                return (_triviaGames.TryGetValue(msg.Channel.Id, out var game))
+                    ? game.CheckTrivia(msg)
+                    : Task.CompletedTask;
             };
+
+            Console.WriteLine($"{DateTime.Now,20}: Created Trivia service.");
         }
 
         /// <summary>
@@ -45,14 +43,13 @@ namespace Discord.Addons.TriviaGames
         /// <param name="game">Instance of the game.</param>
         public void AddNewGame(ulong channelId, TriviaGame game)
         {
-            _triviaGames[channelId] = game;
-            game.GameEnd += _onGameEnd;
+            if (_triviaGames.TryAdd(channelId, game))
+                game.GameEnd += _onGameEnd;
         }
 
         private Task _onGameEnd(ulong channelId)
         {
-            TriviaGame game;
-            if (_triviaGames.TryRemove(channelId, out game))
+            if (_triviaGames.TryRemove(channelId, out var game))
             {
                 game.GameEnd -= _onGameEnd;
             }
