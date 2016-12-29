@@ -1,6 +1,6 @@
 {
-    "version": "0.7.11",
-    "description": "Discord.Net module for command permission management.",
+    "version": "0.1.2",
+    "description": "Json.Net provider for Discord.Addons.SimplePermissions",
     "authors": [ "Joe4evr" ],
 
     "packOptions": {
@@ -25,10 +25,9 @@
         }
     },
 
-  "dependencies": {
-    "Discord.Net.Commands": "1.0.0-beta2-*",
-    "Discord.Net.WebSocket": "1.0.0-beta2-*"
-  },
+    "dependencies": {
+        "Discord.Addons.SimplePermissions": "*"
+    },
 
     "frameworks": {
         "netstandard1.3": {

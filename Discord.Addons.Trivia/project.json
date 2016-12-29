@@ -1,6 +1,6 @@
 {
-    "version": "0.7.11",
-    "description": "Discord.Net module for command permission management.",
+    "version": "0.1.1",
+    "description": "Base for making trivia games using Discord.Net",
     "authors": [ "Joe4evr" ],
 
     "packOptions": {
@@ -13,12 +13,15 @@
         "files": {
             "exclude": [ "Example/**" ]
         },
-        "tags": [ "discord", "commands" ]
+        "tags": [ "discord", "trivia" ]
     },
 
     "configurations": {
         "Release": {
             "buildOptions": {
+                "compile": {
+                    "exclude": [ "Example/**" ]
+                },
                 "optimize": true,
                 "xmlDoc": true
             }
@@ -34,6 +37,7 @@
         "netstandard1.3": {
             "dependencies": {
                 "NETStandard.Library": {
+                    "type": "platform",
                     "version": "1.6.0"
                 }
             },
