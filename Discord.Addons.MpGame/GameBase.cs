@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Discord.Addons.MpGame.Collections;
 
 namespace Discord.Addons.MpGame
 {

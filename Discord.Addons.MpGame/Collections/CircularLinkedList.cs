@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Discord.Addons.MpGame.Collections
+namespace Discord.Addons.MpGame
 {
     /// <summary>
     /// Represents a circular doubly linked list.

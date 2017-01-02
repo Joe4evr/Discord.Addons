@@ -7,6 +7,11 @@
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
+    <PackageId>Discord.Addons.MpGame</PackageId>
+    <PackageVersion>0.7.13-a</PackageVersion>
+    <Authors>Joe4evr</Authors>
+    <Description>Base classes for text-based games in Discord</Description>
+    <PackageTags>discord commands game</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <Compile Condition="'$(Configuration)' == 'Debug'" Include="**\*.cs" />

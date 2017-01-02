@@ -31,7 +31,7 @@ namespace Discord.Addons.SimplePermissions
         /// <returns></returns>
         public override async Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IDependencyMap map)
         {
-            if (context.IsPrivate) return PreconditionResult.FromSuccess();
+            if (context.Channel is IPrivateChannel) return PreconditionResult.FromSuccess();
 
             var chan = context.Channel;
             var user = context.User;

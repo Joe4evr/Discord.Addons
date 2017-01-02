@@ -1,10 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup Label="Configuration">
-    <DocumentationFile />
+    <DocumentationFile Condition="'$(Configuration)' == 'Release'">Discord.Addons.Preconditions.xml</DocumentationFile>
     <Optimize Condition="'$(Configuration)' == 'Release'">True</Optimize>
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
+    <PackageId>Discord.Addons.Preconditions</PackageId>
+    <PackageVersion>0.1.0-a</PackageVersion>
+    <Authors>Joe4evr</Authors>
+    <Description>Useful preconditions Discord.Net 1.0.</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>discord commands preconditions</PackageTags>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputType>library</OutputType>

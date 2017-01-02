@@ -6,6 +6,11 @@
   </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
+    <PackageId>Discord.Addons.Trivia</PackageId>
+    <PackageVersion>0.1.2-a</PackageVersion>
+    <Authors>Joe4evr</Authors>
+    <Description>Base for making trivia games using Discord.Ne</Description>
+    <PackageTags>discord</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <Compile Condition="'$(Configuration)' == 'Debug'" Include="**\*.cs" />
