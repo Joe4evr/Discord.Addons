@@ -5,9 +5,7 @@ using System.Linq;
 
 namespace Discord.Addons.MpGame
 {
-    /// <summary>
-    /// Represents a circular doubly linked list.
-    /// </summary>
+    /// <summary> Represents a circular doubly linked list. </summary>
     /// <typeparam name="T">Specifies the element type of the linked list.</typeparam>
     /// <remarks>This code copied from https://navaneethkn.wordpress.com/2009/08/18/circular-linked-list/ </remarks>
     [DebuggerDisplay("Count = {Count}")]
@@ -16,18 +14,14 @@ namespace Discord.Addons.MpGame
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly IEqualityComparer<T> _comparer;
 
-        /// <summary>
-        /// Initializes a new instance of <see cref="CircularLinkedList{T}"/>
-        /// </summary>
+        /// <summary> Initializes a new instance of <see cref="CircularLinkedList{T}"/> </summary>
         /// <param name="collection">Collection of objects that will be added to linked list</param>
         public CircularLinkedList(IEnumerable<T> collection)
             : this(collection, EqualityComparer<T>.Default)
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of <see cref="CircularLinkedList{T}"/>
-        /// </summary>
+        /// <summary> Initializes a new instance of <see cref="CircularLinkedList{T}"/> </summary>
         /// <param name="collection">Collection of objects that will be added to linked list</param>
         /// <param name="comparer">Comparer used for item comparison</param>
         public CircularLinkedList(IEnumerable<T> collection, IEqualityComparer<T> comparer)
@@ -41,27 +35,19 @@ namespace Discord.Addons.MpGame
                     AddLast(item);
             }
 
-            Count = collection.Count();
+            Count = collection?.Count() ?? 0;
         }
 
-        /// <summary>
-        /// Gets Tail node. Returns NULL if no tail node found
-        /// </summary>
+        /// <summary> Gets Tail node. Returns <see cref="null"/> if no tail node found </summary>
         public Node<T> Tail { get; private set; }
 
-        /// <summary>
-        /// Gets the head node. Returns NULL if no node found
-        /// </summary>
+        /// <summary> Gets the head node. Returns <see cref="null"/> if no node found </summary>
         public Node<T> Head { get; private set; }
 
-        /// <summary>
-        /// Gets total number of items in the list
-        /// </summary>
+        /// <summary> Gets total number of items in the list </summary>
         public int Count { get; }
 
-        /// <summary>
-        /// Gets the item at the current index
-        /// </summary>
+        /// <summary> Gets the item at the current index </summary>
         /// <param name="index">Zero-based index</param>
         /// <exception cref="ArgumentOutOfRangeException">index is out of range</exception>
         public Node<T> this[int index]
@@ -80,9 +66,7 @@ namespace Discord.Addons.MpGame
             }
         }
 
-        /// <summary>
-        /// Add a new item to the end of the list
-        /// </summary>
+        /// <summary> Add a new item to the end of the list </summary>
         /// <param name="item">Item to be added</param>
         private void AddLast(T item)
         {
@@ -108,9 +92,7 @@ namespace Discord.Addons.MpGame
             Head.Previous = Tail;
         }
 
-        /// <summary>
-        /// Adds item to the last
-        /// </summary>
+        /// <summary> Adds item to the last </summary>
         /// <param name="item">Item to be added</param>
         private void AddFirst(T item)
         {
@@ -127,9 +109,7 @@ namespace Discord.Addons.MpGame
             }
         }
 
-        /// <summary>
-        /// Adds the specified item after the specified existing node in the list.
-        /// </summary>
+        /// <summary> Adds the specified item after the specified existing node in the list. </summary>
         /// <param name="node">Existing node after which new item will be inserted</param>
         /// <param name="item">New item to be inserted</param>
         /// <exception cref="ArgumentNullException"><paramref name="node"/> is NULL</exception>
@@ -154,9 +134,7 @@ namespace Discord.Addons.MpGame
                 Tail = newNode;
         }
 
-        /// <summary>
-        /// Adds the new item after the specified existing item in the list.
-        /// </summary>
+        /// <summary> Adds the new item after the specified existing item in the list. </summary>
         /// <param name="existingItem">Existing item after which new item will be added</param>
         /// <param name="newItem">New item to be added to the list</param>
         /// <exception cref="ArgumentException"><paramref name="existingItem"/> doesn't exist in the list</exception>
@@ -169,9 +147,7 @@ namespace Discord.Addons.MpGame
             AddAfter(node, newItem);
         }
 
-        /// <summary>
-        /// Adds the specified item before the specified existing node in the list.
-        /// </summary>
+        /// <summary> Adds the specified item before the specified existing node in the list. </summary>
         /// <param name="node">Existing node before which new item will be inserted</param>
         /// <param name="item">New item to be inserted</param>
         /// <exception cref="ArgumentNullException"><paramref name="node"/> is NULL</exception>
@@ -196,9 +172,7 @@ namespace Discord.Addons.MpGame
                 Head = newNode;
         }
 
-        /// <summary>
-        /// Adds the new item before the specified existing item in the list.
-        /// </summary>
+        /// <summary> Adds the new item before the specified existing item in the list. </summary>
         /// <param name="existingItem">Existing item before which new item will be added</param>
         /// <param name="newItem">New item to be added to the list</param>
         /// <exception cref="ArgumentException"><paramref name="existingItem"/> doesn't exist in the list</exception>
@@ -211,11 +185,9 @@ namespace Discord.Addons.MpGame
             AddBefore(node, newItem);
         }
 
-        /// <summary>
-        /// Finds the supplied item and returns a node which contains item. Returns NULL if item not found
-        /// </summary>
+        /// <summary> Finds the supplied item and returns a node which contains item. Returns <see cref="null"/> if item not found </summary>
         /// <param name="item">Item to search</param>
-        /// <returns><see cref="Node&lt;T&gt;"/> instance or NULL</returns>
+        /// <returns><see cref="Node{T}"/> instance or <see cref="null"/></returns>
         public Node<T> Find(T item)
         {
             Node<T> node = FindNode(Head, item);
@@ -232,9 +204,7 @@ namespace Discord.Addons.MpGame
             return result;
         }
 
-        /// <summary>
-        /// Gets a forward enumerator
-        /// </summary>
+        /// <summary> Gets a forward enumerator </summary>
         /// <returns></returns>
         public IEnumerator<T> GetEnumerator()
         {
@@ -249,9 +219,7 @@ namespace Discord.Addons.MpGame
             }
         }
 
-        /// <summary>
-        /// Gets a reverse enumerator
-        /// </summary>
+        /// <summary> Gets a reverse enumerator </summary>
         /// <returns></returns>
         public IEnumerator<T> GetReverseEnumerator()
         {
@@ -271,9 +239,7 @@ namespace Discord.Addons.MpGame
             return GetEnumerator();
         }
 
-        /// <summary>
-        /// Determines whether a value is in the list.
-        /// </summary>
+        /// <summary> Determines whether a value is in the list. </summary>
         /// <param name="item">Item to check</param>
         /// <returns>TRUE if item exist, else FALSE</returns>
         public bool Contains(T item)
@@ -281,9 +247,7 @@ namespace Discord.Addons.MpGame
             return Find(item) != null;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary> </summary>
         /// <param name="array"></param>
         /// <param name="arrayIndex"></param>
         public void CopyTo(T[] array, int arrayIndex)
@@ -302,31 +266,20 @@ namespace Discord.Addons.MpGame
         }
     }
 
-    /// <summary>
-    /// Represents a node
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <summary> Represents a node </summary>
     [DebuggerDisplay("Value = {Value}")]
     public sealed class Node<T>
     {
-        /// <summary>
-        /// Gets the Value
-        /// </summary>
+        /// <summary> Gets the Value </summary>
         public T Value { get; }
 
-        /// <summary>
-        /// Gets next node
-        /// </summary>
+        /// <summary> Gets next node </summary>
         public Node<T> Next { get; internal set; }
 
-        /// <summary>
-        /// Gets previous node
-        /// </summary>
+        /// <summary> Gets previous node </summary>
         public Node<T> Previous { get; internal set; }
 
-        /// <summary>
-        /// Initializes a new <see cref="Node{T}"/> instance
-        /// </summary>
+        /// <summary> Initializes a new <see cref="Node{T}"/> instance </summary>
         /// <param name="item">Value to be assigned</param>
         internal Node(T item)
         {

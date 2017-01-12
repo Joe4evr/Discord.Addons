@@ -10,9 +10,7 @@ using Discord.WebSocket;
 
 namespace Discord.Addons.TriviaGames
 {
-    /// <summary>
-    /// Creates a Trivia game in a given channel.
-    /// </summary>
+    /// <summary> Creates a Trivia game in a given channel. </summary>
     public sealed class TriviaGame
     {
         private readonly Stack<QA> _triviaData;
@@ -28,9 +26,7 @@ namespace Discord.Addons.TriviaGames
         private QA _currentQuestion;
         private int _turn = 0;
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary> </summary>
         /// <param name="triviaData"></param>
         /// <param name="channel"></param>
         /// <param name="turns"></param>
@@ -57,18 +53,14 @@ namespace Discord.Addons.TriviaGames
             null, Timeout.Infinite, Timeout.Infinite);
         }
 
-        /// <summary>
-        /// Starts the Trivia game.
-        /// </summary>
+        /// <summary> Starts the Trivia game. </summary>
         public async Task Start()
         {
             await _channel.SendMessageAsync("Starting trivia.");
             await AskQuestion();
         }
 
-        /// <summary>
-        /// Ends the Trivia game.
-        /// </summary>
+        /// <summary> Ends the Trivia game. </summary>
         public async Task End()
         {
             var sb = new StringBuilder("Score: ```");

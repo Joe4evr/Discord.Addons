@@ -5,26 +5,18 @@ using Discord.Net;
 
 namespace Discord.Addons.MpGame
 {
-    /// <summary>
-    /// Represents a Discord user as a Player
-    /// </summary>
+    /// <summary> Represents a Discord user as a Player </summary>
     public class Player
     {
-        /// <summary>
-        /// The underlying <see cref="IUser"/> instance.
-        /// </summary>
+        /// <summary> The underlying <see cref="IUser"/> instance. </summary>
         public IUser User { get; }
 
-        /// <summary>
-        /// The user's DM Channel instance.
-        /// </summary>
+        /// <summary> The user's DM Channel instance. </summary>
         internal IDMChannel DmChannel { get; }
 
         private readonly IMessageChannel pubChannel;
 
-        /// <summary>
-        /// Creates a <see cref="Player"/> out of an <see cref="IUser"/>.
-        /// </summary>
+        /// <summary> Creates a <see cref="Player"/> out of an <see cref="IUser"/>. </summary>
         /// <param name="user">The user represented.</param>
         /// <param name="channel">The channel where this game is played.</param>
         public Player(IUser user, IMessageChannel channel)
@@ -45,10 +37,8 @@ namespace Discord.Addons.MpGame
 
         private string unsentDm;
 
-        /// <summary>
-        /// Sends a message to this <see cref="Player"/>'s DM Channel
-        /// and will cache the message if the user has DMs disabled.
-        /// </summary>
+        /// <summary> Sends a message to this <see cref="Player"/>'s DM Channel
+        /// and will cache the message if the user has DMs disabled. </summary>
         /// <param name="text">The text to send.</param>
         public async Task SendMessageAsync(string text)
         {

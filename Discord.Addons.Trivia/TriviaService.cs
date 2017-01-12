@@ -6,9 +6,7 @@ using Discord.WebSocket;
 
 namespace Discord.Addons.TriviaGames
 {
-    /// <summary>
-    /// Manages Trivia games.
-    /// </summary>
+    /// <summary> Manages Trivia games. </summary>
     public sealed class TriviaService
     {
         internal readonly IReadOnlyDictionary<string, string[]> TriviaData;
@@ -17,9 +15,7 @@ namespace Discord.Addons.TriviaGames
         private readonly ConcurrentDictionary<ulong, TriviaGame> _triviaGames =
             new ConcurrentDictionary<ulong, TriviaGame>();
 
-        /// <summary>
-        /// Create the service that will manage Trivia games.
-        /// </summary>
+        /// <summary> Create the service that will manage Trivia games. </summary>
         /// <param name="triviaData">A set of questions and answers to use as trivia.</param>
         /// <param name="client">The <see cref="DiscordSocketClient"/> instance.</param>
         public TriviaService(Dictionary<string, string[]> triviaData, DiscordSocketClient client)
@@ -36,9 +32,7 @@ namespace Discord.Addons.TriviaGames
             Console.WriteLine($"{DateTime.Now,20}: Created Trivia service.");
         }
 
-        /// <summary>
-        /// Add a new game to the list of active games.
-        /// </summary>
+        /// <summary> Add a new game to the list of active games. </summary>
         /// <param name="channelId">Public facing channel of this game.</param>
         /// <param name="game">Instance of the game.</param>
         public void AddNewGame(ulong channelId, TriviaGame game)

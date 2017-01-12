@@ -5,30 +5,20 @@ using Discord.Commands;
 
 namespace Discord.Addons.SimplePermissions
 {
-    /// <summary>
-    /// Sets the permission level of this command.
-    /// </summary>
+    /// <summary> Sets the permission level of this command. </summary>
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class PermissionAttribute : PreconditionAttribute
     {
         private MinimumPermission Permission { get; }
 
-        /// <summary>
-        /// Sets the permission level of this command.
-        /// </summary>
+        /// <summary> Sets the permission level of this command. </summary>
         /// <param name="minimum">The <see cref="MinimumPermission"/> requirement.</param>
         public PermissionAttribute(MinimumPermission minimum)
         {
             Permission = minimum;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="command"></param>
-        /// <param name="map"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public override async Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IDependencyMap map)
         {
             if (context.Channel is IPrivateChannel) return PreconditionResult.FromSuccess();
@@ -82,5 +72,27 @@ namespace Discord.Addons.SimplePermissions
             else
                 return PreconditionResult.FromError("No config found.");
         }
+    }
+
+    /// <summary> Determines what a command's minimum permission requirement should be. </summary>
+    public enum MinimumPermission
+    {
+        /// <summary> Everyone can use this command. </summary>
+        Everyone = 0,
+
+        /// <summary> People in the mod role or higher can use this command. </summary>
+        ModRole = 1,
+
+        /// <summary> People in the admin role or higher can use this command. </summary>
+        AdminRole = 2,
+
+        /// <summary> The guild owner can use this command. </summary>
+        GuildOwner = 3,
+
+        /// <summary> Someone is specially allowed to use this command. </summary>
+        Special = 4,
+
+        /// <summary> Only the bot owner can use this command. </summary>
+        BotOwner = 5
     }
 }

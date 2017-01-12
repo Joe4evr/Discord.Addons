@@ -6,9 +6,7 @@ using Discord.Commands;
 
 namespace Discord.Addons.SimplePermissions
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary> </summary>
     [Name(permModuleName)]
     public sealed class PermissionsModule : ModuleBase
     {
@@ -19,22 +17,17 @@ namespace Discord.Addons.SimplePermissions
         private readonly CommandService _cmdService;
         private readonly IDependencyMap _map;
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary> </summary>
         public PermissionsModule(
             PermissionsService permService,
-            CommandService cmdService,
             IDependencyMap map)
         {
             _permService = permService ?? throw new ArgumentNullException(nameof(permService));
-            _cmdService = cmdService ?? throw new ArgumentNullException(nameof(cmdService));
+            _cmdService = permService.CService;
             _map = map;
         }
 
-        /// <summary>
-        /// Display commands you can use or how to use them.
-        /// </summary>
+        /// <summary> Display commands you can use or how to use them. </summary>
         [Command("help"), Permission(MinimumPermission.Everyone)]
         [Summary("Display commands you can use.")]
         public async Task HelpCmd()
@@ -50,9 +43,7 @@ namespace Discord.Addons.SimplePermissions
             await ReplyAsync(sb.ToString());
         }
 
-        /// <summary>
-        /// Display commands you can use or how to use them.
-        /// </summary>
+        /// <summary> Display commands you can use or how to use them. </summary>
         /// <param name="cmdname"></param>
         [Command("help"), Permission(MinimumPermission.Everyone)]
         [Summary("Display how you can use a command.")]
@@ -105,9 +96,7 @@ namespace Discord.Addons.SimplePermissions
             return sb.ToString();
         }
 
-        /// <summary>
-        /// List this server's roles and their ID.
-        /// </summary>
+        /// <summary> List this server's roles and their ID. </summary>
         [Command("roles"), Permission(MinimumPermission.GuildOwner)]
         [RequireContext(ContextType.Guild)]
         [Summary("List this server's roles and their ID.")]
@@ -119,9 +108,7 @@ namespace Discord.Addons.SimplePermissions
                 : Task.CompletedTask;
         }
 
-        /// <summary>
-        /// "List all the modules loaded in the bot.
-        /// </summary>
+        /// <summary> "List all the modules loaded in the bot. </summary>
         [Command("modules"), Permission(MinimumPermission.AdminRole)]
         [RequireContext(ContextType.Guild)]
         [Summary("List all the modules loaded in the bot.")]
@@ -146,9 +133,7 @@ namespace Discord.Addons.SimplePermissions
             return Task.CompletedTask;
         }
 
-        /// <summary>
-        /// Set the admin role for this server.
-        /// </summary>
+        /// <summary> Set the admin role for this server. </summary>
         /// <param name="role"></param>
         [Command("setadmin"), Permission(MinimumPermission.GuildOwner)]
         [RequireContext(ContextType.Guild)]
@@ -168,9 +153,7 @@ namespace Discord.Addons.SimplePermissions
             }
         }
 
-        /// <summary>
-        /// Set the moderator role for this server.
-        /// </summary>
+        /// <summary> Set the moderator role for this server. </summary>
         /// <param name="role"></param>
         [Command("setmod"), Permission(MinimumPermission.GuildOwner)]
         [RequireContext(ContextType.Guild)]
@@ -190,9 +173,7 @@ namespace Discord.Addons.SimplePermissions
             }
         }
 
-        /// <summary>
-        /// Give someone special command privileges in this channel.
-        /// </summary>
+        /// <summary> Give someone special command privileges in this channel. </summary>
         /// <param name="user"></param>
         [Command("addspecial"), Permission(MinimumPermission.AdminRole)]
         [Alias("addsp"), RequireContext(ContextType.Guild)]
@@ -204,9 +185,7 @@ namespace Discord.Addons.SimplePermissions
         }
 
 
-        /// <summary>
-        /// Remove someone's special command privileges in this channel.
-        /// </summary>
+        /// <summary> Remove someone's special command privileges in this channel. </summary>
         /// <param name="user"></param>
         [Command("remspecial"), Permission(MinimumPermission.AdminRole)]
         [Alias("remsp"), RequireContext(ContextType.Guild)]
@@ -217,9 +196,7 @@ namespace Discord.Addons.SimplePermissions
                 await ReplyAsync($"Removed **{user.Username}** Special command privileges.");
         }
 
-        /// <summary>
-        /// Whitelist a module for this channel.
-        /// </summary>
+        /// <summary> Whitelist a module for this channel. </summary>
         /// <param name="modName"></param>
         [Command("whitelist"), Permission(MinimumPermission.AdminRole)]
         [Alias("wl"), RequireContext(ContextType.Guild)]
@@ -235,9 +212,7 @@ namespace Discord.Addons.SimplePermissions
             }
         }
 
-        /// <summary>
-        /// Blacklist a module for this channel.
-        /// </summary>
+        /// <summary> Blacklist a module for this channel. </summary>
         /// <param name="modName"></param>
         [Command("blacklist"), Permission(MinimumPermission.AdminRole)]
         [Alias("bl"), RequireContext(ContextType.Guild)]

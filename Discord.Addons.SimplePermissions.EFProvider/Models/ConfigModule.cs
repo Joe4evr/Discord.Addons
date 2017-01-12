@@ -1,18 +1,12 @@
 ﻿namespace Discord.Addons.SimplePermissions
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary> </summary>
     public sealed class ConfigModule
     {
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary> </summary>
         public int Id { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary> </summary>
         public string ModuleName { get; set; }
     }
 }

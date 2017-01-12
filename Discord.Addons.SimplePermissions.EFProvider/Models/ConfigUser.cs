@@ -3,27 +3,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Discord.Addons.SimplePermissions
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary> </summary>
     public class ConfigUser
     {
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary> </summary>
         public int Id { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-
+        /// <summary> </summary>
         [Column(TypeName = "BIGINT UNSIGNED")]
         public ulong UserId { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-
+        /// <summary> </summary>
         [Column(TypeName = "BIGINT UNSIGNED")]
         public ulong GuildId { get; set; }
     }

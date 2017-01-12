@@ -8,32 +8,28 @@ using Discord.WebSocket;
 
 namespace Discord.Addons.SimplePermissions
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary> </summary>
     public sealed class PermissionsService
     {
-        private readonly CommandService _cService;
         private readonly DiscordSocketClient _client;
         private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
         //private readonly Dictionary<ulong, FancyHelpMessage> _helpmsgs = new Dictionary<ulong, FancyHelpMessage>();
 
+        internal readonly CommandService CService;
         internal readonly IConfigStore<IPermissionConfig> ConfigStore;
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary> </summary>
         /// <param name="configstore"></param>
         /// <param name="commands"></param>
         /// <param name="client"></param>
-        public PermissionsService(
+        internal PermissionsService(
             IConfigStore<IPermissionConfig> configstore,
             CommandService commands,
             DiscordSocketClient client)
         {
-            _cService = commands ?? throw new ArgumentNullException(nameof(commands));
-            _client = client ?? throw new ArgumentNullException(nameof(client));
             ConfigStore = configstore ?? throw new ArgumentNullException(nameof(configstore));
+            CService = commands ?? throw new ArgumentNullException(nameof(commands));
+            _client = client ?? throw new ArgumentNullException(nameof(client));
 
             client.Connected += checkDuplicateModuleNames;
 
@@ -95,7 +91,7 @@ namespace Discord.Addons.SimplePermissions
 
         private Task checkDuplicateModuleNames()
         {
-            var modnames = _cService.Modules.Select(m => m.Name).ToList();
+            var modnames = CService.Modules.Select(m => m.Name).ToList();
             var multiples = modnames.Where(name => modnames.Count(str => str.Equals(name, StringComparison.OrdinalIgnoreCase)) > 1);
 
             if (multiples.Count() > 0)
@@ -186,6 +182,19 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
             ConfigStore.Save();
             _lock.Release();
             return result;
+        }
+    }
+
+    public static class PermissionsExtensions
+    {
+        public static Task AddPermissionsService(
+            this CommandService cmdService,
+            DiscordSocketClient client,
+            IConfigStore<IPermissionConfig> configStore,
+            IDependencyMap map)
+        {
+            map.Add(new PermissionsService(configStore, cmdService, client));
+            return cmdService.AddModuleAsync<PermissionsModule>();
         }
     }
 }

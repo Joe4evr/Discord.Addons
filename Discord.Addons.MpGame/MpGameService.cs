@@ -5,19 +5,15 @@ using System.Threading.Tasks;
 
 namespace Discord.Addons.MpGame
 {
-    /// <summary>
-    /// Service managing games of type <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/>.
-    /// </summary>
+    /// <summary> Service managing games of type <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/>. </summary>
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
     public class MpGameService<TGame, TPlayer>
         where TGame : GameBase<TPlayer>
         where TPlayer : Player
     {
-        /// <summary>
-        /// A cached <see cref="IEqualityComparer{IUser}"/> instance to use when
-        /// instantiating the <see cref="PlayerList"/>'s <see cref="HashSet{IUser}"/>.
-        /// </summary>
+        /// <summary> A cached <see cref="IEqualityComparer{IUser}"/> instance to use when
+        /// instantiating the <see cref="PlayerList"/>'s <see cref="HashSet{IUser}"/>. </summary>
         private static readonly IEqualityComparer<IUser> UserComparer = new EntityEqualityComparer<ulong>();
 
         private readonly ConcurrentDictionary<ulong, TGame> _gameList
@@ -29,24 +25,16 @@ namespace Discord.Addons.MpGame
         private readonly ConcurrentDictionary<ulong, bool> _openToJoin
             = new ConcurrentDictionary<ulong, bool>();
 
-        /// <summary>
-        /// The instance of a game being played, keyed by channel ID.
-        /// </summary>
+        /// <summary> The instance of a game being played, keyed by channel ID. </summary>
         public IReadOnlyDictionary<ulong, TGame> GameList => _gameList;
 
-        /// <summary>
-        /// The list of users scheduled to join game, keyed by channel ID.
-        /// </summary>
+        /// <summary> The list of users scheduled to join game, keyed by channel ID. </summary>
         public IReadOnlyDictionary<ulong, ImmutableHashSet<IUser>> PlayerList => _playerList;
 
-        /// <summary>
-        /// Indicates whether the users can join a game about to start, keyed by channel ID.
-        /// </summary>
+        /// <summary> Indicates whether the users can join a game about to start, keyed by channel ID. </summary>
         public IReadOnlyDictionary<ulong, bool> OpenToJoin => _openToJoin;
 
-        /// <summary>
-        /// Add a new game to the list of active games.
-        /// </summary>
+        /// <summary> Add a new game to the list of active games. </summary>
         /// <param name="channelId">Public facing channel of this game.</param>
         /// <param name="game">Instance of the game.</param>
         /// <returns>true if the operation succeeded, otherwise false.</returns>
@@ -59,9 +47,7 @@ namespace Discord.Addons.MpGame
             return success;
         }
 
-        /// <summary>
-        /// Add a user to join an unstarted game.
-        /// </summary>
+        /// <summary> Add a user to join an unstarted game. </summary>
         /// <param name="channelId">Public facing channel of this game.</param>
         /// <param name="user">The user.</param>
         /// <returns>true if the operation succeeded, otherwise false.</returns>
@@ -75,9 +61,7 @@ namespace Discord.Addons.MpGame
             return result;
         }
 
-        /// <summary>
-        /// Remove a user from an unstarted game.
-        /// </summary>
+        /// <summary> Remove a user from an unstarted game. </summary>
         /// <param name="channelId">Public facing channel of this game.</param>
         /// <param name="user">The user.</param>
         /// <returns>true if the operation succeeded, otherwise false.</returns>
@@ -91,9 +75,7 @@ namespace Discord.Addons.MpGame
             return result;
         }
 
-        /// <summary>
-        /// Cancel a game that has not yet started.
-        /// </summary>
+        /// <summary> Cancel a game that has not yet started. </summary>
         /// <param name="channelId">Public facing channel of this game.</param>
         /// <returns>true if the operation succeeded, otherwise false.</returns>
         public bool CancelGame(ulong channelId)
@@ -115,16 +97,12 @@ namespace Discord.Addons.MpGame
             return Task.CompletedTask;
         }
 
-        /// <summary>
-        /// Sets a new Player List for the specified channel.
-        /// </summary>
+        /// <summary> Sets a new Player List for the specified channel. </summary>
         /// <param name="channelId">The Channel ID.</param>
         public bool MakeNewPlayerList(ulong channelId)
             => _playerList.TryAdd(channelId, ImmutableHashSet.Create(UserComparer));
 
-        /// <summary>
-        /// Updates the flag indicating if a game can be joined or not.
-        /// </summary>
+        /// <summary> Updates the flag indicating if a game can be joined or not. </summary>
         /// <param name="channelId">The Channel ID.</param>
         /// <param name="newValue">The new value.</param>
         /// <param name="comparisonValue">The value that should be compared against.</param>

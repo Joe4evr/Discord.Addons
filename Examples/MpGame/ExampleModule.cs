@@ -5,17 +5,18 @@ using Discord.Commands;
 
 namespace Example
 {
-    public sealed class ExampleModule : MpGameModuleBase< //Inherit MpGameModuleBase
-        MpGameService<ExampleGame, Player>, //Specify the type of the service that will keep track of running games
-        ExampleGame, Player> //Specify the type of the game and the type of its player
+    public sealed class ExampleModule : MpGameModuleBase // Inherit MpGameModuleBase
+        <MpGameService<ExampleGame, Player>, // Specify the type of the service that will keep track of running games
+        ExampleGame, Player> // Specify the type of the game and the type of its player
     {
         public ExampleModule(MpGameService<ExampleGame, Player> gameService)
             : base(gameService)
         {
         }
 
-        //You may have reasons to not annotate a particular method with [Command],
-        [Command("opengame")] //and you'll likely have to add MORE commands depending on the game
+        // You may have reasons to not annotate a particular method with [Command],
+        // and you'll likely have to add MORE commands depending on the game
+        [Command("opengame")]
         public override async Task OpenGameCmd()
         {
             if (GameInProgress)
@@ -36,8 +37,9 @@ namespace Example
             }
         }
 
-        //Note that we should always check if the channel already has a game going
-        [Command("join")] //or wants people to join before taking action
+        // Note that we should always check if the channel already has a game going
+        // or wants people to join before taking action
+        [Command("join")]
         public override async Task JoinGameCmd()
         {
             if (GameInProgress)
@@ -57,7 +59,7 @@ namespace Example
             }
         }
 
-        [Command("leave")] //Users can leave if the game hasn't started yet
+        [Command("leave")] // Users can leave if the game hasn't started yet
         public override async Task LeaveGameCmd()
         {
             if (GameInProgress)
@@ -77,7 +79,7 @@ namespace Example
             }
         }
 
-        [Command("cancel")] //Cancel the game if it hasn't started yet
+        [Command("cancel")] // Cancel the game if it hasn't started yet
         public override async Task CancelGameCmd()
         {
             if (GameInProgress)
@@ -97,7 +99,7 @@ namespace Example
             }
         }
 
-        [Command("start")] //Start the game
+        [Command("start")] // Start the game
         public override async Task StartGameCmd()
         {
             if (GameInProgress)
@@ -108,7 +110,7 @@ namespace Example
             {
                 await ReplyAsync("No game has been opened at this time.");
             }
-            else if (PlayerList.Count < 4) //Example value if a game has a minimum player requirement
+            else if (PlayerList.Count < 4) // Example value if a game has a minimum player requirement
             {
                 await ReplyAsync("Not enough players have joined.");
             }
@@ -116,9 +118,9 @@ namespace Example
             {
                 if (GameService.TryUpdateOpenToJoin(Context.Channel.Id, newValue: false, comparisonValue: true))
                 {
-                    //Tip: Shuffle the players before projecting them
+                    // Tip: Shuffle the players before projecting them
                     var players = PlayerList.Select(u => new Player(u, Context.Channel));
-                    //The Player class can also be extended for additional properties
+                    // The Player class can also be extended for additional properties
 
                     var game = new ExampleGame(Context.Channel, players);
                     if (GameService.TryAddNewGame(Context.Channel.Id, game))
@@ -130,16 +132,16 @@ namespace Example
             }
         }
 
-        [Command("turn")] //Advance to the next turn
+        [Command("turn")] // Advance to the next turn
         public override Task NextTurnCmd()
             => GameInProgress ? Game.NextTurn() : ReplyAsync("No game in progress.");
 
-        //Post a message that represents the game's state
+        // Post a message that represents the game's state
         [Command("state")] //Remember there's a 2000 character limit
         public override Task GameStateCmd()
            => GameInProgress ? ReplyAsync(Game.GetGameState()) : ReplyAsync("No game in progress.");
 
-        //Command to end a game before a win-condition is met
+        // Command to end a game before a win-condition is met
         [Command("end")] //Should be restricted to mods/admins to prevent abuse
         public override Task EndGameCmd()
             => !GameInProgress ? ReplyAsync("No game in progress to end.") : Game.EndGame("Game ended early by moderator.");

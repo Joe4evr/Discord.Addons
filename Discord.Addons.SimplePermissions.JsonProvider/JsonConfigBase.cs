@@ -4,36 +4,26 @@ using System.Threading.Tasks;
 
 namespace Discord.Addons.SimplePermissions
 {
-    /// <summary>
-    /// Implementation of <see cref="IPermissionConfig"/> using
+    /// <summary> Implementation of <see cref="IPermissionConfig"/> using
     /// in-memory collection as a backing store, suitable for
-    /// serialization to and from JSON.
-    /// </summary>
+    /// serialization to and from JSON. </summary>
     public class JsonConfigBase : IPermissionConfig
     {
-        /// <summary>
-        /// Gets the ID of the group that is considered
-        /// the Admin role in a specified guild.
-        /// </summary>
+        /// <summary> Gets the ID of the group that is considered
+        /// the Admin role in a specified guild. </summary>
         public Dictionary<ulong, ulong> GuildAdminRole { get; }
 
-        /// <summary>
-        /// Gets the ID of the group that is considered
-        /// the Moderator role in a specified guild.
-        /// </summary>
+        /// <summary> Gets the ID of the group that is considered
+        /// the Moderator role in a specified guild. </summary>
         public Dictionary<ulong, ulong> GuildModRole { get; }
 
-        /// <summary>
-        /// Gets the list of modules that are
-        /// whitelisted in a specified channel.
-        /// </summary>
+        /// <summary> Gets the list of modules that are
+        /// whitelisted in a specified channel. </summary>
         public Dictionary<ulong, HashSet<string>> ChannelModuleWhitelist { get; }
 
-        /// <summary>
-        /// Gets the users that are allowed to use
+        /// <summary> Gets the users that are allowed to use
         /// commands marked <see cref="MinimumPermission.Special"/>
-        /// in a channel.
-        /// </summary>
+        /// in a channel. </summary>
         public Dictionary<ulong, HashSet<ulong>> SpecialPermissionUsersList { get; }
 
         async Task IPermissionConfig.AddNewGuild(IGuild guild)

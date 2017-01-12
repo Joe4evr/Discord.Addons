@@ -6,24 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Discord.Addons.SimplePermissions
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary> Implementation of an <see cref="IPermissionConfig"/> using an Entity Framework
+    /// <see cref="DbContext"/> as a backing store. </summary>
     public class EFConfigBase : DbContext, IPermissionConfig
     {
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary> </summary>
         public DbSet<ConfigGuild> Guilds { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary> </summary>
         public DbSet<ConfigChannel> Channels { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary> </summary>
         public DbSet<ConfigUser> Users { get; set; }
 
         protected event Func<ConfigGuild, Task> OnGuildAdd;
