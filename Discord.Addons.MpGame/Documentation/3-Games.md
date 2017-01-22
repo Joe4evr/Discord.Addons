@@ -26,7 +26,7 @@ public abstract class GameBase<TPlayer>
 
     protected CircularLinkedList<TPlayer> Players { get; }
 
-    protected Node<TPlayer> TurnPlayer { get; set; }
+    public Node<TPlayer> TurnPlayer { get; protected set; }
 }
 ```
 

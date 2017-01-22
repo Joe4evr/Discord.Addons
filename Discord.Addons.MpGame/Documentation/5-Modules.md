@@ -213,4 +213,4 @@ public override Task EndGameCmd()
     => !GameInProgress ? ReplyAsync("No game in progress to end.") : Game.EndGame("Game ended early by moderator.");
 ```
 
-[<- Part 4 - Services](4-Services.md) - Modules [Part 6 - Final step ->](6-FinalStep.md)
+[<- Part 4 - Services](4-Services.md) - Modules - [Part 6 - Final step ->](6-FinalStep.md)

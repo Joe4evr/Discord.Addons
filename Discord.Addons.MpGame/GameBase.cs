@@ -20,7 +20,7 @@ namespace Discord.Addons.MpGame
         public IEnumerable<IDMChannel> PlayerChannels => Players.Select(p => p.DmChannel);
 
         /// <summary> The current turn's player. </summary>
-        protected Node<TPlayer> TurnPlayer { get; set; }
+        public Node<TPlayer> TurnPlayer { get; protected set; }
 
         /// <summary> Sets up the common logic for a multiplayer game. </summary>
         protected GameBase(IMessageChannel channel, IEnumerable<TPlayer> players)

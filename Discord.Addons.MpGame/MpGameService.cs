@@ -35,6 +35,18 @@ namespace Discord.Addons.MpGame
         /// <summary> Indicates whether the users can join a game about to start, keyed by channel ID. </summary>
         public IReadOnlyDictionary<ulong, bool> OpenToJoin => _openToJoin.ToImmutableDictionary();
 
+        private Task _onGameEnd(ulong channelId)
+        {
+            TGame game;
+            ImmutableHashSet<IUser> users;
+            if (_gameList.TryRemove(channelId, out game))
+            {
+                _playerList.TryRemove(channelId, out users);
+                game.GameEnd -= _onGameEnd;
+            }
+            return Task.CompletedTask;
+        }
+
         /// <summary> Add a new game to the list of active games. </summary>
         /// <param name="channelId">Public facing channel of this game.</param>
         /// <param name="game">Instance of the game.</param>
@@ -84,18 +96,6 @@ namespace Discord.Addons.MpGame
             ImmutableHashSet<IUser> _;
             return (TryUpdateOpenToJoin(channelId, newValue: false, comparisonValue: true)
                 && _playerList.TryRemove(channelId, out _));
-        }
-
-        private Task _onGameEnd(ulong channelId)
-        {
-            TGame game;
-            ImmutableHashSet<IUser> users;
-            if (_gameList.TryRemove(channelId, out game))
-            {
-                _playerList.TryRemove(channelId, out users);
-                game.GameEnd -= _onGameEnd;
-            }
-            return Task.CompletedTask;
         }
 
         /// <summary> Sets a new Player List for the specified channel. </summary>
