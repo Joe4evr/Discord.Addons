@@ -7,7 +7,8 @@ namespace Discord.Addons.MpGame
 {
     /// <summary> Base class to represent a game between Discord users. </summary>
     /// <typeparam name="TPlayer">The type of this game's kind of <see cref="Player"/> object.</typeparam>
-    public abstract class GameBase<TPlayer> where TPlayer : Player
+    public abstract class GameBase<TPlayer>
+        where TPlayer : Player
     {
         /// <summary> The channel where the public-facing side of the game is played. </summary>
         protected internal IMessageChannel Channel { get; }

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup Label="Configuration">
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -6,7 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <Description>Base classes for text-based games in Discord</Description>
-    <PackageVersion>0.7.14-a</PackageVersion>
+    <PackageVersion>0.7.15-a</PackageVersion>
     <Authors>Joe4evr</Authors>
     <TargetFramework>netstandard1.3</TargetFramework>
     <AssemblyName>Discord.Addons.MpGame</AssemblyName>

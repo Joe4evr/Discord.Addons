@@ -32,7 +32,7 @@ namespace Discord.Addons.MpGame
 
         private readonly bool _open;
         private readonly TGame _game;
-        private readonly ImmutableHashSet<IUser> _list;
+        private readonly ImmutableHashSet<IUser> _list = ImmutableHashSet<IUser>.Empty;
 
         /// <summary> Initializes the <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/> base class. </summary>
         /// <param name="gameService"></param>

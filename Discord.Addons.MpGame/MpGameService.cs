@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
+using Discord.Commands;
 
 namespace Discord.Addons.MpGame
 {
@@ -26,13 +27,13 @@ namespace Discord.Addons.MpGame
             = new ConcurrentDictionary<ulong, bool>();
 
         /// <summary> The instance of a game being played, keyed by channel ID. </summary>
-        public IReadOnlyDictionary<ulong, TGame> GameList => _gameList;
+        public IReadOnlyDictionary<ulong, TGame> GameList => _gameList.ToImmutableDictionary();
 
         /// <summary> The list of users scheduled to join game, keyed by channel ID. </summary>
-        public IReadOnlyDictionary<ulong, ImmutableHashSet<IUser>> PlayerList => _playerList;
+        public IReadOnlyDictionary<ulong, ImmutableHashSet<IUser>> PlayerList => _playerList.ToImmutableDictionary();
 
         /// <summary> Indicates whether the users can join a game about to start, keyed by channel ID. </summary>
-        public IReadOnlyDictionary<ulong, bool> OpenToJoin => _openToJoin;
+        public IReadOnlyDictionary<ulong, bool> OpenToJoin => _openToJoin.ToImmutableDictionary();
 
         /// <summary> Add a new game to the list of active games. </summary>
         /// <param name="channelId">Public facing channel of this game.</param>

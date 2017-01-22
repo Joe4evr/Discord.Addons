@@ -40,7 +40,7 @@ won't involve a lot more trouble than necessary.
 public class CardGameService : MpGameService<CardGame, CardPlayer>
 {
     //It's generally advised to store your data in a
-    //'Dictionary<ulong, T>' where the key is the channel ID
+    //'Dictionary<ulong, T>' where the key is the channel/guild/user ID
     //and replace 'T' with whatever type you have your data in.
 }
 ```
