@@ -26,7 +26,7 @@ internal sealed class RequireTurnPlayerAttribute : PreconditionAttribute
 
             if (game != null || service.GameList.TryGetValue(context.Channel.Id, out game))
             {
-                return (game.TurnPlayer.Value.User.Id == context.USer.Id)
+                return (game.TurnPlayer.Value.User.Id == authorId)
                     ? Task.FromResult(PreconditionResult.FromSuccess())
                     : Task.FromResult(PreconditionResult.FromError("Cannot use command at this time."));
             }

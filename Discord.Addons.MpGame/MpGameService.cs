@@ -37,11 +37,9 @@ namespace Discord.Addons.MpGame
 
         private Task _onGameEnd(ulong channelId)
         {
-            TGame game;
-            ImmutableHashSet<IUser> users;
-            if (_gameList.TryRemove(channelId, out game))
+            if (_gameList.TryRemove(channelId, out var game))
             {
-                _playerList.TryRemove(channelId, out users);
+                _playerList.TryRemove(channelId, out var _);
                 game.GameEnd -= _onGameEnd;
             }
             return Task.CompletedTask;
@@ -93,9 +91,8 @@ namespace Discord.Addons.MpGame
         /// <returns>true if the operation succeeded, otherwise false.</returns>
         public bool CancelGame(ulong channelId)
         {
-            ImmutableHashSet<IUser> _;
             return (TryUpdateOpenToJoin(channelId, newValue: false, comparisonValue: true)
-                && _playerList.TryRemove(channelId, out _));
+                && _playerList.TryRemove(channelId, out var _));
         }
 
         /// <summary> Sets a new Player List for the specified channel. </summary>
