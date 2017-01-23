@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using Discord.Addons.MpGame;
 using Discord.Commands;
 
-namespace Example
+namespace Examples.MpGame
 {
     public sealed class ExampleModule : MpGameModuleBase // Inherit MpGameModuleBase
-        <MpGameService<ExampleGame, Player>, // Specify the type of the service that will keep track of running games
+        <ExampleService, // Specify the type of the service that will keep track of running games
         ExampleGame, Player> // Specify the type of the game and the type of its player
     {
-        public ExampleModule(MpGameService<ExampleGame, Player> gameService)
+        public ExampleModule(ExampleService gameService)
             : base(gameService)
         {
         }

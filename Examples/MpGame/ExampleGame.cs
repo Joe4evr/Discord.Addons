@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Addons.MpGame;
 
-namespace Example
+namespace Examples.MpGame
 {
     public sealed class ExampleGame : GameBase<Player>
     {
@@ -13,7 +13,6 @@ namespace Example
         private int _turn = 0;
         private GameState _state = GameState.Setup;
 
-        // The base constructor will automatically sub a handler to DiscordSocketClient.MessageReceived
         public ExampleGame(IMessageChannel channel, IEnumerable<Player> players)
             : base(channel, players)
         {
@@ -29,8 +28,7 @@ namespace Example
         // Call StartGame() to do the things that start the game off (think of: dealing cards)
         public override async Task StartGame()
         {
-            await Channel.SendMessageAsync("Dealing .");
-            TurnPlayer = Players.Head;
+            await Channel.SendMessageAsync("Dealing.");
         }
 
         // Call NextTurn() to do the things happening with a new turn

@@ -79,14 +79,14 @@ namespace Discord.Addons.SimplePermissions
                     }
                 }
             };
-            client.ReactionAdded += (id, msg, reaction) =>
-            {
-
-                return Task.CompletedTask;
-            };
+            //client.ReactionAdded += (id, msg, reaction) =>
+            //{
+            //    return Task.CompletedTask;
+            //};
             client.UserJoined += user => ConfigStore.Load().AddUser(user);
 
-            Console.WriteLine($"{DateTime.Now,20}: Created Permission service.");
+            Console.WriteLine($"{DateTime.Now}: Created Permission service.");
+
         }
 
         private Task checkDuplicateModuleNames()

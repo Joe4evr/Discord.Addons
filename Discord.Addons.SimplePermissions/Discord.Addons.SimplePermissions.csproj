@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup Label="Configuration">
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -6,7 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <Description>Discord.Net module for command permission management.</Description>
-    <PackageVersion>0.7.13-a</PackageVersion>
+    <PackageVersion>0.7.15-a</PackageVersion>
     <Authors>Joe4evr</Authors>
     <TargetFramework>netstandard1.3</TargetFramework>
     <AssemblyName>Discord.Addons.SimplePermissions</AssemblyName>
@@ -27,8 +27,8 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Discord.Net.Commands" Version="1.0.0-beta2-00528" />
-    <PackageReference Include="Discord.Net.WebSocket" Version="1.0.0-beta2-00528" />
+    <PackageReference Include="Discord.Net.Commands" Version="1.0.0-rc-00546" />
+    <PackageReference Include="Discord.Net.WebSocket" Version="1.0.0-rc-00546" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <Optimize>True</Optimize>

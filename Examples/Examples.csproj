@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <TargetFramework>netstandard1.3</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="**\*.cs" />
@@ -8,9 +8,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NETStandard.Library" Version="1.6" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MpGame\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj" />
