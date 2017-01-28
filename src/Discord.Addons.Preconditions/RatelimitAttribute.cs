@@ -38,6 +38,15 @@ namespace Discord.Addons.Preconditions
             }
         }
 
+        /// <summary> Sets how often a user is allowed to use this command. </summary>
+        /// <param name="times">The number of times a user may use the command within a certain period.</param>
+        /// <param name="period">The amount of time since first invoke a user has until the limit is lifted.</param>
+        public RatelimitAttribute(uint times, TimeSpan period)
+        {
+            _invokeLimit = times;
+            _invokeLimitPeriod = period;
+        }
+
         /// <inheritdoc />
         public override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IDependencyMap map)
         {
