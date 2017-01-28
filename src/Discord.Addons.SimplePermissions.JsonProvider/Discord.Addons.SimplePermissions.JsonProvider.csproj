@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+  <PropertyGroup Label="Configuration">
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Description>Json.Net provider for Discord.Addons.SimplePermissions</Description>
+    <VersionPrefix>0.2.6</VersionPrefix>
+    <Authors>Joe4evr</Authors>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <AssemblyName>Discord.Addons.SimplePermissions.JsonProvider</AssemblyName>
+    <PackageId>Discord.Addons.SimplePermissions.JsonProvider</PackageId>
+    <RootNamespace>Discord.Addons.SimplePermissions.JsonProvider</RootNamespace>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/Joe4evr/Discord.Addons</PackageProjectUrl>
+    <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
+    <PackageTags>discord</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="**\*.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />
+  </ItemGroup>
+</Project>

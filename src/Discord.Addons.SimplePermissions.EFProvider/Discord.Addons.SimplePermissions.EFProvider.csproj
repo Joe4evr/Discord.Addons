@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+  <PropertyGroup Label="Configuration">
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Description>EF provider for Discord.Addons.SimplePermissions</Description>
+    <VersionPrefix>0.2.7-a</VersionPrefix>
+    <Authors>Joe4evr</Authors>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <AssemblyName>Discord.Addons.SimplePermissions.EFProvider</AssemblyName>
+    <PackageId>Discord.Addons.SimplePermissions.EFProvider</PackageId>
+    <RootNamespace>Discord.Addons.SimplePermissions.EFProvider</RootNamespace>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/Joe4evr/Discord.Addons</PackageProjectUrl>
+    <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
+    <PackageTags>discord</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="**\*.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Documentation\*.md" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <Optimize>True</Optimize>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+</Project>

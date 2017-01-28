@@ -5,8 +5,8 @@ using Discord.Commands;
 
 namespace Examples.MpGame
 {
-    public sealed class ExampleModule : MpGameModuleBase // Inherit MpGameModuleBase
-        <ExampleService, // Specify the type of the service that will keep track of running games
+    public sealed class ExampleModule : MpGameModuleBase< // Inherit MpGameModuleBase
+        ExampleService, // Specify the type of the service that will keep track of running games
         ExampleGame, Player> // Specify the type of the game and the type of its player
     {
         public ExampleModule(ExampleService gameService)
@@ -21,18 +21,18 @@ namespace Examples.MpGame
         {
             if (GameInProgress)
             {
-                await ReplyAsync("Another game already in progress.");
+                await ReplyAsync("Another game already in progress.").ConfigureAwait(false);
             }
             else if (OpenToJoin)
             {
-                await ReplyAsync("There is already a game open to join.");
+                await ReplyAsync("There is already a game open to join.").ConfigureAwait(false);
             }
             else
             {
                 if (GameService.TryUpdateOpenToJoin(Context.Channel.Id, newValue: true, comparisonValue: false))
                 {
                     if (GameService.MakeNewPlayerList(Context.Channel.Id))
-                        await ReplyAsync("Opening for a game.");
+                        await ReplyAsync("Opening for a game.").ConfigureAwait(false);
                 }
             }
         }
@@ -44,17 +44,17 @@ namespace Examples.MpGame
         {
             if (GameInProgress)
             {
-                await ReplyAsync("Cannot join a game already in progress.");
+                await ReplyAsync("Cannot join a game already in progress.").ConfigureAwait(false);
             }
             else if (!OpenToJoin)
             {
-                await ReplyAsync("No game open to join.");
+                await ReplyAsync("No game open to join.").ConfigureAwait(false);
             }
             else
             {
                 if (GameService.AddUser(Context.Channel.Id, Context.User))
                 {
-                    await ReplyAsync($"**{Context.User.Username}** has joined.");
+                    await ReplyAsync($"**{Context.User.Username}** has joined.").ConfigureAwait(false);
                 }
             }
         }
@@ -64,17 +64,17 @@ namespace Examples.MpGame
         {
             if (GameInProgress)
             {
-                await ReplyAsync("Cannot leave a game already in progress.");
+                await ReplyAsync("Cannot leave a game already in progress.").ConfigureAwait(false);
             }
             else if (!OpenToJoin)
             {
-                await ReplyAsync("No game open to leave.");
+                await ReplyAsync("No game open to leave.").ConfigureAwait(false);
             }
             else
             {
                 if (GameService.RemoveUser(Context.Channel.Id, Context.User))
                 {
-                    await ReplyAsync($"**{Context.User.Username}** has left.");
+                    await ReplyAsync($"**{Context.User.Username}** has left.").ConfigureAwait(false);
                 }
             }
         }
@@ -84,17 +84,17 @@ namespace Examples.MpGame
         {
             if (GameInProgress)
             {
-                await ReplyAsync("Cannot cancel a game already in progress.");
+                await ReplyAsync("Cannot cancel a game already in progress.").ConfigureAwait(false);
             }
             else if (!OpenToJoin)
             {
-                await ReplyAsync("No game open to cancel.");
+                await ReplyAsync("No game open to cancel.").ConfigureAwait(false);
             }
             else
             {
                 if (GameService.CancelGame(Context.Channel.Id))
                 {
-                    await ReplyAsync("Game was canceled.");
+                    await ReplyAsync("Game was canceled.").ConfigureAwait(false);
                 }
             }
         }
@@ -104,15 +104,15 @@ namespace Examples.MpGame
         {
             if (GameInProgress)
             {
-                await ReplyAsync("Another game already in progress.");
+                await ReplyAsync("Another game already in progress.").ConfigureAwait(false);
             }
             else if (!OpenToJoin)
             {
-                await ReplyAsync("No game has been opened at this time.");
+                await ReplyAsync("No game has been opened at this time.").ConfigureAwait(false);
             }
             else if (PlayerList.Count < 4) // Example value if a game has a minimum player requirement
             {
-                await ReplyAsync("Not enough players have joined.");
+                await ReplyAsync("Not enough players have joined.").ConfigureAwait(false);
             }
             else
             {
@@ -125,8 +125,8 @@ namespace Examples.MpGame
                     var game = new ExampleGame(Context.Channel, players);
                     if (GameService.TryAddNewGame(Context.Channel.Id, game))
                     {
-                        await game.SetupGame();
-                        await game.StartGame();
+                        await game.SetupGame().ConfigureAwait(false);
+                        await game.StartGame().ConfigureAwait(false);
                     }
                 }
             }

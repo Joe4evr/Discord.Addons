@@ -22,19 +22,19 @@ namespace Examples.MpGame
         // (think of: shuffling (a) card deck(s))
         public override async Task SetupGame()
         {
-            await Channel.SendMessageAsync("Asserting randomized starting parameters.");
+            await Channel.SendMessageAsync("Asserting randomized starting parameters.").ConfigureAwait(false);
         }
 
         // Call StartGame() to do the things that start the game off (think of: dealing cards)
         public override async Task StartGame()
         {
-            await Channel.SendMessageAsync("Dealing.");
+            await Channel.SendMessageAsync("Dealing.").ConfigureAwait(false);
         }
 
         // Call NextTurn() to do the things happening with a new turn
         public override async Task NextTurn()
         {
-            await Channel.SendMessageAsync("Next turn commencing.");
+            await Channel.SendMessageAsync("Next turn commencing.").ConfigureAwait(false);
             TurnPlayer = TurnPlayer.Next;
             _turn++;
             _state = GameState.StartOfTurn;
@@ -50,7 +50,7 @@ namespace Examples.MpGame
         {
             var sb = new StringBuilder($"State of the game at turn {_turn}")
                 .AppendLine($"The current turn player is **{TurnPlayer.Value.User.Username}**.")
-                .AppendLine($"The current phase is **{_state.ToString()}**");
+                .AppendLine($"The current phase is **{_state}**");
 
             return sb.ToString();
         }
