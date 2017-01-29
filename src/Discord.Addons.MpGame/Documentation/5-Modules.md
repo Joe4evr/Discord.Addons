@@ -56,31 +56,6 @@ Likewise, you'll most likely be adding *more* commands in order to control your 
 One command is predefined which will retry sending a DM
 to a user after they have been notified to enable DMs.
 
-With your own service class for persistent data, you should derive
-from this class as follows:
-```cs
-public class CardGameModule : MpGameModuleBase<CardGameService, CardGame, CardPlayer>
-{
-    public CardGameModule(CardGameService service)
-        : base(service)
-    {
-    }
-
-    //Provided by ModuleBase
-    protected override void BeforeExecute()
-    {
-        // If you choose to override this method, you *must* call the base version first
-        base.BeforeExecute();
-        // If you have any persistent data of your own, load
-        // the relevant instance from the dictionary
-        // in your service class here and store
-        // the result in a private field
-        GameService.SomeDataDictionary.TryGetValue(Context.Channel.Id, out var _data);
-    }
-    private DataType _data;
-}
-```
-
 While having an explicit service class will make it easier to expand in the future,
 you *can* omit the type parameter to use the default if you have no other persistent
 data to store for your game:
