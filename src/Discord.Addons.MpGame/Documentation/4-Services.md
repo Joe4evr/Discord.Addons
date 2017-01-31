@@ -15,21 +15,21 @@ public class MpGameService<TGame, TPlayer>
     where TGame   : GameBase<TPlayer>
     where TPlayer : Player
 {
-    public IReadOnlyDictionary<ulong, TGame> GameList { get; }
+    public IReadOnlyDictionary<IMessageChannel, TGame> GameList { get; }
 
-    public IReadOnlyDictionary<ulong, bool> OpenToJoin { get; }
+    public IReadOnlyDictionary<IMessageChannel, bool> OpenToJoin { get; }
 
-    public IReadOnlyDictionary<ulong, ImmutableHashSet<IUser>> PlayerList { get; }
+    public IReadOnlyDictionary<IMessageChannel, ImmutableHashSet<IUser>> PlayerList { get; }
 
-    public bool MakeNewPlayerList(ulong channelId);
+    public bool MakeNewPlayerList(IMessageChannel channel);
 
-    public bool AddUser(ulong channelId, IUser user);
+    public bool AddUser(IMessageChannel channel, IUser user);
 
-    public bool RemoveUser(ulong channelId, IUser user);
+    public bool RemoveUser(IMessageChannel channel, IUser user);
 
-    public bool TryAddNewGame(ulong channelId, TGame game);
+    public bool TryAddNewGame(IMessageChannel channel, TGame game);
 
-    public bool TryUpdateOpenToJoin(ulong channelId, bool newValue, bool comparisonValue);
+    public bool TryUpdateOpenToJoin(IMessageChannel channel, bool newValue, bool comparisonValue);
 }
 ```
 
@@ -42,6 +42,12 @@ public sealed class CardGameService : MpGameService<CardGame, CardPlayer>
     // It's generally advised to store your data in some kind of
     // 'Dictionary<ulong, T>' where the key is the channel/guild/user ID
     // and replace 'T' with whatever type you have your data in.
+    public Dictionary<ulong, DataType> SomeDataDictionary { get; }
+
+    // Alternatively, you can use 'IMessageChannel' as a key
+    // like the base class does, as long as you pass in the
+    // base-provided 'ChannelComparer'.
+    public readonly Dictionary<ulong, DataType> SomeDataDictionary = new Dictionary<ulong, DataType>(ChannelComparer);
 }
 ```
 

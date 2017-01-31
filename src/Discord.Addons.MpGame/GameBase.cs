@@ -48,13 +48,13 @@ namespace Discord.Addons.MpGame
         public virtual async Task EndGame(string endmsg)
         {
             await Channel.SendMessageAsync(endmsg);
-            await GameEnd(Channel.Id);
+            await GameEnd(Channel);
         }
 
         /// <summary> Get a string that represent the state of the game. </summary>
         public abstract string GetGameState();
 
-        internal event Func<ulong, Task> GameEnd;
+        internal event Func<IMessageChannel, Task> GameEnd;
     }
 
     //public abstract class GameBase : GameBase<Player>

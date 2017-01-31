@@ -10,7 +10,6 @@ namespace Discord.Addons.MpGame
     /// <typeparam name="TService">The type of the service managing longer lived objects.</typeparam>
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
-    /// <typeparam name="TContext">The typre of the CommandContext.</typeparam>
     public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<ICommandContext>
         where TService : MpGameService<TGame, TPlayer>
         where TGame    : GameBase<TPlayer>
@@ -42,13 +41,14 @@ namespace Discord.Addons.MpGame
             GameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
         }
 
-        //protected override void BeforeExecute()
-        //{
-        //    //base.BeforeExecute();
-        //    _open = GameService.OpenToJoin.GetValueOrDefault(Context.Channel.Id, defaultValue: false);
-        //    _list = GameService.PlayerList.GetValueOrDefault(Context.Channel.Id, defaultValue: ImmutableHashSet<IUser>.Empty);
-        //    GameInProgress = GameService.GameList.TryGetValue(Context.Channel.Id, out _game);
-        //}
+        /// <summary> Initialize fields whose values come from the <see cref="TService"/>'s Dictionaries. </summary>
+        protected override void BeforeExecute()
+        {
+            base.BeforeExecute();
+            _open = GameService.OpenToJoin.GetValueOrDefault(Context.Channel, defaultValue: false);
+            _list = GameService.PlayerList.GetValueOrDefault(Context.Channel, defaultValue: ImmutableHashSet<IUser>.Empty);
+            GameInProgress = GameService.GameList.TryGetValue(Context.Channel, out _game);
+        }
 
         /// <summary> Command to open a game for others to join. </summary>
         public abstract Task OpenGameCmd();
@@ -93,7 +93,6 @@ namespace Discord.Addons.MpGame
     /// using the default <see cref="MpGameService{TGame, TPlayer}"/> type. </summary>
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
-    /// <typeparam name="TContext">The typre of the CommandContext.</typeparam>
     public abstract class MpGameModuleBase<TGame, TPlayer> : MpGameModuleBase<MpGameService<TGame, TPlayer>, TGame, TPlayer>
         where TGame : GameBase<TPlayer>
         where TPlayer : Player
@@ -104,8 +103,8 @@ namespace Discord.Addons.MpGame
     }
 
     /// <summary> Base class to manage a game between Discord users,
-    /// using the default <see cref="MpGameService{TGame}"/>, <see cref="Player"/>
-    /// and <see cref="CommandContext"/> types. </summary>
+    /// using the default <see cref="MpGameService{TGame, Player}"/>
+    /// and <see cref="Player"/> types. </summary>
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     public abstract class MpGameModuleBase<TGame> : MpGameModuleBase<MpGameService<TGame, Player>, TGame, Player>
         where TGame : GameBase<Player>

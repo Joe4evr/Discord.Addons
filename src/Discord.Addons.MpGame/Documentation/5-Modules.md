@@ -5,7 +5,7 @@ The Module is the final piece, and is what is needed to move a game forward.
 
 The `MpGameModule` class looks like this:
 ```cs
-public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase
+public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<ICommandContext>
     where TService : MpGameService<TGame, TPlayer>
     where TGame    : GameBase<TPlayer>
     where TPlayer  : Player
@@ -56,6 +56,30 @@ Likewise, you'll most likely be adding *more* commands in order to control your 
 One command is predefined which will retry sending a DM
 to a user after they have been notified to enable DMs.
 
+With your own service class for persistent data, you should derive
+from this class as follows:
+```cs
+public class CardGameModule : MpGameModuleBase<CardGameService, CardGame, CardPlayer>
+{
+    public CardGameModule(CardGameService service)
+        : base(service)
+    {
+    }
+
+    protected override void BeforeExecute()
+    {
+        // If you choose to override this method, you *must* call the base version first
+        base.BeforeExecute();
+        // If you have any persistent data of your own, load
+        // the relevant instance from the dictionary
+        // in your service class here and store
+        // the result in a private field
+        GameService.SomeDataDictionary.TryGetValue(Context.Channel.Id, out var _data);
+    }
+    private DataType _data;
+}
+```
+
 While having an explicit service class will make it easier to expand in the future,
 you *can* omit the type parameter to use the default if you have no other persistent
 data to store for your game:
@@ -69,137 +93,7 @@ public class CardGameModule : MpGameModuleBase<CardGame, CardPlayer>
 }
 ```
 
-Example implementations for the abstract methods are as follows:
-```cs
-[Command("opengame")]
-public override async Task OpenGameCmd()
-{
-    // Make sure to check if a game is already going...
-    if (GameInProgress)
-    {
-        await ReplyAsync("Another game already in progress.");
-    }
-    // ...or if it's looking for players but hasn't yet started...
-    else if (OpenToJoin)
-    {
-        await ReplyAsync("There is already a game open to join.");
-    }
-    // ...before deciding what needs to be done.
-    else
-    {
-        if (GameService.TryUpdateOpenToJoin(Context.Channel.Id, newValue: true, comparisonValue: false))
-        {
-            GameService.MakeNewPlayerList(Context.Channel.Id);
-            await ReplyAsync("Opening for a game.");
-        }
-    }
-}
-
-[Command("join")]
-public override async Task JoinGameCmd()
-{
-    if (GameInProgress)
-    {
-        await ReplyAsync("Cannot join a game already in progress.");
-    }
-    else if (!OpenToJoin)
-    {
-        await ReplyAsync("No game open to join.");
-    }
-    else
-    {
-        if (GameService.AddUser(Context.Channel.Id, Context.User))
-        {
-            await ReplyAsync($"**{Context.User.Username}** has joined.");
-        }
-    }
-}
-
-[Command("leave")]
-public override async Task LeaveGameCmd()
-{
-    if (GameInProgress)
-    {
-        await ReplyAsync("Cannot leave a game already in progress.");
-    }
-    else if (!OpenToJoin)
-    {
-        await ReplyAsync("No game open to leave.");
-    }
-    else
-    {
-        if (GameService.RemoveUser(Context.Channel.Id, Context.User))
-        {
-            await ReplyAsync($"**{Context.User.Username}** has left.");
-        }
-    }
-}
-
-[Command("cancel")]
-public override async Task CancelGameCmd()
-{
-    if (GameInProgress)
-    {
-        await ReplyAsync("Cannot cancel a game already in progress.");
-    }
-    else if (!OpenToJoin)
-    {
-        await ReplyAsync("No game open to cancel.");
-    }
-    else
-    {
-        if (GameService.TryUpdateOpenToJoin(Context.Channel.Id, newValue: false, comparisonValue: true))
-        {
-            PlayerList.Clear();
-            await ReplyAsync("Game was canceled.");
-        }
-    }
-}
-
-[Command("start")]
-public override async Task StartGameCmd()
-{
-    if (GameInProgress)
-    {
-        await ReplyAsync("Another game already in progress.");
-    }
-    else if (!OpenToJoin)
-    {
-        await ReplyAsync("No game has been opened at this time.");
-    }
-    // Example value if a game has a minimum player requirement
-    else if (PlayerList.Count < 4)
-    {
-        await ReplyAsync("Not enough players have joined.");
-    }
-    else
-    {
-        if (GameService.TryUpdateOpenToJoin(Context.Channel.Id, newValue: false, comparisonValue: true))
-        {
-            // Tip: Shuffle the players before projecting them like this
-            var players = PlayerList.Select(u => new Player(u, Context.Channel));
-
-            var game = new ExampleGame(Context.Channel, players);
-            if (GameService.TryAddNewGame(Context.Channel.Id, game))
-            {
-                await game.SetupGame();
-                await game.StartGame();
-            }
-        }
-    }
-}
-
-[Command("turn")]
-public override Task NextTurnCmd()
-    => GameInProgress ? Game.NextTurn() : ReplyAsync("No game in progress.");
-
-[Command("state")]
-public override Task GameStateCmd()
-   => GameInProgress ? ReplyAsync(Game.GetGameState()) : ReplyAsync("No game in progress.");
-
-[Command("end")] // Limit this command to only be used by moderators to prevent abuse
-public override Task EndGameCmd()
-    => !GameInProgress ? ReplyAsync("No game in progress to end.") : Game.EndGame("Game ended early by moderator.");
-```
+Example implementations for the abstract methods can be found
+[in the Examples project](../../../Examples/MpGame/ExampleModule.cs)
 
 [<- Part 4 - Services](4-Services.md) - Modules - [Part 6 - Final step ->](6-FinalStep.md)
