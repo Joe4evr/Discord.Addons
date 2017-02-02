@@ -45,9 +45,11 @@ namespace Discord.Addons.MpGame
         protected override void BeforeExecute()
         {
             base.BeforeExecute();
-            _open = GameService.OpenToJoin.GetValueOrDefault(Context.Channel, defaultValue: false);
-            _list = GameService.PlayerList.GetValueOrDefault(Context.Channel, defaultValue: ImmutableHashSet<IUser>.Empty);
-            GameInProgress = GameService.GameList.TryGetValue(Context.Channel, out _game);
+            var data = GameService.GetData(Context.Channel);
+            _open = data?.OpenToJoin ?? false;
+            _list = data?.JoinedUsers ?? ImmutableHashSet<IUser>.Empty;
+            _game = data?.Game;
+            GameInProgress = _game != null;
         }
 
         /// <summary> Command to open a game for others to join. </summary>

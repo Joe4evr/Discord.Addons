@@ -6,7 +6,8 @@
   </PropertyGroup>
   <PropertyGroup>
     <Description>Base classes for text-based games in Discord</Description>
-    <VersionPrefix>0.8.16</VersionPrefix>
+    <VersionPrefix>0.8.17</VersionPrefix>
+    <VersionSuffix>rc</VersionSuffix>
     <Authors>Joe4evr</Authors>
     <TargetFramework>netstandard1.3</TargetFramework>
     <AssemblyName>Discord.Addons.MpGame</AssemblyName>
@@ -18,6 +19,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
     <PackageTags>discord;commands;game</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="**\*.resx" />
