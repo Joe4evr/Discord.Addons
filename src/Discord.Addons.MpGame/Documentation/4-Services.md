@@ -47,8 +47,7 @@ public sealed class CardGameService : MpGameService<CardGame, CardPlayer>
     // Alternatively, you can use 'IMessageChannel' as a key
     // like the base class does, as long as you pass in the
     // base-provided 'ChannelComparer'.
-    public readonly Dictionary<ulong, DataType> SomeDataDictionary = new Dictionary<ulong, DataType>(ChannelComparer);
-}
+    public Dictionary<ulong, DataType> SomeDataDictionary { get; }
 ```
 
 [<- Part 3 - Games](3-Games.md) - Services - [Part 5 - Modules ->](5-Modules.md)

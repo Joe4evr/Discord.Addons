@@ -16,7 +16,7 @@ namespace Discord.Addons.MpGame
         where TPlayer  : Player
     {
         /// <summary> The instance of the game being played (if active). </summary>
-        protected TGame Game => _game;
+        protected TGame Game { get; private set; }
 
         /// <summary> Determines if a game in the current channel is in progress or not. </summary>
         protected bool GameInProgress { get; private set; }
@@ -25,14 +25,10 @@ namespace Discord.Addons.MpGame
         protected TService GameService { get; }
 
         /// <summary> Determines if a game in the current channel is open to join or not. </summary>
-        protected bool OpenToJoin => _open;
+        protected bool OpenToJoin { get; private set; }
 
         /// <summary> The list of users ready to play. </summary>
-        protected ImmutableHashSet<IUser> PlayerList => _list;
-
-        private bool _open;
-        private TGame _game;
-        private ImmutableHashSet<IUser> _list;
+        protected ImmutableHashSet<IUser> PlayerList { get; private set; }
 
         /// <summary> Initializes the <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/> base class. </summary>
         /// <param name="gameService"></param>
@@ -46,10 +42,10 @@ namespace Discord.Addons.MpGame
         {
             base.BeforeExecute();
             var data = GameService.GetData(Context.Channel);
-            _open = data?.OpenToJoin ?? false;
-            _list = data?.JoinedUsers ?? ImmutableHashSet<IUser>.Empty;
-            _game = data?.Game;
-            GameInProgress = _game != null;
+            OpenToJoin = data?.OpenToJoin ?? false;
+            PlayerList = data?.JoinedUsers ?? ImmutableHashSet<IUser>.Empty;
+            Game = data?.Game;
+            GameInProgress = Game != null;
         }
 
         /// <summary> Command to open a game for others to join. </summary>
