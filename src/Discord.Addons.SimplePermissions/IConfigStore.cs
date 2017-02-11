@@ -9,7 +9,7 @@
         /// <returns>The config object.</returns>
         TConfig Load();
 
-        /// <summary> Save the config object to a persistent location. </summary>
-        void Save();
+        ///// <summary> Save the config object to a persistent location. </summary>
+        //void Save();
     }
 }

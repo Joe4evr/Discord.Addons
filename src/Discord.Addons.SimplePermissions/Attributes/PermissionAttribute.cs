@@ -29,61 +29,64 @@ namespace Discord.Addons.SimplePermissions
 
             if (map.TryGet<PermissionsService>(out var svc))
             {
-                var cfg = svc.ConfigStore.Load();
-                if (cfg.GetChannelModuleWhitelist(chan).Contains(command.Module.Name)
-                    || cfg.GetGuildModuleWhitelist(context.Guild).Contains(command.Module.Name))
+                using (var config = svc.ConfigStore.Load())
                 {
-                    if (Permission == MinimumPermission.BotOwner)
+
+                    if (config.GetChannelModuleWhitelist(chan).Contains(command.Module.Name)
+                        || config.GetGuildModuleWhitelist(context.Guild).Contains(command.Module.Name))
                     {
-                        try
+                        if (Permission == MinimumPermission.BotOwner)
                         {
-                            var ownerId = (await context.Client.GetApplicationInfoAsync().ConfigureAwait(false)).Owner.Id;
-                            return user.Id == ownerId
-                                ? PreconditionResult.FromSuccess()
-                                : PreconditionResult.FromError("Insufficient permission.");
+                            try
+                            {
+                                var ownerId = (await context.Client.GetApplicationInfoAsync().ConfigureAwait(false)).Owner.Id;
+                                return user.Id == ownerId
+                                    ? PreconditionResult.FromSuccess()
+                                    : PreconditionResult.FromError("Insufficient permission.");
+                            }
+                            catch (HttpException)
+                            {
+                                return PreconditionResult.FromError("Not logged in as a bot.");
+                            }
                         }
-                        catch (HttpException)
+                        else if (Permission == MinimumPermission.Special
+                            && config.GetSpecialPermissionUsersList(chan).Contains(user.Id))
                         {
-                            return PreconditionResult.FromError("Not logged in as a bot.");
+                            return PreconditionResult.FromSuccess();
                         }
-                    }
-                    else if (Permission == MinimumPermission.Special
-                        && cfg.GetSpecialPermissionUsersList(chan).Contains(user.Id))
-                    {
-                        return PreconditionResult.FromSuccess();
-                    }
-                    else if (Permission <= MinimumPermission.GuildOwner
-                        && context.Guild?.OwnerId == user.Id)
-                    {
-                        return PreconditionResult.FromSuccess();
-                    }
-                    else if (Permission <= MinimumPermission.AdminRole
-                        && (user as IGuildUser)?.RoleIds.Any(r => r == cfg.GetGuildAdminRole(context.Guild)) == true)
-                    {
-                        return PreconditionResult.FromSuccess();
-                    }
-                    else if (Permission <= MinimumPermission.ModRole
-                        && (user as IGuildUser)?.RoleIds.Any(r => r == cfg.GetGuildModRole(context.Guild)) == true)
-                    {
-                        return PreconditionResult.FromSuccess();
-                    }
-                    else if (Permission == MinimumPermission.Everyone)
-                    {
-                        return PreconditionResult.FromSuccess();
+                        else if (Permission <= MinimumPermission.GuildOwner
+                            && context.Guild?.OwnerId == user.Id)
+                        {
+                            return PreconditionResult.FromSuccess();
+                        }
+                        else if (Permission <= MinimumPermission.AdminRole
+                            && (user as IGuildUser)?.RoleIds.Any(r => r == config.GetGuildAdminRole(context.Guild)) == true)
+                        {
+                            return PreconditionResult.FromSuccess();
+                        }
+                        else if (Permission <= MinimumPermission.ModRole
+                            && (user as IGuildUser)?.RoleIds.Any(r => r == config.GetGuildModRole(context.Guild)) == true)
+                        {
+                            return PreconditionResult.FromSuccess();
+                        }
+                        else if (Permission == MinimumPermission.Everyone)
+                        {
+                            return PreconditionResult.FromSuccess();
+                        }
+                        else
+                        {
+                            return PreconditionResult.FromError("Insufficient permission.");
+                        }
                     }
                     else
                     {
-                        return PreconditionResult.FromError("Insufficient permission.");
+                        return PreconditionResult.FromError("Command not whitelisted");
                     }
-                }
-                else
-                {
-                    return PreconditionResult.FromError("Command not whitelisted");
                 }
             }
             else
             {
-                return PreconditionResult.FromError("No config found.");
+                return PreconditionResult.FromError("PermissionService not found.");
             }
         }
     }

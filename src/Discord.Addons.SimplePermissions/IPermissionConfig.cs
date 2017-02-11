@@ -1,11 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Discord.Addons.SimplePermissions
 {
     /// <summary> Contract for a configuration object used to determine command permissions. </summary>
-    public interface IPermissionConfig
+    public interface IPermissionConfig : IDisposable
     {
+        /// <summary> Set whether Fancy help is enabled in a specified guild. </summary>
+        Task SetFancyHelpValue(IGuild guild, bool value);
+
+        /// <summary> Get whether Fancy help is enabled in a specified guild. </summary>
+        Task<bool> GetFancyHelpValue(IGuild guild);
+
         /// <summary> Add a new Guild (and all its Channels) to the config. </summary>
         Task AddNewGuild(IGuild guild);
 
@@ -72,5 +79,8 @@ namespace Discord.Addons.SimplePermissions
         /// <summary> Revoke a user's Special command privileges in a channel. </summary>
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
         Task<bool> RemoveSpecialUser(IChannel channel, IGuildUser user);
+
+        /// <summary> Save the config. </summary>
+        void Save();
     }
 }
