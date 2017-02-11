@@ -12,6 +12,7 @@ namespace Discord.Addons.Preconditions
     public sealed class RatelimitAttribute : PreconditionAttribute
     {
         private readonly uint _invokeLimit;
+        private readonly bool _noLimitInDMs;
         private readonly TimeSpan _invokeLimitPeriod;
         private readonly Dictionary<ulong, CommandTimeout> _invokeTracker = new Dictionary<ulong, CommandTimeout>();
 
@@ -19,9 +20,10 @@ namespace Discord.Addons.Preconditions
         /// <param name="times">The number of times a user may use the command within a certain period.</param>
         /// <param name="period">The amount of time since first invoke a user has until the limit is lifted.</param>
         /// <param name="measure">The scale in which the <paramref name="period"/> parameter should be measured.</param>
-        public RatelimitAttribute(uint times, double period, Measure measure)
+        public RatelimitAttribute(uint times, double period, Measure measure, bool noLimitInDMs = false)
         {
             _invokeLimit = times;
+            _noLimitInDMs = noLimitInDMs;
 
             //TODO: C# 7 candidate switch expression
             switch (measure)
@@ -41,15 +43,19 @@ namespace Discord.Addons.Preconditions
         /// <summary> Sets how often a user is allowed to use this command. </summary>
         /// <param name="times">The number of times a user may use the command within a certain period.</param>
         /// <param name="period">The amount of time since first invoke a user has until the limit is lifted.</param>
-        public RatelimitAttribute(uint times, TimeSpan period)
+        public RatelimitAttribute(uint times, TimeSpan period, bool noLimitInDMs = false)
         {
             _invokeLimit = times;
+            _noLimitInDMs = noLimitInDMs;
             _invokeLimitPeriod = period;
         }
 
         /// <inheritdoc />
         public override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IDependencyMap map)
         {
+            if (context.Channel is IPrivateChannel && _noLimitInDMs)
+                return Task.FromResult(PreconditionResult.FromSuccess());
+
             var now = DateTime.UtcNow;
             var timeout = (_invokeTracker.TryGetValue(context.User.Id, out var t)
                 && ((now - t.FirstInvoke) < _invokeLimitPeriod))
