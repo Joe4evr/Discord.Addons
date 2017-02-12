@@ -1,13 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup Label="Configuration">
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <WarningLevel>0</WarningLevel>
-    <!--<GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>-->
   </PropertyGroup>
   <PropertyGroup>
     <Description>Base for making trivia games using Discord.Net.</Description>
     <VersionPrefix>0.2.4</VersionPrefix>
+    <VersionSuffix>rc</VersionSuffix>
     <Authors>Joe4evr</Authors>
     <TargetFramework>netstandard1.3</TargetFramework>
     <AssemblyName>Discord.Addons.Trivia</AssemblyName>
@@ -19,6 +19,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
     <PackageTags>discord</PackageTags>
+      <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="**\*.resx" />
