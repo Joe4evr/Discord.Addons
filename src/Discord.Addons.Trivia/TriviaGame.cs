@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,7 +18,6 @@ namespace Discord.Addons.TriviaGames
         private readonly Timer _questionTimer;
 
         private readonly ConcurrentDictionary<ulong, int> _scoreboard = new ConcurrentDictionary<ulong, int>();
-        private readonly HashSet<string> _asked = new HashSet<string>();
         private readonly Random _rng = new Random();
         private readonly Atomic<bool> _isAnswered = new Atomic<bool>(true);
 
@@ -30,7 +28,10 @@ namespace Discord.Addons.TriviaGames
         /// <param name="triviaData"></param>
         /// <param name="channel"></param>
         /// <param name="turns"></param>
-        public TriviaGame(IReadOnlyDictionary<string, string[]> triviaData, IMessageChannel channel, int turns)
+        public TriviaGame(
+            IReadOnlyDictionary<string, string[]> triviaData,
+            IMessageChannel channel,
+            int turns)
         {
             _triviaData = new Stack<QA>(triviaData.Select(kv => new QA(kv.Key, kv.Value)).Shuffle(28));
             _channel = channel;
@@ -39,7 +40,7 @@ namespace Discord.Addons.TriviaGames
             _questionTimer = new Timer(async obj =>
             {
                 await _channel.SendMessageAsync("Time up.");
-                if (_asked.Count == _triviaData.Count)
+                if (!_triviaData.Any())
                 {
                     await OutOfQuestions();
                 }
@@ -78,7 +79,6 @@ namespace Discord.Addons.TriviaGames
         {
             _currentQuestion = _triviaData.Pop();
             _turn++;
-            _asked.Add(_currentQuestion.Question);
             _isAnswered.SetValue(false);
             await _channel.SendMessageAsync(_currentQuestion.Question);
             _questionTimer.Change(TimeSpan.FromSeconds(20), Timeout.InfiniteTimeSpan);
@@ -91,8 +91,11 @@ namespace Discord.Addons.TriviaGames
             await End();
         }
 
-        internal async Task CheckTrivia(SocketMessage msg)
+        internal async Task CheckTrivia(SocketMessage m)
         {
+            var msg = m as SocketUserMessage;
+            if (msg == null) return;
+
             if (_currentQuestion.Answers.Contains(msg.Content, StringComparer.OrdinalIgnoreCase) &&
                 _isAnswered.TryUpdate(newValue: true, comparisonValue: false))
             {
@@ -100,11 +103,12 @@ namespace Discord.Addons.TriviaGames
                 _scoreboard.AddOrUpdate(msg.Author.Id, 1, (k, v) => ++v);
                 var userScore = _scoreboard.Single(kv => kv.Key == msg.Author.Id).Value;
                 await _channel.SendMessageAsync($"Correct. **{msg.Author.Username}** is now at **{userScore}** point(s).");
+
                 if (_turn == _turns)
                 {
                     await End();
                 }
-                else if (_asked.Count == _triviaData.Count)
+                else if (!_triviaData.Any())
                 {
                     await OutOfQuestions();
                 }
@@ -156,45 +160,6 @@ namespace Discord.Addons.TriviaGames
             public void SetValue(T newValue) => value = newValue;
 
             //public static implicit operator T(Atomic<T> atomic) => atomic.value;
-        }
-    }
-
-    internal static class Ext
-    {
-        //Method for randomizing lists using a Fisher-Yates shuffle.
-        //Based on http://stackoverflow.com/questions/273313/
-        /// <summary>
-        /// Perform a Fisher-Yates shuffle on a collection implementing <see cref="IEnumerable{T}"/>.
-        /// </summary>
-        /// <param name="source">The list to shuffle.</param>
-        /// <param name="iterations">The amount of iterations you wish to perform.</param>
-        /// <remarks>Adapted from http://stackoverflow.com/questions/273313/. </remarks>
-        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source, int iterations = 1)
-        {
-            var provider = RandomNumberGenerator.Create();
-            var buffer = source.ToList();
-            int n = buffer.Count;
-            for (int i = 0; i < iterations; i++)
-            {
-                while (n > 1)
-                {
-                    byte[] box = new byte[(n / Byte.MaxValue) + 1];
-                    int boxSum;
-                    do
-                    {
-                        provider.GetBytes(box);
-                        boxSum = box.Cast<int>().Sum();
-                    }
-                    while (!(boxSum < n * ((Byte.MaxValue * box.Length) / n)));
-                    int k = (boxSum % n);
-                    n--;
-                    T value = buffer[k];
-                    buffer[k] = buffer[n];
-                    buffer[n] = value;
-                }
-            }
-
-            return buffer;
         }
     }
 }

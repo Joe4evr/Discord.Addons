@@ -6,7 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <Description>Base for making trivia games using Discord.Net.</Description>
-    <VersionPrefix>0.2.4</VersionPrefix>
+    <VersionPrefix>0.2.5</VersionPrefix>
     <VersionSuffix>rc</VersionSuffix>
     <Authors>Joe4evr</Authors>
     <TargetFramework>netstandard1.3</TargetFramework>
