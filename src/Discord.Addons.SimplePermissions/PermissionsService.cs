@@ -22,6 +22,20 @@ namespace Discord.Addons.SimplePermissions
         internal readonly IConfigStore<IPermissionConfig> ConfigStore;
         internal readonly IDependencyMap Map;
 
+        private PermissionsService(
+            IConfigStore<IPermissionConfig> configstore,
+            CommandService commands,
+            IDependencyMap map,
+            Func<LogMessage, Task> logAction)
+        {
+            _logger = logAction;
+            Log(LogSeverity.Info, "Creating Permission service.");
+
+            ConfigStore = configstore ?? throw new ArgumentNullException(nameof(configstore));
+            CService = commands ?? throw new ArgumentNullException(nameof(commands));
+            Map = map;
+        }
+
         /// <summary> </summary>
         /// <param name="configstore"></param>
         /// <param name="commands"></param>
@@ -29,114 +43,76 @@ namespace Discord.Addons.SimplePermissions
         internal PermissionsService(
             IConfigStore<IPermissionConfig> configstore,
             CommandService commands,
-            DiscordSocketClient client,
             IDependencyMap map,
-            Func<LogMessage, Task> logAction)
+            DiscordSocketClient client,
+            Func<LogMessage, Task> logAction) : this(configstore, commands, map, logAction)
         {
-            ConfigStore = configstore ?? throw new ArgumentNullException(nameof(configstore));
-            CService = commands ?? throw new ArgumentNullException(nameof(commands));
             _sockClient = client ?? throw new ArgumentNullException(nameof(client));
 
-            _logger = logAction;
-            Map = map;
-
             client.Connected += checkDuplicateModuleNames;
-
-            client.GuildAvailable += async guild =>
-            {
-                using (var config = ConfigStore.Load())
-                {
-                    await config.AddNewGuild(guild);
-                    config.Save();
-                }
-            };
-            client.UserJoined += async user =>
-            {
-                using (var config = ConfigStore.Load())
-                {
-                    await config.AddUser(user);
-                    config.Save();
-                }
-            };
-            client.ChannelCreated += async chan =>
-            {
-                using (var config = ConfigStore.Load())
-                {
-                    await config.AddChannel(chan);
-                    config.Save();
-                }
-            };
-            client.ChannelDestroyed += async chan =>
-            {
-                using (var config = ConfigStore.Load())
-                {
-                    await config.RemoveChannel(chan);
-                    config.Save();
-                }
-            };
-
-            client.ReactionAdded += OnReactionAdded;
-            client.MessageDeleted += (id, msg) => Task.FromResult(Helpmsgs.TryRemove(id, out var _));
-
-            Log(LogSeverity.Info, "Created Permission service.");
+            client.GuildAvailable += GuildAvailable;
+            client.UserJoined += UserJoined;
+            client.ChannelCreated += ChannelCreated;
+            client.ChannelDestroyed += ChannelDestroyed;
+            client.ReactionAdded += ReactionAdded;
+            client.MessageDeleted += MessageDeleted;
         }
 
         internal PermissionsService(
             IConfigStore<IPermissionConfig> configstore,
             CommandService commands,
-            DiscordShardedClient client,
             IDependencyMap map,
-            Func<LogMessage, Task> logAction)
+            DiscordShardedClient client,
+            Func<LogMessage, Task> logAction) : this(configstore, commands, map, logAction)
         {
-            ConfigStore = configstore ?? throw new ArgumentNullException(nameof(configstore));
-            CService = commands ?? throw new ArgumentNullException(nameof(commands));
             _shardClient = client ?? throw new ArgumentNullException(nameof(client));
 
-            _logger = logAction;
-            Map = map;
-
             client.GetShard(0).Connected += checkDuplicateModuleNames;
-
-            client.GuildAvailable += async guild =>
-            {
-                using (var config = ConfigStore.Load())
-                {
-                    await config.AddNewGuild(guild);
-                    config.Save();
-                }
-            };
-            client.UserJoined += async user =>
-            {
-                using (var config = ConfigStore.Load())
-                {
-                    await config.AddUser(user);
-                    config.Save();
-                }
-            };
-            client.ChannelCreated += async chan =>
-            {
-                using (var config = ConfigStore.Load())
-                {
-                    await config.AddChannel(chan);
-                    config.Save();
-                }
-            };
-            client.ChannelDestroyed += async chan =>
-            {
-                using (var config = ConfigStore.Load())
-                {
-                    await config.RemoveChannel(chan);
-                    config.Save();
-                }
-            };
-
-            client.ReactionAdded += OnReactionAdded;
-            client.MessageDeleted += (id, msg) => Task.FromResult(Helpmsgs.TryRemove(id, out var _));
-
-            Log(LogSeverity.Info, "Created Permission service.");
+            client.GuildAvailable += GuildAvailable;
+            client.UserJoined += UserJoined;
+            client.ChannelCreated += ChannelCreated;
+            client.ChannelDestroyed += ChannelDestroyed;
+            client.ReactionAdded += ReactionAdded;
+            client.MessageDeleted += MessageDeleted;
         }
 
-        private async Task OnReactionAdded(ulong id, Optional<SocketUserMessage> message, SocketReaction reaction)
+        private async Task GuildAvailable(SocketGuild guild)
+        {
+            using (var config = ConfigStore.Load())
+            {
+                await config.AddNewGuild(guild);
+                config.Save();
+            }
+        }
+
+        private async Task UserJoined(SocketGuildUser user)
+        {
+            using (var config = ConfigStore.Load())
+            {
+                await config.AddUser(user);
+                config.Save();
+            }
+        }
+
+        private async Task ChannelCreated(SocketChannel chan)
+        {
+            using (var config = ConfigStore.Load())
+            {
+                await config.AddChannel(chan);
+                config.Save();
+            }
+        }
+
+        private async Task ChannelDestroyed(SocketChannel chan)
+        {
+            using (var config = ConfigStore.Load())
+            {
+                await config.RemoveChannel(chan);
+                config.Save();
+            }
+        }
+
+        private async Task ReactionAdded(ulong id, Optional<SocketUserMessage> message, SocketReaction reaction)
         {
             var msg = message.GetValueOrDefault();
             if (msg == null)
@@ -152,7 +128,7 @@ namespace Discord.Addons.SimplePermissions
             if (Helpmsgs.TryGetValue(msg.Id, out var fhm))
             {
                 if (reaction.UserId == _sockClient?.CurrentUser.Id
-                    || reaction.UserId == _shardClient.CurrentUser.Id) return;
+                    || reaction.UserId == _shardClient?.CurrentUser.Id) return;
 
                 if (reaction.UserId != fhm.UserId)
                 {
@@ -181,6 +157,11 @@ namespace Discord.Addons.SimplePermissions
                         break;
                 }
             }
+        }
+
+        private Task MessageDeleted(ulong id, Optional<SocketMessage> msg)
+        {
+            return Task.FromResult(Helpmsgs.TryRemove(id, out var _));
         }
 
         private async Task checkDuplicateModuleNames()
@@ -345,25 +326,25 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
             IDependencyMap map,
             Func<LogMessage, Task> logAction = null)
         {
-            map.Add(new PermissionsService(configStore, cmdService, client, map, logAction ?? (msg => Task.CompletedTask)));
+            map.Add(new PermissionsService(configStore, cmdService, map, client, logAction ?? (msg => Task.CompletedTask)));
             return cmdService.AddModuleAsync<PermissionsModule>();
         }
 
-        ///// <summary> Add SimplePermissions to your <see cref="CommandService"/> using a <see cref="DiscordShardedClient"/>. </summary>
-        ///// <param name="client">The <see cref="DiscordShardedClient"/> instance.</param>
-        ///// <param name="configStore">The <see cref="IConfigStore{TConfig}"/> instance.</param>
-        ///// <param name="map">The <see cref="IDependencyMap"/> instance.</param>
-        ///// <param name="logAction">Optional: A delegate or method that will log messages.</param>
-        //public static Task UseSimplePermissions(
-        //    this CommandService cmdService,
-        //    DiscordShardedClient client,
-        //    IConfigStore<IPermissionConfig> configStore,
-        //    IDependencyMap map,
-        //    Func<LogMessage, Task> logAction = null)
-        //{
-        //    map.Add(new PermissionsService(configStore, cmdService, client, map, logAction ?? (msg => Task.CompletedTask)));
-        //    return cmdService.AddModuleAsync<ShardedPermissionsModule>();
-        //}
+        /// <summary> Add SimplePermissions to your <see cref="CommandService"/> using a <see cref="DiscordShardedClient"/>. </summary>
+        /// <param name="client">The <see cref="DiscordShardedClient"/> instance.</param>
+        /// <param name="configStore">The <see cref="IConfigStore{TConfig}"/> instance.</param>
+        /// <param name="map">The <see cref="IDependencyMap"/> instance.</param>
+        /// <param name="logAction">Optional: A delegate or method that will log messages.</param>
+        public static Task UseSimplePermissions(
+            this CommandService cmdService,
+            DiscordShardedClient client,
+            IConfigStore<IPermissionConfig> configStore,
+            IDependencyMap map,
+            Func<LogMessage, Task> logAction = null)
+        {
+            map.Add(new PermissionsService(configStore, cmdService, map, client, logAction ?? (msg => Task.CompletedTask)));
+            return cmdService.AddModuleAsync<PermissionsModule>();
+        }
 
         internal static bool HasPerms(this IGuildUser user, IGuildChannel channel, DiscordPermissions perms)
         {
