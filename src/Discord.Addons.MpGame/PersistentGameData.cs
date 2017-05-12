@@ -10,14 +10,11 @@ namespace Discord.Addons.MpGame
         where TGame : GameBase<TPlayer>
         where TPlayer : Player
     {
-        /// <summary> A cached <see cref="IEqualityComparer{IUser}"/> instance to use when
-        /// instantiating the <see cref="PlayerList"/>'s <see cref="HashSet{IUser}"/>. </summary>
-        private static readonly IEqualityComparer<IUser> UserComparer = new EntityEqualityComparer<ulong>();
         private readonly object _lock = new object();
 
         internal bool OpenToJoin { get; private set; } = true;
         internal TGame Game { get; private set; }
-        internal ImmutableHashSet<IUser> JoinedUsers { get; private set; } = ImmutableHashSet.Create(UserComparer);
+        internal ImmutableHashSet<IUser> JoinedUsers { get; private set; } = ImmutableHashSet.Create(Comparers.UserComparer);
 
         internal bool TryUpdateOpenToJoin(bool oldValue, bool newValue)
         {

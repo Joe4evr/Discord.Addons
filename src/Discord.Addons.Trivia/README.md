@@ -25,8 +25,8 @@ public class MyTrivia : TriviaModuleBase
             return;
         }
 
-        var game = new TriviaGame(Information.Questions(), Context.Channel, turns);
-        if (Service.AddNewGame(Context.Channel.Id, _game))
+        var game = new TriviaGame(Service.TriviaData, Context.Channel, turns);
+        if (Service.AddNewGame(Context.Channel.Id, game))
         {
             await game.Start();
         }

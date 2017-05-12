@@ -6,7 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <Description>Discord.Net module for command permission management.</Description>
-    <VersionPrefix>0.8.19</VersionPrefix>
+    <VersionPrefix>0.9.23</VersionPrefix>
     <VersionSuffix>rc</VersionSuffix>
     <Authors>Joe4evr</Authors>
     <TargetFramework>netstandard1.6</TargetFramework>
@@ -22,14 +22,11 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="**\*.resx" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Discord.Net.Commands" Version="1.0.0-rc-*" />
-    <PackageReference Include="Discord.Net.WebSocket" Version="1.0.0-rc-*" />
+    <PackageReference Include="Discord.Net.Commands" Version="1.0.0-rc3-00742" />
+    <PackageReference Include="Discord.Net.WebSocket" Version="1.0.0-rc3-00742" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="1.1.0" />
     <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
   </ItemGroup>
@@ -38,4 +35,5 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
   <PropertyGroup />
+  <Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />
 </Project>

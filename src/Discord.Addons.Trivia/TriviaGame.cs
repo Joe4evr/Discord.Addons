@@ -64,10 +64,10 @@ namespace Discord.Addons.TriviaGames
         /// <summary> Ends the Trivia game. </summary>
         public async Task End()
         {
-            var sb = new StringBuilder("Score: ```");
+            var sb = new StringBuilder("Game over. Final score: ```");
             foreach (var kv in _scoreboard)
             {
-                sb.AppendLine($"{(await _channel.GetUserAsync(kv.Key))}: {kv.Value} points.");
+                sb.AppendLine($"{(await _channel.GetUserAsync(kv.Key)).Username}: {kv.Value} point(s).");
             }
             sb.Append("```");
 

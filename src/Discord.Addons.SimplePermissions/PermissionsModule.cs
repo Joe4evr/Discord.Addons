@@ -6,7 +6,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Discord.Commands;
-using CommandParam = Discord.Commands.ParameterInfo;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -14,15 +13,18 @@ namespace Discord.Addons.SimplePermissions
     public sealed class PermissionsModule : ModuleBase<ICommandContext>
     {
         public const string PermModuleName = "Permissions";
+        private const string _star = " *";
         private static readonly Regex _dbgRegex = new Regex(@"(?<name>(.*)), Version=(?<version>(.*)), Culture=(?<culture>(.*)), PublicKeyToken=(?<token>(.*))", RegexOptions.Compiled);
         //private static readonly Type hiddenAttr = typeof(HiddenAttribute);
 
-        protected PermissionsService PermService { get; }
+        private readonly PermissionsService _permService;
+        private readonly IServiceProvider _services;
 
         /// <summary> </summary>
-        public PermissionsModule(PermissionsService permService)
+        public PermissionsModule(PermissionsService permService, IServiceProvider services)
         {
-            PermService = permService ?? throw new ArgumentNullException(nameof(permService));
+            _permService = permService ?? throw new ArgumentNullException(nameof(permService));
+            _services = services;
             //_cmdService = permService.CService;
         }
 
@@ -32,6 +34,7 @@ namespace Discord.Addons.SimplePermissions
         public async Task DebugCmd()
         {
             var app = await Context.Client.GetApplicationInfoAsync().ConfigureAwait(false);
+
             var asms = (from xa in AppDomain.CurrentDomain.GetAssemblies()
                         where !xa.IsDynamic
                         let m = _dbgRegex.Match(xa.FullName)
@@ -63,14 +66,14 @@ namespace Discord.Addons.SimplePermissions
         [Summary("Display commands you can use.")]
         public async Task HelpCmd()
         {
-            var cmds = (await PermService.CService.Commands
+            var cmds = (await _permService.CService.Commands
                 .Where(c => !c.Preconditions.Any(p => p is HiddenAttribute))
-                .CheckConditions(Context, PermService.Map).ConfigureAwait(false));
+                .CheckConditions(Context, _services, _permService).ConfigureAwait(false));
 
             if (await UseFancy().ConfigureAwait(false))
             {
                 var app = await Context.Client.GetApplicationInfoAsync().ConfigureAwait(false);
-                PermService.AddNewFancy(await new FancyHelpMessage(Context.Channel, Context.User, cmds, app).SendMessage().ConfigureAwait(false));
+                _permService.AddNewFancy(await new FancyHelpMessage(Context.Channel, Context.User, cmds, app).SendMessage().ConfigureAwait(false));
             }
             else
             {
@@ -87,7 +90,7 @@ namespace Discord.Addons.SimplePermissions
 
         private async Task<bool> UseFancy()
         {
-            using (var config = PermService.ConfigStore.Load())
+            using (var config = _permService.ConfigStore.Load())
             {
                 bool fancyEnabled = Context.Guild != null && await config.GetFancyHelpValue(Context.Guild).ConfigureAwait(false);
                 return fancyEnabled //&& PermissionsService.GetMessageCacheSize(Context.Client) > 0
@@ -104,7 +107,7 @@ namespace Discord.Addons.SimplePermissions
         public async Task HelpCmd(string cmdname)
         {
             var sb = new StringBuilder();
-            var cmds = (await PermService.CService.Commands.CheckConditions(Context, PermService.Map).ConfigureAwait(false))
+            var cmds = (await _permService.CService.Commands.CheckConditions(Context, _services, _permService).ConfigureAwait(false))
                 .Where(c => c.Aliases.FirstOrDefault().Equals(cmdname, StringComparison.OrdinalIgnoreCase)
                     && !c.Preconditions.Any(p => p is HiddenAttribute));
 
@@ -115,7 +118,7 @@ namespace Discord.Addons.SimplePermissions
                 {
                     sb.AppendLine('\t' + cmd.Summary);
                     if (cmd.Parameters.Count > 0)
-                        sb.AppendLine($"\t\tParameters: {String.Join(" ", cmd.Parameters.Select(p => formatParam(p)))}");
+                        sb.AppendLine($"\t\tParameters: {String.Join(" ", cmd.Parameters.Select(p => p.FormatParam()))}");
                 }
             }
             else
@@ -124,33 +127,6 @@ namespace Discord.Addons.SimplePermissions
             }
 
             await ReplyAsync(sb.ToString()).ConfigureAwait(false);
-        }
-
-        private string formatParam(CommandParam param)
-        {
-            var sb = new StringBuilder();
-            if (param.IsMultiple)
-            {
-                sb.Append($"`[({param.Type?.Name}): {param.Name}...]`");
-            }
-            else if (param.IsRemainder) //&& IsOptional - decided not to check for the combination
-            {
-                sb.Append($"`<({param.Type?.Name}): {param.Name}...>`");
-            }
-            else if (param.IsOptional)
-            {
-                sb.Append($"`[({param.Type?.Name}): {param.Name}]`");
-            }
-            else
-            {
-                sb.Append($"`<({param.Type?.Name}): {param.Name}>`");
-            }
-
-            if (!String.IsNullOrWhiteSpace(param.Summary))
-            {
-                sb.Append($" ({param.Summary})");
-            }
-            return sb.ToString();
         }
 
         /// <summary> List this server's roles and their ID. </summary>
@@ -173,17 +149,22 @@ namespace Discord.Addons.SimplePermissions
         {
             if (Context.Channel is IGuildChannel ch)
             {
-                var mods = PermService.CService.Modules
+                var mods = _permService.CService.Modules
                     .Where(m => m.Name != PermModuleName)
                     .Select(m => m.Name);
                 var index = 1;
                 var sb = new StringBuilder("All loaded modules:\n```");
-                foreach (var m in mods)
+                using (var config = _permService.ConfigStore.Load())
                 {
-                    sb.AppendLine($"{index,3}: {m}");
-                    index++;
+                    var wl = config.GetChannelModuleWhitelist(Context.Channel)
+                        .Concat(config.GetGuildModuleWhitelist(Context.Guild)).ToList();
+                    foreach (var m in mods)
+                    {
+                        sb.AppendLine($"{index,3}: {m}{(wl.Contains(m) ? _star : String.Empty)}");
+                        index++;
+                    }
+                    sb.Append("```");
                 }
-                sb.Append("```");
 
                 return ReplyAsync(sb.ToString());
             }
@@ -205,7 +186,7 @@ namespace Discord.Addons.SimplePermissions
                     return;
                 }
 
-                if (await PermService.SetGuildAdminRole(Context.Guild, role).ConfigureAwait(false))
+                if (await _permService.SetGuildAdminRole(Context.Guild, role).ConfigureAwait(false))
                     await ReplyAsync($"Set **{role.Name}** as the admin role for this server.").ConfigureAwait(false);
             }
         }
@@ -225,7 +206,7 @@ namespace Discord.Addons.SimplePermissions
                     return;
                 }
 
-                if (await PermService.SetGuildModRole(Context.Guild, role).ConfigureAwait(false))
+                if (await _permService.SetGuildModRole(Context.Guild, role).ConfigureAwait(false))
                     await ReplyAsync($"Set **{role.Name}** as the mod role for this server.").ConfigureAwait(false);
             }
         }
@@ -239,7 +220,7 @@ namespace Discord.Addons.SimplePermissions
         {
             if (user.HasPerms(Context.Channel as ITextChannel, PermissionsExtensions.DiscordPermissions.READ_MESSAGES | PermissionsExtensions.DiscordPermissions.SEND_MESSAGES))
             {
-                if (await PermService.AddSpecialUser(Context.Channel, user).ConfigureAwait(false))
+                if (await _permService.AddSpecialUser(Context.Channel, user).ConfigureAwait(false))
                     await ReplyAsync($"Gave **{user.Username}** Special command privileges.").ConfigureAwait(false);
             }
             else
@@ -255,7 +236,7 @@ namespace Discord.Addons.SimplePermissions
         [Summary("Remove someone's special command privileges in this channel.")]
         public async Task RemoveSpecialUser(IGuildUser user)
         {
-            if (await PermService.RemoveSpecialUser(Context.Channel, user).ConfigureAwait(false))
+            if (await _permService.RemoveSpecialUser(Context.Channel, user).ConfigureAwait(false))
                 await ReplyAsync($"Removed **{user.Username}** Special command privileges.").ConfigureAwait(false);
         }
 
@@ -267,17 +248,17 @@ namespace Discord.Addons.SimplePermissions
         public async Task WhitelistModule(string modName, [OverrideTypeReader(typeof(SpecialBoolTypeReader))] bool guildwide = false)
         {
             var ch = Context.Channel as IGuildChannel;
-            var mod = PermService.CService.Modules.SingleOrDefault(m => m.Name == modName);
+            var mod = _permService.CService.Modules.SingleOrDefault(m => m.Name == modName);
             if (mod != null)
             {
                 if (guildwide)
                 {
-                    if (await PermService.WhitelistModuleGuild(ch.Guild, mod.Name).ConfigureAwait(false))
+                    if (await _permService.WhitelistModuleGuild(ch.Guild, mod.Name).ConfigureAwait(false))
                         await ReplyAsync($"Module `{mod.Name}` is now whitelisted in this server.").ConfigureAwait(false);
                 }
                 else
                 {
-                    if (await PermService.WhitelistModule(ch, mod.Name).ConfigureAwait(false))
+                    if (await _permService.WhitelistModule(ch, mod.Name).ConfigureAwait(false))
                         await ReplyAsync($"Module `{mod.Name}` is now whitelisted in this channel.").ConfigureAwait(false);
                 }
             }
@@ -291,7 +272,7 @@ namespace Discord.Addons.SimplePermissions
         public async Task BlacklistModule(string modName, [OverrideTypeReader(typeof(SpecialBoolTypeReader))] bool guildwide = false)
         {
             var ch = Context.Channel as IGuildChannel;
-            var mod = PermService.CService.Modules.SingleOrDefault(m => m.Name == modName);
+            var mod = _permService.CService.Modules.SingleOrDefault(m => m.Name == modName);
             if (mod != null)
             {
                 if (mod.Name == PermModuleName)
@@ -302,12 +283,12 @@ namespace Discord.Addons.SimplePermissions
                 {
                     if (guildwide)
                     {
-                        if (await PermService.BlacklistModuleGuild(ch.Guild, mod.Name).ConfigureAwait(false))
+                        if (await _permService.BlacklistModuleGuild(ch.Guild, mod.Name).ConfigureAwait(false))
                             await ReplyAsync($"Module `{mod.Name}` is now blacklisted in this server.").ConfigureAwait(false);
                     }
                     else
                     {
-                        if (await PermService.BlacklistModule(ch, mod.Name).ConfigureAwait(false))
+                        if (await _permService.BlacklistModule(ch, mod.Name).ConfigureAwait(false))
                             await ReplyAsync($"Module `{mod.Name}` is now blacklisted in this channel.").ConfigureAwait(false);
                     }
                 }
@@ -315,47 +296,4 @@ namespace Discord.Addons.SimplePermissions
         }
 
     }
-
-    ///// <summary> </summary>
-    //public sealed class SocketPermissionsModule : PermissionModule<SocketCommandContext>
-    //{
-    //    public SocketPermissionsModule(PermissionsService permService)
-    //        : base(permService)
-    //    {
-    //    }
-
-    //    protected async override Task<bool> UseFancy()
-    //    {
-    //        using (var config = PermService.ConfigStore.Load())
-    //        {
-    //            bool fancyEnabled = Context.Guild != null && await config.GetFancyHelpValue(Context.Guild).ConfigureAwait(false);
-    //            return fancyEnabled && PermissionsService.GetMessageCacheSize(Context.Client) > 0
-    //                && Context.Guild.CurrentUser.HasPerms(Context.Channel as ITextChannel,
-    //                    PermissionsExtensions.DiscordPermissions.ADD_REACTIONS
-    //                    | PermissionsExtensions.DiscordPermissions.MANAGE_MESSAGES);
-    //        }
-    //    }
-    //}
-
-    /// <summary> </summary>
-    //public sealed class ShardedPermissionsModule : PermissionModule<ShardedCommandContext>
-    //{
-    //    /// <summary> </summary>
-    //    public ShardedPermissionsModule(PermissionsService permService)
-    //        : base(permService)
-    //    {
-    //    }
-
-    //    protected async override Task<bool> UseFancy()
-    //    {
-    //        using (var config = PermService.ConfigStore.Load())
-    //        {
-    //            bool fancyEnabled = Context.Guild != null && await config.GetFancyHelpValue(Context.Guild).ConfigureAwait(false);
-    //            return fancyEnabled && PermissionsService.GetMessageCacheSize(Context.Client.GetShard(0)) > 0
-    //                && Context.Guild.CurrentUser.HasPerms(Context.Channel as ITextChannel,
-    //                    PermissionsExtensions.DiscordPermissions.ADD_REACTIONS
-    //                    | PermissionsExtensions.DiscordPermissions.MANAGE_MESSAGES);
-    //        }
-    //    }
-    //}
 }

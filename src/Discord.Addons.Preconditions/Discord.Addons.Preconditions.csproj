@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
     <PropertyGroup Label="Configuration">
         <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
         <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -6,7 +6,7 @@
     </PropertyGroup>
     <PropertyGroup>
         <Description>Useful preconditions Discord.Net 1.0.</Description>
-        <VersionPrefix>0.1.2</VersionPrefix>
+        <VersionPrefix>0.2.5</VersionPrefix>
         <VersionSuffix>rc</VersionSuffix>
         <Authors>Joe4evr</Authors>
         <TargetFramework>netstandard1.3</TargetFramework>
@@ -25,16 +25,14 @@
         <OutputType>library</OutputType>
     </PropertyGroup>
     <ItemGroup>
-        <EmbeddedResource Include="**\*.resx" />
-    </ItemGroup>
-    <ItemGroup>
         <None Include="README.md" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Discord.Net.Commands" Version="1.0.0-rc-*" />
+        <PackageReference Include="Discord.Net.Commands" Version="1.0.0-rc3-00742" />
     </ItemGroup>
     <PropertyGroup Condition="'$(Configuration)' == 'Release'">
         <Optimize>True</Optimize>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
     </PropertyGroup>
+    <Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />
 </Project>

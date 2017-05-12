@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace Discord.Addons.SimplePermissions
@@ -8,8 +10,12 @@ namespace Discord.Addons.SimplePermissions
     /// <summary> Implementation of <see cref="IPermissionConfig"/> using
     /// in-memory collection as a backing store, suitable for
     /// serialization to and from JSON. </summary>
-    public class JsonConfigBase : IPermissionConfig
+    public class JsonConfigBase : IPermissionConfig, ISetPath
     {
+        /// <summary> Gets whether fancy help messages are
+        /// enabled in a specified guild. </summary>
+        public Dictionary<ulong, bool> UseFancyHelps { get; set; }
+
         /// <summary> Gets the ID of the group that is considered
         /// the Admin role in a specified guild. </summary>
         public Dictionary<ulong, ulong> GuildAdminRole { get; set; }
@@ -31,6 +37,19 @@ namespace Discord.Addons.SimplePermissions
         /// in a channel. </summary>
         public Dictionary<ulong, HashSet<ulong>> SpecialPermissionUsersList { get; set; }
 
+        public Dictionary<ulong, bool> HidePermCommandValues { get; set; }
+
+        Task IPermissionConfig.SetFancyHelpValue(IGuild guild, bool value)
+        {
+            UseFancyHelps[guild.Id] = value;
+            return Task.CompletedTask;
+        }
+
+        Task<bool> IPermissionConfig.GetFancyHelpValue(IGuild guild)
+        {
+            return Task.FromResult(UseFancyHelps[guild.Id]);
+        }
+
         async Task IPermissionConfig.AddNewGuild(IGuild guild)
         {
             if (!GuildAdminRole.ContainsKey(guild.Id))
@@ -44,6 +63,10 @@ namespace Discord.Addons.SimplePermissions
             if (!GuildModuleWhitelist.ContainsKey(guild.Id))
             {
                 GuildModuleWhitelist[guild.Id] = new HashSet<string>();
+            }
+            if (!UseFancyHelps.ContainsKey(guild.Id))
+            {
+                UseFancyHelps[guild.Id] = false;
             }
 
             foreach (var channel in await guild.GetTextChannelsAsync())
@@ -159,5 +182,67 @@ namespace Discord.Addons.SimplePermissions
         {
             return Task.FromResult(SpecialPermissionUsersList[channel.Id].Remove(user.Id));
         }
+
+        Task IPermissionConfig.SetHidePermCommands(IGuild guild, bool newValue)
+        {
+            HidePermCommandValues[guild.Id] = newValue;
+            return Task.CompletedTask;
+        }
+
+        Task<bool> IPermissionConfig.GetHidePermCommands(IGuild guild)
+        {
+            return Task.FromResult(HidePermCommandValues[guild.Id]);
+        }
+
+        private string _path;
+
+        void ISetPath.SetPath(string path)
+        {
+            _path = path;
+        }
+
+        public void Save()
+            => File.WriteAllText(_path, JsonConvert.SerializeObject(this, Formatting.Indented));
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects).
+                    //File.WriteAllText(_path, JsonConvert.SerializeObject(this, Formatting.Indented));
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ~JsonConfigBase() {
+        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        //   Dispose(false);
+        // }
+
+        // This code added to correctly implement the disposable pattern.
+        void IDisposable.Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
+    }
+
+    internal interface ISetPath
+    {
+        void SetPath(string path);
     }
 }

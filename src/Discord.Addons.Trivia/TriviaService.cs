@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Discord.Commands;
 using Discord.WebSocket;
 
@@ -10,7 +11,8 @@ namespace Discord.Addons.TriviaGames
     /// <summary> Manages Trivia games. </summary>
     public sealed class TriviaService
     {
-        internal readonly IReadOnlyDictionary<string, string[]> TriviaData;
+        public IReadOnlyDictionary<string, string[]> TriviaData { get; }
+
         internal IReadOnlyDictionary<ulong, TriviaGame> TriviaGames => _triviaGames;
 
         private readonly ConcurrentDictionary<ulong, TriviaGame> _triviaGames =
@@ -89,12 +91,12 @@ namespace Discord.Addons.TriviaGames
         public static Task AddTrivia<TTrivia>(
             this CommandService cmdService,
             DiscordSocketClient client,
-            IDependencyMap map,
+            IServiceCollection map,
             IReadOnlyDictionary<string, string[]> triviaData,
             Func<LogMessage, Task> logger = null)
             where TTrivia : TriviaModuleBase
         {
-            map.Add(new TriviaService(triviaData, client, logger ?? (m => Task.CompletedTask)));
+            map.AddSingleton(new TriviaService(triviaData, client, logger ?? (m => Task.CompletedTask)));
             return cmdService.AddModuleAsync<TTrivia>();
         }
 
@@ -108,12 +110,12 @@ namespace Discord.Addons.TriviaGames
         public static Task AddTrivia<TTrivia>(
             this CommandService cmdService,
             DiscordShardedClient client,
-            IDependencyMap map,
+            IServiceCollection map,
             IReadOnlyDictionary<string, string[]> triviaData,
             Func<LogMessage, Task> logger = null)
             where TTrivia : TriviaModuleBase
         {
-            map.Add(new TriviaService(triviaData, client, logger ?? (m => Task.CompletedTask)));
+            map.AddSingleton(new TriviaService(triviaData, client, logger ?? (m => Task.CompletedTask)));
             return cmdService.AddModuleAsync<TTrivia>();
         }
     }

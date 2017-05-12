@@ -9,6 +9,6 @@
     <ProjectReference Include="..\src\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj" />
     <ProjectReference Include="..\src\Discord.Addons.SimplePermissions.EFProvider\Discord.Addons.SimplePermissions.EFProvider.csproj" />
     <ProjectReference Include="..\src\Discord.Addons.SimplePermissions.JsonProvider\Discord.Addons.SimplePermissions.JsonProvider.csproj" />
-    <ProjectReference Include="..\src\Discord.Addons.Trivia\Discord.Addons.Trivia.csproj" />
+    <!--<ProjectReference Include="..\src\Discord.Addons.Trivia\Discord.Addons.Trivia.csproj" />-->
   </ItemGroup>
 </Project>

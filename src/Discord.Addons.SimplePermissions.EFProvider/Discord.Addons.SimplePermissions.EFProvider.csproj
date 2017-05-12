@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup Label="Configuration">
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -6,7 +6,8 @@
   </PropertyGroup>
   <PropertyGroup>
     <Description>EF provider for Discord.Addons.SimplePermissions</Description>
-    <VersionPrefix>0.2.7-a</VersionPrefix>
+    <VersionPrefix>0.3.8</VersionPrefix>
+    <VersionSuffix>rc</VersionSuffix>
     <Authors>Joe4evr</Authors>
     <TargetFramework>netstandard1.6</TargetFramework>
     <AssemblyName>Discord.Addons.SimplePermissions.EFProvider</AssemblyName>
@@ -18,15 +19,11 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
     <PackageTags>discord</PackageTags>
+      <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="**\*.resx" />
-  </ItemGroup>
-  <ItemGroup>
+    <PackageReference Include="Discord.Addons.SimplePermissions" Version="0.9.23-rc" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.0.2" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Documentation\*.md" />

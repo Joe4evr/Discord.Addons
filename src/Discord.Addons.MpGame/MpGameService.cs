@@ -18,14 +18,16 @@ namespace Discord.Addons.MpGame
     {
         /// <summary> A cached <see cref="IEqualityComparer{IUser}"/> instance to use when
         /// instantiating the <see cref="PlayerList"/>'s <see cref="HashSet{IUser}"/>. </summary>
-        private static readonly IEqualityComparer<IUser> UserComparer = new EntityEqualityComparer<ulong>();
+        private static IEqualityComparer<IUser> UserComparer { get; } = Comparers.UserComparer;
 
         /// <summary> A cached <see cref="IEqualityComparer{IMessageChannel}"/> instance to use when
-        /// instantiating a <see cref="Dictionary{TKey, TValue}"/>. </summary>
-        protected static readonly IEqualityComparer<IMessageChannel> ChannelComparer = new EntityEqualityComparer<ulong>();
+        /// instantiating a <see cref="Dictionary{TKey, TValue}"/> using <see cref="IMessageChannel"/> as the key. </summary>
+        protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = Comparers.MessageChannelComparer;
 
         private readonly object _lock = new object();
         private readonly Func<LogMessage, Task> _logger;
+        private readonly ConcurrentDictionary<IMessageChannel, PersistentGameData<TGame, TPlayer>> _dataList
+            = new ConcurrentDictionary<IMessageChannel, PersistentGameData<TGame, TPlayer>>(MessageChannelComparer);
 
         /// <summary> The instance of a game being played, keyed by channel. </summary>
         public IReadOnlyDictionary<IMessageChannel, TGame> GameList
@@ -39,8 +41,15 @@ namespace Discord.Addons.MpGame
         public IReadOnlyDictionary<IMessageChannel, bool> OpenToJoin
             => _dataList.ToDictionary(d => d.Key, d => d.Value.OpenToJoin);
 
-        private readonly ConcurrentDictionary<IMessageChannel, PersistentGameData<TGame, TPlayer>> _dataList
-            = new ConcurrentDictionary<IMessageChannel, PersistentGameData<TGame, TPlayer>>(ChannelComparer);
+        public MpGameService(Func<LogMessage, Task> logger = null)
+        {
+            _logger = logger ?? (msg => Task.CompletedTask);
+        }
+
+        //internal Task Log(LogSeverity severity, string msg)
+        //{
+        //    return _logger(new LogMessage(severity, $"MpGameSvc<{typeof(TGame).Name}>", msg));
+        //}
 
         internal PersistentGameData<TGame, TPlayer> GetData(IMessageChannel channel)
             => _dataList.GetValueOrDefault(channel);

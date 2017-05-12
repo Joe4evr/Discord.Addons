@@ -14,6 +14,15 @@ namespace Examples.MpGame
         {
         }
 
+        //Do stuff to get external data if needed
+        protected override void BeforeExecute()
+        {
+            base.BeforeExecute();
+            GameService.DataDictionary.TryGetValue(Context.Channel, out _data);
+        }
+
+        private DataType _data;
+
         // You may have reasons to not annotate a particular method with [Command],
         // and you'll likely have to add MORE commands depending on the game
         [Command("opengame")]
@@ -29,10 +38,9 @@ namespace Examples.MpGame
             }
             else
             {
-                if (GameService.TryUpdateOpenToJoin(Context.Channel.Id, newValue: true, comparisonValue: false))
+                if (GameService.OpenNewGame(Context.Channel))
                 {
-                    if (GameService.MakeNewPlayerList(Context.Channel.Id))
-                        await ReplyAsync("Opening for a game.").ConfigureAwait(false);
+                    await ReplyAsync("Opening for a game.").ConfigureAwait(false);
                 }
             }
         }
@@ -52,7 +60,7 @@ namespace Examples.MpGame
             }
             else
             {
-                if (GameService.AddUser(Context.Channel.Id, Context.User))
+                if (GameService.AddUser(Context.Channel, Context.User))
                 {
                     await ReplyAsync($"**{Context.User.Username}** has joined.").ConfigureAwait(false);
                 }
@@ -72,7 +80,7 @@ namespace Examples.MpGame
             }
             else
             {
-                if (GameService.RemoveUser(Context.Channel.Id, Context.User))
+                if (GameService.RemoveUser(Context.Channel, Context.User))
                 {
                     await ReplyAsync($"**{Context.User.Username}** has left.").ConfigureAwait(false);
                 }
@@ -92,7 +100,7 @@ namespace Examples.MpGame
             }
             else
             {
-                if (GameService.CancelGame(Context.Channel.Id))
+                if (GameService.CancelGame(Context.Channel))
                 {
                     await ReplyAsync("Game was canceled.").ConfigureAwait(false);
                 }
@@ -116,14 +124,14 @@ namespace Examples.MpGame
             }
             else
             {
-                if (GameService.TryUpdateOpenToJoin(Context.Channel.Id, newValue: false, comparisonValue: true))
+                if (GameService.TryUpdateOpenToJoin(Context.Channel, newValue: false, comparisonValue: true))
                 {
                     // Tip: Shuffle the players before projecting them
                     var players = PlayerList.Select(u => new Player(u, Context.Channel));
                     // The Player class can also be extended for additional properties
 
                     var game = new ExampleGame(Context.Channel, players);
-                    if (GameService.TryAddNewGame(Context.Channel.Id, game))
+                    if (GameService.TryAddNewGame(Context.Channel, game))
                     {
                         await game.SetupGame().ConfigureAwait(false);
                         await game.StartGame().ConfigureAwait(false);

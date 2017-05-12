@@ -26,6 +26,10 @@ namespace Discord.Addons.SimplePermissions
         [Column(TypeName = "BIGINT UNSIGNED")]
         public ulong AdminRole { get; set; }
 
+        public bool UseFancyHelp { get; set; }
+
+        public bool HidePermCommands { get; set; }
+
         /// <summary> </summary>
         public ICollection<TChannel> Channels { get; set; } = new List<TChannel>();
 

@@ -10,5 +10,11 @@ namespace Discord.Addons.MpGame
         {
             return dictionary.TryGetValue(key, out var ret) ? ret : defaultValue;
         }
+
+        //public static void Decontstruct<TKey, TValue>(this KeyValuePair<TKey, TValue> kvp, out TKey key, out TValue val)
+        //{
+        //    key = kvp.Key;
+        //    val = kvp.Value;
+        //}
     }
 }

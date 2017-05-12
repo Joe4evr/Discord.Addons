@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Discord.Commands;
 using Discord.WebSocket;
 
@@ -20,12 +21,10 @@ namespace Discord.Addons.SimplePermissions
         internal readonly ConcurrentDictionary<ulong, FancyHelpMessage> Helpmsgs = new ConcurrentDictionary<ulong, FancyHelpMessage>();
         internal readonly CommandService CService;
         internal readonly IConfigStore<IPermissionConfig> ConfigStore;
-        internal readonly IDependencyMap Map;
 
         private PermissionsService(
             IConfigStore<IPermissionConfig> configstore,
             CommandService commands,
-            IDependencyMap map,
             Func<LogMessage, Task> logAction)
         {
             _logger = logAction;
@@ -33,7 +32,6 @@ namespace Discord.Addons.SimplePermissions
 
             ConfigStore = configstore ?? throw new ArgumentNullException(nameof(configstore));
             CService = commands ?? throw new ArgumentNullException(nameof(commands));
-            Map = map;
         }
 
         /// <summary> </summary>
@@ -43,9 +41,8 @@ namespace Discord.Addons.SimplePermissions
         internal PermissionsService(
             IConfigStore<IPermissionConfig> configstore,
             CommandService commands,
-            IDependencyMap map,
             DiscordSocketClient client,
-            Func<LogMessage, Task> logAction) : this(configstore, commands, map, logAction)
+            Func<LogMessage, Task> logAction) : this(configstore, commands, logAction)
         {
             _sockClient = client ?? throw new ArgumentNullException(nameof(client));
 
@@ -61,9 +58,8 @@ namespace Discord.Addons.SimplePermissions
         internal PermissionsService(
             IConfigStore<IPermissionConfig> configstore,
             CommandService commands,
-            IDependencyMap map,
             DiscordShardedClient client,
-            Func<LogMessage, Task> logAction) : this(configstore, commands, map, logAction)
+            Func<LogMessage, Task> logAction) : this(configstore, commands, logAction)
         {
             _shardClient = client ?? throw new ArgumentNullException(nameof(client));
 
@@ -112,19 +108,19 @@ namespace Discord.Addons.SimplePermissions
             }
         }
 
-        private async Task ReactionAdded(ulong id, Optional<SocketUserMessage> message, SocketReaction reaction)
+        private async Task ReactionAdded(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
         {
-            var msg = message.GetValueOrDefault();
-            if (msg == null)
+            if (!message.HasValue)
             {
-                await Log(LogSeverity.Debug, $"Message with id {id} was not in cache.");
+                await Log(LogSeverity.Debug, $"Message with id {message.Id} was not in cache.");
                 return;
             }
             if (!reaction.User.IsSpecified)
             {
-                await Log(LogSeverity.Debug, $"Message with id {id} had invalid user.");
+                await Log(LogSeverity.Debug, $"Message with id {message.Id} had invalid user.");
                 return;
             }
+            var msg = message.Value;
             if (Helpmsgs.TryGetValue(msg.Id, out var fhm))
             {
                 if (reaction.UserId == _sockClient?.CurrentUser.Id
@@ -132,11 +128,11 @@ namespace Discord.Addons.SimplePermissions
 
                 if (reaction.UserId != fhm.UserId)
                 {
-                    var _ = msg.RemoveReactionAsync(reaction.Emoji.Name, reaction.User.Value);
+                    var _ = msg.RemoveReactionAsync(reaction.Emote, reaction.User.Value);
                     return;
                 }
 
-                switch (reaction.Emoji.Name)
+                switch (reaction.Emote.Name)
                 {
                     case FancyHelpMessage.EFirst:
                         await fhm.First();
@@ -159,9 +155,9 @@ namespace Discord.Addons.SimplePermissions
             }
         }
 
-        private Task MessageDeleted(ulong id, Optional<SocketMessage> msg)
+        private Task MessageDeleted(Cacheable<IMessage, ulong> message, ISocketMessageChannel channel)
         {
-            return Task.FromResult(Helpmsgs.TryRemove(id, out var _));
+            return Task.FromResult(Helpmsgs.TryRemove(message.Id, out var _));
         }
 
         private async Task checkDuplicateModuleNames()
@@ -305,6 +301,29 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
             }
         }
 
+        internal async Task<bool> GetHidePermCommands(IGuild guild)
+        {
+            using (var config = ConfigStore.Load())
+            {
+                await _lock.WaitAsync();
+                var result = await config.GetHidePermCommands(guild);
+                config.Save();
+                _lock.Release();
+                return result;
+            }
+        }
+
+        internal async Task HidePermCommands(IGuild guild, bool newValue)
+        {
+            using (var config = ConfigStore.Load())
+            {
+                await _lock.WaitAsync();
+                await config.SetHidePermCommands(guild, newValue);
+                config.Save();
+                _lock.Release();
+            }
+        }
+
         internal static int GetMessageCacheSize(DiscordSocketClient client)
         {
             var p = typeof(DiscordSocketClient).GetProperty("MessageCacheSize", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -323,10 +342,10 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
             this CommandService cmdService,
             DiscordSocketClient client,
             IConfigStore<IPermissionConfig> configStore,
-            IDependencyMap map,
+            IServiceCollection map,
             Func<LogMessage, Task> logAction = null)
         {
-            map.Add(new PermissionsService(configStore, cmdService, map, client, logAction ?? (msg => Task.CompletedTask)));
+            map.AddSingleton(new PermissionsService(configStore, cmdService, client, logAction ?? (msg => Task.CompletedTask)));
             return cmdService.AddModuleAsync<PermissionsModule>();
         }
 
@@ -339,10 +358,10 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
             this CommandService cmdService,
             DiscordShardedClient client,
             IConfigStore<IPermissionConfig> configStore,
-            IDependencyMap map,
+            IServiceCollection map,
             Func<LogMessage, Task> logAction = null)
         {
-            map.Add(new PermissionsService(configStore, cmdService, map, client, logAction ?? (msg => Task.CompletedTask)));
+            map.AddSingleton(new PermissionsService(configStore, cmdService, client, logAction ?? (msg => Task.CompletedTask)));
             return cmdService.AddModuleAsync<PermissionsModule>();
         }
 

@@ -35,7 +35,7 @@ namespace Discord.Addons.TriviaGames
                     do
                     {
                         provider.GetBytes(box);
-                        boxSum = box.Cast<int>().Sum();
+                        boxSum = box.Sum(b => b);
                     }
                     while (!(boxSum < n * ((Byte.MaxValue * box.Length) / n)));
                     int k = (boxSum % n);
@@ -48,5 +48,11 @@ namespace Discord.Addons.TriviaGames
 
             return buffer;
         }
+
+        //public static void Deconstruct<TKey, TValue>(this KeyValuePair<TKey, TValue> kvp, out TKey key, out TValue val)
+        //{
+        //    key = kvp.Key;
+        //    val = kvp.Value;
+        //}
     }
 }

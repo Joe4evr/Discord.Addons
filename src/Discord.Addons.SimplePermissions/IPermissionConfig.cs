@@ -80,6 +80,12 @@ namespace Discord.Addons.SimplePermissions
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
         Task<bool> RemoveSpecialUser(IChannel channel, IGuildUser user);
 
+        /// <summary> Sets whether to hide the Permission commands from help. </summary>
+        Task SetHidePermCommands(IGuild guild, bool newValue);
+
+        /// <summary> Gets whether the Permission commands are hidden from help. </summary>
+        Task<bool> GetHidePermCommands(IGuild guild);
+
         /// <summary> Save the config. </summary>
         void Save();
     }

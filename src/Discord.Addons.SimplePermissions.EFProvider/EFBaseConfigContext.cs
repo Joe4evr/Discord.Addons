@@ -13,9 +13,9 @@ namespace Discord.Addons.SimplePermissions
     /// <typeparam name="TChannel">The Channel configuration type.</typeparam>
     /// <typeparam name="TUser">The User configuration type.</typeparam>
     public abstract class EFBaseConfigContext<TGuild, TChannel, TUser> : DbContext, IPermissionConfig
-        where TGuild   : ConfigGuild<TChannel, TUser>, new()
+        where TGuild : ConfigGuild<TChannel, TUser>, new()
         where TChannel : ConfigChannel<TUser>, new()
-        where TUser    : ConfigUser, new()
+        where TUser : ConfigUser, new()
     {
         /// <summary> </summary>
         public DbSet<TGuild> Guilds { get; set; }
@@ -28,18 +28,18 @@ namespace Discord.Addons.SimplePermissions
 
         public DbSet<ConfigModule> Modules { get; set; }
 
-        protected Task OnGuildAdd(TGuild guild)
+        protected virtual Task OnGuildAdd(TGuild guild)
         {
             guild.WhiteListedModules.Add(Modules.Single(m => m.ModuleName == PermissionsModule.PermModuleName));
             return Task.CompletedTask;
         }
-        
-        protected Task OnChannelAdd(TChannel channel)
+
+        protected virtual Task OnChannelAdd(TChannel channel)
         {
             return Task.CompletedTask;
         }
-        
-        protected Task OnUserAdd(TUser user)
+
+        protected virtual Task OnUserAdd(TUser user)
         {
             return Task.CompletedTask;
         }
@@ -50,40 +50,39 @@ namespace Discord.Addons.SimplePermissions
             var cUsers = new List<TUser>();
             foreach (var user in users)
             {
-                var cu = new TUser
+                if (!Users.Any(u => u.UserId == user.Id && u.GuildId == user.GuildId))
                 {
-                    UserId = user.Id,
-                    GuildId = user.GuildId
-                };
-                await OnUserAdd(cu);
-                cUsers.Add(cu);
+                    cUsers.Add(await AddUserInternal(user));
+                }
             }
 
             var tChannels = await guild.GetTextChannelsAsync();
             var cChannels = new List<TChannel>();
             foreach (var chan in tChannels)
             {
-                var cch = new TChannel
+                if (!Channels.Any(c => c.ChannelId == chan.Id))
                 {
-                    ChannelId = chan.Id
-                };
-                await OnChannelAdd(cch);
-                cChannels.Add(cch);
+                    cChannels.Add(await AddChannelInternal(chan));
+                }
             }
 
-            var cGuild = new TGuild
+            if (!Guilds.Any(g => g.GuildId == guild.Id))
             {
-                GuildId = guild.Id,
-                AdminRole = 0ul,
-                ModRole = 0ul,
-                Users = cUsers,
-                Channels = cChannels
-            };
-            await OnGuildAdd(cGuild);
-            Guilds.Add(cGuild);
+                var cGuild = new TGuild
+                {
+                    GuildId = guild.Id,
+                    AdminRole = 0ul,
+                    ModRole = 0ul,
+                    Users = cUsers,
+                    Channels = cChannels
+                };
+                await OnGuildAdd(cGuild);
+                Guilds.Add(cGuild);
+            }
+            SaveChanges();
         }
 
-        async Task IPermissionConfig.AddChannel(IChannel channel)
+        private async Task<TChannel> AddChannelInternal(IChannel channel)
         {
             var cChannel = new TChannel
             {
@@ -92,12 +91,26 @@ namespace Discord.Addons.SimplePermissions
                 SpecialUsers = new List<TUser>()
             };
             await OnChannelAdd(cChannel);
-            Channels.Add(cChannel);
+            return cChannel;
+        }
+
+        private async Task<TUser> AddUserInternal(IGuildUser user)
+        {
+            var cUser = new TUser { UserId = user.Id, GuildId = user.GuildId };
+            await OnUserAdd(cUser);
+            return cUser;
+        }
+
+        async Task IPermissionConfig.AddChannel(IChannel channel)
+        {
+            Channels.Add(await AddChannelInternal(channel));
+            SaveChanges();
         }
 
         Task IPermissionConfig.RemoveChannel(IChannel channel)
         {
             Channels.Remove(Channels.Single(c => c.ChannelId == channel.Id));
+            SaveChanges();
             return Task.CompletedTask;
         }
 
@@ -114,12 +127,14 @@ namespace Discord.Addons.SimplePermissions
         Task<bool> IPermissionConfig.SetGuildAdminRole(IGuild guild, IRole role)
         {
             Guilds.Single(g => g.GuildId == guild.Id).AdminRole = role.Id;
+            SaveChanges();
             return Task.FromResult(true);
         }
 
         Task<bool> IPermissionConfig.SetGuildModRole(IGuild guild, IRole role)
         {
             Guilds.Single(g => g.GuildId == guild.Id).ModRole = role.Id;
+            SaveChanges();
             return Task.FromResult(true);
         }
 
@@ -145,7 +160,7 @@ namespace Discord.Addons.SimplePermissions
             if (!hasThis)
             {
                 chan.WhiteListedModules.Add(new ConfigModule { ModuleName = moduleName });
-                //SaveChanges();
+                SaveChanges();
             }
 
             return Task.FromResult(!hasThis);
@@ -156,7 +171,9 @@ namespace Discord.Addons.SimplePermissions
             var mods = Channels.Include(c => c.WhiteListedModules)
                 .Single(c => c.ChannelId == channel.Id).WhiteListedModules;
 
-            return Task.FromResult(mods.Remove(mods.Single(m => m.ModuleName == moduleName)));
+            bool v = mods.Remove(mods.Single(m => m.ModuleName == moduleName));
+            SaveChanges();
+            return Task.FromResult(v);
         }
 
         Task<bool> IPermissionConfig.WhitelistModuleGuild(IGuild guild, string moduleName)
@@ -167,7 +184,7 @@ namespace Discord.Addons.SimplePermissions
             if (!hasThis)
             {
                 gui.WhiteListedModules.Add(new ConfigModule { ModuleName = moduleName });
-                //SaveChanges();
+                SaveChanges();
             }
 
             return Task.FromResult(!hasThis);
@@ -178,7 +195,9 @@ namespace Discord.Addons.SimplePermissions
             var mods = Channels.Include(g => g.WhiteListedModules)
                 .Single(g => g.ChannelId == guild.Id).WhiteListedModules;
 
-            return Task.FromResult(mods.Remove(mods.Single(m => m.ModuleName == moduleName)));
+            bool v = mods.Remove(mods.Single(m => m.ModuleName == moduleName));
+            SaveChanges();
+            return Task.FromResult(v);
         }
 
         IEnumerable<ulong> IPermissionConfig.GetSpecialPermissionUsersList(IChannel channel)
@@ -190,9 +209,8 @@ namespace Discord.Addons.SimplePermissions
 
         async Task IPermissionConfig.AddUser(IGuildUser user)
         {
-            var cUser = new TUser { UserId = user.Id, GuildId = user.GuildId };
-            await OnUserAdd(cUser);
-            Users.Add(cUser);
+            Users.Add(await AddUserInternal(user));
+            SaveChanges();
         }
 
         Task<bool> IPermissionConfig.AddSpecialUser(IChannel channel, IGuildUser user)
@@ -203,7 +221,7 @@ namespace Discord.Addons.SimplePermissions
             if (!hasThis)
             {
                 spUsers.Add(Users.Single(u => u.UserId == user.Id));
-                //SaveChanges();
+                SaveChanges();
             }
             return Task.FromResult(!hasThis);
         }
@@ -212,8 +230,37 @@ namespace Discord.Addons.SimplePermissions
         {
             var spUsers = Channels.Include(c => c.SpecialUsers)
                 .Single(c => c.ChannelId == channel.Id).SpecialUsers;
-            return Task.FromResult(spUsers.Remove(spUsers.Single(u => u.UserId == user.Id)));
+
+            bool v = spUsers.Remove(spUsers.Single(u => u.UserId == user.Id));
+            SaveChanges();
+            return Task.FromResult(v);
         }
+
+        Task IPermissionConfig.SetFancyHelpValue(IGuild guild, bool value)
+        {
+            Guilds.Single(g => g.GuildId == guild.Id).UseFancyHelp = value;
+            SaveChanges();
+            return Task.CompletedTask;
+        }
+
+        Task<bool> IPermissionConfig.GetFancyHelpValue(IGuild guild)
+        {
+            return Task.FromResult(Guilds.Single(g => g.GuildId == guild.Id).UseFancyHelp);
+        }
+
+        Task IPermissionConfig.SetHidePermCommands(IGuild guild, bool newValue)
+        {
+            Guilds.Single(g => g.GuildId == guild.Id).HidePermCommands = newValue;
+            SaveChanges();
+            return Task.CompletedTask;
+        }
+
+        Task<bool> IPermissionConfig.GetHidePermCommands(IGuild guild)
+        {
+            return Task.FromResult(Guilds.Single(g => g.GuildId == guild.Id).HidePermCommands);
+        }
+
+        public void Save() => SaveChanges();
     }
 
     /// <summary> Implementation of an <see cref="IPermissionConfig"/>
@@ -222,9 +269,9 @@ namespace Discord.Addons.SimplePermissions
     /// using the default Guild type. </summary>
     /// <typeparam name="TChannel">The Channel configuration type.</typeparam>
     /// <typeparam name="TUser">The User configuration type.</typeparam>
-    public abstract class EFConfigBaseContext<TChannel, TUser> : EFBaseConfigContext<ConfigGuild<TChannel, TUser>, TChannel, TUser>
+    public abstract class EFBaseConfigContext<TChannel, TUser> : EFBaseConfigContext<ConfigGuild<TChannel, TUser>, TChannel, TUser>
         where TChannel : ConfigChannel<TUser>, new()
-        where TUser    : ConfigUser, new()
+        where TUser : ConfigUser, new()
     {
     }
 
@@ -233,7 +280,7 @@ namespace Discord.Addons.SimplePermissions
     /// <see cref="DbContext"/> as a backing store,
     /// using the default Guild and Channel types. </summary>
     /// <typeparam name="TUser">The User configuration type.</typeparam>
-    public abstract class EFConfigBaseContext<TUser> : EFBaseConfigContext<ConfigGuild<TUser>, ConfigChannel<TUser>, TUser>
+    public abstract class EFBaseConfigContext<TUser> : EFBaseConfigContext<ConfigGuild<TUser>, ConfigChannel<TUser>, TUser>
         where TUser : ConfigUser, new()
     {
     }
@@ -242,7 +289,7 @@ namespace Discord.Addons.SimplePermissions
     /// using an Entity Framework
     /// <see cref="DbContext"/> as a backing store,
     /// using the default Guild, Channel and USer types. </summary>
-    public abstract class EFConfigBaseContext : EFBaseConfigContext<ConfigGuild, ConfigChannel, ConfigUser>
+    public abstract class EFBaseConfigContext : EFBaseConfigContext<ConfigGuild, ConfigChannel, ConfigUser>
     {
     }
 }

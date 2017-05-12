@@ -7,7 +7,7 @@ using Discord.Net;
 namespace Discord.Addons.SimplePermissions
 {
     /// <summary> Sets the permission level of this command. </summary>
-    [AttributeUsage(AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class PermissionAttribute : PreconditionAttribute
     {
         private MinimumPermission Permission { get; }
@@ -20,14 +20,14 @@ namespace Discord.Addons.SimplePermissions
         }
 
         /// <inheritdoc />
-        public override async Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IDependencyMap map)
+        public override async Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider map)
         {
             if (context.Channel is IPrivateChannel) return PreconditionResult.FromSuccess();
 
             var chan = context.Channel;
             var user = context.User;
-
-            if (map.TryGet<PermissionsService>(out var svc))
+            var svc = map.GetService<PermissionsService>();
+            if (svc != null)
             {
                 using (var config = svc.ConfigStore.Load())
                 {

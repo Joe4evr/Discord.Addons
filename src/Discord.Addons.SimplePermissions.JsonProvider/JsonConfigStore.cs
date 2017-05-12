@@ -11,7 +11,7 @@ namespace Discord.Addons.SimplePermissions
         where TConfig : JsonConfigBase, new()
     {
         private readonly string _jsonPath;
-        private readonly TConfig _config;
+        //private readonly TConfig _config;
 
         /// <summary> Initializes a new instance of <see cref="JsonConfigStore{TConfig}"/>.
         /// Will create a new file if it does not exist. </summary>
@@ -23,35 +23,42 @@ namespace Discord.Addons.SimplePermissions
                 File.WriteAllText(path, JsonConvert.SerializeObject(new TConfig(), Formatting.Indented));
 
             _jsonPath = path;
-            _config = JsonConvert.DeserializeObject<TConfig>(File.ReadAllText(_jsonPath));
+            using (var config = Load())
+            {
+                if (config.ChannelModuleWhitelist == null)
+                    config.ChannelModuleWhitelist = new Dictionary<ulong, HashSet<string>>();
 
-            if (_config.ChannelModuleWhitelist == null)
-                _config.ChannelModuleWhitelist = new Dictionary<ulong, HashSet<string>>();
+                if (config.GuildModuleWhitelist == null)
+                    config.GuildModuleWhitelist = new Dictionary<ulong, HashSet<string>>();
 
-            if (_config.GuildModuleWhitelist == null)
-                _config.GuildModuleWhitelist = new Dictionary<ulong, HashSet<string>>();
+                if (config.GuildAdminRole == null)
+                    config.GuildAdminRole = new Dictionary<ulong, ulong>();
 
-            if (_config.GuildAdminRole == null)
-                _config.GuildAdminRole = new Dictionary<ulong, ulong>();
+                if (config.GuildModRole == null)
+                    config.GuildModRole = new Dictionary<ulong, ulong>();
 
-            if (_config.GuildModRole == null)
-                _config.GuildModRole = new Dictionary<ulong, ulong>();
+                if (config.SpecialPermissionUsersList == null)
+                    config.SpecialPermissionUsersList = new Dictionary<ulong, HashSet<ulong>>();
 
-            if (_config.SpecialPermissionUsersList == null)
-                _config.SpecialPermissionUsersList = new Dictionary<ulong, HashSet<ulong>>();
+                if (config.UseFancyHelps == null)
+                    config.UseFancyHelps = new Dictionary<ulong, bool>();
+
+                config.Save();
+            }
         }
 
         /// <summary> Load the configuration from disk. </summary>
         /// <returns>The configuration object.</returns>
         public TConfig Load()
         {
-            return _config;
+            var config = JsonConvert.DeserializeObject<TConfig>(File.ReadAllText(_jsonPath));
+            (config as ISetPath).SetPath(_jsonPath);
+            return config;
         }
 
-        /// <summary> Saves the configuration object to disk. </summary>
-        public void Save()
-        {
-            File.WriteAllText(_jsonPath, JsonConvert.SerializeObject(_config, Formatting.Indented));
-        }
+        ///// <summary> Saves the configuration object to disk. </summary>
+        //public void Save()
+        //{
+        //}
     }
 }

@@ -7,7 +7,7 @@ namespace Discord.Addons.Preconditions
 {
     /// <summary> Sets how many users must be online in order to run the command.
     /// This precondition ignores BOT accounts. </summary>
-    [AttributeUsage(AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class MinimumOnlineUsersAttribute : PreconditionAttribute
     {
         private readonly uint _minimumUsers;
@@ -20,7 +20,7 @@ namespace Discord.Addons.Preconditions
         }
 
         /// <inheritdoc />
-        public async override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IDependencyMap map)
+        public async override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider map)
         {
             var users = (await context.Guild.GetUsersAsync()).Where(u => !u.IsBot);
 

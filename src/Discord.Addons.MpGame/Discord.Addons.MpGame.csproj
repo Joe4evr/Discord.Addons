@@ -6,7 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <Description>Base classes for text-based games in Discord</Description>
-    <VersionPrefix>0.8.17</VersionPrefix>
+    <VersionPrefix>0.8.18</VersionPrefix>
     <VersionSuffix>rc</VersionSuffix>
     <Authors>Joe4evr</Authors>
     <TargetFramework>netstandard1.3</TargetFramework>
@@ -22,18 +22,16 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="**\*.resx" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Documentation\*.md" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Discord.Net.Commands" Version="1.0.0-rc-*" />
-    <PackageReference Include="Discord.Net.WebSocket" Version="1.0.0-rc-*" />
+    <PackageReference Include="Discord.Net.Commands" Version="1.0.0-rc3-00742" />
+    <PackageReference Include="Discord.Net.WebSocket" Version="1.0.0-rc3-00742" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <Optimize>True</Optimize>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
+  <Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />
 </Project>

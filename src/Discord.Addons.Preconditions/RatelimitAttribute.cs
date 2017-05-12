@@ -8,7 +8,7 @@ namespace Discord.Addons.Preconditions
     /// <summary> Sets how often a user is allowed to use this command. </summary>
     /// <remarks>This is backed by an in-memory collection
     /// and will not persist with restarts.</remarks>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class RatelimitAttribute : PreconditionAttribute
     {
         private readonly uint _invokeLimit;
@@ -20,6 +20,7 @@ namespace Discord.Addons.Preconditions
         /// <param name="times">The number of times a user may use the command within a certain period.</param>
         /// <param name="period">The amount of time since first invoke a user has until the limit is lifted.</param>
         /// <param name="measure">The scale in which the <paramref name="period"/> parameter should be measured.</param>
+        /// <param name="noLimitInDMs">Set whether or not there is no limit to the command in DMs. Defaults to false.</param>
         public RatelimitAttribute(uint times, double period, Measure measure, bool noLimitInDMs = false)
         {
             _invokeLimit = times;
@@ -43,6 +44,7 @@ namespace Discord.Addons.Preconditions
         /// <summary> Sets how often a user is allowed to use this command. </summary>
         /// <param name="times">The number of times a user may use the command within a certain period.</param>
         /// <param name="period">The amount of time since first invoke a user has until the limit is lifted.</param>
+        /// <param name="noLimitInDMs">Set whether or not there is no limit to the command in DMs. Defaults to false.</param>
         public RatelimitAttribute(uint times, TimeSpan period, bool noLimitInDMs = false)
         {
             _invokeLimit = times;
@@ -51,7 +53,7 @@ namespace Discord.Addons.Preconditions
         }
 
         /// <inheritdoc />
-        public override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IDependencyMap map)
+        public override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider map)
         {
             if (context.Channel is IPrivateChannel && _noLimitInDMs)
                 return Task.FromResult(PreconditionResult.FromSuccess());

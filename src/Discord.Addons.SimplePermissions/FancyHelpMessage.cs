@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.Rest;
-using CommandParam = Discord.Commands.ParameterInfo;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -43,15 +42,15 @@ namespace Discord.Addons.SimplePermissions
         public async Task<FancyHelpMessage> SendMessage()
         {
             msg = await _channel.SendMessageAsync("", embed: GetPage(0));
-            await msg.AddReactionAsync(EFirst);
+            await msg.AddReactionAsync(new Emoji(EFirst));
             await Task.Delay(1000);
-            await msg.AddReactionAsync(EBack);
+            await msg.AddReactionAsync(new Emoji(EBack));
             await Task.Delay(1000);
-            await msg.AddReactionAsync(ENext);
+            await msg.AddReactionAsync(new Emoji(ENext));
             await Task.Delay(1000);
-            await msg.AddReactionAsync(ELast);
+            await msg.AddReactionAsync(new Emoji(ELast));
             await Task.Delay(1000);
-            await msg.AddReactionAsync(EDelete);
+            await msg.AddReactionAsync(new Emoji(EDelete));
 
             return this;
         }
@@ -67,41 +66,14 @@ namespace Discord.Addons.SimplePermissions
                 .WithDescription($"Page {page + 1} of {_totalPages}")
                 .AddFieldSequence(c, (fb, cmd) => fb.WithIsInline(false)
                     .WithName($"{cmd.Module.Name}: {cmd.Aliases.FirstOrDefault()}")
-                    .WithValue($"{cmd.Summary}\n\t{String.Join(", ", cmd.Parameters.Select(p => formatParam(p)))}"))
+                    .WithValue($"{cmd.Summary}\n\t{String.Join(", ", cmd.Parameters.Select(p => p.FormatParam()))}"))
                 .WithFooter(fb => fb.WithText("Powered by SimplePermissions"))
                 .Build();
         }
 
-        private string formatParam(CommandParam param)
-        {
-            var sb = new StringBuilder();
-            if (param.IsMultiple)
-            {
-                sb.Append($"`[({param.Type?.Name}): {param.Name}...]`");
-            }
-            else if (param.IsRemainder) //&& IsOptional - decided not to check for the combination
-            {
-                sb.Append($"`<({param.Type?.Name}): {param.Name}...>`");
-            }
-            else if (param.IsOptional)
-            {
-                sb.Append($"`[({param.Type?.Name}): {param.Name}]`");
-            }
-            else
-            {
-                sb.Append($"`<({param.Type?.Name}): {param.Name}>`");
-            }
-
-            if (!String.IsNullOrWhiteSpace(param.Summary))
-            {
-                sb.Append($" ({param.Summary})");
-            }
-            return sb.ToString();
-        }
-
         public async Task First()
         {
-            await msg.RemoveReactionAsync(EFirst, _user);
+            await msg.RemoveReactionAsync(new Emoji(EFirst), _user);
             if (_currentPage == 0) return;
 
             await msg.ModifyAsync(m => m.Embed = GetPage(0));
@@ -110,7 +82,7 @@ namespace Discord.Addons.SimplePermissions
 
         public async Task Next()
         {
-            await msg.RemoveReactionAsync(ENext, _user);
+            await msg.RemoveReactionAsync(new Emoji(ENext), _user);
             if (_currentPage == (_totalPages - 1)) return;
 
             await msg.ModifyAsync(m => m.Embed = GetPage((int)++_currentPage));
@@ -118,7 +90,7 @@ namespace Discord.Addons.SimplePermissions
 
         public async Task Back()
         {
-            await msg.RemoveReactionAsync(EBack, _user);
+            await msg.RemoveReactionAsync(new Emoji(EBack), _user);
             if (_currentPage == 0) return;
 
             await msg.ModifyAsync(m => m.Embed = GetPage((int)--_currentPage));
@@ -126,7 +98,7 @@ namespace Discord.Addons.SimplePermissions
 
         public async Task Last()
         {
-            await msg.RemoveReactionAsync(ELast, _user);
+            await msg.RemoveReactionAsync(new Emoji(ELast), _user);
             if (_currentPage == (_totalPages - 1)) return;
 
             await msg.ModifyAsync(m => m.Embed = GetPage((int)_totalPages - 1));

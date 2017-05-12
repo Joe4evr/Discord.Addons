@@ -6,7 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <Description>Base for making trivia games using Discord.Net.</Description>
-    <VersionPrefix>0.2.5</VersionPrefix>
+    <VersionPrefix>0.3.6</VersionPrefix>
     <VersionSuffix>rc</VersionSuffix>
     <Authors>Joe4evr</Authors>
     <TargetFramework>netstandard1.3</TargetFramework>
@@ -19,14 +19,11 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
     <PackageTags>discord</PackageTags>
-      <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="**\*.resx" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Discord.Net.Commands" Version="1.0.0-rc-*" />
-    <PackageReference Include="Discord.Net.WebSocket" Version="1.0.0-rc-*" />
+    <PackageReference Include="Discord.Net.Commands" Version="1.0.0-rc3-00742" />
+    <PackageReference Include="Discord.Net.WebSocket" Version="1.0.0-rc3-00742" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <Optimize>True</Optimize>

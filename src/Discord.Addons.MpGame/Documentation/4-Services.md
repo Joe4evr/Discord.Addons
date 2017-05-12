@@ -15,11 +15,15 @@ public class MpGameService<TGame, TPlayer>
     where TGame   : GameBase<TPlayer>
     where TPlayer : Player
 {
+    protected Func<LogMessage, Task> Log { get; }
+
     public IReadOnlyDictionary<IMessageChannel, TGame> GameList { get; }
 
     public IReadOnlyDictionary<IMessageChannel, bool> OpenToJoin { get; }
 
     public IReadOnlyDictionary<IMessageChannel, ImmutableHashSet<IUser>> PlayerList { get; }
+
+    public MpGameService(Func<LogMessage, Task> logger = null);
 
     public bool MakeNewPlayerList(IMessageChannel channel);
 
@@ -48,6 +52,30 @@ public sealed class CardGameService : MpGameService<CardGame, CardPlayer>
     // like the base class does, as long as you pass in the
     // base-provided 'ChannelComparer'.
     public Dictionary<ulong, DataType> SomeDataDictionary { get; }
+}
+```
+
+The constructor has an optional paramater to pass a logging method from
+the caller to the base class. If you want to make use of the logger, then
+add the same parameter to your constructor in the derived class.
+```cs
+public sealed class CardGameService : MpGameService<CardGame, CardPlayer>
+{
+    public CardGameService(Func<LogMessage, Task> logger = null)
+        : base(logger)
+    {
+        // You can now log anything you like by invoking the Log 
+        // delegate on the base class you can make use of. I would personally
+        // recommend having your own method as seen below as a wrapper.
+        Log(LogSeverity.Info, "Creating CardGame Service");
+    }
+
+    intenal Task Log(LogSeverity severity, string msg)
+    {
+        return base.Log(new LogMessage(severity, "CardGameService", msg));
+    }
+
+}
 ```
 
 [<- Part 3 - Games](3-Games.md) - Services - [Part 5 - Modules ->](5-Modules.md)
