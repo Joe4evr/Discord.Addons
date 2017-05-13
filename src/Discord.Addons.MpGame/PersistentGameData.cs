@@ -34,7 +34,7 @@ namespace Discord.Addons.MpGame
 
         internal void NewPlayerList()
         {
-            JoinedUsers = ImmutableHashSet.Create(UserComparer);
+            JoinedUsers = ImmutableHashSet.Create(Comparers.UserComparer);
         }
 
         internal bool TryAddUser(IUser user)
