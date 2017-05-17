@@ -135,10 +135,7 @@ namespace Discord.Addons.SimplePermissions
         [Summary("List this server's roles and their ID.")]
         public Task ListRoles()
         {
-            return (Context.Channel is IGuildChannel ch)
-                ? ReplyAsync(
-                    $"This server's roles:\n {String.Join("\n", Context.Guild.Roles.Where(r => r.Id != Context.Guild.EveryoneRole.Id).Select(r => $"{r.Name} : {r.Id}"))}")
-                : Task.CompletedTask;
+            return ReplyAsync($"This server's roles:```\n{String.Join("\n", Context.Guild.Roles.Where(r => r.Id != Context.Guild.EveryoneRole.Id).Select(r => $"{r.Name} : {r.Id}"))}\n```");
         }
 
         /// <summary> "List all the modules loaded in the bot. </summary>
@@ -147,28 +144,24 @@ namespace Discord.Addons.SimplePermissions
         [Summary("List all the modules loaded in the bot.")]
         public Task ListModules()
         {
-            if (Context.Channel is IGuildChannel ch)
+            var mods = _permService.CService.Modules
+                .Where(m => m.Name != PermModuleName)
+                .Select(m => m.Name);
+            var index = 1;
+            var sb = new StringBuilder("All loaded modules:\n```");
+            using (var config = _permService.ConfigStore.Load())
             {
-                var mods = _permService.CService.Modules
-                    .Where(m => m.Name != PermModuleName)
-                    .Select(m => m.Name);
-                var index = 1;
-                var sb = new StringBuilder("All loaded modules:\n```");
-                using (var config = _permService.ConfigStore.Load())
+                var wl = config.GetChannelModuleWhitelist(Context.Channel)
+                    .Concat(config.GetGuildModuleWhitelist(Context.Guild)).ToList();
+                foreach (var m in mods)
                 {
-                    var wl = config.GetChannelModuleWhitelist(Context.Channel)
-                        .Concat(config.GetGuildModuleWhitelist(Context.Guild)).ToList();
-                    foreach (var m in mods)
-                    {
-                        sb.AppendLine($"{index,3}: {m}{(wl.Contains(m) ? _star : String.Empty)}");
-                        index++;
-                    }
-                    sb.Append("```");
+                    sb.AppendLine($"{index,3}: {m}{(wl.Contains(m) ? _star : String.Empty)}");
+                    index++;
                 }
-
-                return ReplyAsync(sb.ToString());
+                sb.Append("```");
             }
-            return Task.CompletedTask;
+
+            return ReplyAsync(sb.ToString());
         }
 
         /// <summary> Set the admin role for this server. </summary>
@@ -178,17 +171,14 @@ namespace Discord.Addons.SimplePermissions
         [Summary("Set the admin role for this server.")]
         public async Task SetAdminRole(IRole role)
         {
-            if (Context.Channel is IGuildChannel ch)
+            if (role.Id == Context.Guild.EveryoneRole.Id)
             {
-                if (role.Id == Context.Guild.EveryoneRole.Id)
-                {
-                    await ReplyAsync($"Not allowed to set `everyone` as the admin role.").ConfigureAwait(false);
-                    return;
-                }
-
-                if (await _permService.SetGuildAdminRole(Context.Guild, role).ConfigureAwait(false))
-                    await ReplyAsync($"Set **{role.Name}** as the admin role for this server.").ConfigureAwait(false);
+                await ReplyAsync($"Not allowed to set `everyone` as the admin role.").ConfigureAwait(false);
+                return;
             }
+
+            if (await _permService.SetGuildAdminRole(Context.Guild, role).ConfigureAwait(false))
+                await ReplyAsync($"Set **{role.Name}** as the admin role for this server.").ConfigureAwait(false);
         }
 
         /// <summary> Set the moderator role for this server. </summary>
@@ -198,17 +188,14 @@ namespace Discord.Addons.SimplePermissions
         [Summary("Set the moderator role for this server.")]
         public async Task SetModRole(IRole role)
         {
-            if (Context.Channel is IGuildChannel ch)
+            if (role.Id == Context.Guild.EveryoneRole.Id)
             {
-                if (role.Id == Context.Guild.EveryoneRole.Id)
-                {
-                    await ReplyAsync($"Not allowed to set `everyone` as the mod role.").ConfigureAwait(false);
-                    return;
-                }
-
-                if (await _permService.SetGuildModRole(Context.Guild, role).ConfigureAwait(false))
-                    await ReplyAsync($"Set **{role.Name}** as the mod role for this server.").ConfigureAwait(false);
+                await ReplyAsync($"Not allowed to set `everyone` as the mod role.").ConfigureAwait(false);
+                return;
             }
+
+            if (await _permService.SetGuildModRole(Context.Guild, role).ConfigureAwait(false))
+                await ReplyAsync($"Set **{role.Name}** as the mod role for this server.").ConfigureAwait(false);
         }
 
         /// <summary> Give someone special command privileges in this channel. </summary>
@@ -247,18 +234,17 @@ namespace Discord.Addons.SimplePermissions
         [Summary("Whitelist a module for this channel or guild.")]
         public async Task WhitelistModule(string modName, [OverrideTypeReader(typeof(SpecialBoolTypeReader))] bool guildwide = false)
         {
-            var ch = Context.Channel as IGuildChannel;
             var mod = _permService.CService.Modules.SingleOrDefault(m => m.Name == modName);
             if (mod != null)
             {
                 if (guildwide)
                 {
-                    if (await _permService.WhitelistModuleGuild(ch.Guild, mod.Name).ConfigureAwait(false))
+                    if (await _permService.WhitelistModuleGuild(Context.Guild, mod.Name).ConfigureAwait(false))
                         await ReplyAsync($"Module `{mod.Name}` is now whitelisted in this server.").ConfigureAwait(false);
                 }
                 else
                 {
-                    if (await _permService.WhitelistModule(ch, mod.Name).ConfigureAwait(false))
+                    if (await _permService.WhitelistModule(Context.Channel, mod.Name).ConfigureAwait(false))
                         await ReplyAsync($"Module `{mod.Name}` is now whitelisted in this channel.").ConfigureAwait(false);
                 }
             }
@@ -271,7 +257,6 @@ namespace Discord.Addons.SimplePermissions
         [Summary("Blacklist a module for this channel or guild.")]
         public async Task BlacklistModule(string modName, [OverrideTypeReader(typeof(SpecialBoolTypeReader))] bool guildwide = false)
         {
-            var ch = Context.Channel as IGuildChannel;
             var mod = _permService.CService.Modules.SingleOrDefault(m => m.Name == modName);
             if (mod != null)
             {
@@ -283,12 +268,12 @@ namespace Discord.Addons.SimplePermissions
                 {
                     if (guildwide)
                     {
-                        if (await _permService.BlacklistModuleGuild(ch.Guild, mod.Name).ConfigureAwait(false))
+                        if (await _permService.BlacklistModuleGuild(Context.Guild, mod.Name).ConfigureAwait(false))
                             await ReplyAsync($"Module `{mod.Name}` is now blacklisted in this server.").ConfigureAwait(false);
                     }
                     else
                     {
-                        if (await _permService.BlacklistModule(ch, mod.Name).ConfigureAwait(false))
+                        if (await _permService.BlacklistModule(Context.Channel, mod.Name).ConfigureAwait(false))
                             await ReplyAsync($"Module `{mod.Name}` is now blacklisted in this channel.").ConfigureAwait(false);
                     }
                 }
