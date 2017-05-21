@@ -6,7 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <Description>Discord.Net module for command permission management.</Description>
-    <VersionPrefix>0.9.25</VersionPrefix>
+    <VersionPrefix>0.9.26</VersionPrefix>
     <VersionSuffix>rc</VersionSuffix>
     <Authors>Joe4evr</Authors>
     <TargetFramework>netstandard1.6</TargetFramework>

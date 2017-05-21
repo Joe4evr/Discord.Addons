@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Discord.Commands;
 using Discord.Net;
 
 namespace Discord.Addons.SimplePermissions
 {
     /// <summary> Sets the permission level of this command. </summary>
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class PermissionAttribute : PreconditionAttribute
     {
         private MinimumPermission Permission { get; }
@@ -22,7 +23,8 @@ namespace Discord.Addons.SimplePermissions
         /// <inheritdoc />
         public override async Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider map)
         {
-            if (context.Channel is IPrivateChannel) return PreconditionResult.FromSuccess();
+            if (context.Channel is IPrivateChannel)
+                return PreconditionResult.FromSuccess();
 
             var chan = context.Channel;
             var user = context.User;
