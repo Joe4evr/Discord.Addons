@@ -38,8 +38,7 @@ public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<IC
 
     public abstract Task EndGameCmd();
 
-    [Command("resend")]
-    public async Task ResendCmd();
+    public virtual async Task ResendCmd();
 }
 ```
 
@@ -55,6 +54,8 @@ Likewise, you'll most likely be adding *more* commands in order to control your 
 
 One command is predefined which will retry sending a DM
 to a user after they have been notified to enable DMs.
+If you want to make use of this command, you will need to override
+it just to call the base method and add the `[Command]` attribute.
 
 With your own service class for persistent data, you should derive
 from this class as follows:
@@ -94,6 +95,8 @@ public class CardGameModule : MpGameModuleBase<CardGame, CardPlayer>
 ```
 
 Example implementations for the abstract methods can be found
-[in the Examples project](../../../Examples/MpGame/ExampleModule.cs)
+[in the Examples project](../../../Examples/MpGame/ExampleModule.cs).
+An extensive example can be found as my implementation of
+[Secret Hitler](https://github.com/Joe4evr/MechHisui/tree/1.0/src/MechHisui.SecretHitler).
 
 [<- Part 4 - Services](4-Services.md) - Modules - [Part 6 - Final step ->](6-FinalStep.md)

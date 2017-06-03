@@ -6,7 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <Description>Base classes for text-based games in Discord</Description>
-    <VersionPrefix>0.8.18</VersionPrefix>
+    <VersionPrefix>0.8.19</VersionPrefix>
     <VersionSuffix>rc</VersionSuffix>
     <Authors>Joe4evr</Authors>
     <TargetFramework>netstandard1.3</TargetFramework>

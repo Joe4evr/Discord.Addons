@@ -9,14 +9,15 @@ you will need to make a class like this:
 ```cs
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Discord.Commands;
 
 [AttributeUsage(AttributeTargets.Method)]
 internal sealed class RequireTurnPlayerAttribute : PreconditionAttribute
 {
-    public override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IDependencyMap map)
+    public override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider services)
     {
-        var service = map.Get<CardGameService>();
+        var service = services.GetService<CardGameService>();
         if (service != null)
         {
             var authorId = context.User.Id;

@@ -73,8 +73,8 @@ namespace Discord.Addons.MpGame
         public abstract Task EndGameCmd();
 
         /// <summary> Command to resend a message to someone who had their DMs disabled. </summary>
-        [Command("resend")]
-        public async Task ResendCmd()
+        //[Command("resend")]
+        public virtual async Task ResendCmd()
         {
             if (GameInProgress)
             {

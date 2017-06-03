@@ -16,34 +16,35 @@ namespace Discord.Addons.MpGame
         where TGame : GameBase<TPlayer>
         where TPlayer : Player
     {
-        /// <summary> A cached <see cref="IEqualityComparer{IUser}"/> instance to use when
-        /// instantiating the <see cref="PlayerList"/>'s <see cref="HashSet{IUser}"/>. </summary>
-        private static IEqualityComparer<IUser> UserComparer { get; } = Comparers.UserComparer;
+        ///// <summary> A cached <see cref="IEqualityComparer{IUser}"/> instance to use when
+        ///// instantiating a <see cref="Dictionary{TKey, TValue}"/> using an <see cref="IUser"/> as the key. </summary>
+        //protected static IEqualityComparer<IUser> UserComparer { get; } = Comparers.UserComparer;
 
         /// <summary> A cached <see cref="IEqualityComparer{IMessageChannel}"/> instance to use when
         /// instantiating a <see cref="Dictionary{TKey, TValue}"/> using <see cref="IMessageChannel"/> as the key. </summary>
-        protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = Comparers.MessageChannelComparer;
+        protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = Comparers.ChannelComparer;
 
         private readonly object _lock = new object();
-        private readonly Func<LogMessage, Task> _logger;
         private readonly ConcurrentDictionary<IMessageChannel, PersistentGameData<TGame, TPlayer>> _dataList
             = new ConcurrentDictionary<IMessageChannel, PersistentGameData<TGame, TPlayer>>(MessageChannelComparer);
+
+        protected Func<LogMessage, Task> Logger { get; }
 
         /// <summary> The instance of a game being played, keyed by channel. </summary>
         public IReadOnlyDictionary<IMessageChannel, TGame> GameList
             => _dataList.ToDictionary(d => d.Key, d => d.Value.Game);
 
-        /// <summary> The list of users scheduled to join game, keyed by channel. </summary>
-        public IReadOnlyDictionary<IMessageChannel, ImmutableHashSet<IUser>> PlayerList
-            => _dataList.ToDictionary(d => d.Key, d => d.Value.JoinedUsers);
-
         /// <summary> Indicates whether the users can join a game about to start, keyed by channel. </summary>
         public IReadOnlyDictionary<IMessageChannel, bool> OpenToJoin
             => _dataList.ToDictionary(d => d.Key, d => d.Value.OpenToJoin);
 
+        /// <summary> The list of users scheduled to join game, keyed by channel. </summary>
+        public IReadOnlyDictionary<IMessageChannel, ImmutableHashSet<IUser>> PlayerList
+            => _dataList.ToDictionary(d => d.Key, d => d.Value.JoinedUsers);
+
         public MpGameService(Func<LogMessage, Task> logger = null)
         {
-            _logger = logger ?? (msg => Task.CompletedTask);
+            Logger = logger ?? (msg => Task.CompletedTask);
         }
 
         //internal Task Log(LogSeverity severity, string msg)
@@ -128,6 +129,19 @@ namespace Discord.Addons.MpGame
             }
         }
 
+        /// <summary> Cancel a game that has not yet started. </summary>
+        /// <param name="channel">Public facing channel of this game.</param>
+        /// <returns>true if the operation succeeded, otherwise false.</returns>
+        public bool CancelGame(IMessageChannel channel)
+        {
+            //lock (_lock)
+            //{
+            //    return (TryUpdateOpenToJoin(channel, newValue: false, comparisonValue: true)
+            //        && _playerList.TryRemove(channel, out var _));
+            //}
+            return _dataList.TryRemove(channel, out var _);
+        }
+
         /// <summary> Add a new game to the list of active games. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
         /// <param name="game">Instance of the game.</param>
@@ -150,19 +164,6 @@ namespace Discord.Addons.MpGame
                     return false;
                 }
             }
-        }
-
-        /// <summary> Cancel a game that has not yet started. </summary>
-        /// <param name="channel">Public facing channel of this game.</param>
-        /// <returns>true if the operation succeeded, otherwise false.</returns>
-        public bool CancelGame(IMessageChannel channel)
-        {
-            //lock (_lock)
-            //{
-            //    return (TryUpdateOpenToJoin(channel, newValue: false, comparisonValue: true)
-            //        && _playerList.TryRemove(channel, out var _));
-            //}
-            return _dataList.TryRemove(channel, out var _);
         }
 
         /// <summary> Updates the flag indicating if a game can be joined or not. </summary>

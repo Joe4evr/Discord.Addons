@@ -15,7 +15,9 @@ public class MpGameService<TGame, TPlayer>
     where TGame   : GameBase<TPlayer>
     where TPlayer : Player
 {
-    protected Func<LogMessage, Task> Log { get; }
+    protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; }
+
+    protected Func<LogMessage, Task> Logger { get; }
 
     public IReadOnlyDictionary<IMessageChannel, TGame> GameList { get; }
 
@@ -25,11 +27,13 @@ public class MpGameService<TGame, TPlayer>
 
     public MpGameService(Func<LogMessage, Task> logger = null);
 
-    public bool MakeNewPlayerList(IMessageChannel channel);
+    public bool OpenNewGame(IMessageChannel channel);
 
     public bool AddUser(IMessageChannel channel, IUser user);
 
     public bool RemoveUser(IMessageChannel channel, IUser user);
+
+    public bool CancelGame(IMessageChannel channel);
 
     public bool TryAddNewGame(IMessageChannel channel, TGame game);
 
@@ -47,11 +51,13 @@ public sealed class CardGameService : MpGameService<CardGame, CardPlayer>
     // 'Dictionary<ulong, T>' where the key is the channel/guild/user ID
     // and replace 'T' with whatever type you have your data in.
     public Dictionary<ulong, DataType> SomeDataDictionary { get; }
+        = new Dictionary<ulong, DataType>();
 
     // Alternatively, you can use 'IMessageChannel' as a key
     // like the base class does, as long as you pass in the
-    // base-provided 'ChannelComparer'.
-    public Dictionary<ulong, DataType> SomeDataDictionary { get; }
+    // base-provided 'MessageChannelComparer'.
+    public Dictionary<IMessageChannel, DataType> SomeDataDictionary { get; }
+        = new Dictionary<IMessageChannel, DataType>(MessageChannelComparer);
 }
 ```
 
@@ -64,7 +70,7 @@ public sealed class CardGameService : MpGameService<CardGame, CardPlayer>
     public CardGameService(Func<LogMessage, Task> logger = null)
         : base(logger)
     {
-        // You can now log anything you like by invoking the Log 
+        // You can now log anything you like by invoking the 'Logger'
         // delegate on the base class you can make use of. I would personally
         // recommend having your own method as seen below as a wrapper.
         Log(LogSeverity.Info, "Creating CardGame Service");
@@ -72,7 +78,7 @@ public sealed class CardGameService : MpGameService<CardGame, CardPlayer>
 
     intenal Task Log(LogSeverity severity, string msg)
     {
-        return base.Log(new LogMessage(severity, "CardGameService", msg));
+        return base.Logger(new LogMessage(severity, "CardGameService", msg));
     }
 
 }
