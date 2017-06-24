@@ -28,14 +28,7 @@ namespace Discord.Addons.MpGame
 
         /// <summary> Selects the DM Channels of all the players. </summary>
         public async Task<IEnumerable<IDMChannel>> PlayerChannels()
-        {
-            var result = new List<IDMChannel>();
-            foreach (var p in Players)
-            {
-                result.Add(await p.User.GetOrCreateDMChannelAsync());
-            }
-            return result;
-        }
+            => await Task.WhenAll(Players.Select(async p => await p.User.GetOrCreateDMChannelAsync().ConfigureAwait(false))).ConfigureAwait(false);
 
         /// <summary> The current turn's player. </summary>
         public Node<TPlayer> TurnPlayer { get; protected set; }

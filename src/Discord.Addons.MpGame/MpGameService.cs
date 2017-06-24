@@ -180,6 +180,22 @@ namespace Discord.Addons.MpGame
             }
             return data.TryUpdateOpenToJoin(comparisonValue, newValue);
         }
+
+        public async Task<TGame> GetGameFromChannelAsync(IMessageChannel channel)
+        {
+            if (GameList.TryGetValue(channel, out var g))
+            {
+                return g;
+            }
+            foreach (var game in GameList.Values)
+            {
+                if ((await game.PlayerChannels().ConfigureAwait(false)).Select(c => c.Id).Contains(channel.Id))
+                {
+                    return game;
+                }
+            }
+            return null;
+        }
     }
 
     ///// <summary> Service managing games for <see cref="MpGameModuleBase{TService, TGame, TContext}"/>
