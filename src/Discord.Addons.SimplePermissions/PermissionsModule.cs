@@ -48,7 +48,7 @@ namespace Discord.Addons.SimplePermissions
 
             var info = new EmbedBuilder()
                 .WithAuthor(a => a.WithName("Debug information")
-                    .WithIconUrl(app.IconUrl))
+                    .WithIconUrl(new Uri(app.IconUrl)))
                 .WithTitle($"{app.Name} - Created: {app.CreatedAt.ToString("d MMM yyyy, HH:mm UTC")}")
                 .WithDescription($"{app.Description}\nLoaded (non-System) assemblies:")
                 .AddFieldSequence(asms, (fb, asm) => fb.WithIsInline(true)

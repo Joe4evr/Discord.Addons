@@ -43,5 +43,5 @@
     <Optimize>True</Optimize>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
-  <Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />
+  <!--<Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />-->
 </Project>

@@ -1,4 +1,5 @@
 @echo off 
+dotnet restore Discord.Addons.sln
 dotnet pack src\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj -c Release -o C:\nugetpacks
 dotnet pack src\Discord.Addons.Preconditions\Discord.Addons.Preconditions.csproj -c Release -o C:\nugetpacks
 dotnet pack src\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj -c Release -o C:\nugetpacks

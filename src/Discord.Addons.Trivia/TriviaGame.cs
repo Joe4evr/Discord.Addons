@@ -37,7 +37,7 @@ namespace Discord.Addons.TriviaGames
             _channel = channel;
             _turns = turns;
 
-            _questionTimer = new Timer(async obj =>
+            _questionTimer = new Timer(async _ =>
             {
                 await _channel.SendMessageAsync("Time up.");
                 if (!_triviaData.Any())
@@ -100,8 +100,7 @@ namespace Discord.Addons.TriviaGames
                 _isAnswered.TryUpdate(newValue: true, comparisonValue: false))
             {
                 _questionTimer.Change(Timeout.Infinite, Timeout.Infinite);
-                _scoreboard.AddOrUpdate(msg.Author.Id, 1, (k, v) => ++v);
-                var userScore = _scoreboard.Single(kv => kv.Key == msg.Author.Id).Value;
+                var userScore = _scoreboard.AddOrUpdate(msg.Author.Id, 1, (k, v) => ++v);
                 await _channel.SendMessageAsync($"Correct. **{msg.Author.Username}** is now at **{userScore}** point(s).");
 
                 if (_turn == _turns)

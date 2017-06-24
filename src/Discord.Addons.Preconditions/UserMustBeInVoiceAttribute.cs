@@ -10,7 +10,7 @@ namespace Discord.Addons.Preconditions
     public sealed class UserMustBeInVoiceAttribute : PreconditionAttribute
     {
         /// <inheritdoc />
-        public override async Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider map)
+        public override async Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider services)
         {
             var current = (context.User as IVoiceState)?.VoiceChannel?.Id;
             return (await context.Guild.GetVoiceChannelsAsync()).Any(v => v.Id != current)

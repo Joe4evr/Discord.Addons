@@ -22,7 +22,7 @@
       <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Discord.Addons.SimplePermissions" Version="0.9.23-rc" />
+    <PackageReference Include="Discord.Addons.SimplePermissions" Version="0.10.25-rc" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.0.2" />
   </ItemGroup>
   <ItemGroup>

@@ -61,7 +61,7 @@ namespace Discord.Addons.SimplePermissions
             //var m = c.First().Module.Name;
             return new EmbedBuilder()
                 .WithAuthor(a => a.WithName(_app.Name)
-                    .WithIconUrl(_app.IconUrl))
+                    .WithIconUrl(new Uri(_app.IconUrl)))
                 .WithTitle("Available commands.")
                 .WithDescription($"Page {page + 1} of {_totalPages}")
                 .AddFieldSequence(c, (fb, cmd) => fb.WithIsInline(false)

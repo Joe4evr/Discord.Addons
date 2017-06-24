@@ -20,7 +20,7 @@ namespace Discord.Addons.Preconditions
         }
 
         /// <inheritdoc />
-        public async override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider map)
+        public async override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider services)
         {
             var users = (await context.Guild.GetUsersAsync()).Where(u => !u.IsBot);
 
