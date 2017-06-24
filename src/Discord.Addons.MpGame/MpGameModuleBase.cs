@@ -15,21 +15,6 @@ namespace Discord.Addons.MpGame
         where TGame    : GameBase<TPlayer>
         where TPlayer  : Player
     {
-        /// <summary> The instance of the game being played (if active). </summary>
-        protected TGame Game { get; private set; }
-
-        /// <summary> Determines if a game in the current channel is in progress or not. </summary>
-        protected bool GameInProgress { get; private set; }
-
-        /// <summary> The <see cref="TService"/> instance. </summary>
-        protected TService GameService { get; }
-
-        /// <summary> Determines if a game in the current channel is open to join or not. </summary>
-        protected bool OpenToJoin { get; private set; }
-
-        /// <summary> The list of users ready to play. </summary>
-        protected ImmutableHashSet<IUser> PlayerList { get; private set; }
-
         /// <summary> Initializes the <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/> base class. </summary>
         /// <param name="gameService"></param>
         protected MpGameModuleBase(TService gameService)
@@ -47,6 +32,21 @@ namespace Discord.Addons.MpGame
             Game = data?.Game;
             GameInProgress = Game != null;
         }
+
+        /// <summary> The <see cref="TService"/> instance. </summary>
+        protected TService GameService { get; }
+
+        /// <summary> The instance of the game being played (if active). </summary>
+        protected TGame Game { get; private set; }
+
+        /// <summary> Determines if a game in the current channel is in progress or not. </summary>
+        protected bool GameInProgress { get; private set; }
+
+        /// <summary> Determines if a game in the current channel is open to join or not. </summary>
+        protected bool OpenToJoin { get; private set; }
+
+        /// <summary> The list of users ready to play. </summary>
+        protected ImmutableHashSet<IUser> PlayerList { get; private set; }
 
         /// <summary> Command to open a game for others to join. </summary>
         public abstract Task OpenGameCmd();

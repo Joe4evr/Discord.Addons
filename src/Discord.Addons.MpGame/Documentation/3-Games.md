@@ -10,6 +10,14 @@ public abstract class GameBase<TPlayer>
 {
     protected GameBase(IMessageChannel channel, IEnumerable<TPlayer> players);
 
+    protected IMessageChannel Channel { get; }
+
+    protected CircularLinkedList<TPlayer> Players { get; }
+
+    public IEnumerable<IDMChannel> PlayerChannels { get; }
+
+    public Node<TPlayer> TurnPlayer { get; protected set; }
+
     public abstract string GetGameState();
 
     public abstract Task SetupGame();
@@ -19,14 +27,6 @@ public abstract class GameBase<TPlayer>
     public abstract Task NextTurn();
 
     public virtual async Task EndGame(string endmsg);
-
-    protected IMessageChannel Channel { get; }
-
-    public IEnumerable<IDMChannel> PlayerChannels { get; }
-
-    protected CircularLinkedList<TPlayer> Players { get; }
-
-    public Node<TPlayer> TurnPlayer { get; protected set; }
 }
 ```
 

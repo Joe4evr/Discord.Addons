@@ -9,9 +9,9 @@ public class Player
 {
     public Player(IUser user, IMessageChannel channel);
 
-    public async Task SendMessageAsync(string text);
-
     public IUser User { get; }
+
+    public async Task SendMessageAsync(string text);
 }
 ```
 

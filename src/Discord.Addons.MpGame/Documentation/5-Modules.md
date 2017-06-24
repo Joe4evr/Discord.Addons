@@ -12,11 +12,11 @@ public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<IC
 {
     protected MpGameModuleBase(TService gameService);
 
+    protected TService GameService { get; }
+
     protected TGame Game { get; }
 
     protected bool GameInProgress { get; }
-
-    protected TService GameService { get; }
 
     protected bool OpenToJoin { get; }
 

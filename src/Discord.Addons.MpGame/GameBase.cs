@@ -10,18 +10,6 @@ namespace Discord.Addons.MpGame
     public abstract class GameBase<TPlayer>
         where TPlayer : Player
     {
-        /// <summary> The channel where the public-facing side of the game is played. </summary>
-        protected internal IMessageChannel Channel { get; }
-
-        /// <summary> Represents all the players in this game. </summary>
-        protected internal CircularLinkedList<TPlayer> Players { get; }
-
-        /// <summary> Selects the DM Channels of all the players. </summary>
-        public IEnumerable<IDMChannel> PlayerChannels => Players.Select(p => p.DmChannel);
-
-        /// <summary> The current turn's player. </summary>
-        public Node<TPlayer> TurnPlayer { get; protected set; }
-
         /// <summary> Sets up the common logic for a multiplayer game. </summary>
         protected GameBase(IMessageChannel channel, IEnumerable<TPlayer> players)
         {
@@ -31,6 +19,26 @@ namespace Discord.Addons.MpGame
             Players = new CircularLinkedList<TPlayer>(players);
             TurnPlayer = Players.Head;
         }
+
+        /// <summary> The channel where the public-facing side of the game is played. </summary>
+        protected internal IMessageChannel Channel { get; }
+
+        /// <summary> Represents all the players in this game. </summary>
+        protected internal CircularLinkedList<TPlayer> Players { get; }
+
+        /// <summary> Selects the DM Channels of all the players. </summary>
+        public async Task<IEnumerable<IDMChannel>> PlayerChannels()
+        {
+            var result = new List<IDMChannel>();
+            foreach (var p in Players)
+            {
+                result.Add(await p.User.GetOrCreateDMChannelAsync());
+            }
+            return result;
+        }
+
+        /// <summary> The current turn's player. </summary>
+        public Node<TPlayer> TurnPlayer { get; protected set; }
 
         /// <summary> Perform the actions that are part of the initial setup. </summary>
         public abstract Task SetupGame();

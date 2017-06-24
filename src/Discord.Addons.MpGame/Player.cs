@@ -11,8 +11,8 @@ namespace Discord.Addons.MpGame
         /// <summary> The underlying <see cref="IUser"/> instance. </summary>
         public IUser User { get; }
 
-        /// <summary> The user's DM Channel instance. </summary>
-        internal IDMChannel DmChannel { get; }
+        ///// <summary> The user's DM Channel instance. </summary>
+        //internal IDMChannel DmChannel { get; }
 
         private readonly IMessageChannel pubChannel;
 
@@ -22,13 +22,13 @@ namespace Discord.Addons.MpGame
         public Player(IUser user, IMessageChannel channel)
         {
             User = user ?? throw new ArgumentNullException(nameof(user));
-            pubChannel = channel ?? throw new ArgumentNullException(nameof(channel));
+            //pubChannel = channel ?? throw new ArgumentNullException(nameof(channel));
 
-            try
-            {
-                DmChannel = user.CreateDMChannelAsync().GetAwaiter().GetResult();
-            }
-            catch (HttpException e) when (e.HttpCode == HttpStatusCode.BadRequest) { }
+            //try
+            //{
+            //    DmChannel = user.GetOrCreateDMChannelAsync().GetAwaiter().GetResult();
+            //}
+            //catch (HttpException e) when (e.HttpCode == HttpStatusCode.BadRequest) { }
         }
 
         private string unsentDm;
@@ -38,23 +38,22 @@ namespace Discord.Addons.MpGame
         /// <param name="text">The text to send.</param>
         public async Task SendMessageAsync(string text)
         {
-            if (DmChannel != null)
+            try
             {
-                try
+                if (text != null)
                 {
-                    if (text != null && unsentDm == null)
-                    {
-                        await DmChannel.SendMessageAsync(text);
-                    }
-                }
-                catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
-                {
-                    if (text != null)
-                        unsentDm = text;
-
-                    await pubChannel.SendMessageAsync($"Player {User.Mention} has their DMs disabled. Please enable DMs and use `resend` to obtain this info.");
+                    await User.SendMessageAsync(text);
+                    //await DmChannel.SendMessageAsync(text);
                 }
             }
+            catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
+            {
+                if (text != null)
+                    unsentDm = text;
+
+                await pubChannel.SendMessageAsync($"Player {User.Mention} has their DMs disabled. Please enable DMs.");
+            }
+            catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.BadRequest) { }
         }
 
         internal async Task RetrySendMessageAsync()
@@ -63,15 +62,15 @@ namespace Discord.Addons.MpGame
             {
                 if (unsentDm != null)
                 {
-                    await User.CreateDMChannelAsync();
-                    await DmChannel.SendMessageAsync(unsentDm);
+                    await User.SendMessageAsync(unsentDm);
                     unsentDm = null;
                 }
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
             {
-                await pubChannel.SendMessageAsync($"Player {User.Mention} has their DMs disabled. Please enable DMs and use `resend` to obtain this info.");
+                await pubChannel.SendMessageAsync($"Player {User.Mention} has their DMs disabled. Please enable DMs.");
             }
+            catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.BadRequest) { }
         }
     }
 }
