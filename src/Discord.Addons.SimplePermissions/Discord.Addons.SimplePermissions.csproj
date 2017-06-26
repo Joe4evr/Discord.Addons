@@ -6,7 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <Description>Discord.Net module for command permission management.</Description>
-    <VersionPrefix>0.10.25</VersionPrefix>
+    <VersionPrefix>0.10.26</VersionPrefix>
     <VersionSuffix>rc</VersionSuffix>
     <Authors>Joe4evr</Authors>
     <TargetFramework>netstandard1.6</TargetFramework>
@@ -27,7 +27,7 @@
   <ItemGroup>
     <PackageReference Include="Discord.Net.Commands" Version="1.0.0-rc3-00766" />
     <PackageReference Include="Discord.Net.WebSocket" Version="1.0.0-rc3-00766" />
-    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.0-preview1-002111" />
     <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">

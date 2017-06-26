@@ -181,6 +181,10 @@ namespace Discord.Addons.MpGame
             return data.TryUpdateOpenToJoin(comparisonValue, newValue);
         }
 
+        /// <summary> Retrieve the game instance being played, if any. </summary>
+        /// <param name="channel"></param>
+        /// <returns>The <see cref="TGame"/> instance being played in the specified channel,
+        /// or <see cref="null"/> if there is none.</returns>
         public async Task<TGame> GetGameFromChannelAsync(IMessageChannel channel)
         {
             if (GameList.TryGetValue(channel, out var g))

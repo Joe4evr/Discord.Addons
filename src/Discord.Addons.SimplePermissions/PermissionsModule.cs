@@ -145,7 +145,7 @@ namespace Discord.Addons.SimplePermissions
         public Task ListModules()
         {
             var mods = _permService.CService.Modules
-                .Where(m => m.Name != PermModuleName)
+                .Where(m => m.Name != PermModuleName && !m.IsSubmodule)
                 .Select(m => m.Name);
             var index = 1;
             var sb = new StringBuilder("All loaded modules:\n```");
