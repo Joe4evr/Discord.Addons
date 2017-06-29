@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Discord.Commands;
 using Discord.Net;
+using System.Collections.Generic;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -33,9 +34,9 @@ namespace Discord.Addons.SimplePermissions
             {
                 using (var config = svc.ConfigStore.Load())
                 {
-
-                    if (config.GetChannelModuleWhitelist(chan).Contains(command.Module.Name)
-                        || config.GetGuildModuleWhitelist(context.Guild).Contains(command.Module.Name))
+                    if (IsModuleWhitelisted(config.GetChannelModuleWhitelist(chan).Concat(config.GetGuildModuleWhitelist(context.Guild)), command.Module.Name))
+                        //channelwl.Any(m => m.Name == command.Module.Name || m.Submodules.Any(s => s.Name)))
+                        //|| guildwl.Contains(command.Module.Name))
                     {
                         if (Permission == MinimumPermission.BotOwner)
                         {
@@ -90,6 +91,11 @@ namespace Discord.Addons.SimplePermissions
             {
                 return PreconditionResult.FromError("PermissionService not found.");
             }
+        }
+
+        private static bool IsModuleWhitelisted(IEnumerable<ModuleInfo> modules, string name)
+        {
+            return modules.Any(m => m.Name == name || IsModuleWhitelisted(m.Submodules, name));
         }
     }
 

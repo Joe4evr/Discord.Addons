@@ -24,4 +24,7 @@
   <ItemGroup>
     <PackageReference Include="Discord.Addons.SimplePermissions" Version="0.10.25-rc" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />
+  </ItemGroup>
 </Project>

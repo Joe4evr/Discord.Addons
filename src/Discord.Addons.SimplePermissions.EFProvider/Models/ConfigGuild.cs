@@ -11,6 +11,7 @@ namespace Discord.Addons.SimplePermissions
         where TChannel : ConfigChannel<TUser>
         where TUser    : ConfigUser
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /// <summary> </summary>
         public int Id { get; set; }
 
@@ -31,13 +32,13 @@ namespace Discord.Addons.SimplePermissions
         public bool HidePermCommands { get; set; }
 
         /// <summary> </summary>
-        public ICollection<TChannel> Channels { get; set; } = new List<TChannel>();
+        public ICollection<TChannel> Channels { get; set; }
 
         /// <summary> </summary>
-        public ICollection<TUser> Users { get; set; } = new List<TUser>();
+        public ICollection<TUser> Users { get; set; }
 
         /// <summary> </summary>
-        public ICollection<ConfigModule> WhiteListedModules { get; set; } = new List<ConfigModule>();
+        public ICollection<ConfigModule> WhiteListedModules { get; set; }
     }
 
     public class ConfigGuild<TUser> : ConfigGuild<ConfigChannel<TUser>, TUser>

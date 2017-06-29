@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using Discord.Commands;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -12,6 +14,8 @@ namespace Discord.Addons.SimplePermissions
     /// serialization to and from JSON. </summary>
     public class JsonConfigBase : IPermissionConfig, ISetPath
     {
+        public CommandService Commands { private get; set; }
+
         /// <summary> Gets whether fancy help messages are
         /// enabled in a specified guild. </summary>
         public Dictionary<ulong, bool> UseFancyHelps { get; set; }
@@ -132,14 +136,14 @@ namespace Discord.Addons.SimplePermissions
             return Task.FromResult(true);
         }
 
-        IEnumerable<string> IPermissionConfig.GetChannelModuleWhitelist(IChannel channel)
+        IEnumerable<ModuleInfo> IPermissionConfig.GetChannelModuleWhitelist(IChannel channel)
         {
-            return ChannelModuleWhitelist[channel.Id];
+            return Commands.Modules.Where(m => ChannelModuleWhitelist[channel.Id].Contains(m.Name));
         }
 
-        IEnumerable<string> IPermissionConfig.GetGuildModuleWhitelist(IGuild guild)
+        IEnumerable<ModuleInfo> IPermissionConfig.GetGuildModuleWhitelist(IGuild guild)
         {
-            return GuildModuleWhitelist[guild.Id];
+            return Commands.Modules.Where(m => GuildModuleWhitelist[guild.Id].Contains(m.Name));
         }
 
         Task<bool> IPermissionConfig.WhitelistModule(IChannel channel, string moduleName)

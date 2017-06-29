@@ -34,6 +34,8 @@ namespace Discord.Addons.SimplePermissions
         //}
     }
 
+
+
     ///// <summary> Implementation of an <see cref="IConfigStore{TConfig}"/> using EF as a backing store,
     ///// using the default Context type. </summary>
     ///// <typeparam name="TGuild">The Guild configuration type.</typeparam>

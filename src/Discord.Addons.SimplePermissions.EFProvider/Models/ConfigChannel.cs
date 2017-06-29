@@ -10,6 +10,7 @@ namespace Discord.Addons.SimplePermissions
     public class ConfigChannel<TUser>
         where TUser : ConfigUser
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /// <summary> </summary>
         public int Id { get; set; }
 
@@ -18,10 +19,10 @@ namespace Discord.Addons.SimplePermissions
         public ulong ChannelId { get; set; }
 
         /// <summary> </summary>
-        public ICollection<TUser> SpecialUsers { get; set; } = new List<TUser>();
+        public ICollection<TUser> SpecialUsers { get; set; }
 
         /// <summary> </summary>
-        public ICollection<ConfigModule> WhiteListedModules { get; set; } = new List<ConfigModule>();
+        public ICollection<ConfigModule> WhiteListedModules { get; set; }
     }
 
     public class ConfigChannel : ConfigChannel<ConfigUser> { }

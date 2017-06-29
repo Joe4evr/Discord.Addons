@@ -6,6 +6,7 @@ namespace Discord.Addons.SimplePermissions
     /// <summary> </summary>
     public class ConfigUser
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /// <summary> </summary>
         public int Id { get; set; }
 

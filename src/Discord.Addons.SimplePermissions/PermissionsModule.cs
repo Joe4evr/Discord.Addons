@@ -155,7 +155,7 @@ namespace Discord.Addons.SimplePermissions
                     .Concat(config.GetGuildModuleWhitelist(Context.Guild)).ToList();
                 foreach (var m in mods)
                 {
-                    sb.AppendLine($"{index,3}: {m}{(wl.Contains(m) ? _star : String.Empty)}");
+                    sb.AppendLine($"{index,3}: {m}{(wl.Any(w => w.Name ==  m) ? _star : String.Empty)}");
                     index++;
                 }
                 sb.Append("```");

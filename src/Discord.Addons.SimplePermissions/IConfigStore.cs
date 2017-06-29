@@ -1,4 +1,6 @@
-﻿namespace Discord.Addons.SimplePermissions
+﻿using Discord.Commands;
+
+namespace Discord.Addons.SimplePermissions
 {
     /// <summary> Defines a contract that stores and loads an <see cref="IPermissionConfig"/>. </summary>
     /// <typeparam name="TConfig">Type of the config object.</typeparam>

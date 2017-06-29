@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Discord.Commands;
 
 namespace Discord.Addons.SimplePermissions
 {
     /// <summary> Contract for a configuration object used to determine command permissions. </summary>
     public interface IPermissionConfig : IDisposable
     {
+        CommandService Commands { set; } //wish this could become `protected internal CommandService Commands { get; internal set; }`
+
         /// <summary> Set whether Fancy help is enabled in a specified guild. </summary>
         Task SetFancyHelpValue(IGuild guild, bool value);
 
@@ -42,11 +45,11 @@ namespace Discord.Addons.SimplePermissions
 
         /// <summary> Gets the list of modules that are
         /// whitelisted in a specified channel. </summary>
-        IEnumerable<string> GetChannelModuleWhitelist(IChannel channel);
+        IEnumerable<ModuleInfo> GetChannelModuleWhitelist(IChannel channel);
 
         /// <summary> Gets the list of modules that are
         /// whitelisted in a specified guild. </summary>
-        IEnumerable<string> GetGuildModuleWhitelist(IGuild guild);
+        IEnumerable<ModuleInfo> GetGuildModuleWhitelist(IGuild guild);
 
         /// <summary> Whitelist a module in this channel. </summary>
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
