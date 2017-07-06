@@ -6,7 +6,7 @@
     </PropertyGroup>
     <PropertyGroup>
         <Description>Simple usage of Audio for Discord.Net 1.0.</Description>
-        <VersionPrefix>0.1.3</VersionPrefix>
+        <VersionPrefix>1.0.0</VersionPrefix>
         <VersionSuffix>rc</VersionSuffix>
         <Authors>Joe4evr</Authors>
         <TargetFramework>netstandard1.5</TargetFramework>
@@ -23,10 +23,13 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Discord.Addons.Preconditions" Version="0.2.5-rc" />
-        <PackageReference Include="Discord.Net.Commands" Version="1.0.0-rc3-00766" />
-        <PackageReference Include="Discord.Net.WebSocket" Version="1.0.0-rc3-00766" />
+        <PackageReference Include="Discord.Net.Commands" Version="1.0.1" />
+        <PackageReference Include="Discord.Net.WebSocket" Version="1.0.1" />
         <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
         <PackageReference Include="System.ValueTuple" Version="4.3.0" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Discord.Addons.Preconditions\Discord.Addons.Preconditions.csproj" />
     </ItemGroup>
     <PropertyGroup>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>

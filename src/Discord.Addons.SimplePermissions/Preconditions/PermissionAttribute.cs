@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Discord.Commands;
 using Discord.Net;
-using System.Collections.Generic;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -35,8 +35,6 @@ namespace Discord.Addons.SimplePermissions
                 using (var config = svc.ConfigStore.Load())
                 {
                     if (IsModuleWhitelisted(config.GetChannelModuleWhitelist(chan).Concat(config.GetGuildModuleWhitelist(context.Guild)), command.Module.Name))
-                        //channelwl.Any(m => m.Name == command.Module.Name || m.Submodules.Any(s => s.Name)))
-                        //|| guildwl.Contains(command.Module.Name))
                     {
                         if (Permission == MinimumPermission.BotOwner)
                         {

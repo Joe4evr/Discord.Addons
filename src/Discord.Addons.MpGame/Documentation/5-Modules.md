@@ -67,10 +67,10 @@ public class CardGameModule : MpGameModuleBase<CardGameService, CardGame, CardPl
     {
     }
 
-    protected override void BeforeExecute()
+    protected override void BeforeExecute(CommandInfo command)
     {
         // If you choose to override this method, you *must* call the base version first
-        base.BeforeExecute();
+        base.BeforeExecute(command);
         // If you have any persistent data of your own, load
         // the relevant instance from the dictionary
         // in your service class here and store

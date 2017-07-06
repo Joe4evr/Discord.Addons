@@ -23,9 +23,9 @@ namespace Discord.Addons.MpGame
         }
 
         /// <summary> Initialize fields whose values come from the <see cref="TService"/>'s Dictionaries. </summary>
-        protected override void BeforeExecute()
+        protected override void BeforeExecute(CommandInfo command)
         {
-            base.BeforeExecute();
+            base.BeforeExecute(command);
             var data = GameService.GetData(Context.Channel);
             OpenToJoin = data?.OpenToJoin ?? false;
             PlayerList = data?.JoinedUsers ?? ImmutableHashSet<IUser>.Empty;

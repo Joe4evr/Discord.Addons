@@ -15,9 +15,9 @@ namespace Examples.MpGame
         }
 
         //Do stuff to get external data if needed
-        protected override void BeforeExecute()
+        protected override void BeforeExecute(CommandInfo command)
         {
-            base.BeforeExecute();
+            base.BeforeExecute(command);
             GameService.DataDictionary.TryGetValue(Context.Channel, out _data);
         }
 

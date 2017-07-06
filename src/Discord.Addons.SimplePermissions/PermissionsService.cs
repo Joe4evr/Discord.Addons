@@ -18,9 +18,9 @@ namespace Discord.Addons.SimplePermissions
         private readonly Func<LogMessage, Task> _logger;
         private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
 
-        internal readonly ConcurrentDictionary<ulong, FancyHelpMessage> Helpmsgs = new ConcurrentDictionary<ulong, FancyHelpMessage>();
-        internal readonly CommandService CService;
-        internal readonly IConfigStore<IPermissionConfig> ConfigStore;
+        internal ConcurrentDictionary<ulong, FancyHelpMessage> Helpmsgs { get; } = new ConcurrentDictionary<ulong, FancyHelpMessage>();
+        internal CommandService CService { get; }
+        internal IConfigStore<IPermissionConfig> ConfigStore { get; }
 
         private PermissionsService(
             IConfigStore<IPermissionConfig> configstore,

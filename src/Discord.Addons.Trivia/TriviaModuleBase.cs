@@ -22,8 +22,9 @@ namespace Discord.Addons.TriviaGames
             Service = service;
         }
 
-        protected override void BeforeExecute()
+        protected override void BeforeExecute(CommandInfo command)
         {
+            base.BeforeExecute(command);
             Game = Service.TriviaGames.GetValueOrDefault(Context.Channel.Id);
             GameInProgress = Game != null;
         }

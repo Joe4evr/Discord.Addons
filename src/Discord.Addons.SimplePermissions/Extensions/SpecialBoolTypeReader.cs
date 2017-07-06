@@ -21,7 +21,7 @@ namespace Discord.Addons.SimplePermissions
             };
         }
 
-        public override Task<TypeReaderResult> Read(ICommandContext context, string input)
+        public override Task<TypeReaderResult> Read(ICommandContext context, string input, IServiceProvider services)
         {
             return Task.FromResult(TypeReaderResult.FromSuccess(_trues.Any(o => o.Equals(input, StringComparison.OrdinalIgnoreCase))));
         }

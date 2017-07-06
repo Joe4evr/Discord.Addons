@@ -48,7 +48,7 @@ namespace Discord.Addons.SimplePermissions
 
             var info = new EmbedBuilder()
                 .WithAuthor(a => a.WithName("Debug information")
-                    .WithIconUrl(new Uri(app.IconUrl)))
+                    .WithIconUrl(app.IconUrl))
                 .WithTitle($"{app.Name} - Created: {app.CreatedAt.ToString("d MMM yyyy, HH:mm UTC")}")
                 .WithDescription($"{app.Description}\nLoaded (non-System) assemblies:")
                 .AddFieldSequence(asms, (fb, asm) => fb.WithIsInline(true)
@@ -67,18 +67,22 @@ namespace Discord.Addons.SimplePermissions
         public async Task HelpCmd()
         {
             var cmds = (await _permService.CService.Commands
-                .Where(c => !c.Preconditions.Any(p => p is HiddenAttribute))
+                .Where(c => !c.Attributes.Any(p => p is HiddenAttribute))
                 .CheckConditions(Context, _services, _permService).ConfigureAwait(false));
 
             if (await UseFancy().ConfigureAwait(false))
             {
+                if (await _permService.GetHidePermCommands(Context.Guild).ConfigureAwait(false))
+                    cmds = cmds.Where(c => c.Module.Name != PermModuleName);
+
                 var app = await Context.Client.GetApplicationInfoAsync().ConfigureAwait(false);
-                _permService.AddNewFancy(await new FancyHelpMessage(Context.Channel, Context.User, cmds, app).SendMessage().ConfigureAwait(false));
+                _permService.AddNewFancy(await new FancyHelpMessage(Context.Channel, Context.User, cmds.ToList(), app).SendMessage().ConfigureAwait(false));
             }
             else
             {
                 var grouped = cmds.GroupBy(c => c.Module.Name)
-                    .Select(g => $"{g.Key}:\n\t`{String.Join("`, `", g.Select(c => c.Aliases.FirstOrDefault()).Distinct())}`");
+                    .Select(g => $"{g.Key}:\n\t`{String.Join("`, `", g.Select(c => c.Aliases.FirstOrDefault()).Distinct())}`")
+                    .ToList();
 
                 var sb = new StringBuilder("You can use the following commands:\n")
                     .AppendLine($"{String.Join("\n", grouped)}\n")
@@ -93,7 +97,7 @@ namespace Discord.Addons.SimplePermissions
             using (var config = _permService.ConfigStore.Load())
             {
                 bool fancyEnabled = Context.Guild != null && await config.GetFancyHelpValue(Context.Guild).ConfigureAwait(false);
-                return fancyEnabled //&& PermissionsService.GetMessageCacheSize(Context.Client) > 0
+                return fancyEnabled
                     && (await Context.Guild.GetCurrentUserAsync()).HasPerms(Context.Channel as ITextChannel,
                         PermissionsExtensions.DiscordPermissions.ADD_REACTIONS
                         | PermissionsExtensions.DiscordPermissions.MANAGE_MESSAGES);
@@ -279,6 +283,5 @@ namespace Discord.Addons.SimplePermissions
                 }
             }
         }
-
     }
 }

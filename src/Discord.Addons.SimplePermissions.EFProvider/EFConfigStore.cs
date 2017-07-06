@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Discord.Commands;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -8,23 +9,24 @@ namespace Discord.Addons.SimplePermissions
     /// <typeparam name="TGuild">The Guild configuration type.</typeparam>
     /// <typeparam name="TChannel">The Channel configuration type.</typeparam>
     /// <typeparam name="TUser">The User configuration type.</typeparam>
-    public class EFConfigStore<TContext, TGuild, TChannel, TUser> : IConfigStore<TContext>
+    public class EFConfigStore<TContext, TGuild, TChannel, TUser> : BaseConfigStore<TContext>
         where TContext : EFBaseConfigContext<TGuild, TChannel, TUser>, new()
         where TGuild   : ConfigGuild<TChannel, TUser>, new()
         where TChannel : ConfigChannel<TUser>, new()
         where TUser    : ConfigUser, new()
     {
         /// <summary> Initializes a new instance of <see cref="EFConfigStore{TContext}"/>. </summary>
-        /// <param name="parameters">A list of parameters that should be
-        /// passed into the construcotr of your <see cref="TContext"/> type. </param>
-        public EFConfigStore()
+        public EFConfigStore(CommandService commands)
+            : base(commands)
         {
         }
 
         /// <summary> Loads an instance of the DB Context. </summary>
-        public TContext Load()
+        public override TContext Load()
         {
-            return new TContext();
+            var context = new TContext();
+            context.Commands = Commands;
+            return context;
         }
 
         ///// <summary> Save changes of the DB Context to disk. </summary>

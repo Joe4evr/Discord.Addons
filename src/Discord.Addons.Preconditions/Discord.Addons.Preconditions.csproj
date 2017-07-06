@@ -6,7 +6,7 @@
     </PropertyGroup>
     <PropertyGroup>
         <Description>Useful preconditions Discord.Net 1.0.</Description>
-        <VersionPrefix>0.3.5</VersionPrefix>
+        <VersionPrefix>1.0.0</VersionPrefix>
         <VersionSuffix>rc</VersionSuffix>
         <Authors>Joe4evr</Authors>
         <TargetFramework>netstandard1.3</TargetFramework>
@@ -28,7 +28,7 @@
         <None Include="README.md" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Discord.Net.Commands" Version="1.0.0-rc3-00766" />
+        <PackageReference Include="Discord.Net.Commands" Version="1.0.1" />
     </ItemGroup>
     <PropertyGroup Condition="'$(Configuration)' == 'Release'">
         <Optimize>True</Optimize>

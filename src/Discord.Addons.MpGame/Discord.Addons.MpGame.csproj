@@ -7,7 +7,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <Description>Base classes for text-based games in Discord</Description>
-    <VersionPrefix>0.9.21</VersionPrefix>
+    <VersionPrefix>1.0.0</VersionPrefix>
     <VersionSuffix>rc</VersionSuffix>
     <Authors>Joe4evr</Authors>
     <TargetFramework>netstandard1.3</TargetFramework>
@@ -36,8 +36,8 @@
       <PackageReference Include="XmlDocumentationComments.Analyzers" Version="1.2.0-beta1" />
   </ItemGroup>-->
   <ItemGroup>
-    <PackageReference Include="Discord.Net.Commands" Version="1.0.0-rc3-00766" />
-    <PackageReference Include="Discord.Net.WebSocket" Version="1.0.0-rc3-00766" />
+    <PackageReference Include="Discord.Net.Commands" Version="1.0.1" />
+    <PackageReference Include="Discord.Net.WebSocket" Version="1.0.1" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <Optimize>True</Optimize>

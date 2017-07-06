@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Discord;
+using Discord.Commands;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -12,6 +14,7 @@ namespace Discord.Addons.SimplePermissions
         where TChannel : ConfigChannel<TUser>, new()
         where TUser : ConfigUser, new()
     {
+        public CommandService Commands { private get; set; }
 
         async Task IPermissionConfig.AddNewGuild(IGuild guild)
         {
@@ -88,18 +91,22 @@ namespace Discord.Addons.SimplePermissions
             return Task.FromResult(true);
         }
 
-        IEnumerable<string> IPermissionConfig.GetChannelModuleWhitelist(IChannel channel)
+        IEnumerable<ModuleInfo> IPermissionConfig.GetChannelModuleWhitelist(IChannel channel)
         {
-            return Channels.Include(c => c.WhiteListedModules)
+            var wl = Channels.Include(c => c.WhiteListedModules)
                 .Single(c => c.ChannelId == channel.Id)
-                .WhiteListedModules.Select(m => m.ModuleName);
+                .WhiteListedModules.Select(m => m.ModuleName)
+                .ToList();
+            return Commands.Modules.Where(m => wl.Contains(m.Name));
         }
 
-        IEnumerable<string> IPermissionConfig.GetGuildModuleWhitelist(IGuild guild)
+        IEnumerable<ModuleInfo> IPermissionConfig.GetGuildModuleWhitelist(IGuild guild)
         {
-            return Guilds.Include(c => c.WhiteListedModules)
+            var wl = Guilds.Include(c => c.WhiteListedModules)
                    .Single(g => g.GuildId == guild.Id)
-                   .WhiteListedModules.Select(m => m.ModuleName);
+                   .WhiteListedModules.Select(m => m.ModuleName)
+                   .ToList();
+            return Commands.Modules.Where(m => wl.Contains(m.Name));
         }
 
         Task<bool> IPermissionConfig.WhitelistModule(IChannel channel, string moduleName)
@@ -211,5 +218,24 @@ namespace Discord.Addons.SimplePermissions
         }
 
         void IPermissionConfig.Save() => SaveChanges();
+
+        private async Task<TChannel> AddChannelInternal(IChannel channel)
+        {
+            var cChannel = new TChannel
+            {
+                ChannelId = channel.Id,
+                WhiteListedModules = new List<ConfigModule>(),
+                SpecialUsers = new List<TUser>()
+            };
+            await OnChannelAdd(cChannel);
+            return cChannel;
+        }
+
+        private async Task<TUser> AddUserInternal(IGuildUser user)
+        {
+            var cUser = new TUser { UserId = user.Id, GuildId = user.GuildId };
+            await OnUserAdd(cUser);
+            return cUser;
+        }
     }
 }

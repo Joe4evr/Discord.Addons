@@ -12,7 +12,6 @@ namespace Discord.Addons.SimplePermissions
         where TConfig : JsonConfigBase, new()
     {
         private readonly string _jsonPath;
-        //private readonly TConfig _config;
 
         /// <summary> Initializes a new instance of <see cref="JsonConfigStore{TConfig}"/>.
         /// Will create a new file if it does not exist. </summary>
@@ -74,10 +73,5 @@ namespace Discord.Addons.SimplePermissions
             (config as ISetPath).SetPath(_jsonPath);
             return config;
         }
-
-        ///// <summary> Saves the configuration object to disk. </summary>
-        //public void Save()
-        //{
-        //}
     }
 }

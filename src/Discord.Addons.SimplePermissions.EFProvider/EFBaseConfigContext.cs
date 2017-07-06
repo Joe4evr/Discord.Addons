@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Discord;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -59,25 +60,6 @@ namespace Discord.Addons.SimplePermissions
 
             modelBuilder.Entity<ConfigGuild<TUser>>()
                 .HasAlternateKey(e => e.GuildId);
-        }
-
-        private async Task<TChannel> AddChannelInternal(IChannel channel)
-        {
-            var cChannel = new TChannel
-            {
-                ChannelId = channel.Id,
-                WhiteListedModules = new List<ConfigModule>(),
-                SpecialUsers = new List<TUser>()
-            };
-            await OnChannelAdd(cChannel);
-            return cChannel;
-        }
-
-        private async Task<TUser> AddUserInternal(IGuildUser user)
-        {
-            var cUser = new TUser { UserId = user.Id, GuildId = user.GuildId };
-            await OnUserAdd(cUser);
-            return cUser;
         }
     }
 
