@@ -5,6 +5,7 @@ using Discord.Commands;
 
 namespace Examples.MpGame
 {
+    [Group("example")] // If you make multiple games, it would be smart to group each under a seperate name
     public sealed class ExampleModule : MpGameModuleBase< // Inherit MpGameModuleBase
         ExampleService, // Specify the type of the service that will keep track of running games
         ExampleGame, Player> // Specify the type of the game and the type of its player
@@ -28,7 +29,7 @@ namespace Examples.MpGame
         [Command("opengame")]
         public override async Task OpenGameCmd()
         {
-            if (GameInProgress)
+            if (GameInProgress != CurrentlyPlaying.None)
             {
                 await ReplyAsync("Another game already in progress.").ConfigureAwait(false);
             }
@@ -50,7 +51,7 @@ namespace Examples.MpGame
         [Command("join")]
         public override async Task JoinGameCmd()
         {
-            if (GameInProgress)
+            if (GameInProgress == CurrentlyPlaying.ThisGame)
             {
                 await ReplyAsync("Cannot join a game already in progress.").ConfigureAwait(false);
             }
@@ -70,7 +71,7 @@ namespace Examples.MpGame
         [Command("leave")] // Users can leave if the game hasn't started yet
         public override async Task LeaveGameCmd()
         {
-            if (GameInProgress)
+            if (GameInProgress == CurrentlyPlaying.ThisGame)
             {
                 await ReplyAsync("Cannot leave a game already in progress.").ConfigureAwait(false);
             }
@@ -90,7 +91,7 @@ namespace Examples.MpGame
         [Command("cancel")] // Cancel the game if it hasn't started yet
         public override async Task CancelGameCmd()
         {
-            if (GameInProgress)
+            if (GameInProgress == CurrentlyPlaying.ThisGame)
             {
                 await ReplyAsync("Cannot cancel a game already in progress.").ConfigureAwait(false);
             }
@@ -110,7 +111,7 @@ namespace Examples.MpGame
         [Command("start")] // Start the game
         public override async Task StartGameCmd()
         {
-            if (GameInProgress)
+            if (GameInProgress != CurrentlyPlaying.None)
             {
                 await ReplyAsync("Another game already in progress.").ConfigureAwait(false);
             }
@@ -142,16 +143,19 @@ namespace Examples.MpGame
 
         [Command("turn")] // Advance to the next turn
         public override Task NextTurnCmd()
-            => GameInProgress ? Game.NextTurn() : ReplyAsync("No game in progress.");
+            => GameInProgress == CurrentlyPlaying.ThisGame ? Game.NextTurn() :
+                GameInProgress == CurrentlyPlaying.DifferentGame ? ReplyAsync("Different game in progress.") : ReplyAsync("No game in progress.");
 
         // Post a message that represents the game's state
         [Command("state")] //Remember there's a 2000 character limit
         public override Task GameStateCmd()
-           => GameInProgress ? ReplyAsync(Game.GetGameState()) : ReplyAsync("No game in progress.");
+           => GameInProgress == CurrentlyPlaying.ThisGame ? ReplyAsync(Game.GetGameState()) :
+                GameInProgress == CurrentlyPlaying.DifferentGame ? ReplyAsync("Different game in progress.") : ReplyAsync("No game in progress.");
 
         // Command to end a game before a win-condition is met
         [Command("end")] //Should be restricted to mods/admins to prevent abuse
         public override Task EndGameCmd()
-            => !GameInProgress ? ReplyAsync("No game in progress to end.") : Game.EndGame("Game ended early by moderator.");
+            => GameInProgress == CurrentlyPlaying.ThisGame ? Game.EndGame("Game ended early by moderator.") :
+                GameInProgress == CurrentlyPlaying.DifferentGame ? ReplyAsync("Different game in progress.") : ReplyAsync("No game in progress.");
     }
 }
