@@ -22,7 +22,7 @@ namespace Discord.Addons.MpGame
         public Player(IUser user, IMessageChannel channel)
         {
             User = user ?? throw new ArgumentNullException(nameof(user));
-            //pubChannel = channel ?? throw new ArgumentNullException(nameof(channel));
+            pubChannel = channel ?? throw new ArgumentNullException(nameof(channel));
 
             //try
             //{

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace Discord.Addons.MpGame
     /// <typeparam name="TService">The type of the service managing longer lived objects.</typeparam>
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
-    public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<ICommandContext>
+    public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<SocketCommandContext>
         where TService : MpGameService<TGame, TPlayer>
         where TGame    : GameBase<TPlayer>
         where TPlayer  : Player
@@ -30,23 +31,27 @@ namespace Discord.Addons.MpGame
             OpenToJoin = data?.OpenToJoin ?? false;
             PlayerList = data?.JoinedUsers ?? ImmutableHashSet<IUser>.Empty;
             Game = data?.Game;
-            GameInProgress = Game != null;
+            //GameInProgress = (Game != null); //|| GlobalGameTracker.ContainsKey(Context.Channel);
+            GameInProgress = Game != null ? CurrentlyPlaying.ThisGame :
+                (GlobalGameTracker.ContainsKey(Context.Channel) ? CurrentlyPlaying.DifferentGame : CurrentlyPlaying.None);
         }
 
         /// <summary> The <see cref="TService"/> instance. </summary>
         protected TService GameService { get; }
 
+        //TODO: C# "who-knows-when" feature, nullability annotation
         /// <summary> The instance of the game being played (if active). </summary>
         protected TGame Game { get; private set; }
 
         /// <summary> Determines if a game in the current channel is in progress or not. </summary>
-        protected bool GameInProgress { get; private set; }
+        //protected bool GameInProgress { get; private set; }
+        protected CurrentlyPlaying GameInProgress { get; private set; }
 
         /// <summary> Determines if a game in the current channel is open to join or not. </summary>
         protected bool OpenToJoin { get; private set; }
 
         /// <summary> The list of users ready to play. </summary>
-        protected ImmutableHashSet<IUser> PlayerList { get; private set; }
+        protected IReadOnlyCollection<IUser> PlayerList { get; private set; }
 
         /// <summary> Command to open a game for others to join. </summary>
         public abstract Task OpenGameCmd();
@@ -76,7 +81,7 @@ namespace Discord.Addons.MpGame
         //[Command("resend")]
         public virtual async Task ResendCmd()
         {
-            if (GameInProgress)
+            if (GameInProgress == CurrentlyPlaying.ThisGame)
             {
                 var player = Game.Players.SingleOrDefault(p => p.User.Id == Context.User.Id);
                 if (player != null)
@@ -84,6 +89,19 @@ namespace Discord.Addons.MpGame
                     await player.RetrySendMessageAsync();
                 }
             }
+        }
+
+        /// <summary> Specifies if a game is being played when the command is invoked. </summary>
+        protected enum CurrentlyPlaying
+        {
+            /// <summary> No game is being played in this channel. </summary>
+            None = 0,
+
+            /// <summary> This game is being played in this channel. </summary>
+            ThisGame = 1,
+
+            /// <summary> A different game is being played in this channel. </summary>
+            DifferentGame = 2
         }
     }
 

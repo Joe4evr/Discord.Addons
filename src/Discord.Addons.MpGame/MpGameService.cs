@@ -59,6 +59,7 @@ namespace Discord.Addons.MpGame
         {
             if (_dataList.TryRemove(channel, out var data))
             {
+                GlobalGameTracker.TryRemove(channel);
                 data.Game.GameEnd -= _onGameEnd;
             }
             return Task.CompletedTask;
@@ -75,6 +76,7 @@ namespace Discord.Addons.MpGame
                 {
                     data = new PersistentGameData<TGame, TPlayer>();
                     _dataList.TryAdd(channel, data);
+                    GlobalGameTracker.TryAdd(channel, typeof(TGame).FullName);
                 }
                 data.NewPlayerList();
                 return data.TryUpdateOpenToJoin(newValue: true, oldValue: false);
@@ -187,15 +189,15 @@ namespace Discord.Addons.MpGame
         /// or <see cref="null"/> if there is none.</returns>
         public async Task<TGame> GetGameFromChannelAsync(IMessageChannel channel)
         {
-            if (GameList.TryGetValue(channel, out var g))
+            if (_dataList.TryGetValue(channel, out var d))
             {
-                return g;
+                return d.Game;
             }
-            foreach (var game in GameList.Values)
+            foreach (var data in _dataList.Values)
             {
-                if ((await game.PlayerChannels().ConfigureAwait(false)).Select(c => c.Id).Contains(channel.Id))
+                if ((await data.Game.PlayerChannels().ConfigureAwait(false)).Any(c => c.Id == channel.Id))
                 {
-                    return game;
+                    return data.Game;
                 }
             }
             return null;

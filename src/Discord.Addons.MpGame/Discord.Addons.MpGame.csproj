@@ -3,7 +3,6 @@
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <WarningLevel>0</WarningLevel>
-    <Features>IOperation</Features>
   </PropertyGroup>
   <PropertyGroup>
     <Description>Base classes for text-based games in Discord</Description>
