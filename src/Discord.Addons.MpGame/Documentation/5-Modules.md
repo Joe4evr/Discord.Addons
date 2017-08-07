@@ -16,7 +16,7 @@ public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<IC
 
     protected TGame Game { get; }
 
-    protected bool GameInProgress { get; }
+    protected CurrentlyPlaying GameInProgress { get; }
 
     protected bool OpenToJoin { get; }
 
@@ -39,6 +39,13 @@ public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<IC
     public abstract Task EndGameCmd();
 
     public virtual async Task ResendCmd();
+
+    protected enum CurrentlyPlaying
+    {
+        None,
+        ThisGame,
+        DifferentGame
+    }
 }
 ```
 
