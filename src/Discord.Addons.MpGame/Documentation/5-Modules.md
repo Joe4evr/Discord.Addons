@@ -104,6 +104,6 @@ public class CardGameModule : MpGameModuleBase<CardGame, CardPlayer>
 Example implementations for the abstract methods can be found
 [in the Examples project](../../../Examples/MpGame/ExampleModule.cs).
 An extensive example can be found as my implementation of
-[Secret Hitler](https://github.com/Joe4evr/MechHisui/tree/1.0/src/MechHisui.SecretHitler).
+[Secret Hitler](https://github.com/Joe4evr/MechHisui/tree/master/src/MechHisui.SecretHitler).
 
 [<- Part 4 - Services](4-Services.md) - Modules - [Part 6 - Final step ->](6-FinalStep.md)

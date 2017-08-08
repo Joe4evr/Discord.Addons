@@ -76,7 +76,6 @@ namespace Discord.Addons.MpGame
                 {
                     data = new PersistentGameData<TGame, TPlayer>();
                     _dataList.TryAdd(channel, data);
-                    GlobalGameTracker.TryAdd(channel, typeof(TGame).FullName);
                 }
                 data.NewPlayerList();
                 return data.TryUpdateOpenToJoin(newValue: true, oldValue: false);
@@ -93,11 +92,6 @@ namespace Discord.Addons.MpGame
             {
                 if (_dataList.TryGetValue(channel, out var data))
                 {
-                    //var builder = _playerList[channel].ToBuilder();
-                    //var result = builder.Add(user);
-                    //if (result)
-                    //    _playerList[channel] = builder.ToImmutable();
-
                     return data.TryAddUser(user);
                 }
                 else
@@ -117,11 +111,6 @@ namespace Discord.Addons.MpGame
             {
                 if (_dataList.TryGetValue(channel, out var data))
                 {
-                    //var builder = _playerList[channel].ToBuilder();
-                    //var result = builder.Remove(user);
-                    //if (result)
-                    //    _playerList[channel] = builder.ToImmutable();
-
                     return data.TryRemoveUser(user);
                 }
                 else
@@ -136,11 +125,6 @@ namespace Discord.Addons.MpGame
         /// <returns>true if the operation succeeded, otherwise false.</returns>
         public bool CancelGame(IMessageChannel channel)
         {
-            //lock (_lock)
-            //{
-            //    return (TryUpdateOpenToJoin(channel, newValue: false, comparisonValue: true)
-            //        && _playerList.TryRemove(channel, out var _));
-            //}
             return _dataList.TryRemove(channel, out var _);
         }
 
@@ -158,6 +142,7 @@ namespace Discord.Addons.MpGame
                     if (success)
                     {
                         game.GameEnd += _onGameEnd;
+                        GlobalGameTracker.TryAdd(channel, typeof(TGame).FullName);
                     }
                     return success;
                 }
