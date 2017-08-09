@@ -1,39 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-  <PropertyGroup Label="Configuration">
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
-    <WarningLevel>0</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <Description>Discord.Net module for command permission management.</Description>
-    <VersionPrefix>1.0.0</VersionPrefix>
-    <VersionSuffix>rc</VersionSuffix>
-    <Authors>Joe4evr</Authors>
-    <TargetFramework>netstandard1.6</TargetFramework>
-    <AssemblyName>Discord.Addons.SimplePermissions</AssemblyName>
-    <PackageId>Discord.Addons.SimplePermissions</PackageId>
-    <RootNamespace>Discord.Addons.SimplePermissions</RootNamespace>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageProjectUrl>https://github.com/Joe4evr/Discord.Addons</PackageProjectUrl>
-    <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
-    <PackageTags>discord;commands;permissions</PackageTags>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Discord.Net.Commands" Version="1.0.1" />
-    <PackageReference Include="Discord.Net.WebSocket" Version="1.0.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.0-preview1-002111" />
-    <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
-  </ItemGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <Optimize>True</Optimize>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup />
-  <!--<Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />-->
+    <PropertyGroup Label="Configuration">
+        <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+        <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+        <WarningLevel>0</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup>
+        <AssemblyName>Discord.Addons.SimplePermissions</AssemblyName>
+        <PackageId>$(AssemblyName)</PackageId>
+        <RootNamespace>$(AssemblyName)</RootNamespace>
+        <Title>$(AssemblyName)</Title>
+        <VersionPrefix>1.0.0</VersionPrefix>
+        <VersionSuffix>rc</VersionSuffix>
+        <Description>Discord.Net module for command permission management.</Description>
+        <Authors>Joe4evr</Authors>
+        <TargetFramework>netstandard1.6</TargetFramework>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageProjectUrl>https://github.com/Joe4evr/Discord.Addons</PackageProjectUrl>
+        <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
+        <PackageTags>discord;commands;permissions</PackageTags>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Include="README.md" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Discord.Net.Commands" Version="1.0.1" />
+        <PackageReference Include="Discord.Net.WebSocket" Version="1.0.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.0-preview1-002111" />
+        <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
+    </ItemGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <Optimize>True</Optimize>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    </PropertyGroup>
+    <PropertyGroup />
+    <!--<Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />-->
 </Project>

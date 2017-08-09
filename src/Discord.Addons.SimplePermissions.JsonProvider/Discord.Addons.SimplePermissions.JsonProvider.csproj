@@ -1,30 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-  <PropertyGroup Label="Configuration">
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
-    <WarningLevel>0</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <Description>Json.Net provider for Discord.Addons.SimplePermissions</Description>
-    <VersionPrefix>1.0.0</VersionPrefix>
-    <VersionSuffix>rc</VersionSuffix>
-    <Authors>Joe4evr</Authors>
-    <TargetFramework>netstandard1.6</TargetFramework>
-    <AssemblyName>Discord.Addons.SimplePermissions.JsonProvider</AssemblyName>
-    <PackageId>Discord.Addons.SimplePermissions.JsonProvider</PackageId>
-    <RootNamespace>Discord.Addons.SimplePermissions.JsonProvider</RootNamespace>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageProjectUrl>https://github.com/Joe4evr/Discord.Addons</PackageProjectUrl>
-    <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
-    <PackageTags>discord</PackageTags>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Discord.Addons.SimplePermissions" Version="1.0.0-rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />
-  </ItemGroup>
+    <PropertyGroup Label="Configuration">
+        <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+        <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+        <WarningLevel>0</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup>
+        <AssemblyName>Discord.Addons.SimplePermissions.JsonProvider</AssemblyName>
+        <PackageId>$(AssemblyName)</PackageId>
+        <RootNamespace>$(AssemblyName)</RootNamespace>
+        <Title>$(AssemblyName)</Title>
+        <VersionPrefix>1.0.0</VersionPrefix>
+        <VersionSuffix>rc</VersionSuffix>
+        <Description>Json.Net provider for Discord.Addons.SimplePermissions</Description>
+        <Authors>Joe4evr</Authors>
+        <TargetFramework>netstandard1.6</TargetFramework>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageProjectUrl>https://github.com/Joe4evr/Discord.Addons</PackageProjectUrl>
+        <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
+        <PackageTags>discord</PackageTags>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Discord.Addons.SimplePermissions" Version="1.0.0-rc" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />
+    </ItemGroup>
 </Project>
