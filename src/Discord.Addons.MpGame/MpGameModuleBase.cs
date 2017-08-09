@@ -32,8 +32,9 @@ namespace Discord.Addons.MpGame
             PlayerList = data?.JoinedUsers ?? ImmutableHashSet<IUser>.Empty;
             Game = data?.Game;
             //GameInProgress = (Game != null); //|| GlobalGameTracker.ContainsKey(Context.Channel);
-            GameInProgress = Game != null ? CurrentlyPlaying.ThisGame :
-                (GlobalGameTracker.ContainsKey(Context.Channel) ? CurrentlyPlaying.DifferentGame : CurrentlyPlaying.None);
+            GameInProgress = GameTracker.Instance.TryGet(Context.Channel, out var name)
+                ? (name == GameService.GameName ? CurrentlyPlaying.ThisGame : CurrentlyPlaying.DifferentGame)
+                : CurrentlyPlaying.None;
         }
 
         /// <summary> The <see cref="TService"/> instance. </summary>

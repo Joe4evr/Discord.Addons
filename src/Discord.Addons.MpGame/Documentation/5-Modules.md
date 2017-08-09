@@ -53,6 +53,11 @@ Other versions of this class with less generic parameters also exist,
 so you don't *need* to supply all the type parameters. Consult
 IntelliSense for the details.
 
+`CurrentlyPlaying` is an enum that indicates if the channel already
+has a game going on, and if it is the game type that this module handles
+or another game type. You can use this to ensure that you won't get
+two different games being played simultaniously in the same channel.
+
 There are 8 methods you can implement, corresponding to the
 actions needed in most games. When you implement these, you decorate them with `[Command]`
 so that the command system recognizes them. There may be methods you don't want or need to

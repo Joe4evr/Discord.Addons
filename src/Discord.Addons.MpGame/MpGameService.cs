@@ -19,6 +19,8 @@ namespace Discord.Addons.MpGame
         ///// <summary> A cached <see cref="IEqualityComparer{IUser}"/> instance to use when
         ///// instantiating a <see cref="Dictionary{TKey, TValue}"/> using an <see cref="IUser"/> as the key. </summary>
         //protected static IEqualityComparer<IUser> UserComparer { get; } = Comparers.UserComparer;
+        private static readonly string _gameName = typeof(TGame).FullName;
+        internal string GameName => _gameName;
 
         /// <summary> A cached <see cref="IEqualityComparer{IMessageChannel}"/> instance to use when
         /// instantiating a <see cref="Dictionary{TKey, TValue}"/> using <see cref="IMessageChannel"/> as the key. </summary>
@@ -59,7 +61,7 @@ namespace Discord.Addons.MpGame
         {
             if (_dataList.TryRemove(channel, out var data))
             {
-                GlobalGameTracker.TryRemove(channel);
+                GameTracker.Instance.TryRemove(channel);
                 data.Game.GameEnd -= _onGameEnd;
             }
             return Task.CompletedTask;
@@ -141,8 +143,8 @@ namespace Discord.Addons.MpGame
                     var success = data.SetGame(game) && TryUpdateOpenToJoin(channel, newValue: false, comparisonValue: true);
                     if (success)
                     {
+                        GameTracker.Instance.TryAdd(channel, GameName);
                         game.GameEnd += _onGameEnd;
-                        GlobalGameTracker.TryAdd(channel, typeof(TGame).FullName);
                     }
                     return success;
                 }
