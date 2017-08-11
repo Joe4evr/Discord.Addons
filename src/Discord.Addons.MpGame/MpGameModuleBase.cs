@@ -31,7 +31,6 @@ namespace Discord.Addons.MpGame
             OpenToJoin = data?.OpenToJoin ?? false;
             PlayerList = data?.JoinedUsers ?? ImmutableHashSet<IUser>.Empty;
             Game = data?.Game;
-            //GameInProgress = (Game != null); //|| GlobalGameTracker.ContainsKey(Context.Channel);
             GameInProgress = GameTracker.Instance.TryGet(Context.Channel, out var name)
                 ? (name == GameService.GameName ? CurrentlyPlaying.ThisGame : CurrentlyPlaying.DifferentGame)
                 : CurrentlyPlaying.None;
@@ -45,7 +44,6 @@ namespace Discord.Addons.MpGame
         protected TGame Game { get; private set; }
 
         /// <summary> Determines if a game in the current channel is in progress or not. </summary>
-        //protected bool GameInProgress { get; private set; }
         protected CurrentlyPlaying GameInProgress { get; private set; }
 
         /// <summary> Determines if a game in the current channel is open to join or not. </summary>
@@ -126,32 +124,8 @@ namespace Discord.Addons.MpGame
     public abstract class MpGameModuleBase<TGame> : MpGameModuleBase<MpGameService<TGame, Player>, TGame, Player>
         where TGame : GameBase<Player>
     {
-        protected MpGameModuleBase(MpGameService<TGame, Player> service) : base(service)
+        protected MpGameModuleBase(MpGameService<TGame> service) : base(service)
         {
         }
     }
-
-    //public abstract class MpGameModuleBase<TService, TGame> : MpGameModuleBase<TService, TGame, Player>
-    //    where TService : MpGameService<TGame, Player>
-    //    where TGame : GameBase<Player>
-    //{
-    //    protected MpGameModuleBase(TService service) : base(service)
-    //    {
-    //    }
-    //}
-
-    //public abstract class MpGameModuleBase<TService> : MpGameModuleBase<TService, GameBase, Player>
-    //    where TService : MpGameService<GameBase, Player>
-    //{
-    //    protected MpGameModuleBase(TService service) : base(service)
-    //    {
-    //    }
-    //}
-
-    //public abstract class MpGameModuleBase : MpGameModuleBase<MpGameService, GameBase, Player>
-    //{
-    //    protected MpGameModuleBase(MpGameService gameService) : base(gameService)
-    //    {
-    //    }
-    //}
 }

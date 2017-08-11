@@ -61,6 +61,14 @@ namespace Discord.Addons.SimplePermissions
             await ReplyAsync("", embed: info).ConfigureAwait(false);
         }
 
+        [Command("shutdown"), Permission(MinimumPermission.BotOwner)]
+        [Alias("kill"), Hidden]
+        public Task ShutdownCmd(int code = 0)
+        {
+            Environment.Exit(code);
+            return Task.CompletedTask;
+        }
+
         /// <summary> Display commands you can use. </summary>
         [Command("help"), Permission(MinimumPermission.Everyone)]
         [Summary("Display commands you can use.")]

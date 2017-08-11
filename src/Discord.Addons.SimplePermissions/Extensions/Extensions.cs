@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Discord.Commands;
@@ -58,21 +59,26 @@ namespace Discord.Addons.SimplePermissions
         internal static string FormatParam(this CommandParam param)
         {
             var sb = new StringBuilder();
+
+            string type = param.Type.Name.StartsWith("Socket") ? param.Type.Name.Substring(6)
+                : param.Type.GetTypeInfo().IsInterface ? param.Type.Name.Substring(1)
+                : param.Type.Name;
+
             if (param.IsMultiple)
             {
-                sb.Append($"`[({param.Type.Name}): {param.Name}...]`");
+                sb.Append($"`[({type}): {param.Name}...]`");
             }
             else if (param.IsRemainder) //&& IsOptional - decided not to check for the combination
             {
-                sb.Append($"`<({param.Type.Name}): {param.Name}...>`");
+                sb.Append($"`<({type}): {param.Name}...>`");
             }
             else if (param.IsOptional)
             {
-                sb.Append($"`[({param.Type.Name}): {param.Name}]`");
+                sb.Append($"`[({type}): {param.Name}]`");
             }
             else
             {
-                sb.Append($"`<({param.Type.Name}): {param.Name}>`");
+                sb.Append($"`<({type}): {param.Name}>`");
             }
 
             if (!String.IsNullOrWhiteSpace(param.Summary))

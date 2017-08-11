@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Discord.Audio;
+using System.IO;
 
 namespace Discord.Addons.SimpleAudio
 {
@@ -98,6 +99,38 @@ namespace Discord.Addons.SimpleAudio
             var isDisposed = (bool)disposedField.GetValue(_ffmpeg);
 
             return !(isDisposed || _ffmpeg.HasExited);
+        }
+
+        private bool _pause = false;
+        private CancellationTokenSource _pauseToken = new CancellationTokenSource();
+
+        public void Pause() => _pause = true;
+        public void Resume()
+        {
+            if (_pause)
+            {
+                _pauseToken.Cancel();
+                _pauseToken.Dispose();
+                _pauseToken = new CancellationTokenSource();
+            }
+        }
+
+        private async Task PausableCopyToAsync(Stream source, Stream destination, int buffersize)
+        {
+            byte[] buffer = new byte[buffersize];
+            int offset = 0;
+            int count = await source.ReadAsync(buffer, offset, buffersize);
+
+            while (count > 0)
+            {
+                if (_pause)
+                {
+                    await Task.Delay(-1, _pauseToken.Token);
+                }
+                await destination.WriteAsync(buffer, offset, count);
+                offset = count;
+                count = await source.ReadAsync(buffer, offset, buffersize);
+            }
         }
     }
 }

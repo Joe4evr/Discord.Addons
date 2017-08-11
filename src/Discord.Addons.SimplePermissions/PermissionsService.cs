@@ -167,10 +167,10 @@ namespace Discord.Addons.SimplePermissions
 
             if (multiples.Any())
             {
-                await Log(LogSeverity.Error, "Multiple modules with the same Name have been registered, SimplePermissions cannot function.");
-                throw new Exception(
-$@"Multiple modules with the same Name have been registered, SimplePermissions cannot function.
-Duplicate names: {String.Join(", ", multiples.Distinct())}.");
+                var error = $@"Multiple modules with the same Name have been registered, SimplePermissions cannot function.
+    Duplicate names: {String.Join(", ", multiples.Distinct())}.";
+                await Log(LogSeverity.Error, error);
+                throw new Exception(error);
             }
 
             if (_sockClient != null)
@@ -190,20 +190,6 @@ Duplicate names: {String.Join(", ", multiples.Distinct())}.");
             Helpmsgs.TryAdd(fhm.MsgId, fhm);
             return Task.CompletedTask;
         }
-
-        //private void RemovePermissionsModule(IMessageChannel channel)
-        //{
-        //    ConfigStore.Load().BlacklistModule(channel, PermissionsModule.PermModuleName);
-        //    ConfigStore.Save();
-        //    Console.WriteLine($"{DateTime.Now}: Removed permission management from {channel.Name}.");
-        //}
-
-        //private void AddPermissionsModule(IMessageChannel channel)
-        //{
-        //    ConfigStore.Load().WhitelistModule(channel, PermissionsModule.PermModuleName);
-        //    ConfigStore.Save();
-        //    Console.WriteLine($"{DateTime.Now}: Added permission management to {channel.Name}.");
-        //}
 
         internal async Task<bool> SetGuildAdminRole(IGuild guild, IRole role)
         {

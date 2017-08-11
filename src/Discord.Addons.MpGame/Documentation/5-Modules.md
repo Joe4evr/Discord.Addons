@@ -69,7 +69,7 @@ to a user after they have been notified to enable DMs.
 If you want to make use of this command, you will need to override
 it just to call the base method and add the `[Command]` attribute.
 
-With your own service class for persistent data, you should derive
+With your own service class and a data type for persistent data, you should derive
 from this class as follows:
 ```cs
 public class CardGameModule : MpGameModuleBase<CardGameService, CardGame, CardPlayer>
@@ -87,7 +87,7 @@ public class CardGameModule : MpGameModuleBase<CardGameService, CardGame, CardPl
         // the relevant instance from the dictionary
         // in your service class here and store
         // the result in a private field
-        GameService.SomeDataDictionary.TryGetValue(Context.Channel.Id, out var _data);
+        GameService.SomeDataDictionary.TryGetValue(Context.Channel.Id, out _data);
     }
     private DataType _data;
 }

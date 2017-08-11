@@ -1,39 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-    <PropertyGroup Label="Configuration">
-        <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-        <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
-        <WarningLevel>0</WarningLevel>
-    </PropertyGroup>
+    <Import Project="..\..\DiscordAddonsCore.props" />
     <PropertyGroup>
         <AssemblyName>Discord.Addons.Preconditions</AssemblyName>
-        <PackageId>$(AssemblyName)</PackageId>
-        <RootNamespace>$(AssemblyName)</RootNamespace>
-        <Title>$(AssemblyName)</Title>
         <VersionPrefix>1.0.0</VersionPrefix>
         <VersionSuffix>rc</VersionSuffix>
         <Description>Useful preconditions for Discord.Net 1.0.</Description>
         <Authors>Joe4evr</Authors>
         <TargetFramework>netstandard1.3</TargetFramework>
-        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-        <PackageProjectUrl>https://github.com/Joe4evr/Discord.Addons</PackageProjectUrl>
-        <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
         <PackageTags>discord;commands;preconditions</PackageTags>
-        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <OutputType>library</OutputType>
     </PropertyGroup>
     <ItemGroup>
         <None Include="README.md" />
     </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Discord.Net.Commands" Version="1.0.1" />
-    </ItemGroup>
-    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-        <Optimize>True</Optimize>
-        <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    </PropertyGroup>
     <!--<Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />-->
 </Project>

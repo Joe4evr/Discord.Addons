@@ -191,20 +191,11 @@ namespace Discord.Addons.MpGame
         }
     }
 
-    ///// <summary> Service managing games for <see cref="MpGameModuleBase{TService, TGame, TContext}"/>
-    ///// using the default <see cref="Player"/> type. </summary>
-    ///// <typeparam name="TGame">The type of game to manage.</typeparam>
-    //public class MpGameService<TGame> : MpGameService<TGame, Player>
-    //    where TGame : GameBase<Player>
-    //{
-    //}
-
-    //public class MpGameService<TPlayer> : MpGameService<GameBase<TPlayer>, TPlayer>
-    //    where TPlayer : Player
-    //{
-    //}
-
-    //public class MpGameService : MpGameService<GameBase, Player>
-    //{
-    //}
+    /// <summary> Service managing games for <see cref="MpGameModuleBase{TService, TGame, TContext}"/>
+    /// using the default <see cref="Player"/> type. </summary>
+    /// <typeparam name="TGame">The type of game to manage.</typeparam>
+    public class MpGameService<TGame> : MpGameService<TGame, Player>
+        where TGame : GameBase<Player>
+    {
+    }
 }
