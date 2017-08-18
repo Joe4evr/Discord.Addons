@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A0A921B7-99D0-48DB-B062-ABBF7DA4B3D0}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		Analyzers.props = Analyzers.props
 		DiscordAddonsCore.props = DiscordAddonsCore.props
 		LICENSE = LICENSE
 		README.md = README.md
@@ -27,7 +28,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discord.Addons.SimplePermis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discord.Addons.Trivia", "src\Discord.Addons.Trivia\Discord.Addons.Trivia.csproj", "{276B1FCC-7B09-49AE-9718-54671321A76A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord.Addons.SimpleAudio", "src\Discord.Addons.SimpleAudio\Discord.Addons.SimpleAudio.csproj", "{F30CDA2E-E75B-46E3-9F22-499E77A539EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discord.Addons.SimpleAudio", "src\Discord.Addons.SimpleAudio\Discord.Addons.SimpleAudio.csproj", "{F30CDA2E-E75B-46E3-9F22-499E77A539EA}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Discord.Addons.Core", "src\Discord.Addons.Core\Discord.Addons.Core.shproj", "{5B64B425-B901-4249-A189-ACC033579086}"
 EndProject

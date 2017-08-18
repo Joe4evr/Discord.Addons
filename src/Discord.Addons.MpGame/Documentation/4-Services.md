@@ -19,12 +19,6 @@ public class MpGameService<TGame, TPlayer>
 
     protected Func<LogMessage, Task> Logger { get; }
 
-    public IReadOnlyDictionary<IMessageChannel, TGame> GameList { get; }
-
-    public IReadOnlyDictionary<IMessageChannel, bool> OpenToJoin { get; }
-
-    public IReadOnlyDictionary<IMessageChannel, ImmutableHashSet<IUser>> PlayerList { get; }
-
     public MpGameService(Func<LogMessage, Task> logger = null);
 
     public bool OpenNewGame(IMessageChannel channel);
@@ -38,6 +32,12 @@ public class MpGameService<TGame, TPlayer>
     public bool TryAddNewGame(IMessageChannel channel, TGame game);
 
     public bool TryUpdateOpenToJoin(IMessageChannel channel, bool newValue, bool comparisonValue);
+
+    public Task<TGame> GetGameFromChannelAsync(IMessageChannel channel);
+
+    public IReadOnlyCollection<IUser> GetJoinedUsers(IMessageChannel channel);
+
+    public bool IsOpenToJoin(IMessageChannel channel);
 }
 ```
 

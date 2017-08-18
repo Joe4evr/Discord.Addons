@@ -6,7 +6,7 @@
         <VersionSuffix>rc</VersionSuffix>
         <Description>Base for making trivia games using Discord.Net.</Description>
         <Authors>Joe4evr</Authors>
-        <TargetFramework>netstandard1.3</TargetFramework>
+        <TargetFrameworks>$(TargetFrameworks);netstandard1.3</TargetFrameworks>
         <PackageTags>discord</PackageTags>
     </PropertyGroup>
 </Project>

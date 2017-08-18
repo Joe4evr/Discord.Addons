@@ -46,7 +46,7 @@ namespace Discord.Addons.SimplePermissions
         {
             _sockClient = client ?? throw new ArgumentNullException(nameof(client));
 
-            client.Connected += checkDuplicateModuleNames;
+            client.Connected += CheckDuplicateModuleNames;
             client.GuildAvailable += GuildAvailable;
             client.UserJoined += UserJoined;
             client.ChannelCreated += ChannelCreated;
@@ -63,7 +63,7 @@ namespace Discord.Addons.SimplePermissions
         {
             _shardClient = client ?? throw new ArgumentNullException(nameof(client));
 
-            client.GetShard(0).Connected += checkDuplicateModuleNames;
+            client.GetShard(0).Connected += CheckDuplicateModuleNames;
             client.GuildAvailable += GuildAvailable;
             client.UserJoined += UserJoined;
             client.ChannelCreated += ChannelCreated;
@@ -160,7 +160,7 @@ namespace Discord.Addons.SimplePermissions
             return Task.FromResult(Helpmsgs.TryRemove(message.Id, out var _));
         }
 
-        private async Task checkDuplicateModuleNames()
+        private async Task CheckDuplicateModuleNames()
         {
             var modnames = CService.Modules.Select(m => m.Name).ToList();
             var multiples = modnames.Where(name => modnames.Count(str => str.Equals(name, StringComparison.OrdinalIgnoreCase)) > 1);
@@ -174,10 +174,10 @@ namespace Discord.Addons.SimplePermissions
             }
 
             if (_sockClient != null)
-                _sockClient.Connected -= checkDuplicateModuleNames;
+                _sockClient.Connected -= CheckDuplicateModuleNames;
 
             if (_shardClient != null)
-                _shardClient.GetShard(0).Connected -= checkDuplicateModuleNames;
+                _shardClient.GetShard(0).Connected -= CheckDuplicateModuleNames;
         }
 
         internal Task Log(LogSeverity severity, string msg)

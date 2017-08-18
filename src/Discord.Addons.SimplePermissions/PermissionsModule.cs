@@ -28,38 +28,38 @@ namespace Discord.Addons.SimplePermissions
             //_cmdService = permService.CService;
         }
 
-        /// <summary> Special debug command. </summary>
-        [Command("debug"), Permission(MinimumPermission.BotOwner)]
-        [Alias("dbg"), Hidden]
-        public async Task DebugCmd()
-        {
-            var app = await Context.Client.GetApplicationInfoAsync().ConfigureAwait(false);
+        ///// <summary> Special debug command. </summary>
+        //[Command("debug"), Permission(MinimumPermission.BotOwner)]
+        //[Alias("dbg"), Hidden]
+        //public async Task DebugCmd()
+        //{
+        //    var app = await Context.Client.GetApplicationInfoAsync().ConfigureAwait(false);
 
-            var asms = (from xa in AppDomain.CurrentDomain.GetAssemblies()
-                        where !xa.IsDynamic
-                        let m = _dbgRegex.Match(xa.FullName)
-                        where m.Success
-                        select new
-                        {
-                            Name = m.Groups["name"].Value,
-                            Version = m.Groups["version"].Value
-                        }).Where(s =>
-            (!(s.Name.StartsWith("System.") || s.Name.StartsWith("Microsoft.") || s.Name == "mscorlib")));
+        //    var asms = (from xa in AppDomain.CurrentDomain.GetAssemblies()
+        //                where !xa.IsDynamic
+        //                let m = _dbgRegex.Match(xa.FullName)
+        //                where m.Success
+        //                select new
+        //                {
+        //                    Name = m.Groups["name"].Value,
+        //                    Version = m.Groups["version"].Value
+        //                }).Where(s =>
+        //    (!(s.Name.StartsWith("System.") || s.Name.StartsWith("Microsoft.") || s.Name == "mscorlib")));
 
-            var info = new EmbedBuilder()
-                .WithAuthor(a => a.WithName("Debug information")
-                    .WithIconUrl(app.IconUrl))
-                .WithTitle($"{app.Name} - Created: {app.CreatedAt.ToString("d MMM yyyy, HH:mm UTC")}")
-                .WithDescription($"{app.Description}\nLoaded (non-System) assemblies:")
-                .AddFieldSequence(asms, (fb, asm) => fb.WithIsInline(true)
-                    .WithName(asm.Name)
-                    .WithValue(asm.Version))
-                .WithFooter(fb => fb.WithText($"Up for {(DateTime.Now - Process.GetCurrentProcess().StartTime).ToNiceString()}."))
-                .WithCurrentTimestamp()
-                .Build();
+        //    var info = new EmbedBuilder()
+        //        .WithAuthor(a => a.WithName("Debug information")
+        //            .WithIconUrl(app.IconUrl))
+        //        .WithTitle($"{app.Name} - Created: {app.CreatedAt.ToString("d MMM yyyy, HH:mm UTC")}")
+        //        .WithDescription($"{app.Description}\nLoaded (non-System) assemblies:")
+        //        .AddFieldSequence(asms, (fb, asm) => fb.WithIsInline(true)
+        //            .WithName(asm.Name)
+        //            .WithValue(asm.Version))
+        //        .WithFooter(fb => fb.WithText($"Up for {(DateTime.Now - Process.GetCurrentProcess().StartTime).ToNiceString()}."))
+        //        .WithCurrentTimestamp()
+        //        .Build();
 
-            await ReplyAsync("", embed: info).ConfigureAwait(false);
-        }
+        //    await ReplyAsync("", embed: info).ConfigureAwait(false);
+        //}
 
         [Command("shutdown"), Permission(MinimumPermission.BotOwner)]
         [Alias("kill"), Hidden]

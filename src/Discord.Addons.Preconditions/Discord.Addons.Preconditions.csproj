@@ -6,11 +6,10 @@
         <VersionSuffix>rc</VersionSuffix>
         <Description>Useful preconditions for Discord.Net 1.0.</Description>
         <Authors>Joe4evr</Authors>
-        <TargetFramework>netstandard1.3</TargetFramework>
         <PackageTags>discord;commands;preconditions</PackageTags>
+        <TargetFrameworks>$(TargetFrameworks);netstandard1.3</TargetFrameworks>
     </PropertyGroup>
     <ItemGroup>
         <None Include="README.md" />
     </ItemGroup>
-    <!--<Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />-->
 </Project>

@@ -9,9 +9,9 @@ namespace Examples.MpGame
 {
     public sealed class ExampleGame : GameBase<Player>
     {
-        // Example way to keep track of the game state
+        // Example fields to keep track of the game state
         private int _turn = 0;
-        private GameState _state = GameState.Setup;
+        internal GameState State { get; private set; } = GameState.Setup;
 
         public ExampleGame(IMessageChannel channel, IEnumerable<Player> players)
             : base(channel, players)
@@ -37,7 +37,7 @@ namespace Examples.MpGame
             await Channel.SendMessageAsync("Next turn commencing.").ConfigureAwait(false);
             TurnPlayer = TurnPlayer.Next;
             _turn++;
-            _state = GameState.StartOfTurn;
+            State = GameState.StartOfTurn;
         }
 
         // If you override EndGame() for your own behavior, you MUST call the base implementation
@@ -50,19 +50,19 @@ namespace Examples.MpGame
         {
             var sb = new StringBuilder($"State of the game at turn {_turn}")
                 .AppendLine($"The current turn player is **{TurnPlayer.Value.User.Username}**.")
-                .AppendLine($"The current phase is **{_state}**");
+                .AppendLine($"The current phase is **{State}**");
 
             return sb.ToString();
         }
+    }
 
-        // Example way to keep track of the game state
-        private enum GameState
-        {
-            Setup,
-            StartOfTurn,
-            MainPhase,
-            SpecialPhase,
-            EndPhase
-        }
+    // Example enum to keep track of the game state
+    internal enum GameState
+    {
+        Setup,
+        StartOfTurn,
+        MainPhase,
+        SpecialPhase,
+        EndPhase
     }
 }

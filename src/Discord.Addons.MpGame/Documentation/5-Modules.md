@@ -20,7 +20,7 @@ public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<IC
 
     protected bool OpenToJoin { get; }
 
-    protected ImmutableHashSet<IUser> PlayerList { get; }
+    protected IReadOnlyCollection<IUser> JoinedUsers { get; }
 
     public abstract Task OpenGameCmd();
 

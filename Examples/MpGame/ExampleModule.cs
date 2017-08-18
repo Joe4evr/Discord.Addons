@@ -18,6 +18,8 @@ namespace Examples.MpGame
         //Do stuff to get external data if needed
         protected override void BeforeExecute(CommandInfo command)
         {
+            // You *HAVE* to call 'base', otherwise you won't be
+            // initializing the properties in the base class
             base.BeforeExecute(command);
             GameService.DataDictionary.TryGetValue(Context.Channel, out _data);
         }
@@ -119,7 +121,7 @@ namespace Examples.MpGame
             {
                 await ReplyAsync("No game has been opened at this time.").ConfigureAwait(false);
             }
-            else if (PlayerList.Count < 4) // Example value if a game has a minimum player requirement
+            else if (JoinedUsers.Count < 4) // Example value if a game has a minimum player requirement
             {
                 await ReplyAsync("Not enough players have joined.").ConfigureAwait(false);
             }
@@ -128,7 +130,7 @@ namespace Examples.MpGame
                 if (GameService.TryUpdateOpenToJoin(Context.Channel, newValue: false, comparisonValue: true))
                 {
                     // Tip: Shuffle the players before projecting them
-                    var players = PlayerList.Select(u => new Player(u, Context.Channel));
+                    var players = JoinedUsers.Select(u => new Player(u, Context.Channel));
                     // The Player class can also be extended for additional properties
 
                     var game = new ExampleGame(Context.Channel, players);

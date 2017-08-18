@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord.Commands;
@@ -11,8 +12,7 @@ namespace Discord.Addons.MpGame
     /// <summary> Service managing games for <see cref="MpGameModuleBase{TService, TGame, TPlayer, TContext}"/>. </summary>
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
-    public class MpGameService</*TData,*/ TGame, TPlayer>
-        //where TData   : PersistentGameData<TGame, TPlayer>
+    public class MpGameService<TGame, TPlayer>
         where TGame : GameBase<TPlayer>
         where TPlayer : Player
     {
@@ -32,21 +32,9 @@ namespace Discord.Addons.MpGame
 
         protected Func<LogMessage, Task> Logger { get; }
 
-        /// <summary> The instance of a game being played, keyed by channel. </summary>
-        public IReadOnlyDictionary<IMessageChannel, TGame> GameList
-            => _dataList.ToDictionary(d => d.Key, d => d.Value.Game);
-
-        /// <summary> Indicates whether the users can join a game about to start, keyed by channel. </summary>
-        public IReadOnlyDictionary<IMessageChannel, bool> OpenToJoin
-            => _dataList.ToDictionary(d => d.Key, d => d.Value.OpenToJoin);
-
-        /// <summary> The list of users scheduled to join game, keyed by channel. </summary>
-        public IReadOnlyDictionary<IMessageChannel, ImmutableHashSet<IUser>> PlayerList
-            => _dataList.ToDictionary(d => d.Key, d => d.Value.JoinedUsers);
-
         public MpGameService(Func<LogMessage, Task> logger = null)
         {
-            Logger = logger ?? (msg => Task.CompletedTask);
+            Logger = logger ?? (_ => Task.CompletedTask);
         }
 
         //internal Task Log(LogSeverity severity, string msg)
@@ -57,12 +45,12 @@ namespace Discord.Addons.MpGame
         internal PersistentGameData<TGame, TPlayer> GetData(IMessageChannel channel)
             => _dataList.GetValueOrDefault(channel);
 
-        private Task _onGameEnd(IMessageChannel channel)
+        private Task OnGameEnd(IMessageChannel channel)
         {
             if (_dataList.TryRemove(channel, out var data))
             {
                 GameTracker.Instance.TryRemove(channel);
-                data.Game.GameEnd -= _onGameEnd;
+                data.Game.GameEnd -= OnGameEnd;
             }
             return Task.CompletedTask;
         }
@@ -74,12 +62,10 @@ namespace Discord.Addons.MpGame
         {
             lock (_lock)
             {
-                if (!_dataList.TryGetValue(channel, out var data))
-                {
-                    data = new PersistentGameData<TGame, TPlayer>();
-                    _dataList.TryAdd(channel, data);
-                }
+                var data = new PersistentGameData<TGame, TPlayer>();
                 data.NewPlayerList();
+                _dataList.AddOrUpdate(channel, data, (k, v) => data);
+                GameTracker.Instance.TryAdd(channel, GameName);
                 return data.TryUpdateOpenToJoin(newValue: true, oldValue: false);
             }
         }
@@ -127,7 +113,11 @@ namespace Discord.Addons.MpGame
         /// <returns>true if the operation succeeded, otherwise false.</returns>
         public bool CancelGame(IMessageChannel channel)
         {
-            return _dataList.TryRemove(channel, out var _);
+            lock (_lock)
+            {
+                GameTracker.Instance.TryRemove(channel);
+                return _dataList.TryRemove(channel, out var _);
+            }
         }
 
         /// <summary> Add a new game to the list of active games. </summary>
@@ -143,8 +133,7 @@ namespace Discord.Addons.MpGame
                     var success = data.SetGame(game) && TryUpdateOpenToJoin(channel, newValue: false, comparisonValue: true);
                     if (success)
                     {
-                        GameTracker.Instance.TryAdd(channel, GameName);
-                        game.GameEnd += _onGameEnd;
+                        game.GameEnd += OnGameEnd;
                     }
                     return success;
                 }
@@ -162,18 +151,22 @@ namespace Discord.Addons.MpGame
         /// <returns>true if the value was updated, otherwise false.</returns>
         public bool TryUpdateOpenToJoin(IMessageChannel channel, bool newValue, bool comparisonValue)
         {
-            if (!_dataList.TryGetValue(channel, out var data))
+            lock (_lock)
             {
-                data = new PersistentGameData<TGame, TPlayer>();
-                _dataList.TryAdd(channel, data);
+                if (!_dataList.TryGetValue(channel, out var data))
+                {
+                    data = new PersistentGameData<TGame, TPlayer>();
+                    _dataList.TryAdd(channel, data);
+                }
+                return data.TryUpdateOpenToJoin(comparisonValue, newValue);
             }
-            return data.TryUpdateOpenToJoin(comparisonValue, newValue);
         }
 
         /// <summary> Retrieve the game instance being played, if any. </summary>
-        /// <param name="channel"></param>
+        /// <param name="channel">A message channel. Can be both the public-facing channel
+        /// or the DM channel of one of the players.</param>
         /// <returns>The <see cref="TGame"/> instance being played in the specified channel,
-        /// or <see cref="null"/> if there is none.</returns>
+        /// or that the user is playing in, or <see cref="null"/> if there is none.</returns>
         public async Task<TGame> GetGameFromChannelAsync(IMessageChannel channel)
         {
             if (_dataList.TryGetValue(channel, out var d))
@@ -188,6 +181,29 @@ namespace Discord.Addons.MpGame
                 }
             }
             return null;
+        }
+
+        /// <summary> Retrieve the users set to join an open game, if any. </summary>
+        /// <param name="channel">The public-facing message channel.</param>
+        /// <returns>The users set to join a new game, or an empty collection
+        /// if there is no data.</returns>
+        public IReadOnlyCollection<IUser> GetJoinedUsers(IMessageChannel channel)
+        {
+            if (_dataList.TryGetValue(channel, out var data))
+            {
+                return data.JoinedUsers;
+            }
+
+            return ImmutableHashSet<IUser>.Empty;
+        }
+
+        /// <summary> Retrieve whether a game has been opened and users can join. </summary>
+        /// <param name="channel">The public-facing message channel.</param>
+        /// <returns><see cref="true"/> if a game has been opened
+        /// and users can join, otherwise <see cref="false"/>.</returns>
+        public bool IsOpenToJoin(IMessageChannel channel)
+        {
+            return _dataList.TryGetValue(channel, out var data) && data.OpenToJoin;
         }
     }
 

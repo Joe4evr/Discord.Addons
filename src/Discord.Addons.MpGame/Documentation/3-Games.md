@@ -81,7 +81,7 @@ public class CardGame : GameBase<CardPlayer> // Any player in a 'CardGame' is of
         // This is where you put the logic that happens
         // at the start of every turn
         _turn++;
-        _state = GameState.StartOfTurn;
+        State = GameState.StartOfTurn;
 
         // Use 'TurnPlayer.Next' and assign it as the new TurnPlayer
         // The base class will automatically cycle through once it reaches the end
@@ -97,7 +97,7 @@ public class CardGame : GameBase<CardPlayer> // Any player in a 'CardGame' is of
         // This method should provide a summary of the state that the game is in
 
         var sb = new StringBuilder($"State of the board at turn {_turn}:\n")
-            .AppendLine($"Turn state is {_state.ToString()}.")
+            .AppendLine($"Turn state is {State.ToString()}.")
             .AppendLine($"There are {Deck.Count} cards in the deck.")
             .AppendLine($"It is {TurnPlayer.Value.User.Username}'s turn.");
 
@@ -113,13 +113,15 @@ public class CardGame : GameBase<CardPlayer> // Any player in a 'CardGame' is of
 
     // Example items for keeping track of the game state
     private int _turn = 0;
-    private GameState _state = GameState.Setup;
-    private enum GameState
-    {
-        Setup,
-        StartOfTurn,
-        //....
-    }
+    internal GameState State { get; private set; } = GameState.Setup;
+}
+// Make an enum like this so you can use it in
+// a custom precondition for your commands (see page 7).
+internal enum GameState
+{
+    Setup,
+    StartOfTurn,
+    //....
 }
 ```
 

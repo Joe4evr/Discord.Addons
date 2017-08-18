@@ -6,8 +6,8 @@
         <VersionSuffix>rc</VersionSuffix>
         <Description>EF provider for Discord.Addons.SimplePermissions</Description>
         <Authors>Joe4evr</Authors>
-        <TargetFramework>netstandard1.6</TargetFramework>
         <PackageTags>discord</PackageTags>
+        <TargetFrameworks>$(TargetFrameworks);netstandard1.6</TargetFrameworks>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Discord.Addons.SimplePermissions" Version="1.0.0-rc" />
@@ -19,7 +19,7 @@
     <ItemGroup>
         <None Include="EFBaseConfigContext.IPermissionConfig.cs" />
     </ItemGroup>
-    <ItemGroup>
+    <!--<ItemGroup>
         <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />
-    </ItemGroup>
+    </ItemGroup>-->
 </Project>

@@ -20,12 +20,12 @@ internal sealed class RequireTurnPlayerAttribute : PreconditionAttribute
         var service = services.GetService<CardGameService>();
         if (service != null)
         {
-            var authorId = context.User.Id;
             // Use this handy method to retrieve the Game instance going on, if any
             var game = await service.GetGameFromChannelAsync(context.Channel);
 
             if (game != null)
             {
+                var authorId = context.User.Id;
                 return (game.TurnPlayer.Value.User.Id == authorId)
                     ? PreconditionResult.FromSuccess()
                     : PreconditionResult.FromError("Cannot use command at this time.");

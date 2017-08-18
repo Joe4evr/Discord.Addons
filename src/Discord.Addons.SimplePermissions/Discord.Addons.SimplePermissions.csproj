@@ -6,8 +6,8 @@
         <VersionSuffix>rc</VersionSuffix>
         <Description>Discord.Net module for command permission management.</Description>
         <Authors>Joe4evr</Authors>
-        <TargetFramework>netstandard1.6</TargetFramework>
         <PackageTags>discord;commands;permissions</PackageTags>
+        <!--<TargetFrameworks>$(TargetFrameworks);netstandard1.6</TargetFrameworks>-->
     </PropertyGroup>
     <ItemGroup>
         <None Include="README.md" />
@@ -18,5 +18,4 @@
         <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.0-preview1-002111" />
         <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
     </ItemGroup>
-    <!--<Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />-->
 </Project>

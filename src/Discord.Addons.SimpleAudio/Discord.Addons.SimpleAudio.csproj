@@ -6,18 +6,15 @@
         <VersionSuffix>rc</VersionSuffix>
         <Description>Simple usage of Audio for Discord.Net 1.0.</Description>
         <Authors>Joe4evr</Authors>
-        <TargetFramework>netstandard1.5</TargetFramework>
         <PackageTags>discord;commands;audio</PackageTags>
+        <TargetFrameworks>$(TargetFrameworks);netstandard1.5</TargetFrameworks>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Discord.Addons.Preconditions" Version="1.0.0-rc" />
-        <PackageReference Include="Discord.Net.Commands" Version="1.0.1" />
-        <PackageReference Include="Discord.Net.WebSocket" Version="1.0.1" />
         <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
         <PackageReference Include="System.ValueTuple" Version="4.3.0" />
     </ItemGroup>
-    <ItemGroup>
+    <!--<ItemGroup>
         <ProjectReference Include="..\Discord.Addons.Preconditions\Discord.Addons.Preconditions.csproj" />
-    </ItemGroup>
-    <!--<Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />-->
+    </ItemGroup>-->
 </Project>

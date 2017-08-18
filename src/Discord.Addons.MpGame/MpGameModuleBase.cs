@@ -29,7 +29,7 @@ namespace Discord.Addons.MpGame
             base.BeforeExecute(command);
             var data = GameService.GetData(Context.Channel);
             OpenToJoin = data?.OpenToJoin ?? false;
-            PlayerList = data?.JoinedUsers ?? ImmutableHashSet<IUser>.Empty;
+            JoinedUsers = data?.JoinedUsers ?? ImmutableHashSet<IUser>.Empty;
             Game = data?.Game;
             GameInProgress = GameTracker.Instance.TryGet(Context.Channel, out var name)
                 ? (name == GameService.GameName ? CurrentlyPlaying.ThisGame : CurrentlyPlaying.DifferentGame)
@@ -50,7 +50,7 @@ namespace Discord.Addons.MpGame
         protected bool OpenToJoin { get; private set; }
 
         /// <summary> The list of users ready to play. </summary>
-        protected IReadOnlyCollection<IUser> PlayerList { get; private set; }
+        protected IReadOnlyCollection<IUser> JoinedUsers { get; private set; }
 
         /// <summary> Command to open a game for others to join. </summary>
         public abstract Task OpenGameCmd();
