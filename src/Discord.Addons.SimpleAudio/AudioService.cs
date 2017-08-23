@@ -19,7 +19,8 @@ namespace Discord.Addons.SimpleAudio
         private readonly Func<LogMessage, Task> _logger;
         private readonly Timer _presenceChecker;
 
-        internal ConcurrentDictionary<ulong, AudioClientWrapper> Clients { get; } = new ConcurrentDictionary<ulong, AudioClientWrapper>();
+        internal ConcurrentDictionary<ulong, AudioClientWrapper> Clients { get; }
+            = new ConcurrentDictionary<ulong, AudioClientWrapper>();
 
         internal AudioService(
             AudioConfig config,
@@ -124,21 +125,33 @@ namespace Discord.Addons.SimpleAudio
             }
         }
 
-        internal void SetVolume(IGuild guild, double newVolume)
+        internal void PausePlayback(IGuild guild)
         {
-            if (Clients.TryGetValue(guild.Id, out var client) && client.IsPlaying())
+            if (Clients.TryGetValue(guild.Id, out var client))
+                client.Pause();
+        }
+
+        internal void ResumePlayback(IGuild guild)
+        {
+            if (Clients.TryGetValue(guild.Id, out var client))
+                client.Resume();
+        }
+
+        internal void SetVolume(IGuild guild, float newVolume)
+        {
+            if (Clients.TryGetValue(guild.Id, out var client))
                 client.SetVolume(newVolume);
         }
 
         internal void StopPlaying(IGuild guild)
         {
-            if (Clients.TryGetValue(guild.Id, out var client) && client.IsPlaying())
+            if (Clients.TryGetValue(guild.Id, out var client))
                 client.Cancel();
         }
 
         internal void NextSong(IGuild guild)
         {
-            if (Clients.TryGetValue(guild.Id, out var client) && client.IsPlaying())
+            if (Clients.TryGetValue(guild.Id, out var client))
                 client.SkipToNext();
         }
 

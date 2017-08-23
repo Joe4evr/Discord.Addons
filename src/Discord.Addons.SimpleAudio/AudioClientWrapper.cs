@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Discord.Audio;
-using System.IO;
 
 namespace Discord.Addons.SimpleAudio
 {
     internal sealed class AudioClientWrapper
     {
-        private CancellationTokenSource _cancel = new CancellationTokenSource();
-        private bool _next = false;
         private Process _ffmpeg;
-        private double _defaultVolume = 0.1;
+        private float _playingVolume = 0.5f;
 
         public IAudioClient Client { get; }
         public ConcurrentQueue<string> Playlist { get; } = new ConcurrentQueue<string>();
@@ -38,18 +37,19 @@ namespace Discord.Addons.SimpleAudio
                         RedirectStandardOutput = true,
                         CreateNoWindow = false
                     }))
+                    using (var output = _ffmpeg.StandardOutput.BaseStream)
+                    using (var stream = Client.CreatePCMStream(AudioApplication.Music))
                     {
-                        var stream = Client.CreatePCMStream(AudioApplication.Music);
                         try
                         {
-                            await _ffmpeg.StandardOutput.BaseStream.CopyToAsync(stream, 81920, _cancel.Token).ConfigureAwait(false);
+                            await PausableCopyToAsync(output, stream, 81920);
                         }
                         catch (OperationCanceledException)
                         {
                             if (!_next)
                             {
                                 //TODO: Replace with .Clear() when NET Core 2.0 is a thing
-                                while (Playlist.TryDequeue(out var _)) {}
+                                while (Playlist.TryDequeue(out var _)) { }
                                 break;
                             }
                             else
@@ -60,23 +60,29 @@ namespace Discord.Addons.SimpleAudio
                         finally
                         {
                             await stream.FlushAsync().ConfigureAwait(false);
-                            _cancel.Dispose();
-                            _cancel = new CancellationTokenSource();
                         }
                     }
                 }
             }
         }
 
-        public void SetVolume(double newVolume)
-        {
-            _defaultVolume = newVolume;
-        }
+        private readonly object _cancelLock = new object();
+        private bool _next = false;
+        private CancellationTokenSource _cancel = new CancellationTokenSource();
 
         public void Cancel()
         {
-            _cancel.Cancel();
-            _ffmpeg.Kill();
+            lock (_cancelLock)
+            {
+                if (IsPlaying())
+                {
+                    using (_cancel)
+                    {
+                        _cancel.Cancel();
+                    }
+                    _cancel = new CancellationTokenSource();
+                }
+            }
         }
 
         public void SkipToNext()
@@ -88,9 +94,7 @@ namespace Discord.Addons.SimpleAudio
         public bool IsPlaying()
         {
             if (_ffmpeg == null)
-            {
                 return false;
-            }
 
             // Don't try this at home - I'm a professional
             var disposedField = typeof(Process)
@@ -101,36 +105,82 @@ namespace Discord.Addons.SimpleAudio
             return !(isDisposed || _ffmpeg.HasExited);
         }
 
+        public void SetVolume(float newVolume)
+        {
+            _playingVolume = newVolume;
+        }
+
+        private readonly object _pauseLock = new object();
         private bool _pause = false;
         private CancellationTokenSource _pauseToken = new CancellationTokenSource();
 
         public void Pause() => _pause = true;
         public void Resume()
         {
-            if (_pause)
+            lock (_pauseLock)
             {
-                _pauseToken.Cancel();
-                _pauseToken.Dispose();
-                _pauseToken = new CancellationTokenSource();
+                if (_pause)
+                {
+                    _pause = false;
+                    using (_pauseToken)
+                    {
+                        _pauseToken.Cancel();
+                    }
+                    _pauseToken = new CancellationTokenSource();
+                }
             }
         }
 
         private async Task PausableCopyToAsync(Stream source, Stream destination, int buffersize)
         {
-            byte[] buffer = new byte[buffersize];
-            int offset = 0;
-            int count = await source.ReadAsync(buffer, offset, buffersize);
+            Contract.Requires(destination != null);
+            Contract.Requires(buffersize > 0);
+            Contract.Requires(source.CanRead);
+            Contract.Requires(destination.CanWrite);
 
-            while (count > 0)
+            byte[] buffer = new byte[buffersize];
+            int count;
+
+            while ((count = await source.ReadAsync(buffer, 0, buffersize, _cancel.Token)) > 0)
             {
                 if (_pause)
                 {
-                    await Task.Delay(-1, _pauseToken.Token);
+                    try
+                    {
+                        await Task.Delay(-1, _pauseToken.Token);
+                    }
+                    catch (OperationCanceledException) { }
                 }
-                await destination.WriteAsync(buffer, offset, count);
-                offset = count;
-                count = await source.ReadAsync(buffer, offset, buffersize);
+
+                var volAdjusted = ScaleVolumeUnsafeNoAlloc(buffer, _playingVolume);
+                await destination.WriteAsync(volAdjusted, 0, count, _cancel.Token);
             }
+        }
+
+        //https://hastebin.com/umapabejis.cs
+        public unsafe static byte[] ScaleVolumeUnsafeNoAlloc(byte[] audioSamples, float volume)
+        {
+            Contract.Requires(audioSamples != null);
+            Contract.Requires(audioSamples.Length % 2 == 0);
+            Contract.Requires(volume >= 0f && volume <= 1f);
+            Contract.Assert(BitConverter.IsLittleEndian);
+
+            if (Math.Abs(volume - 1f) < 0.0001f) return audioSamples;
+
+            // 16-bit precision for the multiplication
+            int volumeFixed = (int)Math.Round(volume * 65536d);
+
+            int count = audioSamples.Length / 2;
+
+            fixed (byte* srcBytes = audioSamples)
+            {
+                short* src = (short*)srcBytes;
+
+                for (int i = count; i != 0; i--, src++)
+                    *src = (short)(((*src) * volumeFixed) >> 16);
+            }
+
+            return audioSamples;
         }
     }
 }

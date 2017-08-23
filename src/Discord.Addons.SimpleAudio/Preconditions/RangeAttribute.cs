@@ -7,7 +7,7 @@ using Discord.Commands;
 namespace Discord.Addons.SimpleAudio
 {
     [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = true)]
-    internal class RangeAttribute : ParameterPreconditionAttribute
+    public sealed class RangeAttribute : ParameterPreconditionAttribute
     {
         private readonly int _min;
         private readonly int _max;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Discord;
-using Discord.Addons.Preconditions;
 using Discord.Commands;
 
 namespace Discord.Addons.SimpleAudio
@@ -62,12 +61,27 @@ namespace Discord.Addons.SimpleAudio
             return _service.SendAudioAsync(Context.Guild, Context.Channel, song);
         }
 
-        //public virtual Task SetVolumeCmd([Range(1, 100)] int percentage)
-        //{
-        //    double v = percentage / 101d;
-        //    _service.SetVolume(Context.Guild, v);
-        //    return ReplyAsync($"Volume set to {percentage}%, will take effect when the next song starts.");
-        //}
+        [ClientInVoice]
+        public virtual Task PauseCmd()
+        {
+            _service.PausePlayback(Context.Guild);
+            return Task.CompletedTask;
+        }
+
+        [ClientInVoice]
+        public virtual Task ResumeCmd()
+        {
+            _service.ResumePlayback(Context.Guild);
+            return Task.CompletedTask;
+        }
+
+        [ClientInVoice]
+        public virtual Task SetVolumeCmd([Range(1, 100)] int percentage)
+        {
+            float v = percentage / 101f;
+            _service.SetVolume(Context.Guild, v);
+            return ReplyAsync($"Volume set to {percentage}%.");
+        }
 
         [ClientInVoice]
         public virtual Task NextCmd()
