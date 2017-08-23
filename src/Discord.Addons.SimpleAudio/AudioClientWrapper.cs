@@ -159,7 +159,7 @@ namespace Discord.Addons.SimpleAudio
         private float _playingVolume = 0.5f;
 
         //https://hastebin.com/umapabejis.cs
-        public unsafe static byte[] ScaleVolumeUnsafeNoAlloc(byte[] audioSamples, float volume)
+        private unsafe static byte[] ScaleVolumeUnsafeNoAlloc(byte[] audioSamples, float volume)
         {
             Contract.Requires(audioSamples != null);
             Contract.Requires(audioSamples.Length % 2 == 0);
