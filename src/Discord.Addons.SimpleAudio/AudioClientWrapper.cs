@@ -12,9 +12,6 @@ namespace Discord.Addons.SimpleAudio
 {
     internal sealed class AudioClientWrapper
     {
-        private Process _ffmpeg;
-        private float _playingVolume = 0.5f;
-
         public IAudioClient Client { get; }
         public ConcurrentQueue<string> Playlist { get; } = new ConcurrentQueue<string>();
 
@@ -22,6 +19,8 @@ namespace Discord.Addons.SimpleAudio
         {
             Client = client;
         }
+
+        private Process _ffmpeg;
 
         public async Task SendAudioAsync(string ffmpeg)
         {
@@ -156,6 +155,8 @@ namespace Discord.Addons.SimpleAudio
                 await destination.WriteAsync(volAdjusted, 0, count, _cancel.Token);
             }
         }
+
+        private float _playingVolume = 0.5f;
 
         //https://hastebin.com/umapabejis.cs
         public unsafe static byte[] ScaleVolumeUnsafeNoAlloc(byte[] audioSamples, float volume)

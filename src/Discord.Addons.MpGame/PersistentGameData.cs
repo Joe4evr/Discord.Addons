@@ -14,7 +14,8 @@ namespace Discord.Addons.MpGame
 
         internal bool OpenToJoin { get; private set; } = true;
         internal TGame Game { get; private set; }
-        internal ImmutableHashSet<IUser> JoinedUsers { get; private set; } = ImmutableHashSet.Create(Comparers.UserComparer);
+        internal ImmutableHashSet<IUser> JoinedUsers => _builder.ToImmutable();
+        private ImmutableHashSet<IUser>.Builder _builder = ImmutableHashSet.CreateBuilder<IUser>(Comparers.UserComparer);
 
         internal bool TryUpdateOpenToJoin(bool oldValue, bool newValue)
         {
@@ -34,35 +35,17 @@ namespace Discord.Addons.MpGame
 
         internal void NewPlayerList()
         {
-            JoinedUsers = ImmutableHashSet.Create(Comparers.UserComparer);
+            _builder = ImmutableHashSet.CreateBuilder<IUser>(Comparers.UserComparer);
         }
 
         internal bool TryAddUser(IUser user)
         {
-            lock (_lock)
-            {
-                var builder = JoinedUsers.ToBuilder();
-                bool r = builder.Add(user);
-                if (r)
-                {
-                    JoinedUsers = builder.ToImmutable();
-                }
-                return r;
-            }
+            return _builder.Add(user);
         }
 
         internal bool TryRemoveUser(IUser user)
         {
-            lock (_lock)
-            {
-                var builder = JoinedUsers.ToBuilder();
-                bool r = builder.Remove(user);
-                if (r)
-                {
-                    JoinedUsers = builder.ToImmutable();
-                }
-                return r;
-            }
+            return _builder.Remove(user);
         }
 
         internal bool SetGame(TGame game)
