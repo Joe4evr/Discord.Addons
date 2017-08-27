@@ -113,6 +113,8 @@ namespace Discord.Addons.SimpleAudio
         private bool _pause = false;
         private CancellationTokenSource _pauseToken = new CancellationTokenSource();
 
+        // setting '_pause' to true multiple times
+        // in a row *should* be completely thread-safe
         public void Pause() => _pause = true;
         public void Resume()
         {

@@ -26,10 +26,10 @@ namespace Discord.Addons.SimpleAudio
             {
                 await ReplyAsync("I can't connect to that channel.").ConfigureAwait(false);
             }
-            //else if (!self.HasPerms(target, AudioExt.DiscordPermissions.SPEAK))
-            //{
-            //    await ReplyAsync("I can't play in that channel.").ConfigureAwait(false);
-            //}
+            else if (!self.HasPerms(target, AudioExt.DiscordPermissions.SPEAK))
+            {
+                await ReplyAsync("I can't play in that channel.").ConfigureAwait(false);
+            }
             else
             {
                 await _service.JoinAudio(Context.Guild, target).ConfigureAwait(false);

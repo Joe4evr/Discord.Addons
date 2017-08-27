@@ -16,7 +16,7 @@ namespace Discord.Addons.MpGame
             if (players == null) throw new ArgumentNullException(nameof(players));
 
             Channel = channel ?? throw new ArgumentNullException(nameof(channel));
-            Players = new CircularLinkedList<TPlayer>(players);
+            Players = new CircularLinkedList<TPlayer>(players, Comparers.PlayerComparer);
             TurnPlayer = Players.Head;
         }
 

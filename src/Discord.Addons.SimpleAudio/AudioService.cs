@@ -63,23 +63,23 @@ namespace Discord.Addons.SimpleAudio
             }
         }
 
-        internal async Task SwitchAudio(IGuild guild, IVoiceChannel newTarget)
-        {
-            if (newTarget.Guild.Id != guild.Id)
-            {
-                return;
-            }
-            if (Clients.TryGetValue(guild.Id, out var client))
-            {
-                if (client.IsPlaying())
-                {
-                    return;
-                }
+        //internal async Task SwitchAudio(IGuild guild, IVoiceChannel newTarget)
+        //{
+        //    if (newTarget.Guild.Id != guild.Id)
+        //    {
+        //        return;
+        //    }
+        //    if (Clients.TryGetValue(guild.Id, out var client))
+        //    {
+        //        if (client.IsPlaying())
+        //        {
+        //            return;
+        //        }
 
-                await LeaveAudio(guild);
-                await JoinAudio(guild, newTarget);
-            }
-        }
+        //        await LeaveAudio(guild);
+        //        await JoinAudio(guild, newTarget);
+        //    }
+        //}
 
         internal async Task LeaveAudio(IGuild guild)
         {
