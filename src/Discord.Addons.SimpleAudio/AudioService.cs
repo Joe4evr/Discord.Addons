@@ -15,6 +15,7 @@ namespace Discord.Addons.SimpleAudio
 {
     public sealed class AudioService
     {
+        private static readonly Embed _rdyEmbed = new EmbedBuilder { Title = "Connected", Description = "Ready" }.Build();
         private readonly AudioConfig _config;
         private readonly Func<LogMessage, Task> _logger;
         private readonly Timer _presenceChecker;
@@ -41,7 +42,7 @@ namespace Discord.Addons.SimpleAudio
             }, null, TimeSpan.FromSeconds(10), TimeSpan.FromMinutes(1));
         }
 
-        internal async Task JoinAudio(IGuild guild, IVoiceChannel target)
+        internal async Task JoinAudio(IGuild guild, IMessageChannel channel, IVoiceChannel target)
         {
             if (Clients.TryGetValue(guild.Id, out var _))
             {
@@ -53,7 +54,7 @@ namespace Discord.Addons.SimpleAudio
             }
 
             var audioClient = await target.ConnectAsync().ConfigureAwait(false);
-            var wrapper = new AudioClientWrapper(audioClient);
+            var wrapper = new AudioClientWrapper(audioClient, await channel.SendMessageAsync("", embed: _rdyEmbed));
 
             if (Clients.TryAdd(guild.Id, wrapper))
             {
@@ -108,39 +109,39 @@ namespace Discord.Addons.SimpleAudio
             }
             if (Clients.TryGetValue(guild.Id, out var client))
             {
-                client.Playlist.Enqueue(file);
+                await client.AddToPlaylist(file).ConfigureAwait(false);
                 file = Path.GetFileNameWithoutExtension(file);
                 if (client.IsPlaying())
                 {
                     await Log(LogSeverity.Debug, $"Added '{file}' to playlist in '{guild.Name}'").ConfigureAwait(false);
-                    await channel.SendMessageAsync($"Added `{file}` to the playlist.").ConfigureAwait(false);
+                    //await channel.SendMessageAsync($"Added `{file}` to the playlist.").ConfigureAwait(false);
                     return;
                 }
                 else
                 {
                     await Log(LogSeverity.Debug, $"Starting playback of '{file}' in '{guild.Name}'").ConfigureAwait(false);
-                    await channel.SendMessageAsync($"Now playing `{file}`.").ConfigureAwait(false);
+                    //await channel.SendMessageAsync($"Now playing `{file}`.").ConfigureAwait(false);
                     await client.SendAudioAsync(Path.Combine(_config.FFMpegPath, "ffmpeg.exe")).ConfigureAwait(false);
                 }
             }
         }
 
-        internal void PausePlayback(IGuild guild)
+        internal async Task PausePlayback(IGuild guild)
         {
             if (Clients.TryGetValue(guild.Id, out var client))
-                client.Pause();
+                await client.Pause().ConfigureAwait(false);
         }
 
-        internal void ResumePlayback(IGuild guild)
+        internal async Task ResumePlayback(IGuild guild)
         {
             if (Clients.TryGetValue(guild.Id, out var client))
-                client.Resume();
+                await client.Resume().ConfigureAwait(false);
         }
 
-        internal void SetVolume(IGuild guild, float newVolume)
+        internal async Task SetVolume(IGuild guild, float newVolume)
         {
             if (Clients.TryGetValue(guild.Id, out var client))
-                client.SetVolume(newVolume);
+                await client.SetVolume(newVolume).ConfigureAwait(false);
         }
 
         internal void StopPlaying(IGuild guild)

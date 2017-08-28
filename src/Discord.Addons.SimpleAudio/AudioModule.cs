@@ -18,21 +18,21 @@ namespace Discord.Addons.SimpleAudio
         }
 
         [ClientNotInVoice]
-        public virtual async Task JoinCmd(IVoiceChannel target = null)
+        public virtual Task JoinCmd(IVoiceChannel target = null)
         {
             target = target ?? (Context.User as IVoiceState).VoiceChannel;
             var self = (Context.Guild.CurrentUser);
             if (!self.HasPerms(target, AudioExt.DiscordPermissions.CONNECT))
             {
-                await ReplyAsync("I can't connect to that channel.").ConfigureAwait(false);
+                return ReplyAsync("I can't connect to that channel.");
             }
             else if (!self.HasPerms(target, AudioExt.DiscordPermissions.SPEAK))
             {
-                await ReplyAsync("I can't play in that channel.").ConfigureAwait(false);
+                return ReplyAsync("I can't play in that channel.");
             }
             else
             {
-                await _service.JoinAudio(Context.Guild, target).ConfigureAwait(false);
+                return _service.JoinAudio(Context.Guild, Context.Channel, target);
             }
         }
 
@@ -64,23 +64,23 @@ namespace Discord.Addons.SimpleAudio
         [ClientInVoice]
         public virtual Task PauseCmd()
         {
-            _service.PausePlayback(Context.Guild);
-            return Task.CompletedTask;
+            return _service.PausePlayback(Context.Guild);
+            //return Task.CompletedTask;
         }
 
         [ClientInVoice]
         public virtual Task ResumeCmd()
         {
-            _service.ResumePlayback(Context.Guild);
-            return Task.CompletedTask;
+            return _service.ResumePlayback(Context.Guild);
+            //return Task.CompletedTask;
         }
 
         [ClientInVoice]
         public virtual Task SetVolumeCmd([Range(1, 100)] int percentage)
         {
             float v = percentage / 101f;
-            _service.SetVolume(Context.Guild, v);
-            return ReplyAsync($"Volume set to {percentage}%.");
+            return _service.SetVolume(Context.Guild, v);
+            //return ReplyAsync($"Volume set to {percentage}%.");
         }
 
         [ClientInVoice]
