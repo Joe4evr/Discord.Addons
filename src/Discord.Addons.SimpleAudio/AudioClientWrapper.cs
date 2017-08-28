@@ -12,9 +12,27 @@ namespace Discord.Addons.SimpleAudio
 {
     internal sealed class AudioClientWrapper
     {
-        public IAudioClient Client { get; }
-        private ConcurrentQueue<string> Playlist { get; } = new ConcurrentQueue<string>();
+        private static readonly IEmote _playEmote = new Emoji("▶️");
+        private static readonly IEmote _pauseEmote = new Emoji("⏸️");
+        private static readonly IEmote _stopEmote = new Emoji("⏹️");
+
+        private readonly ConcurrentQueue<string> _playlist = new ConcurrentQueue<string>();
+        private readonly object _pauseLock = new object();
+        private readonly object _cancelLock = new object();
+
         private readonly IUserMessage _message;
+
+        public IAudioClient Client { get; }
+
+        private float _playingVolume = 0.5f;
+        private bool _pause = false;
+        private bool _next = false;
+        private CancellationTokenSource _pauseToken = new CancellationTokenSource();
+        private CancellationTokenSource _cancelToken = new CancellationTokenSource();
+
+        private Process _ffmpeg;
+        private string _song;
+        private IEmote _statusEmote;
 
         public AudioClientWrapper(IAudioClient client, IUserMessage message)
         {
@@ -22,18 +40,20 @@ namespace Discord.Addons.SimpleAudio
             _message = message;
         }
 
-        private Process _ffmpeg;
-        private string _song;
-        private IEmote _statusEmote;
+        public Task AddToPlaylist(string file)
+        {
+            _playlist.Enqueue(file);
+            return RefreshEmbed();
+        }
 
         public async Task SendAudioAsync(string ffmpeg)
         {
-            while (!Playlist.IsEmpty)
+            while (!_playlist.IsEmpty)
             {
-                if (Playlist.TryDequeue(out var path))
+                if (_playlist.TryDequeue(out var path))
                 {
                     _song = Path.GetFileNameWithoutExtension(path);
-                    _statusEmote = new Emoji("▶️");
+                    _statusEmote = _playEmote;
                     await RefreshEmbed().ConfigureAwait(false);
 
                     using (_ffmpeg = Process.Start(new ProcessStartInfo
@@ -56,7 +76,7 @@ namespace Discord.Addons.SimpleAudio
                             if (!_next)
                             {
                                 //TODO: Replace with .Clear() when NET Core 2.0 is a thing
-                                while (Playlist.TryDequeue(out var _)) { }
+                                while (_playlist.TryDequeue(out var _)) { }
                                 break;
                             }
                             else
@@ -73,66 +93,48 @@ namespace Discord.Addons.SimpleAudio
             }
 
             _song = "Stopped";
-            _statusEmote = new Emoji("⏹️");
+            _statusEmote = _stopEmote;
             await RefreshEmbed().ConfigureAwait(false);
         }
 
-        public Task AddToPlaylist(string file)
+        private async Task PausableCopyToAsync(Stream source, Stream destination, int buffersize)
         {
-            Playlist.Enqueue(file);
-            return RefreshEmbed();
-        }
+            Contract.Requires(source != null);
+            Contract.Requires(destination != null);
+            Contract.Requires(buffersize > 0);
+            Contract.Requires(source.CanRead);
+            Contract.Requires(destination.CanWrite);
 
-        private readonly object _cancelLock = new object();
-        private bool _next = false;
-        private CancellationTokenSource _cancel = new CancellationTokenSource();
+            byte[] buffer = new byte[buffersize];
+            int count;
 
-        public void Cancel()
-        {
-            lock (_cancelLock)
+            while ((count = await source.ReadAsync(buffer, 0, buffersize, _cancelToken.Token).ConfigureAwait(false)) > 0)
             {
-                if (IsPlaying())
+                if (_pause)
                 {
-                    using (_cancel)
+                    try
                     {
-                        _cancel.Cancel();
+                        await Task.Delay(-1, _pauseToken.Token);
                     }
-                    _cancel = new CancellationTokenSource();
+                    catch (OperationCanceledException) { }
                 }
+
+                var volAdjusted = ScaleVolumeUnsafeNoAlloc(buffer, _playingVolume);
+                await destination.WriteAsync(volAdjusted, 0, count, _cancelToken.Token).ConfigureAwait(false);
             }
         }
-
-        public void SkipToNext()
-        {
-            _next = true;
-            Cancel();
-        }
-
-        public bool IsPlaying()
-        {
-            if (_ffmpeg == null)
-                return false;
-
-            // Don't try this at home - I'm a professional
-            var disposedField = typeof(Process)
-                .GetTypeInfo()
-                .GetField("_disposed", BindingFlags.Instance | BindingFlags.NonPublic);
-            var isDisposed = (bool)disposedField.GetValue(_ffmpeg);
-
-            return !(isDisposed || _ffmpeg.HasExited);
-        }
-
-        private readonly object _pauseLock = new object();
-        private bool _pause = false;
-        private CancellationTokenSource _pauseToken = new CancellationTokenSource();
 
         // setting '_pause' to true multiple times
         // in a row *should* be completely thread-safe
         public Task Pause()
         {
-            _pause = true;
-            _statusEmote = new Emoji("⏸️");
-            return RefreshEmbed();
+            if (!_pause)
+            {
+                _pause = true;
+                _statusEmote = _pauseEmote;
+                return RefreshEmbed();
+            }
+            return Task.CompletedTask;
         }
 
         public Task Resume()
@@ -154,7 +156,26 @@ namespace Discord.Addons.SimpleAudio
             return Task.CompletedTask;
         }
 
-        private float _playingVolume = 0.5f;
+        public void SkipToNext()
+        {
+            _next = true;
+            Cancel();
+        }
+
+        public void Cancel()
+        {
+            lock (_cancelLock)
+            {
+                if (IsPlaying())
+                {
+                    using (_cancelToken)
+                    {
+                        _cancelToken.Cancel();
+                    }
+                    _cancelToken = new CancellationTokenSource();
+                }
+            }
+        }
 
         public Task SetVolume(float newVolume)
         {
@@ -162,31 +183,44 @@ namespace Discord.Addons.SimpleAudio
             return RefreshEmbed();
         }
 
-        private async Task PausableCopyToAsync(Stream source, Stream destination, int buffersize)
+        public bool IsPlaying()
         {
-            Contract.Requires(source != null);
-            Contract.Requires(destination != null);
-            Contract.Requires(buffersize > 0);
-            Contract.Requires(source.CanRead);
-            Contract.Requires(destination.CanWrite);
+            if (_ffmpeg == null)
+                return false;
 
-            byte[] buffer = new byte[buffersize];
-            int count;
+            // Don't try this at home - I'm a professional
+            var disposedField = typeof(Process)
+                .GetTypeInfo()
+                .GetField("_disposed", BindingFlags.Instance | BindingFlags.NonPublic);
+            var isDisposed = (bool)disposedField.GetValue(_ffmpeg);
 
-            while ((count = await source.ReadAsync(buffer, 0, buffersize, _cancel.Token).ConfigureAwait(false)) > 0)
+            return !(isDisposed || _ffmpeg.HasExited);
+        }
+
+        private Task RefreshEmbed()
+        {
+            int vol = (int)(_playingVolume * 101);
+            var emb = new EmbedBuilder
             {
-                if (_pause)
+                Title = "Now playing:",
+                Description = $"{_statusEmote ?? _stopEmote} {_song ?? "Stopped"}",
+                Fields =
                 {
-                    try
+                    new EmbedFieldBuilder
                     {
-                        await Task.Delay(-1, _pauseToken.Token);
+                        IsInline = true,
+                        Name = "Volume:",
+                        Value = $"{vol}%"
+                    },
+                    new EmbedFieldBuilder
+                    {
+                        IsInline = true,
+                        Name = "Next song:",
+                        Value = (_playlist.TryPeek(out var n) ? Path.GetFileNameWithoutExtension(n) : "(None)")
                     }
-                    catch (OperationCanceledException) { }
                 }
-
-                var volAdjusted = ScaleVolumeUnsafeNoAlloc(buffer, _playingVolume);
-                await destination.WriteAsync(volAdjusted, 0, count, _cancel.Token).ConfigureAwait(false);
-            }
+            }.Build();
+            return _message.ModifyAsync(m => m.Embed = emb);
         }
 
         //https://hastebin.com/umapabejis.cs
@@ -213,32 +247,6 @@ namespace Discord.Addons.SimpleAudio
             }
 
             return audioSamples;
-        }
-
-        private Task RefreshEmbed()
-        {
-            int vol = (int)(_playingVolume * 101);
-            var emb = new EmbedBuilder
-            {
-                Title = "Now playing:",
-                Description = $"{_statusEmote ?? new Emoji("⏹️")} {_song ?? "Stopped"}",
-                Fields =
-                {
-                    new EmbedFieldBuilder
-                    {
-                        IsInline = true,
-                        Name = "Volume:",
-                        Value = $"{vol}%"
-                    },
-                    new EmbedFieldBuilder
-                    {
-                        IsInline = true,
-                        Name = "Next song:",
-                        Value = (Playlist.TryPeek(out var n) ? Path.GetFileNameWithoutExtension(n) : "(None)")
-                    }
-                }
-            }.Build();
-            return _message.ModifyAsync(m => m.Embed = emb);
         }
     }
 }
