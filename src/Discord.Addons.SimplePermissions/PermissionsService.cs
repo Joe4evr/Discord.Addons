@@ -72,6 +72,7 @@ namespace Discord.Addons.SimplePermissions
             client.MessageDeleted += MessageDeleted;
         }
 
+#region PermissionEvents
         private async Task GuildAvailable(SocketGuild guild)
         {
             using (var config = ConfigStore.Load())
@@ -107,6 +108,7 @@ namespace Discord.Addons.SimplePermissions
                 config.Save();
             }
         }
+#endregion
 
         private async Task ReactionAdded(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
         {

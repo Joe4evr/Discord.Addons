@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Discord;
+using Discord.Commands;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -30,10 +32,17 @@ namespace Discord.Addons.SimplePermissions
         /// <summary> </summary>
         public DbSet<ConfigModule> Modules { get; set; }
 
+        private readonly IEnumerable<ModuleInfo> _modules;
+
+        public EFBaseConfigContext(DbContextOptions options, CommandService commandService)
+            : base(options)
+        {
+            _modules = commandService.Modules;
+        }
+
         /// <summary> </summary>
         protected virtual Task OnGuildAdd(TGuild guild)
         {
-            guild.WhiteListedModules.Add(Modules.Single(m => m.ModuleName == PermissionsModule.PermModuleName));
             return Task.CompletedTask;
         }
 
@@ -51,15 +60,51 @@ namespace Discord.Addons.SimplePermissions
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ConfigModule>()
                 .HasAlternateKey(e => e.ModuleName);
 
-            modelBuilder.Entity<ConfigChannel<TUser>>()
-                .HasAlternateKey(e => e.ChannelId);
+            modelBuilder.Entity<ConfigUser>()
+                .Property<long>("User_Id")
+                .HasField("_uid")
+                .IsRequired(true);
 
-            modelBuilder.Entity<ConfigGuild<TUser>>()
-                .HasAlternateKey(e => e.GuildId);
+            modelBuilder.Entity<ConfigChannel<TUser>>()
+                .Property<long>("Channel_Id")
+                .HasField("_cid")
+                .IsRequired(true);
+
+            modelBuilder.Entity<ConfigChannel<TUser>>()
+                .HasMany(c => c.SpecialUsers);
+
+            modelBuilder.Entity<ConfigChannel<TUser>>()
+                .HasMany(c => c.WhiteListedModules);
+
+
+            modelBuilder.Entity<ConfigGuild<TChannel, TUser>>()
+                .Property<long>("Guild_Id")
+                .HasField("_gid")
+                .IsRequired(true);
+
+            modelBuilder.Entity<ConfigGuild<TChannel, TUser>>()
+                .Property<long>("Mod_Id")
+                .HasField("_mid")
+                .IsRequired(true);
+
+            modelBuilder.Entity<ConfigGuild<TChannel, TUser>>()
+                .Property<long>("Admin_Id")
+                .HasField("_aid")
+                .IsRequired(true);
+
+            modelBuilder.Entity<ConfigGuild<TChannel, TUser>>()
+                .HasMany(g => g.Users);
+
+            modelBuilder.Entity<ConfigGuild<TChannel, TUser>>()
+                .HasMany(g => g.WhiteListedModules);
+
+            modelBuilder.Entity<ConfigGuild<TChannel, TUser>>()
+                .HasMany(g => g.Channels);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 
@@ -73,6 +118,10 @@ namespace Discord.Addons.SimplePermissions
         where TChannel : ConfigChannel<TUser>, new()
         where TUser : ConfigUser, new()
     {
+
+        public EFBaseConfigContext(DbContextOptions options, CommandService commandService) : base(options, commandService)
+        {
+        }
     }
 
     /// <summary> Implementation of an <see cref="IPermissionConfig"/>
@@ -83,6 +132,10 @@ namespace Discord.Addons.SimplePermissions
     public abstract class EFBaseConfigContext<TUser> : EFBaseConfigContext<ConfigGuild<TUser>, ConfigChannel<TUser>, TUser>
         where TUser : ConfigUser, new()
     {
+
+        public EFBaseConfigContext(DbContextOptions options, CommandService commandService) : base(options, commandService)
+        {
+        }
     }
 
     /// <summary> Implementation of an <see cref="IPermissionConfig"/>
@@ -91,5 +144,9 @@ namespace Discord.Addons.SimplePermissions
     /// using the default Guild, Channel and User types. </summary>
     public abstract class EFBaseConfigContext : EFBaseConfigContext<ConfigGuild, ConfigChannel, ConfigUser>
     {
+
+        public EFBaseConfigContext(DbContextOptions options, CommandService commandService) : base(options, commandService)
+        {
+        }
     }
 }

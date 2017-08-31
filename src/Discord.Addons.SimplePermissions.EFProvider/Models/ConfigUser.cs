@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Discord.Addons.SimplePermissions
@@ -11,11 +11,14 @@ namespace Discord.Addons.SimplePermissions
         public int Id { get; set; }
 
         /// <summary> </summary>
-        [Column(TypeName = "BIGINT UNSIGNED")]
-        public ulong UserId { get; set; }
+        //[Column(TypeName = "BIGINT")]
+        [NotMapped]
+        public ulong UserId
+        {
+            get => Converter.LongToUlong(_uid);
+            set => _uid = Converter.UlongToLong(value);
+        }
 
-        /// <summary> </summary>
-        [Column(TypeName = "BIGINT UNSIGNED")]
-        public ulong GuildId { get; set; }
+        private long _uid;
     }
 }

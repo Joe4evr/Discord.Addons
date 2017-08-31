@@ -8,16 +8,16 @@ namespace Discord.Addons.SimplePermissions
 {
     /// <summary> Basic implementation of <see cref="IConfigStore{TConfig}"/> that stores and loads
     /// a configuration object as JSON on disk using JSON.NET. </summary>
-    public sealed class JsonConfigStore<TConfig> : BaseConfigStore<TConfig>
+    public sealed class JsonConfigStore<TConfig> : IConfigStore<TConfig>
         where TConfig : JsonConfigBase, new()
     {
         private readonly string _jsonPath;
+        private readonly CommandService _commands;
 
         /// <summary> Initializes a new instance of <see cref="JsonConfigStore{TConfig}"/>.
         /// Will create a new file if it does not exist. </summary>
         /// <param name="path">Path to the JSON file.</param>
         public JsonConfigStore(string path, CommandService commands)
-            : base(commands)
         {
             if (path == null) throw new ArgumentNullException(nameof(path));
             if (!File.Exists(path))
@@ -66,10 +66,10 @@ namespace Discord.Addons.SimplePermissions
 
         /// <summary> Load the configuration from disk. </summary>
         /// <returns>The configuration object.</returns>
-        public override TConfig Load()
+        public TConfig Load()
         {
             var config = JsonConvert.DeserializeObject<TConfig>(File.ReadAllText(_jsonPath));
-            config.Commands = Commands;
+            config.Modules = _commands.Modules;
             (config as ISetPath).SetPath(_jsonPath);
             return config;
         }

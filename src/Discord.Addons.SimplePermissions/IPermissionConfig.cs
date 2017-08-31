@@ -8,8 +8,6 @@ namespace Discord.Addons.SimplePermissions
     /// <summary> Contract for a configuration object used to determine command permissions. </summary>
     public interface IPermissionConfig : IDisposable
     {
-        CommandService Commands { set; } //wish this could become `protected internal CommandService Commands { get; internal set; }`
-
         /// <summary> Set whether Fancy help is enabled in a specified guild. </summary>
         Task SetFancyHelpValue(IGuild guild, bool value);
 

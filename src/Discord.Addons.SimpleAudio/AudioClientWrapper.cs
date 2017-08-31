@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Discord.Audio;
+using System.Collections.Generic;
 
 namespace Discord.Addons.SimpleAudio
 {
@@ -16,34 +17,28 @@ namespace Discord.Addons.SimpleAudio
         private static readonly IEmote _pauseEmote = new Emoji("⏸️");
         private static readonly IEmote _stopEmote = new Emoji("⏹️");
 
-        private readonly ConcurrentQueue<string> _playlist = new ConcurrentQueue<string>();
-        private readonly object _pauseLock = new object();
         private readonly object _cancelLock = new object();
+        private readonly object _pauseLock = new object();
+        private readonly ConcurrentQueue<string> _playlist = new ConcurrentQueue<string>();
 
         private readonly IUserMessage _message;
 
-        public IAudioClient Client { get; }
-
-        private float _playingVolume = 0.5f;
-        private bool _pause = false;
         private bool _next = false;
-        private CancellationTokenSource _pauseToken = new CancellationTokenSource();
+        private bool _pause = false;
+        private float _playingVolume = 0.5f;
         private CancellationTokenSource _cancelToken = new CancellationTokenSource();
+        private CancellationTokenSource _pauseToken = new CancellationTokenSource();
 
-        private Process _ffmpeg;
         private string _song;
         private IEmote _statusEmote;
+        private Process _ffmpeg;
+
+        public IAudioClient Client { get; }
 
         public AudioClientWrapper(IAudioClient client, IUserMessage message)
         {
-            Client = client;
             _message = message;
-        }
-
-        public Task AddToPlaylist(string file)
-        {
-            _playlist.Enqueue(file);
-            return RefreshEmbed();
+            Client = client;
         }
 
         public async Task SendAudioAsync(string ffmpeg)
@@ -97,31 +92,21 @@ namespace Discord.Addons.SimpleAudio
             await RefreshEmbed().ConfigureAwait(false);
         }
 
-        private async Task PausableCopyToAsync(Stream source, Stream destination, int buffersize)
+        public Task AddToPlaylist(string file)
         {
-            Contract.Requires(source != null);
-            Contract.Requires(destination != null);
-            Contract.Requires(buffersize > 0);
-            Contract.Requires(source.CanRead);
-            Contract.Requires(destination.CanWrite);
+            _playlist.Enqueue(file);
+            return (_playlist.Count > 1)
+                ? RefreshEmbed()
+                : Task.CompletedTask;
+        }
 
-            byte[] buffer = new byte[buffersize];
-            int count;
-
-            while ((count = await source.ReadAsync(buffer, 0, buffersize, _cancelToken.Token).ConfigureAwait(false)) > 0)
+        public Task AddToPlaylist(IEnumerable<string> files)
+        {
+            foreach (var item in files)
             {
-                if (_pause)
-                {
-                    try
-                    {
-                        await Task.Delay(-1, _pauseToken.Token);
-                    }
-                    catch (OperationCanceledException) { }
-                }
-
-                var volAdjusted = ScaleVolumeUnsafeNoAlloc(buffer, _playingVolume);
-                await destination.WriteAsync(volAdjusted, 0, count, _cancelToken.Token).ConfigureAwait(false);
+                _playlist.Enqueue(item);
             }
+            return RefreshEmbed();
         }
 
         // setting '_pause' to true multiple times
@@ -158,11 +143,14 @@ namespace Discord.Addons.SimpleAudio
 
         public void SkipToNext()
         {
-            _next = true;
-            Cancel();
+            if (!_playlist.IsEmpty)
+            {
+                _next = true;
+                Stop();
+            }
         }
 
-        public void Cancel()
+        public void Stop()
         {
             lock (_cancelLock)
             {
@@ -197,26 +185,52 @@ namespace Discord.Addons.SimpleAudio
             return !(isDisposed || _ffmpeg.HasExited);
         }
 
+        private async Task PausableCopyToAsync(Stream source, Stream destination, int buffersize)
+        {
+            Contract.Requires(source != null);
+            Contract.Requires(destination != null);
+            Contract.Requires(buffersize > 0);
+            Contract.Requires(source.CanRead);
+            Contract.Requires(destination.CanWrite);
+
+            byte[] buffer = new byte[buffersize];
+            int count;
+
+            while ((count = await source.ReadAsync(buffer, 0, buffersize, _cancelToken.Token).ConfigureAwait(false)) > 0)
+            {
+                if (_pause)
+                {
+                    try
+                    {
+                        await Task.Delay(-1, _pauseToken.Token);
+                    }
+                    catch (OperationCanceledException) { }
+                }
+
+                var volAdjusted = ScaleVolumeUnsafeNoAlloc(buffer, _playingVolume);
+                await destination.WriteAsync(volAdjusted, 0, count, _cancelToken.Token).ConfigureAwait(false);
+            }
+        }
+
         private Task RefreshEmbed()
         {
-            int vol = (int)(_playingVolume * 101);
             var emb = new EmbedBuilder
             {
                 Title = "Now playing:",
-                Description = $"{_statusEmote ?? _stopEmote} {_song ?? "Stopped"}",
+                Description = $"{_statusEmote ?? _stopEmote} {_song ?? "*Stopped*"}",
                 Fields =
                 {
                     new EmbedFieldBuilder
                     {
                         IsInline = true,
                         Name = "Volume:",
-                        Value = $"{vol}%"
+                        Value = $"{(int)(_playingVolume * 101)}%"
                     },
                     new EmbedFieldBuilder
                     {
                         IsInline = true,
                         Name = "Next song:",
-                        Value = (_playlist.TryPeek(out var n) ? Path.GetFileNameWithoutExtension(n) : "(None)")
+                        Value = (_playlist.TryPeek(out var n) ? Path.GetFileNameWithoutExtension(n) : "*(None)*")
                     }
                 }
             }.Build();

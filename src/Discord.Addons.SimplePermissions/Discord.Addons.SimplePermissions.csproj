@@ -3,7 +3,7 @@
     <PropertyGroup>
         <AssemblyName>Discord.Addons.SimplePermissions</AssemblyName>
         <VersionPrefix>1.0.0</VersionPrefix>
-        <VersionSuffix>rc</VersionSuffix>
+        <VersionSuffix>rc2</VersionSuffix>
         <Description>Discord.Net module for command permission management.</Description>
         <Authors>Joe4evr</Authors>
         <PackageTags>discord;commands;permissions</PackageTags>
@@ -15,7 +15,7 @@
     <ItemGroup>
         <PackageReference Include="Discord.Net.Commands" Version="1.0.1" />
         <PackageReference Include="Discord.Net.WebSocket" Version="1.0.1" />
-        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.0-preview1-002111" />
+        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.0" />
         <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
     </ItemGroup>
 </Project>

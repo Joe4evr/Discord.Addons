@@ -16,16 +16,32 @@ namespace Discord.Addons.SimplePermissions
         public int Id { get; set; }
 
         /// <summary> </summary>
-        [Column(TypeName = "BIGINT UNSIGNED")]
-        public ulong GuildId { get; set; }
+        [NotMapped]
+        public ulong GuildId
+        {
+            get => Converter.LongToUlong(_gid);
+            set => _gid = Converter.UlongToLong(value);
+        }
 
         /// <summary> </summary>
-        [Column(TypeName = "BIGINT UNSIGNED")]
-        public ulong ModRole { get; set; }
+        [NotMapped]
+        public ulong ModRole
+        {
+            get => Converter.LongToUlong(_mid);
+            set => _mid = Converter.UlongToLong(value);
+        }
 
         /// <summary> </summary>
-        [Column(TypeName = "BIGINT UNSIGNED")]
-        public ulong AdminRole { get; set; }
+        [NotMapped]
+        public ulong AdminRole
+        {
+            get => Converter.LongToUlong(_aid);
+            set => _aid = Converter.UlongToLong(value);
+        }
+
+        private long _gid;
+        private long _mid;
+        private long _aid;
 
         public bool UseFancyHelp { get; set; }
 
@@ -42,7 +58,11 @@ namespace Discord.Addons.SimplePermissions
     }
 
     public class ConfigGuild<TUser> : ConfigGuild<ConfigChannel<TUser>, TUser>
-        where TUser : ConfigUser { }
+        where TUser : ConfigUser
+    {
+    }
 
-    public class ConfigGuild : ConfigGuild<ConfigChannel, ConfigUser> { }
+    public class ConfigGuild : ConfigGuild<ConfigChannel, ConfigUser>
+    {
+    }
 }

@@ -93,7 +93,8 @@ namespace Discord.Addons.SimplePermissions
 
         private static bool IsModuleWhitelisted(IEnumerable<ModuleInfo> modules, string name)
         {
-            return modules.Any(m => m.Name == name || IsModuleWhitelisted(m.Submodules, name));
+            return name == PermissionsModule.PermModuleName ||
+                modules.Any(m => m.Name == name || IsModuleWhitelisted(m.Submodules, name));
         }
     }
 

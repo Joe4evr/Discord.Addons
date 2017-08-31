@@ -18,11 +18,11 @@ namespace Discord.Addons.SimplePermissions
 
         async Task IPermissionConfig.AddNewGuild(IGuild guild)
         {
-            var users = await guild.GetUsersAsync();
+            var users = await guild.GetUsersAsync(CacheMode.AllowDownload);
             var cUsers = new List<TUser>();
             foreach (var user in users)
             {
-                if (!Users.Any(u => u.UserId == user.Id && u.GuildId == user.GuildId))
+                if (!Users.Any(u => u.UserId == user.Id))
                 {
                     cUsers.Add(await AddUserInternal(user));
                 }
@@ -38,32 +38,42 @@ namespace Discord.Addons.SimplePermissions
                 }
             }
 
-            if (!Guilds.Any(g => g.GuildId == guild.Id))
+            var cGuild = Guilds.SingleOrDefault(g => g.GuildId == guild.Id);
+            if (cGuild == null)
             {
-                var cGuild = new TGuild
+                cGuild = new TGuild
                 {
                     GuildId = guild.Id,
                     AdminRole = 0ul,
                     ModRole = 0ul,
+                    WhiteListedModules = new List<ConfigModule>(),
                     Users = cUsers,
                     Channels = cChannels
                 };
                 await OnGuildAdd(cGuild);
                 Guilds.Add(cGuild);
             }
-            SaveChanges();
+            else
+            {
+                foreach (var user in cUsers)
+                {
+                    cGuild.Users.Add(user);
+                }
+                foreach (var chan in cChannels)
+                {
+                    cGuild.Channels.Add(chan);
+                }
+            }
         }
 
         async Task IPermissionConfig.AddChannel(IChannel channel)
         {
             Channels.Add(await AddChannelInternal(channel));
-            SaveChanges();
         }
 
         Task IPermissionConfig.RemoveChannel(IChannel channel)
         {
             Channels.Remove(Channels.Single(c => c.ChannelId == channel.Id));
-            SaveChanges();
             return Task.CompletedTask;
         }
 
@@ -80,14 +90,12 @@ namespace Discord.Addons.SimplePermissions
         Task<bool> IPermissionConfig.SetGuildAdminRole(IGuild guild, IRole role)
         {
             Guilds.Single(g => g.GuildId == guild.Id).AdminRole = role.Id;
-            SaveChanges();
             return Task.FromResult(true);
         }
 
         Task<bool> IPermissionConfig.SetGuildModRole(IGuild guild, IRole role)
         {
             Guilds.Single(g => g.GuildId == guild.Id).ModRole = role.Id;
-            SaveChanges();
             return Task.FromResult(true);
         }
 
@@ -97,7 +105,7 @@ namespace Discord.Addons.SimplePermissions
                 .Single(c => c.ChannelId == channel.Id)
                 .WhiteListedModules.Select(m => m.ModuleName)
                 .ToList();
-            return Commands.Modules.Where(m => wl.Contains(m.Name));
+            return _modules.Where(m => wl.Contains(m.Name));
         }
 
         IEnumerable<ModuleInfo> IPermissionConfig.GetGuildModuleWhitelist(IGuild guild)
@@ -106,21 +114,30 @@ namespace Discord.Addons.SimplePermissions
                    .Single(g => g.GuildId == guild.Id)
                    .WhiteListedModules.Select(m => m.ModuleName)
                    .ToList();
-            return Commands.Modules.Where(m => wl.Contains(m.Name));
+            return _modules.Where(m => wl.Contains(m.Name));
         }
 
         Task<bool> IPermissionConfig.WhitelistModule(IChannel channel, string moduleName)
         {
             var chan = Channels.Include(c => c.WhiteListedModules).Single(c => c.ChannelId == channel.Id);
-            var mods = chan.WhiteListedModules.Select(m => m.ModuleName);
-            var hasThis = mods.Contains(moduleName);
-            if (!hasThis)
+            var mod = _modules.SingleOrDefault(m => m.Name == moduleName);
+            if (mod != null)
             {
-                chan.WhiteListedModules.Add(new ConfigModule { ModuleName = moduleName });
-                SaveChanges();
+                var n = Modules.SingleOrDefault(m => m.ModuleName == moduleName);
+                if (n == null)
+                {
+                    n = new ConfigModule { ModuleName = moduleName };
+                    Modules.Add(n);
+                }
+                var hasThis = chan.WhiteListedModules.Any(m => m.Id == n.Id);
+                if (!hasThis)
+                {
+                    chan.WhiteListedModules.Add(n);
+                }
+                return Task.FromResult(!hasThis);
             }
 
-            return Task.FromResult(!hasThis);
+            return Task.FromResult(false);
         }
 
         Task<bool> IPermissionConfig.BlacklistModule(IChannel channel, string moduleName)
@@ -129,22 +146,31 @@ namespace Discord.Addons.SimplePermissions
                 .Single(c => c.ChannelId == channel.Id).WhiteListedModules;
 
             bool v = mods.Remove(mods.Single(m => m.ModuleName == moduleName));
-            SaveChanges();
             return Task.FromResult(v);
         }
 
         Task<bool> IPermissionConfig.WhitelistModuleGuild(IGuild guild, string moduleName)
         {
             var gui = Guilds.Include(g => g.WhiteListedModules).Single(g => g.GuildId == guild.Id);
-            var mods = gui.WhiteListedModules.Select(m => m.ModuleName);
-            var hasThis = mods.Contains(moduleName);
-            if (!hasThis)
+            var mod = _modules.SingleOrDefault(m => m.Name == moduleName);
+            if (mod != null)
             {
-                gui.WhiteListedModules.Add(new ConfigModule { ModuleName = moduleName });
-                SaveChanges();
+                var n = Modules.SingleOrDefault(m => m.ModuleName == moduleName);
+                if (n == null)
+                {
+                    n = new ConfigModule { ModuleName = moduleName };
+                    Modules.Add(n);
+                }
+                var hasThis = gui.WhiteListedModules.Any(m => m.Id == n.Id);
+                if (!hasThis)
+                {
+                    gui.WhiteListedModules.Add(n);
+                }
+
+                return Task.FromResult(!hasThis);
             }
 
-            return Task.FromResult(!hasThis);
+            return Task.FromResult(false);
         }
 
         Task<bool> IPermissionConfig.BlacklistModuleGuild(IGuild guild, string moduleName)
@@ -153,7 +179,6 @@ namespace Discord.Addons.SimplePermissions
                 .Single(g => g.ChannelId == guild.Id).WhiteListedModules;
 
             bool v = mods.Remove(mods.Single(m => m.ModuleName == moduleName));
-            SaveChanges();
             return Task.FromResult(v);
         }
 
@@ -167,7 +192,6 @@ namespace Discord.Addons.SimplePermissions
         async Task IPermissionConfig.AddUser(IGuildUser user)
         {
             Users.Add(await AddUserInternal(user));
-            SaveChanges();
         }
 
         Task<bool> IPermissionConfig.AddSpecialUser(IChannel channel, IGuildUser user)
@@ -178,7 +202,6 @@ namespace Discord.Addons.SimplePermissions
             if (!hasThis)
             {
                 spUsers.Add(Users.Single(u => u.UserId == user.Id));
-                SaveChanges();
             }
             return Task.FromResult(!hasThis);
         }
@@ -189,14 +212,12 @@ namespace Discord.Addons.SimplePermissions
                 .Single(c => c.ChannelId == channel.Id).SpecialUsers;
 
             bool v = spUsers.Remove(spUsers.Single(u => u.UserId == user.Id));
-            SaveChanges();
             return Task.FromResult(v);
         }
 
         Task IPermissionConfig.SetFancyHelpValue(IGuild guild, bool value)
         {
             Guilds.Single(g => g.GuildId == guild.Id).UseFancyHelp = value;
-            SaveChanges();
             return Task.CompletedTask;
         }
 
@@ -208,7 +229,6 @@ namespace Discord.Addons.SimplePermissions
         Task IPermissionConfig.SetHidePermCommands(IGuild guild, bool newValue)
         {
             Guilds.Single(g => g.GuildId == guild.Id).HidePermCommands = newValue;
-            SaveChanges();
             return Task.CompletedTask;
         }
 
@@ -217,7 +237,7 @@ namespace Discord.Addons.SimplePermissions
             return Task.FromResult(Guilds.Single(g => g.GuildId == guild.Id).HidePermCommands);
         }
 
-        void IPermissionConfig.Save() => SaveChanges();
+        public void Save() => SaveChanges();
 
         private async Task<TChannel> AddChannelInternal(IChannel channel)
         {
@@ -233,7 +253,7 @@ namespace Discord.Addons.SimplePermissions
 
         private async Task<TUser> AddUserInternal(IGuildUser user)
         {
-            var cUser = new TUser { UserId = user.Id, GuildId = user.GuildId };
+            var cUser = new TUser { UserId = user.Id };
             await OnUserAdd(cUser);
             return cUser;
         }

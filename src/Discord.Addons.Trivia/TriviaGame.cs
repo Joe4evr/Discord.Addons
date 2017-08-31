@@ -12,17 +12,18 @@ namespace Discord.Addons.TriviaGames
     /// <summary> Creates a Trivia game in a given channel. </summary>
     public sealed class TriviaGame
     {
-        private readonly Stack<QA> _triviaData;
-        private readonly IMessageChannel _channel;
-        private readonly int _turns;
-        private readonly Timer _questionTimer;
-
+        private readonly Atomic<bool> _isAnswered = new Atomic<bool>(true);
         private readonly ConcurrentDictionary<ulong, int> _scoreboard = new ConcurrentDictionary<ulong, int>();
         private readonly Random _rng = new Random();
-        private readonly Atomic<bool> _isAnswered = new Atomic<bool>(true);
+
+        private readonly int _turns;
+        private readonly IMessageChannel _channel;
+        private readonly Stack<QA> _triviaData;
+        private readonly Timer _questionTimer;
+
+        private int _turn = 0;
 
         private QA _currentQuestion;
-        private int _turn = 0;
 
         /// <summary> </summary>
         /// <param name="triviaData"></param>
@@ -136,7 +137,7 @@ namespace Discord.Addons.TriviaGames
         private sealed class Atomic<T>
             where T : struct
         {
-            private readonly object lockObj = new object();
+            private readonly object _lock = new object();
             private T value;
 
             public Atomic(T initialValue)
@@ -146,7 +147,7 @@ namespace Discord.Addons.TriviaGames
 
             public bool TryUpdate(T newValue, T comparisonValue)
             {
-                lock (lockObj)
+                lock (_lock)
                 {
                     var result = value.Equals(comparisonValue);
                     if (result)

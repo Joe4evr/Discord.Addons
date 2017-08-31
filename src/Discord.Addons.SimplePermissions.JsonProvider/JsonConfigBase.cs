@@ -14,7 +14,7 @@ namespace Discord.Addons.SimplePermissions
     /// serialization to and from JSON. </summary>
     public partial class JsonConfigBase : ISetPath
     {
-        public CommandService Commands { private get; set; }
+        internal IEnumerable<ModuleInfo> Modules { private get; set; }
 
         /// <summary> Gets whether fancy help messages are
         /// enabled in a specified guild. </summary>

@@ -21,7 +21,7 @@ namespace Discord.Addons.SimpleAudio
         public virtual Task JoinCmd(IVoiceChannel target = null)
         {
             target = target ?? (Context.User as IVoiceState).VoiceChannel;
-            var self = (Context.Guild.CurrentUser);
+            var self = Context.Guild.CurrentUser;
             if (!self.HasPerms(target, AudioExt.DiscordPermissions.CONNECT))
             {
                 return ReplyAsync("I can't connect to that channel.");
@@ -59,6 +59,12 @@ namespace Discord.Addons.SimpleAudio
         public virtual Task PlayCmd([Remainder] string song)
         {
             return _service.SendAudioAsync(Context.Guild, Context.Channel, song);
+        }
+
+        [ClientInVoice]
+        public virtual Task PlaylistCmd()
+        {
+            return _service.Playlist(Context.Guild);
         }
 
         [ClientInVoice]

@@ -118,27 +118,22 @@ namespace Discord.Addons.SimplePermissions
         [Summary("Display how you can use a command.")]
         public async Task HelpCmd(string cmdname)
         {
-            var sb = new StringBuilder();
             var cmds = (await _permService.CService.Commands.CheckConditions(Context, _services, _permService).ConfigureAwait(false))
                 .Where(c => c.Aliases.FirstOrDefault().Equals(cmdname, StringComparison.OrdinalIgnoreCase)
                     && !c.Preconditions.Any(p => p is HiddenAttribute));
 
             if (cmds.Any())
             {
-                sb.AppendLine($"`{cmds.First().Aliases.FirstOrDefault()}`");
+                var sb = new StringBuilder($"`{cmds.First().Aliases.FirstOrDefault()}`\n");
                 foreach (var cmd in cmds)
                 {
                     sb.AppendLine('\t' + cmd.Summary);
                     if (cmd.Parameters.Count > 0)
                         sb.AppendLine($"\t\tParameters: {String.Join(" ", cmd.Parameters.Select(p => p.FormatParam()))}");
                 }
-            }
-            else
-            {
-                return;
-            }
 
-            await ReplyAsync(sb.ToString()).ConfigureAwait(false);
+                await ReplyAsync(sb.ToString()).ConfigureAwait(false);
+            }
         }
 
         /// <summary> List this server's roles and their ID. </summary>
@@ -274,7 +269,7 @@ namespace Discord.Addons.SimplePermissions
             {
                 if (mod.Name == PermModuleName)
                 {
-                    await ReplyAsync($"Not allowed to blacklist {nameof(PermModuleName)}.").ConfigureAwait(false);
+                    await ReplyAsync($"Not allowed to blacklist {PermModuleName}.").ConfigureAwait(false);
                 }
                 else
                 {

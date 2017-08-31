@@ -7,12 +7,12 @@
         <Description>Json.Net provider for Discord.Addons.SimplePermissions</Description>
         <Authors>Joe4evr</Authors>
         <PackageTags>discord</PackageTags>
-        <TargetFrameworks>$(TargetFrameworks);netstandard1.6</TargetFrameworks>
+        <!--<TargetFrameworks>$(TargetFrameworks);netstandard1.6</TargetFrameworks>-->
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Discord.Addons.SimplePermissions" Version="1.0.0-rc" />
     </ItemGroup>
-    <!--<ItemGroup>
-        <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />
-    </ItemGroup>-->
+    <ItemGroup>
+      <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />
+    </ItemGroup>
 </Project>

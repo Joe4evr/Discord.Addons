@@ -9,7 +9,6 @@ namespace Discord.Addons.SimplePermissions
 {
     public partial class JsonConfigBase : IPermissionConfig
     {
-
         Task IPermissionConfig.SetFancyHelpValue(IGuild guild, bool value)
         {
             UseFancyHelps[guild.Id] = value;
@@ -108,12 +107,12 @@ namespace Discord.Addons.SimplePermissions
 
         IEnumerable<ModuleInfo> IPermissionConfig.GetChannelModuleWhitelist(IChannel channel)
         {
-            return Commands.Modules.Where(m => ChannelModuleWhitelist[channel.Id].Contains(m.Name));
+            return Modules.Where(m => ChannelModuleWhitelist[channel.Id].Contains(m.Name));
         }
 
         IEnumerable<ModuleInfo> IPermissionConfig.GetGuildModuleWhitelist(IGuild guild)
         {
-            return Commands.Modules.Where(m => GuildModuleWhitelist[guild.Id].Contains(m.Name));
+            return Modules.Where(m => GuildModuleWhitelist[guild.Id].Contains(m.Name));
         }
 
         Task<bool> IPermissionConfig.WhitelistModule(IChannel channel, string moduleName)

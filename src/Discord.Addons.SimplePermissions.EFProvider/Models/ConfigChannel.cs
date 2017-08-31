@@ -15,8 +15,15 @@ namespace Discord.Addons.SimplePermissions
         public int Id { get; set; }
 
         /// <summary> </summary>
-        [Column(TypeName = "BIGINT UNSIGNED")]
-        public ulong ChannelId { get; set; }
+        //[Column(TypeName = "BIGINT")]
+        [NotMapped]
+        public ulong ChannelId
+        {
+            get => Converter.LongToUlong(_cid);
+            set => _cid = Converter.UlongToLong(value);
+        }
+
+        private long _cid;
 
         /// <summary> </summary>
         public ICollection<TUser> SpecialUsers { get; set; }
@@ -25,6 +32,8 @@ namespace Discord.Addons.SimplePermissions
         public ICollection<ConfigModule> WhiteListedModules { get; set; }
     }
 
-    public class ConfigChannel : ConfigChannel<ConfigUser> { }
+    public class ConfigChannel : ConfigChannel<ConfigUser>
+    {
+    }
 
 }

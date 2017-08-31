@@ -147,13 +147,22 @@ namespace Discord.Addons.SimpleAudio
         internal void StopPlaying(IGuild guild)
         {
             if (Clients.TryGetValue(guild.Id, out var client))
-                client.Cancel();
+                client.Stop();
         }
 
         internal void NextSong(IGuild guild)
         {
             if (Clients.TryGetValue(guild.Id, out var client))
                 client.SkipToNext();
+        }
+
+        internal async Task Playlist(IGuild guild)
+        {
+            if (Clients.TryGetValue(guild.Id, out var client))
+            {
+                await client.AddToPlaylist(Directory.GetFiles(_config.MusicBasePath).Shuffle(7)).ConfigureAwait(false);
+                await client.SendAudioAsync(Path.Combine(_config.FFMpegPath, "ffmpeg.exe")).ConfigureAwait(false);
+            }
         }
 
         internal IEnumerable<string> GetAvailableFiles()

@@ -9,4 +9,7 @@
         <PackageTags>discord;commands;audio</PackageTags>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
+    <ItemGroup>
+      <!--<ProjectReference Include="..\..\..\Discord.Net\src\Discord.Net.Commands\Discord.Net.Commands.csproj" />-->
+    </ItemGroup>
 </Project>

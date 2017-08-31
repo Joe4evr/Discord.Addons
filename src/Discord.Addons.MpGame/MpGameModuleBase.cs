@@ -16,6 +16,22 @@ namespace Discord.Addons.MpGame
         where TGame    : GameBase<TPlayer>
         where TPlayer  : Player
     {
+        /// <summary> The <see cref="TService"/> instance. </summary>
+        protected TService GameService { get; }
+
+        //TODO: C# "who-knows-when" feature, nullability annotation
+        /// <summary> The instance of the game being played (if active). </summary>
+        protected TGame Game { get; private set; }
+
+        /// <summary> Determines if a game in the current channel is in progress or not. </summary>
+        protected CurrentlyPlaying GameInProgress { get; private set; }
+
+        /// <summary> Determines if a game in the current channel is open to join or not. </summary>
+        protected bool OpenToJoin { get; private set; }
+
+        /// <summary> The list of users ready to play. </summary>
+        protected IReadOnlyCollection<IUser> JoinedUsers { get; private set; }
+
         /// <summary> Initializes the <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/> base class. </summary>
         /// <param name="gameService"></param>
         protected MpGameModuleBase(TService gameService)
@@ -36,33 +52,17 @@ namespace Discord.Addons.MpGame
                 : CurrentlyPlaying.None;
         }
 
-        /// <summary> The <see cref="TService"/> instance. </summary>
-        protected TService GameService { get; }
-
-        //TODO: C# "who-knows-when" feature, nullability annotation
-        /// <summary> The instance of the game being played (if active). </summary>
-        protected TGame Game { get; private set; }
-
-        /// <summary> Determines if a game in the current channel is in progress or not. </summary>
-        protected CurrentlyPlaying GameInProgress { get; private set; }
-
-        /// <summary> Determines if a game in the current channel is open to join or not. </summary>
-        protected bool OpenToJoin { get; private set; }
-
-        /// <summary> The list of users ready to play. </summary>
-        protected IReadOnlyCollection<IUser> JoinedUsers { get; private set; }
-
         /// <summary> Command to open a game for others to join. </summary>
         public abstract Task OpenGameCmd();
-
-        /// <summary> Command to cancel a game before it started. </summary>
-        public abstract Task CancelGameCmd();
 
         /// <summary> Command to join a game that is open. </summary>
         public abstract Task JoinGameCmd();
 
         /// <summary> Command to leave a game that is not yet started. </summary>
         public abstract Task LeaveGameCmd();
+
+        /// <summary> Command to cancel a game before it started. </summary>
+        public abstract Task CancelGameCmd();
 
         /// <summary> Command to start a game with the players who joined. </summary>
         public abstract Task StartGameCmd();
