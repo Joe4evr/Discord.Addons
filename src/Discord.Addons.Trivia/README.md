@@ -63,6 +63,7 @@ single element array. For example:
 ```
 Answers are compared ignoring capital letters, so users won't
 have to remember to case their answers properly.
+(They will, however, need to able to spell correctly.)
 
 In order to add the service to the client, call the extension method on `CommandService`:
 ```cs

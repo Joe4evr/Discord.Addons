@@ -97,7 +97,7 @@ namespace Discord.Addons.TriviaGames
             var msg = m as SocketUserMessage;
             if (msg == null) return;
 
-            if (_currentQuestion.Answers.Contains(msg.Content, StringComparer.OrdinalIgnoreCase) &&
+            if (_currentQuestion.Answers.Contains(msg.Content.Trim(), StringComparer.OrdinalIgnoreCase) &&
                 _isAnswered.TryUpdate(newValue: true, comparisonValue: false))
             {
                 _questionTimer.Change(Timeout.Infinite, Timeout.Infinite);
@@ -121,7 +121,7 @@ namespace Discord.Addons.TriviaGames
             }
         }
 
-        internal event Func<ulong, Task> GameEnd;
+        internal event Func<IMessageChannel, Task> GameEnd;
 
         private sealed class QA
         {

@@ -60,18 +60,18 @@ namespace Discord.Addons.TriviaGames
         /// <summary> Add a new game to the list of active games. </summary>
         /// <param name="channelId">Public facing channel of this game.</param>
         /// <param name="game">Instance of the game.</param>
-        public bool AddNewGame(ulong channelId, TriviaGame game)
+        public bool AddNewGame(IMessageChannel channel, TriviaGame game)
         {
-            bool r = _triviaGames.TryAdd(channelId, game);
+            bool r = _triviaGames.TryAdd(channel.Id, game);
             if (r)
                 game.GameEnd += _onGameEnd;
 
             return r;
         }
 
-        private Task _onGameEnd(ulong channelId)
+        private Task _onGameEnd(IMessageChannel channel)
         {
-            if (_triviaGames.TryRemove(channelId, out var game))
+            if (_triviaGames.TryRemove(channel.Id, out var game))
             {
                 game.GameEnd -= _onGameEnd;
             }
