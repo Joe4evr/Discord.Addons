@@ -10,17 +10,16 @@ namespace Discord.Addons.SimplePermissions
     public class ConfigChannel<TUser>
         where TUser : ConfigUser
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /// <summary> </summary>
         public int Id { get; set; }
 
         /// <summary> </summary>
-        //[Column(TypeName = "BIGINT")]
         [NotMapped]
         public ulong ChannelId
         {
-            get => Converter.LongToUlong(_cid);
-            set => _cid = Converter.UlongToLong(value);
+            get => unchecked((ulong)_cid);
+            set => _cid = unchecked((long)value);
         }
 
         private long _cid;

@@ -12,7 +12,7 @@ namespace Discord.Addons.MpGame
     public sealed class CircularLinkedList<T> : IReadOnlyCollection<T>
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly IEqualityComparer<T> _comparer;
+        internal IEqualityComparer<T> Comparer { get; }
 
         /// <summary> Initializes a new instance of <see cref="CircularLinkedList{T}"/> </summary>
         /// <param name="collection">Collection of objects that will be added to linked list</param>
@@ -26,12 +26,10 @@ namespace Discord.Addons.MpGame
         /// <param name="comparer">Comparer used for item comparison</param>
         public CircularLinkedList(IEnumerable<T> collection, IEqualityComparer<T> comparer)
         {
-            if (comparer == null) throw new ArgumentNullException(nameof(comparer));
-
-            _comparer = comparer;
+            Comparer = comparer ?? throw new ArgumentNullException(nameof(comparer));
             if (collection != null)
             {
-                foreach (T item in collection)
+                foreach (var item in collection)
                     AddLast(item);
             }
 
@@ -57,7 +55,7 @@ namespace Discord.Addons.MpGame
                 if (index >= Count || index < 0) throw new ArgumentOutOfRangeException("index");
                 else
                 {
-                    Node<T> node = Head;
+                    var node = Head;
                     for (int i = 0; i < index; i++)
                         node = node.Next;
 
@@ -75,7 +73,7 @@ namespace Discord.Addons.MpGame
                 AddFirstItem(item);
             else
             {
-                Node<T> newNode = new Node<T>(item);
+                var newNode = new Node<T>(item);
                 Tail.Next = newNode;
                 newNode.Next = Head;
                 newNode.Previous = Tail;
@@ -100,7 +98,7 @@ namespace Discord.Addons.MpGame
                 AddFirstItem(item);
             else
             {
-                Node<T> newNode = new Node<T>(item);
+                var newNode = new Node<T>(item);
                 Head.Previous = newNode;
                 newNode.Previous = Tail;
                 newNode.Next = Head;
@@ -119,12 +117,14 @@ namespace Discord.Addons.MpGame
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
             // ensuring the supplied node belongs to this list
-            Node<T> temp = FindNode(Head, node.Value);
+            var temp = FindNode(Head, node.Value);
             if (temp != node)
                 throw new InvalidOperationException("Node doesn't belongs to this list");
 
-            Node<T> newNode = new Node<T>(item);
-            newNode.Next = node.Next;
+            var newNode = new Node<T>(item)
+            {
+                Next = node.Next
+            };
             node.Next.Previous = newNode;
             newNode.Previous = node;
             node.Next = newNode;
@@ -141,7 +141,7 @@ namespace Discord.Addons.MpGame
         private void AddAfter(T existingItem, T newItem)
         {
             // finding a node for the existing item
-            Node<T> node = Find(existingItem);
+            var node = Find(existingItem);
             if (node == null)
                 throw new ArgumentException("existingItem doesn't exist in the list");
             AddAfter(node, newItem);
@@ -157,11 +157,11 @@ namespace Discord.Addons.MpGame
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
             // ensuring the supplied node belongs to this list
-            Node<T> temp = FindNode(Head, node.Value);
+            var temp = FindNode(Head, node.Value);
             if (temp != node)
                 throw new InvalidOperationException("Node doesn't belongs to this list");
 
-            Node<T> newNode = new Node<T>(item);
+            var newNode = new Node<T>(item);
             node.Previous.Next = newNode;
             newNode.Previous = node.Previous;
             newNode.Next = node;
@@ -179,7 +179,7 @@ namespace Discord.Addons.MpGame
         private void AddBefore(T existingItem, T newItem)
         {
             // finding a node for the existing item
-            Node<T> node = Find(existingItem);
+            var node = Find(existingItem);
             if (node == null)
                 throw new ArgumentException("existingItem doesn't exist in the list");
             AddBefore(node, newItem);
@@ -190,14 +190,14 @@ namespace Discord.Addons.MpGame
         /// <returns><see cref="Node{T}"/> instance or <see cref="null"/></returns>
         public Node<T> Find(T item)
         {
-            Node<T> node = FindNode(Head, item);
+            var node = FindNode(Head, item);
             return node;
         }
 
         private Node<T> FindNode(Node<T> node, T valueToCompare)
         {
             Node<T> result = null;
-            if (_comparer.Equals(node.Value, valueToCompare))
+            if (Comparer.Equals(node.Value, valueToCompare))
                 result = node;
             else if (result == null && node.Next != Head)
                 result = FindNode(node.Next, valueToCompare);
@@ -208,7 +208,7 @@ namespace Discord.Addons.MpGame
         /// <returns></returns>
         public IEnumerator<T> GetEnumerator()
         {
-            Node<T> current = Head;
+            var current = Head;
             if (current != null)
             {
                 do
@@ -223,7 +223,7 @@ namespace Discord.Addons.MpGame
         /// <returns></returns>
         public IEnumerator<T> GetReverseEnumerator()
         {
-            Node<T> current = Tail;
+            var current = Tail;
             if (current != null)
             {
                 do
@@ -257,7 +257,7 @@ namespace Discord.Addons.MpGame
             if (arrayIndex < 0 || arrayIndex > array.Length)
                 throw new ArgumentOutOfRangeException("arrayIndex");
 
-            Node<T> node = Head;
+            var node = Head;
             do
             {
                 array[arrayIndex++] = node.Value;

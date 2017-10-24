@@ -68,6 +68,7 @@ namespace Discord.Addons.SimplePermissions
                 .HasField("_uid")
                 .IsRequired(true);
 
+
             modelBuilder.Entity<ConfigChannel<TUser>>()
                 .Property<long>("Channel_Id")
                 .HasField("_cid")

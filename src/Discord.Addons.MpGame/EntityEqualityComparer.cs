@@ -5,11 +5,16 @@ namespace Discord.Addons.MpGame
 {
     internal static class Comparers
     {
-        public static IEqualityComparer<IUser> UserComparer                     { get; } = new EntityEqualityComparer<IUser, ulong>();
-        public static IEqualityComparer<IGuild> GuildComparer                   { get; } = new EntityEqualityComparer<IGuild, ulong>();
-        public static IEqualityComparer<IChannel> ChannelComparer               { get; } = new EntityEqualityComparer<IChannel, ulong>();
-        public static IEqualityComparer<IRole> RoleComparer                     { get; } = new EntityEqualityComparer<IRole, ulong>();
-        public static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = ChannelComparer;
+        public static IEqualityComparer<IUser> UserComparer         => _userComparer.Value;
+        public static IEqualityComparer<IGuild> GuildComparer       => _guildComparer.Value;
+        public static IEqualityComparer<IChannel> ChannelComparer   => _channelComparer.Value;
+        public static IEqualityComparer<IRole> RoleComparer         => _roleComparer.Value;
+        //public static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = ChannelComparer;
+
+        private static readonly Lazy<IEqualityComparer<IUser>> _userComparer = new Lazy<IEqualityComparer<IUser>>(() => new EntityEqualityComparer<IUser, ulong>());
+        private static readonly Lazy<IEqualityComparer<IGuild>> _guildComparer = new Lazy<IEqualityComparer<IGuild>>(() => new EntityEqualityComparer<IGuild, ulong>());
+        private static readonly Lazy<IEqualityComparer<IChannel>> _channelComparer = new Lazy<IEqualityComparer<IChannel>>(() => new EntityEqualityComparer<IChannel, ulong>());
+        private static readonly Lazy<IEqualityComparer<IRole>> _roleComparer = new Lazy<IEqualityComparer<IRole>>(() => new EntityEqualityComparer<IRole, ulong>());
 
         private sealed class EntityEqualityComparer<TEntity, TId> : EqualityComparer<TEntity>
             where TEntity : IEntity<TId>
@@ -26,7 +31,9 @@ namespace Discord.Addons.MpGame
             }
         }
 
-        public static IEqualityComparer<Player> PlayerComparer { get; } = new PlayerEqualityComparer();
+        public static IEqualityComparer<Player> PlayerComparer      => _playerComparer.Value;
+
+        private static readonly Lazy<IEqualityComparer<Player>> _playerComparer = new Lazy<IEqualityComparer<Player>>(() => new PlayerEqualityComparer());
 
         private sealed class PlayerEqualityComparer : EqualityComparer<Player>
         {

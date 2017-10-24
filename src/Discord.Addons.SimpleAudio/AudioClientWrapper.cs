@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.IO;
@@ -7,7 +8,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Discord.Audio;
-using System.Collections.Generic;
 
 namespace Discord.Addons.SimpleAudio
 {
@@ -95,7 +95,7 @@ namespace Discord.Addons.SimpleAudio
         public Task AddToPlaylist(string file)
         {
             _playlist.Enqueue(file);
-            return (_playlist.Count > 1)
+            return (IsPlaying() || _playlist.Count > 1)
                 ? RefreshEmbed()
                 : Task.CompletedTask;
         }

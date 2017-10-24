@@ -1,4 +1,5 @@
-﻿ using System;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Discord.Addons.SimplePermissions
@@ -6,7 +7,7 @@ namespace Discord.Addons.SimplePermissions
     /// <summary> </summary>
     public class ConfigUser
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /// <summary> </summary>
         public int Id { get; set; }
 
@@ -15,8 +16,8 @@ namespace Discord.Addons.SimplePermissions
         [NotMapped]
         public ulong UserId
         {
-            get => Converter.LongToUlong(_uid);
-            set => _uid = Converter.UlongToLong(value);
+            get => unchecked((ulong)_uid);
+            set => _uid = unchecked((long)value);
         }
 
         private long _uid;

@@ -8,4 +8,8 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>Discord.Addons.Core</Import_RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DictionaryExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+  </ItemGroup>
 </Project>

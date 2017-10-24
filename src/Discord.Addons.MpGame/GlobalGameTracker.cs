@@ -7,7 +7,7 @@ namespace Discord.Addons.MpGame
     /// <summary> Keeps track of *all* channels that are playing a game. </summary>
     internal sealed class GameTracker
     {
-        private static readonly Lazy<GameTracker> _lazy = new Lazy<GameTracker>(() => new GameTracker(), LazyThreadSafetyMode.ExecutionAndPublication);
+        private static readonly Lazy<GameTracker> _lazy = new Lazy<GameTracker>(() => new GameTracker(), LazyThreadSafetyMode.PublicationOnly);
         private readonly ConcurrentDictionary<ulong, string> _channelGames = new ConcurrentDictionary<ulong, string>();
 
         /// <summary> The singleton-instance of this class. </summary>

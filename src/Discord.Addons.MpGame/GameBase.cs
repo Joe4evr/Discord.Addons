@@ -16,6 +16,7 @@ namespace Discord.Addons.MpGame
             if (players == null) throw new ArgumentNullException(nameof(players));
 
             Channel = channel ?? throw new ArgumentNullException(nameof(channel));
+
             Players = new CircularLinkedList<TPlayer>(players, Comparers.PlayerComparer);
             TurnPlayer = Players.Head;
         }
@@ -26,12 +27,18 @@ namespace Discord.Addons.MpGame
         /// <summary> Represents all the players in this game. </summary>
         protected internal CircularLinkedList<TPlayer> Players { get; }
 
+        /// <summary> The current turn's player. </summary>
+        public Node<TPlayer> TurnPlayer { get; protected set; }
+
+        ///// <summary> Indicates whether or not the current TurnPlayer is the first player in the list. </summary>
+        //protected bool IsTurnPlayerFirstPlayer() => Players.Comparer.Equals(TurnPlayer.Value, Players.Head.Value);
+
+        /// <summary> Indicates whether or not the current TurnPlayer is the last player in the list. </summary>
+        protected bool IsTurnPlayerLastPlayer() => Players.Comparer.Equals(TurnPlayer.Value, Players.Tail.Value);
+
         /// <summary> Selects the DM Channels of all the players. </summary>
         public async Task<IEnumerable<IDMChannel>> PlayerChannels()
             => await Task.WhenAll(Players.Select(async p => await p.User.GetOrCreateDMChannelAsync().ConfigureAwait(false))).ConfigureAwait(false);
-
-        /// <summary> The current turn's player. </summary>
-        public Node<TPlayer> TurnPlayer { get; protected set; }
 
         /// <summary> Perform the actions that are part of the initial setup. </summary>
         public abstract Task SetupGame();

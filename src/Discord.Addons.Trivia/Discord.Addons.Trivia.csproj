@@ -8,5 +8,6 @@
         <Authors>Joe4evr</Authors>
         <TargetFrameworks>$(TargetFrameworks);netstandard1.3</TargetFrameworks>
         <PackageTags>discord</PackageTags>
+        <TargetFrameworks>netstandard1.3</TargetFrameworks>
     </PropertyGroup>
 </Project>

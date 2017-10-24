@@ -12,7 +12,7 @@ namespace Discord.Addons.MpGame
     {
         private readonly object _lock = new object();
 
-        internal bool OpenToJoin { get; private set; } = true;
+        internal bool OpenToJoin { get; private set; } = false;
         internal TGame Game { get; private set; }
         internal ImmutableHashSet<IUser> JoinedUsers => _builder.ToImmutable();
         private ImmutableHashSet<IUser>.Builder _builder = ImmutableHashSet.CreateBuilder<IUser>(Comparers.UserComparer);

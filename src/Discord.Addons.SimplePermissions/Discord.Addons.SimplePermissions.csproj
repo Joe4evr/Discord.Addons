@@ -7,14 +7,12 @@
         <Description>Discord.Net module for command permission management.</Description>
         <Authors>Joe4evr</Authors>
         <PackageTags>discord;commands;permissions</PackageTags>
-        <!--<TargetFrameworks>$(TargetFrameworks);netstandard1.6</TargetFrameworks>-->
+        <TargetFrameworks>netstandard1.6</TargetFrameworks>
     </PropertyGroup>
     <ItemGroup>
         <None Include="README.md" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Discord.Net.Commands" Version="1.0.1" />
-        <PackageReference Include="Discord.Net.WebSocket" Version="1.0.1" />
         <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.0" />
         <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
     </ItemGroup>

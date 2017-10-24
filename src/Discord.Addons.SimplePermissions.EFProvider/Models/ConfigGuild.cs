@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Discord.Addons.SimplePermissions
@@ -11,7 +12,7 @@ namespace Discord.Addons.SimplePermissions
         where TChannel : ConfigChannel<TUser>
         where TUser    : ConfigUser
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /// <summary> </summary>
         public int Id { get; set; }
 
@@ -19,24 +20,24 @@ namespace Discord.Addons.SimplePermissions
         [NotMapped]
         public ulong GuildId
         {
-            get => Converter.LongToUlong(_gid);
-            set => _gid = Converter.UlongToLong(value);
+            get => unchecked((ulong)_gid);
+            set => _gid = unchecked((long)value);
         }
 
         /// <summary> </summary>
         [NotMapped]
         public ulong ModRole
         {
-            get => Converter.LongToUlong(_mid);
-            set => _mid = Converter.UlongToLong(value);
+            get => unchecked((ulong)_mid);
+            set => _mid = unchecked((long)value);
         }
 
         /// <summary> </summary>
         [NotMapped]
         public ulong AdminRole
         {
-            get => Converter.LongToUlong(_aid);
-            set => _aid = Converter.UlongToLong(value);
+            get => unchecked((ulong)_aid);
+            set => _aid = unchecked((long)value);
         }
 
         private long _gid;

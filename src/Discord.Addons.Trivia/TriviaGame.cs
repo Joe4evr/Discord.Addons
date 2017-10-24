@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Discord.WebSocket;
+using Discord.Addons.Core;
 
 namespace Discord.Addons.TriviaGames
 {
@@ -73,7 +74,7 @@ namespace Discord.Addons.TriviaGames
             sb.Append("```");
 
             await _channel.SendMessageAsync(sb.ToString());
-            await GameEnd(_channel.Id);
+            await GameEnd(_channel);
         }
 
         private async Task AskQuestion()

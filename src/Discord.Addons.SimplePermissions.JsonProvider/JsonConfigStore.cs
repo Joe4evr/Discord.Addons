@@ -19,11 +19,12 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="path">Path to the JSON file.</param>
         public JsonConfigStore(string path, CommandService commands)
         {
-            if (path == null) throw new ArgumentNullException(nameof(path));
+            _jsonPath = path ?? throw new ArgumentNullException(nameof(path));
+            _commands = commands ?? throw new ArgumentNullException(nameof(commands));
+
             if (!File.Exists(path))
                 File.WriteAllText(path, JsonConvert.SerializeObject(new TConfig(), Formatting.Indented));
 
-            _jsonPath = path;
             using (var config = Load())
             {
                 if (config.ChannelModuleWhitelist == null)

@@ -18,6 +18,8 @@ public abstract class GameBase<TPlayer>
 
     public Node<TPlayer> TurnPlayer { get; protected set; }
 
+    protected bool IsTurnPlayerLastPlayer();
+
     public abstract string GetGameState();
 
     public abstract Task SetupGame();
@@ -84,12 +86,20 @@ public class CardGame : GameBase<CardPlayer> // Any player in a 'CardGame' is of
         State = GameState.StartOfTurn;
 
         // Use 'TurnPlayer.Next' and assign it as the new TurnPlayer
-        // The base class will automatically cycle through once it reaches the end
-        TurnPlayer = TurnPlayer.Next;
+        // The list will automatically cycle through once it reaches the end
 
-        // Use 'TurnPlayer.Value' to get the
-        // actual instance value of the player
-        TurnPlayer.Value.AddCard(Deck.Pop());
+        // On the other hand, if you would like to stop the game
+        // automatically once everyone has had a turn (or a set number of turns),
+        // you can use this method from the base class to check
+        if (!IsTurnPlayerLastPlayer())
+        {
+            TurnPlayer = TurnPlayer.Next;
+
+            // Use 'TurnPlayer.Value' to get the
+            // actual instance value of the player
+            TurnPlayer.Value.AddCard(Deck.Pop());
+        }
+
     }
 
     public override string GetGameState()

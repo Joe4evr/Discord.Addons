@@ -6,10 +6,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord.Commands;
+using Discord.Addons.Core;
 
 namespace Discord.Addons.MpGame
 {
-    /// <summary> Service managing games for <see cref="MpGameModuleBase{TService, TGame, TPlayer, TContext}"/>. </summary>
+    /// <summary> Service managing games for a <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/>. </summary>
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
     public class MpGameService<TGame, TPlayer>
@@ -19,10 +20,7 @@ namespace Discord.Addons.MpGame
         ///// <summary> A cached <see cref="IEqualityComparer{IUser}"/> instance to use when
         ///// instantiating a <see cref="Dictionary{TKey, TValue}"/> using an <see cref="IUser"/> as the key. </summary>
         //protected static IEqualityComparer<IUser> UserComparer { get; } = Comparers.UserComparer;
-        private static readonly string _gameName = typeof(TGame).FullName;
-        internal string GameName => _gameName;
-
-        /// <summary> A cached <see cref="IEqualityComparer{IMessageChannel}"/> instance to use when
+        /// <summary> A cached <see cref="IEqualityComparer{T}">IEqualityComparer</see>&lt;<see cref="IMessageChannel"/>&gt;instance to use when
         /// instantiating a <see cref="Dictionary{TKey, TValue}"/> using <see cref="IMessageChannel"/> as the key. </summary>
         protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = Comparers.ChannelComparer;
 
@@ -36,11 +34,6 @@ namespace Discord.Addons.MpGame
         {
             Logger = logger ?? (_ => Task.CompletedTask);
         }
-
-        //internal Task Log(LogSeverity severity, string msg)
-        //{
-        //    return _logger(new LogMessage(severity, $"MpGameSvc<{typeof(TGame).Name}>", msg));
-        //}
 
         internal PersistentGameData<TGame, TPlayer> GetData(IMessageChannel channel)
             => _dataList.GetValueOrDefault(channel);
@@ -205,6 +198,10 @@ namespace Discord.Addons.MpGame
         {
             return _dataList.TryGetValue(channel, out var data) && data.OpenToJoin;
         }
+
+        //micro-optimization
+        private static readonly string _gameName = typeof(TGame).FullName;
+        internal string GameName => _gameName;
     }
 
     /// <summary> Service managing games for <see cref="MpGameModuleBase{TService, TGame, TContext}"/>

@@ -8,8 +8,6 @@
         <Authors>Joe4evr</Authors>
         <PackageTags>discord;commands;audio</PackageTags>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
     </PropertyGroup>
-    <ItemGroup>
-      <!--<ProjectReference Include="..\..\..\Discord.Net\src\Discord.Net.Commands\Discord.Net.Commands.csproj" />-->
-    </ItemGroup>
 </Project>

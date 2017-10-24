@@ -14,19 +14,19 @@
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <!--<TargetFrameworks>netstandard2.0</TargetFrameworks>-->
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Discord.Net.Commands" Version="1.0.1" />
-        <PackageReference Include="Discord.Net.WebSocket" Version="1.0.1" />
+        <PackageReference Include="Discord.Net.Commands" Version="1.0.2" />
+        <PackageReference Include="Discord.Net.WebSocket" Version="1.0.2" />
     </ItemGroup>
     <PropertyGroup Condition="'$(Configuration)' == 'Release'">
         <Optimize>True</Optimize>
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
     </PropertyGroup>
     <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
-        <SolutionDir>..\</SolutionDir>
+        <SolutionDir>.\</SolutionDir>
     </PropertyGroup>
     <!--<Import Project=".\Analyzers.props" Condition="'$(Configuration)' == 'Debug'"/>-->
-    <!--<Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />-->
+    <Import Project="$(SolutionDir)src\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />
 </Project>
