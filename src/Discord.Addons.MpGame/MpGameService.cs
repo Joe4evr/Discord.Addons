@@ -53,6 +53,11 @@ namespace Discord.Addons.MpGame
         /// <returns>true if the operation succeeded, otherwise false.</returns>
         public bool OpenNewGame(IMessageChannel channel)
         {
+            if (GameTracker.Instance.TryGet(channel, out var _))
+            {
+
+            }
+
             lock (_lock)
             {
                 var data = new PersistentGameData<TGame, TPlayer>();

@@ -22,9 +22,11 @@ namespace Discord.Addons.MpGame
         //TODO: C# "who-knows-when" feature, nullability annotation
         /// <summary> The instance of the game being played (if active). </summary>
         protected TGame Game { get; private set; }
+        /// <summary> The player object that wraps the user executing this command (if a game is active). </summary>
+        protected TPlayer Player { get; private set; }
 
         /// <summary> Determines if a game in the current channel is in progress or not. </summary>
-        protected CurrentlyPlaying GameInProgress { get; private set; }
+        protected internal CurrentlyPlaying GameInProgress { get; private set; }
 
         /// <summary> Determines if a game in the current channel is open to join or not. </summary>
         protected bool OpenToJoin { get; private set; }
@@ -43,10 +45,13 @@ namespace Discord.Addons.MpGame
         protected override void BeforeExecute(CommandInfo command)
         {
             base.BeforeExecute(command);
+
             var data = GameService.GetData(Context.Channel);
-            OpenToJoin = data?.OpenToJoin ?? false;
+            OpenToJoin  = data?.OpenToJoin ?? false;
             JoinedUsers = data?.JoinedUsers ?? ImmutableHashSet<IUser>.Empty;
-            Game = data?.Game;
+            Game        = data?.Game;
+            Player      = Game?.Players.SingleOrDefault(p => p.User.Id == Context.User.Id);
+
             GameInProgress = GameTracker.Instance.TryGet(Context.Channel, out var name)
                 ? (name == GameService.GameName ? CurrentlyPlaying.ThisGame : CurrentlyPlaying.DifferentGame)
                 : CurrentlyPlaying.None;
@@ -88,19 +93,6 @@ namespace Discord.Addons.MpGame
                     await player.RetrySendMessageAsync();
                 }
             }
-        }
-
-        /// <summary> Specifies if a game is being played when the command is invoked. </summary>
-        protected enum CurrentlyPlaying
-        {
-            /// <summary> No game is being played in this channel. </summary>
-            None = 0,
-
-            /// <summary> This game is being played in this channel. </summary>
-            ThisGame = 1,
-
-            /// <summary> A different game is being played in this channel. </summary>
-            DifferentGame = 2
         }
     }
 

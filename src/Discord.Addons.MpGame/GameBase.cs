@@ -14,11 +14,10 @@ namespace Discord.Addons.MpGame
         protected GameBase(IMessageChannel channel, IEnumerable<TPlayer> players)
         {
             if (players == null) throw new ArgumentNullException(nameof(players));
-
             Channel = channel ?? throw new ArgumentNullException(nameof(channel));
 
-            Players = new CircularLinkedList<TPlayer>(players, Comparers.PlayerComparer);
-            TurnPlayer = Players.Head;
+            Players = new CircularLinkedList<TPlayer>(players, MpGameComparers.PlayerComparer);
+            TurnPlayer = Node<TPlayer>.CreateNextOnlyNode(Players.Head);
         }
 
         /// <summary> The channel where the public-facing side of the game is played. </summary>
@@ -64,11 +63,4 @@ namespace Discord.Addons.MpGame
 
         internal event Func<IMessageChannel, Task> GameEnd;
     }
-
-    //public abstract class GameBase : GameBase<Player>
-    //{
-    //    protected GameBase(IMessageChannel channel, IEnumerable<Player> players) : base(channel, players)
-    //    {
-    //    }
-    //}
 }

@@ -14,7 +14,7 @@ public abstract class GameBase<TPlayer>
 
     protected CircularLinkedList<TPlayer> Players { get; }
 
-    public IEnumerable<IDMChannel> PlayerChannels { get; }
+    public Task<IEnumerable<IDMChannel>> PlayerChannels() { get; }
 
     public Node<TPlayer> TurnPlayer { get; protected set; }
 

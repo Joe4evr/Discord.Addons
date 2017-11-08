@@ -145,19 +145,28 @@ namespace Examples.MpGame
 
         [Command("turn")] // Advance to the next turn
         public override Task NextTurnCmd()
-            => GameInProgress == CurrentlyPlaying.ThisGame ? Game.NextTurn() :
-                GameInProgress == CurrentlyPlaying.DifferentGame ? ReplyAsync("Different game in progress.") : ReplyAsync("No game in progress.");
+            => GameInProgress == CurrentlyPlaying.ThisGame
+                ? Game.NextTurn()
+                : GameInProgress == CurrentlyPlaying.DifferentGame
+                    ? ReplyAsync("Different game in progress.")
+                    : ReplyAsync("No game in progress.");
 
         // Post a message that represents the game's state
         [Command("state")] //Remember there's a 2000 character limit
         public override Task GameStateCmd()
-           => GameInProgress == CurrentlyPlaying.ThisGame ? ReplyAsync(Game.GetGameState()) :
-                GameInProgress == CurrentlyPlaying.DifferentGame ? ReplyAsync("Different game in progress.") : ReplyAsync("No game in progress.");
+           => GameInProgress == CurrentlyPlaying.ThisGame
+                ? ReplyAsync(Game.GetGameState())
+                : GameInProgress == CurrentlyPlaying.DifferentGame
+                    ? ReplyAsync("Different game in progress.")
+                    : ReplyAsync("No game in progress.");
 
         // Command to end a game before a win-condition is met
         [Command("end")] //Should be restricted to mods/admins to prevent abuse
         public override Task EndGameCmd()
-            => GameInProgress == CurrentlyPlaying.ThisGame ? Game.EndGame("Game ended early by moderator.") :
-                GameInProgress == CurrentlyPlaying.DifferentGame ? ReplyAsync("Different game in progress.") : ReplyAsync("No game in progress.");
+            => GameInProgress == CurrentlyPlaying.ThisGame
+                ? Game.EndGame("Game ended early by moderator.")
+                : GameInProgress == CurrentlyPlaying.DifferentGame
+                    ? ReplyAsync("Different game in progress.")
+                    : ReplyAsync("No game in progress.");
     }
 }

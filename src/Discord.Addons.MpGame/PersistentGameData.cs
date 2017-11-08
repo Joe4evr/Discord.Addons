@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Text;
+using Discord.Addons.Core;
 
 namespace Discord.Addons.MpGame
 {

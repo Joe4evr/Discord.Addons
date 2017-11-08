@@ -202,7 +202,7 @@ namespace Discord.Addons.SimpleAudio
                 {
                     try
                     {
-                        await Task.Delay(-1, _pauseToken.Token);
+                        await Task.Delay(Timeout.Infinite, _pauseToken.Token);
                     }
                     catch (OperationCanceledException) { }
                 }
@@ -250,7 +250,7 @@ namespace Discord.Addons.SimpleAudio
             // 16-bit precision for the multiplication
             int volumeFixed = (int)Math.Round(volume * 65536d);
 
-            int count = audioSamples.Length / 2;
+            int count = audioSamples.Length >> 1;
 
             fixed (byte* srcBytes = audioSamples)
             {

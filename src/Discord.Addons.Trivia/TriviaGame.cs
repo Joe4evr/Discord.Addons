@@ -13,7 +13,6 @@ namespace Discord.Addons.TriviaGames
     /// <summary> Creates a Trivia game in a given channel. </summary>
     public sealed class TriviaGame
     {
-        private readonly Atomic<bool> _isAnswered = new Atomic<bool>(true);
         private readonly ConcurrentDictionary<ulong, int> _scoreboard = new ConcurrentDictionary<ulong, int>();
         private readonly Random _rng = new Random();
 
@@ -23,6 +22,7 @@ namespace Discord.Addons.TriviaGames
         private readonly Timer _questionTimer;
 
         private int _turn = 0;
+        private int _isAnswered = (int)Answered.Yes;
 
         private QA _currentQuestion;
 
@@ -81,7 +81,7 @@ namespace Discord.Addons.TriviaGames
         {
             _currentQuestion = _triviaData.Pop();
             _turn++;
-            _isAnswered.SetValue(false);
+            _isAnswered = (int)Answered.No;
             await _channel.SendMessageAsync(_currentQuestion.Question);
             _questionTimer.Change(TimeSpan.FromSeconds(20), Timeout.InfiniteTimeSpan);
         }
@@ -99,7 +99,7 @@ namespace Discord.Addons.TriviaGames
             if (msg == null) return;
 
             if (_currentQuestion.Answers.Contains(msg.Content.Trim(), StringComparer.OrdinalIgnoreCase) &&
-                _isAnswered.TryUpdate(newValue: true, comparisonValue: false))
+                Interlocked.CompareExchange(ref _isAnswered, value: (int)Answered.Yes, comparand: (int)Answered.No) == (int)Answered.No)
             {
                 _questionTimer.Change(Timeout.Infinite, Timeout.Infinite);
                 var userScore = _scoreboard.AddOrUpdate(msg.Author.Id, 1, (k, v) => ++v);
@@ -135,32 +135,10 @@ namespace Discord.Addons.TriviaGames
             }
         }
 
-        private sealed class Atomic<T>
-            where T : struct
+        private enum Answered : int
         {
-            private readonly object _lock = new object();
-            private T value;
-
-            public Atomic(T initialValue)
-            {
-                value = initialValue;
-            }
-
-            public bool TryUpdate(T newValue, T comparisonValue)
-            {
-                lock (_lock)
-                {
-                    var result = value.Equals(comparisonValue);
-                    if (result)
-                        value = newValue;
-
-                    return result;
-                }
-            }
-
-            public void SetValue(T newValue) => value = newValue;
-
-            //public static implicit operator T(Atomic<T> atomic) => atomic.value;
+            No = 0,
+            Yes = 1
         }
     }
 }

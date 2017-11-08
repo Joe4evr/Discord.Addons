@@ -271,19 +271,54 @@ namespace Discord.Addons.MpGame
     public sealed class Node<T>
     {
         /// <summary> Gets the Value </summary>
-        public T Value { get; }
+        public T Value
+        {
+            get
+            {
+                ThrowIfNextOnly();
+                return _value;
+            }
+        }
 
         /// <summary> Gets next node </summary>
         public Node<T> Next { get; internal set; }
 
         /// <summary> Gets previous node </summary>
-        public Node<T> Previous { get; internal set; }
+        public Node<T> Previous
+        {
+            get
+            {
+                ThrowIfNextOnly();
+                return _previous;
+            }
+            internal set => _previous = value;
+        }
 
         /// <summary> Initializes a new <see cref="Node{T}"/> instance </summary>
         /// <param name="item">Value to be assigned</param>
         internal Node(T item)
         {
-            Value = item;
+            _value = item;
+            _isNextOnly = false;
         }
+
+        private Node()
+        {
+            _value = default;
+            _isNextOnly = true;
+        }
+
+        private readonly bool _isNextOnly;
+        private readonly T _value;
+        private Node<T> _previous;
+
+        private void ThrowIfNextOnly()
+        {
+            if (_isNextOnly)
+                throw new InvalidOperationException("You may only use 'Next' on this 'Node<T>' instance.");
+        }
+
+        internal static Node<T> CreateNextOnlyNode(Node<T> next)
+            => new Node<T>() { Next = next };
     }
 }

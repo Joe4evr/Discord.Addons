@@ -19,7 +19,7 @@ namespace Examples.SimplePermissions
         }
 
         // Keep the config store in a private field, just like the client.
-        private readonly IConfigStore<MyJsonConfig> _configStore;
+        //private readonly IConfigStore<MyJsonConfig> _configStore;
 
         // Standard 1.0 fare
         private readonly DiscordSocketClient _client;
@@ -37,19 +37,19 @@ namespace Examples.SimplePermissions
             // One neat thing you could do is pass 'args[0]' from Main()
             // into the constructor here and use that as the path so that
             // you can specify where the config is loaded from when the bot starts up.
-            _configStore = new JsonConfigStore<MyJsonConfig>("path_to_config.json", _commands);
+            //_configStore = new JsonConfigStore<MyJsonConfig>("path_to_config.json", _commands);
 
-            // If you have some Dictionary of data added to your config,
-            // you should add a check to see if is initialized already or not.
-            using (var config = _configStore.Load())
-            {
-                if (config.SomeData == null)
-                {
-                    config.SomeData = new Dictionary<ulong, string[]>();
-                    // Remember to call Save() to save any changes
-                    config.Save();
-                }
-            }
+            //// If you have some Dictionary of data added to your config,
+            //// you should add a check to see if is initialized already or not.
+            //using (var config = _configStore.Load())
+            //{
+            //    if (config.SomeData == null)
+            //    {
+            //        config.SomeData = new Dictionary<ulong, string[]>();
+            //        // Remember to call Save() to save any changes
+            //        config.Save();
+            //    }
+            //}
 
             _client = new DiscordSocketClient(new DiscordSocketConfig
             {
@@ -67,15 +67,15 @@ namespace Examples.SimplePermissions
 
             // You can pass your Logging method into the initializer for
             // SimplePermissions, so that you get a consistent looking log:
-            await _commands.UseSimplePermissions(_client, _configStore, _map, Log);
+            //await _commands.UseSimplePermissions(_client, _configStore, _map, Log);
 
-            // Load the config, read the token, and pass it into the login method:
-            using (var config = _configStore.Load())
-            {
-                await _client.LoginAsync(TokenType.Bot, config.LoginToken);
-            }
+            //// Load the config, read the token, and pass it into the login method:
+            //using (var config = _configStore.Load())
+            //{
+            //    await _client.LoginAsync(TokenType.Bot, config.LoginToken);
+            //}
 
-            await _client.StartAsync();
+            //await _client.StartAsync();
             await Task.Delay(-1);
         }
     }

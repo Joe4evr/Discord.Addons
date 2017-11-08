@@ -16,6 +16,8 @@ public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<IC
 
     protected TGame Game { get; }
 
+    protected TPlayer Player { get; }
+
     protected CurrentlyPlaying GameInProgress { get; }
 
     protected bool OpenToJoin { get; }
