@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.IO;
-using System.Reflection;
+//using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Discord.Audio;
@@ -18,13 +19,13 @@ namespace Discord.Addons.SimpleAudio
         private static readonly IEmote _stopEmote = new Emoji("⏹️");
 
         private readonly object _cancelLock = new object();
-        private readonly object _pauseLock = new object();
+        //private readonly object _pauseLock = new object();
         private readonly ConcurrentQueue<string> _playlist = new ConcurrentQueue<string>();
 
         private readonly IUserMessage _message;
 
         private bool _next = false;
-        private bool _pause = false;
+        private int _pause = 0;
         private float _playingVolume = 0.5f;
         private CancellationTokenSource _cancelToken = new CancellationTokenSource();
         private CancellationTokenSource _pauseToken = new CancellationTokenSource();
@@ -113,9 +114,9 @@ namespace Discord.Addons.SimpleAudio
         // in a row *should* be completely thread-safe
         public Task Pause()
         {
-            if (!_pause)
+            if (_pause == 0)
             {
-                _pause = true;
+                _pause = 1;
                 _statusEmote = _pauseEmote;
                 return RefreshEmbed();
             }
@@ -124,19 +125,15 @@ namespace Discord.Addons.SimpleAudio
 
         public Task Resume()
         {
-            lock (_pauseLock)
+            if (Interlocked.Exchange(ref _pause, value: 0) == 1)
             {
-                if (_pause)
+                using (_pauseToken)
                 {
-                    _pause = false;
-                    using (_pauseToken)
-                    {
-                        _pauseToken.Cancel();
-                    }
-                    _pauseToken = new CancellationTokenSource();
-                    _statusEmote = new Emoji("▶️");
-                    return RefreshEmbed();
+                    _pauseToken.Cancel();
                 }
+                _pauseToken = new CancellationTokenSource();
+                _statusEmote = new Emoji("▶️");
+                return RefreshEmbed();
             }
             return Task.CompletedTask;
         }
@@ -173,32 +170,21 @@ namespace Discord.Addons.SimpleAudio
 
         public bool IsPlaying()
         {
-            if (_ffmpeg == null)
-                return false;
-
-            // Don't try this at home - I'm a professional
-            var disposedField = typeof(Process)
-                .GetTypeInfo()
-                .GetField("_disposed", BindingFlags.Instance | BindingFlags.NonPublic);
-            var isDisposed = (bool)disposedField.GetValue(_ffmpeg);
-
-            return !(isDisposed || _ffmpeg.HasExited);
+            return !(_ffmpeg == null || _ffmpeg.HasExited);
         }
 
         private async Task PausableCopyToAsync(Stream source, Stream destination, int buffersize)
         {
-            Contract.Requires(source != null);
-            Contract.Requires(destination != null);
-            Contract.Requires(buffersize > 0);
-            Contract.Requires(source.CanRead);
-            Contract.Requires(destination.CanWrite);
+            Contract.Requires(source != null && source.CanRead, $"{nameof(source)} is null or not readable.");
+            Contract.Requires(destination != null && destination.CanWrite, $"{nameof(destination)} is null or not writable.");
+            Contract.Requires(buffersize > 0 && IsEvenBinaryOp(buffersize), $"{nameof(buffersize)} is 0 or less or not even.");
 
             byte[] buffer = new byte[buffersize];
             int count;
 
             while ((count = await source.ReadAsync(buffer, 0, buffersize, _cancelToken.Token).ConfigureAwait(false)) > 0)
             {
-                if (_pause)
+                if (_pause > 0)
                 {
                     try
                     {
@@ -237,11 +223,17 @@ namespace Discord.Addons.SimpleAudio
             return _message.ModifyAsync(m => m.Embed = emb);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private bool IsEvenBinaryOp(int number)
+        {
+            const int magic = Int32.MaxValue - 1;
+            return (number | magic) == magic;
+        }
+
         //https://hastebin.com/umapabejis.cs
         private unsafe static byte[] ScaleVolumeUnsafeNoAlloc(byte[] audioSamples, float volume)
         {
             Contract.Requires(audioSamples != null);
-            Contract.Requires(audioSamples.Length % 2 == 0);
             Contract.Requires(volume >= 0f && volume <= 1f);
             Contract.Assert(BitConverter.IsLittleEndian);
 

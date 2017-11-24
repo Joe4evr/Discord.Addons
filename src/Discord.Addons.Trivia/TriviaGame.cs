@@ -99,7 +99,7 @@ namespace Discord.Addons.TriviaGames
             if (msg == null) return;
 
             if (_currentQuestion.Answers.Contains(msg.Content.Trim(), StringComparer.OrdinalIgnoreCase) &&
-                Interlocked.CompareExchange(ref _isAnswered, value: (int)Answered.Yes, comparand: (int)Answered.No) == (int)Answered.No)
+                Interlocked.Exchange(ref _isAnswered, value: (int)Answered.Yes) == (int)Answered.No)
             {
                 _questionTimer.Change(Timeout.Infinite, Timeout.Infinite);
                 var userScore = _scoreboard.AddOrUpdate(msg.Author.Id, 1, (k, v) => ++v);

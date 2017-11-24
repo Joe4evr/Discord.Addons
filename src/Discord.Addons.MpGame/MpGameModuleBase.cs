@@ -22,17 +22,18 @@ namespace Discord.Addons.MpGame
         //TODO: C# "who-knows-when" feature, nullability annotation
         /// <summary> The instance of the game being played (if active). </summary>
         protected TGame Game { get; private set; }
-        /// <summary> The player object that wraps the user executing this command (if a game is active). </summary>
+        /// <summary> The player object that wraps the user executing this command
+        /// (if a game is active AND the user is a player in that game). </summary>
         protected TPlayer Player { get; private set; }
 
         /// <summary> Determines if a game in the current channel is in progress or not. </summary>
-        protected internal CurrentlyPlaying GameInProgress { get; private set; }
+        protected internal CurrentlyPlaying GameInProgress { get; private set; } = CurrentlyPlaying.None;
 
         /// <summary> Determines if a game in the current channel is open to join or not. </summary>
-        protected bool OpenToJoin { get; private set; }
+        protected bool OpenToJoin { get; private set; } = false;
 
         /// <summary> The list of users ready to play. </summary>
-        protected IReadOnlyCollection<IUser> JoinedUsers { get; private set; }
+        protected IReadOnlyCollection<IUser> JoinedUsers { get; private set; } = ImmutableHashSet<IUser>.Empty;
 
         /// <summary> Initializes the <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/> base class. </summary>
         /// <param name="gameService"></param>
@@ -87,10 +88,10 @@ namespace Discord.Addons.MpGame
         {
             if (GameInProgress == CurrentlyPlaying.ThisGame)
             {
-                var player = Game.Players.SingleOrDefault(p => p.User.Id == Context.User.Id);
-                if (player != null)
+                //var player = Game.Players.SingleOrDefault(p => p.User.Id == Context.User.Id);
+                if (Player != null)
                 {
-                    await player.RetrySendMessageAsync();
+                    await Player.RetrySendMessageAsync();
                 }
             }
         }

@@ -11,13 +11,18 @@ namespace Discord.Addons.MpGame
         where TPlayer : Player
     {
         /// <summary> Sets up the common logic for a multiplayer game. </summary>
-        protected GameBase(IMessageChannel channel, IEnumerable<TPlayer> players)
+        /// <param name="channel">The channel where the public-facing side of the game is played.</param>
+        /// <param name="players">The players for this game instance.</param>
+        /// <param name="setFirstPlayerImmediately">When set to <see langword="true"/>, will set the TurnPlayer
+        /// to the first player before the game begins, otherwise it will be set to an empty Node and you will
+        /// have to set it to Turnplayer.Next when starting the first turn.</param>
+        protected GameBase(IMessageChannel channel, IEnumerable<TPlayer> players, bool setFirstPlayerImmediately = false)
         {
             if (players == null) throw new ArgumentNullException(nameof(players));
             Channel = channel ?? throw new ArgumentNullException(nameof(channel));
 
             Players = new CircularLinkedList<TPlayer>(players, MpGameComparers.PlayerComparer);
-            TurnPlayer = Node<TPlayer>.CreateNextOnlyNode(Players.Head);
+            TurnPlayer = setFirstPlayerImmediately ? Players.Head : Node<TPlayer>.CreateNextOnlyNode(Players.Head);
         }
 
         /// <summary> The channel where the public-facing side of the game is played. </summary>

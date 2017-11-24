@@ -8,7 +8,7 @@ of this type after you have made your `Player` class.
 public abstract class GameBase<TPlayer>
     where TPlayer : Player
 {
-    protected GameBase(IMessageChannel channel, IEnumerable<TPlayer> players);
+    protected GameBase(IMessageChannel channel, IEnumerable<TPlayer> players, bool setFirstPlayerImmediately = false);
 
     protected IMessageChannel Channel { get; }
 
@@ -41,7 +41,10 @@ public class CardGame : GameBase<CardPlayer> // Any player in a 'CardGame' is of
 {
     // Again, you need to call the base constructor
     public CardGame(IMessageChannel channel, IEnumerable<CardPlayer> players)
-        : base(channel, players)
+        // Use the 'setFirstPlayerImmediately' flag to control
+        // where or not to set the 'TurnPlayer' to the first player
+        // or to an empty node. Default is 'false'.
+        : base(channel, players, setFirstPlayerImmediately: false)
     {
     }
 
