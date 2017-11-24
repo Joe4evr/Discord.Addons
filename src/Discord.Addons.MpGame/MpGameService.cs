@@ -20,7 +20,7 @@ namespace Discord.Addons.MpGame
         ///// <summary> A cached <see cref="IEqualityComparer{IUser}"/> instance to use when
         ///// instantiating a <see cref="Dictionary{TKey, TValue}"/> using an <see cref="IUser"/> as the key. </summary>
         //protected static IEqualityComparer<IUser> UserComparer { get; } = Comparers.UserComparer;
-        /// <summary> A cached <see cref="IEqualityComparer{T}">IEqualityComparer</see>&lt;<see cref="IMessageChannel"/>&gt;instance to use when
+        /// <summary> A cached IEqualityComparer&lt;<see cref="IMessageChannel"/>&gt;instance to use when
         /// instantiating a <see cref="Dictionary{TKey, TValue}"/> using <see cref="IMessageChannel"/> as the key. </summary>
         protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = Comparers.ChannelComparer;
 
@@ -50,12 +50,12 @@ namespace Discord.Addons.MpGame
 
         /// <summary> Prepare to set up a new game in a specified channel. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
-        /// <returns>true if the operation succeeded, otherwise false.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.</returns>
         public bool OpenNewGame(IMessageChannel channel)
         {
             if (GameTracker.Instance.TryGet(channel, out var _))
             {
-
+                return false;
             }
 
             lock (_lock)
@@ -74,16 +74,16 @@ namespace Discord.Addons.MpGame
         /// <returns>true if the operation succeeded, otherwise false.</returns>
         public bool AddUser(IMessageChannel channel, IUser user)
         {
-            lock (_lock)
+            if (_dataList.TryGetValue(channel, out var data))
             {
-                if (_dataList.TryGetValue(channel, out var data))
+                lock (_lock)
                 {
                     return data.TryAddUser(user);
                 }
-                else
-                {
-                    return false;
-                }
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -93,16 +93,16 @@ namespace Discord.Addons.MpGame
         /// <returns>true if the operation succeeded, otherwise false.</returns>
         public bool RemoveUser(IMessageChannel channel, IUser user)
         {
-            lock (_lock)
+            if (_dataList.TryGetValue(channel, out var data))
             {
-                if (_dataList.TryGetValue(channel, out var data))
+                lock (_lock)
                 {
                     return data.TryRemoveUser(user);
                 }
-                else
-                {
-                    return false;
-                }
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -124,9 +124,9 @@ namespace Discord.Addons.MpGame
         /// <returns>true if the operation succeeded, otherwise false.</returns>
         public bool TryAddNewGame(IMessageChannel channel, TGame game)
         {
-            lock (_lock)
+            if (_dataList.TryGetValue(channel, out var data))
             {
-                if (_dataList.TryGetValue(channel, out var data))
+                lock (_lock)
                 {
                     var success = data.SetGame(game) && TryUpdateOpenToJoin(channel, newValue: false, comparisonValue: true);
                     if (success)
@@ -135,10 +135,10 @@ namespace Discord.Addons.MpGame
                     }
                     return success;
                 }
-                else
-                {
-                    return false;
-                }
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -149,15 +149,11 @@ namespace Discord.Addons.MpGame
         /// <returns>true if the value was updated, otherwise false.</returns>
         public bool TryUpdateOpenToJoin(IMessageChannel channel, bool newValue, bool comparisonValue)
         {
-            lock (_lock)
+            if (!_dataList.TryGetValue(channel, out var data))
             {
-                if (!_dataList.TryGetValue(channel, out var data))
-                {
-                    data = new PersistentGameData<TGame, TPlayer>();
-                    _dataList.TryAdd(channel, data);
-                }
-                return data.TryUpdateOpenToJoin(comparisonValue, newValue);
+                return false;
             }
+            return data.TryUpdateOpenToJoin(comparisonValue, newValue);
         }
 
         /// <summary> Retrieve the game instance being played, if any. </summary>
@@ -171,7 +167,7 @@ namespace Discord.Addons.MpGame
             {
                 return d.Game;
             }
-            foreach (var data in _dataList.Values)
+            foreach (var (_, data) in _dataList)
             {
                 if ((await data.Game.PlayerChannels().ConfigureAwait(false)).Any(c => c.Id == channel.Id))
                 {

@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Text;
+using System.Threading;
 using Discord.Addons.Core;
 
 namespace Discord.Addons.MpGame
@@ -11,27 +12,20 @@ namespace Discord.Addons.MpGame
         where TGame : GameBase<TPlayer>
         where TPlayer : Player
     {
-        private readonly object _lock = new object();
+        internal bool OpenToJoin { get => _openToJoin > 0; }
+        private int _openToJoin = 0;
 
-        internal bool OpenToJoin { get; private set; } = false;
-        internal TGame Game { get; private set; }
+        internal TGame Game { get => _game; }
+        private TGame _game;
+
         internal ImmutableHashSet<IUser> JoinedUsers => _builder.ToImmutable();
         private ImmutableHashSet<IUser>.Builder _builder = ImmutableHashSet.CreateBuilder<IUser>(Comparers.UserComparer);
 
         internal bool TryUpdateOpenToJoin(bool oldValue, bool newValue)
         {
-            lock (_lock)
-            {
-                if (OpenToJoin == oldValue)
-                {
-                    OpenToJoin = newValue;
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            var oldInt = oldValue ? 1 : 0;
+            var newInt = newValue ? 1 : 0;
+            return (Interlocked.CompareExchange(ref _openToJoin, value: newInt, comparand: oldInt) == oldInt);
         }
 
         internal void NewPlayerList()
@@ -51,18 +45,7 @@ namespace Discord.Addons.MpGame
 
         internal bool SetGame(TGame game)
         {
-            lock (_lock)
-            {
-                if (Game == null)
-                {
-                    Game = game;
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            return (Interlocked.CompareExchange(ref _game, value: game, comparand: null) == null);
         }
     }
 }

@@ -88,7 +88,6 @@ namespace Discord.Addons.MpGame
         {
             if (GameInProgress == CurrentlyPlaying.ThisGame)
             {
-                //var player = Game.Players.SingleOrDefault(p => p.User.Id == Context.User.Id);
                 if (Player != null)
                 {
                     await Player.RetrySendMessageAsync();
