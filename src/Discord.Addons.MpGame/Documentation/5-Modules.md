@@ -41,13 +41,13 @@ public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<IC
     public abstract Task EndGameCmd();
 
     public virtual async Task ResendCmd();
+}
 
-    protected enum CurrentlyPlaying
-    {
-        None,
-        ThisGame,
-        DifferentGame
-    }
+protected enum CurrentlyPlaying
+{
+    None,
+    ThisGame,
+    DifferentGame
 }
 ```
 

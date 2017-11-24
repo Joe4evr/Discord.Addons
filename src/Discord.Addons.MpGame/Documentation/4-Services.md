@@ -3,11 +3,10 @@
 
 The service is a major component to know about, whether you make your own or not.
 
-Since Discord.Net beta2, the lifetime of Modules has changed from being
-the same instance at all times to being new for every time a command is ran.
-This necessitated some changes, namely that you can't store persistent data *in*
-a Module anymore. Instead, you now need a 'service' class that stores persistent data
-outside of a module lifetime.
+The lifetime of a Module is only as long as a command is running, similar to Controllers
+in ASP.NET MVC. This means that you can't store persistent data *in*
+a Module; you need a 'service' class that stores persistent data
+outside of a module lifetime instead.
 
 The `MpGameService` class looks like this:
 ```cs
