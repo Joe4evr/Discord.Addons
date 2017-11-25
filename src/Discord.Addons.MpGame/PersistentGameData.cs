@@ -4,22 +4,30 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Discord.Addons.Core;
 
 namespace Discord.Addons.MpGame
 {
     internal sealed class PersistentGameData<TGame, TPlayer>
-        where TGame : GameBase<TPlayer>
+        where TGame   : GameBase<TPlayer>
         where TPlayer : Player
     {
-        internal bool OpenToJoin { get => _openToJoin > 0; }
+        internal bool OpenToJoin => _openToJoin > 0;
         private int _openToJoin = 0;
 
-        internal TGame Game { get => _game; }
+        internal TGame Game => _game;
         private TGame _game;
 
         internal ImmutableHashSet<IUser> JoinedUsers => _builder.ToImmutable();
         private ImmutableHashSet<IUser>.Builder _builder = ImmutableHashSet.CreateBuilder<IUser>(Comparers.UserComparer);
+
+        private readonly IMessageChannel _channel;
+
+        public PersistentGameData(IMessageChannel channel)
+        {
+            _channel = channel;
+        }
 
         internal bool TryUpdateOpenToJoin(bool oldValue, bool newValue)
         {
@@ -33,14 +41,16 @@ namespace Discord.Addons.MpGame
             _builder = ImmutableHashSet.CreateBuilder<IUser>(Comparers.UserComparer);
         }
 
-        internal bool TryAddUser(IUser user)
+        internal async Task<bool> TryAddUser(IUser user)
         {
-            return _builder.Add(user);
+            return GameTracker.Instance.TryAddGameChannel(await user.GetOrCreateDMChannelAsync(), _channel)
+                && _builder.Add(user);
         }
 
-        internal bool TryRemoveUser(IUser user)
+        internal async Task<bool> TryRemoveUser(IUser user)
         {
-            return _builder.Remove(user);
+            return GameTracker.Instance.TryRemoveGameChannel(await user.GetOrCreateDMChannelAsync())
+                && _builder.Remove(user);
         }
 
         internal bool SetGame(TGame game)

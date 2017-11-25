@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Threading;
+using Discord.Addons.Core;
 
 namespace Discord.Addons.MpGame
 {
@@ -10,6 +11,8 @@ namespace Discord.Addons.MpGame
         private static readonly Lazy<GameTracker> _lazy = new Lazy<GameTracker>(() => new GameTracker(), LazyThreadSafetyMode.PublicationOnly);
         private readonly ConcurrentDictionary<ulong, string> _channelGames = new ConcurrentDictionary<ulong, string>();
 
+        private readonly ConcurrentDictionary<ulong, IMessageChannel> _dmList = new ConcurrentDictionary<ulong, IMessageChannel>();
+
         /// <summary> The singleton-instance of this class. </summary>
         /// <remarks>This feels so dirty, but it's hard to think of a way that
         /// doesn't also leak the implementation to end-users.</remarks>
@@ -17,13 +20,25 @@ namespace Discord.Addons.MpGame
 
         private GameTracker() { }
 
+        public bool TryGetGameChannel(IDMChannel channel, out IMessageChannel value)
+            => _dmList.TryGetValue(channel.Id, out value);
+
+        public bool TryAddGameChannel(IDMChannel channel, IMessageChannel value)
+            => _dmList.TryAdd(channel.Id, value);
+
+        public bool TryRemoveGameChannel(IDMChannel channel)
+            => _dmList.TryRemove(channel.Id, out var _);
+
         /// <summary> Determines whether the tracker contains the specified key. </summary>
-        public bool TryGet(IMessageChannel channel, out string value) => _channelGames.TryGetValue(channel.Id, out value);
+        public bool TryGetGameString(IMessageChannel channel, out string value)
+            => _channelGames.TryGetValue(channel.Id, out value);
 
         /// <summary> Attempts to add the channel/string pair to the tracker. </summary>
-        public bool TryAdd(IMessageChannel channel, string value) => _channelGames.TryAdd(channel.Id, value);
+        public bool TryAddGameString(IMessageChannel channel, string value)
+            => _channelGames.TryAdd(channel.Id, value);
 
         /// <summary> Attempts to remove the channel/string pair from the tracker. </summary>
-        public bool TryRemove(IMessageChannel channel) => _channelGames.TryRemove(channel.Id, out var _);
+        public bool TryRemoveGameString(IMessageChannel channel)
+            => _channelGames.TryRemove(channel.Id, out var _);
     }
 }

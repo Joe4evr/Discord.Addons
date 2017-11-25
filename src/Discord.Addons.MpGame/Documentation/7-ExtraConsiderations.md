@@ -15,24 +15,24 @@ using Discord.Commands;
 [AttributeUsage(AttributeTargets.Method)]
 internal sealed class RequireTurnPlayerAttribute : PreconditionAttribute
 {
-    public async override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider services)
+    public override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider services)
     {
         var service = services.GetService<CardGameService>();
         if (service != null)
         {
             // Use this handy method to retrieve the Game instance going on, if any
-            var game = await service.GetGameFromChannelAsync(context.Channel);
+            var game = service.GetGameFromChannel(context.Channel);
 
             if (game != null)
             {
                 var authorId = context.User.Id;
                 return (game.TurnPlayer.Value.User.Id == authorId)
-                    ? PreconditionResult.FromSuccess()
-                    : PreconditionResult.FromError("Cannot use command at this time.");
+                    ? Task.FromResult(PreconditionResult.FromSuccess())
+                    : Task.FromResult(PreconditionResult.FromError("Cannot use command at this time."));
             }
-            return PreconditionResult.FromError("No game active.");
+            return Task.FromResult(PreconditionResult.FromError("No game active."));
         }
-        return PreconditionResult.FromError("No service found.");
+        return Task.FromResult(PreconditionResult.FromError("No service found."));
     }
 }
 ```

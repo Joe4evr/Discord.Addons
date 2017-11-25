@@ -29,4 +29,4 @@ Then you can simply call:
 await commands.AddCardGame(map);
 ```
 
-[<- Part 5 - Modules](5-Modules.md) - Final step - [Part 7 - Extra considerations](7-ExtraConsiderations.md)
+[<- Part 5 - Modules](5-Modules.md) - Final step - [Part 7 - Extra considerations ->](7-ExtraConsiderations.md)

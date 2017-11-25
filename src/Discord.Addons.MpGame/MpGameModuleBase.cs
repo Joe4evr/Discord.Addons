@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord.Commands;
@@ -16,12 +17,13 @@ namespace Discord.Addons.MpGame
         where TGame    : GameBase<TPlayer>
         where TPlayer  : Player
     {
-        /// <summary> The <see cref="TService"/> instance. </summary>
+        /// <summary> The GameService instance. </summary>
         protected TService GameService { get; }
 
         //TODO: C# "who-knows-when" feature, nullability annotation
         /// <summary> The instance of the game being played (if active). </summary>
         protected TGame Game { get; private set; }
+
         /// <summary> The player object that wraps the user executing this command
         /// (if a game is active AND the user is a player in that game). </summary>
         protected TPlayer Player { get; private set; }
@@ -53,7 +55,7 @@ namespace Discord.Addons.MpGame
             Game        = data?.Game;
             Player      = Game?.Players.SingleOrDefault(p => p.User.Id == Context.User.Id);
 
-            GameInProgress = GameTracker.Instance.TryGet(Context.Channel, out var name)
+            GameInProgress = GameTracker.Instance.TryGetGameString(Context.Channel, out var name)
                 ? (name == GameService.GameName ? CurrentlyPlaying.ThisGame : CurrentlyPlaying.DifferentGame)
                 : CurrentlyPlaying.None;
         }

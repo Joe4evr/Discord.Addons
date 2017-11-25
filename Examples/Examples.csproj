@@ -6,16 +6,16 @@
         <EmbeddedResource Include="**\*.resx" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\src\Discord.Addons.SimplePermissions.EFProvider\Discord.Addons.SimplePermissions.EFProvider.csproj" />
-        <!--<PackageReference Include="Discord.Addons.SimplePermissions.EFProvider" Version="1.0.0-rc" />-->
+        <!--<ProjectReference Include="..\src\Discord.Addons.SimplePermissions.EFProvider\Discord.Addons.SimplePermissions.EFProvider.csproj" />
+        <PackageReference Include="Discord.Addons.SimplePermissions.EFProvider" Version="1.0.0-rc" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" PrivateAssets="All" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" PrivateAssets="All" />-->
         <ProjectReference Include="..\src\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj" />
         <!--<ProjectReference Include="..\src\Discord.Addons.SimplePermissions.JsonProvider\Discord.Addons.SimplePermissions.JsonProvider.csproj" />
         <ProjectReference Include="..\src\Discord.Addons.Trivia\Discord.Addons.Trivia.csproj" />-->
     </ItemGroup>
-    <ItemGroup>
+    <!--<ItemGroup>
         <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
-    </ItemGroup>
+    </ItemGroup>-->
 </Project>

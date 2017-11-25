@@ -18,13 +18,15 @@ public class MpGameService<TGame, TPlayer>
 
     protected Func<LogMessage, Task> Logger { get; }
 
-    public MpGameService(Func<LogMessage, Task> logger = null);
+    public MpGameService(DiscordSocketClient socketClient, Func<LogMessage, Task> logger = null);
+
+    public MpGameService(DiscordShardedClient shardedClient, Func<LogMessage, Task> logger = null);
 
     public bool OpenNewGame(IMessageChannel channel);
 
-    public bool AddUser(IMessageChannel channel, IUser user);
+    public Task<bool> AddUser(IMessageChannel channel, IUser user);
 
-    public bool RemoveUser(IMessageChannel channel, IUser user);
+    public Task<bool> RemoveUser(IMessageChannel channel, IUser user);
 
     public bool CancelGame(IMessageChannel channel);
 
@@ -32,7 +34,7 @@ public class MpGameService<TGame, TPlayer>
 
     public bool TryUpdateOpenToJoin(IMessageChannel channel, bool newValue, bool comparisonValue);
 
-    public Task<TGame> GetGameFromChannelAsync(IMessageChannel channel);
+    public TGame GetGameFromChannel(IMessageChannel channel);
 
     public IReadOnlyCollection<IUser> GetJoinedUsers(IMessageChannel channel);
 
@@ -60,26 +62,29 @@ public sealed class CardGameService : MpGameService<CardGame, CardPlayer>
 }
 ```
 
-The constructor has an optional paramater to pass a logging method from
+The constructor for the service has to get either a 'DiscordSocketClient'
+or a 'DiscordShardedClient' instance so that the service
+can listen for the 'ChannelDestroyed' event.
+
+There is also an optional paramater to pass a logging method from
 the caller to the base class. If you want to make use of the logger, then
 add the same parameter to your constructor in the derived class.
 ```cs
 public sealed class CardGameService : MpGameService<CardGame, CardPlayer>
 {
-    public CardGameService(Func<LogMessage, Task> logger = null)
-        : base(logger)
+    public CardGameService(DiscordSocketClient client, Func<LogMessage, Task> logger = null)
+        : base(client, logger)
     {
         // You can now log anything you like by invoking the 'Logger'
         // delegate on the base class you can make use of. I would personally
         // recommend having your own method as seen below as a wrapper.
-        Log(LogSeverity.Info, "Creating CardGame Service");
+        Log(LogSeverity.Debug, "Creating CardGame Service");
     }
 
     intenal Task Log(LogSeverity severity, string msg)
     {
         return base.Logger(new LogMessage(severity, "CardGameService", msg));
     }
-
 }
 ```
 

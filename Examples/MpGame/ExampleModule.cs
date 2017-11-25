@@ -63,7 +63,7 @@ namespace Examples.MpGame
             }
             else
             {
-                if (GameService.AddUser(Context.Channel, Context.User))
+                if (await GameService.AddUser(Context.Channel, Context.User))
                 {
                     await ReplyAsync($"**{Context.User.Username}** has joined.").ConfigureAwait(false);
                 }
@@ -83,7 +83,7 @@ namespace Examples.MpGame
             }
             else
             {
-                if (GameService.RemoveUser(Context.Channel, Context.User))
+                if (await GameService.RemoveUser(Context.Channel, Context.User))
                 {
                     await ReplyAsync($"**{Context.User.Username}** has left.").ConfigureAwait(false);
                 }
