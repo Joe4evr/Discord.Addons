@@ -26,7 +26,7 @@ namespace Discord.Addons.MpGame
         }
 
         /// <summary> The channel where the public-facing side of the game is played. </summary>
-        protected internal IMessageChannel Channel { get; }
+        protected IMessageChannel Channel { get; }
 
         /// <summary> Represents all the players in this game. </summary>
         protected internal CircularLinkedList<TPlayer> Players { get; }

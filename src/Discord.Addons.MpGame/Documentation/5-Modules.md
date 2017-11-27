@@ -43,7 +43,7 @@ public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<IC
     public virtual async Task ResendCmd();
 }
 
-protected enum CurrentlyPlaying
+public enum CurrentlyPlaying
 {
     None,
     ThisGame,

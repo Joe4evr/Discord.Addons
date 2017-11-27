@@ -45,24 +45,24 @@ namespace Discord.Addons.MpGame
         /// <summary> Gets total number of items in the list </summary>
         public int Count { get; }
 
-        ///// <summary> Gets the item at the current index </summary>
-        ///// <param name="index">Zero-based index</param>
-        ///// <exception cref="ArgumentOutOfRangeException">index is out of range</exception>
-        //public Node<T> this[int index]
-        //{
-        //    get
-        //    {
-        //        if (index >= Count || index < 0) throw new ArgumentOutOfRangeException("index");
-        //        else
-        //        {
-        //            var node = Head;
-        //            for (int i = 0; i < index; i++)
-        //                node = node.Next;
+        /// <summary> Gets the item at the current index </summary>
+        /// <param name="index">Zero-based index</param>
+        /// <exception cref="ArgumentOutOfRangeException">index is out of range</exception>
+        public Node<T> this[int index]
+        {
+            get
+            {
+                if (index >= Count || index < 0) throw new ArgumentOutOfRangeException("index");
+                else
+                {
+                    var node = Head;
+                    for (int i = 0; i < index; i++)
+                        node = node.Next;
 
-        //            return node;
-        //        }
-        //    }
-        //}
+                    return node;
+                }
+            }
+        }
 
         /// <summary> Add a new item to the end of the list </summary>
         /// <param name="item">Item to be added</param>
@@ -70,7 +70,9 @@ namespace Discord.Addons.MpGame
         {
             // if head is null, then this will be the first item
             if (Head == null)
+            {
                 AddFirstItem(item);
+            }
             else
             {
                 var newNode = new Node<T>(item);
