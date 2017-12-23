@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
 
 namespace Discord.Addons.Core
 {
@@ -23,8 +20,6 @@ namespace Discord.Addons.Core
             where TId : IEquatable<TId>
         {
             return field = new EntityEqualityComparer<TEntity, TId>();
-            //var value = new EntityEqualityComparer<TEntity, TId>();
-            //return (Interlocked.CompareExchange(ref field, value, null) == null) ? value : field;
         }
 
         private sealed class EntityEqualityComparer<TEntity, TId> : EqualityComparer<TEntity>
@@ -33,12 +28,21 @@ namespace Discord.Addons.Core
         {
             public override bool Equals(TEntity x, TEntity y)
             {
+                bool xNull = x == null;
+                bool yNull = y == null;
+
+                if (xNull && yNull)
+                    return true;
+
+                if (xNull ^ yNull)
+                    return false;
+
                 return x.Id.Equals(y.Id);
             }
 
             public override int GetHashCode(TEntity obj)
             {
-                return obj.Id.GetHashCode();
+                return obj?.Id.GetHashCode() ?? 0;
             }
         }
     }
