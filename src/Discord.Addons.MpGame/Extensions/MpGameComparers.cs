@@ -16,7 +16,7 @@ namespace Discord.Addons.MpGame
 
             public override int GetHashCode(Player obj)
             {
-                return obj.User.Id.GetHashCode();
+                return obj?.User.Id.GetHashCode() ?? 0;
             }
         }
     }

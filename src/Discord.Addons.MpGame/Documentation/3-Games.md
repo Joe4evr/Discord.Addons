@@ -43,7 +43,7 @@ public class CardGame : GameBase<CardPlayer> // Any player in a 'CardGame' is of
     public CardGame(IMessageChannel channel, IEnumerable<CardPlayer> players)
         // Use the 'setFirstPlayerImmediately' flag to control
         // where or not to set the 'TurnPlayer' to the first player
-        // or to an empty node. Default is 'false'.
+        // or to an empty node. Default is 'false' (sets an empty node).
         : base(channel, players, setFirstPlayerImmediately: false)
     {
     }

@@ -14,7 +14,7 @@ namespace Discord.Addons.MpGame
     /// <summary> Service managing games for a <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/>. </summary>
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
-    public class MpGameService<TGame, TPlayer>
+    public partial class MpGameService<TGame, TPlayer>
         where TGame   : GameBase<TPlayer>
         where TPlayer : Player
     {
@@ -26,8 +26,8 @@ namespace Discord.Addons.MpGame
         protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = Comparers.ChannelComparer;
 
         private readonly object _lock = new object();
-        private readonly ConcurrentDictionary<IMessageChannel, PersistentGameData<TGame, TPlayer>> _dataList
-            = new ConcurrentDictionary<IMessageChannel, PersistentGameData<TGame, TPlayer>>(MessageChannelComparer);
+        private readonly ConcurrentDictionary<IMessageChannel, PersistentGameData> _dataList
+            = new ConcurrentDictionary<IMessageChannel, PersistentGameData>(MessageChannelComparer);
 
         protected Func<LogMessage, Task> Logger { get; }
 
@@ -48,7 +48,7 @@ namespace Discord.Addons.MpGame
             shardedClient.ChannelDestroyed += CheckDestroyedChannel;
         }
 
-        internal PersistentGameData<TGame, TPlayer> GetData(IMessageChannel channel)
+        internal PersistentGameData GetData(IMessageChannel channel)
             => _dataList.GetValueOrDefault(channel);
 
         private Task CheckDestroyedChannel(SocketChannel channel)
@@ -85,7 +85,7 @@ namespace Discord.Addons.MpGame
                     return false;
                 }
 
-                var data = new PersistentGameData<TGame, TPlayer>(channel);
+                var data = new PersistentGameData(channel);
                 GameTracker.Instance.TryAddGameString(channel, GameName);
                 data.NewPlayerList();
                 _dataList.AddOrUpdate(channel, data, (k, v) => data);
@@ -134,13 +134,10 @@ namespace Discord.Addons.MpGame
         /// <summary> Cancel a game that has not yet started. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
         /// <returns>true if the operation succeeded, otherwise false.</returns>
-        public bool CancelGame(IMessageChannel channel)
+        public async Task<bool> CancelGame(IMessageChannel channel)
         {
-            lock (_lock)
-            {
-                GameTracker.Instance.TryRemoveGameString(channel);
-                return _dataList.TryRemove(channel, out var _);
-            }
+            await OnGameEnd(channel);
+            return _dataList.TryRemove(channel, out var _);
         }
 
         /// <summary> Add a new game to the list of active games. </summary>
@@ -188,23 +185,13 @@ namespace Discord.Addons.MpGame
         /// or that the user is playing in, or <see cref="null"/> if there is none.</returns>
         public TGame GetGameFromChannel(IMessageChannel channel)
         {
-            if (channel is IDMChannel dm && GameTracker.Instance.TryGetGameChannel(dm, out var chan))
-            {
-                channel = chan;
-            }
+            var chan = (channel is IDMChannel dm && GameTracker.Instance.TryGetGameChannel(dm, out var pubc))
+                ? pubc
+                : channel;
 
-            if (_dataList.TryGetValue(channel, out var d))
-            {
-                return d.Game;
-            }
-            //foreach (var (_, data) in _dataList)
-            //{
-            //    if ((await data.Game.PlayerChannels().ConfigureAwait(false)).Any(c => c.Id == channel.Id))
-            //    {
-            //        return data.Game;
-            //    }
-            //}
-            return null;
+            return (_dataList.TryGetValue(chan, out var data))
+                ? data.Game
+                : null;
         }
 
         /// <summary> Retrieve the users set to join an open game, if any. </summary>
@@ -232,7 +219,7 @@ namespace Discord.Addons.MpGame
         internal string GameName => _gameName;
     }
 
-    /// <summary> Service managing games for <see cref="MpGameModuleBase{TService, TGame, TContext}"/>
+    /// <summary> Service managing games for <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/>
     /// using the default <see cref="Player"/> type. </summary>
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     public class MpGameService<TGame> : MpGameService<TGame, Player>

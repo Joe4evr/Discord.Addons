@@ -20,7 +20,7 @@ namespace Discord.Addons.MpGame
         /// <summary> The GameService instance. </summary>
         protected TService GameService { get; }
 
-        //TODO: C# "who-knows-when" feature, nullability annotation
+        // TODO: C# "who-knows-when" feature, nullability annotation
         /// <summary> The instance of the game being played (if active). </summary>
         protected TGame Game { get; private set; }
 
@@ -58,6 +58,14 @@ namespace Discord.Addons.MpGame
             GameInProgress = GameTracker.Instance.TryGetGameString(Context.Channel, out var name)
                 ? (name == GameService.GameName ? CurrentlyPlaying.ThisGame : CurrentlyPlaying.DifferentGame)
                 : CurrentlyPlaying.None;
+
+            // Prep C# 8.0 pattern matching feature: switch expression
+            //GameInProgress = GameTracker.Instance.TryGetGameString(Context.Channel, out var name) switch
+            //{
+            //    true when name == GameService.GameName => CurrentlyPlaying.ThisGame,
+            //    true  => CurrentlyPlaying.DifferentGame,
+            //    false => CurrentlyPlaying.None
+            //};
         }
 
         /// <summary> Command to open a game for others to join. </summary>
@@ -106,7 +114,8 @@ namespace Discord.Addons.MpGame
         where TGame : GameBase<TPlayer>
         where TPlayer : Player
     {
-        protected MpGameModuleBase(MpGameService<TGame, TPlayer> service) : base(service)
+        protected MpGameModuleBase(MpGameService<TGame, TPlayer> service)
+            : base(service)
         {
         }
     }
@@ -118,7 +127,8 @@ namespace Discord.Addons.MpGame
     public abstract class MpGameModuleBase<TGame> : MpGameModuleBase<MpGameService<TGame, Player>, TGame, Player>
         where TGame : GameBase<Player>
     {
-        protected MpGameModuleBase(MpGameService<TGame> service) : base(service)
+        protected MpGameModuleBase(MpGameService<TGame> service)
+            : base(service)
         {
         }
     }

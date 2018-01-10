@@ -1,4 +1,5 @@
 ﻿<Project>
+    <!--<Import Condition="'$(Configuration)' == 'Debug'" Project=".\Analyzers.props" />-->
     <PropertyGroup Label="Configuration">
         <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
         <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -29,6 +30,5 @@
     <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
         <SolutionDir>.\</SolutionDir>
     </PropertyGroup>
-    <!--<Import Project=".\Analyzers.props" Condition="'$(Configuration)' == 'Debug'"/>-->
-    <Import Project="$(SolutionDir)src\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />
+    <!--<Import Project="$(SolutionDir)src\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />-->
 </Project>

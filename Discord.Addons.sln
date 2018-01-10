@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AA181BEE-B5E0-4D40-89BE-AC9813EBF565}"
 EndProject
@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		Analyzers.props = Analyzers.props
+		Discord.Addons.Rules.ruleset = Discord.Addons.Rules.ruleset
 		DiscordAddonsCore.props = DiscordAddonsCore.props
 		LICENSE = LICENSE
 		README.md = README.md

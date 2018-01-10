@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Discord.Addons.Core;
 
 namespace Discord.Addons.MpGame
 {
@@ -119,7 +120,7 @@ namespace Discord.Addons.MpGame
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
             // ensuring the supplied node belongs to this list
-            var temp = FindNode(Head, node.Value);
+            var temp = Find(node.Value);
             if (temp != node)
                 throw new InvalidOperationException("Node doesn't belongs to this list");
 
@@ -136,19 +137,6 @@ namespace Discord.Addons.MpGame
                 Tail = newNode;
         }
 
-        /// <summary> Adds the new item after the specified existing item in the list. </summary>
-        /// <param name="existingItem">Existing item after which new item will be added</param>
-        /// <param name="newItem">New item to be added to the list</param>
-        /// <exception cref="ArgumentException"><paramref name="existingItem"/> doesn't exist in the list</exception>
-        private void AddAfter(T existingItem, T newItem)
-        {
-            // finding a node for the existing item
-            var node = Find(existingItem);
-            if (node == null)
-                throw new ArgumentException("existingItem doesn't exist in the list");
-            AddAfter(node, newItem);
-        }
-
         /// <summary> Adds the specified item before the specified existing node in the list. </summary>
         /// <param name="node">Existing node before which new item will be inserted</param>
         /// <param name="item">New item to be inserted</param>
@@ -159,7 +147,7 @@ namespace Discord.Addons.MpGame
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
             // ensuring the supplied node belongs to this list
-            var temp = FindNode(Head, node.Value);
+            var temp = Find(node.Value);
             if (temp != node)
                 throw new InvalidOperationException("Node doesn't belongs to this list");
 
@@ -174,36 +162,17 @@ namespace Discord.Addons.MpGame
                 Head = newNode;
         }
 
-        /// <summary> Adds the new item before the specified existing item in the list. </summary>
-        /// <param name="existingItem">Existing item before which new item will be added</param>
-        /// <param name="newItem">New item to be added to the list</param>
-        /// <exception cref="ArgumentException"><paramref name="existingItem"/> doesn't exist in the list</exception>
-        private void AddBefore(T existingItem, T newItem)
-        {
-            // finding a node for the existing item
-            var node = Find(existingItem);
-            if (node == null)
-                throw new ArgumentException("existingItem doesn't exist in the list");
-            AddBefore(node, newItem);
-        }
-
         /// <summary> Finds the supplied item and returns a node which contains item. Returns <see cref="null"/> if item not found </summary>
         /// <param name="item">Item to search</param>
         /// <returns><see cref="Node{T}"/> instance or <see cref="null"/></returns>
         public Node<T> Find(T item)
         {
-            var node = FindNode(Head, item);
-            return node;
-        }
-
-        private Node<T> FindNode(Node<T> node, T valueToCompare)
-        {
-            Node<T> result = null;
-            if (Comparer.Equals(node.Value, valueToCompare))
-                result = node;
-            else if (result == null && node.Next != Head)
-                result = FindNode(node.Next, valueToCompare);
-            return result;
+            for (var current = Head; current.Next != Head; current = current.Next)
+            {
+                if (Comparer.Equals(current.Value, item))
+                    return current;
+            }
+            return null;
         }
 
         /// <summary> Gets a forward enumerator </summary>
@@ -236,36 +205,14 @@ namespace Discord.Addons.MpGame
             }
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
         /// <summary> Determines whether a value is in the list. </summary>
         /// <param name="item">Item to check</param>
         /// <returns>TRUE if item exist, else FALSE</returns>
         public bool Contains(T item)
-        {
-            return Find(item) != null;
-        }
+            => Find(item) != null;
 
-        /// <summary> </summary>
-        /// <param name="array"></param>
-        /// <param name="arrayIndex"></param>
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            if (array == null)
-                throw new ArgumentNullException("array");
-            if (arrayIndex < 0 || arrayIndex > array.Length)
-                throw new ArgumentOutOfRangeException("arrayIndex");
-
-            var node = Head;
-            do
-            {
-                array[arrayIndex++] = node.Value;
-                node = node.Next;
-            } while (node != Head);
-        }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            => GetEnumerator();
     }
 
     /// <summary> Represents a node </summary>
@@ -273,14 +220,7 @@ namespace Discord.Addons.MpGame
     public sealed class Node<T>
     {
         /// <summary> Gets the Value </summary>
-        public T Value
-        {
-            get
-            {
-                ThrowIfNextOnly();
-                return _value;
-            }
-        }
+        public T Value => ThrowIfNextOnly().ReturnWith(_value);
 
         /// <summary> Gets next node </summary>
         public Node<T> Next { get; internal set; }
@@ -288,11 +228,7 @@ namespace Discord.Addons.MpGame
         /// <summary> Gets previous node </summary>
         public Node<T> Previous
         {
-            get
-            {
-                ThrowIfNextOnly();
-                return _previous;
-            }
+            get => ThrowIfNextOnly().ReturnWith(_previous);
             internal set => _previous = value;
         }
 
@@ -304,23 +240,25 @@ namespace Discord.Addons.MpGame
             _isNextOnly = false;
         }
 
-        private Node()
+        private Node(bool nextOnly)
         {
             _value = default;
-            _isNextOnly = true;
+            _isNextOnly = nextOnly;
         }
 
         private readonly bool _isNextOnly;
         private readonly T _value;
         private Node<T> _previous;
 
-        private void ThrowIfNextOnly()
+        private Unit ThrowIfNextOnly()
         {
             if (_isNextOnly)
                 throw new InvalidOperationException("You may only use 'Next' on this 'Node<T>' instance.");
+
+            return default(Unit);
         }
 
         internal static Node<T> CreateNextOnlyNode(Node<T> next)
-            => new Node<T>() { Next = next };
+            => new Node<T>(nextOnly: true) { Next = next };
     }
 }
