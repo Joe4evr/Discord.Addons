@@ -8,7 +8,7 @@ using Discord.Commands;
 namespace Discord.Addons.SimpleAudio
 {
     [RequireContext(ContextType.Guild)]
-    public abstract class AudioModule : ModuleBase<SocketCommandContext>
+    public class AudioModule : ModuleBase<SocketCommandContext>
     {
         private readonly AudioService _service;
 
@@ -58,7 +58,7 @@ namespace Discord.Addons.SimpleAudio
         [ClientInVoice]
         public virtual Task PlayCmd([Remainder] string song)
         {
-            return _service.SendAudioAsync(Context.Guild, Context.Channel, song);
+            return _service.SendAudio(Context.Guild, Context.Channel, song);
         }
 
         [ClientInVoice]

@@ -14,15 +14,18 @@ namespace Discord.Addons.SimpleAudio
 {
     internal sealed class AudioClientWrapper
     {
-        private static readonly IEmote _playEmote = new Emoji("▶️");
-        private static readonly IEmote _pauseEmote = new Emoji("⏸️");
-        private static readonly IEmote _stopEmote = new Emoji("⏹️");
+        private static readonly Embed _readyEmbed = new EmbedBuilder { Title = "Connected", Description = "Ready" }.Build();
+        private static readonly IEmote _playEmote = new Emoji("\u25B6");
+        private static readonly IEmote _pauseEmote = new Emoji("\u23F8");
+        private static readonly IEmote _stopEmote = new Emoji("\u23F9");
+        private static readonly IEmote _fwdEmote = new Emoji("\u23ED");
+        private static readonly IEmote _ejectEmote = new Emoji("\u23CF");
 
         private readonly object _cancelLock = new object();
-        //private readonly object _pauseLock = new object();
         private readonly ConcurrentQueue<string> _playlist = new ConcurrentQueue<string>();
 
-        private readonly IUserMessage _message;
+        internal IAudioClient Client { get; }
+        internal IUserMessage Message { get; }
 
         private bool _next = false;
         private int _pause = 0;
@@ -32,14 +35,25 @@ namespace Discord.Addons.SimpleAudio
 
         private string _song;
         private IEmote _statusEmote;
+        private Color _statusColor;
         private Process _ffmpeg;
 
-        public IAudioClient Client { get; }
-
-        public AudioClientWrapper(IAudioClient client, IUserMessage message)
+        public AudioClientWrapper(IAudioClient client, IUserMessage message, AudioGuildConfig config = null)
         {
-            _message = message;
+            Message = message;
             Client = client;
+            if (config?.AllowReactions == true)
+            {
+                Task.Run(async () =>
+                {
+                    await message.AddReactionAsync(_stopEmote).ConfigureAwait(false);
+                    await message.AddReactionAsync(_playEmote).ConfigureAwait(false);
+                    await message.AddReactionAsync(_pauseEmote).ConfigureAwait(false);
+                    await message.AddReactionAsync(_fwdEmote).ConfigureAwait(false);
+                    await message.AddReactionAsync(_ejectEmote).ConfigureAwait(false);
+                    await message.ModifyAsync(m => m.Embed = _readyEmbed).ConfigureAwait(false);
+                }).GetAwaiter().GetResult();
+            }
         }
 
         public async Task SendAudioAsync(string ffmpeg)
@@ -50,6 +64,7 @@ namespace Discord.Addons.SimpleAudio
                 {
                     _song = Path.GetFileNameWithoutExtension(path);
                     _statusEmote = _playEmote;
+                    _statusColor = Color.Green;
                     await RefreshEmbed().ConfigureAwait(false);
 
                     using (_ffmpeg = Process.Start(new ProcessStartInfo
@@ -88,8 +103,9 @@ namespace Discord.Addons.SimpleAudio
                 }
             }
 
-            _song = "Stopped";
+            _song = null;
             _statusEmote = _stopEmote;
+            _statusColor = Color.Red;
             await RefreshEmbed().ConfigureAwait(false);
         }
 
@@ -110,14 +126,12 @@ namespace Discord.Addons.SimpleAudio
             return RefreshEmbed();
         }
 
-        // setting '_pause' to true multiple times
-        // in a row *should* be completely thread-safe
         public Task Pause()
         {
-            if (_pause == 0)
+            if (Interlocked.Exchange(ref _pause, value: 1) == 0)
             {
-                _pause = 1;
                 _statusEmote = _pauseEmote;
+                _statusColor = Color.Blue;
                 return RefreshEmbed();
             }
             return Task.CompletedTask;
@@ -132,7 +146,8 @@ namespace Discord.Addons.SimpleAudio
                     _pauseToken.Cancel();
                 }
                 _pauseToken = new CancellationTokenSource();
-                _statusEmote = new Emoji("▶️");
+                _statusEmote = _playEmote;
+                _statusColor = Color.Green;
                 return RefreshEmbed();
             }
             return Task.CompletedTask;
@@ -159,6 +174,7 @@ namespace Discord.Addons.SimpleAudio
                     }
                     _cancelToken = new CancellationTokenSource();
                 }
+                _statusColor = Color.Red;
             }
         }
 
@@ -204,6 +220,7 @@ namespace Discord.Addons.SimpleAudio
             {
                 Title = "Now playing:",
                 Description = $"{_statusEmote ?? _stopEmote} {_song ?? "*Stopped*"}",
+                Color = _statusColor,
                 Fields =
                 {
                     new EmbedFieldBuilder
@@ -220,7 +237,7 @@ namespace Discord.Addons.SimpleAudio
                     }
                 }
             }.Build();
-            return _message.ModifyAsync(m => m.Embed = emb);
+            return Message.ModifyAsync(m => m.Embed = emb);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -254,5 +271,24 @@ namespace Discord.Addons.SimpleAudio
 
             return audioSamples;
         }
+
+        //private static byte[] ScaleVolumeMemoryOfT(byte[] audioSamples, float volume)
+        //{
+        //    Contract.Requires(audioSamples != null);
+        //    Contract.Requires(volume >= 0f && volume <= 1f);
+        //    Contract.Assert(BitConverter.IsLittleEndian);
+
+        //    if (Math.Abs(volume - 1f) < 0.0001f) return audioSamples;
+
+        //    // 16-bit precision for the multiplication
+        //    int volumeFixed = (int)Math.Round(volume * 65536d);
+
+        //    int count = audioSamples.Length >> 1;
+
+
+
+
+        //    return audioSamples;
+        //}
     }
 }

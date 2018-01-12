@@ -10,26 +10,39 @@ using Microsoft.Extensions.DependencyInjection;
 using Discord;
 using Discord.Audio;
 using Discord.Commands;
+using Discord.WebSocket;
+using Discord.Addons.Core;
 
 namespace Discord.Addons.SimpleAudio
 {
     public sealed class AudioService
     {
-        private static readonly Embed _rdyEmbed = new EmbedBuilder { Title = "Connected", Description = "Ready" }.Build();
-        private readonly AudioConfig _config;
+        private static readonly Embed _initEmbed = new EmbedBuilder { Title = "Connected", Description = "Initializing..." }.Build();
         private readonly Func<LogMessage, Task> _logger;
         private readonly Timer _presenceChecker;
+        private readonly DiscordSocketClient _client;
 
+        internal AudioConfig Config { get; }
         internal ConcurrentDictionary<ulong, AudioClientWrapper> Clients { get; }
             = new ConcurrentDictionary<ulong, AudioClientWrapper>();
 
-        internal AudioService(
+        public AudioService(
+            DiscordSocketClient client,
             AudioConfig config,
             Func<LogMessage, Task> logger)
         {
-            _config = config;
+            _client = client;
+            Config = config;
             _logger = logger;
+
+            _client.ReactionAdded += Client_ReactionAdded;
+            if (Config.GuildConfigs.Count > 0)
+            {
+                _client.GuildAvailable += Client_GuildAvailable;
+            }
+
             Log(LogSeverity.Info, "Created Audio service.");
+
             _presenceChecker = new Timer(o =>
             {
                 foreach (var (guildId, wrapper) in Clients)
@@ -42,9 +55,86 @@ namespace Discord.Addons.SimpleAudio
             }, null, TimeSpan.FromSeconds(10), TimeSpan.FromMinutes(1));
         }
 
+        private Task Client_GuildAvailable(SocketGuild guild)
+        {
+            if (Config.GuildConfigs.TryGetValue(guild.Id, out var guildConfig))
+            {
+                var vChannel = guild.GetVoiceChannel(guildConfig.VoiceChannelId);
+                var msgChannel = guild.GetTextChannel(guildConfig.MessageChannelId);
+                if (vChannel != null)
+                {
+                    Task.Run(async () =>
+                    {
+                        await JoinAudio(guild, msgChannel, vChannel);
+                        if (guildConfig.AutoPlay)
+                        {
+                            await Playlist(guild);
+                        }
+                    });
+                }
+            }
+            return Task.CompletedTask;
+        }
+
+        private async Task Client_ReactionAdded(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
+        {
+            if (!message.HasValue)
+            {
+                await Log(LogSeverity.Debug, $"Message with id {message.Id} was not in cache.");
+                return;
+            }
+            if (!reaction.User.IsSpecified)
+            {
+                await Log(LogSeverity.Debug, $"Message with id {message.Id} had an unspecified user.");
+                return;
+            }
+            if (reaction.User.Value.Id == _client.CurrentUser.Id)
+            {
+                return;
+            }
+
+            var msg = message.Value;
+            if ((!(msg.Channel is IGuildChannel gch) || !Clients.TryGetValue(gch.GuildId, out var wrapper)))
+            {
+                return;
+            }
+
+            if (msg.Id == wrapper.Message.Id)
+            {
+                var guild = gch.Guild;
+                switch (reaction.Emote.Name)
+                {
+                    case "\u25B6": //play
+                        await msg.RemoveReactionAsync(reaction.Emote, reaction.User.Value).ConfigureAwait(false);
+                        await (wrapper.IsPlaying()
+                            ? ResumePlayback(guild).ConfigureAwait(false)
+                            : Playlist(guild).ConfigureAwait(false));
+                        break;
+                    case "\u23F8": //pause
+                        await msg.RemoveReactionAsync(reaction.Emote, reaction.User.Value).ConfigureAwait(false);
+                        await PausePlayback(guild).ConfigureAwait(false);
+                        break;
+                    case "\u23F9": //stop
+                        await msg.RemoveReactionAsync(reaction.Emote, reaction.User.Value).ConfigureAwait(false);
+                        StopPlaying(guild);
+                        break;
+                    case "\u23ED": //fwd
+                        await msg.RemoveReactionAsync(reaction.Emote, reaction.User.Value).ConfigureAwait(false);
+                        NextSong(guild);
+                        break;
+                    case "\u23CF": //eject
+                        await msg.RemoveReactionAsync(reaction.Emote, reaction.User.Value).ConfigureAwait(false);
+                        await LeaveAudio(guild).ConfigureAwait(false);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
         internal async Task JoinAudio(IGuild guild, IMessageChannel channel, IVoiceChannel target)
         {
-            if (Clients.TryGetValue(guild.Id, out var _))
+            if (Clients.TryGetValue(guild.Id, out _))
             {
                 return;
             }
@@ -53,8 +143,9 @@ namespace Discord.Addons.SimpleAudio
                 return;
             }
 
+            var config = Config.GuildConfigs.GetValueOrDefault(guild.Id);
             var audioClient = await target.ConnectAsync().ConfigureAwait(false);
-            var wrapper = new AudioClientWrapper(audioClient, await channel.SendMessageAsync("", embed: _rdyEmbed));
+            var wrapper = new AudioClientWrapper(audioClient, await channel.SendMessageAsync("", embed: _initEmbed), config);
 
             if (Clients.TryAdd(guild.Id, wrapper))
             {
@@ -87,11 +178,12 @@ namespace Discord.Addons.SimpleAudio
             if (Clients.TryRemove(guild.Id, out var wrapper))
             {
                 await wrapper.Client.StopAsync().ConfigureAwait(false);
+                await wrapper.Message.DeleteAsync().ConfigureAwait(false);
                 await Log(LogSeverity.Info, $"Disconnected from voice on '{guild.Name}'.").ConfigureAwait(false);
             }
         }
 
-        internal async Task SendAudioAsync(IGuild guild, IMessageChannel channel, string path)
+        internal async Task SendAudio(IGuild guild, IMessageChannel channel, string path)
         {
             if (!Clients.TryGetValue(guild.Id, out var acw))
             {
@@ -99,8 +191,11 @@ namespace Discord.Addons.SimpleAudio
                 return;
             }
 
-            string file = Array.Find(Directory.GetFiles(_config.MusicBasePath),
-                f => Path.GetFileNameWithoutExtension(f).Equals(path, StringComparison.OrdinalIgnoreCase));
+            var baseDir = new DirectoryInfo(Config.MusicBasePath);
+            var file = baseDir.EnumerateFiles("*", SearchOption.AllDirectories)
+                .FirstOrDefault(f => Path.GetFileNameWithoutExtension(f.FullName).Equals(path, StringComparison.OrdinalIgnoreCase));
+            //string file = Array.Find(Directory.GetFiles(, "*", SearchOption.AllDirectories),
+            //    f => );
 
             if (file == null)
             {
@@ -109,11 +204,11 @@ namespace Discord.Addons.SimpleAudio
             }
             if (Clients.TryGetValue(guild.Id, out var client))
             {
-                await client.AddToPlaylist(file).ConfigureAwait(false);
-                file = Path.GetFileNameWithoutExtension(file);
+                await client.AddToPlaylist(file.FullName).ConfigureAwait(false);
+                var fname = Path.GetFileNameWithoutExtension(file.FullName);
                 if (client.IsPlaying())
                 {
-                    await Log(LogSeverity.Debug, $"Added '{file}' to playlist in '{guild.Name}'").ConfigureAwait(false);
+                    await Log(LogSeverity.Debug, $"Added '{fname}' to playlist in '{guild.Name}'").ConfigureAwait(false);
                     //await channel.SendMessageAsync($"Added `{file}` to the playlist.").ConfigureAwait(false);
                     return;
                 }
@@ -121,7 +216,7 @@ namespace Discord.Addons.SimpleAudio
                 {
                     await Log(LogSeverity.Debug, $"Starting playback of '{file}' in '{guild.Name}'").ConfigureAwait(false);
                     //await channel.SendMessageAsync($"Now playing `{file}`.").ConfigureAwait(false);
-                    await client.SendAudioAsync(Path.Combine(_config.FFMpegPath, "ffmpeg.exe")).ConfigureAwait(false);
+                    await client.SendAudioAsync(Path.Combine(Config.FFMpegPath, "ffmpeg.exe")).ConfigureAwait(false);
                 }
             }
         }
@@ -160,13 +255,13 @@ namespace Discord.Addons.SimpleAudio
         {
             if (Clients.TryGetValue(guild.Id, out var client))
             {
-                await client.AddToPlaylist(Directory.GetFiles(_config.MusicBasePath).Shuffle(7)).ConfigureAwait(false);
-                await client.SendAudioAsync(Path.Combine(_config.FFMpegPath, "ffmpeg.exe")).ConfigureAwait(false);
+                await client.AddToPlaylist(Directory.GetFiles(Config.MusicBasePath).Shuffle(7)).ConfigureAwait(false);
+                await client.SendAudioAsync(Path.Combine(Config.FFMpegPath, "ffmpeg.exe")).ConfigureAwait(false);
             }
         }
 
         internal IEnumerable<string> GetAvailableFiles()
-            => Directory.GetFiles(_config.MusicBasePath, "*.mp3", SearchOption.TopDirectoryOnly).Select(p => Path.GetFileName(p));
+            => Directory.GetFiles(Config.MusicBasePath, "*.mp3", SearchOption.TopDirectoryOnly).Select(p => Path.GetFileName(p));
 
         private Task Log(LogSeverity severity, string msg)
         {
@@ -194,12 +289,13 @@ namespace Discord.Addons.SimpleAudio
     {
         public static Task UseAudio<TModule>(
             this CommandService cmds,
+            DiscordSocketClient client,
             IServiceCollection map,
             AudioConfig cfg,
             Func<LogMessage, Task> logger = null)
             where TModule : AudioModule
         {
-            map.AddSingleton(new AudioService(cfg, logger ?? ((msg) => Task.CompletedTask)));
+            map.AddSingleton(new AudioService(client, cfg, logger ?? ((msg) => Task.CompletedTask)));
             return cmds.AddModuleAsync<TModule>();
         }
 

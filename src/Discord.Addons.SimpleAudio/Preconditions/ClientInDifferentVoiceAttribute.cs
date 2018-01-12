@@ -6,7 +6,7 @@
 
 //namespace Discord.Addons.SimpleAudio
 //{
-//    internal class ClientInDifferentVoiceAttribute : PreconditionAttribute
+//    internal class ClientInDifferentVoiceAttribute : AudioPreconditionAttribute
 //    {
 //        public override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider services)
 //        {

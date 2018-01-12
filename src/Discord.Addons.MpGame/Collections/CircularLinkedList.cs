@@ -37,10 +37,10 @@ namespace Discord.Addons.MpGame
             Count = collection?.Count() ?? 0;
         }
 
-        /// <summary> Gets Tail node. Returns <see cref="null"/> if no tail node found </summary>
+        /// <summary> Gets Tail node. Returns <see langword="null"/> if no tail node found </summary>
         public Node<T> Tail { get; private set; }
 
-        /// <summary> Gets the head node. Returns <see cref="null"/> if no node found </summary>
+        /// <summary> Gets the head node. Returns <see langword="null"/> if no node found </summary>
         public Node<T> Head { get; private set; }
 
         /// <summary> Gets total number of items in the list </summary>
@@ -113,7 +113,7 @@ namespace Discord.Addons.MpGame
         /// <summary> Adds the specified item after the specified existing node in the list. </summary>
         /// <param name="node">Existing node after which new item will be inserted</param>
         /// <param name="item">New item to be inserted</param>
-        /// <exception cref="ArgumentNullException"><paramref name="node"/> is NULL</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="node"/> is <see langword="null"/></exception>
         /// <exception cref="InvalidOperationException"><paramref name="node"/> doesn't belongs to list</exception>
         private void AddAfter(Node<T> node, T item)
         {
@@ -140,7 +140,7 @@ namespace Discord.Addons.MpGame
         /// <summary> Adds the specified item before the specified existing node in the list. </summary>
         /// <param name="node">Existing node before which new item will be inserted</param>
         /// <param name="item">New item to be inserted</param>
-        /// <exception cref="ArgumentNullException"><paramref name="node"/> is NULL</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="node"/> is <see langword="null"/></exception>
         /// <exception cref="InvalidOperationException"><paramref name="node"/> doesn't belongs to list</exception>
         private void AddBefore(Node<T> node, T item)
         {
@@ -162,9 +162,9 @@ namespace Discord.Addons.MpGame
                 Head = newNode;
         }
 
-        /// <summary> Finds the supplied item and returns a node which contains item. Returns <see cref="null"/> if item not found </summary>
+        /// <summary> Finds the supplied item and returns a node which contains item. Returns <see langword="null"/> if item not found </summary>
         /// <param name="item">Item to search</param>
-        /// <returns><see cref="Node{T}"/> instance or <see cref="null"/></returns>
+        /// <returns><see cref="Node{T}"/> instance or <see langword="null"/></returns>
         public Node<T> Find(T item)
         {
             for (var current = Head; current.Next != Head; current = current.Next)

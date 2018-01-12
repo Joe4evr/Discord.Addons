@@ -10,8 +10,6 @@ using Discord.Addons.Core;
 namespace Discord.Addons.MpGame
 {
     public partial class MpGameService<TGame, TPlayer>
-        where TGame : GameBase<TPlayer>
-        where TPlayer : Player
     {
         internal sealed class PersistentGameData
         {
