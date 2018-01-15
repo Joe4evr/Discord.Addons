@@ -29,11 +29,11 @@ namespace Discord.Addons.SimpleAudio
         public AudioService(
             DiscordSocketClient client,
             AudioConfig config,
-            Func<LogMessage, Task> logger)
+            Func<LogMessage, Task> logger = null)
         {
             _client = client;
             Config = config;
-            _logger = logger;
+            _logger = logger ?? Extensions.NoOpLogger;
 
             _client.ReactionAdded += Client_ReactionAdded;
             if (Config.GuildConfigs.Count > 0)

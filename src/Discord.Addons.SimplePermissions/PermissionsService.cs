@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Discord.Commands;
 using Discord.WebSocket;
+using Discord.Addons.Core;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -27,9 +28,9 @@ namespace Discord.Addons.SimplePermissions
         private PermissionsService(
             IConfigStore<IPermissionConfig> configstore,
             CommandService commands,
-            Func<LogMessage, Task> logAction)
+            Func<LogMessage, Task> logAction = null)
         {
-            Logger = logAction;
+            Logger = logAction ?? Extensions.NoOpLogger;
             Log(LogSeverity.Info, "Creating Permission service.");
 
             ConfigStore = configstore ?? throw new ArgumentNullException(nameof(configstore));
@@ -40,11 +41,11 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="configstore"></param>
         /// <param name="commands"></param>
         /// <param name="client"></param>
-        internal PermissionsService(
+        public PermissionsService(
             IConfigStore<IPermissionConfig> configstore,
             CommandService commands,
             DiscordSocketClient client,
-            Func<LogMessage, Task> logAction) : this(configstore, commands, logAction)
+            Func<LogMessage, Task> logAction = null) : this(configstore, commands, logAction)
         {
             SocketClient = client ?? throw new ArgumentNullException(nameof(client));
 
@@ -57,11 +58,11 @@ namespace Discord.Addons.SimplePermissions
             client.MessageDeleted += MessageDeleted;
         }
 
-        internal PermissionsService(
+        public PermissionsService(
             IConfigStore<IPermissionConfig> configstore,
             CommandService commands,
             DiscordShardedClient client,
-            Func<LogMessage, Task> logAction) : this(configstore, commands, logAction)
+            Func<LogMessage, Task> logAction = null) : this(configstore, commands, logAction)
         {
             ShardedClient = client ?? throw new ArgumentNullException(nameof(client));
 
@@ -341,37 +342,37 @@ namespace Discord.Addons.SimplePermissions
 
     public static class PermissionsExtensions
     {
-        /// <summary> Add SimplePermissions to your <see cref="CommandService"/> using a <see cref="DiscordSocketClient"/>. </summary>
-        /// <param name="client">The <see cref="DiscordSocketClient"/> instance.</param>
-        /// <param name="configStore">The <see cref="IConfigStore{TConfig}"/> instance.</param>
-        /// <param name="map">The <see cref="IDependencyMap"/> instance.</param>
-        /// <param name="logAction">Optional: A delegate or method that will log messages.</param>
-        public static Task UseSimplePermissions(
-            this CommandService cmdService,
-            DiscordSocketClient client,
-            IConfigStore<IPermissionConfig> configStore,
-            IServiceCollection map,
-            Func<LogMessage, Task> logAction = null)
-        {
-            map.AddSingleton(new PermissionsService(configStore, cmdService, client, logAction ?? (msg => Task.CompletedTask)));
-            return cmdService.AddModuleAsync<PermissionsModule>();
-        }
+        ///// <summary> Add SimplePermissions to your <see cref="CommandService"/> using a <see cref="DiscordSocketClient"/>. </summary>
+        ///// <param name="client">The <see cref="DiscordSocketClient"/> instance.</param>
+        ///// <param name="configStore">The <see cref="IConfigStore{TConfig}"/> instance.</param>
+        ///// <param name="map">The <see cref="IDependencyMap"/> instance.</param>
+        ///// <param name="logAction">Optional: A delegate or method that will log messages.</param>
+        //public static Task UseSimplePermissions(
+        //    this CommandService cmdService,
+        //    DiscordSocketClient client,
+        //    IConfigStore<IPermissionConfig> configStore,
+        //    IServiceCollection map,
+        //    Func<LogMessage, Task> logAction = null)
+        //{
+        //    map.AddSingleton(new PermissionsService(configStore, cmdService, client, logAction ?? (msg => Task.CompletedTask)));
+        //    return cmdService.AddModuleAsync<PermissionsModule>();
+        //}
 
-        /// <summary> Add SimplePermissions to your <see cref="CommandService"/> using a <see cref="DiscordShardedClient"/>. </summary>
-        /// <param name="client">The <see cref="DiscordShardedClient"/> instance.</param>
-        /// <param name="configStore">The <see cref="IConfigStore{TConfig}"/> instance.</param>
-        /// <param name="map">The <see cref="IDependencyMap"/> instance.</param>
-        /// <param name="logAction">Optional: A delegate or method that will log messages.</param>
-        public static Task UseSimplePermissions(
-            this CommandService cmdService,
-            DiscordShardedClient client,
-            IConfigStore<IPermissionConfig> configStore,
-            IServiceCollection map,
-            Func<LogMessage, Task> logAction = null)
-        {
-            map.AddSingleton(new PermissionsService(configStore, cmdService, client, logAction ?? (msg => Task.CompletedTask)));
-            return cmdService.AddModuleAsync<PermissionsModule>();
-        }
+        ///// <summary> Add SimplePermissions to your <see cref="CommandService"/> using a <see cref="DiscordShardedClient"/>. </summary>
+        ///// <param name="client">The <see cref="DiscordShardedClient"/> instance.</param>
+        ///// <param name="configStore">The <see cref="IConfigStore{TConfig}"/> instance.</param>
+        ///// <param name="map">The <see cref="IDependencyMap"/> instance.</param>
+        ///// <param name="logAction">Optional: A delegate or method that will log messages.</param>
+        //public static Task UseSimplePermissions(
+        //    this CommandService cmdService,
+        //    DiscordShardedClient client,
+        //    IConfigStore<IPermissionConfig> configStore,
+        //    IServiceCollection map,
+        //    Func<LogMessage, Task> logAction = null)
+        //{
+        //    map.AddSingleton(new PermissionsService(configStore, cmdService, client, logAction ?? (msg => Task.CompletedTask)));
+        //    return cmdService.AddModuleAsync<PermissionsModule>();
+        //}
 
         internal static bool HasPerms(this IGuildUser user, IGuildChannel channel, DiscordPermissions perms)
         {

@@ -2,12 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
+using System.Threading.Tasks;
+using Discord;
 
 namespace Discord.Addons.Core
 {
     internal static class Extensions
     {
+        public static Func<LogMessage, Task> NoOpLogger { get; } = (_ => Task.CompletedTask);
+
+        internal static string ToNiceString(this TimeSpan ts)
+        {
+            var d = ts.TotalDays == 1 ? "day" : "days";
+            var h = ts.Hours == 1 ? "hour" : "hours";
+            var m = ts.Minutes == 1 ? "minute" : "minutes";
+
+            return (ts.TotalHours > 24)
+                ? $"{ts.Days} {d} and {ts.Hours} {h}"
+                : $"{ts.Hours} {h} and {ts.Minutes} {m}";
+        }
+
         //Method for randomizing lists using a Fisher-Yates shuffle.
         //Based on http://stackoverflow.com/questions/273313/
         /// <summary>

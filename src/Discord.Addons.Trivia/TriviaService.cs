@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Discord.Commands;
 using Discord.WebSocket;
+using Discord.Addons.Core;
 
 namespace Discord.Addons.TriviaGames
 {
@@ -21,9 +22,9 @@ namespace Discord.Addons.TriviaGames
 
         private TriviaService(
             IReadOnlyDictionary<string, string[]> triviaData,
-            Func<LogMessage, Task> logger)
+            Func<LogMessage, Task> logger = null)
         {
-            _logger = logger;
+            _logger = logger ?? Extensions.NoOpLogger;
             Log(LogSeverity.Info, "Creating Trivia service.");
 
             TriviaData = triviaData ?? throw new ArgumentNullException(nameof(triviaData));
@@ -32,7 +33,7 @@ namespace Discord.Addons.TriviaGames
         internal TriviaService(
             IReadOnlyDictionary<string, string[]> triviaData,
             DiscordSocketClient client,
-            Func<LogMessage, Task> logger) : this(triviaData, logger)
+            Func<LogMessage, Task> logger = null) : this(triviaData, logger)
         {
             client.MessageReceived += CheckMessage;
         }
@@ -40,7 +41,7 @@ namespace Discord.Addons.TriviaGames
         internal TriviaService(
             IReadOnlyDictionary<string, string[]> triviaData,
             DiscordShardedClient client,
-            Func<LogMessage, Task> logger) : this(triviaData, logger)
+            Func<LogMessage, Task> logger = null) : this(triviaData, logger)
         {
             client.MessageReceived += CheckMessage;
         }

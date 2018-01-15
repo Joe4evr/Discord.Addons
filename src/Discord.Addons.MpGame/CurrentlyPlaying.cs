@@ -8,7 +8,7 @@ using Discord.Commands;
 namespace Discord.Addons.MpGame
 {
     /// <summary> Specifies if a game is being played when the command is invoked. </summary>
-    public enum CurrentlyPlaying
+    public enum CurrentlyPlaying : byte
     {
         /// <summary> No game is being played in this channel. </summary>
         None = 0,

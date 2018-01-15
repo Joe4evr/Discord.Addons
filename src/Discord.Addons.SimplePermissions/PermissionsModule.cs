@@ -9,7 +9,7 @@ using Discord.Commands;
 
 namespace Discord.Addons.SimplePermissions
 {
-    [Name(PermModuleName), DontAutoLoad]
+    [Name(PermModuleName)]
     public sealed class PermissionsModule : ModuleBase<ICommandContext>
     {
         public const string PermModuleName = "Permissions";

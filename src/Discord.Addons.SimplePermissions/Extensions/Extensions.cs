@@ -8,7 +8,7 @@ using CommandParam = Discord.Commands.ParameterInfo;
 
 namespace Discord.Addons.SimplePermissions
 {
-    internal static class Extensions
+    internal static class DiscordExtensions
     {
         public static async Task<IEnumerable<CommandInfo>> CheckConditions(
             this IEnumerable<CommandInfo> commands,
@@ -43,17 +43,6 @@ namespace Discord.Addons.SimplePermissions
             }
 
             return builder;
-        }
-
-        internal static string ToNiceString(this TimeSpan ts)
-        {
-            var d = ts.TotalDays == 1 ? "day" : "days";
-            var h = ts.Hours == 1 ? "hour" : "hours";
-            var m = ts.Minutes == 1 ? "minute" : "minutes";
-
-            return (ts.TotalHours > 24)
-                ? $"{ts.Days} {d} and {ts.Hours} {h}"
-                : $"{ts.Hours} {h} and {ts.Minutes} {m}";
         }
 
         internal static string FormatParam(this CommandParam param)

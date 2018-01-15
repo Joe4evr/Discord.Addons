@@ -23,7 +23,7 @@ namespace Discord.Addons.MpGame
         //protected static IEqualityComparer<IUser> UserComparer { get; } = Comparers.UserComparer;
         /// <summary> A cached IEqualityComparer&lt;<see cref="IMessageChannel"/>&gt;instance to use when
         /// instantiating a <see cref="Dictionary{TKey, TValue}"/> using <see cref="IMessageChannel"/> as the key. </summary>
-        protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = Comparers.ChannelComparer;
+        protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = DiscordComparers.ChannelComparer;
 
         private readonly object _lock = new object();
         private readonly ConcurrentDictionary<IMessageChannel, PersistentGameData> _dataList
@@ -33,7 +33,7 @@ namespace Discord.Addons.MpGame
 
         private MpGameService(Func<LogMessage, Task> logger = null)
         {
-            Logger = logger ?? (_ => Task.CompletedTask);
+            Logger = logger ?? Extensions.NoOpLogger;
         }
 
         public MpGameService(DiscordSocketClient socketClient, Func<LogMessage, Task> logger = null)
