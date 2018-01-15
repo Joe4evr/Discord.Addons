@@ -19,7 +19,7 @@ namespace Discord.Addons.SimpleAudio
     {
         private static readonly Embed _initEmbed = new EmbedBuilder { Title = "Connected", Description = "Initializing..." }.Build();
         private readonly Func<LogMessage, Task> _logger;
-        private readonly Timer _presenceChecker;
+        //private readonly Timer _presenceChecker;
         private readonly DiscordSocketClient _client;
 
         internal AudioConfig Config { get; }
@@ -43,25 +43,25 @@ namespace Discord.Addons.SimpleAudio
 
             Log(LogSeverity.Info, "Created Audio service.");
 
-            _presenceChecker = new Timer(o =>
-            {
-                foreach (var (guildId, wrapper) in Clients)
-                {
-                    if (wrapper.Client.ConnectionState == ConnectionState.Disconnected)
-                    {
-                        Clients.TryRemove(guildId, out var _);
-                    }
-                }
-            }, null, TimeSpan.FromSeconds(10), TimeSpan.FromMinutes(1));
+            //_presenceChecker = new Timer(o =>
+            //{
+            //    foreach (var (guildId, wrapper) in Clients)
+            //    {
+            //        if (wrapper.Client.ConnectionState == ConnectionState.Disconnected)
+            //        {
+            //            Clients.TryRemove(guildId, out var _);
+            //        }
+            //    }
+            //}, null, TimeSpan.FromSeconds(10), TimeSpan.FromMinutes(1));
         }
 
         private Task Client_GuildAvailable(SocketGuild guild)
         {
-            if (Config.GuildConfigs.TryGetValue(guild.Id, out var guildConfig))
+            if (Config.GuildConfigs.TryGetValue(guild.Id, out var guildConfig) && guildConfig.AutoConnect)
             {
                 var vChannel = guild.GetVoiceChannel(guildConfig.VoiceChannelId);
                 var msgChannel = guild.GetTextChannel(guildConfig.MessageChannelId);
-                if (vChannel != null)
+                if (vChannel != null && msgChannel != null)
                 {
                     Task.Run(async () =>
                     {
@@ -106,9 +106,15 @@ namespace Discord.Addons.SimpleAudio
                 {
                     case "\u25B6": //play
                         await msg.RemoveReactionAsync(reaction.Emote, reaction.User.Value).ConfigureAwait(false);
-                        await (wrapper.IsPlaying()
-                            ? ResumePlayback(guild).ConfigureAwait(false)
-                            : Playlist(guild).ConfigureAwait(false));
+
+                        if (wrapper.IsPlaying())
+                        {
+                            await ResumePlayback(guild).ConfigureAwait(false);
+                        }
+                        else
+                        {
+                            Task.Run(() => Playlist(guild).ConfigureAwait(false));
+                        }
                         break;
                     case "\u23F8": //pause
                         await msg.RemoveReactionAsync(reaction.Emote, reaction.User.Value).ConfigureAwait(false);

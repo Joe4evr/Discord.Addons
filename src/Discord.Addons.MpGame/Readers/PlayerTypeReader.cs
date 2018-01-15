@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +7,7 @@ using Discord.Commands;
 
 namespace Discord.Addons.MpGame
 {
-    public abstract partial class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<ICommandContext>
+    public abstract partial class MpGameModuleBase<TService, TGame, TPlayer>
     {
         internal sealed class PlayerTypeReader : TypeReader
         {
@@ -40,11 +38,11 @@ namespace Discord.Addons.MpGame
                         {
                             return TypeReaderResult.FromSuccess(player);
                         }
-                        return TypeReaderResult.FromError(CommandError.ObjectNotFound, "Not a player in that game.");
+                        return TypeReaderResult.FromError(CommandError.ObjectNotFound, "Not a player in this game.");
                     }
-                    return TypeReaderResult.FromError(CommandError.ObjectNotFound, "No game.");
+                    return TypeReaderResult.FromError(CommandError.ObjectNotFound, "No game going on.");
                 }
-                return TypeReaderResult.FromError(CommandError.ObjectNotFound, "No service.");
+                return TypeReaderResult.FromError(CommandError.ObjectNotFound, "No service found.");
             }
         }
     }

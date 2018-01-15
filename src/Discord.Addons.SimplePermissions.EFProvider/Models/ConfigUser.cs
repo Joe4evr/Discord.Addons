@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -20,6 +22,9 @@ namespace Discord.Addons.SimplePermissions
             set => _uid = unchecked((long)value);
         }
 
-        private long _uid;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
+        internal long _uid;
     }
 }

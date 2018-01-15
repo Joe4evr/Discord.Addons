@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Discord.Commands;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Discord.Addons.SimplePermissions
@@ -28,6 +29,11 @@ namespace Discord.Addons.SimplePermissions
                 .AddSingleton(commands)
                 .AddDbContext<TContext>(optionsaction)
                 .BuildServiceProvider();
+
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                scope.ServiceProvider.GetService<TContext>().Database.Migrate();
+            }
         }
 
         /// <summary> Loads an instance of the DB Context. </summary>

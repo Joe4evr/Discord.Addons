@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -40,9 +42,18 @@ namespace Discord.Addons.SimplePermissions
             set => _aid = unchecked((long)value);
         }
 
-        private long _gid;
-        private long _mid;
-        private long _aid;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
+        internal long _gid;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
+        internal long _mid;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
+        internal long _aid;
 
         public bool UseFancyHelp { get; set; }
 

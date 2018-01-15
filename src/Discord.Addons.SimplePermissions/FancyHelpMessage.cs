@@ -11,11 +11,17 @@ namespace Discord.Addons.SimplePermissions
 {
     internal sealed class FancyHelpMessage
     {
-        internal const string EFirst = "⏪";
-        internal const string EBack = "◀";
-        internal const string ENext = "▶";
-        internal const string ELast = "⏩";
-        internal const string EDelete = "❌";
+        internal const string SFirst  = "\u23EE";
+        internal const string SBack   = "\u25C0";
+        internal const string SNext   = "\u25B6";
+        internal const string SLast   = "\u23ED";
+        internal const string SDelete = "\u274C";
+
+        private static IEmote EFirst  { get; } = new Emoji(SFirst);
+        private static IEmote EBack   { get; } = new Emoji(SBack);
+        private static IEmote ENext   { get; } = new Emoji(SNext);
+        private static IEmote ELast   { get; } = new Emoji(SLast);
+        private static IEmote EDelete { get; } = new Emoji(SDelete);
 
         private readonly IUser _user;
         private readonly IMessageChannel _channel;
@@ -25,8 +31,8 @@ namespace Discord.Addons.SimplePermissions
         private readonly IApplication _app;
 
         internal ulong UserId => _user.Id;
-        internal ulong MsgId => msg.Id;
-        private IUserMessage msg;
+        internal ulong MsgId => _msg.Id;
+        private IUserMessage _msg;
         private uint _currentPage;
 
         public FancyHelpMessage(IMessageChannel channel, IUser user, IEnumerable<CommandInfo> commands, IApplication app)
@@ -41,16 +47,12 @@ namespace Discord.Addons.SimplePermissions
 
         public async Task<FancyHelpMessage> SendMessage()
         {
-            msg = await _channel.SendMessageAsync("", embed: GetPage(0));
-            await msg.AddReactionAsync(new Emoji(EFirst));
-            await Task.Delay(1000);
-            await msg.AddReactionAsync(new Emoji(EBack));
-            await Task.Delay(1000);
-            await msg.AddReactionAsync(new Emoji(ENext));
-            await Task.Delay(1000);
-            await msg.AddReactionAsync(new Emoji(ELast));
-            await Task.Delay(1000);
-            await msg.AddReactionAsync(new Emoji(EDelete));
+            _msg = await _channel.SendMessageAsync("", embed: GetPage(0)).ConfigureAwait(false);
+            await _msg.AddReactionAsync(EFirst).ConfigureAwait(false);
+            await _msg.AddReactionAsync(EBack).ConfigureAwait(false);
+            await _msg.AddReactionAsync(ENext).ConfigureAwait(false);
+            await _msg.AddReactionAsync(ELast).ConfigureAwait(false);
+            await _msg.AddReactionAsync(EDelete).ConfigureAwait(false);
 
             return this;
         }
@@ -73,40 +75,40 @@ namespace Discord.Addons.SimplePermissions
 
         public async Task First()
         {
-            await msg.RemoveReactionAsync(new Emoji(EFirst), _user);
+            await _msg.RemoveReactionAsync(new Emoji(SFirst), _user);
             if (_currentPage == 0) return;
 
-            await msg.ModifyAsync(m => m.Embed = GetPage(0));
+            await _msg.ModifyAsync(m => m.Embed = GetPage(0));
 
         }
 
         public async Task Next()
         {
-            await msg.RemoveReactionAsync(new Emoji(ENext), _user);
+            await _msg.RemoveReactionAsync(new Emoji(SNext), _user);
             if (_currentPage == (_totalPages - 1)) return;
 
-            await msg.ModifyAsync(m => m.Embed = GetPage((int)++_currentPage));
+            await _msg.ModifyAsync(m => m.Embed = GetPage((int)++_currentPage));
         }
 
         public async Task Back()
         {
-            await msg.RemoveReactionAsync(new Emoji(EBack), _user);
+            await _msg.RemoveReactionAsync(new Emoji(SBack), _user);
             if (_currentPage == 0) return;
 
-            await msg.ModifyAsync(m => m.Embed = GetPage((int)--_currentPage));
+            await _msg.ModifyAsync(m => m.Embed = GetPage((int)--_currentPage));
         }
 
         public async Task Last()
         {
-            await msg.RemoveReactionAsync(new Emoji(ELast), _user);
+            await _msg.RemoveReactionAsync(new Emoji(SLast), _user);
             if (_currentPage == (_totalPages - 1)) return;
 
-            await msg.ModifyAsync(m => m.Embed = GetPage((int)_totalPages - 1));
+            await _msg.ModifyAsync(m => m.Embed = GetPage((int)_totalPages - 1));
         }
 
         public Task Delete()
         {
-            return msg.DeleteAsync();
+            return _msg.DeleteAsync();
         }
     }
 }

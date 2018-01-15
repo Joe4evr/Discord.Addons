@@ -1,5 +1,5 @@
 ﻿<Project>
-    <!--<Import Condition="'$(Configuration)' == 'Debug'" Project=".\Analyzers.props" />-->
+    <Import Condition="'$(Configuration)' == 'Debug'" Project=".\Analyzers.props" />
     <PropertyGroup Label="Configuration">
         <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
         <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -16,7 +16,7 @@
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-        <!--<TargetFrameworks>netstandard2.0</TargetFrameworks>-->
+        <TargetFrameworks>netstandard2.0</TargetFrameworks>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="System.ValueTuple" Version="4.4.0" />
@@ -30,5 +30,5 @@
     <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
         <SolutionDir>.\</SolutionDir>
     </PropertyGroup>
-    <!--<Import Project="$(SolutionDir)src\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />-->
+    <Import Project="$(SolutionDir)src\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />
 </Project>

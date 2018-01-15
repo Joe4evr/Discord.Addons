@@ -158,7 +158,7 @@ namespace Discord.Addons.SimplePermissions
             var sb = new StringBuilder("All loaded modules:\n```");
             using (var config = _permService.ConfigStore.Load())
             {
-                var wl = config.GetChannelModuleWhitelist(Context.Channel)
+                var wl = config.GetChannelModuleWhitelist(Context.Channel as ITextChannel)
                     .Concat(config.GetGuildModuleWhitelist(Context.Guild)).ToList();
                 foreach (var m in mods)
                 {
@@ -214,7 +214,7 @@ namespace Discord.Addons.SimplePermissions
         {
             if (user.HasPerms(Context.Channel as ITextChannel, PermissionsExtensions.DiscordPermissions.READ_MESSAGES | PermissionsExtensions.DiscordPermissions.SEND_MESSAGES))
             {
-                if (await _permService.AddSpecialUser(Context.Channel, user).ConfigureAwait(false))
+                if (await _permService.AddSpecialUser(Context.Channel as ITextChannel, user).ConfigureAwait(false))
                     await ReplyAsync($"Gave **{user.Username}** Special command privileges.").ConfigureAwait(false);
             }
             else
@@ -230,7 +230,7 @@ namespace Discord.Addons.SimplePermissions
         [Summary("Remove someone's special command privileges in this channel.")]
         public async Task RemoveSpecialUser(IGuildUser user)
         {
-            if (await _permService.RemoveSpecialUser(Context.Channel, user).ConfigureAwait(false))
+            if (await _permService.RemoveSpecialUser(Context.Channel as ITextChannel, user).ConfigureAwait(false))
                 await ReplyAsync($"Removed **{user.Username}** Special command privileges.").ConfigureAwait(false);
         }
 
@@ -251,7 +251,7 @@ namespace Discord.Addons.SimplePermissions
                 }
                 else
                 {
-                    if (await _permService.WhitelistModule(Context.Channel, mod.Name).ConfigureAwait(false))
+                    if (await _permService.WhitelistModule(Context.Channel as ITextChannel, mod.Name).ConfigureAwait(false))
                         await ReplyAsync($"Module `{mod.Name}` is now whitelisted in this channel.").ConfigureAwait(false);
                 }
             }
@@ -280,7 +280,7 @@ namespace Discord.Addons.SimplePermissions
                     }
                     else
                     {
-                        if (await _permService.BlacklistModule(Context.Channel, mod.Name).ConfigureAwait(false))
+                        if (await _permService.BlacklistModule(Context.Channel as ITextChannel, mod.Name).ConfigureAwait(false))
                             await ReplyAsync($"Module `{mod.Name}` is now blacklisted in this channel.").ConfigureAwait(false);
                     }
                 }

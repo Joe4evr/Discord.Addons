@@ -13,12 +13,14 @@ namespace Discord.Addons.SimplePermissions
     /// <summary> </summary>
     public sealed class PermissionsService
     {
-        private readonly DiscordSocketClient _sockClient;
-        private readonly DiscordShardedClient _shardClient;
-        private readonly Func<LogMessage, Task> _logger;
-        private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
+        private static readonly Emoji _litter = new Emoji("\uD83D\uDEAE");
 
-        internal ConcurrentDictionary<ulong, FancyHelpMessage> Helpmsgs { get; } = new ConcurrentDictionary<ulong, FancyHelpMessage>();
+        private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
+        private DiscordSocketClient SocketClient { get; }
+        private DiscordShardedClient ShardedClient { get; }
+        private Func<LogMessage, Task> Logger { get; }
+        private ConcurrentDictionary<ulong, FancyHelpMessage> Helpmsgs { get; } = new ConcurrentDictionary<ulong, FancyHelpMessage>();
+
         internal CommandService CService { get; }
         internal IConfigStore<IPermissionConfig> ConfigStore { get; }
 
@@ -27,7 +29,7 @@ namespace Discord.Addons.SimplePermissions
             CommandService commands,
             Func<LogMessage, Task> logAction)
         {
-            _logger = logAction;
+            Logger = logAction;
             Log(LogSeverity.Info, "Creating Permission service.");
 
             ConfigStore = configstore ?? throw new ArgumentNullException(nameof(configstore));
@@ -44,9 +46,9 @@ namespace Discord.Addons.SimplePermissions
             DiscordSocketClient client,
             Func<LogMessage, Task> logAction) : this(configstore, commands, logAction)
         {
-            _sockClient = client ?? throw new ArgumentNullException(nameof(client));
+            SocketClient = client ?? throw new ArgumentNullException(nameof(client));
 
-            client.Connected += CheckDuplicateModuleNames;
+            client.Ready += CheckDuplicateModuleNames;
             client.GuildAvailable += GuildAvailable;
             client.UserJoined += UserJoined;
             client.ChannelCreated += ChannelCreated;
@@ -61,9 +63,9 @@ namespace Discord.Addons.SimplePermissions
             DiscordShardedClient client,
             Func<LogMessage, Task> logAction) : this(configstore, commands, logAction)
         {
-            _shardClient = client ?? throw new ArgumentNullException(nameof(client));
+            ShardedClient = client ?? throw new ArgumentNullException(nameof(client));
 
-            client.GetShard(0).Connected += CheckDuplicateModuleNames;
+            client.GetShard(0).Ready += CheckDuplicateModuleNames;
             client.GuildAvailable += GuildAvailable;
             client.UserJoined += UserJoined;
             client.ChannelCreated += ChannelCreated;
@@ -91,21 +93,27 @@ namespace Discord.Addons.SimplePermissions
             }
         }
 
-        private async Task ChannelCreated(SocketChannel chan)
+        private async Task ChannelCreated(SocketChannel channel)
         {
-            using (var config = ConfigStore.Load())
+            if (channel is SocketTextChannel textChannel)
             {
-                await config.AddChannel(chan);
-                config.Save();
+                using (var config = ConfigStore.Load())
+                {
+                    await config.AddChannel(textChannel);
+                    config.Save();
+                }
             }
         }
 
-        private async Task ChannelDestroyed(SocketChannel chan)
+        private async Task ChannelDestroyed(SocketChannel channel)
         {
-            using (var config = ConfigStore.Load())
+            if (channel is SocketTextChannel textChannel)
             {
-                await config.RemoveChannel(chan);
-                config.Save();
+                using (var config = ConfigStore.Load())
+                {
+                    await config.RemoveChannel(textChannel);
+                    config.Save();
+                }
             }
         }
 #endregion
@@ -122,12 +130,24 @@ namespace Discord.Addons.SimplePermissions
                 await Log(LogSeverity.Debug, $"Message with id {message.Id} had invalid user.");
                 return;
             }
+
             var msg = message.Value;
+            var iclient = (SocketClient as IDiscordClient) ?? (ShardedClient as IDiscordClient);
+            if (reaction.UserId == iclient.CurrentUser.Id)
+            {
+                return;
+            }
+            if (msg.Author.Id == iclient.CurrentUser.Id
+                && reaction.UserId == (await iclient.GetApplicationInfoAsync()).Owner.Id
+                && reaction.Emote.Name == _litter.Name)
+            {
+                
+                await msg.DeleteAsync();
+                return;
+            }
+
             if (Helpmsgs.TryGetValue(msg.Id, out var fhm))
             {
-                if (reaction.UserId == _sockClient?.CurrentUser.Id
-                    || reaction.UserId == _shardClient?.CurrentUser.Id) return;
-
                 if (reaction.UserId != fhm.UserId)
                 {
                     var _ = msg.RemoveReactionAsync(reaction.Emote, reaction.User.Value);
@@ -136,19 +156,19 @@ namespace Discord.Addons.SimplePermissions
 
                 switch (reaction.Emote.Name)
                 {
-                    case FancyHelpMessage.EFirst:
+                    case FancyHelpMessage.SFirst:
                         await fhm.First();
                         break;
-                    case FancyHelpMessage.EBack:
+                    case FancyHelpMessage.SBack:
                         await fhm.Back();
                         break;
-                    case FancyHelpMessage.ENext:
+                    case FancyHelpMessage.SNext:
                         await fhm.Next();
                         break;
-                    case FancyHelpMessage.ELast:
+                    case FancyHelpMessage.SLast:
                         await fhm.Last();
                         break;
-                    case FancyHelpMessage.EDelete:
+                    case FancyHelpMessage.SDelete:
                         await fhm.Delete();
                         break;
                     default:
@@ -175,16 +195,16 @@ namespace Discord.Addons.SimplePermissions
                 throw new Exception(error);
             }
 
-            if (_sockClient != null)
-                _sockClient.Connected -= CheckDuplicateModuleNames;
+            if (SocketClient != null)
+                SocketClient.Ready -= CheckDuplicateModuleNames;
 
-            if (_shardClient != null)
-                _shardClient.GetShard(0).Connected -= CheckDuplicateModuleNames;
+            if (ShardedClient != null)
+                ShardedClient.GetShard(0).Ready -= CheckDuplicateModuleNames;
         }
 
         internal Task Log(LogSeverity severity, string msg)
         {
-            return _logger(new LogMessage(severity, "SimplePermissions", msg));
+            return Logger(new LogMessage(severity, "SimplePermissions", msg));
         }
 
         internal Task AddNewFancy(FancyHelpMessage fhm)
@@ -217,7 +237,7 @@ namespace Discord.Addons.SimplePermissions
             }
         }
 
-        internal async Task<bool> AddSpecialUser(IChannel channel, IGuildUser user)
+        internal async Task<bool> AddSpecialUser(ITextChannel channel, IGuildUser user)
         {
             using (var config = ConfigStore.Load())
             {
@@ -229,7 +249,7 @@ namespace Discord.Addons.SimplePermissions
             }
         }
 
-        internal async Task<bool> RemoveSpecialUser(IChannel channel, IGuildUser user)
+        internal async Task<bool> RemoveSpecialUser(ITextChannel channel, IGuildUser user)
         {
             using (var config = ConfigStore.Load())
             {
@@ -241,7 +261,7 @@ namespace Discord.Addons.SimplePermissions
             }
         }
 
-        internal async Task<bool> WhitelistModule(IChannel channel, string modName)
+        internal async Task<bool> WhitelistModule(ITextChannel channel, string modName)
         {
             using (var config = ConfigStore.Load())
             {
@@ -253,7 +273,7 @@ namespace Discord.Addons.SimplePermissions
             }
         }
 
-        internal async Task<bool> BlacklistModule(IChannel channel, string modName)
+        internal async Task<bool> BlacklistModule(ITextChannel channel, string modName)
         {
             using (var config = ConfigStore.Load())
             {

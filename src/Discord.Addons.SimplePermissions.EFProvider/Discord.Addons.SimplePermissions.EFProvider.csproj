@@ -7,11 +7,9 @@
         <Description>EF provider for Discord.Addons.SimplePermissions</Description>
         <Authors>Joe4evr</Authors>
         <PackageTags>discord</PackageTags>
-        <!--<TargetFrameworks>$(TargetFrameworks);netstandard1.6</TargetFrameworks>-->
     </PropertyGroup>
     <ItemGroup>
-        <!--<PackageReference Include="Discord.Addons.SimplePermissions" Version="1.0.0-rc" />-->
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.0" />
     </ItemGroup>
     <ItemGroup>
         <None Include="Documentation\*.md" />
@@ -19,7 +17,10 @@
     <ItemGroup>
         <None Include="EFBaseConfigContext.IPermissionConfig.cs" />
     </ItemGroup>
-    <ItemGroup>
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <PackageReference Include="Discord.Addons.SimplePermissions" Version="1.0.0-rc" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
         <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />
     </ItemGroup>
 </Project>

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -22,7 +24,10 @@ namespace Discord.Addons.SimplePermissions
             set => _cid = unchecked((long)value);
         }
 
-        private long _cid;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
+        internal long _cid;
 
         /// <summary> </summary>
         public ICollection<TUser> SpecialUsers { get; set; }
@@ -34,5 +39,4 @@ namespace Discord.Addons.SimplePermissions
     public class ConfigChannel : ConfigChannel<ConfigUser>
     {
     }
-
 }

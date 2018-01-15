@@ -7,7 +7,7 @@
         <Description>Discord.Net module for command permission management.</Description>
         <Authors>Joe4evr</Authors>
         <PackageTags>discord;commands;permissions</PackageTags>
-        <TargetFrameworks>netstandard1.6</TargetFrameworks>
+        <TargetFrameworks>$(TargetFrameworks);netstandard1.6</TargetFrameworks>
     </PropertyGroup>
     <ItemGroup>
         <None Include="README.md" />

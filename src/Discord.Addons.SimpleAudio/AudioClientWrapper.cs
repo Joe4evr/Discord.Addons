@@ -103,6 +103,7 @@ namespace Discord.Addons.SimpleAudio
                 }
             }
 
+            _ffmpeg = null;
             _song = null;
             _statusEmote = _stopEmote;
             _statusColor = Color.Red;

@@ -18,10 +18,10 @@ namespace Discord.Addons.SimplePermissions
         Task AddNewGuild(IGuild guild);
 
         /// <summary> Add a new Channel to the config. </summary>
-        Task AddChannel(IChannel channel);
+        Task AddChannel(ITextChannel channel);
 
         /// <summary> Removes the all lists of the specified channel from the config. </summary>
-        Task RemoveChannel(IChannel channel);
+        Task RemoveChannel(ITextChannel channel);
 
         /// <summary> Gets the ID of the group that is considered
         /// the Admin role in a specified guild. </summary>
@@ -43,7 +43,7 @@ namespace Discord.Addons.SimplePermissions
 
         /// <summary> Gets the list of modules that are
         /// whitelisted in a specified channel. </summary>
-        IEnumerable<ModuleInfo> GetChannelModuleWhitelist(IChannel channel);
+        IEnumerable<ModuleInfo> GetChannelModuleWhitelist(ITextChannel channel);
 
         /// <summary> Gets the list of modules that are
         /// whitelisted in a specified guild. </summary>
@@ -51,11 +51,11 @@ namespace Discord.Addons.SimplePermissions
 
         /// <summary> Whitelist a module in this channel. </summary>
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
-        Task<bool> WhitelistModule(IChannel channel, string moduleName);
+        Task<bool> WhitelistModule(ITextChannel channel, string moduleName);
 
         /// <summary> Blacklist a module in this channel. </summary>
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
-        Task<bool> BlacklistModule(IChannel channel, string moduleName);
+        Task<bool> BlacklistModule(ITextChannel channel, string moduleName);
 
         /// <summary> Whitelist a module in this guild. </summary>
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
@@ -68,18 +68,18 @@ namespace Discord.Addons.SimplePermissions
         /// <summary> Gets the users that are allowed to use
         /// commands marked <see cref="MinimumPermission.Special"/>
         /// in a channel. </summary>
-        IEnumerable<ulong> GetSpecialPermissionUsersList(IChannel channel);
+        IEnumerable<ulong> GetSpecialPermissionUsersList(ITextChannel channel);
 
         /// <summary> Add a new user to the config. </summary>
         Task AddUser(IGuildUser user);
 
         /// <summary> Give a user Special command privileges in a channel. </summary>
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
-        Task<bool> AddSpecialUser(IChannel channel, IGuildUser user);
+        Task<bool> AddSpecialUser(ITextChannel channel, IGuildUser user);
 
         /// <summary> Revoke a user's Special command privileges in a channel. </summary>
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
-        Task<bool> RemoveSpecialUser(IChannel channel, IGuildUser user);
+        Task<bool> RemoveSpecialUser(ITextChannel channel, IGuildUser user);
 
         /// <summary> Sets whether to hide the Permission commands from help. </summary>
         Task SetHidePermCommands(IGuild guild, bool newValue);

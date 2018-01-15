@@ -103,7 +103,7 @@ namespace Examples.MpGame
             }
             else
             {
-                if (GameService.CancelGame(Context.Channel))
+                if (await GameService.CancelGame(Context.Channel))
                 {
                     await ReplyAsync("Game was canceled.").ConfigureAwait(false);
                 }

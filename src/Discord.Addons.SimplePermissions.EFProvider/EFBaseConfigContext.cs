@@ -41,19 +41,19 @@ namespace Discord.Addons.SimplePermissions
         }
 
         /// <summary> </summary>
-        protected virtual Task OnGuildAdd(TGuild guild)
+        protected virtual Task OnGuildAdd(TGuild configGuild, IGuild guild)
         {
             return Task.CompletedTask;
         }
 
         /// <summary> </summary>
-        protected virtual Task OnChannelAdd(TChannel channel)
+        protected virtual Task OnChannelAdd(TChannel configChannel, ITextChannel channel)
         {
             return Task.CompletedTask;
         }
 
         /// <summary> </summary>
-        protected virtual Task OnUserAdd(TUser user)
+        protected virtual Task OnUserAdd(TUser configUser, IGuildUser user)
         {
             return Task.CompletedTask;
         }
@@ -63,46 +63,50 @@ namespace Discord.Addons.SimplePermissions
             modelBuilder.Entity<ConfigModule>()
                 .HasAlternateKey(e => e.ModuleName);
 
-            modelBuilder.Entity<ConfigUser>()
+            modelBuilder.Entity<TUser>()
                 .Property<long>("User_Id")
                 .HasField("_uid")
                 .IsRequired(true);
 
 
-            modelBuilder.Entity<ConfigChannel<TUser>>()
+            modelBuilder.Entity<TChannel>()
                 .Property<long>("Channel_Id")
                 .HasField("_cid")
                 .IsRequired(true);
 
-            modelBuilder.Entity<ConfigChannel<TUser>>()
+            modelBuilder.Entity<TChannel>()
                 .HasMany(c => c.SpecialUsers);
 
-            modelBuilder.Entity<ConfigChannel<TUser>>()
+            modelBuilder.Entity<TChannel>()
                 .HasMany(c => c.WhiteListedModules);
 
 
-            modelBuilder.Entity<ConfigGuild<TChannel, TUser>>()
+            modelBuilder.Entity<TGuild>()
                 .Property<long>("Guild_Id")
                 .HasField("_gid")
                 .IsRequired(true);
 
-            modelBuilder.Entity<ConfigGuild<TChannel, TUser>>()
+            modelBuilder.Entity<TGuild>()
                 .Property<long>("Mod_Id")
                 .HasField("_mid")
+                .HasDefaultValue(0l)
+                .ValueGeneratedNever()
                 .IsRequired(true);
 
-            modelBuilder.Entity<ConfigGuild<TChannel, TUser>>()
+            modelBuilder.Entity<TGuild>()
                 .Property<long>("Admin_Id")
                 .HasField("_aid")
+                .HasDefaultValue(0l)
+                .ValueGeneratedNever()
                 .IsRequired(true);
 
-            modelBuilder.Entity<ConfigGuild<TChannel, TUser>>()
+            modelBuilder.Entity<TGuild>()
                 .HasMany(g => g.Users);
 
-            modelBuilder.Entity<ConfigGuild<TChannel, TUser>>()
+            modelBuilder.Entity<TGuild>()
                 .HasMany(g => g.WhiteListedModules);
 
-            modelBuilder.Entity<ConfigGuild<TChannel, TUser>>()
+            modelBuilder.Entity<TGuild>()
                 .HasMany(g => g.Channels);
 
             base.OnModelCreating(modelBuilder);

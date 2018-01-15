@@ -53,23 +53,20 @@ namespace Discord.Addons.SimplePermissions
             await (this as IPermissionConfig).WhitelistModuleGuild(guild, PermissionsModule.PermModuleName).ConfigureAwait(false);
         }
 
-        Task IPermissionConfig.AddChannel(IChannel channel)
+        Task IPermissionConfig.AddChannel(ITextChannel channel)
         {
-            if (channel is IGuildChannel gc)
+            if (!ChannelModuleWhitelist.ContainsKey(channel.Id))
             {
-                if (!ChannelModuleWhitelist.ContainsKey(gc.Id))
-                {
-                    ChannelModuleWhitelist[gc.Id] = new HashSet<string>();
-                }
-                if (!SpecialPermissionUsersList.ContainsKey(gc.Id))
-                {
-                    SpecialPermissionUsersList[gc.Id] = new HashSet<ulong>();
-                }
+                ChannelModuleWhitelist[channel.Id] = new HashSet<string>();
+            }
+            if (!SpecialPermissionUsersList.ContainsKey(channel.Id))
+            {
+                SpecialPermissionUsersList[channel.Id] = new HashSet<ulong>();
             }
             return Task.CompletedTask;
         }
 
-        Task IPermissionConfig.RemoveChannel(IChannel channel)
+        Task IPermissionConfig.RemoveChannel(ITextChannel channel)
         {
             if (ChannelModuleWhitelist.ContainsKey(channel.Id))
             {
@@ -105,7 +102,7 @@ namespace Discord.Addons.SimplePermissions
             return Task.FromResult(true);
         }
 
-        IEnumerable<ModuleInfo> IPermissionConfig.GetChannelModuleWhitelist(IChannel channel)
+        IEnumerable<ModuleInfo> IPermissionConfig.GetChannelModuleWhitelist(ITextChannel channel)
         {
             return Modules.Where(m => ChannelModuleWhitelist[channel.Id].Contains(m.Name));
         }
@@ -115,12 +112,12 @@ namespace Discord.Addons.SimplePermissions
             return Modules.Where(m => GuildModuleWhitelist[guild.Id].Contains(m.Name));
         }
 
-        Task<bool> IPermissionConfig.WhitelistModule(IChannel channel, string moduleName)
+        Task<bool> IPermissionConfig.WhitelistModule(ITextChannel channel, string moduleName)
         {
             return Task.FromResult(ChannelModuleWhitelist[channel.Id].Add(moduleName));
         }
 
-        Task<bool> IPermissionConfig.BlacklistModule(IChannel channel, string moduleName)
+        Task<bool> IPermissionConfig.BlacklistModule(ITextChannel channel, string moduleName)
         {
             return Task.FromResult(ChannelModuleWhitelist[channel.Id].Remove(moduleName));
         }
@@ -135,7 +132,7 @@ namespace Discord.Addons.SimplePermissions
             return Task.FromResult(GuildModuleWhitelist[guild.Id].Remove(moduleName));
         }
 
-        IEnumerable<ulong> IPermissionConfig.GetSpecialPermissionUsersList(IChannel channel)
+        IEnumerable<ulong> IPermissionConfig.GetSpecialPermissionUsersList(ITextChannel channel)
         {
             return SpecialPermissionUsersList[channel.Id];
         }
@@ -145,13 +142,13 @@ namespace Discord.Addons.SimplePermissions
             return Task.CompletedTask;
         }
 
-        Task<bool> IPermissionConfig.AddSpecialUser(IChannel channel, IGuildUser user)
+        Task<bool> IPermissionConfig.AddSpecialUser(ITextChannel channel, IGuildUser user)
         {
 
             return Task.FromResult(SpecialPermissionUsersList[channel.Id].Add(user.Id));
         }
 
-        Task<bool> IPermissionConfig.RemoveSpecialUser(IChannel channel, IGuildUser user)
+        Task<bool> IPermissionConfig.RemoveSpecialUser(ITextChannel channel, IGuildUser user)
         {
             return Task.FromResult(SpecialPermissionUsersList[channel.Id].Remove(user.Id));
         }

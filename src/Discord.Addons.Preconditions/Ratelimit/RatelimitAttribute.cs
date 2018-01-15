@@ -15,20 +15,23 @@ namespace Discord.Addons.Preconditions
         private readonly uint _invokeLimit;
         private readonly bool _noLimitInDMs;
         private readonly bool _noLimitForAdmins;
+        private readonly bool _applyPerGuild;
         private readonly TimeSpan _invokeLimitPeriod;
-        private readonly Dictionary<ulong, CommandTimeout> _invokeTracker = new Dictionary<ulong, CommandTimeout>();
+        private readonly Dictionary<(ulong, ulong?), CommandTimeout> _invokeTracker = new Dictionary<(ulong, ulong?), CommandTimeout>();
 
         /// <summary> Sets how often a user is allowed to use this command. </summary>
         /// <param name="times">The number of times a user may use the command within a certain period.</param>
         /// <param name="period">The amount of time since first invoke a user has until the limit is lifted.</param>
         /// <param name="measure">The scale in which the <paramref name="period"/> parameter should be measured.</param>
         /// <param name="noLimitInDMs">Set whether or not there is no limit to the command in DMs. Defaults to false.</param>
-        /// <param name="noLimitForAdmins">Set whether or not there is no limit to the command for server admins. Defaults to false.</param>
-        public RatelimitAttribute(uint times, double period, Measure measure, bool noLimitInDMs = false, bool noLimitForAdmins = false)
+        /// <param name="noLimitForAdmins">Set whether or not there is no limit to the command for guild admins. Defaults to false.</param>
+        /// <param name="applyPerGuild">Set whether or not to apply a limit per guild. Defaults to false.</param>
+        public RatelimitAttribute(uint times, double period, Measure measure, bool noLimitInDMs = false, bool noLimitForAdmins = false, bool applyPerGuild = false)
         {
             _invokeLimit = times;
             _noLimitInDMs = noLimitInDMs;
             _noLimitForAdmins = noLimitForAdmins;
+            _applyPerGuild = applyPerGuild;
 
             //TODO: C# 7 candidate switch expression
             switch (measure)
@@ -49,13 +52,15 @@ namespace Discord.Addons.Preconditions
         /// <param name="times">The number of times a user may use the command within a certain period.</param>
         /// <param name="period">The amount of time since first invoke a user has until the limit is lifted.</param>
         /// <param name="noLimitInDMs">Set whether or not there is no limit to the command in DMs. Defaults to false.</param>
-        /// <param name="noLimitForAdmins">Set whether or not there is no limit to the command for server admins. Defaults to false.</param>
-        public RatelimitAttribute(uint times, TimeSpan period, bool noLimitInDMs = false, bool noLimitForAdmins = false)
+        /// <param name="noLimitForAdmins">Set whether or not there is no limit to the command for guild admins. Defaults to false.</param>
+        /// <param name="applyPerGuild">Set whether or not to apply a limit per guild. Defaults to false.</param>
+        public RatelimitAttribute(uint times, TimeSpan period, bool noLimitInDMs = false, bool noLimitForAdmins = false, bool applyPerGuild = false)
         {
             _invokeLimit = times;
             _noLimitInDMs = noLimitInDMs;
             _noLimitForAdmins = noLimitForAdmins;
             _invokeLimitPeriod = period;
+            _applyPerGuild = applyPerGuild;
         }
 
         /// <inheritdoc />
@@ -68,7 +73,9 @@ namespace Discord.Addons.Preconditions
                 return Task.FromResult(PreconditionResult.FromSuccess());
 
             var now = DateTime.UtcNow;
-            var timeout = (_invokeTracker.TryGetValue(context.User.Id, out var t)
+            var key = _applyPerGuild ? (context.User.Id, context.Guild?.Id) : (context.User.Id, null);
+
+            var timeout = (_invokeTracker.TryGetValue(key, out var t)
                 && ((now - t.FirstInvoke) < _invokeLimitPeriod))
                     ? t : new CommandTimeout(now);
 
@@ -76,7 +83,7 @@ namespace Discord.Addons.Preconditions
 
             if (timeout.TimesInvoked <= _invokeLimit)
             {
-                _invokeTracker[context.User.Id] = timeout;
+                _invokeTracker[key] = timeout;
                 return Task.FromResult(PreconditionResult.FromSuccess());
             }
             else
