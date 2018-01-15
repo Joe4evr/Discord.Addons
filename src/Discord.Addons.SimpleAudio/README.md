@@ -9,6 +9,7 @@ for your platform [here](https://dsharpplus.emzi0767.com/natives/).
 * Add opus and libsodium by right-clicking your project in
 Solution Explorer -> Add -> Existing Item. Go to their
 properties and set them to Copy Always.
+
 ![](https://i.imgur.com/vfSSKM1.png)
 
 ## Quickstart
@@ -42,7 +43,7 @@ var audioCfg = new AudioConfig(
     musicBasePath: @"C:\bot_music")
 {
     // You can provide guild-specific configurations
-    // by using the following property:
+    // by using the following property and syntax sugar:
     GuildConfigs =
     {
         [guildId] = new AudioGuildConfig
@@ -54,7 +55,10 @@ var audioCfg = new AudioConfig(
 };
 ```
 
-3. Finally, call the extension method to add SimpleAudio to your `CommandService`:
+3. Finally, add the `AudioService` to your service collection and
+your module implementation to your `CommandService`:
 ```cs
-await _commands.UseAudio<AudioModuleImplementation>(_client, _serviceCollection, audioCfg, _logger);
+_serviceCollection.AddSingleton(new AudioService(_client, audioCfg, _logger));
+//...
+await _commands.AddModuleAsync<AudioModuleImplementation>();
 ```

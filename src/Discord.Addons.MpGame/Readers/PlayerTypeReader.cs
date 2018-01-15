@@ -11,8 +11,8 @@ namespace Discord.Addons.MpGame
     {
         internal sealed class PlayerTypeReader : TypeReader
         {
-            private static readonly Regex _mentionParser = new Regex(@"^<!?(?<digits>\d+)>$", RegexOptions.Compiled);
-            private static readonly Regex _nameDiscrimParser = new Regex(@"^(?<name.*>)#(?<discrim>\d{4})$", RegexOptions.Compiled);
+            private static readonly Regex _mentionParser = new Regex(@"^<@!?(?<digits>\d+)>$", RegexOptions.Compiled);
+            private static readonly Regex _nameDiscrimParser = new Regex(@"^(?<name>.*)#(?<discrim>\d{4})$", RegexOptions.Compiled);
 
             public override async Task<TypeReaderResult> Read(ICommandContext context, string input, IServiceProvider services)
             {

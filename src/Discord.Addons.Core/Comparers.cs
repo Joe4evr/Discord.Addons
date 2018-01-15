@@ -5,15 +5,15 @@ namespace Discord.Addons.Core
 {
     internal static class Comparers
     {
-        public static IEqualityComparer<IUser>    UserComparer    => _userComparer    ?? Create<IUser   , ulong>(ref _userComparer);
-        public static IEqualityComparer<IGuild>   GuildComparer   => _guildComparer   ?? Create<IGuild  , ulong>(ref _guildComparer);
+        public static IEqualityComparer<IUser> UserComparer => _userComparer ?? Create<IUser, ulong>(ref _userComparer);
+        public static IEqualityComparer<IGuild> GuildComparer => _guildComparer ?? Create<IGuild, ulong>(ref _guildComparer);
         public static IEqualityComparer<IChannel> ChannelComparer => _channelComparer ?? Create<IChannel, ulong>(ref _channelComparer);
-        public static IEqualityComparer<IRole>    RoleComparer    => _roleComparer    ?? Create<IRole   , ulong>(ref _roleComparer);
+        public static IEqualityComparer<IRole> RoleComparer => _roleComparer ?? Create<IRole, ulong>(ref _roleComparer);
 
-        private static IEqualityComparer<IUser>    _userComparer;
-        private static IEqualityComparer<IGuild>   _guildComparer;
+        private static IEqualityComparer<IUser> _userComparer;
+        private static IEqualityComparer<IGuild> _guildComparer;
         private static IEqualityComparer<IChannel> _channelComparer;
-        private static IEqualityComparer<IRole>    _roleComparer;
+        private static IEqualityComparer<IRole> _roleComparer;
 
         private static IEqualityComparer<TEntity> Create<TEntity, TId>(ref IEqualityComparer<TEntity> field)
             where TEntity : IEntity<TId>

@@ -267,7 +267,7 @@ namespace Discord.Addons.SimpleAudio
         }
 
         internal IEnumerable<string> GetAvailableFiles()
-            => Directory.GetFiles(Config.MusicBasePath, "*.mp3", SearchOption.TopDirectoryOnly).Select(p => Path.GetFileName(p));
+            => Directory.GetFiles(Config.MusicBasePath, "*.mp3", SearchOption.AllDirectories).Select(p => Path.GetFileName(p));
 
         private Task Log(LogSeverity severity, string msg)
         {
@@ -293,17 +293,17 @@ namespace Discord.Addons.SimpleAudio
 
     public static class AudioExt
     {
-        public static Task UseAudio<TModule>(
-            this CommandService cmds,
-            DiscordSocketClient client,
-            IServiceCollection map,
-            AudioConfig cfg,
-            Func<LogMessage, Task> logger = null)
-            where TModule : AudioModule
-        {
-            map.AddSingleton(new AudioService(client, cfg, logger ?? ((msg) => Task.CompletedTask)));
-            return cmds.AddModuleAsync<TModule>();
-        }
+        //public static Task UseAudio<TModule>(
+        //    this CommandService cmds,
+        //    DiscordSocketClient client,
+        //    IServiceCollection map,
+        //    AudioConfig cfg,
+        //    Func<LogMessage, Task> logger = null)
+        //    where TModule : AudioModule
+        //{
+        //    map.AddSingleton(new AudioService(client, cfg, logger));
+        //    return cmds.AddModuleAsync<TModule>();
+        //}
 
         internal static bool HasPerms(this IGuildUser user, IGuildChannel channel, DiscordPermissions perms)
         {
