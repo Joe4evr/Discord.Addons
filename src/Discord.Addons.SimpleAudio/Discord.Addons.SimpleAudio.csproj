@@ -1,18 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <!--<Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />-->
-    <Import Project="..\..\DiscordAddonsCore.props" />
+    <Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />
+    <!--<Import Project="..\..\DiscordAddonsCore.props" />-->
     <PropertyGroup>
         <AssemblyName>Discord.Addons.SimpleAudio</AssemblyName>
         <VersionPrefix>1.0.0</VersionPrefix>
-        <VersionSuffix>rc</VersionSuffix>
+        <VersionSuffix>rc2</VersionSuffix>
         <Description>Simple usage of Audio for Discord.Net 1.0.</Description>
         <Authors>Joe4evr</Authors>
         <PackageTags>discord;commands;audio</PackageTags>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <!--<AllowUnsafeBlocks>true</AllowUnsafeBlocks>-->
         <TargetFrameworks>netstandard2.0</TargetFrameworks>
     </PropertyGroup>
-    <!--<ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Memory" Version="4.4.0-preview1-25305-02" />
+    </ItemGroup>
+    <ItemGroup>
         <PackageReference Include="Discord.Net.Commands" Version="1.0.2" />
         <PackageReference Include="Discord.Net.WebSocket" Version="1.0.2" />
-    </ItemGroup>-->
+    </ItemGroup>
 </Project>

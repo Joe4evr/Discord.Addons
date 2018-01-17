@@ -10,7 +10,7 @@
         <TargetFrameworks>$(TargetFrameworks);netstandard1.6</TargetFrameworks>
     </PropertyGroup>
     <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <PackageReference Include="Discord.Addons.SimplePermissions" Version="1.0.0-rc" />
+        <PackageReference Include="Discord.Addons.SimplePermissions" Version="1.0.0-rc2" />
     </ItemGroup>
     <ItemGroup Condition="'$(Configuration)' == 'Debug'">
         <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />

@@ -27,7 +27,7 @@ namespace Discord.Addons.SimplePermissions
             if (context.Channel is IPrivateChannel)
                 return PreconditionResult.FromSuccess();
 
-            var chan = context.Channel;
+            var chan = context.Channel as ITextChannel;
             var user = context.User;
             var svc = map.GetService<PermissionsService>();
             if (svc != null)

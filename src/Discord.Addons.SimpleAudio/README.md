@@ -34,24 +34,30 @@ public class AudioModuleImplementation : AudioModule
 ```
 
 2. During your bot initialization, create an `AudioConfig` object that
-contains at the very least, the base path for `ffmpeg.exe` and
+contains at the very least, the path for `ffmpeg.exe` and
 the base path for the music you want to play:
 ```cs
 var audioCfg = new AudioConfig(
-    // Do NOT include 'ffmpeg.exe' as part of this path
-    ffmpegPath: @"C:\ffmpeg-folder\bin",
+    ffmpegPath: @"C:\ffmpeg-folder\bin\ffmpeg.exe",
     musicBasePath: @"C:\bot_music")
 {
     // You can provide guild-specific configurations
     // by using the following property and syntax sugar:
     GuildConfigs =
     {
-        [guildId] = new AudioGuildConfig
+        // C#6+ syntax
+        [guildId] = new StandardAudioGuildConfig
         {
             // Consult IntelliSense for the
             // properties you can set here.
+            AutoPlay = true
         }
-    }
+    },
+
+    // You can also set some properties globally
+    // NOTE: If a guild-specific option is specified,
+    // that takes precedence over the global option.
+    AutoPlay = false
 };
 ```
 

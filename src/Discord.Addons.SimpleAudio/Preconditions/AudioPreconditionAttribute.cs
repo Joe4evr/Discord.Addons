@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Discord.Commands;
+using Discord.Addons.Core;
 
 namespace Discord.Addons.SimpleAudio
 {
@@ -9,8 +10,8 @@ namespace Discord.Addons.SimpleAudio
     {
         protected bool CheckAllowCommands(AudioService service, ICommandContext context)
         {
-            return service.Config.GuildConfigs.TryGetValue(context.Guild.Id, out var config)
-                && config.AllowCommands;
+            var guildConfig = service.Config.GuildConfigs.GetValueOrDefault(context.Guild.Id);
+            return (guildConfig?.AllowCommands ?? service.Config.AllowReactions);
         }
     }
 }

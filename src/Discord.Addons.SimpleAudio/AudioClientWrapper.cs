@@ -22,7 +22,7 @@ namespace Discord.Addons.SimpleAudio
         private static readonly IEmote _ejectEmote = new Emoji("\u23CF");
 
         private readonly object _cancelLock = new object();
-        private readonly ConcurrentQueue<string> _playlist = new ConcurrentQueue<string>();
+        private ConcurrentQueue<FileInfo> Playlist { get; } = new ConcurrentQueue<FileInfo>();
 
         internal IAudioClient Client { get; }
         internal IUserMessage Message { get; }
@@ -38,11 +38,11 @@ namespace Discord.Addons.SimpleAudio
         private Color _statusColor;
         private Process _ffmpeg;
 
-        public AudioClientWrapper(IAudioClient client, IUserMessage message, AudioGuildConfig config = null)
+        public AudioClientWrapper(IAudioClient client, IUserMessage message, AudioConfig globalConfig, IAudioGuildConfig guildConfig = null)
         {
             Message = message;
             Client = client;
-            if (config?.AllowReactions == true)
+            if (guildConfig?.AllowReactions ?? globalConfig.AllowReactions)
             {
                 Task.Run(async () =>
                 {
@@ -51,30 +51,32 @@ namespace Discord.Addons.SimpleAudio
                     await message.AddReactionAsync(_pauseEmote).ConfigureAwait(false);
                     await message.AddReactionAsync(_fwdEmote).ConfigureAwait(false);
                     await message.AddReactionAsync(_ejectEmote).ConfigureAwait(false);
-                    await message.ModifyAsync(m => m.Embed = _readyEmbed).ConfigureAwait(false);
                 }).GetAwaiter().GetResult();
             }
+            message.ModifyAsync(m => m.Embed = _readyEmbed);
         }
 
-        public async Task SendAudioAsync(string ffmpeg)
+        public async Task SendAudioAsync(FileInfo ffmpeg)
         {
-            while (!_playlist.IsEmpty)
+            while (!Playlist.IsEmpty)
             {
-                if (_playlist.TryDequeue(out var path))
+                if (Playlist.TryDequeue(out var path))
                 {
-                    _song = Path.GetFileNameWithoutExtension(path);
+                    _song = Path.GetFileNameWithoutExtension(path.FullName);
                     _statusEmote = _playEmote;
                     _statusColor = Color.Green;
                     await RefreshEmbed().ConfigureAwait(false);
 
                     using (_ffmpeg = Process.Start(new ProcessStartInfo
                     {
-                        FileName = ffmpeg,
-                        Arguments = $"-hide_banner -loglevel panic -i \"{path}\" -ac 2 -f s16le -ar 48000 pipe:1",
+                        FileName = ffmpeg.FullName,
+                        Arguments = $"-hide_banner -loglevel panic -i \"{path.FullName}\" -ac 2 -f s16le -ar 48000 pipe:1",
                         UseShellExecute = false,
+                        //RedirectStandardInput = true,
                         RedirectStandardOutput = true,
                         CreateNoWindow = false
                     }))
+                    //using (var input = _ffmpeg.StandardInput.BaseStream)
                     using (var output = _ffmpeg.StandardOutput.BaseStream)
                     using (var stream = Client.CreatePCMStream(AudioApplication.Music))
                     {
@@ -87,7 +89,7 @@ namespace Discord.Addons.SimpleAudio
                             if (!_next)
                             {
                                 //TODO: Replace with .Clear() when NET Core 2.0 is a thing
-                                while (_playlist.TryDequeue(out var _)) { }
+                                while (Playlist.TryDequeue(out var _)) { }
                                 break;
                             }
                             else
@@ -110,19 +112,19 @@ namespace Discord.Addons.SimpleAudio
             await RefreshEmbed().ConfigureAwait(false);
         }
 
-        public Task AddToPlaylist(string file)
+        public Task AddToPlaylist(FileInfo file)
         {
-            _playlist.Enqueue(file);
-            return (IsPlaying() || _playlist.Count > 1)
+            Playlist.Enqueue(file);
+            return (IsPlaying() || Playlist.Count > 1)
                 ? RefreshEmbed()
                 : Task.CompletedTask;
         }
 
-        public Task AddToPlaylist(IEnumerable<string> files)
+        public Task AddToPlaylist(IEnumerable<FileInfo> files)
         {
             foreach (var item in files)
             {
-                _playlist.Enqueue(item);
+                Playlist.Enqueue(item);
             }
             return RefreshEmbed();
         }
@@ -156,7 +158,7 @@ namespace Discord.Addons.SimpleAudio
 
         public void SkipToNext()
         {
-            if (!_playlist.IsEmpty)
+            if (!Playlist.IsEmpty)
             {
                 _next = true;
                 Stop();
@@ -210,8 +212,9 @@ namespace Discord.Addons.SimpleAudio
                     catch (OperationCanceledException) { }
                 }
 
-                var volAdjusted = ScaleVolumeUnsafeNoAlloc(buffer, _playingVolume);
-                await destination.WriteAsync(volAdjusted, 0, count, _cancelToken.Token).ConfigureAwait(false);
+                //var volAdjusted = ScaleVolumeUnsafeNoAlloc(buffer, _playingVolume);
+                /*var volAdjusted =*/ ScaleVolumeSpanOfT(buffer, _playingVolume);
+                await destination.WriteAsync(buffer, 0, count, _cancelToken.Token).ConfigureAwait(false);
             }
         }
 
@@ -234,7 +237,7 @@ namespace Discord.Addons.SimpleAudio
                     {
                         IsInline = true,
                         Name = "Next song:",
-                        Value = (_playlist.TryPeek(out var n) ? Path.GetFileNameWithoutExtension(n) : "*(None)*")
+                        Value = (Playlist.TryPeek(out var n) ? Path.GetFileNameWithoutExtension(n.FullName) : "*(None)*")
                     }
                 }
             }.Build();
@@ -249,31 +252,7 @@ namespace Discord.Addons.SimpleAudio
         }
 
         //https://hastebin.com/umapabejis.cs
-        private unsafe static byte[] ScaleVolumeUnsafeNoAlloc(byte[] audioSamples, float volume)
-        {
-            Contract.Requires(audioSamples != null);
-            Contract.Requires(volume >= 0f && volume <= 1f);
-            Contract.Assert(BitConverter.IsLittleEndian);
-
-            if (Math.Abs(volume - 1f) < 0.0001f) return audioSamples;
-
-            // 16-bit precision for the multiplication
-            int volumeFixed = (int)Math.Round(volume * 65536d);
-
-            int count = audioSamples.Length >> 1;
-
-            fixed (byte* srcBytes = audioSamples)
-            {
-                short* src = (short*)srcBytes;
-
-                for (int i = count; i != 0; i--, src++)
-                    *src = (short)(((*src) * volumeFixed) >> 16);
-            }
-
-            return audioSamples;
-        }
-
-        //private static byte[] ScaleVolumeMemoryOfT(byte[] audioSamples, float volume)
+        //private unsafe static byte[] ScaleVolumeUnsafeNoAlloc(byte[] audioSamples, float volume)
         //{
         //    Contract.Requires(audioSamples != null);
         //    Contract.Requires(volume >= 0f && volume <= 1f);
@@ -286,10 +265,33 @@ namespace Discord.Addons.SimpleAudio
 
         //    int count = audioSamples.Length >> 1;
 
+        //    fixed (byte* srcBytes = audioSamples)
+        //    {
+        //        short* src = (short*)srcBytes;
 
-
+        //        for (int i = count; i != 0; i--, src++)
+        //            *src = (short)(((*src) * volumeFixed) >> 16);
+        //    }
 
         //    return audioSamples;
         //}
+
+        //https://gist.github.com/Joe4evr/e102d8d8627989a61624237e44210838
+        private static void ScaleVolumeSpanOfT(Span<byte> audioSamples, float volume)
+        {
+            Contract.Requires(audioSamples != null);
+            Contract.Requires(volume >= 0f && volume <= 1f);
+            Contract.Assert(BitConverter.IsLittleEndian);
+
+            if (Math.Abs(volume - 1f) < 0.0001f)
+                return;
+
+            // 16-bit precision for the multiplication
+            int volumeFixed = (int)Math.Round(volume * 65536d);
+
+            var asShorts = audioSamples.NonPortableCast<byte, short>();
+            for (int i = 0; i < asShorts.Length; i++)
+                asShorts[i] = (short)((asShorts[i] * volumeFixed) >> 16);
+        }
     }
 }
