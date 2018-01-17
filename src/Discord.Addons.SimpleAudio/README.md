@@ -68,4 +68,7 @@ _serviceCollection.AddSingleton(new AudioService(_client, audioCfg, _logger));
 //...
 await _commands.AddModuleAsync<AudioModuleImplementation>();
 ```
+
+If everything is configured correctly, the bot should
+post a status embed once its connected to a voice channel.
 ![](https://i.imgur.com/MlYxZQV.png)
