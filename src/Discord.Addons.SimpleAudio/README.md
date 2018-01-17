@@ -68,3 +68,4 @@ _serviceCollection.AddSingleton(new AudioService(_client, audioCfg, _logger));
 //...
 await _commands.AddModuleAsync<AudioModuleImplementation>();
 ```
+![](https://i.imgur.com/MlYxZQV.png)
