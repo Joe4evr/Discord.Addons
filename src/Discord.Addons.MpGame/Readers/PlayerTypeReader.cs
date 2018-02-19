@@ -9,6 +9,12 @@ namespace Discord.Addons.MpGame
 {
     public abstract partial class MpGameModuleBase<TService, TGame, TPlayer>
     {
+        //void AddTypeReader<TType>(
+        //    TypeReader reader,
+        //    Func<ParameterInfo, bool> predicate = null)
+        //{
+        //}
+
         internal sealed class PlayerTypeReader : TypeReader
         {
             private static readonly Regex _mentionParser = new Regex(@"^<@!?(?<digits>\d+)>$", RegexOptions.Compiled);

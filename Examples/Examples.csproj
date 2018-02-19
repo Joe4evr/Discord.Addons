@@ -1,17 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
     <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <LangVersion>7.1</LangVersion>
         <TargetFramework>netcoreapp2.0</TargetFramework>
+        <RuntimeFrameworkVersion>2.0.0</RuntimeFrameworkVersion>
+        <RuntimeIdentifiers>win</RuntimeIdentifiers>
     </PropertyGroup>
     <ItemGroup>
         <EmbeddedResource Include="**\*.resx" />
     </ItemGroup>
     <ItemGroup>
-        <!--<PackageReference Include="Discord.Addons.SimplePermissions.EFProvider" Version="1.0.0-rc" />-->
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" PrivateAssets="All" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
+        <!--<ProjectReference Include="..\..\Discord.Net\src\Discord.Net.Commands\Discord.Net.Commands.csproj" />
+        <ProjectReference Include="..\..\Discord.Net\src\Discord.Net.WebSocket\Discord.Net.WebSocket.csproj" />-->
         <ProjectReference Include="..\src\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj" />
         <ProjectReference Include="..\src\Discord.Addons.SimplePermissions.EFProvider\Discord.Addons.SimplePermissions.EFProvider.csproj" />
         <ProjectReference Include="..\src\Discord.Addons.SimplePermissions.JsonProvider\Discord.Addons.SimplePermissions.JsonProvider.csproj" />

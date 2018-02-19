@@ -7,13 +7,13 @@ using Discord.Addons.MpGame;
 
 namespace Examples.MpGame
 {
-    public sealed class ExampleGame : GameBase<Player>
+    public sealed class ExampleGame : GameBase<ExamplePlayer>
     {
         // Example fields to keep track of the game state
         private int _turn = 0;
         internal GameState State { get; private set; } = GameState.Setup;
 
-        public ExampleGame(IMessageChannel channel, IEnumerable<Player> players)
+        public ExampleGame(IMessageChannel channel, IEnumerable<ExamplePlayer> players)
             : base(channel, players)
         {
         }
@@ -34,10 +34,10 @@ namespace Examples.MpGame
         // Call NextTurn() to do the things happening with a new turn
         public override async Task NextTurn()
         {
-            await Channel.SendMessageAsync("Next turn commencing.").ConfigureAwait(false);
-            TurnPlayer = TurnPlayer.Next;
             _turn++;
+            TurnPlayer = TurnPlayer.Next;
             State = GameState.StartOfTurn;
+            await Channel.SendMessageAsync($"It is turn {_turn}, **{TurnPlayer.Value.User.Username}** to play.").ConfigureAwait(false);
         }
 
         // If you override EndGame() for your own behavior, you MUST call the base implementation

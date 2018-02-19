@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord.Commands;
@@ -12,7 +11,7 @@ namespace Discord.Addons.MpGame
     /// <typeparam name="TService">The type of the service managing longer lived objects.</typeparam>
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
-    public abstract partial class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<ICommandContext>
+    public abstract partial class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<SocketCommandContext>
         where TService : MpGameService<TGame, TPlayer>
         where TGame    : GameBase<TPlayer>
         where TPlayer  : Player
@@ -49,11 +48,13 @@ namespace Discord.Addons.MpGame
         {
             base.BeforeExecute(command);
 
-            var data = GameService.GetData(Context.Channel);
-            OpenToJoin  = data?.OpenToJoin ?? false;
-            JoinedUsers = data?.JoinedUsers ?? ImmutableHashSet<IUser>.Empty;
-            Game        = data?.Game;
-            Player      = Game?.Players.SingleOrDefault(p => p.User.Id == Context.User.Id);
+            if (GameService.TryGetPersistentData(Context.Channel, out var data))
+            {
+                OpenToJoin  = data.OpenToJoin;
+                JoinedUsers = data.JoinedUsers;
+                Game        = data.Game;
+                Player      = Game?.Players.SingleOrDefault(p => p.User.Id == Context.User.Id);
+            }
 
             GameInProgress = GameTracker.Instance.TryGetGameString(Context.Channel, out var name)
                 ? (name == GameService.GameName ? CurrentlyPlaying.ThisGame : CurrentlyPlaying.DifferentGame)
@@ -67,6 +68,19 @@ namespace Discord.Addons.MpGame
             //    false => CurrentlyPlaying.None
             //};
         }
+
+        //protected virtual bool RegisterPlayerTypeReader => true;
+
+        //private void OnModuleBuilding(CommandService commandService)
+        //{
+        //    //base.OnModuleBuilding(commandService);
+
+        //    if (RegisterPlayerTypeReader)
+        //    {
+        //        GameService.Logger(new LogMessage(LogSeverity.Info, "MpGame", $"Registering type reader for {typeof(TPlayer).Name}"));
+        //        //commandService.AddTypeReader<TPlayer>(new PlayerTypeReader(), p => p.Command.Module.TypeInfo == this.GetType());
+        //    }
+        //}
 
         /// <summary> Command to open a game for others to join. </summary>
         public abstract Task OpenGameCmd();
@@ -94,15 +108,11 @@ namespace Discord.Addons.MpGame
 
         /// <summary> Command to resend a message to someone who had their DMs disabled. </summary>
         //[Command("resend")]
-        public virtual async Task ResendCmd()
+        public virtual Task ResendCmd()
         {
-            if (GameInProgress == CurrentlyPlaying.ThisGame)
-            {
-                if (Player != null)
-                {
-                    await Player.RetrySendMessageAsync();
-                }
-            }
+            return (GameInProgress == CurrentlyPlaying.ThisGame && Player != null)
+                ? Player.RetrySendMessageAsync()
+                : Task.CompletedTask;
         }
     }
 

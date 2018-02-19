@@ -40,9 +40,18 @@ namespace Discord.Addons.MpGame
         /// <summary> Indicates whether or not the current TurnPlayer is the last player in the list. </summary>
         protected bool IsTurnPlayerLastPlayer() => Players.Comparer.Equals(TurnPlayer.Value, Players.Tail.Value);
 
-        /// <summary> Selects the DM Channels of all the players. </summary>
-        public async Task<IEnumerable<IDMChannel>> PlayerChannels()
-            => await Task.WhenAll(Players.Select(async p => await p.User.GetOrCreateDMChannelAsync().ConfigureAwait(false))).ConfigureAwait(false);
+        ///// <summary> Selects the DM Channels of all the players. </summary>
+        //public async Task<IEnumerable<IDMChannel>> PlayerChannels()
+        //    => await Task.WhenAll(Players.Select(async p => await p.User.GetOrCreateDMChannelAsync().ConfigureAwait(false))).ConfigureAwait(false);
+
+        //protected async Task SendMessageAllPlayers(Func<TPlayer, string> messageFunc)
+        //{
+        //    foreach (var player in Players)
+        //    {
+        //        await player.SendMessageAsync(messageFunc(player)).ConfigureAwait(false);
+        //        await Task.Delay(1000).ConfigureAwait(false);
+        //    }
+        //}
 
         /// <summary> Perform the actions that are part of the initial setup. </summary>
         public abstract Task SetupGame();

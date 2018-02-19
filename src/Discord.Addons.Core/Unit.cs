@@ -9,7 +9,7 @@
         public static bool operator !=(Unit left, Unit right) => false;
     }
 
-    internal static class Ex
+    internal static class UnitEx
     {
         /// <summary>
         /// Return a specified value chained after

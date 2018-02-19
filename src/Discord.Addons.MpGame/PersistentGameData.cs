@@ -24,9 +24,12 @@ namespace Discord.Addons.MpGame
 
             private readonly IMessageChannel _channel;
 
-            public PersistentGameData(IMessageChannel channel)
+            internal IUser GameOrganizer { get; }
+
+            public PersistentGameData(IMessageChannel channel, IUser organizer)
             {
                 _channel = channel;
+                GameOrganizer = organizer;
             }
 
             internal bool TryUpdateOpenToJoin(bool oldValue, bool newValue)

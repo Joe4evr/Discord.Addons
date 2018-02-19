@@ -24,6 +24,8 @@ public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<IC
 
     protected IReadOnlyCollection<IUser> JoinedUsers { get; }
 
+    protected virtual bool RegisterPlayerTypeReader { get; }
+
     public abstract Task OpenGameCmd();
 
     public abstract Task CancelGameCmd();
@@ -59,6 +61,10 @@ IntelliSense for the details.
 has a game going on, and if it is the game type that this module handles
 or another game type. You can use this to ensure that you won't get
 two different games being played simultaniously in the same channel.
+
+`RegisterPlayerTypeReader` is an overridable flag with which you can specify
+to add a TypeReader for your `Player` type so that you can take in that type
+as a command parameter directly. The default value of this flag is `true`.
 
 There are 8 methods you can implement, corresponding to the
 actions needed in most games. When you implement these, you decorate them with `[Command]`

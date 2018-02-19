@@ -11,6 +11,11 @@ namespace Discord.Addons.Core
             return dictionary.TryGetValue(key, out var ret) ? ret : defaultValue;
         }
 
+        public static TValue GetValueOrDefault<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue = default(TValue))
+        {
+            return dictionary.TryGetValue(key, out var ret) ? ret : defaultValue;
+        }
+
         public static void Deconstruct<TKey, TValue>(this KeyValuePair<TKey, TValue> kvp, out TKey key, out TValue val)
         {
             key = kvp.Key;

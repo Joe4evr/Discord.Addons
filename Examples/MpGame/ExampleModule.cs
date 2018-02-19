@@ -6,11 +6,11 @@ using Discord.Commands;
 namespace Examples.MpGame
 {
     [Group("example")] // If you make multiple games, it would be smart to group each under a seperate name
-    public sealed class ExampleModule : MpGameModuleBase< // Inherit MpGameModuleBase
-        ExampleService, // Specify the type of the service that will keep track of running games
-        ExampleGame, Player> // Specify the type of the game and the type of its player
+    public sealed class ExampleGameModule : MpGameModuleBase< // Inherit MpGameModuleBase
+        ExampleGameService, // Specify the type of the service that will keep track of running games
+        ExampleGame, ExamplePlayer> // Specify the type of the game and the type of its player
     {
-        public ExampleModule(ExampleService gameService)
+        public ExampleGameModule(ExampleGameService gameService)
             : base(gameService)
         {
         }
@@ -21,13 +21,14 @@ namespace Examples.MpGame
             // You *HAVE* to call 'base', otherwise you won't be
             // initializing the properties in the base class
             base.BeforeExecute(command);
+
             GameService.DataDictionary.TryGetValue(Context.Channel, out _data);
         }
 
         private DataType _data;
 
         // You may have reasons to not annotate a particular method with [Command],
-        // and you'll likely have to add MORE commands depending on the game
+        // and you'll have to add MORE commands depending on the game
         [Command("opengame")]
         public override async Task OpenGameCmd()
         {
@@ -41,7 +42,7 @@ namespace Examples.MpGame
             }
             else
             {
-                if (GameService.OpenNewGame(Context.Channel))
+                if (GameService.OpenNewGame(Context))
                 {
                     await ReplyAsync("Opening for a game.").ConfigureAwait(false);
                 }
@@ -130,7 +131,7 @@ namespace Examples.MpGame
                 if (GameService.TryUpdateOpenToJoin(Context.Channel, newValue: false, comparisonValue: true))
                 {
                     // Tip: Shuffle the players before projecting them
-                    var players = JoinedUsers.Select(u => new Player(u, Context.Channel));
+                    var players = JoinedUsers.Select(u => new ExamplePlayer(u, Context.Channel));
                     // The Player class can also be extended for additional properties
 
                     var game = new ExampleGame(Context.Channel, players);
