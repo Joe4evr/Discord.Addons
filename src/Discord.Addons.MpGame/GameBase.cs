@@ -68,8 +68,8 @@ namespace Discord.Addons.MpGame
         /// the win condition or forced end of the game.</param>
         public virtual async Task EndGame(string endmsg)
         {
-            await Channel.SendMessageAsync(endmsg);
-            await GameEnd(Channel);
+            await Channel.SendMessageAsync(endmsg).ConfigureAwait(false);
+            await GameEnd(Channel).ConfigureAwait(false);
         }
 
         /// <summary> Get a string that represent the state of the game. </summary>

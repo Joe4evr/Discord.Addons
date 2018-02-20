@@ -46,13 +46,13 @@ namespace Discord.Addons.MpGame
 
             internal async Task<bool> TryAddUser(IUser user)
             {
-                return GameTracker.Instance.TryAddGameChannel(await user.GetOrCreateDMChannelAsync(), _channel)
+                return GameTracker.Instance.TryAddGameChannel(await user.GetOrCreateDMChannelAsync().ConfigureAwait(false), _channel)
                     && _builder.Add(user);
             }
 
             internal async Task<bool> TryRemoveUser(IUser user)
             {
-                return GameTracker.Instance.TryRemoveGameChannel(await user.GetOrCreateDMChannelAsync())
+                return GameTracker.Instance.TryRemoveGameChannel(await user.GetOrCreateDMChannelAsync().ConfigureAwait(false))
                     && _builder.Remove(user);
             }
 

@@ -18,7 +18,7 @@ namespace Discord.Addons.SimpleAudio
         }
 
         [ClientNotInVoice]
-        public virtual Task JoinCmd(IVoiceChannel target = null)
+        public virtual Task JoinCmd([ValidateVoiceChannel] IVoiceChannel target = null)
         {
             target = target ?? (Context.User as IVoiceState).VoiceChannel;
             var self = Context.Guild.CurrentUser;
@@ -52,7 +52,8 @@ namespace Discord.Addons.SimpleAudio
         [ClientInVoice]
         public virtual Task ListCmd()
         {
-            return ReplyAsync($"```\n{String.Join("\n", _service.GetAvailableFiles())}\n```");
+            _service.ListSongs(Context.Channel);
+            return Task.CompletedTask;
         }
 
         [ClientInVoice]

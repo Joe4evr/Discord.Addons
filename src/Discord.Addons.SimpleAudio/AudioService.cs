@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Discord;
-using Discord.Audio;
-using Discord.Commands;
 using Discord.WebSocket;
 using Discord.Addons.Core;
 using System.Collections.Immutable;
@@ -197,10 +191,9 @@ namespace Discord.Addons.SimpleAudio
                 //audioClient.Disconnected += AudioClient_Disconnected;
             }
 
-            var embedlist = new EmbedList(channel, this);
-            if (Lists.TryAdd(embedlist.Message.Id, embedlist))
+            if (guildConfig?.ShowSongListOnJoin ?? Config.ShowSongListOnJoin)
             {
-
+                ListSongs(channel);
             }
 
             if (guildConfig?.AutoPlay ?? Config.AutoPlay)
@@ -208,6 +201,14 @@ namespace Discord.Addons.SimpleAudio
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 Task.Run(() => Playlist(guild).ConfigureAwait(false));
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            }
+        }
+
+        internal void ListSongs(IMessageChannel channel)
+        {
+            var embedlist = new EmbedList(channel, this);
+            if (Lists.TryAdd(embedlist.Message.Id, embedlist))
+            {
             }
         }
 

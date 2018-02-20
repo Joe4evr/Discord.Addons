@@ -138,7 +138,7 @@ namespace Discord.Addons.MpGame
         /// <returns>true if the operation succeeded, otherwise false.</returns>
         public async Task<bool> CancelGame(IMessageChannel channel)
         {
-            await OnGameEnd(channel);
+            await OnGameEnd(channel).ConfigureAwait(false);
             return _dataList.TryRemove(channel, out var _);
         }
 

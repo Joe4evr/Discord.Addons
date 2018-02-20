@@ -7,10 +7,17 @@
 //{
 //    public abstract partial class MpGameModuleBase<TService, TGame, TPlayer>
 //    {
-//        [AttributeUsage(AttributeTargets.Method)]
-//        private sealed class RequireTurnPlayerAttribute : PreconditionAttribute
+//        private sealed class RequireGameStateAttribute<TState> //: PreconditionAttribute
+//            where TState : struct//, Enum
 //        {
-//            public override Task<PreconditionResult> CheckPermissions(
+//            private readonly TState _state;
+
+//            public RequireGameStateAttribute(TState state)
+//            {
+//                _state = state;
+//            }
+
+//            public /*override*/ Task<PreconditionResult> CheckPermissions(
 //                ICommandContext context,
 //                CommandInfo command,
 //                IServiceProvider services)
@@ -21,11 +28,11 @@
 //                    var game = service.GetGameFromChannel(context.Channel);
 //                    if (game != null)
 //                    {
-//                        return (game.TurnPlayer.Value.User.Id == context.User.Id)
-//                            ? Task.FromResult(PreconditionResult.FromSuccess())
-//                            : Task.FromResult(PreconditionResult.FromError("Command can only be used by the turn player."));
+//                        //return (data.GameOrganizer.Id == context.User.Id)
+//                        //    ? Task.FromResult(PreconditionResult.FromSuccess())
+//                        //    : Task.FromResult(PreconditionResult.FromError("Command can only be used by the user that intialized the game."));
 //                    }
-//                    return Task.FromResult(PreconditionResult.FromError("No game in progress."));
+//                    return Task.FromResult(PreconditionResult.FromError("No game."));
 //                }
 //                return Task.FromResult(PreconditionResult.FromError("No service."));
 //            }

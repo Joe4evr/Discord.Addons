@@ -4,7 +4,7 @@ Easy-to-use implementation for playing music with Discord.Net 1.0.
 ## Prerequisites
 You need FFMpeg, opus, and libsodium. You can download these
 for your platform [here](https://dsharpplus.emzi0767.com/natives/).
-*You need to rename `libopus.dll` to `opus.dll` before use.*
+*For Windows you need to rename `libopus.dll` to `opus.dll` before use.*
 
 * Add opus and libsodium by right-clicking your project in
 Solution Explorer -> Add -> Existing Item. Go to their
@@ -27,7 +27,7 @@ public class AudioModuleImplementation : AudioModule
     public override Task JoinCmd(IVoiceChannel target = null)
     {
         // All you need to do is call the base version
-        // of the commmand.
+        // of the commmands.
         return base.JoinCmd(target);
     }
 }
@@ -71,4 +71,5 @@ await _commands.AddModuleAsync<AudioModuleImplementation>();
 
 If everything is configured correctly, the bot should
 post a status embed once its connected to a voice channel.
+
 ![](https://i.imgur.com/MlYxZQV.png)
