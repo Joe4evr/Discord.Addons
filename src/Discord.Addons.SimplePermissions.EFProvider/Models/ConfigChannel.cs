@@ -17,7 +17,7 @@ namespace Discord.Addons.SimplePermissions
         public int Id { get; set; }
 
         /// <summary> </summary>
-        [NotMapped]
+        ///[NotMapped]
         public ulong ChannelId
         {
             get => unchecked((ulong)_cid);

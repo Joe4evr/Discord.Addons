@@ -19,7 +19,7 @@ namespace Discord.Addons.SimplePermissions
         public int Id { get; set; }
 
         /// <summary> </summary>
-        [NotMapped]
+        //[NotMapped]
         public ulong GuildId
         {
             get => unchecked((ulong)_gid);
@@ -27,7 +27,7 @@ namespace Discord.Addons.SimplePermissions
         }
 
         /// <summary> </summary>
-        [NotMapped]
+        ///[NotMapped]
         public ulong ModRole
         {
             get => unchecked((ulong)_mid);
@@ -35,7 +35,7 @@ namespace Discord.Addons.SimplePermissions
         }
 
         /// <summary> </summary>
-        [NotMapped]
+        ///[NotMapped]
         public ulong AdminRole
         {
             get => unchecked((ulong)_aid);
