@@ -15,7 +15,7 @@ namespace Discord.Addons.SimplePermissions
 
         /// <summary> </summary>
         //[Column(TypeName = "BIGINT")]
-        [NotMapped]
+        //[NotMapped]
         public ulong UserId
         {
             get => unchecked((ulong)_uid);
