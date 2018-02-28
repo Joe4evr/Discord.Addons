@@ -342,21 +342,21 @@ namespace Discord.Addons.SimplePermissions
 
     public static class PermissionsExtensions
     {
-        ///// <summary> Add SimplePermissions to your <see cref="CommandService"/> using a <see cref="DiscordSocketClient"/>. </summary>
-        ///// <param name="client">The <see cref="DiscordSocketClient"/> instance.</param>
-        ///// <param name="configStore">The <see cref="IConfigStore{TConfig}"/> instance.</param>
-        ///// <param name="map">The <see cref="IDependencyMap"/> instance.</param>
-        ///// <param name="logAction">Optional: A delegate or method that will log messages.</param>
-        //public static Task UseSimplePermissions(
-        //    this CommandService cmdService,
-        //    DiscordSocketClient client,
-        //    IConfigStore<IPermissionConfig> configStore,
-        //    IServiceCollection map,
-        //    Func<LogMessage, Task> logAction = null)
-        //{
-        //    map.AddSingleton(new PermissionsService(configStore, cmdService, client, logAction ?? (msg => Task.CompletedTask)));
-        //    return cmdService.AddModuleAsync<PermissionsModule>();
-        //}
+        /// <summary> Add SimplePermissions to your <see cref="CommandService"/> using a <see cref="DiscordSocketClient"/>. </summary>
+        /// <param name="client">The <see cref="DiscordSocketClient"/> instance.</param>
+        /// <param name="configStore">The <see cref="IConfigStore{TConfig}"/> instance.</param>
+        /// <param name="map">The <see cref="IDependencyMap"/> instance.</param>
+        /// <param name="logAction">Optional: A delegate or method that will log messages.</param>
+        public static Task UseSimplePermissions(
+            this CommandService cmdService,
+            DiscordSocketClient client,
+            IConfigStore<IPermissionConfig> configStore,
+            IServiceCollection map,
+            Func<LogMessage, Task> logAction = null)
+        {
+            map.AddSingleton(new PermissionsService(configStore, cmdService, client, logAction ?? (msg => Task.CompletedTask)));
+            return cmdService.AddModuleAsync<PermissionsModule>();
+        }
 
         ///// <summary> Add SimplePermissions to your <see cref="CommandService"/> using a <see cref="DiscordShardedClient"/>. </summary>
         ///// <param name="client">The <see cref="DiscordShardedClient"/> instance.</param>
