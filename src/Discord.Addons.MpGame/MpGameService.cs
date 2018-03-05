@@ -71,7 +71,7 @@ namespace Discord.Addons.MpGame
                     instance.TryRemoveGameChannel(ch);
                 }
                 instance.TryRemoveGameString(channel);
-                data.Game.GameEnd -= OnGameEnd;
+                //data.Game.GameEnd -= OnGameEnd;
             }
         }
 
@@ -155,7 +155,7 @@ namespace Discord.Addons.MpGame
                     var success = data.SetGame(game) && TryUpdateOpenToJoin(channel, newValue: false, comparisonValue: true);
                     if (success)
                     {
-                        game.GameEnd += OnGameEnd;
+                        game.GameEnd = OnGameEnd;
                     }
                     return success;
                 }

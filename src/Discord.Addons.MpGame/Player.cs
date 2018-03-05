@@ -44,7 +44,7 @@ namespace Discord.Addons.MpGame
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
             {
-                if (text != null)
+                if (text == null)
                     _unsentDm = text;
 
                 await PubChannel.SendMessageAsync($"Player {User.Mention} has their DMs disabled. Please enable DMs.").ConfigureAwait(false);
