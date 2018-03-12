@@ -65,7 +65,7 @@ namespace Discord.Addons.SimpleAudio
 
         public async Task First(IUser user)
         {
-            await Message.RemoveReactionAsync(new Emoji(SFirst), user);
+            await Message.RemoveReactionAsync(EFirst, user);
             if (_currentPage == 0) return;
 
             await Message.ModifyAsync(m => m.Embed = GetPage((int)(_currentPage = 0)));
@@ -74,7 +74,7 @@ namespace Discord.Addons.SimpleAudio
 
         public async Task Next(IUser user)
         {
-            await Message.RemoveReactionAsync(new Emoji(SNext), user);
+            await Message.RemoveReactionAsync(ENext, user);
             if (_currentPage == _lastPage) return;
 
             await Message.ModifyAsync(m => m.Embed = GetPage((int)++_currentPage));
@@ -82,7 +82,7 @@ namespace Discord.Addons.SimpleAudio
 
         public async Task Back(IUser user)
         {
-            await Message.RemoveReactionAsync(new Emoji(SBack), user);
+            await Message.RemoveReactionAsync(EBack, user);
             if (_currentPage == 0) return;
 
             await Message.ModifyAsync(m => m.Embed = GetPage((int)--_currentPage));
@@ -90,7 +90,7 @@ namespace Discord.Addons.SimpleAudio
 
         public async Task Last(IUser user)
         {
-            await Message.RemoveReactionAsync(new Emoji(SLast), user);
+            await Message.RemoveReactionAsync(ELast, user);
             if (_currentPage == _lastPage) return;
 
             await Message.ModifyAsync(m => m.Embed = GetPage((int)(_currentPage = _lastPage)));
