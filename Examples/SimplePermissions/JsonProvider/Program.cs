@@ -62,13 +62,10 @@ namespace Examples.SimplePermissions.JsonProvider
         {
             // More standard 1.0 fare here...
 
-            // NOTE: Because SimplePermissions dictates a lot of behavior,
-            // it will not get auto-loaded with `AddModulesAsync(Assembly.GetEntryAssembly())`.
-            // You have to use the initializer method to explicitly add it to the CommandService.
-
             // You can pass your Logging method into the initializer for
             // SimplePermissions, so that you get a consistent looking log:
-            await _commands.UseSimplePermissions(_client, _configStore, _map, Log);
+            _map.AddSingleton(new PermissionsService(_configStore, _commands, _client, Log));
+            await _commands.AddModuleAsync<PermissionsModule>();
 
             // Load the config, read the token, and pass it into the login method:
             using (var config = _configStore.Load())

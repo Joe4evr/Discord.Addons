@@ -25,14 +25,14 @@ namespace Discord.Addons.SimpleAudio
         private AudioService Service { get; }
 
         private readonly int _songsPerPage = 20;
-        private readonly uint _totalPages;
+        private readonly uint _lastPage;
         private uint _currentPage = 0;
 
         public EmbedList(IMessageChannel channel, AudioService service)
         {
             Service = service;
 
-            _totalPages = (uint)Math.Ceiling((Service.GetAvailableFiles().Count() / (double)_songsPerPage));
+            _lastPage = (uint)Math.Ceiling((Service.GetAvailableFiles().Count() / (double)_songsPerPage)) - 1;
 
             Message = channel.SendMessageAsync("", embed: GetPage(0)).GetAwaiter().GetResult();
             Task.Run(async () =>
@@ -54,7 +54,7 @@ namespace Discord.Addons.SimpleAudio
 
             return new EmbedBuilder
             {
-                Title = $"Page {page + 1} of {_totalPages}",
+                Title = $"Page {page + 1} of {_lastPage + 1}",
                 Description = String.Join("\n", songs),
                 Footer = new EmbedFooterBuilder
                 {
@@ -68,14 +68,14 @@ namespace Discord.Addons.SimpleAudio
             await Message.RemoveReactionAsync(new Emoji(SFirst), user);
             if (_currentPage == 0) return;
 
-            await Message.ModifyAsync(m => m.Embed = GetPage(0));
+            await Message.ModifyAsync(m => m.Embed = GetPage((int)(_currentPage = 0)));
 
         }
 
         public async Task Next(IUser user)
         {
             await Message.RemoveReactionAsync(new Emoji(SNext), user);
-            if (_currentPage == (_totalPages - 1)) return;
+            if (_currentPage == _lastPage) return;
 
             await Message.ModifyAsync(m => m.Embed = GetPage((int)++_currentPage));
         }
@@ -91,9 +91,9 @@ namespace Discord.Addons.SimpleAudio
         public async Task Last(IUser user)
         {
             await Message.RemoveReactionAsync(new Emoji(SLast), user);
-            if (_currentPage == (_totalPages - 1)) return;
+            if (_currentPage == _lastPage) return;
 
-            await Message.ModifyAsync(m => m.Embed = GetPage((int)_totalPages - 1));
+            await Message.ModifyAsync(m => m.Embed = GetPage((int)(_currentPage = _lastPage)));
         }
 
         public Task Delete()
