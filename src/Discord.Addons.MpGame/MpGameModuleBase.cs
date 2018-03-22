@@ -61,6 +61,8 @@ namespace Discord.Addons.MpGame
                 : CurrentlyPlaying.None;
 
             // Prep C# 8.0 pattern matching feature: switch expression
+            // Sure, it'll compile into the exact code I already have,
+            // BUT LOOKIT HOW CLEAN IT IS!
             //GameInProgress = GameTracker.Instance.TryGetGameString(Context.Channel, out var name) switch
             //{
             //    true when name == GameService.GameName => CurrentlyPlaying.ThisGame,
@@ -121,7 +123,7 @@ namespace Discord.Addons.MpGame
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
     public abstract class MpGameModuleBase<TGame, TPlayer> : MpGameModuleBase<MpGameService<TGame, TPlayer>, TGame, TPlayer>
-        where TGame : GameBase<TPlayer>
+        where TGame   : GameBase<TPlayer>
         where TPlayer : Player
     {
         protected MpGameModuleBase(MpGameService<TGame, TPlayer> service)

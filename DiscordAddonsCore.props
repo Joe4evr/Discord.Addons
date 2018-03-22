@@ -1,5 +1,5 @@
 ﻿<Project>
-    <Import Condition="'$(Configuration)' == 'Debug'" Project=".\Analyzers.props" />
+    <!--<Import Condition="'$(Configuration)' == 'Debug'" Project=".\Analyzers.props" />-->
     <PropertyGroup Label="Configuration">
         <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
         <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -9,7 +9,7 @@
         <PackageId>$(AssemblyName)</PackageId>
         <RootNamespace>$(AssemblyName)</RootNamespace>
         <Title>$(AssemblyName)</Title>
-        <LangVersion>7.1</LangVersion>
+        <LangVersion>7.2</LangVersion>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <PackageProjectUrl>https://github.com/Joe4evr/Discord.Addons</PackageProjectUrl>
         <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
@@ -19,7 +19,7 @@
         <TargetFrameworks>netstandard2.0</TargetFrameworks>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+        <!--<PackageReference Include="System.ValueTuple" Version="4.4.0" />-->
         <PackageReference Include="Discord.Net.Commands" Version="1.0.2" />
         <PackageReference Include="Discord.Net.WebSocket" Version="1.0.2" />
     </ItemGroup>

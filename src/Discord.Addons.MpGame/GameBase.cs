@@ -74,6 +74,7 @@ namespace Discord.Addons.MpGame
 
         /// <summary> Get a string that represent the state of the game. </summary>
         public abstract string GetGameState();
+        //public abstract Embed GetGameStateEmbed();
 
         private Func<IMessageChannel, Task> _gameEnd;
         internal Func<IMessageChannel, Task> GameEnd { set => _gameEnd = value; }

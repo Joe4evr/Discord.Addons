@@ -22,7 +22,7 @@ public class MpGameService<TGame, TPlayer>
 
     public MpGameService(DiscordShardedClient shardedClient, Func<LogMessage, Task> logger = null);
 
-    public bool OpenNewGame(IMessageChannel channel);
+    public bool OpenNewGame(ICommandContext context);
 
     public Task<bool> AddUser(IMessageChannel channel, IUser user);
 

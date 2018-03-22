@@ -54,7 +54,7 @@ namespace Examples.MpGame
         [Command("join")]
         public override async Task JoinGameCmd()
         {
-            if (GameInProgress == CurrentlyPlaying.ThisGame)
+            if (Game != null)
             {
                 await ReplyAsync("Cannot join a game already in progress.").ConfigureAwait(false);
             }
@@ -74,7 +74,7 @@ namespace Examples.MpGame
         [Command("leave")] // Users can leave if the game hasn't started yet
         public override async Task LeaveGameCmd()
         {
-            if (GameInProgress == CurrentlyPlaying.ThisGame)
+            if (Game != null)
             {
                 await ReplyAsync("Cannot leave a game already in progress.").ConfigureAwait(false);
             }
@@ -94,7 +94,7 @@ namespace Examples.MpGame
         [Command("cancel")] // Cancel the game if it hasn't started yet
         public override async Task CancelGameCmd()
         {
-            if (GameInProgress == CurrentlyPlaying.ThisGame)
+            if (Game != null)
             {
                 await ReplyAsync("Cannot cancel a game already in progress.").ConfigureAwait(false);
             }
@@ -114,7 +114,7 @@ namespace Examples.MpGame
         [Command("start")] // Start the game
         public override async Task StartGameCmd()
         {
-            if (GameInProgress != CurrentlyPlaying.None)
+            if (Game != null)
             {
                 await ReplyAsync("Another game already in progress.").ConfigureAwait(false);
             }
@@ -155,7 +155,7 @@ namespace Examples.MpGame
         // Post a message that represents the game's state
         [Command("state")] //Remember there's a 2000 character limit
         public override Task GameStateCmd()
-           => GameInProgress == CurrentlyPlaying.ThisGame
+           => (Game != null)
                 ? ReplyAsync(Game.GetGameState())
                 : GameInProgress == CurrentlyPlaying.DifferentGame
                     ? ReplyAsync("Different game in progress.")
@@ -164,7 +164,7 @@ namespace Examples.MpGame
         // Command to end a game before a win-condition is met
         [Command("end")] //Should be restricted to mods/admins to prevent abuse
         public override Task EndGameCmd()
-            => GameInProgress == CurrentlyPlaying.ThisGame
+            => (Game != null)
                 ? Game.EndGame("Game ended early by moderator.")
                 : GameInProgress == CurrentlyPlaying.DifferentGame
                     ? ReplyAsync("Different game in progress.")

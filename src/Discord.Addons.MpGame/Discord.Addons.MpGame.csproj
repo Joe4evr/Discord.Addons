@@ -1,15 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-    <!--<Import Condition="'$(Configuration)' == 'Debug'" Project="..\..\Analyzers.props" />
-    <Import Project="..\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />-->
+    <!--<Import Condition="'$(Configuration)' == 'Debug'" Project="..\..\Analyzers.props" />-->
     <Import Project="..\..\DiscordAddonsCore.props" />
     <PropertyGroup>
         <AssemblyName>Discord.Addons.MpGame</AssemblyName>
-        <VersionPrefix>1.0.1</VersionPrefix>
+        <VersionPrefix>1.0.2</VersionPrefix>
         <Description>Base classes for text-based games in Discord</Description>
         <Authors>Joe4evr</Authors>
         <PackageTags>discord;commands;game</PackageTags>
-        <!--<TargetFrameworks>$(TargetFrameworks);netstandard1.3</TargetFrameworks>
-        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <!--<TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <TargetFrameworks>$(TargetFrameworks);netstandard1.3</TargetFrameworks>
         <LangVersion>7.1</LangVersion>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <PackageProjectUrl>https://github.com/Joe4evr/Discord.Addons</PackageProjectUrl>
@@ -22,8 +21,8 @@
         <None Include="README.md" />
     </ItemGroup>
     <!--<ItemGroup>
-        <PackageReference Include="Discord.Net.Commands" Version="1.0.2" />
-        <PackageReference Include="Discord.Net.WebSocket" Version="1.0.2" />
+      <PackageReference Include="Discord.Net.Commands" Version="2.0.0-beta2-00908" />
+      <PackageReference Include="Discord.Net.WebSocket" Version="2.0.0-beta2-00908" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\Discord.Net\src\Discord.Net.Commands\Discord.Net.Commands.csproj" />
