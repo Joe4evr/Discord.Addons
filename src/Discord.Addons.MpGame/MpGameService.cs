@@ -18,12 +18,10 @@ namespace Discord.Addons.MpGame
         where TGame   : GameBase<TPlayer>
         where TPlayer : Player
     {
-        ///// <summary> A cached <see cref="IEqualityComparer{IUser}"/> instance to use when
-        ///// instantiating a <see cref="Dictionary{TKey, TValue}"/> using an <see cref="IUser"/> as the key. </summary>
-        //protected static IEqualityComparer<IUser> UserComparer { get; } = Comparers.UserComparer;
         /// <summary> A cached IEqualityComparer&lt;<see cref="IMessageChannel"/>&gt;instance to use when
-        /// instantiating a <see cref="Dictionary{TKey, TValue}"/> using <see cref="IMessageChannel"/> as the key. </summary>
-        protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = Comparers.ChannelComparer;
+        /// instantiating a <see cref="Dictionary{TKey, TValue}"/> using <see cref="IMessageChannel"/> as the key.
+        /// This is the same instance as <see cref="DiscordComparers.ChannelComparer"/>.</summary>
+        protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = DiscordComparers.ChannelComparer;
 
         private readonly object _lock = new object();
         private readonly ConcurrentDictionary<IMessageChannel, PersistentGameData> _dataList

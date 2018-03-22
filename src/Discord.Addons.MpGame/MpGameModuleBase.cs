@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord.Commands;
+using Discord.Commands.Builders;
 
 namespace Discord.Addons.MpGame
 {
@@ -71,18 +72,20 @@ namespace Discord.Addons.MpGame
             //};
         }
 
-        //protected virtual bool RegisterPlayerTypeReader => true;
+        /// <summary> Override this to return <see cref="false"/> if you don't
+        /// want to register a type reader for the <see cref="TPlayer"/> type.</summary>
+        protected virtual bool RegisterPlayerTypeReader => true;
 
-        //private void OnModuleBuilding(CommandService commandService)
-        //{
-        //    //base.OnModuleBuilding(commandService);
+        protected override void OnModuleBuilding(CommandService commandService, ModuleBuilder builder)
+        {
+            base.OnModuleBuilding(commandService, builder);
 
-        //    if (RegisterPlayerTypeReader)
-        //    {
-        //        GameService.Logger(new LogMessage(LogSeverity.Info, "MpGame", $"Registering type reader for {typeof(TPlayer).Name}"));
-        //        //commandService.AddTypeReader<TPlayer>(new PlayerTypeReader(), p => p.Command.Module.TypeInfo == this.GetType());
-        //    }
-        //}
+            if (RegisterPlayerTypeReader)
+            {
+                GameService.Logger(new LogMessage(LogSeverity.Info, "MpGame", $"Registering type reader for {typeof(TPlayer).Name}"));
+                //commandService.AddTypeReader<TPlayer>(new PlayerTypeReader(), p => p.Command.Module.TypeInfo == this.GetType());
+            }
+        }
 
         /// <summary> Command to open a game for others to join. </summary>
         public abstract Task OpenGameCmd();

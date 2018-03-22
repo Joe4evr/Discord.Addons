@@ -42,4 +42,4 @@ is only allowed to be used by the Turn Player. Other preconditions, for example,
 checking if the game is in a particular state, can be made in a similar way.
 
 
-[<- Part 6 - Final step](6-FinalStep.md) - Extra considerations
+[<- Part 6 - Final step](6-FinalStep.md) - Extra considerations - [Part 8 - Specialized types ->](8-SpecializedTypes.md)
