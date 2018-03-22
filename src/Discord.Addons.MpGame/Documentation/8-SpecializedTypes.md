@@ -9,6 +9,8 @@ an instance of this directly.
 * `Pile<TCard>`: This abstract collection is optimized for storing card types with various
 rules around how the cards are seen. If you are creating a game that uses cards,
 consider inheriting from `Pile<TCard>` so that the behavior is adequately specified.
+Any attempt to use a method that is outside of the specified behavior,
+will throw `InvalidOperationException`.
 ```cs
 internal class CardDeck : Pile<Card>
 {
