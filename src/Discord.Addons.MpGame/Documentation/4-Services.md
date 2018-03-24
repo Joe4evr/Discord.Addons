@@ -18,9 +18,7 @@ public class MpGameService<TGame, TPlayer>
 
     protected Func<LogMessage, Task> Logger { get; }
 
-    public MpGameService(DiscordSocketClient socketClient, Func<LogMessage, Task> logger = null);
-
-    public MpGameService(DiscordShardedClient shardedClient, Func<LogMessage, Task> logger = null);
+    public MpGameService(BaseSocketClient client, Func<LogMessage, Task> logger = null);
 
     public bool OpenNewGame(ICommandContext context);
 

@@ -29,31 +29,19 @@ namespace Discord.Addons.MpGame
 
         protected internal Func<LogMessage, Task> Logger { get; }
 
-        private MpGameService(Func<LogMessage, Task> logger = null)
+        public MpGameService(
+            BaseSocketClient client,
+            Func<LogMessage, Task> logger = null)
         {
             Logger = logger ?? Extensions.NoOpLogger;
-            //Logger(new LogMessage(LogSeverity.Debug, "MpGameService", $"Registered service for {typeof(TGame).Name}"));
-        }
+            Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Registered service for {typeof(TGame).Name}"));
 
-        public MpGameService(
-            DiscordSocketClient socketClient,
-            Func<LogMessage, Task> logger = null)
-            : this(logger)
-        {
-            socketClient.ChannelDestroyed += CheckDestroyedChannel;
-        }
-
-        public MpGameService(
-            DiscordShardedClient shardedClient,
-            Func<LogMessage, Task> logger = null)
-            : this(logger)
-        {
-            shardedClient.ChannelDestroyed += CheckDestroyedChannel;
+            client.ChannelDestroyed += CheckDestroyedChannel;
         }
 
         private Task CheckDestroyedChannel(SocketChannel channel)
         {
-            return (channel is IMessageChannel msgChannel && !(msgChannel is IDMChannel))
+            return (channel is IMessageChannel msgChannel)
                 ? OnGameEnd(msgChannel)
                 : Task.CompletedTask;
         }

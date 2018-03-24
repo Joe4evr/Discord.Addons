@@ -1,0 +1,54 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2DCF3AAD-5F8A-4ADD-B1DA-77D33D7E6FBC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discord.Addons.MpGame", "src\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj", "{3DA40D0D-C637-4B3E-A85D-D1736AA56028}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Discord.Addons.Core", "src\Discord.Addons.Core\Discord.Addons.Core.shproj", "{5B64B425-B901-4249-A189-ACC033579086}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{94E33904-9F71-41EB-86ED-6EBD504380E7}"
+	ProjectSection(SolutionItems) = preProject
+		Analyzers.props = Analyzers.props
+		Discord.Addons.Rules.ruleset = Discord.Addons.Rules.ruleset
+		DiscordAddonsCore.props = DiscordAddonsCore.props
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Discord.Addons.Core\Discord.Addons.Core.projitems*{5b64b425-b901-4249-a189-acc033579086}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Debug|x64.Build.0 = Debug|Any CPU
+		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Debug|x86.Build.0 = Debug|Any CPU
+		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Release|x64.ActiveCfg = Release|Any CPU
+		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Release|x64.Build.0 = Release|Any CPU
+		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Release|x86.ActiveCfg = Release|Any CPU
+		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3DA40D0D-C637-4B3E-A85D-D1736AA56028} = {2DCF3AAD-5F8A-4ADD-B1DA-77D33D7E6FBC}
+		{5B64B425-B901-4249-A189-ACC033579086} = {2DCF3AAD-5F8A-4ADD-B1DA-77D33D7E6FBC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56921C39-250F-4191-9F56-B8E963D1AD8C}
+	EndGlobalSection
+EndGlobal

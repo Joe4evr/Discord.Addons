@@ -83,7 +83,7 @@ namespace Discord.Addons.MpGame
             if (RegisterPlayerTypeReader)
             {
                 GameService.Logger(new LogMessage(LogSeverity.Info, "MpGame", $"Registering type reader for {typeof(TPlayer).Name}"));
-                //commandService.AddTypeReader<TPlayer>(new PlayerTypeReader(), p => p.Command.Module.TypeInfo == this.GetType());
+                commandService.AddTypeReader<TPlayer>(new PlayerTypeReader());
             }
         }
 

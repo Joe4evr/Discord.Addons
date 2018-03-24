@@ -20,7 +20,7 @@ namespace Discord.Addons.MpGame
             private TGame _game;
 
             internal ImmutableHashSet<IUser> JoinedUsers => _builder.ToImmutable();
-            private ImmutableHashSet<IUser>.Builder _builder = ImmutableHashSet.CreateBuilder<IUser>(Comparers.UserComparer);
+            private ImmutableHashSet<IUser>.Builder _builder = ImmutableHashSet.CreateBuilder<IUser>(DiscordComparers.UserComparer);
 
             private readonly IMessageChannel _channel;
 
@@ -41,7 +41,7 @@ namespace Discord.Addons.MpGame
 
             internal void NewPlayerList()
             {
-                _builder = ImmutableHashSet.CreateBuilder<IUser>(Comparers.UserComparer);
+                _builder = ImmutableHashSet.CreateBuilder<IUser>(DiscordComparers.UserComparer);
             }
 
             internal async Task<bool> TryAddUser(IUser user)

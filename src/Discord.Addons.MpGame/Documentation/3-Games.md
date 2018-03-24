@@ -22,6 +22,8 @@ public abstract class GameBase<TPlayer>
 
     public abstract string GetGameState();
 
+    public abstract Embed GetGameStateEmbed();
+
     public abstract Task SetupGame();
 
     public abstract Task StartGame();
@@ -108,6 +110,11 @@ public class CardGame : GameBase<CardPlayer> // Any player in a 'CardGame' is of
     public override string GetGameState()
     {
         // This method should provide a summary of the state that the game is in
+
+        // Starting in v1.2, you can also choose to implement 'GetGameStateEmbed()' instead
+        // if you want to get real fancy
+        // You do not need to implement *both* methods, just make sure that your
+        // command doesn't call the one that remains unimplemented
 
         var sb = new StringBuilder($"State of the board at turn {_turn}:\n")
             .AppendLine($"Turn state is {State.ToString()}.")

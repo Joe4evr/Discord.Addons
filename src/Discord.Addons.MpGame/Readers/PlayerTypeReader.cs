@@ -34,11 +34,9 @@ namespace Discord.Addons.MpGame
                     if (game != null)
                     {
                         var player = game.Players.SingleOrDefault(p => p.User.Id == id);
-                        if (player != null)
-                        {
-                            return TypeReaderResult.FromSuccess(player);
-                        }
-                        return TypeReaderResult.FromError(CommandError.ObjectNotFound, "Specified user not a player in this game.");
+                        return (player != null)
+                            ? TypeReaderResult.FromSuccess(player)
+                            : TypeReaderResult.FromError(CommandError.ObjectNotFound, "Specified user not a player in this game.");
                     }
                     return TypeReaderResult.FromError(CommandError.ObjectNotFound, "No game going on.");
                 }
@@ -62,11 +60,9 @@ namespace Discord.Addons.MpGame
         //                    var userId = (baseResult.Values.First().Value as IUser).Id;
 
         //                    var player = game.Players.SingleOrDefault(p => p.User.Id == userId);
-        //                    if (player != null)
-        //                    {
-        //                        return TypeReaderResult.FromSuccess(player);
-        //                    }
-        //                    return TypeReaderResult.FromError(CommandError.ObjectNotFound, "Specified user not a player in this game.");
+        //                    return (player != null)
+        //                        ? TypeReaderResult.FromSuccess(player)
+        //                        : TypeReaderResult.FromError(CommandError.ObjectNotFound, "Specified user not a player in this game.");
         //                }
         //                return TypeReaderResult.FromError(CommandError.ObjectNotFound, "No game going on.");
         //            }

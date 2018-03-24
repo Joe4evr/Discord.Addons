@@ -16,7 +16,10 @@ namespace Discord.Addons.MpGame
         /// <param name="setFirstPlayerImmediately">When set to <see langword="true"/>, will set the TurnPlayer
         /// to the first player before the game begins, otherwise it will be set to an empty Node and you will
         /// have to set it to Turnplayer.Next when starting the first turn.</param>
-        protected GameBase(IMessageChannel channel, IEnumerable<TPlayer> players, bool setFirstPlayerImmediately = false)
+        protected GameBase(
+            IMessageChannel channel,
+            IEnumerable<TPlayer> players,
+            bool setFirstPlayerImmediately = false)
         {
             if (players == null) throw new ArgumentNullException(nameof(players));
             Channel = channel ?? throw new ArgumentNullException(nameof(channel));
@@ -34,24 +37,11 @@ namespace Discord.Addons.MpGame
         /// <summary> The current turn's player. </summary>
         public Node<TPlayer> TurnPlayer { get; protected set; }
 
-        ///// <summary> Indicates whether or not the current TurnPlayer is the first player in the list. </summary>
-        //protected bool IsTurnPlayerFirstPlayer() => Players.Comparer.Equals(TurnPlayer.Value, Players.Head.Value);
+        /// <summary> Indicates whether or not the current TurnPlayer is the first player in the list. </summary>
+        protected bool IsTurnPlayerFirstPlayer() => Players.Comparer.Equals(TurnPlayer.Value, Players.Head.Value);
 
         /// <summary> Indicates whether or not the current TurnPlayer is the last player in the list. </summary>
         protected bool IsTurnPlayerLastPlayer() => Players.Comparer.Equals(TurnPlayer.Value, Players.Tail.Value);
-
-        ///// <summary> Selects the DM Channels of all the players. </summary>
-        //public async Task<IEnumerable<IDMChannel>> PlayerChannels()
-        //    => await Task.WhenAll(Players.Select(async p => await p.User.GetOrCreateDMChannelAsync().ConfigureAwait(false))).ConfigureAwait(false);
-
-        //protected async Task SendMessageAllPlayers(Func<TPlayer, string> messageFunc)
-        //{
-        //    foreach (var player in Players)
-        //    {
-        //        await player.SendMessageAsync(messageFunc(player)).ConfigureAwait(false);
-        //        await Task.Delay(1000).ConfigureAwait(false);
-        //    }
-        //}
 
         /// <summary> Perform the actions that are part of the initial setup. </summary>
         public abstract Task SetupGame();
@@ -72,9 +62,15 @@ namespace Discord.Addons.MpGame
             await _gameEnd(Channel).ConfigureAwait(false);
         }
 
-        /// <summary> Get a string that represent the state of the game. </summary>
+        /// <summary> Get a string that represents the state of the game. </summary>
+        /// <remarks>Does not *need* to be implemented if
+        /// <see cref="GetGameStateEmbed"/> is used.</remarks>
         public abstract string GetGameState();
-        //public abstract Embed GetGameStateEmbed();
+
+        /// <summary> Get an embed that represents the state of the game. </summary>
+        /// <remarks>Does not *need* to be implemented if
+        /// <see cref="GetGameState"/> is used.</remarks>
+        public abstract Embed GetGameStateEmbed();
 
         private Func<IMessageChannel, Task> _gameEnd;
         internal Func<IMessageChannel, Task> GameEnd { set => _gameEnd = value; }

@@ -20,8 +20,8 @@
     </PropertyGroup>
     <ItemGroup>
         <!--<PackageReference Include="System.ValueTuple" Version="4.4.0" />-->
-        <PackageReference Include="Discord.Net.Commands" Version="1.0.2" />
-        <PackageReference Include="Discord.Net.WebSocket" Version="1.0.2" />
+        <PackageReference Include="Discord.Net.Commands" Version="2.0.0-beta2-00910" />
+        <PackageReference Include="Discord.Net.WebSocket" Version="2.0.0-beta2-00910" />
     </ItemGroup>
     <PropertyGroup Condition="'$(Configuration)' == 'Release'">
         <Optimize>True</Optimize>
