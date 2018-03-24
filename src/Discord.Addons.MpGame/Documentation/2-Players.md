@@ -22,9 +22,11 @@ In order to do this, create a class that derives from `Player` and add such prop
 public class CardPlayer : Player
 {
     // It would make a lot of sense to keep a property
-    // like this internal, or even private if you really want to
+    // like this private
     internal IList<Card> Hand { get; } = new List<Card>();
     // You'll also have to provide your own 'Card' type for this
+    // Starting with v1.2, you can better represent this
+    // by using 'Hand<T>', see section 8 for details
 
     // You need a constructor to call the base constructor
     public CardPlayer(IUser user, IMessageChannel channel)

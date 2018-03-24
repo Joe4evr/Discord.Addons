@@ -51,6 +51,9 @@ public class CardGame : GameBase<CardPlayer> // Any player in a 'CardGame' is of
     }
 
     // Example property that's needed for the game
+    // Starting with v1.2, you can better represent this
+    // by creating a type that inherits 'Pile<T>',
+    // see section 8 for details
     private Stack<Card> Deck { get; set; }
 
     public override Task SetupGame()
