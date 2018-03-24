@@ -8,7 +8,7 @@ namespace Discord.Addons.MpGame
 {
     /// <summary> Represents a circular doubly linked list. </summary>
     /// <typeparam name="T">Specifies the element type of the linked list.</typeparam>
-    /// <remarks>This code copied from https://navaneethkn.wordpress.com/2009/08/18/circular-linked-list/ </remarks>
+    /// <remarks>This code adapted from https://navaneethkn.wordpress.com/2009/08/18/circular-linked-list/ </remarks>
     [DebuggerDisplay("Count = {Count}")]
     public sealed class CircularLinkedList<T> : IReadOnlyCollection<T>
     {

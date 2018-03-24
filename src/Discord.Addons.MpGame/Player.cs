@@ -20,12 +20,6 @@ namespace Discord.Addons.MpGame
         {
             User = user ?? throw new ArgumentNullException(nameof(user));
             PubChannel = channel ?? throw new ArgumentNullException(nameof(channel));
-
-            //try
-            //{
-            //    DmChannel = user.GetOrCreateDMChannelAsync().GetAwaiter().GetResult();
-            //}
-            //catch (HttpException e) when (e.HttpCode == HttpStatusCode.BadRequest) { }
         }
 
         private string _unsentDm;

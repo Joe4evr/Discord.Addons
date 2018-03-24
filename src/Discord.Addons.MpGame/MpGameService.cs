@@ -215,13 +215,8 @@ namespace Discord.Addons.MpGame
         where TGame : GameBase<Player>
     {
         public MpGameService(
-            DiscordSocketClient socketClient,
+            BaseSocketClient client,
             Func<LogMessage, Task> logger = null)
-            : base(socketClient, logger) { }
-
-        public MpGameService(
-            DiscordShardedClient shardedClient,
-            Func<LogMessage, Task> logger = null)
-            : base(shardedClient, logger) { }
+            : base(client, logger) { }
     }
 }
