@@ -8,7 +8,13 @@ using Discord.Net;
 
 namespace Discord.Addons.SimplePermissions
 {
-    /// <summary> Sets the permission level of this command. </summary>
+    /// <summary> Sets the minimum permission level of this
+    /// command or all commands in this module. Requires
+    /// the module to be whitelisted for any level. </summary>
+    /// <remarks> This precondition is always succesful
+    /// outside of Guild contexts. Remember to apply
+    /// <see cref="RequireContextAttribute"/> to restrict
+    /// where commands may be invoked if needed. </remarks>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class PermissionAttribute : PreconditionAttribute
     {
@@ -22,20 +28,23 @@ namespace Discord.Addons.SimplePermissions
         }
 
         /// <inheritdoc />
-        public override async Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider map)
+        public override async Task<PreconditionResult> CheckPermissionsAsync(ICommandContext context, CommandInfo command, IServiceProvider services)
         {
             if (context.Channel is IPrivateChannel)
                 return PreconditionResult.FromSuccess();
 
             var chan = context.Channel as ITextChannel;
-            var user = context.User;
-            var svc = map.GetService<PermissionsService>();
+            var user = context.User as IGuildUser;
+            var svc = services.GetService<PermissionsService>();
             if (svc != null)
             {
-                using (var config = svc.ConfigStore.Load())
+                //using (var config = svc.ReadOnlyConfig)
+                using (var config = svc.LoadConfig())
                 {
-                    if (IsModuleWhitelisted(config.GetChannelModuleWhitelist(chan).Concat(config.GetGuildModuleWhitelist(context.Guild)), command.Module.Name))
+                    var wlms = config.GetChannelModuleWhitelist(chan).Concat(config.GetGuildModuleWhitelist(context.Guild));
+                    if (IsModuleWhitelisted(wlms, command.Module))
                     {
+                        // Candidate switch expression
                         if (Permission == MinimumPermission.BotOwner)
                         {
                             try
@@ -56,17 +65,17 @@ namespace Discord.Addons.SimplePermissions
                             return PreconditionResult.FromSuccess();
                         }
                         else if (Permission <= MinimumPermission.GuildOwner
-                            && context.Guild?.OwnerId == user.Id)
+                            && context.Guild.OwnerId == user.Id)
                         {
                             return PreconditionResult.FromSuccess();
                         }
                         else if (Permission <= MinimumPermission.AdminRole
-                            && (user as IGuildUser)?.RoleIds.Any(r => r == config.GetGuildAdminRole(context.Guild)) == true)
+                            && user.RoleIds.Any(r => r == config.GetGuildAdminRole(context.Guild)))
                         {
                             return PreconditionResult.FromSuccess();
                         }
                         else if (Permission <= MinimumPermission.ModRole
-                            && (user as IGuildUser)?.RoleIds.Any(r => r == config.GetGuildModRole(context.Guild)) == true)
+                            && user.RoleIds.Any(r => r == config.GetGuildModRole(context.Guild)))
                         {
                             return PreconditionResult.FromSuccess();
                         }
@@ -91,10 +100,10 @@ namespace Discord.Addons.SimplePermissions
             }
         }
 
-        private static bool IsModuleWhitelisted(IEnumerable<ModuleInfo> modules, string name)
+        private static bool IsModuleWhitelisted(IEnumerable<ModuleInfo> modules, ModuleInfo module)
         {
-            return name == PermissionsModule.PermModuleName ||
-                modules.Any(m => m.Name == name || IsModuleWhitelisted(m.Submodules, name));
+            return module.Name == PermissionsModule.PermModuleName ||
+                modules.Any(m => m.Name == module.Name || IsModuleWhitelisted(m.Submodules, module));
         }
     }
 

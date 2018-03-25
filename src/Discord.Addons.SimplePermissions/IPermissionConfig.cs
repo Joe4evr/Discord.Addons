@@ -9,7 +9,7 @@ namespace Discord.Addons.SimplePermissions
     public interface IPermissionConfig : IDisposable
     {
         /// <summary> Set whether Fancy help is enabled in a specified guild. </summary>
-        Task SetFancyHelpValue(IGuild guild, bool value);
+        Task SetFancyHelpValue(IGuild guild, bool newValue);
 
         /// <summary> Get whether Fancy help is enabled in a specified guild. </summary>
         Task<bool> GetFancyHelpValue(IGuild guild);
@@ -31,7 +31,7 @@ namespace Discord.Addons.SimplePermissions
         /// the Moderator role in a specified guild. </summary>
         ulong GetGuildModRole(IGuild guild);
 
-        /// <summary>Sets the ID of the group that is considered
+        /// <summary> Sets the ID of the group that is considered
         /// the Admin role in a specified guild. </summary>
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
         Task<bool> SetGuildAdminRole(IGuild guild, IRole role);
@@ -51,19 +51,19 @@ namespace Discord.Addons.SimplePermissions
 
         /// <summary> Whitelist a module in this channel. </summary>
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
-        Task<bool> WhitelistModule(ITextChannel channel, string moduleName);
+        Task<bool> WhitelistModule(ITextChannel channel, ModuleInfo module);
 
         /// <summary> Blacklist a module in this channel. </summary>
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
-        Task<bool> BlacklistModule(ITextChannel channel, string moduleName);
+        Task<bool> BlacklistModule(ITextChannel channel, ModuleInfo module);
 
         /// <summary> Whitelist a module in this guild. </summary>
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
-        Task<bool> WhitelistModuleGuild(IGuild guild, string moduleName);
+        Task<bool> WhitelistModuleGuild(IGuild guild, ModuleInfo module);
 
         /// <summary> Blacklist a module in this guild. </summary>
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
-        Task<bool> BlacklistModuleGuild(IGuild guild, string moduleName);
+        Task<bool> BlacklistModuleGuild(IGuild guild, ModuleInfo module);
 
         /// <summary> Gets the users that are allowed to use
         /// commands marked <see cref="MinimumPermission.Special"/>

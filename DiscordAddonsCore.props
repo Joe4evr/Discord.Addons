@@ -9,7 +9,6 @@
         <PackageId>$(AssemblyName)</PackageId>
         <RootNamespace>$(AssemblyName)</RootNamespace>
         <Title>$(AssemblyName)</Title>
-        <LangVersion>7.2</LangVersion>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <PackageProjectUrl>https://github.com/Joe4evr/Discord.Addons</PackageProjectUrl>
         <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
@@ -17,6 +16,7 @@
         <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <LangVersion>7.2</LangVersion>
     </PropertyGroup>
     <ItemGroup>
         <!--<PackageReference Include="System.ValueTuple" Version="4.4.0" />-->

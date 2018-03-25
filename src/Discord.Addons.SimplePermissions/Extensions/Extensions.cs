@@ -19,14 +19,20 @@ namespace Discord.Addons.SimplePermissions
             var ret = new List<CommandInfo>();
             foreach (var cmd in commands)
             {
-                if ((await cmd.CheckPreconditionsAsync(ctx, svcs).ConfigureAwait(false)).IsSuccess)
+                var preconditionResult = await cmd.CheckPreconditionsAsync(ctx, svcs).ConfigureAwait(false);
+                if (preconditionResult.IsSuccess)
                 {
-                    if (cmd.Module.Name == PermissionsModule.PermModuleName
-                        && cmd.Name != nameof(PermissionsModule.HelpCmd)
-                        && !(await permsvc.GetHidePermCommands(ctx.Guild).ConfigureAwait(false)))
+                    if (cmd.Module.Name == PermissionsModule.PermModuleName)
                     {
-                        ret.Add(cmd);
+                        //using (var config = permsvc.ReadOnlyConfig)
+                        using (var config = permsvc.LoadConfig())
+                        {
+                            bool shouldHide = await config.GetHidePermCommands(ctx.Guild).ConfigureAwait(false);
+                            if (cmd.Name != nameof(PermissionsModule.HelpCmd) && shouldHide)
+                                continue;
+                        }
                     }
+                    ret.Add(cmd);
                 }
             }
             return ret;

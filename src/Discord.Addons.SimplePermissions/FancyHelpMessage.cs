@@ -27,7 +27,7 @@ namespace Discord.Addons.SimplePermissions
         private readonly IMessageChannel _channel;
         private readonly IEnumerable<CommandInfo> _commands;
         private readonly int _cmdsPerPage = 5;
-        private readonly uint _totalPages;
+        private readonly uint _lastPage;
         private readonly IApplication _app;
 
         internal ulong UserId => _user.Id;
@@ -41,13 +41,13 @@ namespace Discord.Addons.SimplePermissions
             _channel = channel;
             _commands = commands;
             _currentPage = 0;
-            _totalPages = (uint)Math.Ceiling((commands.Count() / (double)_cmdsPerPage));
+            _lastPage = (uint)Math.Ceiling((commands.Count() / (double)_cmdsPerPage)) - 1;
             _app = app;
         }
 
         public async Task<FancyHelpMessage> SendMessage()
         {
-            _msg = await _channel.SendMessageAsync("", embed: GetPage(0)).ConfigureAwait(false);
+            _msg = await _channel.SendMessageAsync(String.Empty, embed: GetPage(0)).ConfigureAwait(false);
             await _msg.AddReactionAsync(EFirst).ConfigureAwait(false);
             await _msg.AddReactionAsync(EBack).ConfigureAwait(false);
             await _msg.AddReactionAsync(ENext).ConfigureAwait(false);
@@ -62,15 +62,22 @@ namespace Discord.Addons.SimplePermissions
             var c = _commands.Skip(page * _cmdsPerPage).Take(_cmdsPerPage);
             //var m = c.First().Module.Name;
             return new EmbedBuilder()
-                .WithAuthor(a => a.WithName(_app.Name)
-                    .WithIconUrl(_app.IconUrl))
-                .WithTitle("Available commands.")
-                .WithDescription($"Page {page + 1} of {_totalPages}")
-                .AddFieldSequence(c, (fb, cmd) => fb.WithIsInline(false)
-                    .WithName($"{cmd.Module.Name}: {cmd.Aliases.FirstOrDefault()}")
-                    .WithValue($"{cmd.Summary}\n\t{String.Join(", ", cmd.Parameters.Select(p => p.FormatParam()))}"))
-                .WithFooter(fb => fb.WithText("Powered by SimplePermissions"))
-                .Build();
+            {
+                Author = new EmbedAuthorBuilder
+                {
+                    Name = _app.Name,
+                    IconUrl = _app.IconUrl
+                },
+                Title = "Available commands.",
+                Description = $"Page {page + 1} of {_lastPage + 1}",
+                Footer = new EmbedFooterBuilder
+                {
+                    Text = "Powered by SimplePermissions"
+                }
+            }.AddFieldSequence(c, (fb, cmd) => fb.WithIsInline(false)
+                .WithName($"{cmd.Module.Name}: {cmd.Aliases.FirstOrDefault()}")
+                .WithValue($"{cmd.Summary}\n\t{String.Join(", ", cmd.Parameters.Select(p => p.FormatParam()))}"))
+            .Build();
         }
 
         public async Task First()
@@ -78,14 +85,14 @@ namespace Discord.Addons.SimplePermissions
             await _msg.RemoveReactionAsync(new Emoji(SFirst), _user);
             if (_currentPage == 0) return;
 
-            await _msg.ModifyAsync(m => m.Embed = GetPage(0));
+            await _msg.ModifyAsync(m => m.Embed = GetPage((int)(_currentPage = 0)));
 
         }
 
         public async Task Next()
         {
             await _msg.RemoveReactionAsync(new Emoji(SNext), _user);
-            if (_currentPage == (_totalPages - 1)) return;
+            if (_currentPage == _lastPage) return;
 
             await _msg.ModifyAsync(m => m.Embed = GetPage((int)++_currentPage));
         }
@@ -101,9 +108,9 @@ namespace Discord.Addons.SimplePermissions
         public async Task Last()
         {
             await _msg.RemoveReactionAsync(new Emoji(SLast), _user);
-            if (_currentPage == (_totalPages - 1)) return;
+            if (_currentPage == _lastPage) return;
 
-            await _msg.ModifyAsync(m => m.Embed = GetPage((int)_totalPages - 1));
+            await _msg.ModifyAsync(m => m.Embed = GetPage((int)(_currentPage = _lastPage - 1)));
         }
 
         public Task Delete()

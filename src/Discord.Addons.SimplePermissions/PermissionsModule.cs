@@ -21,7 +21,9 @@ namespace Discord.Addons.SimplePermissions
         private readonly IServiceProvider _services;
 
         /// <summary> </summary>
-        public PermissionsModule(PermissionsService permService, IServiceProvider services)
+        public PermissionsModule(
+            PermissionsService permService,
+            IServiceProvider services)
         {
             _permService = permService ?? throw new ArgumentNullException(nameof(permService));
             _services = services;
@@ -58,7 +60,7 @@ namespace Discord.Addons.SimplePermissions
         //        .WithCurrentTimestamp()
         //        .Build();
 
-        //    await ReplyAsync("", embed: info).ConfigureAwait(false);
+        //    await ReplyAsync(String.Empty, embed: info).ConfigureAwait(false);
         //}
 
         [Command("shutdown"), Permission(MinimumPermission.BotOwner)]
@@ -80,17 +82,20 @@ namespace Discord.Addons.SimplePermissions
 
             if (await UseFancy().ConfigureAwait(false))
             {
-                if (await _permService.GetHidePermCommands(Context.Guild).ConfigureAwait(false))
-                    cmds = cmds.Where(c => c.Module.Name != PermModuleName);
+                //using (var config = _permService.ReadOnlyConfig)
+                using (var config = _permService.LoadConfig())
+                {
+                    if (await config.GetHidePermCommands(Context.Guild).ConfigureAwait(false))
+                        cmds = cmds.Where(c => c.Module.Name != PermModuleName);
 
-                var app = await Context.Client.GetApplicationInfoAsync().ConfigureAwait(false);
-                _permService.AddNewFancy(await new FancyHelpMessage(Context.Channel, Context.User, cmds.ToList(), app).SendMessage().ConfigureAwait(false));
+                    var app = await Context.Client.GetApplicationInfoAsync().ConfigureAwait(false);
+                    await _permService.AddNewFancy(await new FancyHelpMessage(Context.Channel, Context.User, cmds.ToList(), app).SendMessage().ConfigureAwait(false));
+                }
             }
             else
             {
                 var grouped = cmds.GroupBy(c => c.Module.Name)
-                    .Select(g => $"{g.Key}:\n\t`{String.Join("`, `", g.Select(c => c.Aliases.FirstOrDefault()).Distinct())}`")
-                    .ToList();
+                    .Select(g => $"{g.Key}:\n\t`{String.Join("`, `", g.Select(c => c.Aliases.FirstOrDefault()).Distinct())}`");
 
                 var sb = new StringBuilder("You can use the following commands:\n")
                     .AppendLine($"{String.Join("\n", grouped)}\n")
@@ -102,13 +107,12 @@ namespace Discord.Addons.SimplePermissions
 
         private async Task<bool> UseFancy()
         {
-            using (var config = _permService.ConfigStore.Load())
+            //using (var config = _permService.ReadOnlyConfig)
+            using (var config = _permService.LoadConfig())
             {
                 bool fancyEnabled = Context.Guild != null && await config.GetFancyHelpValue(Context.Guild).ConfigureAwait(false);
-                return fancyEnabled
-                    && (await Context.Guild.GetCurrentUserAsync()).HasPerms(Context.Channel as ITextChannel,
-                        PermissionsExtensions.DiscordPermissions.ADD_REACTIONS
-                        | PermissionsExtensions.DiscordPermissions.MANAGE_MESSAGES);
+                var perms = (await Context.Guild.GetCurrentUserAsync()).GetPermissions(Context.Channel as ITextChannel);
+                return fancyEnabled && perms.AddReactions && perms.ManageMessages;
             }
         }
 
@@ -120,7 +124,7 @@ namespace Discord.Addons.SimplePermissions
         {
             var cmds = (await _permService.CService.Commands.CheckConditions(Context, _services, _permService).ConfigureAwait(false))
                 .Where(c => c.Aliases.FirstOrDefault().Equals(cmdname, StringComparison.OrdinalIgnoreCase)
-                    && !c.Preconditions.Any(p => p is HiddenAttribute));
+                    && !c.Attributes.Any(p => p is HiddenAttribute));
 
             if (cmds.Any())
             {
@@ -145,7 +149,7 @@ namespace Discord.Addons.SimplePermissions
             return ReplyAsync($"This server's roles:```\n{String.Join("\n", Context.Guild.Roles.Where(r => r.Id != Context.Guild.EveryoneRole.Id).Select(r => $"{r.Name} : {r.Id}"))}\n```");
         }
 
-        /// <summary> "List all the modules loaded in the bot. </summary>
+        /// <summary> List all the modules loaded in the bot. </summary>
         [Command("modules"), Permission(MinimumPermission.ModRole)]
         [RequireContext(ContextType.Guild)]
         [Summary("List all the modules loaded in the bot.")]
@@ -156,13 +160,14 @@ namespace Discord.Addons.SimplePermissions
                 .Select(m => m.Name);
             var index = 1;
             var sb = new StringBuilder("All loaded modules:\n```");
-            using (var config = _permService.ConfigStore.Load())
+            //using (var config = _permService.ReadOnlyConfig)
+            using (var config = _permService.LoadConfig())
             {
                 var wl = config.GetChannelModuleWhitelist(Context.Channel as ITextChannel)
                     .Concat(config.GetGuildModuleWhitelist(Context.Guild)).ToList();
                 foreach (var m in mods)
                 {
-                    sb.AppendLine($"{index,3}: {m}{(wl.Any(w => w.Name ==  m) ? _star : String.Empty)}");
+                    sb.AppendLine($"{index,3}: {m}{(wl.Any(w => w.Name == m) ? _star : String.Empty)}");
                     index++;
                 }
                 sb.Append("```");
@@ -212,7 +217,8 @@ namespace Discord.Addons.SimplePermissions
         [Summary("Give someone special command privileges in this channel.")]
         public async Task AddSpecialUser(IGuildUser user)
         {
-            if (user.HasPerms(Context.Channel as ITextChannel, PermissionsExtensions.DiscordPermissions.READ_MESSAGES | PermissionsExtensions.DiscordPermissions.SEND_MESSAGES))
+            var perms = user.GetPermissions(Context.Channel as ITextChannel);
+            if (perms.ReadMessages && perms.SendMessages)
             {
                 if (await _permService.AddSpecialUser(Context.Channel as ITextChannel, user).ConfigureAwait(false))
                     await ReplyAsync($"Gave **{user.Username}** Special command privileges.").ConfigureAwait(false);
@@ -239,19 +245,19 @@ namespace Discord.Addons.SimplePermissions
         [Command("whitelist"), Permission(MinimumPermission.ModRole)]
         [Alias("wl"), RequireContext(ContextType.Guild)]
         [Summary("Whitelist a module for this channel or guild.")]
-        public async Task WhitelistModule(string modName, [OverrideTypeReader(typeof(SpecialBoolTypeReader))] bool guildwide = false)
+        public async Task WhitelistModule(string modName, [OverrideTypeReader(typeof(GuildSwitchTypeReader))] bool guildwide = false)
         {
-            var mod = _permService.CService.Modules.SingleOrDefault(m => m.Name == modName);
+            var mod = _permService.CService.Modules.SingleOrDefault(m => m.Name.Equals(modName, StringComparison.OrdinalIgnoreCase));
             if (mod != null)
             {
                 if (guildwide)
                 {
-                    if (await _permService.WhitelistModuleGuild(Context.Guild, mod.Name).ConfigureAwait(false))
+                    if (await _permService.WhitelistModuleGuild(Context.Guild, mod).ConfigureAwait(false))
                         await ReplyAsync($"Module `{mod.Name}` is now whitelisted in this server.").ConfigureAwait(false);
                 }
                 else
                 {
-                    if (await _permService.WhitelistModule(Context.Channel as ITextChannel, mod.Name).ConfigureAwait(false))
+                    if (await _permService.WhitelistModule(Context.Channel as ITextChannel, mod).ConfigureAwait(false))
                         await ReplyAsync($"Module `{mod.Name}` is now whitelisted in this channel.").ConfigureAwait(false);
                 }
             }
@@ -262,9 +268,9 @@ namespace Discord.Addons.SimplePermissions
         [Command("blacklist"), Permission(MinimumPermission.ModRole)]
         [Alias("bl"), RequireContext(ContextType.Guild)]
         [Summary("Blacklist a module for this channel or guild.")]
-        public async Task BlacklistModule(string modName, [OverrideTypeReader(typeof(SpecialBoolTypeReader))] bool guildwide = false)
+        public async Task BlacklistModule(string modName, [OverrideTypeReader(typeof(GuildSwitchTypeReader))] bool guildwide = false)
         {
-            var mod = _permService.CService.Modules.SingleOrDefault(m => m.Name == modName);
+            var mod = _permService.CService.Modules.SingleOrDefault(m => m.Name.Equals(modName, StringComparison.OrdinalIgnoreCase));
             if (mod != null)
             {
                 if (mod.Name == PermModuleName)
@@ -275,12 +281,12 @@ namespace Discord.Addons.SimplePermissions
                 {
                     if (guildwide)
                     {
-                        if (await _permService.BlacklistModuleGuild(Context.Guild, mod.Name).ConfigureAwait(false))
+                        if (await _permService.BlacklistModuleGuild(Context.Guild, mod).ConfigureAwait(false))
                             await ReplyAsync($"Module `{mod.Name}` is now blacklisted in this server.").ConfigureAwait(false);
                     }
                     else
                     {
-                        if (await _permService.BlacklistModule(Context.Channel as ITextChannel, mod.Name).ConfigureAwait(false))
+                        if (await _permService.BlacklistModule(Context.Channel as ITextChannel, mod).ConfigureAwait(false))
                             await ReplyAsync($"Module `{mod.Name}` is now blacklisted in this channel.").ConfigureAwait(false);
                     }
                 }

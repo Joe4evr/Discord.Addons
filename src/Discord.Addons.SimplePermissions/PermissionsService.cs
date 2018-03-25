@@ -12,30 +12,21 @@ using Discord.Addons.Core;
 namespace Discord.Addons.SimplePermissions
 {
     /// <summary> </summary>
-    public sealed class PermissionsService
+    public sealed partial class PermissionsService
     {
         private static readonly Emoji _litter = new Emoji("\uD83D\uDEAE");
 
         private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
-        private DiscordSocketClient SocketClient { get; }
-        private DiscordShardedClient ShardedClient { get; }
+        //private readonly CachedConfig _cachedConfig;
+
+        private BaseSocketClient SocketClient { get; }
         private Func<LogMessage, Task> Logger { get; }
-        private ConcurrentDictionary<ulong, FancyHelpMessage> Helpmsgs { get; } = new ConcurrentDictionary<ulong, FancyHelpMessage>();
+        private IConfigStore<IPermissionConfig> ConfigStore { get; }
+        private ConcurrentDictionary<ulong, FancyHelpMessage> Helpmsgs { get; }
+            = new ConcurrentDictionary<ulong, FancyHelpMessage>();
 
         internal CommandService CService { get; }
-        internal IConfigStore<IPermissionConfig> ConfigStore { get; }
-
-        private PermissionsService(
-            IConfigStore<IPermissionConfig> configstore,
-            CommandService commands,
-            Func<LogMessage, Task> logAction = null)
-        {
-            Logger = logAction ?? Extensions.NoOpLogger;
-            Log(LogSeverity.Info, "Creating Permission service.");
-
-            ConfigStore = configstore ?? throw new ArgumentNullException(nameof(configstore));
-            CService = commands ?? throw new ArgumentNullException(nameof(commands));
-        }
+        //internal IPermissionConfig ReadOnlyConfig => _cachedConfig;
 
         /// <summary> </summary>
         /// <param name="configstore"></param>
@@ -44,12 +35,17 @@ namespace Discord.Addons.SimplePermissions
         public PermissionsService(
             IConfigStore<IPermissionConfig> configstore,
             CommandService commands,
-            DiscordSocketClient client,
-            Func<LogMessage, Task> logAction = null) : this(configstore, commands, logAction)
+            BaseSocketClient client,
+            Func<LogMessage, Task> logAction = null)
         {
+            Logger = logAction ?? Extensions.NoOpLogger;
+            Log(LogSeverity.Info, "Creating Permission service.");
+
+            ConfigStore = configstore ?? throw new ArgumentNullException(nameof(configstore));
+            CService = commands ?? throw new ArgumentNullException(nameof(commands));
             SocketClient = client ?? throw new ArgumentNullException(nameof(client));
 
-            client.Ready += CheckDuplicateModuleNames;
+            //client.Ready += CheckDuplicateModuleNames;
             client.GuildAvailable += GuildAvailable;
             client.UserJoined += UserJoined;
             client.ChannelCreated += ChannelCreated;
@@ -58,150 +54,180 @@ namespace Discord.Addons.SimplePermissions
             client.MessageDeleted += MessageDeleted;
         }
 
-        public PermissionsService(
-            IConfigStore<IPermissionConfig> configstore,
-            CommandService commands,
-            DiscordShardedClient client,
-            Func<LogMessage, Task> logAction = null) : this(configstore, commands, logAction)
-        {
-            ShardedClient = client ?? throw new ArgumentNullException(nameof(client));
+        //public PermissionsService(
+        //    IConfigStore<IPermissionConfig> configstore,
+        //    CommandService commands,
+        //    DiscordShardedClient client,
+        //    Func<LogMessage, Task> logAction = null) : this(configstore, commands, logAction)
+        //{
+        //    ShardedClient = client ?? throw new ArgumentNullException(nameof(client));
 
-            client.GetShard(0).Ready += CheckDuplicateModuleNames;
-            client.GuildAvailable += GuildAvailable;
-            client.UserJoined += UserJoined;
-            client.ChannelCreated += ChannelCreated;
-            client.ChannelDestroyed += ChannelDestroyed;
-            client.ReactionAdded += ReactionAdded;
-            client.MessageDeleted += MessageDeleted;
-        }
+        //    client.GetShard(0).Ready += CheckDuplicateModuleNames;
+        //    client.GuildAvailable += GuildAvailable;
+        //    client.UserJoined += UserJoined;
+        //    client.ChannelCreated += ChannelCreated;
+        //    client.ChannelDestroyed += ChannelDestroyed;
+        //    client.ReactionAdded += ReactionAdded;
+        //    client.MessageDeleted += MessageDeleted;
+        //}
 
-#region PermissionEvents
-        private async Task GuildAvailable(SocketGuild guild)
+        #region PermissionEvents
+        private Task GuildAvailable(SocketGuild guild)
         {
-            using (var config = ConfigStore.Load())
-            {
-                await config.AddNewGuild(guild);
-                config.Save();
-            }
-        }
-
-        private async Task UserJoined(SocketGuildUser user)
-        {
-            using (var config = ConfigStore.Load())
-            {
-                await config.AddUser(user);
-                config.Save();
-            }
-        }
-
-        private async Task ChannelCreated(SocketChannel channel)
-        {
-            if (channel is SocketTextChannel textChannel)
+            Task.Run(async () =>
             {
                 using (var config = ConfigStore.Load())
                 {
-                    await config.AddChannel(textChannel);
+                    await config.AddNewGuild(guild).ConfigureAwait(false);
                     config.Save();
                 }
-            }
+            });
+            return Task.CompletedTask;
         }
 
-        private async Task ChannelDestroyed(SocketChannel channel)
+        private Task UserJoined(SocketGuildUser user)
         {
-            if (channel is SocketTextChannel textChannel)
+            Task.Run(async () =>
             {
                 using (var config = ConfigStore.Load())
                 {
-                    await config.RemoveChannel(textChannel);
+                    await config.AddUser(user).ConfigureAwait(false);
                     config.Save();
                 }
-            }
+            });
+            return Task.CompletedTask;
         }
-#endregion
 
-        private async Task ReactionAdded(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
+        private Task ChannelCreated(SocketChannel channel)
         {
-            if (!message.HasValue)
+            Task.Run(async () =>
             {
-                await Log(LogSeverity.Debug, $"Message with id {message.Id} was not in cache.");
-                return;
-            }
-            if (!reaction.User.IsSpecified)
-            {
-                await Log(LogSeverity.Debug, $"Message with id {message.Id} had invalid user.");
-                return;
-            }
-
-            var msg = message.Value;
-            var iclient = (SocketClient as IDiscordClient) ?? (ShardedClient as IDiscordClient);
-            if (reaction.UserId == iclient.CurrentUser.Id)
-            {
-                return;
-            }
-            if (msg.Author.Id == iclient.CurrentUser.Id
-                && reaction.UserId == (await iclient.GetApplicationInfoAsync()).Owner.Id
-                && reaction.Emote.Name == _litter.Name)
-            {
-                
-                await msg.DeleteAsync();
-                return;
-            }
-
-            if (Helpmsgs.TryGetValue(msg.Id, out var fhm))
-            {
-                if (reaction.UserId != fhm.UserId)
+                if (channel is SocketTextChannel textChannel)
                 {
-                    var _ = msg.RemoveReactionAsync(reaction.Emote, reaction.User.Value);
+                    using (var config = ConfigStore.Load())
+                    {
+                        await config.AddChannel(textChannel).ConfigureAwait(false);
+                        config.Save();
+                    }
+                }
+            });
+            return Task.CompletedTask;
+        }
+
+        private Task ChannelDestroyed(SocketChannel channel)
+        {
+            Task.Run(async () =>
+            {
+                if (channel is SocketTextChannel textChannel)
+                {
+                    using (var config = ConfigStore.Load())
+                    {
+                        await config.RemoveChannel(textChannel).ConfigureAwait(false);
+                        config.Save();
+                    }
+                }
+            });
+            return Task.CompletedTask;
+        }
+        #endregion
+
+        private Task ReactionAdded(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
+        {
+            Task.Run(async () =>
+            {
+                if (!message.HasValue)
+                {
+                    await Log(LogSeverity.Debug, $"Message with id {message.Id} was not in cache.");
+                    return;
+                }
+                if (!reaction.User.IsSpecified)
+                {
+                    await Log(LogSeverity.Debug, $"Reaction on message with id {message.Id} had invalid user.");
                     return;
                 }
 
-                switch (reaction.Emote.Name)
+                var msg = message.Value;
+                var iclient = (SocketClient as IDiscordClient); //?? (ShardedClient as IDiscordClient);
+                if (reaction.UserId == iclient.CurrentUser.Id)
                 {
-                    case FancyHelpMessage.SFirst:
-                        await fhm.First();
-                        break;
-                    case FancyHelpMessage.SBack:
-                        await fhm.Back();
-                        break;
-                    case FancyHelpMessage.SNext:
-                        await fhm.Next();
-                        break;
-                    case FancyHelpMessage.SLast:
-                        await fhm.Last();
-                        break;
-                    case FancyHelpMessage.SDelete:
-                        await fhm.Delete();
-                        break;
-                    default:
-                        break;
+                    return;
                 }
-            }
+                if (msg.Author.Id == iclient.CurrentUser.Id
+                    && reaction.UserId == (await iclient.GetApplicationInfoAsync()).Owner.Id
+                    && reaction.Emote.Name == _litter.Name)
+                {
+
+                    await msg.DeleteAsync();
+                    return;
+                }
+
+                if (Helpmsgs.TryGetValue(msg.Id, out var fhm))
+                {
+                    if (reaction.UserId != fhm.UserId)
+                    {
+                        var _ = msg.RemoveReactionAsync(reaction.Emote, reaction.User.Value);
+                        return;
+                    }
+
+                    switch (reaction.Emote.Name)
+                    {
+                        case FancyHelpMessage.SFirst:
+                            await fhm.First();
+                            break;
+                        case FancyHelpMessage.SBack:
+                            await fhm.Back();
+                            break;
+                        case FancyHelpMessage.SNext:
+                            await fhm.Next();
+                            break;
+                        case FancyHelpMessage.SLast:
+                            await fhm.Last();
+                            break;
+                        case FancyHelpMessage.SDelete:
+                            await fhm.Delete();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+            return Task.CompletedTask;
         }
 
         private Task MessageDeleted(Cacheable<IMessage, ulong> message, ISocketMessageChannel channel)
         {
-            return Task.FromResult(Helpmsgs.TryRemove(message.Id, out var _));
+            return Task.FromResult(Helpmsgs.TryRemove(message.Id, out _));
         }
 
-        private async Task CheckDuplicateModuleNames()
-        {
-            var modnames = CService.Modules.Select(m => m.Name).ToList();
-            var multiples = modnames.Where(name => modnames.Count(str => str.Equals(name, StringComparison.OrdinalIgnoreCase)) > 1);
+    //    private async Task CheckDuplicateModuleNames()
+    //    {
+    //        var modnames = CService.Modules.Select(m => m.Name).ToList();
+    //        var multiples = modnames.Where(name => modnames.Count(str => str.Equals(name, StringComparison.OrdinalIgnoreCase)) > 1);
 
-            if (multiples.Any())
-            {
-                var error = $@"Multiple modules with the same Name have been registered, SimplePermissions cannot function.
-    Duplicate names: {String.Join(", ", multiples.Distinct())}.";
-                await Log(LogSeverity.Error, error);
-                throw new Exception(error);
-            }
+    //        if (multiples.Any())
+    //        {
+    //            var error = $@"Multiple modules with the same Name have been registered, SimplePermissions cannot function.
+    //Duplicate names: {String.Join(", ", multiples.Distinct())}.";
+    //            await Log(LogSeverity.Error, error).ConfigureAwait(false);
+    //            throw new Exception(error);
+    //        }
 
-            if (SocketClient != null)
-                SocketClient.Ready -= CheckDuplicateModuleNames;
+    //        if (SocketClient != null)
+    //        {
+    //            SocketClient.Ready -= CheckDuplicateModuleNames;
+    //            //using (var config = ConfigStore.Load())
+    //            //{
+    //            //    await _cachedConfig.Synchronize(SocketClient, config).ConfigureAwait(false);
+    //            //}
+    //        }
+    //        //if (ShardedClient != null)
+    //        //    ShardedClient.GetShard(0).Ready -= CheckDuplicateModuleNames;
 
-            if (ShardedClient != null)
-                ShardedClient.GetShard(0).Ready -= CheckDuplicateModuleNames;
-        }
+
+
+    //    }
+
+        internal IPermissionConfig LoadConfig() => ConfigStore.Load();
 
         internal Task Log(LogSeverity severity, string msg)
         {
@@ -219,8 +245,9 @@ namespace Discord.Addons.SimplePermissions
             using (var config = ConfigStore.Load())
             {
                 await _lock.WaitAsync();
-                var result = await config.SetGuildAdminRole(guild, role);
+                var result = await config.SetGuildAdminRole(guild, role).ConfigureAwait(false);
                 config.Save();
+                //await ReadOnlyConfig.SetGuildAdminRole(guild, role).ConfigureAwait(false);
                 _lock.Release();
                 return result;
             }
@@ -231,8 +258,9 @@ namespace Discord.Addons.SimplePermissions
             using (var config = ConfigStore.Load())
             {
                 await _lock.WaitAsync();
-                var result = await config.SetGuildModRole(guild, role);
+                var result = await config.SetGuildModRole(guild, role).ConfigureAwait(false);
                 config.Save();
+                //await ReadOnlyConfig.SetGuildModRole(guild, role).ConfigureAwait(false);
                 _lock.Release();
                 return result;
             }
@@ -243,8 +271,9 @@ namespace Discord.Addons.SimplePermissions
             using (var config = ConfigStore.Load())
             {
                 await _lock.WaitAsync();
-                var result = await config.AddSpecialUser(channel, user);
+                var result = await config.AddSpecialUser(channel, user).ConfigureAwait(false);
                 config.Save();
+                //await ReadOnlyConfig.AddSpecialUser(channel, user).ConfigureAwait(false);
                 _lock.Release();
                 return result;
             }
@@ -255,80 +284,74 @@ namespace Discord.Addons.SimplePermissions
             using (var config = ConfigStore.Load())
             {
                 await _lock.WaitAsync();
-                var result = await config.RemoveSpecialUser(channel, user);
+                var result = await config.RemoveSpecialUser(channel, user).ConfigureAwait(false);
                 config.Save();
+                //await ReadOnlyConfig.RemoveSpecialUser(channel, user).ConfigureAwait(false);
                 _lock.Release();
                 return result;
             }
         }
 
-        internal async Task<bool> WhitelistModule(ITextChannel channel, string modName)
+        internal async Task<bool> WhitelistModule(ITextChannel channel, ModuleInfo module)
         {
             using (var config = ConfigStore.Load())
             {
                 await _lock.WaitAsync();
-                var result = await config.WhitelistModule(channel, modName);
+                var result = await config.WhitelistModule(channel, module).ConfigureAwait(false);
                 config.Save();
+                //await ReadOnlyConfig.WhitelistModule(channel, module).ConfigureAwait(false);
                 _lock.Release();
                 return result;
             }
         }
 
-        internal async Task<bool> BlacklistModule(ITextChannel channel, string modName)
+        internal async Task<bool> BlacklistModule(ITextChannel channel, ModuleInfo module)
         {
             using (var config = ConfigStore.Load())
             {
                 await _lock.WaitAsync();
-                var result = await config.BlacklistModule(channel, modName);
+                var result = await config.BlacklistModule(channel, module).ConfigureAwait(false);
                 config.Save();
+                //await ReadOnlyConfig.BlacklistModule(channel, module).ConfigureAwait(false);
                 _lock.Release();
                 return result;
             }
         }
 
-        internal async Task<bool> WhitelistModuleGuild(IGuild guild, string modName)
+        internal async Task<bool> WhitelistModuleGuild(IGuild guild, ModuleInfo module)
         {
             using (var config = ConfigStore.Load())
             {
                 await _lock.WaitAsync();
-                var result = await config.WhitelistModuleGuild(guild, modName);
+                var result = await config.WhitelistModuleGuild(guild, module).ConfigureAwait(false);
                 config.Save();
+                //await ReadOnlyConfig.WhitelistModuleGuild(guild, module).ConfigureAwait(false);
                 _lock.Release();
                 return result;
             }
         }
 
-        internal async Task<bool> BlacklistModuleGuild(IGuild guild, string modName)
+        internal async Task<bool> BlacklistModuleGuild(IGuild guild, ModuleInfo module)
         {
             using (var config = ConfigStore.Load())
             {
                 await _lock.WaitAsync();
-                var result = await config.BlacklistModuleGuild(guild, modName);
+                var result = await config.BlacklistModuleGuild(guild, module).ConfigureAwait(false);
                 config.Save();
+                //await ReadOnlyConfig.BlacklistModuleGuild(guild, module).ConfigureAwait(false);
                 _lock.Release();
                 return result;
             }
         }
 
-        internal async Task<bool> GetHidePermCommands(IGuild guild)
+        internal async Task SetHidePermCommands(IGuild guild, bool newValue)
         {
             using (var config = ConfigStore.Load())
             {
                 await _lock.WaitAsync();
-                var result = await config.GetHidePermCommands(guild);
+                await config.SetHidePermCommands(guild, newValue).ConfigureAwait(false);
                 config.Save();
-                _lock.Release();
-                return result;
-            }
-        }
-
-        internal async Task HidePermCommands(IGuild guild, bool newValue)
-        {
-            using (var config = ConfigStore.Load())
-            {
-                await _lock.WaitAsync();
-                await config.SetHidePermCommands(guild, newValue);
-                config.Save();
+                //await ReadOnlyConfig.SetHidePermCommands(guild, newValue).ConfigureAwait(false);
                 _lock.Release();
             }
         }
@@ -337,79 +360,6 @@ namespace Discord.Addons.SimplePermissions
         {
             var p = typeof(DiscordSocketClient).GetProperty("MessageCacheSize", BindingFlags.Instance | BindingFlags.NonPublic);
             return (int)p.GetMethod.Invoke(client, Array.Empty<object>());
-        }
-    }
-
-    public static class PermissionsExtensions
-    {
-        ///// <summary> Add SimplePermissions to your <see cref="CommandService"/> using a <see cref="DiscordSocketClient"/>. </summary>
-        ///// <param name="client">The <see cref="DiscordSocketClient"/> instance.</param>
-        ///// <param name="configStore">The <see cref="IConfigStore{TConfig}"/> instance.</param>
-        ///// <param name="map">The <see cref="IDependencyMap"/> instance.</param>
-        ///// <param name="logAction">Optional: A delegate or method that will log messages.</param>
-        //public static Task UseSimplePermissions(
-        //    this CommandService cmdService,
-        //    DiscordSocketClient client,
-        //    IConfigStore<IPermissionConfig> configStore,
-        //    IServiceCollection map,
-        //    Func<LogMessage, Task> logAction = null)
-        //{
-        //    map.AddSingleton(new PermissionsService(configStore, cmdService, client, logAction ?? (msg => Task.CompletedTask)));
-        //    return cmdService.AddModuleAsync<PermissionsModule>();
-        //}
-
-        ///// <summary> Add SimplePermissions to your <see cref="CommandService"/> using a <see cref="DiscordShardedClient"/>. </summary>
-        ///// <param name="client">The <see cref="DiscordShardedClient"/> instance.</param>
-        ///// <param name="configStore">The <see cref="IConfigStore{TConfig}"/> instance.</param>
-        ///// <param name="map">The <see cref="IDependencyMap"/> instance.</param>
-        ///// <param name="logAction">Optional: A delegate or method that will log messages.</param>
-        //public static Task UseSimplePermissions(
-        //    this CommandService cmdService,
-        //    DiscordShardedClient client,
-        //    IConfigStore<IPermissionConfig> configStore,
-        //    IServiceCollection map,
-        //    Func<LogMessage, Task> logAction = null)
-        //{
-        //    map.AddSingleton(new PermissionsService(configStore, cmdService, client, logAction ?? (msg => Task.CompletedTask)));
-        //    return cmdService.AddModuleAsync<PermissionsModule>();
-        //}
-
-        internal static bool HasPerms(this IGuildUser user, IGuildChannel channel, DiscordPermissions perms)
-        {
-            var clientPerms = (DiscordPermissions)user.GetPermissions(channel).RawValue;
-            return (clientPerms & perms) == perms;
-        }
-
-        [Flags]
-        internal enum DiscordPermissions : ulong
-        {
-            CREATE_INSTANT_INVITE = 0x00_00_00_01,
-            KICK_MEMBERS          = 0x00_00_00_02,
-            BAN_MEMBERS           = 0x00_00_00_04,
-            ADMINISTRATOR         = 0x00_00_00_08,
-            MANAGE_CHANNELS       = 0x00_00_00_10,
-            MANAGE_GUILD          = 0x00_00_00_20,
-            ADD_REACTIONS         = 0x00_00_00_40,
-            READ_MESSAGES         = 0x00_00_04_00,
-            SEND_MESSAGES         = 0x00_00_08_00,
-            SEND_TTS_MESSAGES     = 0x00_00_10_00,
-            MANAGE_MESSAGES       = 0x00_00_20_00,
-            EMBED_LINKS           = 0x00_00_40_00,
-            ATTACH_FILES          = 0x00_00_80_00,
-            READ_MESSAGE_HISTORY  = 0x00_01_00_00,
-            MENTION_EVERYONE      = 0x00_02_00_00,
-            USE_EXTERNAL_EMOJIS   = 0x00_04_00_00,
-            CONNECT               = 0x00_10_00_00,
-            SPEAK                 = 0x00_20_00_00,
-            MUTE_MEMBERS          = 0x00_40_00_00,
-            DEAFEN_MEMBERS        = 0x00_80_00_00,
-            MOVE_MEMBERS          = 0x01_00_00_00,
-            USE_VAD               = 0x02_00_00_00,
-            CHANGE_NICKNAME       = 0x04_00_00_00,
-            MANAGE_NICKNAMES      = 0x08_00_00_00,
-            MANAGE_ROLES          = 0x10_00_00_00,
-            MANAGE_WEBHOOKS       = 0x20_00_00_00,
-            MANAGE_EMOJIS         = 0x40_00_00_00,
         }
     }
 }
