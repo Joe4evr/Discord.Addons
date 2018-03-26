@@ -46,19 +46,19 @@ namespace Discord.Addons.MpGame
                 : Task.CompletedTask;
         }
 
-        private async Task OnGameEnd(IMessageChannel channel)
+        private async Task<bool> OnGameEnd(IMessageChannel channel)
         {
-            if (_dataList.TryRemove(channel, out var data))
+            if (_dataList.TryRemove(channel, out var data) is var success)
             {
-                var instance = GameTracker.Instance;
-                var channels = await Task.WhenAll(data.Game.Players.Select(p => p.User.GetOrCreateDMChannelAsync())).ConfigureAwait(false);
+                var tracker = GameTracker.Instance;
+                var channels = await Task.WhenAll(data.JoinedUsers.Select(u => u.GetOrCreateDMChannelAsync())).ConfigureAwait(false);
                 foreach (var ch in channels)
                 {
-                    instance.TryRemoveGameChannel(ch);
+                    tracker.TryRemoveGameChannel(ch);
                 }
-                instance.TryRemoveGameString(channel);
-                //data.Game.GameEnd -= OnGameEnd;
+                tracker.TryRemoveGameString(channel);
             }
+            return success;
         }
 
         /// <summary> Prepare to set up a new game in a specified channel. </summary>
@@ -68,13 +68,14 @@ namespace Discord.Addons.MpGame
         {
             lock (_lock)
             {
-                if (GameTracker.Instance.TryGetGameString(context.Channel, out var _))
+                var tracker = GameTracker.Instance;
+                if (tracker.TryGetGameString(context.Channel, out var _))
                 {
                     return false;
                 }
 
                 var data = new PersistentGameData(context.Channel, context.User);
-                GameTracker.Instance.TryAddGameString(context.Channel, GameName);
+                tracker.TryAddGameString(context.Channel, GameName);
                 data.NewPlayerList();
                 _dataList.AddOrUpdate(context.Channel, data, (k, v) => data);
                 return data.TryUpdateOpenToJoin(newValue: true, oldValue: false);
@@ -122,11 +123,8 @@ namespace Discord.Addons.MpGame
         /// <summary> Cancel a game that has not yet started. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
         /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
-        public async Task<bool> CancelGame(IMessageChannel channel)
-        {
-            await OnGameEnd(channel).ConfigureAwait(false);
-            return _dataList.TryRemove(channel, out var _);
-        }
+        public Task<bool> CancelGame(IMessageChannel channel)
+            => OnGameEnd(channel);
 
         /// <summary> Add a new game to the list of active games. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
@@ -136,15 +134,12 @@ namespace Discord.Addons.MpGame
         {
             if (TryGetPersistentData(channel, out var data))
             {
-                lock (_lock)
+                var gameSet = data.SetGame(game);
+                if (gameSet)
                 {
-                    var success = data.SetGame(game) && TryUpdateOpenToJoin(channel, newValue: false, comparisonValue: true);
-                    if (success)
-                    {
-                        game.GameEnd = OnGameEnd;
-                    }
-                    return success;
+                    game.GameEnd = OnGameEnd;
                 }
+                return gameSet;
             }
             else
             {

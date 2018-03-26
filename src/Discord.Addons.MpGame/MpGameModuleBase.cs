@@ -12,7 +12,7 @@ namespace Discord.Addons.MpGame
     /// <typeparam name="TService">The type of the service managing longer lived objects.</typeparam>
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
-    public abstract partial class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<SocketCommandContext>
+    public abstract partial class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<ICommandContext>
         where TService : MpGameService<TGame, TPlayer>
         where TGame    : GameBase<TPlayer>
         where TPlayer  : Player
