@@ -2,12 +2,11 @@
     <Import Project="..\..\DiscordAddonsCore.props" />
     <PropertyGroup>
         <AssemblyName>Discord.Addons.Preconditions</AssemblyName>
-        <VersionPrefix>1.0.0</VersionPrefix>
-        <VersionSuffix>rc2</VersionSuffix>
-        <Description>Useful preconditions for Discord.Net 1.0.</Description>
+        <VersionPrefix>1.2.0</VersionPrefix>
+        <VersionSuffix>alpha1</VersionSuffix>
+        <Description>Useful preconditions for Discord.Net 2.0.</Description>
         <Authors>Joe4evr</Authors>
         <PackageTags>discord;commands;preconditions</PackageTags>
-        <TargetFrameworks>$(TargetFrameworks);netstandard1.3</TargetFrameworks>
     </PropertyGroup>
     <ItemGroup>
         <None Include="README.md" />

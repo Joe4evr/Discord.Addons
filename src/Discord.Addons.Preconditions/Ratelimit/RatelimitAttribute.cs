@@ -33,7 +33,7 @@ namespace Discord.Addons.Preconditions
             _noLimitForAdmins = noLimitForAdmins;
             _applyPerGuild = applyPerGuild;
 
-            //TODO: C# 7 candidate switch expression
+            //TODO: C# 8 candidate switch expression
             switch (measure)
             {
                 case Measure.Days:
@@ -64,7 +64,10 @@ namespace Discord.Addons.Preconditions
         }
 
         /// <inheritdoc />
-        public override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider services)
+        public override Task<PreconditionResult> CheckPermissionsAsync(
+            ICommandContext context,
+            CommandInfo command,
+            IServiceProvider services)
         {
             if (_noLimitInDMs && context.Channel is IPrivateChannel)
                 return Task.FromResult(PreconditionResult.FromSuccess());
