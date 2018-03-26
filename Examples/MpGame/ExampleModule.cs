@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Discord;
 using Discord.Addons.MpGame;
 using Discord.Commands;
 
@@ -30,15 +31,15 @@ namespace Examples.MpGame
         // You may have reasons to not annotate a particular method with [Command],
         // and you'll have to add MORE commands depending on the game
         [Command("opengame")]
-        public override async Task OpenGameCmd()
+        public override async Task OpenGameCmd()    
         {
-            if (GameInProgress != CurrentlyPlaying.None)
-            {
-                await ReplyAsync("Another game already in progress.").ConfigureAwait(false);
-            }
-            else if (OpenToJoin)
+            if (OpenToJoin)
             {
                 await ReplyAsync("There is already a game open to join.").ConfigureAwait(false);
+            }
+            else if (GameInProgress != CurrentlyPlaying.None)
+            {
+                await ReplyAsync("Another game already in progress.").ConfigureAwait(false);
             }
             else
             {
@@ -122,7 +123,7 @@ namespace Examples.MpGame
             {
                 await ReplyAsync("No game has been opened at this time.").ConfigureAwait(false);
             }
-            else if (JoinedUsers.Count < 4) // Example value if a game has a minimum player requirement
+            else if (JoinedUsers.Count < 2) // Example value if a game has a minimum player requirement
             {
                 await ReplyAsync("Not enough players have joined.").ConfigureAwait(false);
             }
@@ -169,5 +170,12 @@ namespace Examples.MpGame
                 : GameInProgress == CurrentlyPlaying.DifferentGame
                     ? ReplyAsync("Different game in progress.")
                     : ReplyAsync("No game in progress.");
+
+        protected override Task<IUserMessage> ReplyAsync(string message = null, bool isTTS = false, Embed embed = null, RequestOptions options = null)
+        {
+            return (Context is Discord.TestFramework.IOverrrideReply ovreply)
+                ? ovreply.ReplyAsync(message, isTTS, embed, options)
+                : base.ReplyAsync(message, isTTS, embed, options);
+        }
     }
 }

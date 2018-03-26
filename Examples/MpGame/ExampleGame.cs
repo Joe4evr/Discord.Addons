@@ -14,7 +14,7 @@ namespace Examples.MpGame
         internal GameState State { get; private set; } = GameState.Setup;
 
         public ExampleGame(IMessageChannel channel, IEnumerable<ExamplePlayer> players)
-            : base(channel, players)
+            : base(channel, players, setFirstPlayerImmediately: false)
         {
         }
 
@@ -41,7 +41,6 @@ namespace Examples.MpGame
         }
 
         // If you override EndGame() for your own behavior, you MUST call the base implementation
-
         //public override Task EndGame(string endmsg)
         //    => base.EndGame(endmsg);
 
@@ -53,6 +52,14 @@ namespace Examples.MpGame
                 .AppendLine($"The current phase is **{State}**");
 
             return sb.ToString();
+        }
+
+        // If you want to get fancy, you can build an embed
+        // instead of a string. It's not required to implement both
+        // but make sure you don't call the un-implemented one.
+        public override Embed GetGameStateEmbed()
+        {
+            throw new NotImplementedException();
         }
     }
 
