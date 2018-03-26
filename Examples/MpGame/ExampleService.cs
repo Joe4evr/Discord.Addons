@@ -8,7 +8,7 @@ namespace Examples.MpGame
 {
     public sealed class ExampleGameService : MpGameService<ExampleGame, ExamplePlayer>
     {
-        public ExampleGameService(DiscordSocketClient client)
+        public ExampleGameService(BaseSocketClient client)
             : base(client) { }
 
         internal IReadOnlyDictionary<IMessageChannel, DataType> DataDictionary { get; }

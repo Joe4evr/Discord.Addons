@@ -43,7 +43,7 @@ namespace Examples.MpGame
 
         private async Task InitCommands()
         {
-            await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
+            await _commands.AddModuleAsync<ExampleGameModule>(_services);
         }
     }
 }
