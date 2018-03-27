@@ -43,7 +43,7 @@ namespace Examples.MpGame
             }
             else
             {
-                if (GameService.OpenNewGame(Context))
+                if (await GameService.OpenNewGame(Context).ConfigureAwait(false))
                 {
                     await ReplyAsync("Opening for a game.").ConfigureAwait(false);
                 }
@@ -136,7 +136,7 @@ namespace Examples.MpGame
                     // The Player class can also be extended for additional properties
 
                     var game = new ExampleGame(Context.Channel, players);
-                    if (GameService.TryAddNewGame(Context.Channel, game))
+                    if (await GameService.TryAddNewGame(Context.Channel, game).ConfigureAwait(false))
                     {
                         await game.SetupGame().ConfigureAwait(false);
                         await game.StartGame().ConfigureAwait(false);
