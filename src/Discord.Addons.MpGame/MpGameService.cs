@@ -34,7 +34,7 @@ namespace Discord.Addons.MpGame
             Func<LogMessage, Task> logger = null)
         {
             Logger = logger ?? Extensions.NoOpLogger;
-            Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Registered service for {typeof(TGame).Name}"));
+            Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Registered service for {_gameName}"));
 
             client.ChannelDestroyed += CheckDestroyedChannel;
         }
@@ -50,12 +50,15 @@ namespace Discord.Addons.MpGame
         {
             if (_dataList.TryRemove(channel, out var data) is var success)
             {
+                await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", $"Cleaning up {_gameName} data for channel #{channel.Id}")).ConfigureAwait(false);
                 var tracker = GameTracker.Instance;
                 var channels = await Task.WhenAll(data.JoinedUsers.Select(u => u.GetOrCreateDMChannelAsync())).ConfigureAwait(false);
                 foreach (var ch in channels)
                 {
+                    await Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Removing DM channel #{ch.Id}")).ConfigureAwait(false);
                     tracker.TryRemoveGameChannel(ch);
                 }
+                await Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Removing game string for channel #{channel.Id}")).ConfigureAwait(false);
                 tracker.TryRemoveGameString(channel);
             }
             return success;
@@ -66,15 +69,16 @@ namespace Discord.Addons.MpGame
         /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
         public bool OpenNewGame(ICommandContext context)
         {
-            lock (_lock)
-            {
-                var tracker = GameTracker.Instance;
-                if (tracker.TryGetGameString(context.Channel, out var _))
+            var tracker = GameTracker.Instance;
+            if (tracker.TryGetGameString(context.Channel, out var _))
                 {
                     return false;
                 }
 
-                var data = new PersistentGameData(context.Channel, context.User);
+            //await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", $"Creating {_gameName} data for channel #{context.Channel.Id}")).ConfigureAwait(false);
+            lock (_lock)
+            {
+                var data = new PersistentGameData(context.Channel, context.User, this);
                 tracker.TryAddGameString(context.Channel, GameName);
                 data.NewPlayerList();
                 _dataList.AddOrUpdate(context.Channel, data, (k, v) => data);
@@ -199,8 +203,9 @@ namespace Discord.Addons.MpGame
         }
 
         //micro-optimization
-        private static readonly string _gameName = typeof(TGame).FullName;
-        internal string GameName => _gameName;
+        private static readonly string _gameName = typeof(TGame).Name;
+        private static readonly string _gameFullName = typeof(TGame).FullName;
+        internal string GameName => _gameFullName;
     }
 
     /// <summary> Service managing games for <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/>

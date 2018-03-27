@@ -13,6 +13,8 @@ namespace Discord.Addons.MpGame
     {
         internal sealed class PersistentGameData
         {
+            private readonly MpGameService<TGame, TPlayer> _service;
+
             internal bool OpenToJoin => _openToJoin > 0;
             private int _openToJoin = 0;
 
@@ -26,9 +28,10 @@ namespace Discord.Addons.MpGame
 
             internal IUser GameOrganizer { get; }
 
-            public PersistentGameData(IMessageChannel channel, IUser organizer)
+            public PersistentGameData(IMessageChannel channel, IUser organizer, MpGameService<TGame, TPlayer> service)
             {
                 _channel = channel;
+                _service = service;
                 GameOrganizer = organizer;
             }
 
@@ -46,13 +49,17 @@ namespace Discord.Addons.MpGame
 
             internal async Task<bool> TryAddUser(IUser user)
             {
-                return GameTracker.Instance.TryAddGameChannel(await user.GetOrCreateDMChannelAsync().ConfigureAwait(false), _channel)
+                var dmchannel = await user.GetOrCreateDMChannelAsync().ConfigureAwait(false);
+                await _service.Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Adding DM channel #{dmchannel.Id}")).ConfigureAwait(false);
+                return GameTracker.Instance.TryAddGameChannel(dmchannel, _channel)
                     && _builder.Add(user);
             }
 
             internal async Task<bool> TryRemoveUser(IUser user)
             {
-                return GameTracker.Instance.TryRemoveGameChannel(await user.GetOrCreateDMChannelAsync().ConfigureAwait(false))
+                var dmchannel = await user.GetOrCreateDMChannelAsync().ConfigureAwait(false);
+                await _service.Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Removing DM channel #{dmchannel.Id}")).ConfigureAwait(false);
+                return GameTracker.Instance.TryRemoveGameChannel(dmchannel)
                     && _builder.Remove(user);
             }
 
