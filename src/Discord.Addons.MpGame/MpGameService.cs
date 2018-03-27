@@ -23,9 +23,9 @@ namespace Discord.Addons.MpGame
         /// This is the same instance as <see cref="DiscordComparers.ChannelComparer"/>.</summary>
         protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = DiscordComparers.ChannelComparer;
 
-        private readonly object _lock = new object();
-        private readonly ConcurrentDictionary<IMessageChannel, PersistentGameData> _dataList
-            = new ConcurrentDictionary<IMessageChannel, PersistentGameData>(MessageChannelComparer);
+        //private readonly object _lock = new object();
+        private readonly ConcurrentDictionary<IMessageChannel, PersistentGameData> _dataList =
+            new ConcurrentDictionary<IMessageChannel, PersistentGameData>(MessageChannelComparer);
 
         protected internal Func<LogMessage, Task> Logger { get; }
 
@@ -34,7 +34,7 @@ namespace Discord.Addons.MpGame
             Func<LogMessage, Task> logger = null)
         {
             Logger = logger ?? Extensions.NoOpLogger;
-            Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Registered service for {_gameName}"));
+            Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Registered service for '{_gameName}'"));
 
             client.ChannelDestroyed += CheckDestroyedChannel;
         }
@@ -48,17 +48,18 @@ namespace Discord.Addons.MpGame
 
         private async Task<bool> OnGameEnd(IMessageChannel channel)
         {
-            if (_dataList.TryRemove(channel, out var data) is var success)
+            var success = _dataList.TryRemove(channel, out var data);
+            if (success)
             {
-                await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", $"Cleaning up {_gameName} data for channel #{channel.Id}")).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", $"Cleaning up '{_gameName}' data for channel: #{channel.Id}")).ConfigureAwait(false);
                 var tracker = GameTracker.Instance;
                 var channels = await Task.WhenAll(data.JoinedUsers.Select(u => u.GetOrCreateDMChannelAsync())).ConfigureAwait(false);
                 foreach (var ch in channels)
                 {
-                    await Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Removing DM channel #{ch.Id}")).ConfigureAwait(false);
+                    await Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Cleaning up DM channel key: #{ch.Id}")).ConfigureAwait(false);
                     tracker.TryRemoveGameChannel(ch);
                 }
-                await Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Removing game string for channel #{channel.Id}")).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Cleaning up game string for channel: #{channel.Id}")).ConfigureAwait(false);
                 tracker.TryRemoveGameString(channel);
             }
             return success;
@@ -67,62 +68,33 @@ namespace Discord.Addons.MpGame
         /// <summary> Prepare to set up a new game in a specified channel. </summary>
         /// <param name="context">Context of where this game is intended to be opened.</param>
         /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
-        public bool OpenNewGame(ICommandContext context)
+        public async Task<bool> OpenNewGame(ICommandContext context)
         {
-            var tracker = GameTracker.Instance;
-            if (tracker.TryGetGameString(context.Channel, out var _))
-                {
-                    return false;
-                }
-
-            //await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", $"Creating {_gameName} data for channel #{context.Channel.Id}")).ConfigureAwait(false);
-            lock (_lock)
+            if (GameTracker.Instance.TryAddGameString(context.Channel, GameName))
             {
+                await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", $"Creating '{_gameName}' data for channel: #{context.Channel.Id}")).ConfigureAwait(false);
                 var data = new PersistentGameData(context.Channel, context.User, this);
-                tracker.TryAddGameString(context.Channel, GameName);
-                data.NewPlayerList();
-                _dataList.AddOrUpdate(context.Channel, data, (k, v) => data);
-                return data.TryUpdateOpenToJoin(newValue: true, oldValue: false);
+                return _dataList.TryAdd(context.Channel, data)
+                    && data.TryUpdateOpenToJoin(newValue: true, oldValue: false);
             }
+            return false;
         }
 
         /// <summary> Add a user to join an unstarted game. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
         /// <param name="user">The user.</param>
         /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
-        public Task<bool> AddUser(IMessageChannel channel, IUser user)
-        {
-            if (TryGetPersistentData(channel, out var data))
-            {
-                lock (_lock)
-                {
-                    return data.TryAddUser(user);
-                }
-            }
-            else
-            {
-                return Task.FromResult(false);
-            }
-        }
+        public async Task<bool> AddUser(IMessageChannel channel, IUser user)
+            => TryGetPersistentData(channel, out var data)
+                && await data.TryAddUser(user);
 
         /// <summary> Remove a user from an unstarted game. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
         /// <param name="user">The user.</param>
         /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
-        public Task<bool> RemoveUser(IMessageChannel channel, IUser user)
-        {
-            if (TryGetPersistentData(channel, out var data))
-            {
-                lock (_lock)
-                {
-                    return data.TryRemoveUser(user);
-                }
-            }
-            else
-            {
-                return Task.FromResult(false);
-            }
-        }
+        public async Task<bool> RemoveUser(IMessageChannel channel, IUser user)
+            => TryGetPersistentData(channel, out var data)
+                && await data.TryRemoveUser(user);
 
         /// <summary> Cancel a game that has not yet started. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
@@ -134,10 +106,11 @@ namespace Discord.Addons.MpGame
         /// <param name="channel">Public facing channel of this game.</param>
         /// <param name="game">Instance of the game.</param>
         /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
-        public bool TryAddNewGame(IMessageChannel channel, TGame game)
+        public async Task<bool> TryAddNewGame(IMessageChannel channel, TGame game)
         {
             if (TryGetPersistentData(channel, out var data))
             {
+                await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", $"Setting game '{_gameName}' for channel: #{channel.Id}")).ConfigureAwait(false);
                 var gameSet = data.SetGame(game);
                 if (gameSet)
                 {
@@ -145,10 +118,7 @@ namespace Discord.Addons.MpGame
                 }
                 return gameSet;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         /// <summary> Updates the flag indicating if a game can be joined or not. </summary>
@@ -157,13 +127,8 @@ namespace Discord.Addons.MpGame
         /// <param name="comparisonValue">The value that should be compared against.</param>
         /// <returns><see cref="true"/> if the value was updated, otherwise <see cref="false"/>.</returns>
         public bool TryUpdateOpenToJoin(IMessageChannel channel, bool newValue, bool comparisonValue)
-        {
-            if (!TryGetPersistentData(channel, out var data))
-            {
-                return false;
-            }
-            return data.TryUpdateOpenToJoin(comparisonValue, newValue);
-        }
+            => TryGetPersistentData(channel, out var data)
+                && data.TryUpdateOpenToJoin(comparisonValue, newValue);
 
         /// <summary> Retrieve the game instance being played, if any. </summary>
         /// <param name="channel">A message channel. Can be both the public-facing channel

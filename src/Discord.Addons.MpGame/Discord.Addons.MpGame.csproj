@@ -3,7 +3,7 @@
     <PropertyGroup>
         <AssemblyName>Discord.Addons.MpGame</AssemblyName>
         <VersionPrefix>1.2.0</VersionPrefix>
-        <VersionSuffix>alpha2</VersionSuffix>
+        <VersionSuffix>alpha3</VersionSuffix>
         <Description>Base classes for text-based games in Discord</Description>
         <Authors>Joe4evr</Authors>
         <PackageTags>discord;commands;game</PackageTags>

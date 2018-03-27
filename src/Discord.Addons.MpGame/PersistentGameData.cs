@@ -42,11 +42,6 @@ namespace Discord.Addons.MpGame
                 return (Interlocked.CompareExchange(ref _openToJoin, value: newInt, comparand: oldInt) == oldInt);
             }
 
-            internal void NewPlayerList()
-            {
-                _builder = ImmutableHashSet.CreateBuilder<IUser>(DiscordComparers.UserComparer);
-            }
-
             internal async Task<bool> TryAddUser(IUser user)
             {
                 var dmchannel = await user.GetOrCreateDMChannelAsync().ConfigureAwait(false);
