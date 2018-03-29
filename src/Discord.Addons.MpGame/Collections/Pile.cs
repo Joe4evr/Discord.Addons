@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Discord.Addons.MpGame.Collections
 {
@@ -71,7 +72,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             get
             {
-                ThrowForFailedCheck(CanBrowse, "Not allowed to browse this instance.");
+                ThrowForFailedCheck(CanBrowse, ErrorStrings.NoBrowse);
 
                 return _pile.ToImmutableArray();
             }
@@ -105,7 +106,7 @@ namespace Discord.Addons.MpGame.Collections
         /// does not allow drawing cards.</exception>
         public TCard Draw()
         {
-            ThrowForFailedCheck(CanDraw, "Not allowed to draw on this instance.");
+            ThrowForFailedCheck(CanDraw, ErrorStrings.NoDraw);
 
             if (Count > 0)
             {
@@ -132,7 +133,7 @@ namespace Discord.Addons.MpGame.Collections
         /// does not allow peeking cards.</exception>
         public IReadOnlyCollection<TCard> PeekTop(int amount)
         {
-            ThrowForFailedCheck(CanPeek, "Not allowed to peek on this instance.");
+            ThrowForFailedCheck(CanPeek, ErrorStrings.NoPeek);
 
             if (amount < 0)
                 throw new ArgumentOutOfRangeException(message: "Parameter value may not be negative.", paramName: nameof(amount));
@@ -157,7 +158,7 @@ namespace Discord.Addons.MpGame.Collections
         /// allow placing cards onto it.</exception>
         public void Put(TCard card)
         {
-            ThrowForFailedCheck(CanPut, "Not allowed to put cards on top of this instance.");
+            ThrowForFailedCheck(CanPut, ErrorStrings.NoPut);
 
             _pile.Push(card);
             OnPut(card);
@@ -183,7 +184,7 @@ namespace Discord.Addons.MpGame.Collections
         /// allow inserting cards at an arbitrary location.</exception>
         public void InsertAt(TCard card, int index)
         {
-            ThrowForFailedCheck(CanInsert, "Not allowed to insert at arbitrary index on this instance.");
+            ThrowForFailedCheck(CanInsert, ErrorStrings.NoInsert);
 
             if (index < 0)
                 throw new ArgumentOutOfRangeException(message: "Insertion index may not be negative.", paramName: nameof(index));
@@ -218,7 +219,7 @@ namespace Discord.Addons.MpGame.Collections
         /// allow taking cards from an arbitrary location.</exception>
         public TCard TakeAt(int index)
         {
-            ThrowForFailedCheck(CanTake, "Not allowed to take from an arbitrary index on this instance.");
+            ThrowForFailedCheck(CanTake, ErrorStrings.NoTake);
 
             if (index < 0)
                 throw new ArgumentOutOfRangeException(message: "Retrieval index may not be negative.", paramName: nameof(index));
@@ -252,7 +253,7 @@ namespace Discord.Addons.MpGame.Collections
         /// does not allow clearing all cards.</exception>
         public IReadOnlyCollection<TCard> Clear()
         {
-            ThrowForFailedCheck(CanClear, "Not allowed to clear this instance.");
+            ThrowForFailedCheck(CanClear, ErrorStrings.NoClear);
 
             var result = _pile.ToImmutableArray();
             _pile.Clear();
@@ -263,15 +264,17 @@ namespace Discord.Addons.MpGame.Collections
         /// Reshuffles the pile using the specified function.
         /// Requires <see cref="CanShuffle"/>.
         /// </summary>
-        /// <param name="reshuffleFunc">The function that produces a
-        /// new <see cref="IEnumerable{TCard}"/> for the pile.</param>
+        /// <param name="shuffleFunc">A function that produces a
+        /// new <see cref="IEnumerable{TCard}"/> for the pile.
+        /// This function receives the cards currently in
+        /// the pile as its argument.</param>
         /// <exception cref="InvalidOperationException">The instance
         /// does not allow reshuffling the cards.</exception>
-        public void Reshuffle(Func<IEnumerable<TCard>> reshuffleFunc)
+        public void Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>> shuffleFunc)
         {
-            ThrowForFailedCheck(CanShuffle, "Not allowed to reshuffle this instance.");
+            ThrowForFailedCheck(CanShuffle, ErrorStrings.NoShuffle);
 
-            _pile = new Stack<TCard>(reshuffleFunc());
+            _pile = new Stack<TCard>(shuffleFunc(_pile.ToImmutableArray()));
         }
 
         /// <summary>
@@ -286,10 +289,23 @@ namespace Discord.Addons.MpGame.Collections
         /// </summary>
         protected virtual void OnPut(TCard card) { }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         private static void ThrowForFailedCheck(bool check, string message)
         {
             if (!check)
                 throw new InvalidOperationException(message);
         }
+    }
+
+    internal static class ErrorStrings
+    {
+        internal static readonly string NoBrowse  = "Not allowed to browse this instance.";
+        internal static readonly string NoClear   = "Not allowed to clear this instance.";
+        internal static readonly string NoDraw    = "Not allowed to draw on this instance.";
+        internal static readonly string NoInsert  = "Not allowed to insert at arbitrary index on this instance.";
+        internal static readonly string NoPeek    = "Not allowed to peek on this instance.";
+        internal static readonly string NoPut     = "Not allowed to put cards on top of this instance.";
+        internal static readonly string NoShuffle = "Not allowed to reshuffle this instance.";
+        internal static readonly string NoTake    = "Not allowed to take from an arbitrary index on this instance.";
     }
 }

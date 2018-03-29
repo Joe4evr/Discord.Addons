@@ -25,6 +25,11 @@ namespace Discord.Addons.MpGame
             Channel = channel ?? throw new ArgumentNullException(nameof(channel));
 
             Players = new CircularLinkedList<TPlayer>(players, MpGameComparers.PlayerComparer);
+            foreach (var p in Players)
+            {
+                p.AutoKick = (reason => RemovePlayer(p, reason));
+            }
+
             TurnPlayer = setFirstPlayerImmediately ? Players.Head : Node<TPlayer>.CreateNextOnlyNode(Players.Head);
         }
 
@@ -74,5 +79,25 @@ namespace Discord.Addons.MpGame
 
         private Func<IMessageChannel, Task> _gameEnd;
         internal Func<IMessageChannel, Task> GameEnd { set => _gameEnd = value; }
+
+        internal async Task<bool> RemovePlayer(TPlayer player, string reason)
+        {
+            var success = Players.RemoveItem(player);
+            if (success)
+            {
+                OnPlayerKicked(player);
+                GameTracker.Instance.TryRemoveGameChannel(await player.User.GetOrCreateDMChannelAsync().ConfigureAwait(false));
+                await Channel.SendMessageAsync(reason).ConfigureAwait(false);
+            }
+            return success;
+        }
+
+        /// <summary>
+        /// Gets called when a player is forcibly kicked,
+        /// allowing an opportunity to access some of their
+        /// properties to put back into the game.
+        /// </summary>
+        /// <param name="player">The player that was removed.</param>
+        protected virtual void OnPlayerKicked(TPlayer player) { }
     }
 }

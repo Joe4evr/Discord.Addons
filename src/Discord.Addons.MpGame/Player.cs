@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Discord.Net;
@@ -22,7 +23,7 @@ namespace Discord.Addons.MpGame
             PubChannel = channel ?? throw new ArgumentNullException(nameof(channel));
         }
 
-        private string _unsentDm;
+        private readonly Queue<string> _unsentDms = new Queue<string>();
 
         /// <summary> Sends a message to this <see cref="Player"/>'s DM Channel
         /// and will cache the message if the user has DMs disabled. </summary>
@@ -38,10 +39,16 @@ namespace Discord.Addons.MpGame
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
             {
-                if (text == null)
-                    _unsentDm = text;
+                _unsentDms.Enqueue(text);
 
-                await PubChannel.SendMessageAsync($"Player {User.Mention} has their DMs disabled. Please enable DMs.").ConfigureAwait(false);
+                if (ShouldKick(_unsentDms.Count))
+                {
+                    await _rmPlayer(DMsDisabledKickMessage()).ConfigureAwait(false);
+                }
+                else
+                {
+                    await PubChannel.SendMessageAsync(DMsDisabledMessage()).ConfigureAwait(false);
+                }
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.BadRequest) { }
         }
@@ -50,17 +57,23 @@ namespace Discord.Addons.MpGame
         {
             try
             {
-                if (_unsentDm != null)
-                {
-                    await User.SendMessageAsync(_unsentDm).ConfigureAwait(false);
-                    _unsentDm = null;
-                }
+                await User.SendMessageAsync(String.Join("\n", _unsentDms)).ConfigureAwait(false);
+                _unsentDms.Clear();
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
             {
-                await PubChannel.SendMessageAsync($"Player {User.Mention} has their DMs disabled. Please enable DMs.").ConfigureAwait(false);
+                await PubChannel.SendMessageAsync(DMsDisabledMessage()).ConfigureAwait(false);
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.BadRequest) { }
         }
+
+        protected virtual bool ShouldKick(int backstuffedDms) => false;
+        protected virtual string DMsDisabledMessage() => $"Player {User.Mention} has their DMs disabled. Please enable DMs and use the resend command if available.";
+        protected virtual string DMsDisabledKickMessage() => $"Player {User.Username} has been kicked for having DMs disabled too long.";
+
+
+        private Func<string, Task> _rmPlayer = _rmnoop;
+        internal Func<string, Task> AutoKick { set => _rmPlayer = value; }
+        private static readonly Func<string, Task> _rmnoop = (_ => Task.CompletedTask);
     }
 }

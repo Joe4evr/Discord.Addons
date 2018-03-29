@@ -29,13 +29,24 @@ namespace Discord.Addons.MpGame
 
         protected internal Func<LogMessage, Task> Logger { get; }
 
-        public MpGameService(
-            BaseSocketClient client,
-            Func<LogMessage, Task> logger = null)
-        {
-            Logger = logger ?? Extensions.NoOpLogger;
-            Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Registered service for '{_gameName}'"));
+        private readonly IServiceStrings _strings;
 
+        public MpGameService(
+#if TEST
+            IDiscordClient iclient,
+#else
+            BaseSocketClient client,
+#endif
+            Func<LogMessage, Task> logger = null,
+            IServiceStrings strings = null)
+        {
+            _strings = strings ?? DefaultStrings.Instance;
+            Logger = logger ?? Extensions.NoOpLogger;
+            Logger(new LogMessage(LogSeverity.Debug, "MpGame", _strings.LogRegistration(_gameName)));
+
+#if TEST
+            //if (iclient is BaseSocketClient client)
+#endif
             client.ChannelDestroyed += CheckDestroyedChannel;
         }
 
@@ -51,15 +62,15 @@ namespace Discord.Addons.MpGame
             var success = _dataList.TryRemove(channel, out var data);
             if (success)
             {
-                await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", $"Cleaning up '{_gameName}' data for channel: #{channel.Id}")).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", _strings.CleaningGameData(_gameName, channel))).ConfigureAwait(false);
                 var tracker = GameTracker.Instance;
                 var channels = await Task.WhenAll(data.JoinedUsers.Select(u => u.GetOrCreateDMChannelAsync())).ConfigureAwait(false);
                 foreach (var ch in channels)
                 {
-                    await Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Cleaning up DM channel key: #{ch.Id}")).ConfigureAwait(false);
+                    await Logger(new LogMessage(LogSeverity.Debug, "MpGame", _strings.CleaningDMChannel(ch))).ConfigureAwait(false);
                     tracker.TryRemoveGameChannel(ch);
                 }
-                await Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Cleaning up game string for channel: #{channel.Id}")).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Debug, "MpGame", _strings.CleaningGameString(channel))).ConfigureAwait(false);
                 tracker.TryRemoveGameString(channel);
             }
             return success;
@@ -72,7 +83,7 @@ namespace Discord.Addons.MpGame
         {
             if (GameTracker.Instance.TryAddGameString(context.Channel, GameName))
             {
-                await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", $"Creating '{_gameName}' data for channel: #{context.Channel.Id}")).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", _strings.CreatingGame(_gameName, context.Channel))).ConfigureAwait(false);
                 var data = new PersistentGameData(context.Channel, context.User, this);
                 return _dataList.TryAdd(context.Channel, data)
                     && data.TryUpdateOpenToJoin(newValue: true, oldValue: false);
@@ -96,6 +107,13 @@ namespace Discord.Addons.MpGame
             => TryGetPersistentData(channel, out var data)
                 && await data.TryRemoveUser(user);
 
+        /// <summary> Kicks a player from an ongoing game. </summary>
+        /// <param name="game">The game instance.</param>
+        /// <param name="player">The player to kick.</param>
+        /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
+        public Task<bool> KickPlayer(TGame game, TPlayer player)
+            => game.RemovePlayer(player, _strings.PlayerKicked(player.User));
+
         /// <summary> Cancel a game that has not yet started. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
         /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
@@ -110,7 +128,7 @@ namespace Discord.Addons.MpGame
         {
             if (TryGetPersistentData(channel, out var data))
             {
-                await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", $"Setting game '{_gameName}' for channel: #{channel.Id}")).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", _strings.SettingGame(_gameName, channel))).ConfigureAwait(false);
                 var gameSet = data.SetGame(game);
                 if (gameSet)
                 {
@@ -181,7 +199,8 @@ namespace Discord.Addons.MpGame
     {
         public MpGameService(
             BaseSocketClient client,
-            Func<LogMessage, Task> logger = null)
-            : base(client, logger) { }
+            Func<LogMessage, Task> logger = null,
+            IServiceStrings strings = null)
+            : base(client, logger, strings) { }
     }
 }

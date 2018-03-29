@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using Discord.Addons.Core;
 
 namespace Discord.Addons.MpGame
@@ -14,6 +15,8 @@ namespace Discord.Addons.MpGame
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal IEqualityComparer<T> Comparer { get; }
+
+        private readonly object _lock = new object();
 
         /// <summary> Initializes a new instance of <see cref="CircularLinkedList{T}"/> </summary>
         /// <param name="collection">Collection of objects that will be added to linked list</param>
@@ -34,7 +37,7 @@ namespace Discord.Addons.MpGame
                     AddLast(item);
             }
 
-            Count = collection?.Count() ?? 0;
+            _count = collection?.Count() ?? 0;
         }
 
         /// <summary> Gets Tail node. Returns <see langword="null"/> if no tail node found </summary>
@@ -44,7 +47,8 @@ namespace Discord.Addons.MpGame
         public Node<T> Head { get; private set; }
 
         /// <summary> Gets total number of items in the list </summary>
-        public int Count { get; }
+        public int Count => _count;
+        private int _count;
 
         /// <summary> Gets the item at the current index </summary>
         /// <param name="index">Zero-based index</param>
@@ -210,6 +214,22 @@ namespace Discord.Addons.MpGame
         /// <returns>TRUE if item exist, else FALSE</returns>
         public bool Contains(T item)
             => Find(item) != null;
+
+        internal bool RemoveItem(T item)
+        {
+            lock(_lock)
+            {
+                var temp = Find(item);
+                if (temp != null)
+                {
+                    temp.Previous.Next = temp.Next;
+                    temp.Next.Previous = temp.Previous;
+                    Interlocked.Decrement(ref _count);
+                    return true;
+                }
+            }
+            return false;
+        }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
             => GetEnumerator();

@@ -51,7 +51,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <summary>
         /// Takes a card from the given index.
         /// </summary>
-        /// <param name="index">The index to insert at.</param>
+        /// <param name="index">The index of the card to take.</param>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>
         /// was less than 0 or greater than the pile's current size.</exception>
         public TCard TakeAt(int index)
@@ -63,6 +63,25 @@ namespace Discord.Addons.MpGame.Collections
 
             var tmp = _hand[index];
             _hand.RemoveAt(index);
+            return tmp;
+        }
+
+        /// <summary>
+        /// Takes the first card that matches a given predicate.
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns>The card, or <see cref="null"/> if no match found.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="predicate"/> was <see cref="null"/>.</exception>
+        public TCard TakeFirstOrDefault(Func<TCard, bool> predicate)
+        {
+            if (predicate == null)
+                throw new ArgumentNullException(nameof(predicate));
+
+            var tmp = _hand.FirstOrDefault(predicate);
+            if (tmp != null)
+            {
+                _hand.Remove(tmp);
+            }
             return tmp;
         }
 
