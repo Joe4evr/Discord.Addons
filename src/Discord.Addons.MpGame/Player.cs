@@ -23,23 +23,20 @@ namespace Discord.Addons.MpGame
             PubChannel = channel ?? throw new ArgumentNullException(nameof(channel));
         }
 
-        private readonly Queue<string> _unsentDms = new Queue<string>();
+        private readonly Queue<(string text, Embed embed)> _unsentDms = new Queue<(string, Embed)>();
 
         /// <summary> Sends a message to this <see cref="Player"/>'s DM Channel
         /// and will cache the message if the user has DMs disabled. </summary>
         /// <param name="text">The text to send.</param>
-        public async Task SendMessageAsync(string text)
+        public async Task SendMessageAsync(string text, Embed embed = null)
         {
             try
             {
-                if (text != null)
-                {
-                    await User.SendMessageAsync(text).ConfigureAwait(false);
-                }
+                await User.SendMessageAsync(text, embed: embed).ConfigureAwait(false);
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
             {
-                _unsentDms.Enqueue(text);
+                _unsentDms.Enqueue((text, embed));
 
                 if (ShouldKick(_unsentDms.Count))
                 {
@@ -57,8 +54,11 @@ namespace Discord.Addons.MpGame
         {
             try
             {
-                await User.SendMessageAsync(String.Join("\n", _unsentDms)).ConfigureAwait(false);
-                _unsentDms.Clear();
+                while (_unsentDms.Count > 0)
+                {
+                    var (t, e) = _unsentDms.Dequeue();
+                    await User.SendMessageAsync(t, embed: e).ConfigureAwait(false);
+                }
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
             {
