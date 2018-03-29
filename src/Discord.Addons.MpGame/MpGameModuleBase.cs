@@ -116,7 +116,7 @@ namespace Discord.Addons.MpGame
         public virtual Task ResendCmd()
         {
             return (GameInProgress == CurrentlyPlaying.ThisGame && Player != null)
-                ? Player.RetrySendMessageAsync()
+                ? Player.RetrySendMessagesAsync()
                 : Task.CompletedTask;
         }
     }

@@ -28,11 +28,13 @@ namespace Discord.Addons.MpGame
         /// <summary> Sends a message to this <see cref="Player"/>'s DM Channel
         /// and will cache the message if the user has DMs disabled. </summary>
         /// <param name="text">The text to send.</param>
-        public async Task SendMessageAsync(string text, Embed embed = null)
+        /// <returns>The message that is sent, or
+        /// <see cref="null"/> if it couldn't be sent.</returns>
+        public async Task<IUserMessage> SendMessageAsync(string text, Embed embed = null)
         {
             try
             {
-                await User.SendMessageAsync(text, embed: embed).ConfigureAwait(false);
+                return await User.SendMessageAsync(text, embed: embed).ConfigureAwait(false);
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
             {
@@ -48,9 +50,10 @@ namespace Discord.Addons.MpGame
                 }
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.BadRequest) { }
+            return null;
         }
 
-        internal async Task RetrySendMessageAsync()
+        internal async Task RetrySendMessagesAsync()
         {
             try
             {
