@@ -9,7 +9,8 @@ namespace Discord.Addons.Core
 {
     internal static class Extensions
     {
-        public static Func<LogMessage, Task> NoOpLogger { get; } = (_ => Task.CompletedTask);
+        public static Func<LogMessage, Task> NoOpLogger   { get; } = (_ => Task.CompletedTask);
+        public static Func<string, Task> NoOpStringToTask { get; } = (_ => Task.CompletedTask);
 
         internal static string ToNiceString(this TimeSpan ts)
         {
