@@ -29,7 +29,7 @@ namespace Discord.Addons.MpGame
         }
 
         /// <summary> The channel where the public-facing side of the game is played. </summary>
-        protected IMessageChannel Channel { get; }
+        protected internal IMessageChannel Channel { get; }
 
         /// <summary> Represents all the players in this game. </summary>
         protected internal CircularLinkedList<TPlayer> Players { get; }
@@ -72,17 +72,12 @@ namespace Discord.Addons.MpGame
         /// <see cref="GetGameState"/> is used.</remarks>
         public abstract Embed GetGameStateEmbed();
 
-        internal async Task<bool> RemovePlayer(TPlayer player, string reason)
-        {
-            var success = Players.RemoveItem(player);
-            if (success)
-            {
-                OnPlayerKicked(player);
-                GameTracker.Instance.TryRemoveGameChannel(await player.User.GetOrCreateDMChannelAsync().ConfigureAwait(false));
-                await Channel.SendMessageAsync(reason).ConfigureAwait(false);
-            }
-            return success;
-        }
+        /// <summary>
+        /// Gets called when a player is added into an ongoing game,
+        /// allowing an opportunity to add properties to the player.
+        /// </summary>
+        /// <param name="player">The player that was added.</param>
+        protected internal virtual void OnPlayerAdded(TPlayer player) { }
 
         /// <summary>
         /// Gets called when a player is forcibly kicked,
@@ -90,7 +85,7 @@ namespace Discord.Addons.MpGame
         /// properties to put back into the game.
         /// </summary>
         /// <param name="player">The player that was removed.</param>
-        protected virtual void OnPlayerKicked(TPlayer player) { }
+        protected internal virtual void OnPlayerKicked(TPlayer player) { }
 
         internal Func<IMessageChannel, Task> GameEnd { private get; set; }
     }

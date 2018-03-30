@@ -29,6 +29,8 @@ public class MpGameService<TGame, TPlayer>
 
     public Task<bool> RemoveUser(IMessageChannel channel, IUser user);
 
+    public Task<bool> AddPlayer(TGame game, TPlayer player);
+
     public Task<bool> KickPlayer(TGame game, TPlayer player);
 
     public bool CancelGame(IMessageChannel channel);

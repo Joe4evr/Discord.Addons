@@ -20,6 +20,8 @@ public abstract class GameBase<TPlayer>
 
     protected bool IsTurnPlayerLastPlayer();
 
+    protected virtual void OnPlayerAdded(TPlayer player);
+
     protected virtual void OnPlayerKicked(TPlayer player);
 
     public abstract string GetGameState();

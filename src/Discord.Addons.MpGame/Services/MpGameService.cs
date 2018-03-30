@@ -109,12 +109,39 @@ namespace Discord.Addons.MpGame
             => TryGetPersistentData(channel, out var data)
                 && await data.TryRemoveUser(user);
 
+        /// <summary> Adds a player to an ongoing game. </summary>
+        /// <param name="game">The game instance.</param>
+        /// <param name="player">The player to add.</param>
+        /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
+        public async Task<bool> AddPlayer(TGame game, TPlayer player)
+        {
+            if (!GameTracker.Instance.TryGetGameChannel(await player.User.GetOrCreateDMChannelAsync().ConfigureAwait(false), out var _))
+            {
+                PrepPlayer(game, player, addedInOngoig: true);
+                game.Players.AddLast(player);
+                return true;
+            }
+            return false;
+        }
+
         /// <summary> Kicks a player from an ongoing game. </summary>
         /// <param name="game">The game instance.</param>
         /// <param name="player">The player to kick.</param>
         /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
         public Task<bool> KickPlayer(TGame game, TPlayer player)
-            => game.RemovePlayer(player, _strings.PlayerKicked(player.User));
+            => RemovePlayer(game, player, _strings.PlayerKicked(player.User));
+
+        private async Task<bool> RemovePlayer(TGame game, TPlayer player, string reason)
+        {
+            var success = game.Players.RemoveItem(player);
+            if (success)
+            {
+                game.OnPlayerKicked(player);
+                GameTracker.Instance.TryRemoveGameChannel(await player.User.GetOrCreateDMChannelAsync().ConfigureAwait(false));
+                await game.Channel.SendMessageAsync(reason).ConfigureAwait(false);
+            }
+            return success;
+        }
 
         /// <summary> Cancel a game that has not yet started. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
@@ -136,15 +163,25 @@ namespace Discord.Addons.MpGame
                 {
                     foreach (var player in game.Players)
                     {
-                        player.AutoKickCallback = (reason => game.RemovePlayer(player, reason));
-                        player.DMsDisabledMessage = _strings.DMsDisabledMessage(player.User);
-                        player.DMsDisabledKickMessage = _strings.DMsDisabledKickMessage(player.User);
+                        PrepPlayer(game, player, addedInOngoig: false);
                     }
                     game.GameEnd = OnGameEnd;
                 }
                 return gameSet;
             }
             return false;
+        }
+
+        private void PrepPlayer(TGame game, TPlayer player, bool addedInOngoig)
+        {
+            player.AutoKickCallback = (reason => RemovePlayer(game, player, reason));
+            player.DMsDisabledMessage = _strings.DMsDisabledMessage(player.User);
+            player.DMsDisabledKickMessage = _strings.DMsDisabledKickMessage(player.User);
+
+            if (addedInOngoig)
+            {
+                game.OnPlayerAdded(player);
+            }
         }
 
         /// <summary> Updates the flag indicating if a game can be joined or not. </summary>

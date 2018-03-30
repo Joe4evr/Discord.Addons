@@ -71,7 +71,7 @@ namespace Discord.Addons.MpGame
 
         /// <summary> Add a new item to the end of the list </summary>
         /// <param name="item">Item to be added</param>
-        private void AddLast(T item)
+        internal void AddLast(T item)
         {
             // if head is null, then this will be the first item
             if (Head == null)
