@@ -11,8 +11,17 @@ namespace Discord.Addons.MpGame
         /// <summary> The singleton-instance of this class. </summary>
         /// <remarks>This feels so dirty, but it's hard to think of a way that
         /// doesn't also leak the implementation to end-users.</remarks>
-        public static GameTracker Instance => _lazy.Value;
-        private static readonly Lazy<GameTracker> _lazy = new Lazy<GameTracker>(() => new GameTracker(), LazyThreadSafetyMode.PublicationOnly);
+        public static GameTracker Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    Interlocked.CompareExchange(ref _instance, new GameTracker(), null);
+
+                return _instance;
+            }
+        }
+        private static GameTracker _instance;
 
         private GameTracker() { }
 

@@ -20,6 +20,13 @@ namespace Discord.Addons.MpGame
         /// <summary> The GameService instance. </summary>
         protected TService GameService { get; }
 
+        /// <summary> Initializes the <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/> base class. </summary>
+        /// <param name="gameService"></param>
+        protected MpGameModuleBase(TService gameService)
+        {
+            GameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
+        }
+
         // TODO: C# "who-knows-when" feature, nullability annotation
         /// <summary> The instance of the game being played (if active). </summary>
         protected TGame Game { get; private set; }
@@ -36,13 +43,6 @@ namespace Discord.Addons.MpGame
 
         /// <summary> The list of users ready to play. </summary>
         protected IReadOnlyCollection<IUser> JoinedUsers { get; private set; } = ImmutableHashSet<IUser>.Empty;
-
-        /// <summary> Initializes the <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/> base class. </summary>
-        /// <param name="gameService"></param>
-        protected MpGameModuleBase(TService gameService)
-        {
-            GameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
-        }
 
         /// <summary> Initialize fields whose values come from the <see cref="TService"/>'s Dictionaries. </summary>
         protected override void BeforeExecute(CommandInfo command)
@@ -82,7 +82,7 @@ namespace Discord.Addons.MpGame
 
             if (RegisterPlayerTypeReader)
             {
-                GameService.Logger(new LogMessage(LogSeverity.Info, "MpGame", $"Registering type reader for {typeof(TPlayer).Name}"));
+                GameService.Logger(new LogMessage(LogSeverity.Info, MpGameService<TGame, TPlayer>.LogSource, $"Registering type reader for {typeof(TPlayer).Name}"));
                 commandService.AddTypeReader<TPlayer>(new PlayerTypeReader());
             }
         }
@@ -112,7 +112,6 @@ namespace Discord.Addons.MpGame
         public abstract Task EndGameCmd();
 
         /// <summary> Command to resend a message to someone who had their DMs disabled. </summary>
-        //[Command("resend")]
         public virtual Task ResendCmd()
         {
             return (GameInProgress == CurrentlyPlaying.ThisGame && Player != null)

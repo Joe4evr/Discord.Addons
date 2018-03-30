@@ -25,11 +25,6 @@ namespace Discord.Addons.MpGame
             Channel = channel ?? throw new ArgumentNullException(nameof(channel));
 
             Players = new CircularLinkedList<TPlayer>(players, MpGameComparers.PlayerComparer);
-            foreach (var p in Players)
-            {
-                p.AutoKick = (reason => RemovePlayer(p, reason));
-            }
-
             TurnPlayer = setFirstPlayerImmediately ? Players.Head : Node<TPlayer>.CreateNextOnlyNode(Players.Head);
         }
 
@@ -64,7 +59,7 @@ namespace Discord.Addons.MpGame
         public virtual async Task EndGame(string endmsg)
         {
             await Channel.SendMessageAsync(endmsg).ConfigureAwait(false);
-            await _gameEnd(Channel).ConfigureAwait(false);
+            await GameEnd(Channel).ConfigureAwait(false);
         }
 
         /// <summary> Get a string that represents the state of the game. </summary>
@@ -76,9 +71,6 @@ namespace Discord.Addons.MpGame
         /// <remarks>Does not *need* to be implemented if
         /// <see cref="GetGameState"/> is used.</remarks>
         public abstract Embed GetGameStateEmbed();
-
-        private Func<IMessageChannel, Task> _gameEnd;
-        internal Func<IMessageChannel, Task> GameEnd { set => _gameEnd = value; }
 
         internal async Task<bool> RemovePlayer(TPlayer player, string reason)
         {
@@ -99,5 +91,7 @@ namespace Discord.Addons.MpGame
         /// </summary>
         /// <param name="player">The player that was removed.</param>
         protected virtual void OnPlayerKicked(TPlayer player) { }
+
+        internal Func<IMessageChannel, Task> GameEnd { private get; set; }
     }
 }

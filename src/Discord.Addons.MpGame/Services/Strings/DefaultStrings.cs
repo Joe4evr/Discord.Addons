@@ -16,5 +16,7 @@ namespace Discord.Addons.MpGame
         string IServiceStrings.CreatingGame(string gameName, IMessageChannel channel) => $"Creating '{gameName}' data for channel: #{channel.Id}";
         string IServiceStrings.PlayerKicked(IUser user) => $"Player '{user.Username}' kicked";
         string IServiceStrings.SettingGame(string gameName, IMessageChannel channel) => $"Setting game '{gameName}' for channel: #{channel.Id}";
+        string IServiceStrings.DMsDisabledMessage(IUser user) => $"Player {user.Mention} has their DMs disabled. Please enable DMs and use the resend command if available.";
+        string IServiceStrings.DMsDisabledKickMessage(IUser user) => $"Player '{user.Username}' has been kicked for having DMs disabled too long.";
     }
 }

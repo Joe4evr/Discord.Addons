@@ -18,6 +18,8 @@ namespace Discord.Addons.MpGame
         where TGame   : GameBase<TPlayer>
         where TPlayer : Player
     {
+        internal const string LogSource = "MpGame";
+
         /// <summary> A cached IEqualityComparer&lt;<see cref="IMessageChannel"/>&gt;instance to use when
         /// instantiating a <see cref="Dictionary{TKey, TValue}"/> using <see cref="IMessageChannel"/> as the key.
         /// This is the same instance as <see cref="DiscordComparers.ChannelComparer"/>.</summary>
@@ -42,7 +44,7 @@ namespace Discord.Addons.MpGame
         {
             _strings = strings ?? DefaultStrings.Instance;
             Logger = logger ?? Extensions.NoOpLogger;
-            Logger(new LogMessage(LogSeverity.Debug, "MpGame", _strings.LogRegistration(_gameName)));
+            Logger(new LogMessage(LogSeverity.Debug, LogSource, _strings.LogRegistration(_gameName)));
 
 #if TEST
             if (iclient is BaseSocketClient client)
@@ -62,15 +64,15 @@ namespace Discord.Addons.MpGame
             var success = _dataList.TryRemove(channel, out var data);
             if (success)
             {
-                await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", _strings.CleaningGameData(_gameName, channel))).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Verbose, LogSource, _strings.CleaningGameData(_gameName, channel))).ConfigureAwait(false);
                 var tracker = GameTracker.Instance;
                 var channels = await Task.WhenAll(data.JoinedUsers.Select(u => u.GetOrCreateDMChannelAsync())).ConfigureAwait(false);
                 foreach (var ch in channels)
                 {
-                    await Logger(new LogMessage(LogSeverity.Debug, "MpGame", _strings.CleaningDMChannel(ch))).ConfigureAwait(false);
+                    await Logger(new LogMessage(LogSeverity.Debug, LogSource, _strings.CleaningDMChannel(ch))).ConfigureAwait(false);
                     tracker.TryRemoveGameChannel(ch);
                 }
-                await Logger(new LogMessage(LogSeverity.Debug, "MpGame", _strings.CleaningGameString(channel))).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Debug, LogSource, _strings.CleaningGameString(channel))).ConfigureAwait(false);
                 tracker.TryRemoveGameString(channel);
             }
             return success;
@@ -83,7 +85,7 @@ namespace Discord.Addons.MpGame
         {
             if (GameTracker.Instance.TryAddGameString(context.Channel, GameName))
             {
-                await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", _strings.CreatingGame(_gameName, context.Channel))).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Verbose, LogSource, _strings.CreatingGame(_gameName, context.Channel))).ConfigureAwait(false);
                 var data = new PersistentGameData(context.Channel, context.User, this);
                 return _dataList.TryAdd(context.Channel, data)
                     && data.TryUpdateOpenToJoin(newValue: true, oldValue: false);
@@ -128,10 +130,16 @@ namespace Discord.Addons.MpGame
         {
             if (TryGetPersistentData(channel, out var data))
             {
-                await Logger(new LogMessage(LogSeverity.Verbose, "MpGame", _strings.SettingGame(_gameName, channel))).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Verbose, LogSource, _strings.SettingGame(_gameName, channel))).ConfigureAwait(false);
                 var gameSet = data.SetGame(game);
                 if (gameSet)
                 {
+                    foreach (var player in game.Players)
+                    {
+                        player.AutoKickCallback = (reason => game.RemovePlayer(player, reason));
+                        player.DMsDisabledMessage = _strings.DMsDisabledMessage(player.User);
+                        player.DMsDisabledKickMessage = _strings.DMsDisabledKickMessage(player.User);
+                    }
                     game.GameEnd = OnGameEnd;
                 }
                 return gameSet;

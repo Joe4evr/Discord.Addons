@@ -6,22 +6,25 @@ namespace Discord.Addons.MpGame
 {
     public interface IServiceStrings
     {
-        //ctor
+        //MpGameService.ctor()
         string LogRegistration(string gameName);
 
-        //OnGameEnd
+        //MpGameService.OnGameEnd()
         string CleaningGameData(string gameName, IMessageChannel channel);
         string CleaningDMChannel(IDMChannel channel);
         string CleaningGameString(IMessageChannel channel);
 
-        //OpenNewGame
+        //MpGameService.OpenNewGame()
         string CreatingGame(string gameName, IMessageChannel channel);
 
-        //RemoveUser
+        //MpGameService.RemoveUser()
         string PlayerKicked(IUser user);
 
-        //TryAddNewGame
+        //MpGameService.TryAddNewGame()
         string SettingGame(string gameName, IMessageChannel channel);
 
+        //Player.cs
+        string DMsDisabledMessage(IUser user);
+        string DMsDisabledKickMessage(IUser user);
     }
 }

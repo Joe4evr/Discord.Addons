@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Discord.Net;
+using Discord.Addons.Core;
 
 namespace Discord.Addons.MpGame
 {
     /// <summary> Represents a Discord user as a Player </summary>
     public class Player
     {
-        /// <summary> The underlying <see cref="IUser"/> instance. </summary>
-        public IUser User { get; }
-
-        private IMessageChannel PubChannel { get; }
+        private readonly Queue<(string text, Embed embed)> _unsentDms = new Queue<(string, Embed)>();
 
         /// <summary> Creates a <see cref="Player"/> out of an <see cref="IUser"/>. </summary>
         /// <param name="user">The user represented.</param>
@@ -23,7 +21,14 @@ namespace Discord.Addons.MpGame
             PubChannel = channel ?? throw new ArgumentNullException(nameof(channel));
         }
 
-        private readonly Queue<(string text, Embed embed)> _unsentDms = new Queue<(string, Embed)>();
+        /// <summary> The underlying <see cref="IUser"/> instance. </summary>
+        public IUser User { get; }
+
+        private IMessageChannel PubChannel { get; }
+
+        internal string DMsDisabledMessage           { private get; set; } = String.Empty;
+        internal string DMsDisabledKickMessage       { private get; set; } = String.Empty;
+        internal Func<string, Task> AutoKickCallback { private get; set; } = Extensions.NoOpStringToTask;
 
         /// <summary> Sends a message to this <see cref="Player"/>'s DM Channel
         /// and will cache the message if the user has DMs disabled. </summary>
@@ -42,16 +47,28 @@ namespace Discord.Addons.MpGame
 
                 if (ShouldKick(_unsentDms.Count))
                 {
-                    await _rmPlayer(DMsDisabledKickMessage()).ConfigureAwait(false);
+                    if (!String.IsNullOrWhiteSpace(DMsDisabledKickMessage))
+                        await AutoKickCallback(DMsDisabledKickMessage).ConfigureAwait(false);
                 }
                 else
                 {
-                    await PubChannel.SendMessageAsync(DMsDisabledMessage()).ConfigureAwait(false);
+                    if (!String.IsNullOrWhiteSpace(DMsDisabledMessage))
+                        await PubChannel.SendMessageAsync(DMsDisabledMessage).ConfigureAwait(false);
                 }
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.BadRequest) { }
             return null;
         }
+
+        /// <summary> Can be overriden to determine if
+        /// a player should be kicked for not
+        /// having DMs enabled for too long. </summary>
+        /// <param name="backstuffedDms">The amount of DMs that are
+        /// currently not sent to this player.</param>
+        /// <returns><see cref="true"/> if the player should be kicked,
+        /// otherwise <see cref="false"/>.</returns>
+        /// <remarks>The default implementation always returns <see cref="false"/>.</remarks>
+        protected virtual bool ShouldKick(int backstuffedDms) => false;
 
         internal async Task RetrySendMessagesAsync()
         {
@@ -65,18 +82,10 @@ namespace Discord.Addons.MpGame
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
             {
-                await PubChannel.SendMessageAsync(DMsDisabledMessage()).ConfigureAwait(false);
+                if (!String.IsNullOrWhiteSpace(DMsDisabledMessage))
+                    await PubChannel.SendMessageAsync(DMsDisabledMessage).ConfigureAwait(false);
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.BadRequest) { }
         }
-
-        protected virtual bool ShouldKick(int backstuffedDms) => false;
-        protected virtual string DMsDisabledMessage() => $"Player {User.Mention} has their DMs disabled. Please enable DMs and use the resend command if available.";
-        protected virtual string DMsDisabledKickMessage() => $"Player {User.Username} has been kicked for having DMs disabled too long.";
-
-
-        private Func<string, Task> _rmPlayer = _rmnoop;
-        internal Func<string, Task> AutoKick { set => _rmPlayer = value; }
-        private static readonly Func<string, Task> _rmnoop = (_ => Task.CompletedTask);
     }
 }

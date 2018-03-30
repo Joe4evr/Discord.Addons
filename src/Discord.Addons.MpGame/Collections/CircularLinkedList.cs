@@ -40,10 +40,10 @@ namespace Discord.Addons.MpGame
             _count = collection?.Count() ?? 0;
         }
 
-        /// <summary> Gets Tail node. Returns <see langword="null"/> if no tail node found </summary>
+        /// <summary> Gets Tail node. Returns <see cref="null"/> if no tail node found </summary>
         public Node<T> Tail { get; private set; }
 
-        /// <summary> Gets the head node. Returns <see langword="null"/> if no node found </summary>
+        /// <summary> Gets the head node. Returns <see cref="null"/> if no node found </summary>
         public Node<T> Head { get; private set; }
 
         /// <summary> Gets total number of items in the list </summary>

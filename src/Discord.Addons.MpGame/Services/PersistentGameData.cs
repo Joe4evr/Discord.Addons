@@ -45,7 +45,7 @@ namespace Discord.Addons.MpGame
             internal async Task<bool> TryAddUser(IUser user)
             {
                 var dmchannel = await user.GetOrCreateDMChannelAsync().ConfigureAwait(false);
-                await _service.Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Adding DM channel #{dmchannel.Id}")).ConfigureAwait(false);
+                await _service.Logger(new LogMessage(LogSeverity.Debug, LogSource, $"Adding DM channel #{dmchannel.Id}")).ConfigureAwait(false);
                 return GameTracker.Instance.TryAddGameChannel(dmchannel, _channel)
                     && _builder.Add(user);
             }
@@ -53,7 +53,7 @@ namespace Discord.Addons.MpGame
             internal async Task<bool> TryRemoveUser(IUser user)
             {
                 var dmchannel = await user.GetOrCreateDMChannelAsync().ConfigureAwait(false);
-                await _service.Logger(new LogMessage(LogSeverity.Debug, "MpGame", $"Removing DM channel #{dmchannel.Id}")).ConfigureAwait(false);
+                await _service.Logger(new LogMessage(LogSeverity.Debug, LogSource, $"Removing DM channel #{dmchannel.Id}")).ConfigureAwait(false);
                 return GameTracker.Instance.TryRemoveGameChannel(dmchannel)
                     && _builder.Remove(user);
             }

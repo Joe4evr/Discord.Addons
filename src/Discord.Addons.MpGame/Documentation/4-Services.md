@@ -18,13 +18,18 @@ public class MpGameService<TGame, TPlayer>
 
     protected Func<LogMessage, Task> Logger { get; }
 
-    public MpGameService(BaseSocketClient client, Func<LogMessage, Task> logger = null);
+    public MpGameService(
+        BaseSocketClient client,
+        Func<LogMessage, Task> logger = null,
+        IServiceStrings strings = null);
 
     public bool OpenNewGame(ICommandContext context);
 
     public Task<bool> AddUser(IMessageChannel channel, IUser user);
 
     public Task<bool> RemoveUser(IMessageChannel channel, IUser user);
+
+    public Task<bool> KickPlayer(TGame game, TPlayer player);
 
     public bool CancelGame(IMessageChannel channel);
 
@@ -67,11 +72,16 @@ can listen for the 'ChannelDestroyed' event.
 There is also an optional paramater to pass a logging method from
 the caller to the base class. If you want to make use of the logger, then
 add the same parameter to your constructor in the derived class.
+Another optional parameter is for customizing logging strings,
+should you not like what is used by default.
 ```cs
 public sealed class CardGameService : MpGameService<CardGame, CardPlayer>
 {
-    public CardGameService(DiscordSocketClient client, Func<LogMessage, Task> logger = null)
-        : base(client, logger)
+    public CardGameService(
+        BaseSocketClient client,
+        Func<LogMessage, Task> logger = null,
+        IServiceStrings strings)
+        : base(client, logger, strings)
     {
         // You can now log anything you like by invoking the 'Logger'
         // delegate on the base class you can make use of. I would personally
