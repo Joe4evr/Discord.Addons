@@ -45,7 +45,7 @@ namespace Discord.Addons.MpGame
             Logger(new LogMessage(LogSeverity.Debug, "MpGame", _strings.LogRegistration(_gameName)));
 
 #if TEST
-            //if (iclient is BaseSocketClient client)
+            if (iclient is BaseSocketClient client)
 #endif
             client.ChannelDestroyed += CheckDestroyedChannel;
         }
