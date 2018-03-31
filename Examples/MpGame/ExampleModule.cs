@@ -170,5 +170,14 @@ namespace Examples.MpGame
                 : GameInProgress == CurrentlyPlaying.DifferentGame
                     ? ReplyAsync("Different game in progress.")
                     : ReplyAsync("No game in progress.");
+
+#if TEST
+        protected override Task<IUserMessage> ReplyAsync(string message = null, bool isTTS = false, Embed embed = null, RequestOptions options = null)
+        {
+            return (Context is Discord.TestFramework.IOverrrideReply ovr)
+                ? ovr.ReplyAsync(message, isTTS, embed, options)
+                : base.ReplyAsync(message, isTTS, embed, options);
+        }
+#endif
     }
 }

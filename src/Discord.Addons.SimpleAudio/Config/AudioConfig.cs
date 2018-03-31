@@ -26,8 +26,8 @@ namespace Discord.Addons.SimpleAudio
                 throw new AggregateException(message: $"Parameter '{nameof(ffmpegPath)}' must be a valid file path.", innerException: ex);
             }
 
-            if (FFMpegPath.Name != "ffmpeg.exe")
-                throw new ArgumentException(message: $"Argument '{nameof(ffmpegPath)}' must point to 'ffmpeg.exe'.");
+            if (!(FFMpegPath.Name == "ffmpeg.exe" || FFMpegPath.Name == "ffmpeg"))
+                throw new ArgumentException(message: $"Argument '{nameof(ffmpegPath)}' must point to 'ffmpeg.exe'/'ffmpeg'.");
 
             try
             {

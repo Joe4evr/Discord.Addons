@@ -28,8 +28,8 @@ namespace Examples.SimplePermissions.EFProvider
 
     public class MyEFConfig : EFBaseConfigContext<MyConfigGuild, MyConfigChannel, MyConfigUser>
     {
-        public MyEFConfig(DbContextOptions options, CommandService commandService)
-            : base(options, commandService)
+        public MyEFConfig(DbContextOptions options)
+            : base(options)
         {
         }
 
@@ -44,6 +44,8 @@ namespace Examples.SimplePermissions.EFProvider
             configChannel.Topic = channel.Topic;
             return Task.CompletedTask;
         }
+
+        internal string GetLoginToken() => throw new NotImplementedException();
     }
 
     public class Factory : IDesignTimeDbContextFactory<MyEFConfig>
@@ -52,7 +54,7 @@ namespace Examples.SimplePermissions.EFProvider
         {
             var map = new ServiceCollection()
                 .AddSingleton(new CommandService())
-                .AddDbContext<MyEFConfig>(opt => opt.UseSqlite(@"Data Source=test.sqlite"))
+                .AddDbContext<MyEFConfig>(opt => opt.UseSqlite(@"connection_string_here"))
                 .BuildServiceProvider();
 
             return map.GetService<MyEFConfig>();

@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Discord.Commands;
-using Discord.Addons.Core;
+using Discord.Addons.SimplePermissions.LiteDbProvider;
 
 namespace Discord.Addons.SimplePermissions
 {
-    public abstract partial class EFBaseConfigContext<TGuild, TChannel, TUser> : IPermissionConfig
+    public abstract partial class LiteConfigBase<TGuild, TChannel, TUser> : IPermissionConfig
     {
         //writing operations
         async Task IPermissionConfig.AddNewGuild(IGuild guild)
@@ -21,7 +19,7 @@ namespace Discord.Addons.SimplePermissions
                 if (QueryUser(user) == null)
                 {
                     cUsers.Add(await AddUserInternal(user));
-                    SaveChanges();
+                    //SaveChanges();
                 }
             }
 
@@ -34,42 +32,35 @@ namespace Discord.Addons.SimplePermissions
 
             if (QueryGuild(guild) == null)
             {
-                Guilds.Add(await AddGuildInternal(guild, cChannels));
-                SaveChanges();
+                Insert(await AddGuildInternal(guild, cChannels));
+                //SaveChanges();
             }
-            //else
-            //{
-            //    foreach (var chan in cChannels)
-            //    {
-            //        //cGuild.Channels.Add(chan);
-            //    }
-            //    //SaveChanges();
-            //}
         }
+
 
         async Task IPermissionConfig.AddChannel(ITextChannel channel)
         {
-            Channels.Add(await AddChannelInternal(channel));
-            SaveChanges();
+            Insert(await AddChannelInternal(channel));
+            //SaveChanges();
         }
 
         Task IPermissionConfig.RemoveChannel(ITextChannel channel)
         {
-            Channels.Remove(QueryChannel(channel));
+            Delete<TChannel>(c => c.ChannelId == channel.Id);
             return Task.CompletedTask;
         }
 
         Task<bool> IPermissionConfig.SetGuildAdminRole(IGuild guild, IRole role)
         {
             QueryGuild(guild).AdminRole = role.Id;
-            SaveChanges();
+            //SaveChanges();
             return Task.FromResult(true);
         }
 
         Task<bool> IPermissionConfig.SetGuildModRole(IGuild guild, IRole role)
         {
             QueryGuild(guild).ModRole = role.Id;
-            SaveChanges();
+            //SaveChanges();
             return Task.FromResult(true);
         }
 
@@ -82,21 +73,17 @@ namespace Discord.Addons.SimplePermissions
                 if (n == null)
                 {
                     n = new ConfigModule { ModuleName = module.Name };
-                    Modules.Add(n);
-                    SaveChanges();
+                    Insert(n);
+                    //SaveChanges();
                 }
 
-                var hasThis = QueryChannelModules().Any(m => m.Module.Id == n.Id && m.Channel.Id == ch.Id);
+                var mods = ch.WhiteListedModules;
+                var hasThis = mods.Any(m => m.Id == n.Id);
                 if (!hasThis)
                 {
-                    var cm = new ChannelModule<TChannel, TUser>
-                    {
-                        Channel = ch,
-                        Module = n
-                    };
-                    ChannelModules.Add(cm);
+                    mods.Add(n);
                     //ch.WhiteListedModules.Add(cm);
-                    SaveChanges();
+                    //SaveChanges();
                 }
 
                 return Task.FromResult(!hasThis);
@@ -107,14 +94,13 @@ namespace Discord.Addons.SimplePermissions
 
         Task<bool> IPermissionConfig.BlacklistModule(ITextChannel channel, ModuleInfo module)
         {
-            var mod = QueryChannelModules()
-                .Where(m => m.Channel.ChannelId == channel.Id)
-                .SingleOrDefault(m => m.Module.ModuleName == module.Name);
+            var mods = QueryChannel(channel).WhiteListedModules;
+            var mod = mods.SingleOrDefault(m => m.ModuleName == module.Name);
 
             if (mod != null)
             {
-                ChannelModules.Remove(mod);
-                SaveChanges();
+                mods.Remove(mod);
+                //SaveChanges();
                 return Task.FromResult(true);
             }
             return Task.FromResult(false);
@@ -129,21 +115,17 @@ namespace Discord.Addons.SimplePermissions
                 if (n == null)
                 {
                     n = new ConfigModule { ModuleName = module.Name };
-                    Modules.Add(n);
-                    SaveChanges();
+                    Insert(n);
+                    //SaveChanges();
                 }
 
-                var hasThis = QueryGuildModules().Any(m => m.Module.Id == n.Id && m.Guild.Id == gui.Id);
-                if (!hasThis)
+                var mods = gui.WhiteListedModules;
+                var hasThis = mods.Any(m => m.Id == n.Id);
+                if (!mods.Any(m => m.Id == n.Id))
                 {
-                    var gm = new GuildModule<TGuild, TChannel, TUser>
-                    {
-                        Guild = gui,
-                        Module = n
-                    };
-                    GuildModules.Add(gm);
+                    mods.Add(n);
                     //gui.WhiteListedModules.Add(gm);
-                    SaveChanges();
+                    //SaveChanges();
                 }
 
                 return Task.FromResult(!hasThis);
@@ -154,14 +136,13 @@ namespace Discord.Addons.SimplePermissions
 
         Task<bool> IPermissionConfig.BlacklistModuleGuild(IGuild guild, ModuleInfo module)
         {
-            var mod = QueryGuildModules()
-                .Where(m => m.Guild.GuildId == guild.Id)
-                .SingleOrDefault(m => m.Module.ModuleName == module.Name);
+            var mods = QueryGuild(guild).WhiteListedModules;
+            var mod = mods.SingleOrDefault(m => m.ModuleName == module.Name);
 
             if (mod != null)
             {
-                GuildModules.Remove(mod);
-                SaveChanges();
+                mods.Remove(mod);
+                //SaveChanges();
                 return Task.FromResult(true);
             }
             return Task.FromResult(false);
@@ -169,26 +150,19 @@ namespace Discord.Addons.SimplePermissions
 
         async Task IPermissionConfig.AddUser(IGuildUser user)
         {
-            Users.Add(await AddUserInternal(user));
-            SaveChanges();
+            Insert(await AddUserInternal(user));
+            //SaveChanges();
         }
 
         async Task<bool> IPermissionConfig.AddSpecialUser(ITextChannel channel, IGuildUser user)
         {
-            var cu = QuerySpecialUsers().SingleOrDefault(s => s.Channel.ChannelId == channel.Id && s.User.UserId == user.Id);
+            var ch = QueryChannel(channel);
+            var sp = QueryUser(user) ?? await AddUserInternal(user);
 
-            if (cu == null)
+            if (ch != null && sp != null)
             {
-                var ch = QueryChannel(channel);
-                var sp = QueryUser(user) ?? await AddUserInternal(user);
-
-                cu = new ChannelUser<TChannel, TUser>
-                {
-                    Channel = ch,
-                    User = sp
-                };
-                ChannelUsers.Add(cu);
-                SaveChanges();
+                ch.SpecialUsers.Add(sp);
+                //SaveChanges();
                 return true;
             }
             return false;
@@ -196,12 +170,13 @@ namespace Discord.Addons.SimplePermissions
 
         Task<bool> IPermissionConfig.RemoveSpecialUser(ITextChannel channel, IGuildUser user)
         {
-            var cu = QuerySpecialUsers().SingleOrDefault(u => u.Channel.ChannelId == channel.Id && u.User.UserId == user.Id);
+            var specialUsers = QueryChannel(channel).SpecialUsers;
+            var cu = specialUsers.SingleOrDefault(s => s.UserId == user.Id);
 
             if (cu != null)
             {
-                ChannelUsers.Remove(cu);
-                SaveChanges();
+                specialUsers.Remove(cu);
+                //SaveChanges();
                 return Task.FromResult(true);
             }
             return Task.FromResult(false);
@@ -210,17 +185,16 @@ namespace Discord.Addons.SimplePermissions
         Task IPermissionConfig.SetFancyHelpValue(IGuild guild, bool newValue)
         {
             QueryGuild(guild).UseFancyHelp = newValue;
-            SaveChanges();
+            //SaveChanges();
             return Task.CompletedTask;
         }
 
         Task IPermissionConfig.SetHidePermCommands(IGuild guild, bool newValue)
         {
             QueryGuild(guild).HidePermCommands = newValue;
-            SaveChanges();
+            //SaveChanges();
             return Task.CompletedTask;
         }
-
 
         //read-only operations
         IRole IPermissionConfig.GetGuildAdminRole(IGuild guild)
@@ -236,31 +210,21 @@ namespace Discord.Addons.SimplePermissions
 
         IEnumerable<ModuleInfo> IPermissionConfig.GetChannelModuleWhitelist(ITextChannel channel)
         {
-            var wl = QueryChannelModules()
-                .Where(c => c.Channel.ChannelId == channel.Id)
-                .Select(m => m.Module.ModuleName)
-                .ToList();
+            var wl = QueryChannel(channel).WhiteListedModules;
 
-            return ModuleInfos.Where(m => wl.Contains(m.Key)).Select(m => m.Value);
+            return ModuleInfos.Where(m => wl.Any(w => w.ModuleName == m.Key)).Select(m => m.Value);
         }
 
         IEnumerable<ModuleInfo> IPermissionConfig.GetGuildModuleWhitelist(IGuild guild)
         {
-            var wl = QueryGuildModules()
-               .Where(g => g.Guild.GuildId == guild.Id)
-               .Select(m => m.Module.ModuleName)
-               .ToList();
+            var wl = QueryGuild(guild).WhiteListedModules;
 
-            return ModuleInfos.Where(m => wl.Contains(m.Key)).Select(m => m.Value);
+            return ModuleInfos.Where(m => wl.Any(w => w.ModuleName == m.Key)).Select(m => m.Value);
         }
 
         IEnumerable<IGuildUser> IPermissionConfig.GetSpecialPermissionUsersList(ITextChannel channel)
         {
-            return QuerySpecialUsers()
-                .Where(cu => cu.Channel.ChannelId == channel.Id)
-                .Select(cu => cu.User.UserId)
-                .ToList()
-                .Select(id => channel.Guild.GetUserAsync(id).Result);
+            return QueryChannel(channel).SpecialUsers.Select(u => channel.Guild.GetUserAsync(u.UserId).Result);
         }
 
         Task<bool> IPermissionConfig.GetFancyHelpValue(IGuild guild)
@@ -274,12 +238,9 @@ namespace Discord.Addons.SimplePermissions
         }
 
 
-        public void Save() => SaveChanges();
-
-
         private async Task<TGuild> AddGuildInternal(
             IGuild guild,
-            IEnumerable<TChannel> channels)
+            IList<TChannel> channels)
         {
             var cGuild = new TGuild
             {
@@ -309,27 +270,26 @@ namespace Discord.Addons.SimplePermissions
             return cUser;
         }
 
-
         //query helpers
         private TGuild QueryGuild(IGuild guild)
-            => Guilds.SingleOrDefault(g => g.GuildId == guild.Id);
+            => Guilds.Where(g => g.GuildId == guild.Id).SingleOrDefault();
 
         private TChannel QueryChannel(ITextChannel channel)
-            => Channels.SingleOrDefault(c => c.ChannelId == channel.Id);
+            => Channels.Where(c => c.ChannelId == channel.Id).SingleOrDefault();
 
         private TUser QueryUser(IGuildUser user)
-            => Users.SingleOrDefault(u => u.UserId == user.Id);
+            => Users.Where(u => u.UserId == user.Id).SingleOrDefault();
 
         private ConfigModule QueryModule(ModuleInfo module)
-            => Modules.SingleOrDefault(m => m.ModuleName.Equals(module.Name, StringComparison.OrdinalIgnoreCase));
+            => Modules.Where(m => m.ModuleName.Equals(module.Name, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
 
-        private IQueryable<ChannelUser<TChannel, TUser>> QuerySpecialUsers()
-            => ChannelUsers.Include(cu => cu.Channel).Include(cu => cu.User);
+        //private IQueryable<ChannelUser<TChannel, TUser>> QuerySpecialUsers()
+        //    => ChannelUsers.Include(cu => cu.Channel).Include(cu => cu.User);
 
-        private IQueryable<ChannelModule<TChannel, TUser>> QueryChannelModules()
-            => ChannelModules.Include(cm => cm.Channel).Include(cm => cm.Module);
+        //private IQueryable<ChannelModule<TChannel, TUser>> QueryChannelModules()
+        //    => ChannelModules.Include(cm => cm.Channel).Include(cm => cm.Module);
 
-        private IQueryable<GuildModule<TGuild, TChannel, TUser>> QueryGuildModules()
-            => GuildModules.Include(gm => gm.Guild).Include(gm => gm.Module);
+        //private IQueryable<GuildModule<TGuild, TChannel, TUser>> QueryGuildModules()
+        //    => GuildModules.Include(gm => gm.Guild).Include(gm => gm.Module);
     }
 }

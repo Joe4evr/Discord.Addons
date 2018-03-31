@@ -11,7 +11,7 @@ namespace Discord.Addons.SimplePermissions
     public sealed class JsonConfigStore<TConfig> : IConfigStore<TConfig>
         where TConfig : JsonConfigBase, new()
     {
-        private readonly string _jsonPath;
+        private readonly FileInfo _jsonPath;
         private readonly CommandService _commands;
 
         /// <summary> Initializes a new instance of <see cref="JsonConfigStore{TConfig}"/>.
@@ -19,11 +19,19 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="path">Path to the JSON file.</param>
         public JsonConfigStore(string path, CommandService commands)
         {
-            _jsonPath = path ?? throw new ArgumentNullException(nameof(path));
-            _commands = commands ?? throw new ArgumentNullException(nameof(commands));
+            try
+            {
+                _jsonPath = new FileInfo(Path.GetFullPath(path));
 
-            if (!File.Exists(path))
-                File.WriteAllText(path, JsonConvert.SerializeObject(new TConfig(), Formatting.Indented));
+                if (!_jsonPath.Exists)
+                    File.WriteAllText(_jsonPath.FullName, JsonConvert.SerializeObject(new TConfig(), Formatting.Indented));
+            }
+            catch (Exception ex)
+            {
+                throw new AggregateException(message: $"Parameter '{nameof(path)}' must be a valid file path.", innerException: ex);
+            }
+
+            _commands = commands ?? throw new ArgumentNullException(nameof(commands));
 
             using (var config = Load())
             {
@@ -67,11 +75,11 @@ namespace Discord.Addons.SimplePermissions
 
         /// <summary> Load the configuration from disk. </summary>
         /// <returns>The configuration object.</returns>
-        public TConfig Load()
+        public TConfig Load(IServiceProvider services = null)
         {
-            var config = JsonConvert.DeserializeObject<TConfig>(File.ReadAllText(_jsonPath));
+            var config = JsonConvert.DeserializeObject<TConfig>(File.ReadAllText(_jsonPath.FullName));
             config.Modules = _commands.Modules;
-            (config as ISetPath).SetPath(_jsonPath);
+            (config as ISetPath).Path = _jsonPath;
             return config;
         }
     }

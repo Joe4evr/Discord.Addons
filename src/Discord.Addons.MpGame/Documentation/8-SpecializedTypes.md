@@ -18,7 +18,7 @@ internal class CardDeck : Pile<Card>
     //the collection always gets populated.
     //(Not doing this only allows it to be
     //initialized with an empty collection.)
-    internal PolicyDeck(IEnumerable<Card> cards)
+    internal CardDeck(IEnumerable<Card> cards)
         : base(cards)
     {
     }
@@ -55,7 +55,7 @@ internal class CardDeck : Pile<Card>
     public override bool CanTake    { get; } = false;
 }
 ```
-* `Hand<TCard>`: A companion-type-of-sorts to `Pile<TCard>`, this collection is specifically
+* `Hand<TCard>`: A companion type to `Pile<TCard>`, this collection is specifically
 for representing cards in a player's "hand". This class is sealed because it doesn't
 warrant any customization in behavior. In usage, make sure to never share instances of this
 to types that don't need to know the contents.

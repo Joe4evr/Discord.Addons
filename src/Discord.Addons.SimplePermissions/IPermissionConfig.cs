@@ -25,11 +25,11 @@ namespace Discord.Addons.SimplePermissions
 
         /// <summary> Gets the ID of the group that is considered
         /// the Admin role in a specified guild. </summary>
-        ulong GetGuildAdminRole(IGuild guild);
+        IRole GetGuildAdminRole(IGuild guild);
 
         /// <summary> Gets the ID of the group that is considered
         /// the Moderator role in a specified guild. </summary>
-        ulong GetGuildModRole(IGuild guild);
+        IRole GetGuildModRole(IGuild guild);
 
         /// <summary> Sets the ID of the group that is considered
         /// the Admin role in a specified guild. </summary>
@@ -68,7 +68,7 @@ namespace Discord.Addons.SimplePermissions
         /// <summary> Gets the users that are allowed to use
         /// commands marked <see cref="MinimumPermission.Special"/>
         /// in a channel. </summary>
-        IEnumerable<ulong> GetSpecialPermissionUsersList(ITextChannel channel);
+        IEnumerable<IGuildUser> GetSpecialPermissionUsersList(ITextChannel channel);
 
         /// <summary> Add a new user to the config. </summary>
         Task AddUser(IGuildUser user);

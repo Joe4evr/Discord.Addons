@@ -1,0 +1,42 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2F82C70A-B803-481A-AB3F-0E8BE0C0AAA9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discord.Addons.SimpleAudio", "src\Discord.Addons.SimpleAudio\Discord.Addons.SimpleAudio.csproj", "{B21A3D59-5C23-4544-872E-CAE44F726E1C}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Discord.Addons.Core", "src\Discord.Addons.Core\Discord.Addons.Core.shproj", "{5B64B425-B901-4249-A189-ACC033579086}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5A40A475-DA15-484D-9A9D-6CC9EBF02026}"
+	ProjectSection(SolutionItems) = preProject
+		Analyzers.props = Analyzers.props
+		Discord.Addons.Rules.ruleset = Discord.Addons.Rules.ruleset
+		DiscordAddonsCore.props = DiscordAddonsCore.props
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Discord.Addons.Core\Discord.Addons.Core.projitems*{5b64b425-b901-4249-a189-acc033579086}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B21A3D59-5C23-4544-872E-CAE44F726E1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B21A3D59-5C23-4544-872E-CAE44F726E1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B21A3D59-5C23-4544-872E-CAE44F726E1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B21A3D59-5C23-4544-872E-CAE44F726E1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B21A3D59-5C23-4544-872E-CAE44F726E1C} = {2F82C70A-B803-481A-AB3F-0E8BE0C0AAA9}
+		{5B64B425-B901-4249-A189-ACC033579086} = {2F82C70A-B803-481A-AB3F-0E8BE0C0AAA9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2BD65DD7-DFBF-4F88-B4D8-F1AE1F94205A}
+	EndGlobalSection
+EndGlobal

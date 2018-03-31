@@ -38,7 +38,11 @@ namespace Discord.Addons.SimpleAudio
         private Color _statusColor;
         private Process _ffmpeg;
 
-        public AudioClientWrapper(IAudioClient client, IUserMessage message, AudioConfig globalConfig, IAudioGuildConfig guildConfig = null)
+        public AudioClientWrapper(
+            IAudioClient client,
+            IUserMessage message,
+            AudioConfig globalConfig,
+            IAudioGuildConfig guildConfig = null)
         {
             Message = message;
             Client = client;
@@ -58,49 +62,45 @@ namespace Discord.Addons.SimpleAudio
 
         public async Task SendAudioAsync(FileInfo ffmpeg)
         {
-            while (!Playlist.IsEmpty)
+            while (Playlist.TryDequeue(out var path))
             {
-                if (Playlist.TryDequeue(out var path))
-                {
-                    _song = Path.GetFileNameWithoutExtension(path.FullName);
-                    _statusEmote = _playEmote;
-                    _statusColor = Color.Green;
-                    await RefreshEmbed().ConfigureAwait(false);
+                _song = Path.GetFileNameWithoutExtension(path.Name);
+                _statusEmote = _playEmote;
+                _statusColor = Color.Green;
+                await RefreshEmbed().ConfigureAwait(false);
 
-                    using (_ffmpeg = Process.Start(new ProcessStartInfo
+                using (_ffmpeg = Process.Start(new ProcessStartInfo
+                {
+                    FileName = ffmpeg.FullName,
+                    Arguments = $"-hide_banner -loglevel panic -i \"{path.FullName}\" -ac 2 -f s16le -ar 48000 pipe:1",
+                    UseShellExecute = false,
+                    //RedirectStandardInput = true,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = false
+                }))
+                //using (var input = _ffmpeg.StandardInput.BaseStream)
+                using (var stream = Client.CreatePCMStream(AudioApplication.Music))
+                {
+                    try
                     {
-                        FileName = ffmpeg.FullName,
-                        Arguments = $"-hide_banner -loglevel panic -i \"{path.FullName}\" -ac 2 -f s16le -ar 48000 pipe:1",
-                        UseShellExecute = false,
-                        //RedirectStandardInput = true,
-                        RedirectStandardOutput = true,
-                        CreateNoWindow = false
-                    }))
-                    //using (var input = _ffmpeg.StandardInput.BaseStream)
-                    using (var output = _ffmpeg.StandardOutput.BaseStream)
-                    using (var stream = Client.CreatePCMStream(AudioApplication.Music))
+                        await PausableCopyToAsync(_ffmpeg.StandardOutput.BaseStream, stream, 81920).ConfigureAwait(false);
+                    }
+                    catch (OperationCanceledException)
                     {
-                        try
+                        if (!_next)
                         {
-                            await PausableCopyToAsync(output, stream, 81920).ConfigureAwait(false);
+                            //TODO: Replace with .Clear() when it actually
+                            //gets added to a .NET Standard 😠
+                            while (Playlist.TryDequeue(out _)) { }
                         }
-                        catch (OperationCanceledException)
+                        else
                         {
-                            if (!_next)
-                            {
-                                //TODO: Replace with .Clear() when NET Core 2.0 is a thing
-                                while (Playlist.TryDequeue(out var _)) { }
-                                break;
-                            }
-                            else
-                            {
-                                _next = false;
-                            }
+                            _next = false;
                         }
-                        finally
-                        {
-                            await stream.FlushAsync().ConfigureAwait(false);
-                        }
+                    }
+                    finally
+                    {
+                        await stream.FlushAsync().ConfigureAwait(false);
                     }
                 }
             }
@@ -213,7 +213,8 @@ namespace Discord.Addons.SimpleAudio
                 }
 
                 //var volAdjusted = ScaleVolumeUnsafeNoAlloc(buffer, _playingVolume);
-                /*var volAdjusted =*/ ScaleVolumeSpanOfT(buffer, _playingVolume);
+                /*var volAdjusted =*/
+                ScaleVolumeSpanOfT(buffer, _playingVolume);
                 await destination.WriteAsync(buffer, 0, count, _cancelToken.Token).ConfigureAwait(false);
             }
         }

@@ -26,5 +26,7 @@ namespace Discord.Addons.SimplePermissions
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Browsable(false)]
         internal long _uid;
+
+        public override string ToString() => $"{base.ToString()} ({UserId})";
     }
 }

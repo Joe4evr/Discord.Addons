@@ -7,9 +7,25 @@ using System.Diagnostics;
 
 namespace Discord.Addons.SimplePermissions
 {
+    [NotMapped]
+    public abstract class ConfigChannel<TChannel, TUser>
+        where TChannel : ConfigChannel<TUser>
+        where TUser : ConfigUser
+    {
+        /// <summary> </summary>
+        public IEnumerable<ChannelUser<TChannel, TUser>> SpecialUsers { get; set; }
+
+        /// <summary> </summary>
+        public IEnumerable<ChannelModule<TChannel, TUser>> WhiteListedModules { get; set; }
+
+        internal ConfigChannel()
+        {
+        }
+    }
+
     /// <summary> </summary>
     /// <typeparam name="TUser">The User configuration type.</typeparam>
-    public class ConfigChannel<TUser>
+    public class ConfigChannel<TUser> : ConfigChannel<ConfigChannel<TUser>, TUser>
         where TUser : ConfigUser
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -28,12 +44,6 @@ namespace Discord.Addons.SimplePermissions
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Browsable(false)]
         internal long _cid;
-
-        /// <summary> </summary>
-        public ICollection<TUser> SpecialUsers { get; set; }
-
-        /// <summary> </summary>
-        public ICollection<ConfigModule> WhiteListedModules { get; set; }
     }
 
     public class ConfigChannel : ConfigChannel<ConfigUser>

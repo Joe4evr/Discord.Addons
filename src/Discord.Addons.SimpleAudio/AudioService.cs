@@ -319,8 +319,8 @@ namespace Discord.Addons.SimpleAudio
             }
         }
 
-        private static readonly ImmutableArray<string> _supportedExts = ImmutableArray.Create(
-            ".mp3", ".flac", ".wav", ".aac", ".ogg");
+        private static readonly ImmutableArray<string> _supportedExts
+            = ImmutableArray.Create(".mp3", ".flac", ".wav", ".aac", ".ogg");
 
         internal IEnumerable<FileInfo> GetAvailableFiles()
             => Config.MusicBasePath.EnumerateFiles("*", SearchOption.AllDirectories)

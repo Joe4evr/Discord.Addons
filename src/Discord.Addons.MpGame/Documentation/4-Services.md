@@ -82,7 +82,7 @@ public sealed class CardGameService : MpGameService<CardGame, CardPlayer>
     public CardGameService(
         BaseSocketClient client,
         Func<LogMessage, Task> logger = null,
-        IServiceStrings strings)
+        IServiceStrings strings = null)
         : base(client, logger, strings)
     {
         // You can now log anything you like by invoking the 'Logger'

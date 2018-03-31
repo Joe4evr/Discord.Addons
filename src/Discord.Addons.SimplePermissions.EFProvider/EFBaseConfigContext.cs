@@ -16,9 +16,9 @@ namespace Discord.Addons.SimplePermissions
     /// <typeparam name="TChannel">The Channel configuration type.</typeparam>
     /// <typeparam name="TUser">The User configuration type.</typeparam>
     public abstract partial class EFBaseConfigContext<TGuild, TChannel, TUser> : DbContext
-        where TGuild : ConfigGuild<TChannel, TUser>, new()
+        where TGuild   : ConfigGuild<TChannel, TUser>, new()
         where TChannel : ConfigChannel<TUser>, new()
-        where TUser : ConfigUser, new()
+        where TUser    : ConfigUser, new()
     {
         /// <summary> </summary>
         public DbSet<TGuild> Guilds { get; set; }
@@ -32,12 +32,16 @@ namespace Discord.Addons.SimplePermissions
         /// <summary> </summary>
         public DbSet<ConfigModule> Modules { get; set; }
 
-        private readonly IEnumerable<ModuleInfo> _modules;
+        //Cross tables
+        public DbSet<ChannelUser<TChannel, TUser>> ChannelUsers { get; set; }
+        public DbSet<ChannelModule<TChannel, TUser>> ChannelModules { get; set; }
+        public DbSet<GuildModule<TGuild, TChannel, TUser>> GuildModules { get; set; }
 
-        public EFBaseConfigContext(DbContextOptions options, CommandService commandService)
+        internal IReadOnlyDictionary<string, ModuleInfo> ModuleInfos { get; set; }
+
+        protected EFBaseConfigContext(DbContextOptions options)
             : base(options)
         {
-            _modules = commandService.Modules;
         }
 
         /// <summary> </summary>
@@ -60,6 +64,26 @@ namespace Discord.Addons.SimplePermissions
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ChannelUser<TChannel, TUser>>()
+                .HasOne(cu => cu.Channel);
+
+            modelBuilder.Entity<ChannelUser<TChannel, TUser>>()
+                .HasOne(cu => cu.User);
+
+            modelBuilder.Entity<ChannelModule<TChannel, TUser>>()
+                .HasOne(cm => cm.Channel);
+
+            modelBuilder.Entity<ChannelModule<TChannel, TUser>>()
+                .HasOne(cm => cm.Module);
+
+            modelBuilder.Entity<GuildModule<TGuild, TChannel, TUser>>()
+                .HasOne(gm => gm.Guild);
+
+            modelBuilder.Entity<GuildModule<TGuild, TChannel, TUser>>()
+                .HasOne(gm => gm.Module);
+
+
+
             modelBuilder.Entity<ConfigModule>()
                 .HasAlternateKey(e => e.ModuleName);
 
@@ -73,6 +97,7 @@ namespace Discord.Addons.SimplePermissions
                 .Property<long>("Channel_Id")
                 .HasField("_cid")
                 .IsRequired(true);
+
 
             modelBuilder.Entity<TChannel>()
                 .HasMany(c => c.SpecialUsers);
@@ -89,25 +114,38 @@ namespace Discord.Addons.SimplePermissions
             modelBuilder.Entity<TGuild>()
                 .Property<long>("Mod_Id")
                 .HasField("_mid")
-                .HasDefaultValue(0l)
+                .HasDefaultValue(0L)
                 .ValueGeneratedNever()
                 .IsRequired(true);
 
             modelBuilder.Entity<TGuild>()
                 .Property<long>("Admin_Id")
                 .HasField("_aid")
-                .HasDefaultValue(0l)
+                .HasDefaultValue(0L)
                 .ValueGeneratedNever()
                 .IsRequired(true);
 
-            modelBuilder.Entity<TGuild>()
-                .HasMany(g => g.Users);
 
             modelBuilder.Entity<TGuild>()
                 .HasMany(g => g.WhiteListedModules);
 
             modelBuilder.Entity<TGuild>()
                 .HasMany(g => g.Channels);
+
+
+            //modelBuilder.Entity<GuildModule<TGuild, TChannel, TUser>>()
+            //    .HasAlternateKey(gm => new { gm.Guild, gm.Module });
+
+            //modelBuilder.Entity<ChannelModule<TChannel, TUser>>()
+            //    .HasAlternateKey(cm => new { cm.Channel, cm.Module });
+
+            //modelBuilder.Entity<ChannelUser<TChannel, TUser>>()
+            //    .HasAlternateKey(cu => new { cu.Channel, cu.User });
+
+            // TODO: test this
+            modelBuilder.Ignore<ChannelModule<ConfigChannel<TUser>, TUser>>()
+                .Ignore<ChannelUser<ConfigChannel<TUser>, TUser>>()
+                .Ignore<GuildModule<ConfigGuild<TChannel, TUser>, TChannel, TUser>>();
 
             base.OnModelCreating(modelBuilder);
         }
@@ -124,7 +162,8 @@ namespace Discord.Addons.SimplePermissions
         where TUser : ConfigUser, new()
     {
 
-        public EFBaseConfigContext(DbContextOptions options, CommandService commandService) : base(options, commandService)
+        public EFBaseConfigContext(DbContextOptions options)
+            : base(options)
         {
         }
     }
@@ -134,11 +173,12 @@ namespace Discord.Addons.SimplePermissions
     /// <see cref="DbContext"/> as a backing store,
     /// using the default Guild and Channel types. </summary>
     /// <typeparam name="TUser">The User configuration type.</typeparam>
-    public abstract class EFBaseConfigContext<TUser> : EFBaseConfigContext<ConfigGuild<TUser>, ConfigChannel<TUser>, TUser>
+    public abstract class EFBaseConfigContext<TUser> : EFBaseConfigContext<ConfigChannel<TUser>, TUser>
         where TUser : ConfigUser, new()
     {
 
-        public EFBaseConfigContext(DbContextOptions options, CommandService commandService) : base(options, commandService)
+        public EFBaseConfigContext(DbContextOptions options)
+            : base(options)
         {
         }
     }
@@ -147,10 +187,11 @@ namespace Discord.Addons.SimplePermissions
     /// using an Entity Framework
     /// <see cref="DbContext"/> as a backing store,
     /// using the default Guild, Channel and User types. </summary>
-    public abstract class EFBaseConfigContext : EFBaseConfigContext<ConfigGuild, ConfigChannel, ConfigUser>
+    public abstract class EFBaseConfigContext : EFBaseConfigContext<ConfigUser>
     {
 
-        public EFBaseConfigContext(DbContextOptions options, CommandService commandService) : base(options, commandService)
+        public EFBaseConfigContext(DbContextOptions options)
+            : base(options)
         {
         }
     }

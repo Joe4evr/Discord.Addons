@@ -24,7 +24,7 @@ namespace Examples.SimplePermissions.JsonProvider
 
         // Standard 1.0 fare
         private readonly DiscordSocketClient _client;
-        private readonly IServiceCollection _map = new ServiceCollection();
+        private readonly IServiceProvider _services;
         private readonly CommandService _commands = new CommandService();
 
         private static Task Log(LogMessage message)
@@ -56,16 +56,28 @@ namespace Examples.SimplePermissions.JsonProvider
             {
                 // Standard 1.0 fare
             });
+
+            _services = ConfigureServices(_client, _commands, _configStore);
+        }
+
+        private static IServiceProvider ConfigureServices(
+            DiscordSocketClient client,
+            CommandService commands,
+            IConfigStore<MyJsonConfig> configStore)
+        {
+            // You can pass your Logging method into the initializer for
+            // SimplePermissions, so that you get a consistent looking log:
+            var map = new ServiceCollection()
+                .AddSingleton(new PermissionsService(configStore, commands, client, Log));
+
+            return map.BuildServiceProvider();
         }
 
         private async Task MainAsync()
         {
             // More standard 1.0 fare here...
 
-            // You can pass your Logging method into the initializer for
-            // SimplePermissions, so that you get a consistent looking log:
-            _map.AddSingleton(new PermissionsService(_configStore, _commands, _client, Log));
-            await _commands.AddModuleAsync<PermissionsModule>();
+            await _commands.AddModuleAsync<PermissionsModule>(_services);
 
             // Load the config, read the token, and pass it into the login method:
             using (var config = _configStore.Load())

@@ -7,12 +7,26 @@ using System.Diagnostics;
 
 namespace Discord.Addons.SimplePermissions
 {
+    [NotMapped]
+    public abstract class ConfigGuild<TGuild, TChannel, TUser>
+        where TGuild : ConfigGuild<TChannel, TUser>
+        where TChannel : ConfigChannel<TUser>
+        where TUser : ConfigUser
+    {
+        /// <summary> </summary>
+        public IEnumerable<GuildModule<TGuild, TChannel,TUser>> WhiteListedModules { get; set; }
+
+        internal ConfigGuild()
+        {
+        }
+    }
+
     /// <summary> </summary>
     /// <typeparam name="TChannel">The Channel configuration type.</typeparam>
     /// <typeparam name="TUser">The User configuration type.</typeparam>
-    public class ConfigGuild<TChannel, TUser>
+    public class ConfigGuild<TChannel, TUser> : ConfigGuild<ConfigGuild<TChannel, TUser>, TChannel, TUser>
         where TChannel : ConfigChannel<TUser>
-        where TUser    : ConfigUser
+        where TUser : ConfigUser
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /// <summary> </summary>
@@ -60,13 +74,7 @@ namespace Discord.Addons.SimplePermissions
         public bool HidePermCommands { get; set; }
 
         /// <summary> </summary>
-        public ICollection<TChannel> Channels { get; set; }
-
-        /// <summary> </summary>
-        public ICollection<TUser> Users { get; set; }
-
-        /// <summary> </summary>
-        public ICollection<ConfigModule> WhiteListedModules { get; set; }
+        public IEnumerable<TChannel> Channels { get; set; }
     }
 
     public class ConfigGuild<TUser> : ConfigGuild<ConfigChannel<TUser>, TUser>
@@ -74,7 +82,7 @@ namespace Discord.Addons.SimplePermissions
     {
     }
 
-    public class ConfigGuild : ConfigGuild<ConfigChannel, ConfigUser>
+    public class ConfigGuild : ConfigGuild<ConfigUser>
     {
     }
 }

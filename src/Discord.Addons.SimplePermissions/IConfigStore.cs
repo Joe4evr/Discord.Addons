@@ -1,4 +1,5 @@
-﻿using Discord.Commands;
+﻿using System;
+using Discord.Commands;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -9,6 +10,6 @@ namespace Discord.Addons.SimplePermissions
     {
         /// <summary> Load the configuration object. </summary>
         /// <returns>The config object.</returns>
-        TConfig Load();
+        TConfig Load(IServiceProvider services = null);
     }
 }

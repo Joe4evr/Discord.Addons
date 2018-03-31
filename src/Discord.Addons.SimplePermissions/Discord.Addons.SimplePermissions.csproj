@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
     <Import Project="..\..\DiscordAddonsCore.props" />
+    <!--<Import Project="C:\projects\MechHisui\DiscordAddonsCore.props" />-->
     <PropertyGroup>
         <AssemblyName>Discord.Addons.SimplePermissions</AssemblyName>
         <VersionPrefix>1.2.0</VersionPrefix>

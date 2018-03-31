@@ -25,7 +25,7 @@ namespace Examples.SimplePermissions.EFProvider
 
         // Standard 1.0 fare
         private readonly DiscordSocketClient _client;
-        private readonly IServiceCollection _map = new ServiceCollection();
+        private readonly IServiceProvider _services;
         private readonly CommandService _commands = new CommandService();
 
         private static Task Log(LogMessage message)
@@ -42,28 +42,40 @@ namespace Examples.SimplePermissions.EFProvider
             // down to the Program constructor to read the connection string from there.
             // You can also choose a different database provider instead of SQLite
             // as long as it is compatible with EF Core.
-            _configStore = new EFConfigStore<MyEFConfig, MyConfigGuild, MyConfigChannel, MyConfigUser>(_commands,
-                options => options.UseSqlite("connection_string_here"));
+            _configStore = new EFConfigStore<MyEFConfig, MyConfigGuild, MyConfigChannel, MyConfigUser>(_commands, Log);
 
             _client = new DiscordSocketClient(new DiscordSocketConfig
             {
                 // Standard 1.0 fare
             });
+
+            _services = ConfigureServices(_client, _commands, _configStore);
+        }
+
+        private static IServiceProvider ConfigureServices(
+            DiscordSocketClient client,
+            CommandService commands,
+            IConfigStore<MyEFConfig> configStore)
+        {
+            // You can pass your Logging method into the initializer for
+            // SimplePermissions, so that you get a consistent looking log:
+            var map = new ServiceCollection()
+                .AddSingleton(new PermissionsService(configStore, commands, client, Log))
+                .AddDbContext<MyEFConfig>(options => options.UseSqlite("connection_string_here"));
+
+            return map.BuildServiceProvider();
         }
 
         private async Task MainAsync()
         {
             // More standard 1.0 fare here...
 
-            // NOTE: Because SimplePermissions dictates a lot of behavior,
-            // it will not get auto-loaded with `AddModulesAsync(Assembly.GetEntryAssembly())`.
-            // You have to use the initializer method to explicitly add it to the CommandService.
+            await _commands.AddModuleAsync<PermissionsModule>(_services);
 
-            // You can pass your Logging method into the initializer for
-            // SimplePermissions, so that you get a consistent looking log:
-            await _commands.UseSimplePermissions(_client, _configStore, _map, Log);
-
-            await _client.LoginAsync(TokenType.Bot, "login_token_here");
+            using (var config = _configStore.Load())
+            {
+                await _client.LoginAsync(TokenType.Bot, config.GetLoginToken());
+            }
             await _client.StartAsync();
             await Task.Delay(Timeout.Infinite);
         }

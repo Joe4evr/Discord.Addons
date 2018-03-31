@@ -24,22 +24,28 @@ In order to do this, create a class that derives from `Player` and add such prop
 public class CardPlayer : Player
 {
     // It would make a lot of sense to keep a property
-    // like this private
-    // You'll also have to provide your own 'Card' type for this
+    // like this private.
+    // You'll also have to provide your own 'Card' type for this.
     //private IList<Card> Hand { get; } = new List<Card>();
 
     // Starting with v1.2, you can better represent this
-    // by using 'Hand<T>', see section 8 for details
+    // by using 'Hand<T>', see section 8 for details.
     private Hand<Card> Hand { get; } = new Hand<Card>();
 
-    // You need a constructor to call the base constructor
+    // You need a constructor to call the base constructor.
     public CardPlayer(IUser user, IMessageChannel channel)
         : base(user, channel)
     {
     }
 
-    // And you'll want a method that adds a card to the player's hand
+    // And you'll want a method that adds a card to the player's hand.
     public void AddCard(Card card) => Hand.Add(card);
+
+    // You can specify to kick automatically kick a player
+    // if the user has their DMs disabled too many times
+    // by overriding 'ShouldKick'. By default, a player
+    // will never be auto-kicked.
+    protected override bool ShouldKick(int backstuffedDms) => backstuffedDms > 5;
 }
 ```
 

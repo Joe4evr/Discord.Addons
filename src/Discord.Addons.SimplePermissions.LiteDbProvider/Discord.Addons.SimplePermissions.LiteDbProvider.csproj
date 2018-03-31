@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\DiscordAddonsCore.props" />
+    <!--<Import Project="C:\projects\MechHisui\DiscordAddonsCore.props" />-->
+    <PropertyGroup>
+        <AssemblyName>Discord.Addons.SimplePermissions.LiteDbProvider</AssemblyName>
+        <VersionPrefix>1.2.0</VersionPrefix>
+        <VersionSuffix>alpha</VersionSuffix>
+        <Description>LiteDB provider for Discord.Addons.SimplePermissions</Description>
+        <PackageTags>discord</PackageTags>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="LiteDB" Version="4.1.2" />
+    </ItemGroup>
+</Project>

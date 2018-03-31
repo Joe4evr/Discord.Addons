@@ -76,7 +76,7 @@ namespace Discord.Addons.MpGame
         /// Gets called when a player is added into an ongoing game,
         /// allowing an opportunity to add properties to the player.
         /// </summary>
-        /// <param name="player">The player that was added.</param>
+        /// <param name="player">The player that is added.</param>
         protected internal virtual void OnPlayerAdded(TPlayer player) { }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Discord.Addons.MpGame
         /// allowing an opportunity to access some of their
         /// properties to put back into the game.
         /// </summary>
-        /// <param name="player">The player that was removed.</param>
+        /// <param name="player">The player that is removed.</param>
         protected internal virtual void OnPlayerKicked(TPlayer player) { }
 
         internal Func<IMessageChannel, Task> GameEnd { private get; set; }

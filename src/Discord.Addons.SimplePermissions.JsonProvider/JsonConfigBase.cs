@@ -43,55 +43,18 @@ namespace Discord.Addons.SimplePermissions
 
         public Dictionary<ulong, bool> HidePermCommandValues { get; set; }
 
-        private string _path;
+        private FileInfo _path;
 
-        void ISetPath.SetPath(string path)
-        {
-            _path = path;
-        }
+        FileInfo ISetPath.Path { set => _path = value; }
 
         public void Save()
-            => File.WriteAllText(_path, JsonConvert.SerializeObject(this, Formatting.Indented));
+            => File.WriteAllText(_path.FullName, JsonConvert.SerializeObject(this, Formatting.Indented));
 
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    // TODO: dispose managed state (managed objects).
-                    //File.WriteAllText(_path, JsonConvert.SerializeObject(this, Formatting.Indented));
-                }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-
-                disposedValue = true;
-            }
-        }
-
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~JsonConfigBase() {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
-
-        // This code added to correctly implement the disposable pattern.
-        void IDisposable.Dispose()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
-        }
-        #endregion
+        void IDisposable.Dispose() { }
     }
 
     internal interface ISetPath
     {
-        void SetPath(string path);
+        FileInfo Path { set; }
     }
 }
