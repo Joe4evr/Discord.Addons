@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Immutable;
+using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -32,11 +33,19 @@ namespace Discord.Addons.MpGame.Analyzers
 
             var ctor = assignment.FirstAncestorOrSelf<ConstructorDeclarationSyntax>();
             if (ctor != null)
-                return; //assignment was inside a ctor, this analyzer doesn't care anymore
+                return; //we inside a ctor, this analyzer doesn't care anymore
+
+            var classDecl = ctor.FirstAncestorOrSelf<ClassDeclarationSyntax>();
+            if (classDecl == null)
+                return; //we're entirely irrelevant to structs
+
+            var classSymbolInfo = context.SemanticModel.GetSymbolInfo(classDecl);
+            if (classSymbolInfo.Symbol is ITypeSymbol classSymbol && !classSymbol.DerivesFromPile())
+                return; //trigger was outside of a Pile-derived class, bail out
 
             var symbolInfo = context.SemanticModel.GetSymbolInfo(assignment.Left);
             if (!(symbolInfo.Symbol is IPropertySymbol symbol))
-                return; //assignment wasn't a property, this analyzer doesn't care anymore
+                return; //assignment wasn't a property, get outta here
 
             if (symbol.Name == "BufferStrategy")
                 context.ReportDiagnostic(Diagnostic.Create(Rule, context.Node.GetLocation()));
