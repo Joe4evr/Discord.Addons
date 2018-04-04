@@ -1,0 +1,1334 @@
+### YamlMime:ManagedReference
+items:
+- uid: Discord.Addons.MpGame.MpGameService`2
+  commentId: T:Discord.Addons.MpGame.MpGameService`2
+  id: MpGameService`2
+  parent: Discord.Addons.MpGame
+  children:
+  - Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,System.Func{Discord.LogMessage,System.Threading.Tasks.Task},Discord.Addons.MpGame.IServiceStrings)
+  - Discord.Addons.MpGame.MpGameService`2.AddPlayer(`0,`1)
+  - Discord.Addons.MpGame.MpGameService`2.AddUser(Discord.IMessageChannel,Discord.IUser)
+  - Discord.Addons.MpGame.MpGameService`2.CancelGame(Discord.IMessageChannel)
+  - Discord.Addons.MpGame.MpGameService`2.GetGameFromChannel(Discord.IMessageChannel)
+  - Discord.Addons.MpGame.MpGameService`2.GetJoinedUsers(Discord.IMessageChannel)
+  - Discord.Addons.MpGame.MpGameService`2.IsOpenToJoin(Discord.IMessageChannel)
+  - Discord.Addons.MpGame.MpGameService`2.KickPlayer(`0,`1)
+  - Discord.Addons.MpGame.MpGameService`2.Logger
+  - Discord.Addons.MpGame.MpGameService`2.MessageChannelComparer
+  - Discord.Addons.MpGame.MpGameService`2.OpenNewGame(Discord.Commands.ICommandContext)
+  - Discord.Addons.MpGame.MpGameService`2.RemoveUser(Discord.IMessageChannel,Discord.IUser)
+  - Discord.Addons.MpGame.MpGameService`2.TryAddNewGame(Discord.IMessageChannel,`0)
+  - Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin(Discord.IMessageChannel,System.Boolean,System.Boolean)
+  langs:
+  - csharp
+  - vb
+  name: MpGameService<TGame, TPlayer>
+  nameWithType: MpGameService<TGame, TPlayer>
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>
+  type: Class
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/PersistentGameData.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: MpGameService
+    path: ../src/Discord.Addons.MpGame/Services/PersistentGameData.cs
+    startLine: 11
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Service managing games for a <xref href="Discord.Addons.MpGame.MpGameModuleBase%603" data-throw-if-not-resolved="false"></xref>. '
+  example: []
+  syntax:
+    content: >-
+      public class MpGameService<TGame, TPlayer>
+          where TGame : GameBase<TPlayer> where TPlayer : Player
+    typeParameters:
+    - id: TGame
+      description: The type of game to manage.
+    - id: TPlayer
+      description: The type of the <xref href="Discord.Addons.MpGame.Player" data-throw-if-not-resolved="false"></xref> object.
+    content.vb: Public Class MpGameService(Of TGame As GameBase(Of TPlayer), TPlayer As Player)
+  inheritance:
+  - System.Object
+  nameWithType.vb: MpGameService(Of TGame, TPlayer)
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer)
+  name.vb: MpGameService(Of TGame, TPlayer)
+- uid: Discord.Addons.MpGame.MpGameService`2.MessageChannelComparer
+  commentId: P:Discord.Addons.MpGame.MpGameService`2.MessageChannelComparer
+  id: MessageChannelComparer
+  parent: Discord.Addons.MpGame.MpGameService`2
+  langs:
+  - csharp
+  - vb
+  name: MessageChannelComparer
+  nameWithType: MpGameService<TGame, TPlayer>.MessageChannelComparer
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MessageChannelComparer
+  type: Property
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/MpGameService.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: MessageChannelComparer
+    path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
+    startLine: 25
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: >-
+    A cached IEqualityComparer&lt;<xref href="Discord.IMessageChannel" data-throw-if-not-resolved="false"></xref>>instance to use when
+
+    instantiating a <xref href="System.Collections.Generic.Dictionary%602" data-throw-if-not-resolved="false"></xref> using <xref href="Discord.IMessageChannel" data-throw-if-not-resolved="false"></xref> as the key.
+
+    This is the same instance as <xref href="Discord.DiscordComparers.ChannelComparer" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IEqualityComparer{Discord.IMessageChannel}
+    content.vb: Protected Shared ReadOnly Property MessageChannelComparer As IEqualityComparer(Of IMessageChannel)
+  overload: Discord.Addons.MpGame.MpGameService`2.MessageChannelComparer*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MessageChannelComparer
+  modifiers.csharp:
+  - protected
+  - static
+  - get
+  modifiers.vb:
+  - Protected
+  - Shared
+  - ReadOnly
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MessageChannelComparer
+- uid: Discord.Addons.MpGame.MpGameService`2.Logger
+  commentId: P:Discord.Addons.MpGame.MpGameService`2.Logger
+  id: Logger
+  parent: Discord.Addons.MpGame.MpGameService`2
+  langs:
+  - csharp
+  - vb
+  name: Logger
+  nameWithType: MpGameService<TGame, TPlayer>.Logger
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.Logger
+  type: Property
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/MpGameService.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Logger
+    path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
+    startLine: 31
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  syntax:
+    content: protected Func<LogMessage, Task> Logger { get; }
+    parameters: []
+    return:
+      type: System.Func{Discord.LogMessage,System.Threading.Tasks.Task}
+    content.vb: Protected ReadOnly Property Logger As Func(Of LogMessage, Task)
+  overload: Discord.Addons.MpGame.MpGameService`2.Logger*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).Logger
+  modifiers.csharp:
+  - protected
+  - get
+  modifiers.vb:
+  - Protected
+  - ReadOnly
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).Logger
+- uid: Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,System.Func{Discord.LogMessage,System.Threading.Tasks.Task},Discord.Addons.MpGame.IServiceStrings)
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,System.Func{Discord.LogMessage,System.Threading.Tasks.Task},Discord.Addons.MpGame.IServiceStrings)
+  id: '#ctor(Discord.WebSocket.BaseSocketClient,System.Func{Discord.LogMessage,System.Threading.Tasks.Task},Discord.Addons.MpGame.IServiceStrings)'
+  parent: Discord.Addons.MpGame.MpGameService`2
+  langs:
+  - csharp
+  - vb
+  name: MpGameService(BaseSocketClient, Func<LogMessage, Task>, IServiceStrings)
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameService(BaseSocketClient, Func<LogMessage, Task>, IServiceStrings)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameService(Discord.WebSocket.BaseSocketClient, System.Func<Discord.LogMessage, System.Threading.Tasks.Task>, Discord.Addons.MpGame.IServiceStrings)
+  type: Constructor
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/MpGameService.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: .ctor
+    path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
+    startLine: 35
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  syntax:
+    content: public MpGameService(BaseSocketClient client, Func<LogMessage, Task> logger = null, IServiceStrings strings = null)
+    parameters:
+    - id: client
+      type: Discord.WebSocket.BaseSocketClient
+    - id: logger
+      type: System.Func{Discord.LogMessage,System.Threading.Tasks.Task}
+    - id: strings
+      type: Discord.Addons.MpGame.IServiceStrings
+    content.vb: Public Sub New(client As BaseSocketClient, logger As Func(Of LogMessage, Task) = Nothing, strings As IServiceStrings = Nothing)
+  overload: Discord.Addons.MpGame.MpGameService`2.#ctor*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameService(BaseSocketClient, Func(Of LogMessage, Task), IServiceStrings)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameService(Discord.WebSocket.BaseSocketClient, System.Func(Of Discord.LogMessage, System.Threading.Tasks.Task), Discord.Addons.MpGame.IServiceStrings)
+  name.vb: MpGameService(BaseSocketClient, Func(Of LogMessage, Task), IServiceStrings)
+- uid: Discord.Addons.MpGame.MpGameService`2.OpenNewGame(Discord.Commands.ICommandContext)
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.OpenNewGame(Discord.Commands.ICommandContext)
+  id: OpenNewGame(Discord.Commands.ICommandContext)
+  parent: Discord.Addons.MpGame.MpGameService`2
+  langs:
+  - csharp
+  - vb
+  name: OpenNewGame(ICommandContext)
+  nameWithType: MpGameService<TGame, TPlayer>.OpenNewGame(ICommandContext)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.OpenNewGame(Discord.Commands.ICommandContext)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/MpGameService.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: OpenNewGame
+    path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
+    startLine: 83
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Prepare to set up a new game in a specified channel. '
+  example: []
+  syntax:
+    content: public Task<bool> OpenNewGame(ICommandContext context)
+    parameters:
+    - id: context
+      type: Discord.Commands.ICommandContext
+      description: Context of where this game is intended to be opened.
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: <xref uid="langword_csharp_true" name="true" href=""></xref> if the operation succeeded, otherwise <xref uid="langword_csharp_false" name="false" href=""></xref>.
+    content.vb: Public Function OpenNewGame(context As ICommandContext) As Task(Of Boolean)
+  overload: Discord.Addons.MpGame.MpGameService`2.OpenNewGame*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).OpenNewGame(ICommandContext)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).OpenNewGame(Discord.Commands.ICommandContext)
+- uid: Discord.Addons.MpGame.MpGameService`2.AddUser(Discord.IMessageChannel,Discord.IUser)
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.AddUser(Discord.IMessageChannel,Discord.IUser)
+  id: AddUser(Discord.IMessageChannel,Discord.IUser)
+  parent: Discord.Addons.MpGame.MpGameService`2
+  langs:
+  - csharp
+  - vb
+  name: AddUser(IMessageChannel, IUser)
+  nameWithType: MpGameService<TGame, TPlayer>.AddUser(IMessageChannel, IUser)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.AddUser(Discord.IMessageChannel, Discord.IUser)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/MpGameService.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: AddUser
+    path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
+    startLine: 99
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Add a user to join an unstarted game. '
+  example: []
+  syntax:
+    content: public Task<bool> AddUser(IMessageChannel channel, IUser user)
+    parameters:
+    - id: channel
+      type: Discord.IMessageChannel
+      description: Public facing channel of this game.
+    - id: user
+      type: Discord.IUser
+      description: The user.
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: <xref uid="langword_csharp_true" name="true" href=""></xref> if the operation succeeded, otherwise <xref uid="langword_csharp_false" name="false" href=""></xref>.
+    content.vb: Public Function AddUser(channel As IMessageChannel, user As IUser) As Task(Of Boolean)
+  overload: Discord.Addons.MpGame.MpGameService`2.AddUser*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).AddUser(IMessageChannel, IUser)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).AddUser(Discord.IMessageChannel, Discord.IUser)
+- uid: Discord.Addons.MpGame.MpGameService`2.RemoveUser(Discord.IMessageChannel,Discord.IUser)
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.RemoveUser(Discord.IMessageChannel,Discord.IUser)
+  id: RemoveUser(Discord.IMessageChannel,Discord.IUser)
+  parent: Discord.Addons.MpGame.MpGameService`2
+  langs:
+  - csharp
+  - vb
+  name: RemoveUser(IMessageChannel, IUser)
+  nameWithType: MpGameService<TGame, TPlayer>.RemoveUser(IMessageChannel, IUser)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.RemoveUser(Discord.IMessageChannel, Discord.IUser)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/MpGameService.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: RemoveUser
+    path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
+    startLine: 107
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Remove a user from an unstarted game. '
+  example: []
+  syntax:
+    content: public Task<bool> RemoveUser(IMessageChannel channel, IUser user)
+    parameters:
+    - id: channel
+      type: Discord.IMessageChannel
+      description: Public facing channel of this game.
+    - id: user
+      type: Discord.IUser
+      description: The user.
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: <xref uid="langword_csharp_true" name="true" href=""></xref> if the operation succeeded, otherwise <xref uid="langword_csharp_false" name="false" href=""></xref>.
+    content.vb: Public Function RemoveUser(channel As IMessageChannel, user As IUser) As Task(Of Boolean)
+  overload: Discord.Addons.MpGame.MpGameService`2.RemoveUser*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).RemoveUser(IMessageChannel, IUser)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).RemoveUser(Discord.IMessageChannel, Discord.IUser)
+- uid: Discord.Addons.MpGame.MpGameService`2.AddPlayer(`0,`1)
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.AddPlayer(`0,`1)
+  id: AddPlayer(`0,`1)
+  parent: Discord.Addons.MpGame.MpGameService`2
+  langs:
+  - csharp
+  - vb
+  name: AddPlayer(TGame, TPlayer)
+  nameWithType: MpGameService<TGame, TPlayer>.AddPlayer(TGame, TPlayer)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.AddPlayer(TGame, TPlayer)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/MpGameService.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: AddPlayer
+    path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
+    startLine: 115
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Adds a player to an ongoing game. '
+  example: []
+  syntax:
+    content: public Task<bool> AddPlayer(TGame game, TPlayer player)
+    parameters:
+    - id: game
+      type: '{TGame}'
+      description: The game instance.
+    - id: player
+      type: '{TPlayer}'
+      description: The player to add.
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: <xref uid="langword_csharp_true" name="true" href=""></xref> if the operation succeeded, otherwise <xref uid="langword_csharp_false" name="false" href=""></xref>.
+    content.vb: Public Function AddPlayer(game As TGame, player As TPlayer) As Task(Of Boolean)
+  overload: Discord.Addons.MpGame.MpGameService`2.AddPlayer*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).AddPlayer(TGame, TPlayer)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).AddPlayer(TGame, TPlayer)
+- uid: Discord.Addons.MpGame.MpGameService`2.KickPlayer(`0,`1)
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.KickPlayer(`0,`1)
+  id: KickPlayer(`0,`1)
+  parent: Discord.Addons.MpGame.MpGameService`2
+  langs:
+  - csharp
+  - vb
+  name: KickPlayer(TGame, TPlayer)
+  nameWithType: MpGameService<TGame, TPlayer>.KickPlayer(TGame, TPlayer)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.KickPlayer(TGame, TPlayer)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/MpGameService.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: KickPlayer
+    path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
+    startLine: 130
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Kicks a player from an ongoing game. '
+  example: []
+  syntax:
+    content: public Task<bool> KickPlayer(TGame game, TPlayer player)
+    parameters:
+    - id: game
+      type: '{TGame}'
+      description: The game instance.
+    - id: player
+      type: '{TPlayer}'
+      description: The player to kick.
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: <xref uid="langword_csharp_true" name="true" href=""></xref> if the operation succeeded, otherwise <xref uid="langword_csharp_false" name="false" href=""></xref>.
+    content.vb: Public Function KickPlayer(game As TGame, player As TPlayer) As Task(Of Boolean)
+  overload: Discord.Addons.MpGame.MpGameService`2.KickPlayer*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).KickPlayer(TGame, TPlayer)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).KickPlayer(TGame, TPlayer)
+- uid: Discord.Addons.MpGame.MpGameService`2.CancelGame(Discord.IMessageChannel)
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.CancelGame(Discord.IMessageChannel)
+  id: CancelGame(Discord.IMessageChannel)
+  parent: Discord.Addons.MpGame.MpGameService`2
+  langs:
+  - csharp
+  - vb
+  name: CancelGame(IMessageChannel)
+  nameWithType: MpGameService<TGame, TPlayer>.CancelGame(IMessageChannel)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.CancelGame(Discord.IMessageChannel)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/MpGameService.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: CancelGame
+    path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
+    startLine: 148
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Cancel a game that has not yet started. '
+  example: []
+  syntax:
+    content: public Task<bool> CancelGame(IMessageChannel channel)
+    parameters:
+    - id: channel
+      type: Discord.IMessageChannel
+      description: Public facing channel of this game.
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: <xref uid="langword_csharp_true" name="true" href=""></xref> if the operation succeeded, otherwise <xref uid="langword_csharp_false" name="false" href=""></xref>.
+    content.vb: Public Function CancelGame(channel As IMessageChannel) As Task(Of Boolean)
+  overload: Discord.Addons.MpGame.MpGameService`2.CancelGame*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).CancelGame(IMessageChannel)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).CancelGame(Discord.IMessageChannel)
+- uid: Discord.Addons.MpGame.MpGameService`2.TryAddNewGame(Discord.IMessageChannel,`0)
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.TryAddNewGame(Discord.IMessageChannel,`0)
+  id: TryAddNewGame(Discord.IMessageChannel,`0)
+  parent: Discord.Addons.MpGame.MpGameService`2
+  langs:
+  - csharp
+  - vb
+  name: TryAddNewGame(IMessageChannel, TGame)
+  nameWithType: MpGameService<TGame, TPlayer>.TryAddNewGame(IMessageChannel, TGame)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.TryAddNewGame(Discord.IMessageChannel, TGame)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/MpGameService.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: TryAddNewGame
+    path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
+    startLine: 155
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Add a new game to the list of active games. '
+  example: []
+  syntax:
+    content: public Task<bool> TryAddNewGame(IMessageChannel channel, TGame game)
+    parameters:
+    - id: channel
+      type: Discord.IMessageChannel
+      description: Public facing channel of this game.
+    - id: game
+      type: '{TGame}'
+      description: Instance of the game.
+    return:
+      type: System.Threading.Tasks.Task{System.Boolean}
+      description: <xref uid="langword_csharp_true" name="true" href=""></xref> if the operation succeeded, otherwise <xref uid="langword_csharp_false" name="false" href=""></xref>.
+    content.vb: Public Function TryAddNewGame(channel As IMessageChannel, game As TGame) As Task(Of Boolean)
+  overload: Discord.Addons.MpGame.MpGameService`2.TryAddNewGame*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).TryAddNewGame(IMessageChannel, TGame)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).TryAddNewGame(Discord.IMessageChannel, TGame)
+- uid: Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin(Discord.IMessageChannel,System.Boolean,System.Boolean)
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin(Discord.IMessageChannel,System.Boolean,System.Boolean)
+  id: TryUpdateOpenToJoin(Discord.IMessageChannel,System.Boolean,System.Boolean)
+  parent: Discord.Addons.MpGame.MpGameService`2
+  langs:
+  - csharp
+  - vb
+  name: TryUpdateOpenToJoin(IMessageChannel, Boolean, Boolean)
+  nameWithType: MpGameService<TGame, TPlayer>.TryUpdateOpenToJoin(IMessageChannel, Boolean, Boolean)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.TryUpdateOpenToJoin(Discord.IMessageChannel, System.Boolean, System.Boolean)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/MpGameService.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: TryUpdateOpenToJoin
+    path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
+    startLine: 192
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Updates the flag indicating if a game can be joined or not. '
+  example: []
+  syntax:
+    content: public bool TryUpdateOpenToJoin(IMessageChannel channel, bool newValue, bool comparisonValue)
+    parameters:
+    - id: channel
+      type: Discord.IMessageChannel
+      description: >-
+        A message channel. Can be both the public-facing channel
+
+        or the DM channel of one of the players.
+    - id: newValue
+      type: System.Boolean
+      description: The new value.
+    - id: comparisonValue
+      type: System.Boolean
+      description: The value that should be compared against.
+    return:
+      type: System.Boolean
+      description: <xref uid="langword_csharp_true" name="true" href=""></xref> if the value was updated, otherwise <xref uid="langword_csharp_false" name="false" href=""></xref>.
+    content.vb: Public Function TryUpdateOpenToJoin(channel As IMessageChannel, newValue As Boolean, comparisonValue As Boolean) As Boolean
+  overload: Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).TryUpdateOpenToJoin(IMessageChannel, Boolean, Boolean)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).TryUpdateOpenToJoin(Discord.IMessageChannel, System.Boolean, System.Boolean)
+- uid: Discord.Addons.MpGame.MpGameService`2.GetGameFromChannel(Discord.IMessageChannel)
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.GetGameFromChannel(Discord.IMessageChannel)
+  id: GetGameFromChannel(Discord.IMessageChannel)
+  parent: Discord.Addons.MpGame.MpGameService`2
+  langs:
+  - csharp
+  - vb
+  name: GetGameFromChannel(IMessageChannel)
+  nameWithType: MpGameService<TGame, TPlayer>.GetGameFromChannel(IMessageChannel)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetGameFromChannel(Discord.IMessageChannel)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/MpGameService.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: GetGameFromChannel
+    path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
+    startLine: 201
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Retrieve the game instance being played, if any. '
+  example: []
+  syntax:
+    content: public TGame GetGameFromChannel(IMessageChannel channel)
+    parameters:
+    - id: channel
+      type: Discord.IMessageChannel
+      description: >-
+        A message channel. Can be both the public-facing channel
+
+        or the DM channel of one of the players.
+    return:
+      type: '{TGame}'
+      description: >-
+        The <see cref="!:TGame"></see> instance being played in the specified channel,
+
+        or that the user is playing in, or <xref uid="langword_csharp_null" name="null" href=""></xref> if there is none.
+    content.vb: Public Function GetGameFromChannel(channel As IMessageChannel) As TGame
+  overload: Discord.Addons.MpGame.MpGameService`2.GetGameFromChannel*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetGameFromChannel(IMessageChannel)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetGameFromChannel(Discord.IMessageChannel)
+- uid: Discord.Addons.MpGame.MpGameService`2.GetJoinedUsers(Discord.IMessageChannel)
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.GetJoinedUsers(Discord.IMessageChannel)
+  id: GetJoinedUsers(Discord.IMessageChannel)
+  parent: Discord.Addons.MpGame.MpGameService`2
+  langs:
+  - csharp
+  - vb
+  name: GetJoinedUsers(IMessageChannel)
+  nameWithType: MpGameService<TGame, TPlayer>.GetJoinedUsers(IMessageChannel)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetJoinedUsers(Discord.IMessageChannel)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/MpGameService.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: GetJoinedUsers
+    path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
+    startLine: 210
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Retrieve the users set to join an open game, if any. '
+  example: []
+  syntax:
+    content: public IReadOnlyCollection<IUser> GetJoinedUsers(IMessageChannel channel)
+    parameters:
+    - id: channel
+      type: Discord.IMessageChannel
+      description: >-
+        A message channel. Can be both the public-facing channel
+
+        or the DM channel of one of the players.
+    return:
+      type: System.Collections.Generic.IReadOnlyCollection{Discord.IUser}
+      description: >-
+        The users set to join a new game, or an empty collection
+
+        if there is no data.
+    content.vb: Public Function GetJoinedUsers(channel As IMessageChannel) As IReadOnlyCollection(Of IUser)
+  overload: Discord.Addons.MpGame.MpGameService`2.GetJoinedUsers*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetJoinedUsers(IMessageChannel)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetJoinedUsers(Discord.IMessageChannel)
+- uid: Discord.Addons.MpGame.MpGameService`2.IsOpenToJoin(Discord.IMessageChannel)
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.IsOpenToJoin(Discord.IMessageChannel)
+  id: IsOpenToJoin(Discord.IMessageChannel)
+  parent: Discord.Addons.MpGame.MpGameService`2
+  langs:
+  - csharp
+  - vb
+  name: IsOpenToJoin(IMessageChannel)
+  nameWithType: MpGameService<TGame, TPlayer>.IsOpenToJoin(IMessageChannel)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.IsOpenToJoin(Discord.IMessageChannel)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/MpGameService.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: IsOpenToJoin
+    path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
+    startLine: 222
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Retrieve whether a game has been opened and users can join. '
+  example: []
+  syntax:
+    content: public bool IsOpenToJoin(IMessageChannel channel)
+    parameters:
+    - id: channel
+      type: Discord.IMessageChannel
+      description: >-
+        A message channel. Can be both the public-facing channel
+
+        or the DM channel of one of the players.
+    return:
+      type: System.Boolean
+      description: >-
+        <xref uid="langword_csharp_true" name="true" href=""></xref> if a game has been opened
+            and users can join, otherwise <xref uid="langword_csharp_false" name="false" href=""></xref>.
+    content.vb: Public Function IsOpenToJoin(channel As IMessageChannel) As Boolean
+  overload: Discord.Addons.MpGame.MpGameService`2.IsOpenToJoin*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).IsOpenToJoin(IMessageChannel)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).IsOpenToJoin(Discord.IMessageChannel)
+references:
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3
+  commentId: T:Discord.Addons.MpGame.MpGameModuleBase`3
+  isExternal: false
+  name: MpGameModuleBase<TService, TGame, TPlayer>
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer)
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer)
+  name.vb: MpGameModuleBase(Of TService, TGame, TPlayer)
+  spec.csharp:
+  - uid: Discord.Addons.MpGame.MpGameModuleBase`3
+    name: MpGameModuleBase
+    nameWithType: MpGameModuleBase
+    fullName: Discord.Addons.MpGame.MpGameModuleBase
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TService
+    nameWithType: TService
+    fullName: TService
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TGame
+    nameWithType: TGame
+    fullName: TGame
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TPlayer
+    nameWithType: TPlayer
+    fullName: TPlayer
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Discord.Addons.MpGame.MpGameModuleBase`3
+    name: MpGameModuleBase
+    nameWithType: MpGameModuleBase
+    fullName: Discord.Addons.MpGame.MpGameModuleBase
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TService
+    nameWithType: TService
+    fullName: TService
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TGame
+    nameWithType: TGame
+    fullName: TGame
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TPlayer
+    nameWithType: TPlayer
+    fullName: TPlayer
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Addons.MpGame.Player
+  commentId: T:Discord.Addons.MpGame.Player
+  isExternal: false
+  name: Player
+  nameWithType: Player
+  fullName: Discord.Addons.MpGame.Player
+- uid: Discord.Addons.MpGame
+  commentId: N:Discord.Addons.MpGame
+  isExternal: false
+  name: Discord.Addons.MpGame
+  nameWithType: Discord.Addons.MpGame
+  fullName: Discord.Addons.MpGame
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: false
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Discord.IMessageChannel
+  commentId: T:Discord.IMessageChannel
+  parent: Discord
+  isExternal: true
+  name: IMessageChannel
+  nameWithType: IMessageChannel
+  fullName: Discord.IMessageChannel
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+- uid: Discord.DiscordComparers.ChannelComparer
+  commentId: P:Discord.DiscordComparers.ChannelComparer
+- uid: Discord.Addons.MpGame.MpGameService`2.MessageChannelComparer*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.MessageChannelComparer
+  isExternal: false
+  name: MessageChannelComparer
+  nameWithType: MpGameService<TGame, TPlayer>.MessageChannelComparer
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MessageChannelComparer
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MessageChannelComparer
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MessageChannelComparer
+- uid: System.Collections.Generic.IEqualityComparer{Discord.IMessageChannel}
+  commentId: T:System.Collections.Generic.IEqualityComparer{Discord.IMessageChannel}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEqualityComparer`1
+  name: IEqualityComparer<IMessageChannel>
+  nameWithType: IEqualityComparer<IMessageChannel>
+  fullName: System.Collections.Generic.IEqualityComparer<Discord.IMessageChannel>
+  nameWithType.vb: IEqualityComparer(Of IMessageChannel)
+  fullName.vb: System.Collections.Generic.IEqualityComparer(Of Discord.IMessageChannel)
+  name.vb: IEqualityComparer(Of IMessageChannel)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEqualityComparer`1
+    name: IEqualityComparer
+    nameWithType: IEqualityComparer
+    fullName: System.Collections.Generic.IEqualityComparer
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Discord.IMessageChannel
+    name: IMessageChannel
+    nameWithType: IMessageChannel
+    fullName: Discord.IMessageChannel
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEqualityComparer`1
+    name: IEqualityComparer
+    nameWithType: IEqualityComparer
+    fullName: System.Collections.Generic.IEqualityComparer
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Discord.IMessageChannel
+    name: IMessageChannel
+    nameWithType: IMessageChannel
+    fullName: Discord.IMessageChannel
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord
+  commentId: N:Discord
+  isExternal: false
+  name: Discord
+  nameWithType: Discord
+  fullName: Discord
+- uid: System.Collections.Generic.IEqualityComparer`1
+  commentId: T:System.Collections.Generic.IEqualityComparer`1
+  isExternal: true
+  name: IEqualityComparer<T>
+  nameWithType: IEqualityComparer<T>
+  fullName: System.Collections.Generic.IEqualityComparer<T>
+  nameWithType.vb: IEqualityComparer(Of T)
+  fullName.vb: System.Collections.Generic.IEqualityComparer(Of T)
+  name.vb: IEqualityComparer(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEqualityComparer`1
+    name: IEqualityComparer
+    nameWithType: IEqualityComparer
+    fullName: System.Collections.Generic.IEqualityComparer
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEqualityComparer`1
+    name: IEqualityComparer
+    nameWithType: IEqualityComparer
+    fullName: System.Collections.Generic.IEqualityComparer
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: false
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: Discord.Addons.MpGame.MpGameService`2.Logger*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.Logger
+  isExternal: false
+  name: Logger
+  nameWithType: MpGameService<TGame, TPlayer>.Logger
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.Logger
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).Logger
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).Logger
+- uid: System.Func{Discord.LogMessage,System.Threading.Tasks.Task}
+  commentId: T:System.Func{Discord.LogMessage,System.Threading.Tasks.Task}
+  parent: System
+  definition: System.Func`2
+  name: Func<LogMessage, Task>
+  nameWithType: Func<LogMessage, Task>
+  fullName: System.Func<Discord.LogMessage, System.Threading.Tasks.Task>
+  nameWithType.vb: Func(Of LogMessage, Task)
+  fullName.vb: System.Func(Of Discord.LogMessage, System.Threading.Tasks.Task)
+  name.vb: Func(Of LogMessage, Task)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Discord.LogMessage
+    name: LogMessage
+    nameWithType: LogMessage
+    fullName: Discord.LogMessage
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Discord.LogMessage
+    name: LogMessage
+    nameWithType: LogMessage
+    fullName: Discord.LogMessage
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Threading.Tasks.Task
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Addons.MpGame.MpGameService`2.#ctor*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.#ctor
+  isExternal: false
+  name: MpGameService
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameService
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameService
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameService
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameService
+- uid: Discord.WebSocket.BaseSocketClient
+  commentId: T:Discord.WebSocket.BaseSocketClient
+  parent: Discord.WebSocket
+  isExternal: true
+  name: BaseSocketClient
+  nameWithType: BaseSocketClient
+  fullName: Discord.WebSocket.BaseSocketClient
+- uid: Discord.Addons.MpGame.IServiceStrings
+  commentId: T:Discord.Addons.MpGame.IServiceStrings
+  parent: Discord.Addons.MpGame
+  isExternal: false
+  name: IServiceStrings
+  nameWithType: IServiceStrings
+  fullName: Discord.Addons.MpGame.IServiceStrings
+- uid: Discord.WebSocket
+  commentId: N:Discord.WebSocket
+  isExternal: false
+  name: Discord.WebSocket
+  nameWithType: Discord.WebSocket
+  fullName: Discord.WebSocket
+- uid: Discord.Addons.MpGame.MpGameService`2.OpenNewGame*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.OpenNewGame
+  isExternal: false
+  name: OpenNewGame
+  nameWithType: MpGameService<TGame, TPlayer>.OpenNewGame
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.OpenNewGame
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).OpenNewGame
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).OpenNewGame
+- uid: Discord.Commands.ICommandContext
+  commentId: T:Discord.Commands.ICommandContext
+  parent: Discord.Commands
+  isExternal: true
+  name: ICommandContext
+  nameWithType: ICommandContext
+  fullName: Discord.Commands.ICommandContext
+- uid: System.Threading.Tasks.Task{System.Boolean}
+  commentId: T:System.Threading.Tasks.Task{System.Boolean}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  name: Task<Boolean>
+  nameWithType: Task<Boolean>
+  fullName: System.Threading.Tasks.Task<System.Boolean>
+  nameWithType.vb: Task(Of Boolean)
+  fullName.vb: System.Threading.Tasks.Task(Of System.Boolean)
+  name.vb: Task(Of Boolean)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Commands
+  commentId: N:Discord.Commands
+  isExternal: false
+  name: Discord.Commands
+  nameWithType: Discord.Commands
+  fullName: Discord.Commands
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    nameWithType: Task
+    fullName: System.Threading.Tasks.Task
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: false
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: Discord.Addons.MpGame.MpGameService`2.AddUser*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.AddUser
+  isExternal: false
+  name: AddUser
+  nameWithType: MpGameService<TGame, TPlayer>.AddUser
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.AddUser
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).AddUser
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).AddUser
+- uid: Discord.IUser
+  commentId: T:Discord.IUser
+  parent: Discord
+  isExternal: true
+  name: IUser
+  nameWithType: IUser
+  fullName: Discord.IUser
+- uid: Discord.Addons.MpGame.MpGameService`2.RemoveUser*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.RemoveUser
+  isExternal: false
+  name: RemoveUser
+  nameWithType: MpGameService<TGame, TPlayer>.RemoveUser
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.RemoveUser
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).RemoveUser
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).RemoveUser
+- uid: Discord.Addons.MpGame.MpGameService`2.AddPlayer*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.AddPlayer
+  isExternal: false
+  name: AddPlayer
+  nameWithType: MpGameService<TGame, TPlayer>.AddPlayer
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.AddPlayer
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).AddPlayer
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).AddPlayer
+- uid: '{TGame}'
+  commentId: '!:TGame'
+  definition: TGame
+  name: TGame
+  nameWithType: TGame
+  fullName: TGame
+- uid: '{TPlayer}'
+  commentId: '!:TPlayer'
+  definition: TPlayer
+  name: TPlayer
+  nameWithType: TPlayer
+  fullName: TPlayer
+- uid: TGame
+  isExternal: false
+  name: TGame
+  nameWithType: TGame
+  fullName: TGame
+- uid: TPlayer
+  isExternal: false
+  name: TPlayer
+  nameWithType: TPlayer
+  fullName: TPlayer
+- uid: Discord.Addons.MpGame.MpGameService`2.KickPlayer*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.KickPlayer
+  isExternal: false
+  name: KickPlayer
+  nameWithType: MpGameService<TGame, TPlayer>.KickPlayer
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.KickPlayer
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).KickPlayer
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).KickPlayer
+- uid: Discord.Addons.MpGame.MpGameService`2.CancelGame*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.CancelGame
+  isExternal: false
+  name: CancelGame
+  nameWithType: MpGameService<TGame, TPlayer>.CancelGame
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.CancelGame
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).CancelGame
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).CancelGame
+- uid: Discord.Addons.MpGame.MpGameService`2.TryAddNewGame*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.TryAddNewGame
+  isExternal: false
+  name: TryAddNewGame
+  nameWithType: MpGameService<TGame, TPlayer>.TryAddNewGame
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.TryAddNewGame
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).TryAddNewGame
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).TryAddNewGame
+- uid: Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin
+  isExternal: false
+  name: TryUpdateOpenToJoin
+  nameWithType: MpGameService<TGame, TPlayer>.TryUpdateOpenToJoin
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.TryUpdateOpenToJoin
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).TryUpdateOpenToJoin
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).TryUpdateOpenToJoin
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: Discord.Addons.MpGame.MpGameService`2.GetGameFromChannel*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.GetGameFromChannel
+  isExternal: false
+  name: GetGameFromChannel
+  nameWithType: MpGameService<TGame, TPlayer>.GetGameFromChannel
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetGameFromChannel
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetGameFromChannel
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetGameFromChannel
+- uid: Discord.Addons.MpGame.MpGameService`2.GetJoinedUsers*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.GetJoinedUsers
+  isExternal: false
+  name: GetJoinedUsers
+  nameWithType: MpGameService<TGame, TPlayer>.GetJoinedUsers
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetJoinedUsers
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetJoinedUsers
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetJoinedUsers
+- uid: System.Collections.Generic.IReadOnlyCollection{Discord.IUser}
+  commentId: T:System.Collections.Generic.IReadOnlyCollection{Discord.IUser}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyCollection`1
+  name: IReadOnlyCollection<IUser>
+  nameWithType: IReadOnlyCollection<IUser>
+  fullName: System.Collections.Generic.IReadOnlyCollection<Discord.IUser>
+  nameWithType.vb: IReadOnlyCollection(Of IUser)
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of Discord.IUser)
+  name.vb: IReadOnlyCollection(Of IUser)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    nameWithType: IReadOnlyCollection
+    fullName: System.Collections.Generic.IReadOnlyCollection
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: Discord.IUser
+    name: IUser
+    nameWithType: IUser
+    fullName: Discord.IUser
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    nameWithType: IReadOnlyCollection
+    fullName: System.Collections.Generic.IReadOnlyCollection
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: Discord.IUser
+    name: IUser
+    nameWithType: IUser
+    fullName: Discord.IUser
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IReadOnlyCollection`1
+  commentId: T:System.Collections.Generic.IReadOnlyCollection`1
+  isExternal: true
+  name: IReadOnlyCollection<T>
+  nameWithType: IReadOnlyCollection<T>
+  fullName: System.Collections.Generic.IReadOnlyCollection<T>
+  nameWithType.vb: IReadOnlyCollection(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of T)
+  name.vb: IReadOnlyCollection(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    nameWithType: IReadOnlyCollection
+    fullName: System.Collections.Generic.IReadOnlyCollection
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    nameWithType: IReadOnlyCollection
+    fullName: System.Collections.Generic.IReadOnlyCollection
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Addons.MpGame.MpGameService`2.IsOpenToJoin*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.IsOpenToJoin
+  isExternal: false
+  name: IsOpenToJoin
+  nameWithType: MpGameService<TGame, TPlayer>.IsOpenToJoin
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.IsOpenToJoin
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).IsOpenToJoin
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).IsOpenToJoin

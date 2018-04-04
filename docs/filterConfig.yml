@@ -1,0 +1,11 @@
+apiRules:
+- exclude:
+    uidRegex: ^System\.Object
+- exclude:
+    uidRegex: ^Discord\.Addons\.MpGame\.Collections\.Node`1$
+- exclude:
+    uidRegex: ^Discord\.Addons\.MpGame\.MpGameModuleBase`1$
+- exclude:
+    uidRegex: ^Discord\.Addons\.MpGame\.MpGameModuleBase`2$
+- exclude:
+    uidRegex: ^Discord\.Addons\.MpGame\.MpGameService`1$

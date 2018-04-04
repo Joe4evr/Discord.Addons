@@ -1,0 +1,1067 @@
+### YamlMime:ManagedReference
+items:
+- uid: Discord.Addons.MpGame.GameBase`1
+  commentId: T:Discord.Addons.MpGame.GameBase`1
+  id: GameBase`1
+  parent: Discord.Addons.MpGame
+  children:
+  - Discord.Addons.MpGame.GameBase`1.#ctor(Discord.IMessageChannel,System.Collections.Generic.IEnumerable{`0},System.Boolean)
+  - Discord.Addons.MpGame.GameBase`1.Channel
+  - Discord.Addons.MpGame.GameBase`1.EndGame(System.String)
+  - Discord.Addons.MpGame.GameBase`1.GetGameState
+  - Discord.Addons.MpGame.GameBase`1.GetGameStateEmbed
+  - Discord.Addons.MpGame.GameBase`1.IsTurnPlayerFirstPlayer
+  - Discord.Addons.MpGame.GameBase`1.IsTurnPlayerLastPlayer
+  - Discord.Addons.MpGame.GameBase`1.NextTurn
+  - Discord.Addons.MpGame.GameBase`1.OnPlayerAdded(`0)
+  - Discord.Addons.MpGame.GameBase`1.OnPlayerKicked(`0)
+  - Discord.Addons.MpGame.GameBase`1.Players
+  - Discord.Addons.MpGame.GameBase`1.SetupGame
+  - Discord.Addons.MpGame.GameBase`1.StartGame
+  - Discord.Addons.MpGame.GameBase`1.TurnPlayer
+  langs:
+  - csharp
+  - vb
+  name: GameBase<TPlayer>
+  nameWithType: GameBase<TPlayer>
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>
+  type: Class
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: GameBase
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 10
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Base class to represent a game between Discord users. '
+  example: []
+  syntax:
+    content: >-
+      public abstract class GameBase<TPlayer>
+          where TPlayer : Player
+    typeParameters:
+    - id: TPlayer
+      description: The type of this game&apos;s kind of <xref href="Discord.Addons.MpGame.Player" data-throw-if-not-resolved="false"></xref> object.
+    content.vb: Public MustInherit Class GameBase(Of TPlayer As Player)
+  inheritance:
+  - System.Object
+  nameWithType.vb: GameBase(Of TPlayer)
+  modifiers.csharp:
+  - public
+  - abstract
+  - class
+  modifiers.vb:
+  - Public
+  - MustInherit
+  - Class
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer)
+  name.vb: GameBase(Of TPlayer)
+- uid: Discord.Addons.MpGame.GameBase`1.#ctor(Discord.IMessageChannel,System.Collections.Generic.IEnumerable{`0},System.Boolean)
+  commentId: M:Discord.Addons.MpGame.GameBase`1.#ctor(Discord.IMessageChannel,System.Collections.Generic.IEnumerable{`0},System.Boolean)
+  id: '#ctor(Discord.IMessageChannel,System.Collections.Generic.IEnumerable{`0},System.Boolean)'
+  parent: Discord.Addons.MpGame.GameBase`1
+  langs:
+  - csharp
+  - vb
+  name: GameBase(IMessageChannel, IEnumerable<TPlayer>, Boolean)
+  nameWithType: GameBase<TPlayer>.GameBase(IMessageChannel, IEnumerable<TPlayer>, Boolean)
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.GameBase(Discord.IMessageChannel, System.Collections.Generic.IEnumerable<TPlayer>, System.Boolean)
+  type: Constructor
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: .ctor
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 19
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Sets up the common logic for a multiplayer game. '
+  example: []
+  syntax:
+    content: protected GameBase(IMessageChannel channel, IEnumerable<TPlayer> players, bool setFirstPlayerImmediately = false)
+    parameters:
+    - id: channel
+      type: Discord.IMessageChannel
+      description: The channel where the public-facing side of the game is played.
+    - id: players
+      type: System.Collections.Generic.IEnumerable{{TPlayer}}
+      description: The players for this game instance.
+    - id: setFirstPlayerImmediately
+      type: System.Boolean
+      description: >-
+        When set to <xref uid="langword_csharp_true" name="true" href=""></xref>, will set the TurnPlayer
+
+        to the first player before the game begins, otherwise it will be set to an empty Node and you will
+
+        have to set it to Turnplayer.Next when starting the first turn.
+    content.vb: Protected Sub New(channel As IMessageChannel, players As IEnumerable(Of TPlayer), setFirstPlayerImmediately As Boolean = False)
+  overload: Discord.Addons.MpGame.GameBase`1.#ctor*
+  nameWithType.vb: GameBase(Of TPlayer).GameBase(IMessageChannel, IEnumerable(Of TPlayer), Boolean)
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).GameBase(Discord.IMessageChannel, System.Collections.Generic.IEnumerable(Of TPlayer), System.Boolean)
+  name.vb: GameBase(IMessageChannel, IEnumerable(Of TPlayer), Boolean)
+- uid: Discord.Addons.MpGame.GameBase`1.Channel
+  commentId: P:Discord.Addons.MpGame.GameBase`1.Channel
+  id: Channel
+  parent: Discord.Addons.MpGame.GameBase`1
+  langs:
+  - csharp
+  - vb
+  name: Channel
+  nameWithType: GameBase<TPlayer>.Channel
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.Channel
+  type: Property
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Channel
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 32
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'The channel where the public-facing side of the game is played. '
+  example: []
+  syntax:
+    content: protected IMessageChannel Channel { get; }
+    parameters: []
+    return:
+      type: Discord.IMessageChannel
+    content.vb: Protected ReadOnly Property Channel As IMessageChannel
+  overload: Discord.Addons.MpGame.GameBase`1.Channel*
+  nameWithType.vb: GameBase(Of TPlayer).Channel
+  modifiers.csharp:
+  - protected
+  - get
+  modifiers.vb:
+  - Protected
+  - ReadOnly
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).Channel
+- uid: Discord.Addons.MpGame.GameBase`1.Players
+  commentId: P:Discord.Addons.MpGame.GameBase`1.Players
+  id: Players
+  parent: Discord.Addons.MpGame.GameBase`1
+  langs:
+  - csharp
+  - vb
+  name: Players
+  nameWithType: GameBase<TPlayer>.Players
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.Players
+  type: Property
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Players
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 35
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Represents all the players in this game. '
+  example: []
+  syntax:
+    content: protected CircularLinkedList<TPlayer> Players { get; }
+    parameters: []
+    return:
+      type: Discord.Addons.MpGame.Collections.CircularLinkedList{{TPlayer}}
+    content.vb: Protected ReadOnly Property Players As CircularLinkedList(Of TPlayer)
+  overload: Discord.Addons.MpGame.GameBase`1.Players*
+  nameWithType.vb: GameBase(Of TPlayer).Players
+  modifiers.csharp:
+  - protected
+  - get
+  modifiers.vb:
+  - Protected
+  - ReadOnly
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).Players
+- uid: Discord.Addons.MpGame.GameBase`1.TurnPlayer
+  commentId: P:Discord.Addons.MpGame.GameBase`1.TurnPlayer
+  id: TurnPlayer
+  parent: Discord.Addons.MpGame.GameBase`1
+  langs:
+  - csharp
+  - vb
+  name: TurnPlayer
+  nameWithType: GameBase<TPlayer>.TurnPlayer
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.TurnPlayer
+  type: Property
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: TurnPlayer
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 38
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'The current turn&apos;s player. '
+  example: []
+  syntax:
+    content: public Node<TPlayer> TurnPlayer { get; protected set; }
+    parameters: []
+    return:
+      type: Discord.Addons.MpGame.Collections.Node{{TPlayer}}
+    content.vb: Public Property TurnPlayer As Node(Of TPlayer)
+  overload: Discord.Addons.MpGame.GameBase`1.TurnPlayer*
+  nameWithType.vb: GameBase(Of TPlayer).TurnPlayer
+  modifiers.csharp:
+  - public
+  - get
+  - protected set
+  modifiers.vb:
+  - Public
+  - Get
+  - Protected Set
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).TurnPlayer
+- uid: Discord.Addons.MpGame.GameBase`1.IsTurnPlayerFirstPlayer
+  commentId: M:Discord.Addons.MpGame.GameBase`1.IsTurnPlayerFirstPlayer
+  id: IsTurnPlayerFirstPlayer
+  parent: Discord.Addons.MpGame.GameBase`1
+  langs:
+  - csharp
+  - vb
+  name: IsTurnPlayerFirstPlayer()
+  nameWithType: GameBase<TPlayer>.IsTurnPlayerFirstPlayer()
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.IsTurnPlayerFirstPlayer()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: IsTurnPlayerFirstPlayer
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 41
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Indicates whether or not the current TurnPlayer is the first player in the list. '
+  example: []
+  syntax:
+    content: protected bool IsTurnPlayerFirstPlayer()
+    return:
+      type: System.Boolean
+    content.vb: Protected Function IsTurnPlayerFirstPlayer As Boolean
+  overload: Discord.Addons.MpGame.GameBase`1.IsTurnPlayerFirstPlayer*
+  nameWithType.vb: GameBase(Of TPlayer).IsTurnPlayerFirstPlayer()
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).IsTurnPlayerFirstPlayer()
+- uid: Discord.Addons.MpGame.GameBase`1.IsTurnPlayerLastPlayer
+  commentId: M:Discord.Addons.MpGame.GameBase`1.IsTurnPlayerLastPlayer
+  id: IsTurnPlayerLastPlayer
+  parent: Discord.Addons.MpGame.GameBase`1
+  langs:
+  - csharp
+  - vb
+  name: IsTurnPlayerLastPlayer()
+  nameWithType: GameBase<TPlayer>.IsTurnPlayerLastPlayer()
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.IsTurnPlayerLastPlayer()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: IsTurnPlayerLastPlayer
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 44
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Indicates whether or not the current TurnPlayer is the last player in the list. '
+  example: []
+  syntax:
+    content: protected bool IsTurnPlayerLastPlayer()
+    return:
+      type: System.Boolean
+    content.vb: Protected Function IsTurnPlayerLastPlayer As Boolean
+  overload: Discord.Addons.MpGame.GameBase`1.IsTurnPlayerLastPlayer*
+  nameWithType.vb: GameBase(Of TPlayer).IsTurnPlayerLastPlayer()
+  modifiers.csharp:
+  - protected
+  modifiers.vb:
+  - Protected
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).IsTurnPlayerLastPlayer()
+- uid: Discord.Addons.MpGame.GameBase`1.SetupGame
+  commentId: M:Discord.Addons.MpGame.GameBase`1.SetupGame
+  id: SetupGame
+  parent: Discord.Addons.MpGame.GameBase`1
+  langs:
+  - csharp
+  - vb
+  name: SetupGame()
+  nameWithType: GameBase<TPlayer>.SetupGame()
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.SetupGame()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: SetupGame
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 47
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Perform the actions that are part of the initial setup. '
+  example: []
+  syntax:
+    content: public abstract Task SetupGame()
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public MustOverride Function SetupGame As Task
+  overload: Discord.Addons.MpGame.GameBase`1.SetupGame*
+  nameWithType.vb: GameBase(Of TPlayer).SetupGame()
+  modifiers.csharp:
+  - public
+  - abstract
+  modifiers.vb:
+  - Public
+  - MustOverride
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).SetupGame()
+- uid: Discord.Addons.MpGame.GameBase`1.StartGame
+  commentId: M:Discord.Addons.MpGame.GameBase`1.StartGame
+  id: StartGame
+  parent: Discord.Addons.MpGame.GameBase`1
+  langs:
+  - csharp
+  - vb
+  name: StartGame()
+  nameWithType: GameBase<TPlayer>.StartGame()
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.StartGame()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: StartGame
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 50
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Perform the one-time actions that happen at the start of the game. '
+  example: []
+  syntax:
+    content: public abstract Task StartGame()
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public MustOverride Function StartGame As Task
+  overload: Discord.Addons.MpGame.GameBase`1.StartGame*
+  nameWithType.vb: GameBase(Of TPlayer).StartGame()
+  modifiers.csharp:
+  - public
+  - abstract
+  modifiers.vb:
+  - Public
+  - MustOverride
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).StartGame()
+- uid: Discord.Addons.MpGame.GameBase`1.NextTurn
+  commentId: M:Discord.Addons.MpGame.GameBase`1.NextTurn
+  id: NextTurn
+  parent: Discord.Addons.MpGame.GameBase`1
+  langs:
+  - csharp
+  - vb
+  name: NextTurn()
+  nameWithType: GameBase<TPlayer>.NextTurn()
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.NextTurn()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: NextTurn
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 53
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Perform all actions that are part of starting a new turn. '
+  example: []
+  syntax:
+    content: public abstract Task NextTurn()
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public MustOverride Function NextTurn As Task
+  overload: Discord.Addons.MpGame.GameBase`1.NextTurn*
+  nameWithType.vb: GameBase(Of TPlayer).NextTurn()
+  modifiers.csharp:
+  - public
+  - abstract
+  modifiers.vb:
+  - Public
+  - MustOverride
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).NextTurn()
+- uid: Discord.Addons.MpGame.GameBase`1.EndGame(System.String)
+  commentId: M:Discord.Addons.MpGame.GameBase`1.EndGame(System.String)
+  id: EndGame(System.String)
+  parent: Discord.Addons.MpGame.GameBase`1
+  langs:
+  - csharp
+  - vb
+  name: EndGame(String)
+  nameWithType: GameBase<TPlayer>.EndGame(String)
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.EndGame(System.String)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: EndGame
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 59
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: "Perform all actions that happen when the game ends\n(e.g.: a win condition is met, or the game is stopped early). "
+  example: []
+  syntax:
+    content: public virtual Task EndGame(string endmsg)
+    parameters:
+    - id: endmsg
+      type: System.String
+      description: >-
+        The message that should be displayed announcing
+
+        the win condition or forced end of the game.
+    return:
+      type: System.Threading.Tasks.Task
+    content.vb: Public Overridable Function EndGame(endmsg As String) As Task
+  overload: Discord.Addons.MpGame.GameBase`1.EndGame*
+  nameWithType.vb: GameBase(Of TPlayer).EndGame(String)
+  modifiers.csharp:
+  - public
+  - virtual
+  modifiers.vb:
+  - Public
+  - Overridable
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).EndGame(System.String)
+- uid: Discord.Addons.MpGame.GameBase`1.GetGameState
+  commentId: M:Discord.Addons.MpGame.GameBase`1.GetGameState
+  id: GetGameState
+  parent: Discord.Addons.MpGame.GameBase`1
+  langs:
+  - csharp
+  - vb
+  name: GetGameState()
+  nameWithType: GameBase<TPlayer>.GetGameState()
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.GetGameState()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: GetGameState
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 68
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Get a string that represents the state of the game. '
+  remarks: >-
+    Does not *need* to be implemented if
+
+    <xref href="Discord.Addons.MpGame.GameBase%601.GetGameStateEmbed" data-throw-if-not-resolved="false"></xref> is used.
+  example: []
+  syntax:
+    content: public abstract string GetGameState()
+    return:
+      type: System.String
+    content.vb: Public MustOverride Function GetGameState As String
+  overload: Discord.Addons.MpGame.GameBase`1.GetGameState*
+  nameWithType.vb: GameBase(Of TPlayer).GetGameState()
+  modifiers.csharp:
+  - public
+  - abstract
+  modifiers.vb:
+  - Public
+  - MustOverride
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).GetGameState()
+- uid: Discord.Addons.MpGame.GameBase`1.GetGameStateEmbed
+  commentId: M:Discord.Addons.MpGame.GameBase`1.GetGameStateEmbed
+  id: GetGameStateEmbed
+  parent: Discord.Addons.MpGame.GameBase`1
+  langs:
+  - csharp
+  - vb
+  name: GetGameStateEmbed()
+  nameWithType: GameBase<TPlayer>.GetGameStateEmbed()
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.GetGameStateEmbed()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: GetGameStateEmbed
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 73
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: 'Get an embed that represents the state of the game. '
+  remarks: >-
+    Does not *need* to be implemented if
+
+    <xref href="Discord.Addons.MpGame.GameBase%601.GetGameState" data-throw-if-not-resolved="false"></xref> is used.
+  example: []
+  syntax:
+    content: public abstract Embed GetGameStateEmbed()
+    return:
+      type: Discord.Embed
+    content.vb: Public MustOverride Function GetGameStateEmbed As Embed
+  overload: Discord.Addons.MpGame.GameBase`1.GetGameStateEmbed*
+  nameWithType.vb: GameBase(Of TPlayer).GetGameStateEmbed()
+  modifiers.csharp:
+  - public
+  - abstract
+  modifiers.vb:
+  - Public
+  - MustOverride
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).GetGameStateEmbed()
+- uid: Discord.Addons.MpGame.GameBase`1.OnPlayerAdded(`0)
+  commentId: M:Discord.Addons.MpGame.GameBase`1.OnPlayerAdded(`0)
+  id: OnPlayerAdded(`0)
+  parent: Discord.Addons.MpGame.GameBase`1
+  langs:
+  - csharp
+  - vb
+  name: OnPlayerAdded(TPlayer)
+  nameWithType: GameBase<TPlayer>.OnPlayerAdded(TPlayer)
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.OnPlayerAdded(TPlayer)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: OnPlayerAdded
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 80
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: "\nGets called when a player is added into an ongoing game,\nallowing an opportunity to add properties to the player.\n"
+  example: []
+  syntax:
+    content: protected virtual void OnPlayerAdded(TPlayer player)
+    parameters:
+    - id: player
+      type: '{TPlayer}'
+      description: The player that is added.
+    content.vb: Protected Overridable Sub OnPlayerAdded(player As TPlayer)
+  overload: Discord.Addons.MpGame.GameBase`1.OnPlayerAdded*
+  nameWithType.vb: GameBase(Of TPlayer).OnPlayerAdded(TPlayer)
+  modifiers.csharp:
+  - protected
+  - virtual
+  modifiers.vb:
+  - Protected
+  - Overridable
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).OnPlayerAdded(TPlayer)
+- uid: Discord.Addons.MpGame.GameBase`1.OnPlayerKicked(`0)
+  commentId: M:Discord.Addons.MpGame.GameBase`1.OnPlayerKicked(`0)
+  id: OnPlayerKicked(`0)
+  parent: Discord.Addons.MpGame.GameBase`1
+  langs:
+  - csharp
+  - vb
+  name: OnPlayerKicked(TPlayer)
+  nameWithType: GameBase<TPlayer>.OnPlayerKicked(TPlayer)
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.OnPlayerKicked(TPlayer)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Models/GameBase.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: OnPlayerKicked
+    path: ../src/Discord.Addons.MpGame/Models/GameBase.cs
+    startLine: 88
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  summary: "\nGets called when a player is forcibly kicked,\nallowing an opportunity to access some of their\nproperties to put back into the game.\n"
+  example: []
+  syntax:
+    content: protected virtual void OnPlayerKicked(TPlayer player)
+    parameters:
+    - id: player
+      type: '{TPlayer}'
+      description: The player that is removed.
+    content.vb: Protected Overridable Sub OnPlayerKicked(player As TPlayer)
+  overload: Discord.Addons.MpGame.GameBase`1.OnPlayerKicked*
+  nameWithType.vb: GameBase(Of TPlayer).OnPlayerKicked(TPlayer)
+  modifiers.csharp:
+  - protected
+  - virtual
+  modifiers.vb:
+  - Protected
+  - Overridable
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).OnPlayerKicked(TPlayer)
+references:
+- uid: Discord.Addons.MpGame.Player
+  commentId: T:Discord.Addons.MpGame.Player
+  isExternal: false
+  name: Player
+  nameWithType: Player
+  fullName: Discord.Addons.MpGame.Player
+- uid: Discord.Addons.MpGame
+  commentId: N:Discord.Addons.MpGame
+  isExternal: false
+  name: Discord.Addons.MpGame
+  nameWithType: Discord.Addons.MpGame
+  fullName: Discord.Addons.MpGame
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System
+  commentId: N:System
+  isExternal: false
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Discord.Addons.MpGame.GameBase`1.#ctor*
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.#ctor
+  isExternal: false
+  name: GameBase
+  nameWithType: GameBase<TPlayer>.GameBase
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.GameBase
+  nameWithType.vb: GameBase(Of TPlayer).GameBase
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).GameBase
+- uid: Discord.IMessageChannel
+  commentId: T:Discord.IMessageChannel
+  parent: Discord
+  isExternal: true
+  name: IMessageChannel
+  nameWithType: IMessageChannel
+  fullName: Discord.IMessageChannel
+- uid: System.Collections.Generic.IEnumerable{{TPlayer}}
+  commentId: T:System.Collections.Generic.IEnumerable{`0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<TPlayer>
+  nameWithType: IEnumerable<TPlayer>
+  fullName: System.Collections.Generic.IEnumerable<TPlayer>
+  nameWithType.vb: IEnumerable(Of TPlayer)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of TPlayer)
+  name.vb: IEnumerable(Of TPlayer)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TPlayer
+    nameWithType: TPlayer
+    fullName: TPlayer
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TPlayer
+    nameWithType: TPlayer
+    fullName: TPlayer
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: Discord
+  commentId: N:Discord
+  isExternal: false
+  name: Discord
+  nameWithType: Discord
+  fullName: Discord
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: false
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: Discord.Addons.MpGame.GameBase`1.Channel*
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.Channel
+  isExternal: false
+  name: Channel
+  nameWithType: GameBase<TPlayer>.Channel
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.Channel
+  nameWithType.vb: GameBase(Of TPlayer).Channel
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).Channel
+- uid: Discord.Addons.MpGame.GameBase`1.Players*
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.Players
+  isExternal: false
+  name: Players
+  nameWithType: GameBase<TPlayer>.Players
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.Players
+  nameWithType.vb: GameBase(Of TPlayer).Players
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).Players
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList{{TPlayer}}
+  commentId: T:Discord.Addons.MpGame.Collections.CircularLinkedList{`0}
+  parent: Discord.Addons.MpGame.Collections
+  definition: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  name: CircularLinkedList<TPlayer>
+  nameWithType: CircularLinkedList<TPlayer>
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<TPlayer>
+  nameWithType.vb: CircularLinkedList(Of TPlayer)
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of TPlayer)
+  name.vb: CircularLinkedList(Of TPlayer)
+  spec.csharp:
+  - uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+    name: CircularLinkedList
+    nameWithType: CircularLinkedList
+    fullName: Discord.Addons.MpGame.Collections.CircularLinkedList
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TPlayer
+    nameWithType: TPlayer
+    fullName: TPlayer
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+    name: CircularLinkedList
+    nameWithType: CircularLinkedList
+    fullName: Discord.Addons.MpGame.Collections.CircularLinkedList
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TPlayer
+    nameWithType: TPlayer
+    fullName: TPlayer
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  commentId: T:Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  isExternal: false
+  name: CircularLinkedList<T>
+  nameWithType: CircularLinkedList<T>
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>
+  nameWithType.vb: CircularLinkedList(Of T)
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T)
+  name.vb: CircularLinkedList(Of T)
+  spec.csharp:
+  - uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+    name: CircularLinkedList
+    nameWithType: CircularLinkedList
+    fullName: Discord.Addons.MpGame.Collections.CircularLinkedList
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+    name: CircularLinkedList
+    nameWithType: CircularLinkedList
+    fullName: Discord.Addons.MpGame.Collections.CircularLinkedList
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Addons.MpGame.Collections
+  commentId: N:Discord.Addons.MpGame.Collections
+  isExternal: false
+  name: Discord.Addons.MpGame.Collections
+  nameWithType: Discord.Addons.MpGame.Collections
+  fullName: Discord.Addons.MpGame.Collections
+- uid: Discord.Addons.MpGame.GameBase`1.TurnPlayer*
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.TurnPlayer
+  isExternal: false
+  name: TurnPlayer
+  nameWithType: GameBase<TPlayer>.TurnPlayer
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.TurnPlayer
+  nameWithType.vb: GameBase(Of TPlayer).TurnPlayer
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).TurnPlayer
+- uid: Discord.Addons.MpGame.Collections.Node{{TPlayer}}
+  commentId: T:Discord.Addons.MpGame.Collections.Node{`0}
+  parent: Discord.Addons.MpGame.Collections
+  definition: Discord.Addons.MpGame.Collections.Node`1
+  name: Node<TPlayer>
+  nameWithType: Node<TPlayer>
+  fullName: Discord.Addons.MpGame.Collections.Node<TPlayer>
+  nameWithType.vb: Node(Of TPlayer)
+  fullName.vb: Discord.Addons.MpGame.Collections.Node(Of TPlayer)
+  name.vb: Node(Of TPlayer)
+  spec.csharp:
+  - uid: Discord.Addons.MpGame.Collections.Node`1
+    name: Node
+    nameWithType: Node
+    fullName: Discord.Addons.MpGame.Collections.Node
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TPlayer
+    nameWithType: TPlayer
+    fullName: TPlayer
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Discord.Addons.MpGame.Collections.Node`1
+    name: Node
+    nameWithType: Node
+    fullName: Discord.Addons.MpGame.Collections.Node
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TPlayer
+    nameWithType: TPlayer
+    fullName: TPlayer
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Addons.MpGame.Collections.Node`1
+  commentId: T:Discord.Addons.MpGame.Collections.Node`1
+  isExternal: false
+  name: Node<T>
+  nameWithType: Node<T>
+  fullName: Discord.Addons.MpGame.Collections.Node<T>
+  nameWithType.vb: Node(Of T)
+  fullName.vb: Discord.Addons.MpGame.Collections.Node(Of T)
+  name.vb: Node(Of T)
+  spec.csharp:
+  - uid: Discord.Addons.MpGame.Collections.Node`1
+    name: Node
+    nameWithType: Node
+    fullName: Discord.Addons.MpGame.Collections.Node
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Discord.Addons.MpGame.Collections.Node`1
+    name: Node
+    nameWithType: Node
+    fullName: Discord.Addons.MpGame.Collections.Node
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Addons.MpGame.GameBase`1.IsTurnPlayerFirstPlayer*
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.IsTurnPlayerFirstPlayer
+  isExternal: false
+  name: IsTurnPlayerFirstPlayer
+  nameWithType: GameBase<TPlayer>.IsTurnPlayerFirstPlayer
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.IsTurnPlayerFirstPlayer
+  nameWithType.vb: GameBase(Of TPlayer).IsTurnPlayerFirstPlayer
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).IsTurnPlayerFirstPlayer
+- uid: Discord.Addons.MpGame.GameBase`1.IsTurnPlayerLastPlayer*
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.IsTurnPlayerLastPlayer
+  isExternal: false
+  name: IsTurnPlayerLastPlayer
+  nameWithType: GameBase<TPlayer>.IsTurnPlayerLastPlayer
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.IsTurnPlayerLastPlayer
+  nameWithType.vb: GameBase(Of TPlayer).IsTurnPlayerLastPlayer
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).IsTurnPlayerLastPlayer
+- uid: Discord.Addons.MpGame.GameBase`1.SetupGame*
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.SetupGame
+  isExternal: false
+  name: SetupGame
+  nameWithType: GameBase<TPlayer>.SetupGame
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.SetupGame
+  nameWithType.vb: GameBase(Of TPlayer).SetupGame
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).SetupGame
+- uid: System.Threading.Tasks.Task
+  commentId: T:System.Threading.Tasks.Task
+  parent: System.Threading.Tasks
+  isExternal: true
+  name: Task
+  nameWithType: Task
+  fullName: System.Threading.Tasks.Task
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: false
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+- uid: Discord.Addons.MpGame.GameBase`1.StartGame*
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.StartGame
+  isExternal: false
+  name: StartGame
+  nameWithType: GameBase<TPlayer>.StartGame
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.StartGame
+  nameWithType.vb: GameBase(Of TPlayer).StartGame
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).StartGame
+- uid: Discord.Addons.MpGame.GameBase`1.NextTurn*
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.NextTurn
+  isExternal: false
+  name: NextTurn
+  nameWithType: GameBase<TPlayer>.NextTurn
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.NextTurn
+  nameWithType.vb: GameBase(Of TPlayer).NextTurn
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).NextTurn
+- uid: Discord.Addons.MpGame.GameBase`1.EndGame*
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.EndGame
+  isExternal: false
+  name: EndGame
+  nameWithType: GameBase<TPlayer>.EndGame
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.EndGame
+  nameWithType.vb: GameBase(Of TPlayer).EndGame
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).EndGame
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: Discord.Addons.MpGame.GameBase`1.GetGameStateEmbed
+  commentId: M:Discord.Addons.MpGame.GameBase`1.GetGameStateEmbed
+- uid: Discord.Addons.MpGame.GameBase`1.GetGameState*
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.GetGameState
+  isExternal: false
+  name: GetGameState
+  nameWithType: GameBase<TPlayer>.GetGameState
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.GetGameState
+  nameWithType.vb: GameBase(Of TPlayer).GetGameState
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).GetGameState
+- uid: Discord.Addons.MpGame.GameBase`1.GetGameState
+  commentId: M:Discord.Addons.MpGame.GameBase`1.GetGameState
+- uid: Discord.Addons.MpGame.GameBase`1.GetGameStateEmbed*
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.GetGameStateEmbed
+  isExternal: false
+  name: GetGameStateEmbed
+  nameWithType: GameBase<TPlayer>.GetGameStateEmbed
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.GetGameStateEmbed
+  nameWithType.vb: GameBase(Of TPlayer).GetGameStateEmbed
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).GetGameStateEmbed
+- uid: Discord.Embed
+  commentId: T:Discord.Embed
+  parent: Discord
+  isExternal: true
+  name: Embed
+  nameWithType: Embed
+  fullName: Discord.Embed
+- uid: Discord.Addons.MpGame.GameBase`1.OnPlayerAdded*
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.OnPlayerAdded
+  isExternal: false
+  name: OnPlayerAdded
+  nameWithType: GameBase<TPlayer>.OnPlayerAdded
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.OnPlayerAdded
+  nameWithType.vb: GameBase(Of TPlayer).OnPlayerAdded
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).OnPlayerAdded
+- uid: '{TPlayer}'
+  commentId: '!:TPlayer'
+  definition: TPlayer
+  name: TPlayer
+  nameWithType: TPlayer
+  fullName: TPlayer
+- uid: TPlayer
+  isExternal: false
+  name: TPlayer
+  nameWithType: TPlayer
+  fullName: TPlayer
+- uid: Discord.Addons.MpGame.GameBase`1.OnPlayerKicked*
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.OnPlayerKicked
+  isExternal: false
+  name: OnPlayerKicked
+  nameWithType: GameBase<TPlayer>.OnPlayerKicked
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.OnPlayerKicked
+  nameWithType.vb: GameBase(Of TPlayer).OnPlayerKicked
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).OnPlayerKicked

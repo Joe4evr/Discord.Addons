@@ -1,0 +1,1198 @@
+### YamlMime:ManagedReference
+items:
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  commentId: T:Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  id: CircularLinkedList`1
+  parent: Discord.Addons.MpGame.Collections
+  children:
+  - Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor(System.Collections.Generic.IEnumerable{`0})
+  - Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEqualityComparer{`0})
+  - Discord.Addons.MpGame.Collections.CircularLinkedList`1.Contains(`0)
+  - Discord.Addons.MpGame.Collections.CircularLinkedList`1.Count
+  - Discord.Addons.MpGame.Collections.CircularLinkedList`1.Find(`0)
+  - Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetEnumerator
+  - Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetReverseEnumerator
+  - Discord.Addons.MpGame.Collections.CircularLinkedList`1.Head
+  - Discord.Addons.MpGame.Collections.CircularLinkedList`1.Item(System.Int32)
+  - Discord.Addons.MpGame.Collections.CircularLinkedList`1.System#Collections#IEnumerable#GetEnumerator
+  - Discord.Addons.MpGame.Collections.CircularLinkedList`1.Tail
+  langs:
+  - csharp
+  - vb
+  name: CircularLinkedList<T>
+  nameWithType: CircularLinkedList<T>
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>
+  type: Class
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: CircularLinkedList
+    path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+    startLine: 12
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: 'Represents a circular doubly linked list. '
+  remarks: 'This code adapted from https://navaneethkn.wordpress.com/2009/08/18/circular-linked-list/ '
+  example: []
+  syntax:
+    content: 'public sealed class CircularLinkedList<T> : IReadOnlyCollection<T>, IEnumerable<T>, IEnumerable'
+    typeParameters:
+    - id: T
+      description: Specifies the element type of the linked list.
+    content.vb: >-
+      Public NotInheritable Class CircularLinkedList(Of T)
+          Implements IReadOnlyCollection(Of T), IEnumerable(Of T), IEnumerable
+  inheritance:
+  - System.Object
+  implements:
+  - System.Collections.Generic.IReadOnlyCollection{{T}}
+  - System.Collections.Generic.IEnumerable{{T}}
+  - System.Collections.IEnumerable
+  nameWithType.vb: CircularLinkedList(Of T)
+  modifiers.csharp:
+  - public
+  - sealed
+  - class
+  modifiers.vb:
+  - Public
+  - NotInheritable
+  - Class
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T)
+  name.vb: CircularLinkedList(Of T)
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor(System.Collections.Generic.IEnumerable{`0})
+  commentId: M:Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor(System.Collections.Generic.IEnumerable{`0})
+  id: '#ctor(System.Collections.Generic.IEnumerable{`0})'
+  parent: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  langs:
+  - csharp
+  - vb
+  name: CircularLinkedList(IEnumerable<T>)
+  nameWithType: CircularLinkedList<T>.CircularLinkedList(IEnumerable<T>)
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.CircularLinkedList(System.Collections.Generic.IEnumerable<T>)
+  type: Constructor
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: .ctor
+    path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+    startLine: 22
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: 'Initializes a new instance of <xref href="Discord.Addons.MpGame.Collections.CircularLinkedList%601" data-throw-if-not-resolved="false"></xref> '
+  example: []
+  syntax:
+    content: public CircularLinkedList(IEnumerable<T> collection)
+    parameters:
+    - id: collection
+      type: System.Collections.Generic.IEnumerable{{T}}
+      description: Collection of objects that will be added to linked list
+    content.vb: Public Sub New(collection As IEnumerable(Of T))
+  overload: Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor*
+  nameWithType.vb: CircularLinkedList(Of T).CircularLinkedList(IEnumerable(Of T))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).CircularLinkedList(System.Collections.Generic.IEnumerable(Of T))
+  name.vb: CircularLinkedList(IEnumerable(Of T))
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEqualityComparer{`0})
+  commentId: M:Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEqualityComparer{`0})
+  id: '#ctor(System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEqualityComparer{`0})'
+  parent: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  langs:
+  - csharp
+  - vb
+  name: CircularLinkedList(IEnumerable<T>, IEqualityComparer<T>)
+  nameWithType: CircularLinkedList<T>.CircularLinkedList(IEnumerable<T>, IEqualityComparer<T>)
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.CircularLinkedList(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IEqualityComparer<T>)
+  type: Constructor
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: .ctor
+    path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+    startLine: 30
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: 'Initializes a new instance of <xref href="Discord.Addons.MpGame.Collections.CircularLinkedList%601" data-throw-if-not-resolved="false"></xref> '
+  example: []
+  syntax:
+    content: public CircularLinkedList(IEnumerable<T> collection, IEqualityComparer<T> comparer)
+    parameters:
+    - id: collection
+      type: System.Collections.Generic.IEnumerable{{T}}
+      description: Collection of objects that will be added to linked list
+    - id: comparer
+      type: System.Collections.Generic.IEqualityComparer{{T}}
+      description: Comparer used for item comparison
+    content.vb: Public Sub New(collection As IEnumerable(Of T), comparer As IEqualityComparer(Of T))
+  overload: Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor*
+  nameWithType.vb: CircularLinkedList(Of T).CircularLinkedList(IEnumerable(Of T), IEqualityComparer(Of T))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).CircularLinkedList(System.Collections.Generic.IEnumerable(Of T), System.Collections.Generic.IEqualityComparer(Of T))
+  name.vb: CircularLinkedList(IEnumerable(Of T), IEqualityComparer(Of T))
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Head
+  commentId: P:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Head
+  id: Head
+  parent: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  langs:
+  - csharp
+  - vb
+  name: Head
+  nameWithType: CircularLinkedList<T>.Head
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Head
+  type: Property
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Head
+    path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+    startLine: 43
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: 'Gets the head node. Returns <xref uid="langword_csharp_null" name="null" href=""></xref> if no node found '
+  example: []
+  syntax:
+    content: public Node<T> Head { get; }
+    parameters: []
+    return:
+      type: Discord.Addons.MpGame.Collections.Node{{T}}
+    content.vb: Public ReadOnly Property Head As Node(Of T)
+  overload: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Head*
+  nameWithType.vb: CircularLinkedList(Of T).Head
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Head
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Tail
+  commentId: P:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Tail
+  id: Tail
+  parent: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  langs:
+  - csharp
+  - vb
+  name: Tail
+  nameWithType: CircularLinkedList<T>.Tail
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Tail
+  type: Property
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Tail
+    path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+    startLine: 46
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: 'Gets Tail node. Returns <xref uid="langword_csharp_null" name="null" href=""></xref> if no tail node found '
+  example: []
+  syntax:
+    content: public Node<T> Tail { get; }
+    parameters: []
+    return:
+      type: Discord.Addons.MpGame.Collections.Node{{T}}
+    content.vb: Public ReadOnly Property Tail As Node(Of T)
+  overload: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Tail*
+  nameWithType.vb: CircularLinkedList(Of T).Tail
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Tail
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Count
+  commentId: P:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Count
+  id: Count
+  parent: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  langs:
+  - csharp
+  - vb
+  name: Count
+  nameWithType: CircularLinkedList<T>.Count
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Count
+  type: Property
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Count
+    path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+    startLine: 49
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: 'Gets total number of items in the list '
+  example: []
+  syntax:
+    content: public int Count { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property Count As Integer
+  overload: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Count*
+  implements:
+  - System.Collections.Generic.IReadOnlyCollection{{T}}.Count
+  nameWithType.vb: CircularLinkedList(Of T).Count
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Count
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Item(System.Int32)
+  commentId: P:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Item(System.Int32)
+  id: Item(System.Int32)
+  parent: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  langs:
+  - csharp
+  - vb
+  name: Item[Int32]
+  nameWithType: CircularLinkedList<T>.Item[Int32]
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Item[System.Int32]
+  type: Property
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: this[]
+    path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+    startLine: 55
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: 'Gets the item at the current index '
+  example: []
+  syntax:
+    content: public Node<T> this[int index] { get; }
+    parameters:
+    - id: index
+      type: System.Int32
+      description: Zero-based index
+    return:
+      type: Discord.Addons.MpGame.Collections.Node{{T}}
+    content.vb: Public ReadOnly Property Item(index As Integer) As Node(Of T)
+  overload: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Item*
+  exceptions:
+  - type: System.ArgumentOutOfRangeException
+    commentId: T:System.ArgumentOutOfRangeException
+    description: index is out of range
+  nameWithType.vb: CircularLinkedList(Of T).Item(Int32)
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Item(System.Int32)
+  name.vb: Item(Int32)
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Find(`0)
+  commentId: M:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Find(`0)
+  id: Find(`0)
+  parent: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  langs:
+  - csharp
+  - vb
+  name: Find(T)
+  nameWithType: CircularLinkedList<T>.Find(T)
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Find(T)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Find
+    path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+    startLine: 171
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: 'Finds the supplied item and returns a node which contains item. Returns <xref uid="langword_csharp_null" name="null" href=""></xref> if item not found '
+  example: []
+  syntax:
+    content: public Node<T> Find(T item)
+    parameters:
+    - id: item
+      type: '{T}'
+      description: Item to search
+    return:
+      type: Discord.Addons.MpGame.Collections.Node{{T}}
+      description: <xref href="Discord.Addons.MpGame.Collections.Node%601" data-throw-if-not-resolved="false"></xref> instance or <xref uid="langword_csharp_null" name="null" href=""></xref>
+    content.vb: Public Function Find(item As T) As Node(Of T)
+  overload: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Find*
+  nameWithType.vb: CircularLinkedList(Of T).Find(T)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Find(T)
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetEnumerator
+  commentId: M:Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetEnumerator
+  id: GetEnumerator
+  parent: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  langs:
+  - csharp
+  - vb
+  name: GetEnumerator()
+  nameWithType: CircularLinkedList<T>.GetEnumerator()
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.GetEnumerator()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: GetEnumerator
+    path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+    startLine: 183
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: 'Gets a forward enumerator '
+  example: []
+  syntax:
+    content: public IEnumerator<T> GetEnumerator()
+    return:
+      type: System.Collections.Generic.IEnumerator{{T}}
+      description: ''
+    content.vb: Public Function GetEnumerator As IEnumerator(Of T)
+  overload: Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetEnumerator*
+  implements:
+  - System.Collections.Generic.IEnumerable{{T}}.GetEnumerator
+  nameWithType.vb: CircularLinkedList(Of T).GetEnumerator()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).GetEnumerator()
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetReverseEnumerator
+  commentId: M:Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetReverseEnumerator
+  id: GetReverseEnumerator
+  parent: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  langs:
+  - csharp
+  - vb
+  name: GetReverseEnumerator()
+  nameWithType: CircularLinkedList<T>.GetReverseEnumerator()
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.GetReverseEnumerator()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: GetReverseEnumerator
+    path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+    startLine: 198
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: 'Gets a reverse enumerator '
+  example: []
+  syntax:
+    content: public IEnumerator<T> GetReverseEnumerator()
+    return:
+      type: System.Collections.Generic.IEnumerator{{T}}
+      description: ''
+    content.vb: Public Function GetReverseEnumerator As IEnumerator(Of T)
+  overload: Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetReverseEnumerator*
+  nameWithType.vb: CircularLinkedList(Of T).GetReverseEnumerator()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).GetReverseEnumerator()
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Contains(`0)
+  commentId: M:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Contains(`0)
+  id: Contains(`0)
+  parent: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  langs:
+  - csharp
+  - vb
+  name: Contains(T)
+  nameWithType: CircularLinkedList<T>.Contains(T)
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Contains(T)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Contains
+    path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+    startLine: 214
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: 'Determines whether a value is in the list. '
+  example: []
+  syntax:
+    content: public bool Contains(T item)
+    parameters:
+    - id: item
+      type: '{T}'
+      description: Item to check
+    return:
+      type: System.Boolean
+      description: TRUE if item exist, else FALSE
+    content.vb: Public Function Contains(item As T) As Boolean
+  overload: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Contains*
+  nameWithType.vb: CircularLinkedList(Of T).Contains(T)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Contains(T)
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.System#Collections#IEnumerable#GetEnumerator
+  commentId: M:Discord.Addons.MpGame.Collections.CircularLinkedList`1.System#Collections#IEnumerable#GetEnumerator
+  id: System#Collections#IEnumerable#GetEnumerator
+  isEii: true
+  parent: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  langs:
+  - csharp
+  - vb
+  name: IEnumerable.GetEnumerator()
+  nameWithType: CircularLinkedList<T>.IEnumerable.GetEnumerator()
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.System.Collections.IEnumerable.GetEnumerator()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: System.Collections.IEnumerable.GetEnumerator
+    path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
+    startLine: 245
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  syntax:
+    content: IEnumerator IEnumerable.GetEnumerator()
+    return:
+      type: System.Collections.IEnumerator
+    content.vb: Function System.Collections.IEnumerable.GetEnumerator As IEnumerator Implements IEnumerable.GetEnumerator
+  overload: Discord.Addons.MpGame.Collections.CircularLinkedList`1.System#Collections#IEnumerable#GetEnumerator*
+  implements:
+  - System.Collections.IEnumerable.GetEnumerator
+  nameWithType.vb: CircularLinkedList(Of T).System.Collections.IEnumerable.GetEnumerator()
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).System.Collections.IEnumerable.GetEnumerator()
+  name.vb: System.Collections.IEnumerable.GetEnumerator()
+references:
+- uid: Discord.Addons.MpGame.Collections
+  commentId: N:Discord.Addons.MpGame.Collections
+  isExternal: false
+  name: Discord.Addons.MpGame.Collections
+  nameWithType: Discord.Addons.MpGame.Collections
+  fullName: Discord.Addons.MpGame.Collections
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Collections.Generic.IReadOnlyCollection{{T}}
+  commentId: T:System.Collections.Generic.IReadOnlyCollection{`0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyCollection`1
+  name: IReadOnlyCollection<T>
+  nameWithType: IReadOnlyCollection<T>
+  fullName: System.Collections.Generic.IReadOnlyCollection<T>
+  nameWithType.vb: IReadOnlyCollection(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of T)
+  name.vb: IReadOnlyCollection(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    nameWithType: IReadOnlyCollection
+    fullName: System.Collections.Generic.IReadOnlyCollection
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    nameWithType: IReadOnlyCollection
+    fullName: System.Collections.Generic.IReadOnlyCollection
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable{{T}}
+  commentId: T:System.Collections.Generic.IEnumerable{`0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.IEnumerable
+  commentId: T:System.Collections.IEnumerable
+  parent: System.Collections
+  isExternal: true
+  name: IEnumerable
+  nameWithType: IEnumerable
+  fullName: System.Collections.IEnumerable
+- uid: System
+  commentId: N:System
+  isExternal: false
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Collections.Generic.IReadOnlyCollection`1
+  commentId: T:System.Collections.Generic.IReadOnlyCollection`1
+  isExternal: true
+  name: IReadOnlyCollection<T>
+  nameWithType: IReadOnlyCollection<T>
+  fullName: System.Collections.Generic.IReadOnlyCollection<T>
+  nameWithType.vb: IReadOnlyCollection(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of T)
+  name.vb: IReadOnlyCollection(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    nameWithType: IReadOnlyCollection
+    fullName: System.Collections.Generic.IReadOnlyCollection
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    nameWithType: IReadOnlyCollection
+    fullName: System.Collections.Generic.IReadOnlyCollection
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: false
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections
+  commentId: N:System.Collections
+  isExternal: false
+  name: System.Collections
+  nameWithType: System.Collections
+  fullName: System.Collections
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  commentId: T:Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  isExternal: false
+  name: CircularLinkedList<T>
+  nameWithType: CircularLinkedList<T>
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>
+  nameWithType.vb: CircularLinkedList(Of T)
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T)
+  name.vb: CircularLinkedList(Of T)
+  spec.csharp:
+  - uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+    name: CircularLinkedList
+    nameWithType: CircularLinkedList
+    fullName: Discord.Addons.MpGame.Collections.CircularLinkedList
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+    name: CircularLinkedList
+    nameWithType: CircularLinkedList
+    fullName: Discord.Addons.MpGame.Collections.CircularLinkedList
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor*
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor
+  isExternal: false
+  name: CircularLinkedList
+  nameWithType: CircularLinkedList<T>.CircularLinkedList
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.CircularLinkedList
+  nameWithType.vb: CircularLinkedList(Of T).CircularLinkedList
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).CircularLinkedList
+- uid: System.Collections.Generic.IEqualityComparer{{T}}
+  commentId: T:System.Collections.Generic.IEqualityComparer{`0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEqualityComparer`1
+  name: IEqualityComparer<T>
+  nameWithType: IEqualityComparer<T>
+  fullName: System.Collections.Generic.IEqualityComparer<T>
+  nameWithType.vb: IEqualityComparer(Of T)
+  fullName.vb: System.Collections.Generic.IEqualityComparer(Of T)
+  name.vb: IEqualityComparer(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEqualityComparer`1
+    name: IEqualityComparer
+    nameWithType: IEqualityComparer
+    fullName: System.Collections.Generic.IEqualityComparer
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEqualityComparer`1
+    name: IEqualityComparer
+    nameWithType: IEqualityComparer
+    fullName: System.Collections.Generic.IEqualityComparer
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEqualityComparer`1
+  commentId: T:System.Collections.Generic.IEqualityComparer`1
+  isExternal: true
+  name: IEqualityComparer<T>
+  nameWithType: IEqualityComparer<T>
+  fullName: System.Collections.Generic.IEqualityComparer<T>
+  nameWithType.vb: IEqualityComparer(Of T)
+  fullName.vb: System.Collections.Generic.IEqualityComparer(Of T)
+  name.vb: IEqualityComparer(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEqualityComparer`1
+    name: IEqualityComparer
+    nameWithType: IEqualityComparer
+    fullName: System.Collections.Generic.IEqualityComparer
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEqualityComparer`1
+    name: IEqualityComparer
+    nameWithType: IEqualityComparer
+    fullName: System.Collections.Generic.IEqualityComparer
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Head*
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Head
+  isExternal: false
+  name: Head
+  nameWithType: CircularLinkedList<T>.Head
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Head
+  nameWithType.vb: CircularLinkedList(Of T).Head
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Head
+- uid: Discord.Addons.MpGame.Collections.Node{{T}}
+  commentId: T:Discord.Addons.MpGame.Collections.Node{`0}
+  parent: Discord.Addons.MpGame.Collections
+  definition: Discord.Addons.MpGame.Collections.Node`1
+  name: Node<T>
+  nameWithType: Node<T>
+  fullName: Discord.Addons.MpGame.Collections.Node<T>
+  nameWithType.vb: Node(Of T)
+  fullName.vb: Discord.Addons.MpGame.Collections.Node(Of T)
+  name.vb: Node(Of T)
+  spec.csharp:
+  - uid: Discord.Addons.MpGame.Collections.Node`1
+    name: Node
+    nameWithType: Node
+    fullName: Discord.Addons.MpGame.Collections.Node
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Discord.Addons.MpGame.Collections.Node`1
+    name: Node
+    nameWithType: Node
+    fullName: Discord.Addons.MpGame.Collections.Node
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Addons.MpGame.Collections.Node`1
+  commentId: T:Discord.Addons.MpGame.Collections.Node`1
+  isExternal: false
+  name: Node<T>
+  nameWithType: Node<T>
+  fullName: Discord.Addons.MpGame.Collections.Node<T>
+  nameWithType.vb: Node(Of T)
+  fullName.vb: Discord.Addons.MpGame.Collections.Node(Of T)
+  name.vb: Node(Of T)
+  spec.csharp:
+  - uid: Discord.Addons.MpGame.Collections.Node`1
+    name: Node
+    nameWithType: Node
+    fullName: Discord.Addons.MpGame.Collections.Node
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Discord.Addons.MpGame.Collections.Node`1
+    name: Node
+    nameWithType: Node
+    fullName: Discord.Addons.MpGame.Collections.Node
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Tail*
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Tail
+  isExternal: false
+  name: Tail
+  nameWithType: CircularLinkedList<T>.Tail
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Tail
+  nameWithType.vb: CircularLinkedList(Of T).Tail
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Tail
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Count*
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Count
+  isExternal: false
+  name: Count
+  nameWithType: CircularLinkedList<T>.Count
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Count
+  nameWithType.vb: CircularLinkedList(Of T).Count
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Count
+- uid: System.Collections.Generic.IReadOnlyCollection{{T}}.Count
+  commentId: P:System.Collections.Generic.IReadOnlyCollection{`0}.Count
+  parent: System.Collections.Generic.IReadOnlyCollection{{T}}
+  definition: System.Collections.Generic.IReadOnlyCollection`1.Count
+  name: Count
+  nameWithType: IReadOnlyCollection<T>.Count
+  fullName: System.Collections.Generic.IReadOnlyCollection<T>.Count
+  nameWithType.vb: IReadOnlyCollection(Of T).Count
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of T).Count
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: System.Collections.Generic.IReadOnlyCollection`1.Count
+  commentId: P:System.Collections.Generic.IReadOnlyCollection`1.Count
+  isExternal: true
+  name: Count
+  nameWithType: IReadOnlyCollection<T>.Count
+  fullName: System.Collections.Generic.IReadOnlyCollection<T>.Count
+  nameWithType.vb: IReadOnlyCollection(Of T).Count
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of T).Count
+- uid: System.ArgumentOutOfRangeException
+  commentId: T:System.ArgumentOutOfRangeException
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Item*
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Item
+  isExternal: false
+  name: Item
+  nameWithType: CircularLinkedList<T>.Item
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Item
+  nameWithType.vb: CircularLinkedList(Of T).Item
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Item
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Find*
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Find
+  isExternal: false
+  name: Find
+  nameWithType: CircularLinkedList<T>.Find
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Find
+  nameWithType.vb: CircularLinkedList(Of T).Find
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Find
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  isExternal: false
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetEnumerator*
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetEnumerator
+  isExternal: false
+  name: GetEnumerator
+  nameWithType: CircularLinkedList<T>.GetEnumerator
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.GetEnumerator
+  nameWithType.vb: CircularLinkedList(Of T).GetEnumerator
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).GetEnumerator
+- uid: System.Collections.Generic.IEnumerable{{T}}.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable{`0}.GetEnumerator
+  parent: System.Collections.Generic.IEnumerable{{T}}
+  definition: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  name: GetEnumerator()
+  nameWithType: IEnumerable<T>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of T).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable<T>.GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable(Of T).GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable(Of T).GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerator{{T}}
+  commentId: T:System.Collections.Generic.IEnumerator{`0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerator`1
+  name: IEnumerator<T>
+  nameWithType: IEnumerator<T>
+  fullName: System.Collections.Generic.IEnumerator<T>
+  nameWithType.vb: IEnumerator(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of T)
+  name.vb: IEnumerator(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+  commentId: M:System.Collections.Generic.IEnumerable`1.GetEnumerator
+  isExternal: true
+  name: GetEnumerator()
+  nameWithType: IEnumerable<T>.GetEnumerator()
+  fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+  nameWithType.vb: IEnumerable(Of T).GetEnumerator()
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T).GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable<T>.GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable<T>.GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable(Of T).GetEnumerator
+    fullName: System.Collections.Generic.IEnumerable(Of T).GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerator`1
+  commentId: T:System.Collections.Generic.IEnumerator`1
+  isExternal: true
+  name: IEnumerator<T>
+  nameWithType: IEnumerator<T>
+  fullName: System.Collections.Generic.IEnumerator<T>
+  nameWithType.vb: IEnumerator(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerator(Of T)
+  name.vb: IEnumerator(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerator`1
+    name: IEnumerator
+    nameWithType: IEnumerator
+    fullName: System.Collections.Generic.IEnumerator
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetReverseEnumerator*
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetReverseEnumerator
+  isExternal: false
+  name: GetReverseEnumerator
+  nameWithType: CircularLinkedList<T>.GetReverseEnumerator
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.GetReverseEnumerator
+  nameWithType.vb: CircularLinkedList(Of T).GetReverseEnumerator
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).GetReverseEnumerator
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Contains*
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Contains
+  isExternal: false
+  name: Contains
+  nameWithType: CircularLinkedList<T>.Contains
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Contains
+  nameWithType.vb: CircularLinkedList(Of T).Contains
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Contains
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.System#Collections#IEnumerable#GetEnumerator*
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.System#Collections#IEnumerable#GetEnumerator
+  isExternal: false
+  name: IEnumerable.GetEnumerator
+  nameWithType: CircularLinkedList<T>.IEnumerable.GetEnumerator
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.System.Collections.IEnumerable.GetEnumerator
+  nameWithType.vb: CircularLinkedList(Of T).System.Collections.IEnumerable.GetEnumerator
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).System.Collections.IEnumerable.GetEnumerator
+  name.vb: System.Collections.IEnumerable.GetEnumerator
+- uid: System.Collections.IEnumerable.GetEnumerator
+  commentId: M:System.Collections.IEnumerable.GetEnumerator
+  parent: System.Collections.IEnumerable
+  isExternal: true
+  name: GetEnumerator()
+  nameWithType: IEnumerable.GetEnumerator()
+  fullName: System.Collections.IEnumerable.GetEnumerator()
+  spec.csharp:
+  - uid: System.Collections.IEnumerable.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable.GetEnumerator
+    fullName: System.Collections.IEnumerable.GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Collections.IEnumerable.GetEnumerator
+    name: GetEnumerator
+    nameWithType: IEnumerable.GetEnumerator
+    fullName: System.Collections.IEnumerable.GetEnumerator
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.IEnumerator
+  commentId: T:System.Collections.IEnumerator
+  parent: System.Collections
+  isExternal: true
+  name: IEnumerator
+  nameWithType: IEnumerator
+  fullName: System.Collections.IEnumerator
