@@ -10,7 +10,7 @@
         /// Gets a buffer of the specified size.
         /// </summary>
         /// <param name="size">The minimum wanted size.</param>
-        /// <returns>An arry that has at least <paramref name="size"/></returns>
+        /// <returns>An arry that is at least <paramref name="size"/> elements long.</returns>
         T[] GetBuffer(int size);
 
         /// <summary>
