@@ -6,12 +6,13 @@ using System.Linq;
 
 namespace Discord.Addons.MpGame.Collections
 {
-    [DebuggerDisplay("Count = {Count}")]
     /// <summary>
     /// Similar to <see cref="Pile{TCard}"/> but specialized
     /// and optimized for representing a hand of cards.
     /// </summary>
     /// <typeparam name="TCard">The card type.</typeparam>
+    /// <remarks>This class is not thread-safe.</remarks>
+    [DebuggerDisplay("Count = {Count}")]
     public sealed class Hand<TCard>
         where TCard : class
     {

@@ -15,7 +15,7 @@
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>7.2</LangVersion>
     </PropertyGroup>
     <ItemGroup>

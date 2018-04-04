@@ -98,7 +98,7 @@ namespace Discord.Addons.MpGame
         /// <param name="user">The user.</param>
         /// <returns><see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.</returns>
         public async Task<bool> AddUser(IMessageChannel channel, IUser user)
-            => TryGetPersistentData(channel, out var data)
+            => _dataList.TryGetValue(channel, out var data)
                 && await data.TryAddUser(user);
 
         /// <summary> Remove a user from an unstarted game. </summary>
@@ -106,7 +106,7 @@ namespace Discord.Addons.MpGame
         /// <param name="user">The user.</param>
         /// <returns><see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.</returns>
         public async Task<bool> RemoveUser(IMessageChannel channel, IUser user)
-            => TryGetPersistentData(channel, out var data)
+            => _dataList.TryGetValue(channel, out var data)
                 && await data.TryRemoveUser(user);
 
         /// <summary> Adds a player to an ongoing game. </summary>
@@ -155,7 +155,7 @@ namespace Discord.Addons.MpGame
         /// <returns><see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.</returns>
         public async Task<bool> TryAddNewGame(IMessageChannel channel, TGame game)
         {
-            if (TryGetPersistentData(channel, out var data))
+            if (_dataList.TryGetValue(channel, out var data))
             {
                 await Logger(new LogMessage(LogSeverity.Verbose, LogSource, _strings.SettingGame(_gameName, channel))).ConfigureAwait(false);
                 var gameSet = data.SetGame(game);
@@ -185,7 +185,8 @@ namespace Discord.Addons.MpGame
         }
 
         /// <summary> Updates the flag indicating if a game can be joined or not. </summary>
-        /// <param name="channel">The Channel ID.</param>
+        /// <param name="channel">A message channel. Can be both the public-facing channel
+        /// or the DM channel of one of the players.</param>
         /// <param name="newValue">The new value.</param>
         /// <param name="comparisonValue">The value that should be compared against.</param>
         /// <returns><see langword="true"/> if the value was updated, otherwise <see langword="false"/>.</returns>
@@ -203,7 +204,8 @@ namespace Discord.Addons.MpGame
                 ? data.Game : null;
 
         /// <summary> Retrieve the users set to join an open game, if any. </summary>
-        /// <param name="channel">The public-facing message channel.</param>
+        /// <param name="channel">A message channel. Can be both the public-facing channel
+        /// or the DM channel of one of the players.</param>
         /// <returns>The users set to join a new game, or an empty collection
         /// if there is no data.</returns>
         public IReadOnlyCollection<IUser> GetJoinedUsers(IMessageChannel channel)
@@ -214,7 +216,8 @@ namespace Discord.Addons.MpGame
         }
 
         /// <summary> Retrieve whether a game has been opened and users can join. </summary>
-        /// <param name="channel">The public-facing message channel.</param>
+        /// <param name="channel">A message channel. Can be both the public-facing channel
+        /// or the DM channel of one of the players.</param>
         /// <returns><see langword="true"/> if a game has been opened
         /// and users can join, otherwise <see langword="false"/>.</returns>
         public bool IsOpenToJoin(IMessageChannel channel)

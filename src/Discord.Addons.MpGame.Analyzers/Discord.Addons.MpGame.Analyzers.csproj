@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis" Version="2.6.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj" />
+    </ItemGroup>
+</Project>
