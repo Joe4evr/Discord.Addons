@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Discord.Addons.MpGame.Collections
 {
+    [DebuggerDisplay("Count = {Count}")]
     /// <summary>
     /// Similar to <see cref="Pile{TCard}"/> but specialized
     /// and optimized for representing a hand of cards.
@@ -59,7 +61,7 @@ namespace Discord.Addons.MpGame.Collections
             if (index < 0)
                 throw new ArgumentOutOfRangeException(message: "Retrieval index may not be negative.", paramName: nameof(index));
             if (index > Count)
-                throw new ArgumentOutOfRangeException(message: "Retrieval index may not be greater than the pile's current size.", paramName: nameof(index));
+                throw new ArgumentOutOfRangeException(message: "Retrieval index may not be greater than the hand's current size.", paramName: nameof(index));
 
             var tmp = _hand[index];
             _hand.RemoveAt(index);
@@ -69,9 +71,9 @@ namespace Discord.Addons.MpGame.Collections
         /// <summary>
         /// Takes the first card that matches a given predicate.
         /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns>The card, or <see cref="null"/> if no match found.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="predicate"/> was <see cref="null"/>.</exception>
+        /// <param name="predicate">The predicate to match.</param>
+        /// <returns>The card, or <see langword="null"/> if no match found.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="predicate"/> was <see langword="null"/>.</exception>
         public TCard TakeFirstOrDefault(Func<TCard, bool> predicate)
         {
             if (predicate == null)

@@ -1,20 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace Discord.Addons.MpGame.Collections
 {
+    [DebuggerDisplay("Count = {Count}")]
     /// <summary>
     /// Base type to represent a pile of objects,
     /// specifically for use in card games.
     /// </summary>
     /// <typeparam name="TCard">The card type.</typeparam>
-    public abstract class Pile<TCard>
+    /// <remarks>This class is not thread-safe.</remarks>
+    public abstract partial class Pile<TCard>
         where TCard : class
     {
-        private Stack<TCard> _pile;
+        private Stack<TCard> _top;
+        private Queue<TCard> _bottom;
+
+        /// <summary>
+        /// Initializes a new <see cref="Pile{TCard}"/> to an empty state.
+        /// </summary>
+        protected Pile()
+        {
+            _top = new Stack<TCard>();
+            _bottom = new Queue<TCard>();
+        }
+
+        /// <summary>
+        /// Initializes a new <see cref="Pile{TCard}"/> with the specified cards.
+        /// </summary>
+        /// <param name="cards">The cards to put in the pile.</param>
+        protected Pile(IEnumerable<TCard> cards)
+        {
+            _top = new Stack<TCard>(cards);
+            _bottom = new Queue<TCard>();
+        }
+
+        /// <summary>
+        /// Defines the strategy used for buffering cards.
+        /// </summary>
+        /// <remarks>The default strategy is to allocate new arrays and
+        /// let the GC clean them up.</remarks>
+        internal IBufferStrategy<TCard> BufferStrategy { private get; set; } = NonPoolingStrategy.Instance;
 
         /// <summary>
         /// Indicates whether or not this <see cref="Pile{TCard}"/> is freely browsable.
@@ -48,6 +77,11 @@ namespace Discord.Addons.MpGame.Collections
         public abstract bool CanPut { get; }
 
         /// <summary>
+        /// Indicates whether or not this <see cref="Pile{TCard}"/> allows putting cards on the bottom.
+        /// </summary>
+        public abstract bool CanPutBottom { get; }
+
+        /// <summary>
         /// Indicates whether or not this <see cref="Pile{TCard}"/> can be reshuffled.
         /// </summary>
         public abstract bool CanShuffle { get; }
@@ -61,7 +95,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <summary>
         /// The amount of cards currently in the pile.
         /// </summary>
-        public int Count => _pile.Count;
+        public int Count => _top.Count + _bottom.Count;
 
         /// <summary>
         /// The cards inside this pile. Requires <see cref="CanBrowse"/>.
@@ -74,25 +108,8 @@ namespace Discord.Addons.MpGame.Collections
             {
                 ThrowForFailedCheck(CanBrowse, ErrorStrings.NoBrowse);
 
-                return _pile.ToImmutableArray();
+                return GetAllInternal(clear: false);
             }
-        }
-
-        /// <summary>
-        /// Initializes a new <see cref="Pile{TCard}"/> to an empty state.
-        /// </summary>
-        protected Pile()
-        {
-            _pile = new Stack<TCard>();
-        }
-
-        /// <summary>
-        /// Initializes a new <see cref="Pile{TCard}"/> with the specified cards.
-        /// </summary>
-        /// <param name="cards">The cards to put in the pile.</param>
-        protected Pile(IEnumerable<TCard> cards)
-        {
-            _pile = new Stack<TCard>(cards);
         }
 
         /// <summary>
@@ -110,7 +127,8 @@ namespace Discord.Addons.MpGame.Collections
 
             if (Count > 0)
             {
-                var tmp = _pile.Pop();
+                var tmp = TakeTopInternal();
+
                 if (Count == 0)
                 {
                     OnLastDraw();
@@ -140,11 +158,8 @@ namespace Discord.Addons.MpGame.Collections
             if (amount > Count)
                 throw new ArgumentOutOfRangeException(message: "Parameter value may not be greater than the pile's current size.", paramName: nameof(amount));
 
-            var buffer = new TCard[amount];
-            for (int i = 0; i < amount; i++)
-            {
-                buffer[i] = _pile.ElementAt(i);
-            }
+            var buffer = MakeBuffer(amount);
+            PushBuffer(buffer, amount);
             return buffer.ToImmutableArray();
         }
 
@@ -160,18 +175,22 @@ namespace Discord.Addons.MpGame.Collections
         {
             ThrowForFailedCheck(CanPut, ErrorStrings.NoPut);
 
-            _pile.Push(card);
+            _top.Push(card);
             OnPut(card);
         }
 
         /// <summary>
-        /// Puts a card on the bottom of the pile. Requires <see cref="CanInsert"/>.
+        /// Puts a card on the bottom of the pile. Requires <see cref="CanPutBottom"/>.
         /// </summary>
         /// <param name="card">The card to place on the bottom.</param>
         /// <exception cref="InvalidOperationException">The instance does not
         /// allow inserting cards at an arbitrary location.</exception>
         public void PutBottom(TCard card)
-            => InsertAt(card, Count);
+        {
+            ThrowForFailedCheck(CanPutBottom, ErrorStrings.NoPutBtm);
+
+            _bottom.Enqueue(card);
+        }
 
         /// <summary>
         /// Inserts a card at the given index. Requires <see cref="CanInsert"/>.
@@ -193,20 +212,13 @@ namespace Discord.Addons.MpGame.Collections
 
             if (index == 0)
             {
-                _pile.Push(card);
+                _top.Push(card);
                 return;
             }
 
-            var buffer = new TCard[index];
-            for (int i = 0; i < buffer.Length; i++)
-            {
-                buffer[i] = _pile.Pop();
-            }
-            _pile.Push(card);
-            for (int i = buffer.Length - 1; i >= 0; i--)
-            {
-                _pile.Push(buffer[i]);
-            }
+            var buffer = MakeBuffer(index);
+            _top.Push(card);
+            PushBuffer(buffer, index);
         }
 
         /// <summary>
@@ -228,19 +240,12 @@ namespace Discord.Addons.MpGame.Collections
 
             if (index == 0)
             {
-                return _pile.Pop();
+                return TakeTopInternal();
             }
 
-            var buffer = new TCard[index];
-            for (int i = 0; i < buffer.Length; i++)
-            {
-                buffer[i] = _pile.Pop();
-            }
-            var tmp = _pile.Pop();
-            for (int i = buffer.Length - 1; i >= 0; i--)
-            {
-                _pile.Push(buffer[i]);
-            }
+            var buffer = MakeBuffer(index);
+            var tmp = TakeTopInternal();
+            PushBuffer(buffer, index);
             return tmp;
         }
 
@@ -255,9 +260,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             ThrowForFailedCheck(CanClear, ErrorStrings.NoClear);
 
-            var result = _pile.ToImmutableArray();
-            _pile.Clear();
-            return result;
+            return GetAllInternal(clear: true);
         }
 
         /// <summary>
@@ -274,7 +277,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             ThrowForFailedCheck(CanShuffle, ErrorStrings.NoShuffle);
 
-            _pile = new Stack<TCard>(shuffleFunc(_pile.ToImmutableArray()));
+            _top = new Stack<TCard>(shuffleFunc(GetAllInternal(clear: true)));
         }
 
         /// <summary>
@@ -287,7 +290,40 @@ namespace Discord.Addons.MpGame.Collections
         /// Automatically called when a card is put on top of the pile.
         /// Does nothing by default.
         /// </summary>
+        /// <param name="card">The card that is placed.</param>
         protected virtual void OnPut(TCard card) { }
+
+        private bool IsIndexInTop(int i) => i < _top.Count;
+        private IReadOnlyCollection<TCard> GetAllInternal(bool clear)
+        {
+            var size = Count;
+            var buffer = MakeBuffer(size);
+            var result = ImmutableArray.Create(buffer, 0, size);
+            if (!clear)
+                PushBuffer(buffer, size);
+
+            return result;
+        }
+        private TCard TakeTopInternal() => IsIndexInTop(0)
+            ? _top.Pop()
+            : _bottom.Dequeue();
+        private TCard[] MakeBuffer(int bufferSize)
+        {
+            var buffer = BufferStrategy.GetBuffer(bufferSize);
+            for (int i = 0; i < bufferSize; i++)
+            {
+                buffer[i] = TakeTopInternal();
+            }
+            return buffer;
+        }
+        private void PushBuffer(TCard[] buffer, int bufferSize)
+        {
+            for (int i = bufferSize - 1; i >= 0; i--)
+            {
+                _top.Push(buffer[i]);
+            }
+            BufferStrategy.ReturnBuffer(buffer);
+        }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void ThrowForFailedCheck(bool check, string message)
@@ -305,6 +341,7 @@ namespace Discord.Addons.MpGame.Collections
         internal static readonly string NoInsert  = "Not allowed to insert at arbitrary index on this instance.";
         internal static readonly string NoPeek    = "Not allowed to peek on this instance.";
         internal static readonly string NoPut     = "Not allowed to put cards on top of this instance.";
+        internal static readonly string NoPutBtm  = "Not allowed to put cards on the bottom of this instance.";
         internal static readonly string NoShuffle = "Not allowed to reshuffle this instance.";
         internal static readonly string NoTake    = "Not allowed to take from an arbitrary index on this instance.";
     }

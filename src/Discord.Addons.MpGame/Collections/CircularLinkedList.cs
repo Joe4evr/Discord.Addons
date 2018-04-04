@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using Discord.Addons.Core;
 
-namespace Discord.Addons.MpGame
+namespace Discord.Addons.MpGame.Collections
 {
     /// <summary> Represents a circular doubly linked list. </summary>
     /// <typeparam name="T">Specifies the element type of the linked list.</typeparam>
@@ -40,11 +40,11 @@ namespace Discord.Addons.MpGame
             _count = collection?.Count() ?? 0;
         }
 
-        /// <summary> Gets Tail node. Returns <see cref="null"/> if no tail node found </summary>
-        public Node<T> Tail { get; private set; }
-
-        /// <summary> Gets the head node. Returns <see cref="null"/> if no node found </summary>
+        /// <summary> Gets the head node. Returns <see langword="null"/> if no node found </summary>
         public Node<T> Head { get; private set; }
+
+        /// <summary> Gets Tail node. Returns <see langword="null"/> if no tail node found </summary>
+        public Node<T> Tail { get; private set; }
 
         /// <summary> Gets total number of items in the list </summary>
         public int Count => _count;
@@ -222,8 +222,20 @@ namespace Discord.Addons.MpGame
                 var temp = Find(item);
                 if (temp != null)
                 {
-                    temp.Previous.Next = temp.Next;
-                    temp.Next.Previous = temp.Previous;
+                    if (Count > 1)
+                    {
+                        if (Comparer.Equals(item, Head.Value))
+                            Head = temp.Next;
+                        if (Comparer.Equals(item, Tail.Value))
+                            Tail = temp.Previous;
+
+                        temp.Previous.Next = temp.Next;
+                        temp.Next.Previous = temp.Previous;
+                    }
+
+                    temp.Next = null;
+                    temp.Previous = null;
+
                     Interlocked.Decrement(ref _count);
                     return true;
                 }

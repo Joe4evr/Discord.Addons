@@ -80,7 +80,7 @@ namespace Discord.Addons.MpGame
 
         /// <summary> Prepare to set up a new game in a specified channel. </summary>
         /// <param name="context">Context of where this game is intended to be opened.</param>
-        /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.</returns>
         public async Task<bool> OpenNewGame(ICommandContext context)
         {
             if (GameTracker.Instance.TryAddGameString(context.Channel, GameName))
@@ -96,7 +96,7 @@ namespace Discord.Addons.MpGame
         /// <summary> Add a user to join an unstarted game. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
         /// <param name="user">The user.</param>
-        /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.</returns>
         public async Task<bool> AddUser(IMessageChannel channel, IUser user)
             => TryGetPersistentData(channel, out var data)
                 && await data.TryAddUser(user);
@@ -104,7 +104,7 @@ namespace Discord.Addons.MpGame
         /// <summary> Remove a user from an unstarted game. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
         /// <param name="user">The user.</param>
-        /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.</returns>
         public async Task<bool> RemoveUser(IMessageChannel channel, IUser user)
             => TryGetPersistentData(channel, out var data)
                 && await data.TryRemoveUser(user);
@@ -112,7 +112,7 @@ namespace Discord.Addons.MpGame
         /// <summary> Adds a player to an ongoing game. </summary>
         /// <param name="game">The game instance.</param>
         /// <param name="player">The player to add.</param>
-        /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.</returns>
         public async Task<bool> AddPlayer(TGame game, TPlayer player)
         {
             if (!GameTracker.Instance.TryGetGameChannel(await player.User.GetOrCreateDMChannelAsync().ConfigureAwait(false), out var _))
@@ -127,7 +127,7 @@ namespace Discord.Addons.MpGame
         /// <summary> Kicks a player from an ongoing game. </summary>
         /// <param name="game">The game instance.</param>
         /// <param name="player">The player to kick.</param>
-        /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.</returns>
         public Task<bool> KickPlayer(TGame game, TPlayer player)
             => RemovePlayer(game, player, _strings.PlayerKicked(player.User));
 
@@ -145,14 +145,14 @@ namespace Discord.Addons.MpGame
 
         /// <summary> Cancel a game that has not yet started. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
-        /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.</returns>
         public Task<bool> CancelGame(IMessageChannel channel)
             => OnGameEnd(channel);
 
         /// <summary> Add a new game to the list of active games. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
         /// <param name="game">Instance of the game.</param>
-        /// <returns><see cref="true"/> if the operation succeeded, otherwise <see cref="false"/>.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.</returns>
         public async Task<bool> TryAddNewGame(IMessageChannel channel, TGame game)
         {
             if (TryGetPersistentData(channel, out var data))
@@ -188,7 +188,7 @@ namespace Discord.Addons.MpGame
         /// <param name="channel">The Channel ID.</param>
         /// <param name="newValue">The new value.</param>
         /// <param name="comparisonValue">The value that should be compared against.</param>
-        /// <returns><see cref="true"/> if the value was updated, otherwise <see cref="false"/>.</returns>
+        /// <returns><see langword="true"/> if the value was updated, otherwise <see langword="false"/>.</returns>
         public bool TryUpdateOpenToJoin(IMessageChannel channel, bool newValue, bool comparisonValue)
             => TryGetPersistentData(channel, out var data)
                 && data.TryUpdateOpenToJoin(comparisonValue, newValue);
@@ -197,7 +197,7 @@ namespace Discord.Addons.MpGame
         /// <param name="channel">A message channel. Can be both the public-facing channel
         /// or the DM channel of one of the players.</param>
         /// <returns>The <see cref="TGame"/> instance being played in the specified channel,
-        /// or that the user is playing in, or <see cref="null"/> if there is none.</returns>
+        /// or that the user is playing in, or <see langword="null"/> if there is none.</returns>
         public TGame GetGameFromChannel(IMessageChannel channel)
             => (TryGetPersistentData(channel, out var data))
                 ? data.Game : null;
@@ -215,8 +215,8 @@ namespace Discord.Addons.MpGame
 
         /// <summary> Retrieve whether a game has been opened and users can join. </summary>
         /// <param name="channel">The public-facing message channel.</param>
-        /// <returns><see cref="true"/> if a game has been opened
-        /// and users can join, otherwise <see cref="false"/>.</returns>
+        /// <returns><see langword="true"/> if a game has been opened
+        /// and users can join, otherwise <see langword="false"/>.</returns>
         public bool IsOpenToJoin(IMessageChannel channel)
         {
             return TryGetPersistentData(channel, out var data) && data.OpenToJoin;

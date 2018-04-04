@@ -34,7 +34,7 @@ namespace Discord.Addons.MpGame
         /// and will cache the message if the user has DMs disabled. </summary>
         /// <param name="text">The text to send.</param>
         /// <returns>The message that is sent, or
-        /// <see cref="null"/> if it couldn't be sent.</returns>
+        /// <see langword="null"/> if it couldn't be sent.</returns>
         public async Task<IUserMessage> SendMessageAsync(string text, Embed embed = null)
         {
             try
@@ -65,9 +65,9 @@ namespace Discord.Addons.MpGame
         /// having DMs enabled for too long. </summary>
         /// <param name="backstuffedDms">The amount of DMs that are
         /// currently not sent to this player.</param>
-        /// <returns><see cref="true"/> if the player should be kicked,
-        /// otherwise <see cref="false"/>.</returns>
-        /// <remarks>The default implementation always returns <see cref="false"/>.</remarks>
+        /// <returns><see langword="true"/> if the player should be kicked,
+        /// otherwise <see langword="false"/>.</returns>
+        /// <remarks>The default implementation always returns <see langword="false"/>.</remarks>
         protected virtual bool ShouldKick(int backstuffedDms) => false;
 
         internal async Task RetrySendMessagesAsync()

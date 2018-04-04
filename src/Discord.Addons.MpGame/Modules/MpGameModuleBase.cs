@@ -72,7 +72,7 @@ namespace Discord.Addons.MpGame
             //};
         }
 
-        /// <summary> Override this to return <see cref="false"/> if you don't
+        /// <summary> Override this to return <see langword="false"/> if you don't
         /// want to register a type reader for the <see cref="TPlayer"/> type.</summary>
         protected virtual bool RegisterPlayerTypeReader => true;
 
