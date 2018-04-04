@@ -88,6 +88,25 @@ namespace Discord.Addons.MpGame
         }
 
         /// <summary> Command to open a game for others to join. </summary>
+        /// <example> public override async Task OpenGameCmd()
+        /// {
+        ///     if (OpenToJoin)
+        ///     {
+        ///         await ReplyAsync("There is already a game open to join.").ConfigureAwait(false);
+        ///     }
+        ///     else if (GameInProgress != CurrentlyPlaying.None)
+        ///     {
+        ///         await ReplyAsync("Another game already in progress.").ConfigureAwait(false);
+        ///     }
+        ///     else
+        ///     {
+        ///         if (await GameService.OpenNewGame(Context).ConfigureAwait(false))
+        ///         {
+        ///             await ReplyAsync("Opening for a game.").ConfigureAwait(false);
+        ///         }
+        ///     }
+        /// }
+        /// </example>
         public abstract Task OpenGameCmd();
 
         /// <summary> Command to join a game that is open. </summary>
