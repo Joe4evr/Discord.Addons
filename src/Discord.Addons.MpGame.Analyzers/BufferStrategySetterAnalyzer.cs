@@ -10,7 +10,7 @@ using Discord.Addons.MpGame.Collections;
 namespace Discord.Addons.MpGame.Analyzers
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public sealed class BufferStratagySetterAnalyzer : DiagnosticAnalyzer
+    public sealed class BufferStrategySetterAnalyzer : DiagnosticAnalyzer
     {
         private const string DiagnosticId = "MPG0001";
         private const string Title = "Restrict BufferStrategy setting";
@@ -43,6 +43,7 @@ namespace Discord.Addons.MpGame.Analyzers
             if (classDecl == null)
                 return; //we're entirely irrelevant to structs
 
+            //may get removed if IBufferStrategy<T> gets used in more places
             var classSymbol = context.SemanticModel.GetDeclaredSymbol(classDecl);
             if (classSymbol != null && !classSymbol.IsOrDerivesFromType(_pileType))
                 return; //trigger was outside of a Pile-derived class, bail out

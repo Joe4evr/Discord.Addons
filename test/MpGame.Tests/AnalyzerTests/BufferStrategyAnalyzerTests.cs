@@ -111,7 +111,7 @@ namespace Test
 //            VerifyCSharpDiagnostic(code, Array.Empty<DiagnosticResult>());
 //        }
 
-        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer() => new BufferStratagySetterAnalyzer();
+        protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer() => new BufferStrategySetterAnalyzer();
     }
 
     //public sealed class TestCard { }
