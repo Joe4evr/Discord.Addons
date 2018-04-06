@@ -225,12 +225,19 @@ namespace Discord.Addons.MpGame
             return TryGetPersistentData(channel, out var data) && data.OpenToJoin;
         }
 
-        internal bool TryGetPersistentData(IMessageChannel channel, out PersistentGameData data)
+        private bool TryGetPersistentData(IMessageChannel channel, out PersistentGameData data)
         {
             var chan = (channel is IDMChannel dm && GameTracker.Instance.TryGetGameChannel(dm, out var pubc))
                 ? pubc : channel;
 
             return _dataList.TryGetValue(chan, out data);
+        }
+
+        public DataViewModel GetData(ICommandContext context)
+        {
+            return (TryGetPersistentData(context.Channel, out var internalData))
+                ? new DataViewModel(internalData, context)
+                : DataViewModel.Default;
         }
 
         //micro-optimization

@@ -51,27 +51,12 @@ namespace Discord.Addons.MpGame
         {
             base.BeforeExecute(command);
 
-            if (GameService.TryGetPersistentData(Context.Channel, out var data))
-            {
-                OpenToJoin  = data.OpenToJoin;
-                JoinedUsers = data.JoinedUsers;
-                Game        = data.Game;
-                Player      = Game?.Players.SingleOrDefault(p => p.User.Id == Context.User.Id);
-            }
-
-            GameInProgress = GameTracker.Instance.TryGetGameString(Context.Channel, out var name)
-                ? (name == GameService.GameName ? CurrentlyPlaying.ThisGame : CurrentlyPlaying.DifferentGame)
-                : CurrentlyPlaying.None;
-
-            // Prep C# 8.0 pattern matching feature: switch expression
-            // Sure, it'll compile into the exact code I already have,
-            // BUT LOOKIT HOW CLEAN IT IS!
-            //GameInProgress = GameTracker.Instance.TryGetGameString(Context.Channel, out var name) switch
-            //{
-            //    true when name == GameService.GameName => CurrentlyPlaying.ThisGame,
-            //    true  => CurrentlyPlaying.DifferentGame,
-            //    false => CurrentlyPlaying.None
-            //};
+            var data = GameService.GetData(Context);
+            OpenToJoin     = data.OpenToJoin;
+            JoinedUsers    = data.JoinedUsers;
+            Game           = data.Game;
+            Player         = data.Player;
+            GameInProgress = data.GameInProgress;
         }
 
         /// <summary> Override this to return <see langword="false"/> if you don't

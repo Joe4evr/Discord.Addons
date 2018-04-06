@@ -2,10 +2,12 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Discord.Addons.Core;
+using Discord.Commands;
 
 namespace Discord.Addons.MpGame
 {
@@ -61,6 +63,41 @@ namespace Discord.Addons.MpGame
             internal bool SetGame(TGame game)
             {
                 return (Interlocked.CompareExchange(ref _game, value: game, comparand: null) == null);
+            }
+        }
+
+        public sealed class DataViewModel
+        {
+            internal static DataViewModel Default { get; } = new DataViewModel();
+
+            public bool OpenToJoin { get; } = false;
+            public TGame Game      { get; } = null;
+            public TPlayer Player  { get; } = null;
+            public CurrentlyPlaying GameInProgress { get; } = CurrentlyPlaying.None;
+            public IReadOnlyCollection<IUser> JoinedUsers { get; } = ImmutableHashSet<IUser>.Empty;
+
+            private DataViewModel() { }
+
+            internal DataViewModel(PersistentGameData data, ICommandContext context)
+            {
+                OpenToJoin  = data.OpenToJoin;
+                JoinedUsers = data.JoinedUsers;
+                Game        = data.Game;
+                Player      = Game?.Players.SingleOrDefault(p => p.User.Id == context.User.Id);
+
+                GameInProgress = GameTracker.Instance.TryGetGameString(context.Channel, out var name)
+                    ? (name == _gameFullName ? CurrentlyPlaying.ThisGame : CurrentlyPlaying.DifferentGame)
+                    : CurrentlyPlaying.None;
+
+                // Prep C# 8.0 pattern matching feature: switch expression
+                // Sure, it'll compile into the exact code I already have,
+                // BUT LOOKIT HOW CLEAN IT IS!
+                //GameInProgress = GameTracker.Instance.TryGetGameString(Context.Channel, out var name) switch
+                //{
+                //    true when name == GameService.GameName => CurrentlyPlaying.ThisGame,
+                //    true  => CurrentlyPlaying.DifferentGame,
+                //    false => CurrentlyPlaying.None
+                //};
             }
         }
     }
