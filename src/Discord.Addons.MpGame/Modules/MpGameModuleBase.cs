@@ -42,8 +42,9 @@ namespace Discord.Addons.MpGame
         protected bool OpenToJoin { get; private set; } = false;
 
         /// <summary> The list of users ready to play. </summary>
-        /// <remarks>This is an immutable snapshot, it is not
-        /// updated until the <i>next</i> command invocation.</remarks>
+        /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
+        /// <h5>Note</h5><p>This is an immutable snapshot, it is not
+        /// updated until the <i>next</i> command invocation.</p></div></div></remarks>
         protected IReadOnlyCollection<IUser> JoinedUsers { get; private set; } = ImmutableHashSet<IUser>.Empty;
 
         /// <summary> Initialize fields whose values come from the <typeparamref name="TService"/>'s Dictionaries. </summary>
@@ -63,6 +64,7 @@ namespace Discord.Addons.MpGame
         /// want to register a type reader for the <typeparamref name="TPlayer"/> type.</summary>
         protected virtual bool RegisterPlayerTypeReader => true;
 
+        /// <inheritdoc/>
         protected override void OnModuleBuilding(CommandService commandService, ModuleBuilder builder)
         {
             base.OnModuleBuilding(commandService, builder);
@@ -202,22 +204,42 @@ namespace Discord.Addons.MpGame
         public abstract Task StartGameCmd();
 
         /// <summary> Command to advance to the next turn (if applicable). </summary>
-        /// <example><code>
+        /// <example><code>[Command("turn")]
+        ///public override Task NextTurnCmd()
+        ///    => (Game != null)
+        ///        ? Game.NextTurn()
+        ///        : (GameInProgress == CurrentlyPlaying.DifferentGame)
+        ///            ? ReplyAsync("Different game in progress.")
+        ///            : ReplyAsync("No game in progress.");
         /// </code></example>
         public abstract Task NextTurnCmd();
 
         /// <summary> Command to display the current state of the game. </summary>
-        /// <example><code>
+        /// <example><code>[Command("state")]
+        ///public override Task GameStateCmd()
+        ///    => (Game != null)
+        ///        ? ReplyAsync(Game.GetGameState())
+        ///        //Alternatively: ReplyAsync("", embed: Game.GetGameStateEmbed())
+        ///        : (GameInProgress == CurrentlyPlaying.DifferentGame)
+        ///            ? ReplyAsync("Different game in progress.")
+        ///            : ReplyAsync("No game in progress.");
         /// </code></example>
         public abstract Task GameStateCmd();
 
         /// <summary> Command to end a game in progress early. </summary>
-        /// <example><code>
+        /// <example><code>[Command("end")] //Should be restricted to mods/admins to prevent abuse
+        ///public override Task EndGameCmd()
+        ///    => (Game != null)
+        ///        ? Game.EndGame("Game ended early by moderator.")
+        ///        : GameInProgress == CurrentlyPlaying.DifferentGame
+        ///            ? ReplyAsync("Different game in progress.")
+        ///            : ReplyAsync("No game in progress.");
         /// </code></example>
         public abstract Task EndGameCmd();
 
         /// <summary> Command to resend a message to someone who had their DMs disabled. </summary>
-        /// <example><code>
+        /// <example><code>[Command("resend")]
+        ///public override Task ResendCmd() => base.ResendCmd();
         /// </code></example>
         public virtual Task ResendCmd()
         {

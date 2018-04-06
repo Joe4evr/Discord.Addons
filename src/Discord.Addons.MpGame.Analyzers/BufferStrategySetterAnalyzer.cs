@@ -11,7 +11,7 @@ namespace Discord.Addons.MpGame.Analyzers
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class BufferStrategySetterAnalyzer : DiagnosticAnalyzer
     {
-        internal const string DiagnosticId = "MPG0001";
+        internal const string DiagnosticId = "MPGAME0001";
         internal const string Title = "Restrict BufferStrategy setting";
         internal const string MessageFormat = "Do not set the BufferStrategy outside of the constructor.";
         internal const string Description = "Do not set the BufferStrategy outside of the constructor.";
@@ -39,12 +39,27 @@ namespace Discord.Addons.MpGame.Analyzers
             if (ctor != null)
                 return; //we inside a ctor, this analyzer doesn't care anymore
 
-            var symbolInfo = context.SemanticModel.GetSymbolInfo(assignment.Left);
-            if (!(symbolInfo.Symbol is IPropertySymbol symbol))
-                return; //assignment wasn't a property, get outta here
+            var lhsType = GetLhsType(context.SemanticModel.GetSymbolInfo(assignment.Left).Symbol);
+            if (lhsType == null)
+                return; //assignment wasn't a property or field, get outta here
 
-            if (symbol.Type.IsOrDerivesFromType(_bufferStratType))
+            if (lhsType.IsOrDerivesFromType(_bufferStratType))
                 context.ReportDiagnostic(Diagnostic.Create(Rule, context.Node.GetLocation()));
+        }
+
+        private static ITypeSymbol GetLhsType(ISymbol symbol)
+        {
+            switch (symbol)
+            {
+                case IPropertySymbol propertySymbol:
+                    return propertySymbol.Type;
+                case IFieldSymbol fieldSymbol:
+                    return fieldSymbol.Type;
+                //case ILocalSymbol localSymbol:
+                //    return localSymbol.Type;
+                default:
+                    return null;
+            }
         }
     }
 }

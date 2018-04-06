@@ -21,6 +21,9 @@
   - uid: Discord.Addons.MpGame.MpGameService`2
     name: MpGameService<TGame, TPlayer>
     name.vb: MpGameService(Of TGame, TPlayer)
+  - uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel
+    name: MpGameService<TGame, TPlayer>.DataViewModel
+    name.vb: MpGameService(Of TGame, TPlayer).DataViewModel
   - uid: Discord.Addons.MpGame.Player
     name: Player
 - uid: Discord.Addons.MpGame.Collections

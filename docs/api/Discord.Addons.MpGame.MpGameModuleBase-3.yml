@@ -326,15 +326,17 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: JoinedUsers
     path: ../src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs
-    startLine: 46
+    startLine: 47
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
   summary: 'The list of users ready to play. '
   remarks: >-
-    This is an immutable snapshot, it is not
+    <div class="markdown level0 remarks"><div class="NOTE">
 
-    updated until the <em>next</em> command invocation.
+    <h5>Note</h5><p>This is an immutable snapshot, it is not
+
+    updated until the <em>next</em> command invocation.</p></div></div>
   example: []
   syntax:
     content: protected IReadOnlyCollection<IUser> JoinedUsers { get; }
@@ -369,7 +371,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: BeforeExecute
     path: ../src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs
-    startLine: 49
+    startLine: 50
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -409,7 +411,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: RegisterPlayerTypeReader
     path: ../src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs
-    startLine: 78
+    startLine: 64
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -453,10 +455,11 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: OnModuleBuilding
     path: ../src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs
-    startLine: 80
+    startLine: 67
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
+  example: []
   syntax:
     content: protected override void OnModuleBuilding(CommandService commandService, ModuleBuilder builder)
     parameters:
@@ -493,7 +496,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: OpenGameCmd
     path: ../src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs
-    startLine: 112
+    startLine: 99
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -551,7 +554,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: JoinGameCmd
     path: ../src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs
-    startLine: 135
+    startLine: 122
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -609,7 +612,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: LeaveGameCmd
     path: ../src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs
-    startLine: 158
+    startLine: 145
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -667,7 +670,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: CancelGameCmd
     path: ../src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs
-    startLine: 181
+    startLine: 168
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -725,7 +728,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: StartGameCmd
     path: ../src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs
-    startLine: 216
+    startLine: 203
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -795,13 +798,20 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: NextTurnCmd
     path: ../src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs
-    startLine: 221
+    startLine: 214
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
   summary: 'Command to advance to the next turn (if applicable). '
   example:
-  - <pre><code></code></pre>
+  - >-
+    <pre><code>[Command(&quot;turn&quot;)]
+        public override Task NextTurnCmd()
+            => (Game != null)
+                ? Game.NextTurn()
+                : (GameInProgress == CurrentlyPlaying.DifferentGame)
+                    ? ReplyAsync(&quot;Different game in progress.&quot;)
+                    : ReplyAsync(&quot;No game in progress.&quot;);</code></pre>
   syntax:
     content: public abstract Task NextTurnCmd()
     return:
@@ -840,7 +850,15 @@ items:
   namespace: Discord.Addons.MpGame
   summary: 'Command to display the current state of the game. '
   example:
-  - <pre><code></code></pre>
+  - >-
+    <pre><code>[Command(&quot;state&quot;)]
+        public override Task GameStateCmd()
+            => (Game != null)
+                ? ReplyAsync(Game.GetGameState())
+                //Alternatively: ReplyAsync(&quot;&quot;, embed: Game.GetGameStateEmbed())
+                : (GameInProgress == CurrentlyPlaying.DifferentGame)
+                    ? ReplyAsync(&quot;Different game in progress.&quot;)
+                    : ReplyAsync(&quot;No game in progress.&quot;);</code></pre>
   syntax:
     content: public abstract Task GameStateCmd()
     return:
@@ -873,13 +891,20 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: EndGameCmd
     path: ../src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs
-    startLine: 231
+    startLine: 237
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
   summary: 'Command to end a game in progress early. '
   example:
-  - <pre><code></code></pre>
+  - >-
+    <pre><code>[Command(&quot;end&quot;)] //Should be restricted to mods/admins to prevent abuse
+        public override Task EndGameCmd()
+            => (Game != null)
+                ? Game.EndGame(&quot;Game ended early by moderator.&quot;)
+                : GameInProgress == CurrentlyPlaying.DifferentGame
+                    ? ReplyAsync(&quot;Different game in progress.&quot;)
+                    : ReplyAsync(&quot;No game in progress.&quot;);</code></pre>
   syntax:
     content: public abstract Task EndGameCmd()
     return:
@@ -912,13 +937,15 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: ResendCmd
     path: ../src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs
-    startLine: 236
+    startLine: 243
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
   summary: 'Command to resend a message to someone who had their DMs disabled. '
   example:
-  - <pre><code></code></pre>
+  - >-
+    <pre><code>[Command(&quot;resend&quot;)]
+        public override Task ResendCmd() => base.ResendCmd();</code></pre>
   syntax:
     content: public virtual Task ResendCmd()
     return:

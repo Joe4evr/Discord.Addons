@@ -12,7 +12,7 @@
           "hash": "nCPRoEDRDnqRGRpopccEUA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -24,7 +24,7 @@
           "hash": "GdidZ2RNWOlO1vetf4D0rA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -48,7 +48,7 @@
           "hash": "vxMSbnCmEn+dNF/uSuHaZw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -72,7 +72,7 @@
           "hash": "N+P8hIoqn0wOn9S7zgwFWA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -84,7 +84,7 @@
           "hash": "MZbXhoGty1gw/efE5q5QhA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -96,7 +96,7 @@
           "hash": "t48ie6SelqjxqdaihmRh5Q=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -105,10 +105,22 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.MpGameModuleBase-3.html",
-          "hash": "JQxQouM1YbAY4vdSVTsI9Q=="
+          "hash": "Hi6v2R4YELVTadDdfZjDAg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.html",
+          "hash": "1cGYSaN93zNmjW8u+NxAWw=="
+        }
+      },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -117,10 +129,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.MpGameService-2.html",
-          "hash": "SGA5W0RMwi1DP47pj6KFkQ=="
+          "hash": "6Ji693Bgtdj0M2/xnzIJWA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -132,7 +144,7 @@
           "hash": "U0qAR26hXQAJif1sim8VEg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -141,10 +153,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.html",
-          "hash": "nSUOkpTCdn7NIAjL/QBozA=="
+          "hash": "P5R/SVMPkTbcfrvrp48r5g=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -156,7 +168,7 @@
           "hash": "PKudgWAhAIxATTSH4IqPSg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -168,7 +180,7 @@
           "hash": "wO4UotcDeGkhNpc0ROghbw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -177,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "YarP68wgUXZX7hR9iZnVmA=="
+          "hash": "CxwDdQk4mDgpO9BPu5oBmw=="
         }
       },
       "is_incremental": false,
@@ -205,18 +217,6 @@
         }
       },
       "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "index.md",
-      "output": {
-        ".html": {
-          "relative_path": "index.html",
-          "hash": "oqO10XcVvciNdQ3NtmnSUw=="
-        }
-      },
-      "is_incremental": true,
       "version": ""
     },
     {

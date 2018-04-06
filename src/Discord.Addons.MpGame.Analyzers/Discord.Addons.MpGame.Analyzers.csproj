@@ -1,5 +1,5 @@
-<Project Sdk="Microsoft.NET.Sdk">
-    <!--<Import Project="..\..\DiscordAddonsCore.props" />-->
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+    <Import Project="..\..\DiscordAddonsCore.props" />
     <PropertyGroup>
         <AssemblyName>Discord.Addons.MpGame.Analyzers</AssemblyName>
         <VersionPrefix>1.2.0</VersionPrefix>

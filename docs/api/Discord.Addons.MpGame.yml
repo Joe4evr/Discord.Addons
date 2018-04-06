@@ -9,6 +9,7 @@ items:
   - Discord.Addons.MpGame.IServiceStrings
   - Discord.Addons.MpGame.MpGameModuleBase`3
   - Discord.Addons.MpGame.MpGameService`2
+  - Discord.Addons.MpGame.MpGameService`2.DataViewModel
   - Discord.Addons.MpGame.Player
   langs:
   - csharp
@@ -177,6 +178,38 @@ references:
   - name: TPlayer
     nameWithType: TPlayer
     fullName: TPlayer
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel
+  commentId: T:Discord.Addons.MpGame.MpGameService`2.DataViewModel
+  parent: Discord.Addons.MpGame
+  isExternal: false
+  name: MpGameService.DataViewModel<>
+  nameWithType: MpGameService.DataViewModel<>
+  fullName: Discord.Addons.MpGame.MpGameService.DataViewModel<>
+  nameWithType.vb: MpGameService.DataViewModel(Of )
+  fullName.vb: Discord.Addons.MpGame.MpGameService.DataViewModel(Of )
+  name.vb: MpGameService.DataViewModel(Of )
+  spec.csharp:
+  - uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel
+    name: MpGameService.DataViewModel
+    nameWithType: MpGameService.DataViewModel
+    fullName: Discord.Addons.MpGame.MpGameService.DataViewModel
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel
+    name: MpGameService.DataViewModel
+    nameWithType: MpGameService.DataViewModel
+    fullName: Discord.Addons.MpGame.MpGameService.DataViewModel
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
   - name: )
     nameWithType: )
     fullName: )
