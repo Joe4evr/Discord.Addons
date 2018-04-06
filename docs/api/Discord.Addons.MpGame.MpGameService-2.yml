@@ -9,7 +9,7 @@ items:
   - Discord.Addons.MpGame.MpGameService`2.AddPlayer(`0,`1)
   - Discord.Addons.MpGame.MpGameService`2.AddUser(Discord.IMessageChannel,Discord.IUser)
   - Discord.Addons.MpGame.MpGameService`2.CancelGame(Discord.IMessageChannel)
-  - Discord.Addons.MpGame.MpGameService`2.GetData(Discord.Commands.ICommandContext)
+  - Discord.Addons.MpGame.MpGameService`2.GetGameData(Discord.Commands.ICommandContext)
   - Discord.Addons.MpGame.MpGameService`2.GetGameFromChannel(Discord.IMessageChannel)
   - Discord.Addons.MpGame.MpGameService`2.GetJoinedUsers(Discord.IMessageChannel)
   - Discord.Addons.MpGame.MpGameService`2.IsOpenToJoin(Discord.IMessageChannel)
@@ -676,43 +676,43 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).IsOpenToJoin(Discord.IMessageChannel)
-- uid: Discord.Addons.MpGame.MpGameService`2.GetData(Discord.Commands.ICommandContext)
-  commentId: M:Discord.Addons.MpGame.MpGameService`2.GetData(Discord.Commands.ICommandContext)
-  id: GetData(Discord.Commands.ICommandContext)
+- uid: Discord.Addons.MpGame.MpGameService`2.GetGameData(Discord.Commands.ICommandContext)
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.GetGameData(Discord.Commands.ICommandContext)
+  id: GetGameData(Discord.Commands.ICommandContext)
   parent: Discord.Addons.MpGame.MpGameService`2
   langs:
   - csharp
   - vb
-  name: GetData(ICommandContext)
-  nameWithType: MpGameService<TGame, TPlayer>.GetData(ICommandContext)
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetData(Discord.Commands.ICommandContext)
+  name: GetGameData(ICommandContext)
+  nameWithType: MpGameService<TGame, TPlayer>.GetGameData(ICommandContext)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetGameData(Discord.Commands.ICommandContext)
   type: Method
   source:
     remote:
       path: src/Discord.Addons.MpGame/Services/MpGameService.cs
       branch: master
       repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: GetData
+    id: GetGameData
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
     startLine: 235
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
   syntax:
-    content: public MpGameService<TGame, TPlayer>.DataViewModel GetData(ICommandContext context)
+    content: public MpGameService<TGame, TPlayer>.MpGameData GetGameData(ICommandContext context)
     parameters:
     - id: context
       type: Discord.Commands.ICommandContext
     return:
-      type: Discord.Addons.MpGame.MpGameService`2.DataViewModel
-    content.vb: Public Function GetData(context As ICommandContext) As MpGameService(Of TGame, TPlayer).DataViewModel
-  overload: Discord.Addons.MpGame.MpGameService`2.GetData*
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetData(ICommandContext)
+      type: Discord.Addons.MpGame.MpGameService`2.MpGameData
+    content.vb: Public Function GetGameData(context As ICommandContext) As MpGameService(Of TGame, TPlayer).MpGameData
+  overload: Discord.Addons.MpGame.MpGameService`2.GetGameData*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetGameData(ICommandContext)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetData(Discord.Commands.ICommandContext)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetGameData(Discord.Commands.ICommandContext)
 references:
 - uid: Discord.Addons.MpGame.MpGameModuleBase`3
   commentId: T:Discord.Addons.MpGame.MpGameModuleBase`3
@@ -1370,29 +1370,29 @@ references:
   fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.IsOpenToJoin
   nameWithType.vb: MpGameService(Of TGame, TPlayer).IsOpenToJoin
   fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).IsOpenToJoin
-- uid: Discord.Addons.MpGame.MpGameService`2.GetData*
-  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.GetData
+- uid: Discord.Addons.MpGame.MpGameService`2.GetGameData*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.GetGameData
   isExternal: false
-  name: GetData
-  nameWithType: MpGameService<TGame, TPlayer>.GetData
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetData
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetData
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetData
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel
-  commentId: T:Discord.Addons.MpGame.MpGameService`2.DataViewModel
+  name: GetGameData
+  nameWithType: MpGameService<TGame, TPlayer>.GetGameData
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetGameData
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetGameData
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetGameData
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData
+  commentId: T:Discord.Addons.MpGame.MpGameService`2.MpGameData
   parent: Discord.Addons.MpGame
   isExternal: false
-  name: MpGameService.DataViewModel<>
-  nameWithType: MpGameService.DataViewModel<>
-  fullName: Discord.Addons.MpGame.MpGameService.DataViewModel<>
-  nameWithType.vb: MpGameService.DataViewModel(Of )
-  fullName.vb: Discord.Addons.MpGame.MpGameService.DataViewModel(Of )
-  name.vb: MpGameService.DataViewModel(Of )
+  name: MpGameService.MpGameData<>
+  nameWithType: MpGameService.MpGameData<>
+  fullName: Discord.Addons.MpGame.MpGameService.MpGameData<>
+  nameWithType.vb: MpGameService.MpGameData(Of )
+  fullName.vb: Discord.Addons.MpGame.MpGameService.MpGameData(Of )
+  name.vb: MpGameService.MpGameData(Of )
   spec.csharp:
-  - uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel
-    name: MpGameService.DataViewModel
-    nameWithType: MpGameService.DataViewModel
-    fullName: Discord.Addons.MpGame.MpGameService.DataViewModel
+  - uid: Discord.Addons.MpGame.MpGameService`2.MpGameData
+    name: MpGameService.MpGameData
+    nameWithType: MpGameService.MpGameData
+    fullName: Discord.Addons.MpGame.MpGameService.MpGameData
   - name: <
     nameWithType: <
     fullName: <
@@ -1400,10 +1400,10 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel
-    name: MpGameService.DataViewModel
-    nameWithType: MpGameService.DataViewModel
-    fullName: Discord.Addons.MpGame.MpGameService.DataViewModel
+  - uid: Discord.Addons.MpGame.MpGameService`2.MpGameData
+    name: MpGameService.MpGameData
+    nameWithType: MpGameService.MpGameData
+    fullName: Discord.Addons.MpGame.MpGameService.MpGameData
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '

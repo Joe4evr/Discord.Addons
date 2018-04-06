@@ -44,6 +44,8 @@ public class MpGameService<TGame, TPlayer>
     public IReadOnlyCollection<IUser> GetJoinedUsers(IMessageChannel channel);
 
     public bool IsOpenToJoin(IMessageChannel channel);
+
+    public MpGameData GetGameData(ICommandContext context);
 }
 ```
 

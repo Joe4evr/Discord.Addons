@@ -1,39 +1,39 @@
 ### YamlMime:ManagedReference
 items:
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel
-  commentId: T:Discord.Addons.MpGame.MpGameService`2.DataViewModel
-  id: MpGameService`2.DataViewModel
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData
+  commentId: T:Discord.Addons.MpGame.MpGameService`2.MpGameData
+  id: MpGameService`2.MpGameData
   parent: Discord.Addons.MpGame
   children:
-  - Discord.Addons.MpGame.MpGameService`2.DataViewModel.Game
-  - Discord.Addons.MpGame.MpGameService`2.DataViewModel.GameInProgress
-  - Discord.Addons.MpGame.MpGameService`2.DataViewModel.JoinedUsers
-  - Discord.Addons.MpGame.MpGameService`2.DataViewModel.OpenToJoin
-  - Discord.Addons.MpGame.MpGameService`2.DataViewModel.Player
+  - Discord.Addons.MpGame.MpGameService`2.MpGameData.Game
+  - Discord.Addons.MpGame.MpGameService`2.MpGameData.GameInProgress
+  - Discord.Addons.MpGame.MpGameService`2.MpGameData.JoinedUsers
+  - Discord.Addons.MpGame.MpGameService`2.MpGameData.OpenToJoin
+  - Discord.Addons.MpGame.MpGameService`2.MpGameData.Player
   langs:
   - csharp
   - vb
-  name: MpGameService<TGame, TPlayer>.DataViewModel
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel
+  name: MpGameService<TGame, TPlayer>.MpGameData
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData
   type: Class
   source:
     remote:
       path: src/Discord.Addons.MpGame/Services/PersistentGameData.cs
       branch: master
       repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: DataViewModel
+    id: MpGameData
     path: ../src/Discord.Addons.MpGame/Services/PersistentGameData.cs
     startLine: 68
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
   syntax:
-    content: public sealed class DataViewModel
-    content.vb: Public NotInheritable Class DataViewModel
+    content: public sealed class MpGameData
+    content.vb: Public NotInheritable Class MpGameData
   inheritance:
   - System.Object
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData
   modifiers.csharp:
   - public
   - sealed
@@ -42,18 +42,18 @@ items:
   - Public
   - NotInheritable
   - Class
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel
-  name.vb: MpGameService(Of TGame, TPlayer).DataViewModel
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.OpenToJoin
-  commentId: P:Discord.Addons.MpGame.MpGameService`2.DataViewModel.OpenToJoin
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData
+  name.vb: MpGameService(Of TGame, TPlayer).MpGameData
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.OpenToJoin
+  commentId: P:Discord.Addons.MpGame.MpGameService`2.MpGameData.OpenToJoin
   id: OpenToJoin
-  parent: Discord.Addons.MpGame.MpGameService`2.DataViewModel
+  parent: Discord.Addons.MpGame.MpGameService`2.MpGameData
   langs:
   - csharp
   - vb
   name: OpenToJoin
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.OpenToJoin
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.OpenToJoin
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.OpenToJoin
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.OpenToJoin
   type: Property
   source:
     remote:
@@ -62,35 +62,37 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: OpenToJoin
     path: ../src/Discord.Addons.MpGame/Services/PersistentGameData.cs
-    startLine: 72
+    startLine: 73
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
+  summary: 'Determines if a game in the current channel is open to join or not. '
+  example: []
   syntax:
     content: public bool OpenToJoin { get; }
     parameters: []
     return:
       type: System.Boolean
     content.vb: Public ReadOnly Property OpenToJoin As Boolean
-  overload: Discord.Addons.MpGame.MpGameService`2.DataViewModel.OpenToJoin*
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.OpenToJoin
+  overload: Discord.Addons.MpGame.MpGameService`2.MpGameData.OpenToJoin*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.OpenToJoin
   modifiers.csharp:
   - public
   - get
   modifiers.vb:
   - Public
   - ReadOnly
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.OpenToJoin
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.Game
-  commentId: P:Discord.Addons.MpGame.MpGameService`2.DataViewModel.Game
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.OpenToJoin
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.Game
+  commentId: P:Discord.Addons.MpGame.MpGameService`2.MpGameData.Game
   id: Game
-  parent: Discord.Addons.MpGame.MpGameService`2.DataViewModel
+  parent: Discord.Addons.MpGame.MpGameService`2.MpGameData
   langs:
   - csharp
   - vb
   name: Game
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.Game
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.Game
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.Game
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.Game
   type: Property
   source:
     remote:
@@ -99,35 +101,37 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Game
     path: ../src/Discord.Addons.MpGame/Services/PersistentGameData.cs
-    startLine: 73
+    startLine: 76
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
+  summary: 'The instance of the game being played (if active). '
+  example: []
   syntax:
     content: public TGame Game { get; }
     parameters: []
     return:
       type: '{TGame}'
     content.vb: Public ReadOnly Property Game As TGame
-  overload: Discord.Addons.MpGame.MpGameService`2.DataViewModel.Game*
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.Game
+  overload: Discord.Addons.MpGame.MpGameService`2.MpGameData.Game*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.Game
   modifiers.csharp:
   - public
   - get
   modifiers.vb:
   - Public
   - ReadOnly
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.Game
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.Player
-  commentId: P:Discord.Addons.MpGame.MpGameService`2.DataViewModel.Player
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.Game
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.Player
+  commentId: P:Discord.Addons.MpGame.MpGameService`2.MpGameData.Player
   id: Player
-  parent: Discord.Addons.MpGame.MpGameService`2.DataViewModel
+  parent: Discord.Addons.MpGame.MpGameService`2.MpGameData
   langs:
   - csharp
   - vb
   name: Player
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.Player
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.Player
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.Player
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.Player
   type: Property
   source:
     remote:
@@ -136,35 +140,37 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Player
     path: ../src/Discord.Addons.MpGame/Services/PersistentGameData.cs
-    startLine: 74
+    startLine: 80
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
+  summary: "The player object that wraps the user executing this command\n(if a game is active AND the user is a player in that game). "
+  example: []
   syntax:
     content: public TPlayer Player { get; }
     parameters: []
     return:
       type: '{TPlayer}'
     content.vb: Public ReadOnly Property Player As TPlayer
-  overload: Discord.Addons.MpGame.MpGameService`2.DataViewModel.Player*
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.Player
+  overload: Discord.Addons.MpGame.MpGameService`2.MpGameData.Player*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.Player
   modifiers.csharp:
   - public
   - get
   modifiers.vb:
   - Public
   - ReadOnly
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.Player
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.GameInProgress
-  commentId: P:Discord.Addons.MpGame.MpGameService`2.DataViewModel.GameInProgress
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.Player
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.GameInProgress
+  commentId: P:Discord.Addons.MpGame.MpGameService`2.MpGameData.GameInProgress
   id: GameInProgress
-  parent: Discord.Addons.MpGame.MpGameService`2.DataViewModel
+  parent: Discord.Addons.MpGame.MpGameService`2.MpGameData
   langs:
   - csharp
   - vb
   name: GameInProgress
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.GameInProgress
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.GameInProgress
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.GameInProgress
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.GameInProgress
   type: Property
   source:
     remote:
@@ -173,35 +179,37 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: GameInProgress
     path: ../src/Discord.Addons.MpGame/Services/PersistentGameData.cs
-    startLine: 75
+    startLine: 83
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
+  summary: 'Determines if a game in the current channel is in progress or not. '
+  example: []
   syntax:
     content: public CurrentlyPlaying GameInProgress { get; }
     parameters: []
     return:
       type: Discord.Addons.MpGame.CurrentlyPlaying
     content.vb: Public ReadOnly Property GameInProgress As CurrentlyPlaying
-  overload: Discord.Addons.MpGame.MpGameService`2.DataViewModel.GameInProgress*
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.GameInProgress
+  overload: Discord.Addons.MpGame.MpGameService`2.MpGameData.GameInProgress*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.GameInProgress
   modifiers.csharp:
   - public
   - get
   modifiers.vb:
   - Public
   - ReadOnly
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.GameInProgress
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.JoinedUsers
-  commentId: P:Discord.Addons.MpGame.MpGameService`2.DataViewModel.JoinedUsers
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.GameInProgress
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.JoinedUsers
+  commentId: P:Discord.Addons.MpGame.MpGameService`2.MpGameData.JoinedUsers
   id: JoinedUsers
-  parent: Discord.Addons.MpGame.MpGameService`2.DataViewModel
+  parent: Discord.Addons.MpGame.MpGameService`2.MpGameData
   langs:
   - csharp
   - vb
   name: JoinedUsers
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.JoinedUsers
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.JoinedUsers
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.JoinedUsers
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.JoinedUsers
   type: Property
   source:
     remote:
@@ -210,25 +218,33 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: JoinedUsers
     path: ../src/Discord.Addons.MpGame/Services/PersistentGameData.cs
-    startLine: 76
+    startLine: 89
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
+  summary: 'The list of users ready to play. '
+  remarks: >-
+    <div class="markdown level0 remarks"><div class="NOTE">
+
+    <h5>Note</h5><p>This is an immutable snapshot, it is not
+
+    updated until the *next* command invocation.</p></div></div>
+  example: []
   syntax:
     content: public IReadOnlyCollection<IUser> JoinedUsers { get; }
     parameters: []
     return:
       type: System.Collections.Generic.IReadOnlyCollection{Discord.IUser}
     content.vb: Public ReadOnly Property JoinedUsers As IReadOnlyCollection(Of IUser)
-  overload: Discord.Addons.MpGame.MpGameService`2.DataViewModel.JoinedUsers*
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.JoinedUsers
+  overload: Discord.Addons.MpGame.MpGameService`2.MpGameData.JoinedUsers*
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.JoinedUsers
   modifiers.csharp:
   - public
   - get
   modifiers.vb:
   - Public
   - ReadOnly
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.JoinedUsers
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.JoinedUsers
 references:
 - uid: Discord.Addons.MpGame
   commentId: N:Discord.Addons.MpGame
@@ -249,14 +265,14 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.OpenToJoin*
-  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.DataViewModel.OpenToJoin
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.OpenToJoin*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.MpGameData.OpenToJoin
   isExternal: false
   name: OpenToJoin
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.OpenToJoin
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.OpenToJoin
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.OpenToJoin
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.OpenToJoin
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.OpenToJoin
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.OpenToJoin
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.OpenToJoin
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.OpenToJoin
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -264,14 +280,14 @@ references:
   name: Boolean
   nameWithType: Boolean
   fullName: System.Boolean
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.Game*
-  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.DataViewModel.Game
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.Game*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.MpGameData.Game
   isExternal: false
   name: Game
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.Game
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.Game
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.Game
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.Game
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.Game
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.Game
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.Game
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.Game
 - uid: '{TGame}'
   commentId: '!:TGame'
   definition: TGame
@@ -283,14 +299,14 @@ references:
   name: TGame
   nameWithType: TGame
   fullName: TGame
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.Player*
-  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.DataViewModel.Player
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.Player*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.MpGameData.Player
   isExternal: false
   name: Player
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.Player
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.Player
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.Player
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.Player
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.Player
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.Player
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.Player
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.Player
 - uid: '{TPlayer}'
   commentId: '!:TPlayer'
   definition: TPlayer
@@ -302,14 +318,14 @@ references:
   name: TPlayer
   nameWithType: TPlayer
   fullName: TPlayer
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.GameInProgress*
-  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.DataViewModel.GameInProgress
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.GameInProgress*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.MpGameData.GameInProgress
   isExternal: false
   name: GameInProgress
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.GameInProgress
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.GameInProgress
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.GameInProgress
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.GameInProgress
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.GameInProgress
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.GameInProgress
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.GameInProgress
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.GameInProgress
 - uid: Discord.Addons.MpGame.CurrentlyPlaying
   commentId: T:Discord.Addons.MpGame.CurrentlyPlaying
   parent: Discord.Addons.MpGame
@@ -317,14 +333,14 @@ references:
   name: CurrentlyPlaying
   nameWithType: CurrentlyPlaying
   fullName: Discord.Addons.MpGame.CurrentlyPlaying
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.JoinedUsers*
-  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.DataViewModel.JoinedUsers
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.JoinedUsers*
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.MpGameData.JoinedUsers
   isExternal: false
   name: JoinedUsers
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.JoinedUsers
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.JoinedUsers
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.JoinedUsers
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.JoinedUsers
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.JoinedUsers
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.JoinedUsers
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.JoinedUsers
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.JoinedUsers
 - uid: System.Collections.Generic.IReadOnlyCollection{Discord.IUser}
   commentId: T:System.Collections.Generic.IReadOnlyCollection{Discord.IUser}
   parent: System.Collections.Generic

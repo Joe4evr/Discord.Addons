@@ -66,19 +66,39 @@ namespace Discord.Addons.MpGame
             }
         }
 
-        public sealed class DataViewModel
+        public sealed class MpGameData
         {
-            internal static DataViewModel Default { get; } = new DataViewModel();
+            internal static MpGameData Default { get; } = new MpGameData();
 
-            public bool OpenToJoin { get; } = false;
-            public TGame Game      { get; } = null;
-            public TPlayer Player  { get; } = null;
-            public CurrentlyPlaying GameInProgress { get; } = CurrentlyPlaying.None;
-            public IReadOnlyCollection<IUser> JoinedUsers { get; } = ImmutableHashSet<IUser>.Empty;
+            /// <summary> Determines if a game in the current channel is open to join or not. </summary>
+            public bool OpenToJoin { get; }
 
-            private DataViewModel() { }
+            /// <summary> The instance of the game being played (if active). </summary>
+            public TGame Game { get; }
 
-            internal DataViewModel(PersistentGameData data, ICommandContext context)
+            /// <summary> The player object that wraps the user executing this command
+            /// (if a game is active AND the user is a player in that game). </summary>
+            public TPlayer Player { get; }
+
+            /// <summary> Determines if a game in the current channel is in progress or not. </summary>
+            public CurrentlyPlaying GameInProgress { get; }
+
+            /// <summary> The list of users ready to play. </summary>
+            /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
+            /// <h5>Note</h5><p>This is an immutable snapshot, it is not
+            /// updated until the *next* command invocation.</p></div></div></remarks>
+            public IReadOnlyCollection<IUser> JoinedUsers { get; }
+
+            private MpGameData()
+            {
+                OpenToJoin  = false;
+                JoinedUsers = ImmutableHashSet<IUser>.Empty;
+                Game        = null;
+                Player      = null;
+                GameInProgress = CurrentlyPlaying.None;
+            }
+
+            internal MpGameData(PersistentGameData data, ICommandContext context)
             {
                 OpenToJoin  = data.OpenToJoin;
                 JoinedUsers = data.JoinedUsers;

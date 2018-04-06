@@ -44,7 +44,7 @@ namespace Discord.Addons.MpGame
         /// <summary> The list of users ready to play. </summary>
         /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
         /// <h5>Note</h5><p>This is an immutable snapshot, it is not
-        /// updated until the <i>next</i> command invocation.</p></div></div></remarks>
+        /// updated until the *next* command invocation.</p></div></div></remarks>
         protected IReadOnlyCollection<IUser> JoinedUsers { get; private set; } = ImmutableHashSet<IUser>.Empty;
 
         /// <summary> Initialize fields whose values come from the <typeparamref name="TService"/>'s Dictionaries. </summary>
@@ -52,7 +52,7 @@ namespace Discord.Addons.MpGame
         {
             base.BeforeExecute(command);
 
-            var data = GameService.GetData(Context);
+            var data = GameService.GetGameData(Context);
             OpenToJoin     = data.OpenToJoin;
             JoinedUsers    = data.JoinedUsers;
             Game           = data.Game;

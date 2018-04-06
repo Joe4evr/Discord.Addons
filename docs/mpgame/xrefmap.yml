@@ -1660,117 +1660,23 @@ references:
   fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).CancelGame
   nameWithType: MpGameService<TGame, TPlayer>.CancelGame
   nameWithType.vb: MpGameService(Of TGame, TPlayer).CancelGame
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel
-  name: MpGameService<TGame, TPlayer>.DataViewModel
-  href: api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.html
-  commentId: T:Discord.Addons.MpGame.MpGameService`2.DataViewModel
-  name.vb: MpGameService(Of TGame, TPlayer).DataViewModel
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.Game
-  name: Game
-  href: api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.html#Discord_Addons_MpGame_MpGameService_2_DataViewModel_Game
-  commentId: P:Discord.Addons.MpGame.MpGameService`2.DataViewModel.Game
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.Game
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.Game
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.Game
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.Game
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.Game*
-  name: Game
-  href: api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.html#Discord_Addons_MpGame_MpGameService_2_DataViewModel_Game_
-  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.DataViewModel.Game
+- uid: Discord.Addons.MpGame.MpGameService`2.GetGameData(Discord.Commands.ICommandContext)
+  name: GetGameData(ICommandContext)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_GetGameData_Discord_Commands_ICommandContext_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.GetGameData(Discord.Commands.ICommandContext)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetGameData(Discord.Commands.ICommandContext)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetGameData(Discord.Commands.ICommandContext)
+  nameWithType: MpGameService<TGame, TPlayer>.GetGameData(ICommandContext)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetGameData(ICommandContext)
+- uid: Discord.Addons.MpGame.MpGameService`2.GetGameData*
+  name: GetGameData
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_GetGameData_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.GetGameData
   isSpec: "True"
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.Game
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.Game
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.Game
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.Game
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.GameInProgress
-  name: GameInProgress
-  href: api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.html#Discord_Addons_MpGame_MpGameService_2_DataViewModel_GameInProgress
-  commentId: P:Discord.Addons.MpGame.MpGameService`2.DataViewModel.GameInProgress
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.GameInProgress
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.GameInProgress
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.GameInProgress
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.GameInProgress
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.GameInProgress*
-  name: GameInProgress
-  href: api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.html#Discord_Addons_MpGame_MpGameService_2_DataViewModel_GameInProgress_
-  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.DataViewModel.GameInProgress
-  isSpec: "True"
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.GameInProgress
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.GameInProgress
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.GameInProgress
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.GameInProgress
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.JoinedUsers
-  name: JoinedUsers
-  href: api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.html#Discord_Addons_MpGame_MpGameService_2_DataViewModel_JoinedUsers
-  commentId: P:Discord.Addons.MpGame.MpGameService`2.DataViewModel.JoinedUsers
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.JoinedUsers
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.JoinedUsers
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.JoinedUsers
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.JoinedUsers
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.JoinedUsers*
-  name: JoinedUsers
-  href: api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.html#Discord_Addons_MpGame_MpGameService_2_DataViewModel_JoinedUsers_
-  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.DataViewModel.JoinedUsers
-  isSpec: "True"
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.JoinedUsers
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.JoinedUsers
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.JoinedUsers
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.JoinedUsers
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.OpenToJoin
-  name: OpenToJoin
-  href: api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.html#Discord_Addons_MpGame_MpGameService_2_DataViewModel_OpenToJoin
-  commentId: P:Discord.Addons.MpGame.MpGameService`2.DataViewModel.OpenToJoin
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.OpenToJoin
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.OpenToJoin
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.OpenToJoin
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.OpenToJoin
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.OpenToJoin*
-  name: OpenToJoin
-  href: api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.html#Discord_Addons_MpGame_MpGameService_2_DataViewModel_OpenToJoin_
-  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.DataViewModel.OpenToJoin
-  isSpec: "True"
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.OpenToJoin
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.OpenToJoin
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.OpenToJoin
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.OpenToJoin
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.Player
-  name: Player
-  href: api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.html#Discord_Addons_MpGame_MpGameService_2_DataViewModel_Player
-  commentId: P:Discord.Addons.MpGame.MpGameService`2.DataViewModel.Player
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.Player
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.Player
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.Player
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.Player
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel.Player*
-  name: Player
-  href: api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.html#Discord_Addons_MpGame_MpGameService_2_DataViewModel_Player_
-  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.DataViewModel.Player
-  isSpec: "True"
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.DataViewModel.Player
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).DataViewModel.Player
-  nameWithType: MpGameService<TGame, TPlayer>.DataViewModel.Player
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).DataViewModel.Player
-- uid: Discord.Addons.MpGame.MpGameService`2.GetData(Discord.Commands.ICommandContext)
-  name: GetData(ICommandContext)
-  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_GetData_Discord_Commands_ICommandContext_
-  commentId: M:Discord.Addons.MpGame.MpGameService`2.GetData(Discord.Commands.ICommandContext)
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetData(Discord.Commands.ICommandContext)
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetData(Discord.Commands.ICommandContext)
-  nameWithType: MpGameService<TGame, TPlayer>.GetData(ICommandContext)
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetData(ICommandContext)
-- uid: Discord.Addons.MpGame.MpGameService`2.GetData*
-  name: GetData
-  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_GetData_
-  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.GetData
-  isSpec: "True"
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetData
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetData
-  nameWithType: MpGameService<TGame, TPlayer>.GetData
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetData
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetGameData
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetGameData
+  nameWithType: MpGameService<TGame, TPlayer>.GetGameData
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetGameData
 - uid: Discord.Addons.MpGame.MpGameService`2.GetGameFromChannel(Discord.IMessageChannel)
   name: GetGameFromChannel(IMessageChannel)
   href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_GetGameFromChannel_Discord_IMessageChannel_
@@ -1873,6 +1779,100 @@ references:
   fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MessageChannelComparer
   nameWithType: MpGameService<TGame, TPlayer>.MessageChannelComparer
   nameWithType.vb: MpGameService(Of TGame, TPlayer).MessageChannelComparer
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData
+  name: MpGameService<TGame, TPlayer>.MpGameData
+  href: api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html
+  commentId: T:Discord.Addons.MpGame.MpGameService`2.MpGameData
+  name.vb: MpGameService(Of TGame, TPlayer).MpGameData
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.Game
+  name: Game
+  href: api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html#Discord_Addons_MpGame_MpGameService_2_MpGameData_Game
+  commentId: P:Discord.Addons.MpGame.MpGameService`2.MpGameData.Game
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.Game
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.Game
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.Game
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.Game
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.Game*
+  name: Game
+  href: api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html#Discord_Addons_MpGame_MpGameService_2_MpGameData_Game_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.MpGameData.Game
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.Game
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.Game
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.Game
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.Game
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.GameInProgress
+  name: GameInProgress
+  href: api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html#Discord_Addons_MpGame_MpGameService_2_MpGameData_GameInProgress
+  commentId: P:Discord.Addons.MpGame.MpGameService`2.MpGameData.GameInProgress
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.GameInProgress
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.GameInProgress
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.GameInProgress
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.GameInProgress
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.GameInProgress*
+  name: GameInProgress
+  href: api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html#Discord_Addons_MpGame_MpGameService_2_MpGameData_GameInProgress_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.MpGameData.GameInProgress
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.GameInProgress
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.GameInProgress
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.GameInProgress
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.GameInProgress
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.JoinedUsers
+  name: JoinedUsers
+  href: api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html#Discord_Addons_MpGame_MpGameService_2_MpGameData_JoinedUsers
+  commentId: P:Discord.Addons.MpGame.MpGameService`2.MpGameData.JoinedUsers
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.JoinedUsers
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.JoinedUsers
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.JoinedUsers
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.JoinedUsers
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.JoinedUsers*
+  name: JoinedUsers
+  href: api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html#Discord_Addons_MpGame_MpGameService_2_MpGameData_JoinedUsers_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.MpGameData.JoinedUsers
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.JoinedUsers
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.JoinedUsers
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.JoinedUsers
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.JoinedUsers
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.OpenToJoin
+  name: OpenToJoin
+  href: api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html#Discord_Addons_MpGame_MpGameService_2_MpGameData_OpenToJoin
+  commentId: P:Discord.Addons.MpGame.MpGameService`2.MpGameData.OpenToJoin
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.OpenToJoin
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.OpenToJoin
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.OpenToJoin
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.OpenToJoin
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.OpenToJoin*
+  name: OpenToJoin
+  href: api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html#Discord_Addons_MpGame_MpGameService_2_MpGameData_OpenToJoin_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.MpGameData.OpenToJoin
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.OpenToJoin
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.OpenToJoin
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.OpenToJoin
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.OpenToJoin
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.Player
+  name: Player
+  href: api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html#Discord_Addons_MpGame_MpGameService_2_MpGameData_Player
+  commentId: P:Discord.Addons.MpGame.MpGameService`2.MpGameData.Player
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.Player
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.Player
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.Player
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.Player
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData.Player*
+  name: Player
+  href: api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html#Discord_Addons_MpGame_MpGameService_2_MpGameData_Player_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.MpGameData.Player
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameData.Player
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameData.Player
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameData.Player
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameData.Player
 - uid: Discord.Addons.MpGame.MpGameService`2.OpenNewGame(Discord.Commands.ICommandContext)
   name: OpenNewGame(ICommandContext)
   href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_OpenNewGame_Discord_Commands_ICommandContext_

@@ -9,7 +9,7 @@ items:
   - Discord.Addons.MpGame.IServiceStrings
   - Discord.Addons.MpGame.MpGameModuleBase`3
   - Discord.Addons.MpGame.MpGameService`2
-  - Discord.Addons.MpGame.MpGameService`2.DataViewModel
+  - Discord.Addons.MpGame.MpGameService`2.MpGameData
   - Discord.Addons.MpGame.Player
   langs:
   - csharp
@@ -181,21 +181,21 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel
-  commentId: T:Discord.Addons.MpGame.MpGameService`2.DataViewModel
+- uid: Discord.Addons.MpGame.MpGameService`2.MpGameData
+  commentId: T:Discord.Addons.MpGame.MpGameService`2.MpGameData
   parent: Discord.Addons.MpGame
   isExternal: false
-  name: MpGameService.DataViewModel<>
-  nameWithType: MpGameService.DataViewModel<>
-  fullName: Discord.Addons.MpGame.MpGameService.DataViewModel<>
-  nameWithType.vb: MpGameService.DataViewModel(Of )
-  fullName.vb: Discord.Addons.MpGame.MpGameService.DataViewModel(Of )
-  name.vb: MpGameService.DataViewModel(Of )
+  name: MpGameService.MpGameData<>
+  nameWithType: MpGameService.MpGameData<>
+  fullName: Discord.Addons.MpGame.MpGameService.MpGameData<>
+  nameWithType.vb: MpGameService.MpGameData(Of )
+  fullName.vb: Discord.Addons.MpGame.MpGameService.MpGameData(Of )
+  name.vb: MpGameService.MpGameData(Of )
   spec.csharp:
-  - uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel
-    name: MpGameService.DataViewModel
-    nameWithType: MpGameService.DataViewModel
-    fullName: Discord.Addons.MpGame.MpGameService.DataViewModel
+  - uid: Discord.Addons.MpGame.MpGameService`2.MpGameData
+    name: MpGameService.MpGameData
+    nameWithType: MpGameService.MpGameData
+    fullName: Discord.Addons.MpGame.MpGameService.MpGameData
   - name: <
     nameWithType: <
     fullName: <
@@ -203,10 +203,10 @@ references:
     nameWithType: '>'
     fullName: '>'
   spec.vb:
-  - uid: Discord.Addons.MpGame.MpGameService`2.DataViewModel
-    name: MpGameService.DataViewModel
-    nameWithType: MpGameService.DataViewModel
-    fullName: Discord.Addons.MpGame.MpGameService.DataViewModel
+  - uid: Discord.Addons.MpGame.MpGameService`2.MpGameData
+    name: MpGameService.MpGameData
+    nameWithType: MpGameService.MpGameData
+    fullName: Discord.Addons.MpGame.MpGameService.MpGameData
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '

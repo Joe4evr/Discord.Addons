@@ -336,7 +336,7 @@ items:
 
     <h5>Note</h5><p>This is an immutable snapshot, it is not
 
-    updated until the <em>next</em> command invocation.</p></div></div>
+    updated until the *next* command invocation.</p></div></div>
   example: []
   syntax:
     content: protected IReadOnlyCollection<IUser> JoinedUsers { get; }

@@ -5,7 +5,7 @@ The Module is the final piece, and is what is needed to move a game forward.
 
 The `MpGameModule` class looks like this:
 ```cs
-public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<ICommandContext>
+public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<SocketCommandContext>
     where TService : MpGameService<TGame, TPlayer>
     where TGame    : GameBase<TPlayer>
     where TPlayer  : Player
@@ -113,6 +113,13 @@ public class CardGameModule : MpGameModuleBase<CardGame, CardPlayer>
     }
 }
 ```
+
+### Inheriting a different ModuleBase
+To aid in composability, starting in version 1.2.0, `MpGameModuleBase<>`
+is decoupled from the `MpGameService<>`. So if you wish to combine MpGame
+with a different ModuleBase (or `ModuleBase<T>` directly), you only need
+to 1) inject the instance of the service into your module, and 2)
+override `BeforeExecute()` to get the associated data for that context.
 
 Example implementations for the abstract methods can be found
 [in the Examples project](../../../Examples/MpGame/ExampleModule.cs).

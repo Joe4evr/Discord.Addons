@@ -233,11 +233,11 @@ namespace Discord.Addons.MpGame
             return _dataList.TryGetValue(chan, out data);
         }
 
-        public DataViewModel GetData(ICommandContext context)
+        public MpGameData GetGameData(ICommandContext context)
         {
             return (TryGetPersistentData(context.Channel, out var internalData))
-                ? new DataViewModel(internalData, context)
-                : DataViewModel.Default;
+                ? new MpGameData(internalData, context)
+                : MpGameData.Default;
         }
 
         //micro-optimization

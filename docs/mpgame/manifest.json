@@ -113,11 +113,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.yml",
+      "source_relative_path": "api/Discord.Addons.MpGame.MpGameService-2.MpGameData.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Discord.Addons.MpGame.MpGameService-2.DataViewModel.html",
-          "hash": "1cGYSaN93zNmjW8u+NxAWw=="
+          "relative_path": "api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html",
+          "hash": "fPFbfNrqrFFaM+XweDmBuQ=="
         }
       },
       "is_incremental": false,
@@ -129,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.MpGameService-2.html",
-          "hash": "6Ji693Bgtdj0M2/xnzIJWA=="
+          "hash": "Ttt1HuraKySsk9SRdFcnUA=="
         }
       },
       "is_incremental": false,
@@ -153,7 +153,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.html",
-          "hash": "P5R/SVMPkTbcfrvrp48r5g=="
+          "hash": "PPExP3l1yh2ktg0OT2WS+w=="
         }
       },
       "is_incremental": false,
@@ -189,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "CxwDdQk4mDgpO9BPu5oBmw=="
+          "hash": "UHlTZPB/Pgo5n/XtcIOAsg=="
         }
       },
       "is_incremental": false,
@@ -244,11 +244,11 @@
           "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build"
         },
-        "ConceptualDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build"
         }
