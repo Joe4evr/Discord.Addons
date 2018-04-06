@@ -1,0 +1,642 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class GameBase&lt;TPlayer&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class GameBase&lt;TPlayer&gt;
+   ">
+    <meta name="generator" content="docfx 2.33.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Discord.Addons.MpGame.GameBase`1">
+  
+  
+  <h1 id="Discord_Addons_MpGame_GameBase_1" data-uid="Discord.Addons.MpGame.GameBase`1" class="text-break">Class GameBase&lt;TPlayer&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Base class to represent a game between Discord users. </p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">GameBase&lt;TPlayer&gt;</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Discord.Addons.MpGame.html">Discord.Addons.MpGame</a></h6>
+  <h6><strong>Assembly</strong>: Discord.Addons.MpGame.dll</h6>
+  <h5 id="Discord_Addons_MpGame_GameBase_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class GameBase&lt;TPlayer&gt;
+    where TPlayer : Player</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TPlayer</span></td>
+        <td><p>The type of this game&apos;s kind of <a class="xref" href="Discord.Addons.MpGame.Player.html">Player</a> object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1__ctor_Discord_IMessageChannel_System_Collections_Generic_IEnumerable__0__System_Boolean_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.%23ctor(Discord.IMessageChannel%2CSystem.Collections.Generic.IEnumerable%7B%600%7D%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L20">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_GameBase_1__ctor_" data-uid="Discord.Addons.MpGame.GameBase`1.#ctor*"></a>
+  <h4 id="Discord_Addons_MpGame_GameBase_1__ctor_Discord_IMessageChannel_System_Collections_Generic_IEnumerable__0__System_Boolean_" data-uid="Discord.Addons.MpGame.GameBase`1.#ctor(Discord.IMessageChannel,System.Collections.Generic.IEnumerable{`0},System.Boolean)">GameBase(IMessageChannel, IEnumerable&lt;TPlayer&gt;, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Sets up the common logic for a multiplayer game. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected GameBase(IMessageChannel channel, IEnumerable&lt;TPlayer&gt; players, bool setFirstPlayerImmediately = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Discord.IMessageChannel</span></td>
+        <td><span class="parametername">channel</span></td>
+        <td><p>The channel where the public-facing side of the game is played.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;TPlayer&gt;</td>
+        <td><span class="parametername">players</span></td>
+        <td><p>The players for this game instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">setFirstPlayerImmediately</span></td>
+        <td><p>When set to <span class="xref">true</span>, will set the TurnPlayer
+to the first player before the game begins, otherwise it will be set to an empty Node and you will
+have to set it to Turnplayer.Next when starting the first turn.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1_Channel.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.Channel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L33">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_GameBase_1_Channel_" data-uid="Discord.Addons.MpGame.GameBase`1.Channel*"></a>
+  <h4 id="Discord_Addons_MpGame_GameBase_1_Channel" data-uid="Discord.Addons.MpGame.GameBase`1.Channel">Channel</h4>
+  <div class="markdown level1 summary"><p>The channel where the public-facing side of the game is played. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IMessageChannel Channel { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Discord.IMessageChannel</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1_Players.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.Players%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L36">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_GameBase_1_Players_" data-uid="Discord.Addons.MpGame.GameBase`1.Players*"></a>
+  <h4 id="Discord_Addons_MpGame_GameBase_1_Players" data-uid="Discord.Addons.MpGame.GameBase`1.Players">Players</h4>
+  <div class="markdown level1 summary"><p>Represents all the players in this game. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected CircularLinkedList&lt;TPlayer&gt; Players { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Discord.Addons.MpGame.Collections.CircularLinkedList-1.html">CircularLinkedList</a>&lt;TPlayer&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1_TurnPlayer.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.TurnPlayer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L39">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_GameBase_1_TurnPlayer_" data-uid="Discord.Addons.MpGame.GameBase`1.TurnPlayer*"></a>
+  <h4 id="Discord_Addons_MpGame_GameBase_1_TurnPlayer" data-uid="Discord.Addons.MpGame.GameBase`1.TurnPlayer">TurnPlayer</h4>
+  <div class="markdown level1 summary"><p>The current turn&apos;s player. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Node&lt;TPlayer&gt; TurnPlayer { get; protected set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Discord.Addons.MpGame.Collections.Node</span>&lt;TPlayer&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1_EndGame_System_String_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.EndGame(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L60">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_GameBase_1_EndGame_" data-uid="Discord.Addons.MpGame.GameBase`1.EndGame*"></a>
+  <h4 id="Discord_Addons_MpGame_GameBase_1_EndGame_System_String_" data-uid="Discord.Addons.MpGame.GameBase`1.EndGame(System.String)">EndGame(String)</h4>
+  <div class="markdown level1 summary"><p>Perform all actions that happen when the game ends
+(e.g.: a win condition is met, or the game is stopped early). </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task EndGame(string endmsg)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">endmsg</span></td>
+        <td><p>The message that should be displayed announcing
+the win condition or forced end of the game.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1_GetGameState.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.GetGameState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L69">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_GameBase_1_GetGameState_" data-uid="Discord.Addons.MpGame.GameBase`1.GetGameState*"></a>
+  <h4 id="Discord_Addons_MpGame_GameBase_1_GetGameState" data-uid="Discord.Addons.MpGame.GameBase`1.GetGameState">GetGameState()</h4>
+  <div class="markdown level1 summary"><p>Get a string that represents the state of the game. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract string GetGameState()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Discord_Addons_MpGame_GameBase_1_GetGameState_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Does not <em>need</em> to be implemented if
+<a class="xref" href="Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_GetGameStateEmbed">GetGameStateEmbed()</a> is used.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1_GetGameStateEmbed.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.GetGameStateEmbed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L74">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_GameBase_1_GetGameStateEmbed_" data-uid="Discord.Addons.MpGame.GameBase`1.GetGameStateEmbed*"></a>
+  <h4 id="Discord_Addons_MpGame_GameBase_1_GetGameStateEmbed" data-uid="Discord.Addons.MpGame.GameBase`1.GetGameStateEmbed">GetGameStateEmbed()</h4>
+  <div class="markdown level1 summary"><p>Get an embed that represents the state of the game. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract Embed GetGameStateEmbed()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Discord.Embed</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Discord_Addons_MpGame_GameBase_1_GetGameStateEmbed_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Does not <em>need</em> to be implemented if
+<a class="xref" href="Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_GetGameState">GetGameState()</a> is used.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1_IsTurnPlayerFirstPlayer.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.IsTurnPlayerFirstPlayer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L42">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_GameBase_1_IsTurnPlayerFirstPlayer_" data-uid="Discord.Addons.MpGame.GameBase`1.IsTurnPlayerFirstPlayer*"></a>
+  <h4 id="Discord_Addons_MpGame_GameBase_1_IsTurnPlayerFirstPlayer" data-uid="Discord.Addons.MpGame.GameBase`1.IsTurnPlayerFirstPlayer">IsTurnPlayerFirstPlayer()</h4>
+  <div class="markdown level1 summary"><p>Indicates whether or not the current TurnPlayer is the first player in the list. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool IsTurnPlayerFirstPlayer()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1_IsTurnPlayerLastPlayer.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.IsTurnPlayerLastPlayer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L45">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_GameBase_1_IsTurnPlayerLastPlayer_" data-uid="Discord.Addons.MpGame.GameBase`1.IsTurnPlayerLastPlayer*"></a>
+  <h4 id="Discord_Addons_MpGame_GameBase_1_IsTurnPlayerLastPlayer" data-uid="Discord.Addons.MpGame.GameBase`1.IsTurnPlayerLastPlayer">IsTurnPlayerLastPlayer()</h4>
+  <div class="markdown level1 summary"><p>Indicates whether or not the current TurnPlayer is the last player in the list. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool IsTurnPlayerLastPlayer()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1_NextTurn.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.NextTurn%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L54">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_GameBase_1_NextTurn_" data-uid="Discord.Addons.MpGame.GameBase`1.NextTurn*"></a>
+  <h4 id="Discord_Addons_MpGame_GameBase_1_NextTurn" data-uid="Discord.Addons.MpGame.GameBase`1.NextTurn">NextTurn()</h4>
+  <div class="markdown level1 summary"><p>Perform all actions that are part of starting a new turn. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract Task NextTurn()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1_OnPlayerAdded__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.OnPlayerAdded(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L81">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_GameBase_1_OnPlayerAdded_" data-uid="Discord.Addons.MpGame.GameBase`1.OnPlayerAdded*"></a>
+  <h4 id="Discord_Addons_MpGame_GameBase_1_OnPlayerAdded__0_" data-uid="Discord.Addons.MpGame.GameBase`1.OnPlayerAdded(`0)">OnPlayerAdded(TPlayer)</h4>
+  <div class="markdown level1 summary"><p>Gets called when a player is added into an ongoing game,
+allowing an opportunity to add properties to the player.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnPlayerAdded(TPlayer player)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TPlayer</span></td>
+        <td><span class="parametername">player</span></td>
+        <td><p>The player that is added.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1_OnPlayerKicked__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.OnPlayerKicked(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L89">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_GameBase_1_OnPlayerKicked_" data-uid="Discord.Addons.MpGame.GameBase`1.OnPlayerKicked*"></a>
+  <h4 id="Discord_Addons_MpGame_GameBase_1_OnPlayerKicked__0_" data-uid="Discord.Addons.MpGame.GameBase`1.OnPlayerKicked(`0)">OnPlayerKicked(TPlayer)</h4>
+  <div class="markdown level1 summary"><p>Gets called when a player is forcibly kicked,
+allowing an opportunity to access some of their
+properties to put back into the game.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnPlayerKicked(TPlayer player)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TPlayer</span></td>
+        <td><span class="parametername">player</span></td>
+        <td><p>The player that is removed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1_SetupGame.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.SetupGame%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L48">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_GameBase_1_SetupGame_" data-uid="Discord.Addons.MpGame.GameBase`1.SetupGame*"></a>
+  <h4 id="Discord_Addons_MpGame_GameBase_1_SetupGame" data-uid="Discord.Addons.MpGame.GameBase`1.SetupGame">SetupGame()</h4>
+  <div class="markdown level1 summary"><p>Perform the actions that are part of the initial setup. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract Task SetupGame()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1_StartGame.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.StartGame%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L51">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_GameBase_1_StartGame_" data-uid="Discord.Addons.MpGame.GameBase`1.StartGame*"></a>
+  <h4 id="Discord_Addons_MpGame_GameBase_1_StartGame" data-uid="Discord.Addons.MpGame.GameBase`1.StartGame">StartGame()</h4>
+  <div class="markdown level1 summary"><p>Perform the one-time actions that happen at the start of the game. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract Task StartGame()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/GameBase.cs/#L11" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

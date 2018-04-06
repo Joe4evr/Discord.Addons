@@ -11,7 +11,8 @@ namespace Discord.Addons.MpGame.Collections
     /// and optimized for representing a hand of cards.
     /// </summary>
     /// <typeparam name="TCard">The card type.</typeparam>
-    /// <remarks>This class is not thread-safe.</remarks>
+    /// <remarks><div class="markdown level0 remarks"><div class="CAUTION">
+    /// <h5>Caution</h5><p>This class is not thread-safe.</p></div></div></remarks>
     [DebuggerDisplay("Count = {Count}")]
     public sealed class Hand<TCard>
         where TCard : class

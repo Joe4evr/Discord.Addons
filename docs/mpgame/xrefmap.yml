@@ -1,0 +1,1890 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: Discord.Addons
+  name: Discord.Addons
+  href: api/Discord.Addons.html
+  commentId: N:Discord.Addons
+  fullName: Discord.Addons
+  nameWithType: Discord.Addons
+- uid: Discord.Addons.IBufferStrategy`1
+  name: IBufferStrategy<T>
+  href: api/Discord.Addons.IBufferStrategy-1.html
+  commentId: T:Discord.Addons.IBufferStrategy`1
+  name.vb: IBufferStrategy(Of T)
+  fullName: Discord.Addons.IBufferStrategy<T>
+  fullName.vb: Discord.Addons.IBufferStrategy(Of T)
+  nameWithType: IBufferStrategy<T>
+  nameWithType.vb: IBufferStrategy(Of T)
+- uid: Discord.Addons.IBufferStrategy`1.GetBuffer(System.Int32)
+  name: GetBuffer(Int32)
+  href: api/Discord.Addons.IBufferStrategy-1.html#Discord_Addons_IBufferStrategy_1_GetBuffer_System_Int32_
+  commentId: M:Discord.Addons.IBufferStrategy`1.GetBuffer(System.Int32)
+  fullName: Discord.Addons.IBufferStrategy<T>.GetBuffer(System.Int32)
+  fullName.vb: Discord.Addons.IBufferStrategy(Of T).GetBuffer(System.Int32)
+  nameWithType: IBufferStrategy<T>.GetBuffer(Int32)
+  nameWithType.vb: IBufferStrategy(Of T).GetBuffer(Int32)
+- uid: Discord.Addons.IBufferStrategy`1.GetBuffer*
+  name: GetBuffer
+  href: api/Discord.Addons.IBufferStrategy-1.html#Discord_Addons_IBufferStrategy_1_GetBuffer_
+  commentId: Overload:Discord.Addons.IBufferStrategy`1.GetBuffer
+  isSpec: "True"
+  fullName: Discord.Addons.IBufferStrategy<T>.GetBuffer
+  fullName.vb: Discord.Addons.IBufferStrategy(Of T).GetBuffer
+  nameWithType: IBufferStrategy<T>.GetBuffer
+  nameWithType.vb: IBufferStrategy(Of T).GetBuffer
+- uid: Discord.Addons.IBufferStrategy`1.ReturnBuffer(`0[])
+  name: ReturnBuffer(T[])
+  href: api/Discord.Addons.IBufferStrategy-1.html#Discord_Addons_IBufferStrategy_1_ReturnBuffer__0___
+  commentId: M:Discord.Addons.IBufferStrategy`1.ReturnBuffer(`0[])
+  name.vb: ReturnBuffer(T())
+  fullName: Discord.Addons.IBufferStrategy<T>.ReturnBuffer(T[])
+  fullName.vb: Discord.Addons.IBufferStrategy(Of T).ReturnBuffer(T())
+  nameWithType: IBufferStrategy<T>.ReturnBuffer(T[])
+  nameWithType.vb: IBufferStrategy(Of T).ReturnBuffer(T())
+- uid: Discord.Addons.IBufferStrategy`1.ReturnBuffer*
+  name: ReturnBuffer
+  href: api/Discord.Addons.IBufferStrategy-1.html#Discord_Addons_IBufferStrategy_1_ReturnBuffer_
+  commentId: Overload:Discord.Addons.IBufferStrategy`1.ReturnBuffer
+  isSpec: "True"
+  fullName: Discord.Addons.IBufferStrategy<T>.ReturnBuffer
+  fullName.vb: Discord.Addons.IBufferStrategy(Of T).ReturnBuffer
+  nameWithType: IBufferStrategy<T>.ReturnBuffer
+  nameWithType.vb: IBufferStrategy(Of T).ReturnBuffer
+- uid: Discord.Addons.MpGame
+  name: Discord.Addons.MpGame
+  href: api/Discord.Addons.MpGame.html
+  commentId: N:Discord.Addons.MpGame
+  fullName: Discord.Addons.MpGame
+  nameWithType: Discord.Addons.MpGame
+- uid: Discord.Addons.MpGame.Collections
+  name: Discord.Addons.MpGame.Collections
+  href: api/Discord.Addons.MpGame.Collections.html
+  commentId: N:Discord.Addons.MpGame.Collections
+  fullName: Discord.Addons.MpGame.Collections
+  nameWithType: Discord.Addons.MpGame.Collections
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  name: CircularLinkedList<T>
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html
+  commentId: T:Discord.Addons.MpGame.Collections.CircularLinkedList`1
+  name.vb: CircularLinkedList(Of T)
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T)
+  nameWithType: CircularLinkedList<T>
+  nameWithType.vb: CircularLinkedList(Of T)
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor(System.Collections.Generic.IEnumerable{`0})
+  name: CircularLinkedList(IEnumerable<T>)
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1__ctor_System_Collections_Generic_IEnumerable__0__
+  commentId: M:Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor(System.Collections.Generic.IEnumerable{`0})
+  name.vb: CircularLinkedList(IEnumerable(Of T))
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.CircularLinkedList(System.Collections.Generic.IEnumerable<T>)
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).CircularLinkedList(System.Collections.Generic.IEnumerable(Of T))
+  nameWithType: CircularLinkedList<T>.CircularLinkedList(IEnumerable<T>)
+  nameWithType.vb: CircularLinkedList(Of T).CircularLinkedList(IEnumerable(Of T))
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEqualityComparer{`0})
+  name: CircularLinkedList(IEnumerable<T>, IEqualityComparer<T>)
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1__ctor_System_Collections_Generic_IEnumerable__0__System_Collections_Generic_IEqualityComparer__0__
+  commentId: M:Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEqualityComparer{`0})
+  name.vb: CircularLinkedList(IEnumerable(Of T), IEqualityComparer(Of T))
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.CircularLinkedList(System.Collections.Generic.IEnumerable<T>, System.Collections.Generic.IEqualityComparer<T>)
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).CircularLinkedList(System.Collections.Generic.IEnumerable(Of T), System.Collections.Generic.IEqualityComparer(Of T))
+  nameWithType: CircularLinkedList<T>.CircularLinkedList(IEnumerable<T>, IEqualityComparer<T>)
+  nameWithType.vb: CircularLinkedList(Of T).CircularLinkedList(IEnumerable(Of T), IEqualityComparer(Of T))
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor*
+  name: CircularLinkedList
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1__ctor_
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.#ctor
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.CircularLinkedList
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).CircularLinkedList
+  nameWithType: CircularLinkedList<T>.CircularLinkedList
+  nameWithType.vb: CircularLinkedList(Of T).CircularLinkedList
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Contains(`0)
+  name: Contains(T)
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_Contains__0_
+  commentId: M:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Contains(`0)
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Contains(T)
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Contains(T)
+  nameWithType: CircularLinkedList<T>.Contains(T)
+  nameWithType.vb: CircularLinkedList(Of T).Contains(T)
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Contains*
+  name: Contains
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_Contains_
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Contains
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Contains
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Contains
+  nameWithType: CircularLinkedList<T>.Contains
+  nameWithType.vb: CircularLinkedList(Of T).Contains
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Count
+  name: Count
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_Count
+  commentId: P:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Count
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Count
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Count
+  nameWithType: CircularLinkedList<T>.Count
+  nameWithType.vb: CircularLinkedList(Of T).Count
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Count*
+  name: Count
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_Count_
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Count
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Count
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Count
+  nameWithType: CircularLinkedList<T>.Count
+  nameWithType.vb: CircularLinkedList(Of T).Count
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Find(`0)
+  name: Find(T)
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_Find__0_
+  commentId: M:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Find(`0)
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Find(T)
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Find(T)
+  nameWithType: CircularLinkedList<T>.Find(T)
+  nameWithType.vb: CircularLinkedList(Of T).Find(T)
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Find*
+  name: Find
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_Find_
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Find
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Find
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Find
+  nameWithType: CircularLinkedList<T>.Find
+  nameWithType.vb: CircularLinkedList(Of T).Find
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetEnumerator
+  name: GetEnumerator()
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_GetEnumerator
+  commentId: M:Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetEnumerator
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.GetEnumerator()
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).GetEnumerator()
+  nameWithType: CircularLinkedList<T>.GetEnumerator()
+  nameWithType.vb: CircularLinkedList(Of T).GetEnumerator()
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetEnumerator*
+  name: GetEnumerator
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_GetEnumerator_
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetEnumerator
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.GetEnumerator
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).GetEnumerator
+  nameWithType: CircularLinkedList<T>.GetEnumerator
+  nameWithType.vb: CircularLinkedList(Of T).GetEnumerator
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetReverseEnumerator
+  name: GetReverseEnumerator()
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_GetReverseEnumerator
+  commentId: M:Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetReverseEnumerator
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.GetReverseEnumerator()
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).GetReverseEnumerator()
+  nameWithType: CircularLinkedList<T>.GetReverseEnumerator()
+  nameWithType.vb: CircularLinkedList(Of T).GetReverseEnumerator()
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetReverseEnumerator*
+  name: GetReverseEnumerator
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_GetReverseEnumerator_
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.GetReverseEnumerator
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.GetReverseEnumerator
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).GetReverseEnumerator
+  nameWithType: CircularLinkedList<T>.GetReverseEnumerator
+  nameWithType.vb: CircularLinkedList(Of T).GetReverseEnumerator
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Head
+  name: Head
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_Head
+  commentId: P:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Head
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Head
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Head
+  nameWithType: CircularLinkedList<T>.Head
+  nameWithType.vb: CircularLinkedList(Of T).Head
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Head*
+  name: Head
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_Head_
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Head
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Head
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Head
+  nameWithType: CircularLinkedList<T>.Head
+  nameWithType.vb: CircularLinkedList(Of T).Head
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Item(System.Int32)
+  name: Item[Int32]
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_Item_System_Int32_
+  commentId: P:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Item(System.Int32)
+  name.vb: Item(Int32)
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Item[System.Int32]
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Item(System.Int32)
+  nameWithType: CircularLinkedList<T>.Item[Int32]
+  nameWithType.vb: CircularLinkedList(Of T).Item(Int32)
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Item*
+  name: Item
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_Item_
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Item
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Item
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Item
+  nameWithType: CircularLinkedList<T>.Item
+  nameWithType.vb: CircularLinkedList(Of T).Item
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.System#Collections#IEnumerable#GetEnumerator
+  name: IEnumerable.GetEnumerator()
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_System_Collections_IEnumerable_GetEnumerator
+  commentId: M:Discord.Addons.MpGame.Collections.CircularLinkedList`1.System#Collections#IEnumerable#GetEnumerator
+  name.vb: System.Collections.IEnumerable.GetEnumerator()
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.System.Collections.IEnumerable.GetEnumerator()
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).System.Collections.IEnumerable.GetEnumerator()
+  nameWithType: CircularLinkedList<T>.IEnumerable.GetEnumerator()
+  nameWithType.vb: CircularLinkedList(Of T).System.Collections.IEnumerable.GetEnumerator()
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.System#Collections#IEnumerable#GetEnumerator*
+  name: IEnumerable.GetEnumerator
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_System_Collections_IEnumerable_GetEnumerator_
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.System#Collections#IEnumerable#GetEnumerator
+  isSpec: "True"
+  name.vb: System.Collections.IEnumerable.GetEnumerator
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.System.Collections.IEnumerable.GetEnumerator
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).System.Collections.IEnumerable.GetEnumerator
+  nameWithType: CircularLinkedList<T>.IEnumerable.GetEnumerator
+  nameWithType.vb: CircularLinkedList(Of T).System.Collections.IEnumerable.GetEnumerator
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Tail
+  name: Tail
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_Tail
+  commentId: P:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Tail
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Tail
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Tail
+  nameWithType: CircularLinkedList<T>.Tail
+  nameWithType.vb: CircularLinkedList(Of T).Tail
+- uid: Discord.Addons.MpGame.Collections.CircularLinkedList`1.Tail*
+  name: Tail
+  href: api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html#Discord_Addons_MpGame_Collections_CircularLinkedList_1_Tail_
+  commentId: Overload:Discord.Addons.MpGame.Collections.CircularLinkedList`1.Tail
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.CircularLinkedList<T>.Tail
+  fullName.vb: Discord.Addons.MpGame.Collections.CircularLinkedList(Of T).Tail
+  nameWithType: CircularLinkedList<T>.Tail
+  nameWithType.vb: CircularLinkedList(Of T).Tail
+- uid: Discord.Addons.MpGame.Collections.Hand`1
+  name: Hand<TCard>
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html
+  commentId: T:Discord.Addons.MpGame.Collections.Hand`1
+  name.vb: Hand(Of TCard)
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard)
+  nameWithType: Hand<TCard>
+  nameWithType.vb: Hand(Of TCard)
+- uid: Discord.Addons.MpGame.Collections.Hand`1.#ctor
+  name: Hand()
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1__ctor
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.#ctor
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Hand()
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Hand()
+  nameWithType: Hand<TCard>.Hand()
+  nameWithType.vb: Hand(Of TCard).Hand()
+- uid: Discord.Addons.MpGame.Collections.Hand`1.#ctor(System.Collections.Generic.IEnumerable{`0})
+  name: Hand(IEnumerable<TCard>)
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1__ctor_System_Collections_Generic_IEnumerable__0__
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.#ctor(System.Collections.Generic.IEnumerable{`0})
+  name.vb: Hand(IEnumerable(Of TCard))
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Hand(System.Collections.Generic.IEnumerable<TCard>)
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Hand(System.Collections.Generic.IEnumerable(Of TCard))
+  nameWithType: Hand<TCard>.Hand(IEnumerable<TCard>)
+  nameWithType.vb: Hand(Of TCard).Hand(IEnumerable(Of TCard))
+- uid: Discord.Addons.MpGame.Collections.Hand`1.#ctor*
+  name: Hand
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1__ctor_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.#ctor
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Hand
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Hand
+  nameWithType: Hand<TCard>.Hand
+  nameWithType.vb: Hand(Of TCard).Hand
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Add(`0)
+  name: Add(TCard)
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Add__0_
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.Add(`0)
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Add(TCard)
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Add(TCard)
+  nameWithType: Hand<TCard>.Add(TCard)
+  nameWithType.vb: Hand(Of TCard).Add(TCard)
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Add*
+  name: Add
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Add_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Add
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Add
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Add
+  nameWithType: Hand<TCard>.Add
+  nameWithType.vb: Hand(Of TCard).Add
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Cards
+  name: Cards
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Cards
+  commentId: P:Discord.Addons.MpGame.Collections.Hand`1.Cards
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Cards
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Cards
+  nameWithType: Hand<TCard>.Cards
+  nameWithType.vb: Hand(Of TCard).Cards
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Cards*
+  name: Cards
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Cards_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Cards
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Cards
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Cards
+  nameWithType: Hand<TCard>.Cards
+  nameWithType.vb: Hand(Of TCard).Cards
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Clear
+  name: Clear()
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Clear
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.Clear
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Clear()
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Clear()
+  nameWithType: Hand<TCard>.Clear()
+  nameWithType.vb: Hand(Of TCard).Clear()
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Clear*
+  name: Clear
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Clear_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Clear
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Clear
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Clear
+  nameWithType: Hand<TCard>.Clear
+  nameWithType.vb: Hand(Of TCard).Clear
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Count
+  name: Count
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Count
+  commentId: P:Discord.Addons.MpGame.Collections.Hand`1.Count
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Count
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Count
+  nameWithType: Hand<TCard>.Count
+  nameWithType.vb: Hand(Of TCard).Count
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Count*
+  name: Count
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Count_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Count
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Count
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Count
+  nameWithType: Hand<TCard>.Count
+  nameWithType.vb: Hand(Of TCard).Count
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+  name: Order(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Order_System_Func_System_Collections_Generic_IEnumerable__0__System_Collections_Generic_IEnumerable__0___
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+  name.vb: Order(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Order(System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Order(System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
+  nameWithType: Hand<TCard>.Order(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
+  nameWithType.vb: Hand(Of TCard).Order(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Order*
+  name: Order
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Order_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Order
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Order
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Order
+  nameWithType: Hand<TCard>.Order
+  nameWithType.vb: Hand(Of TCard).Order
+- uid: Discord.Addons.MpGame.Collections.Hand`1.TakeAt(System.Int32)
+  name: TakeAt(Int32)
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_TakeAt_System_Int32_
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.TakeAt(System.Int32)
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.TakeAt(System.Int32)
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).TakeAt(System.Int32)
+  nameWithType: Hand<TCard>.TakeAt(Int32)
+  nameWithType.vb: Hand(Of TCard).TakeAt(Int32)
+- uid: Discord.Addons.MpGame.Collections.Hand`1.TakeAt*
+  name: TakeAt
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_TakeAt_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.TakeAt
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.TakeAt
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).TakeAt
+  nameWithType: Hand<TCard>.TakeAt
+  nameWithType.vb: Hand(Of TCard).TakeAt
+- uid: Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault(System.Func{`0,System.Boolean})
+  name: TakeFirstOrDefault(Func<TCard, Boolean>)
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_TakeFirstOrDefault_System_Func__0_System_Boolean__
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault(System.Func{`0,System.Boolean})
+  name.vb: TakeFirstOrDefault(Func(Of TCard, Boolean))
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.TakeFirstOrDefault(System.Func<TCard, System.Boolean>)
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).TakeFirstOrDefault(System.Func(Of TCard, System.Boolean))
+  nameWithType: Hand<TCard>.TakeFirstOrDefault(Func<TCard, Boolean>)
+  nameWithType.vb: Hand(Of TCard).TakeFirstOrDefault(Func(Of TCard, Boolean))
+- uid: Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault*
+  name: TakeFirstOrDefault
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_TakeFirstOrDefault_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.TakeFirstOrDefault
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).TakeFirstOrDefault
+  nameWithType: Hand<TCard>.TakeFirstOrDefault
+  nameWithType.vb: Hand(Of TCard).TakeFirstOrDefault
+- uid: Discord.Addons.MpGame.Collections.Pile`1
+  name: Pile<TCard>
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html
+  commentId: T:Discord.Addons.MpGame.Collections.Pile`1
+  name.vb: Pile(Of TCard)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard)
+  nameWithType: Pile<TCard>
+  nameWithType.vb: Pile(Of TCard)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.#ctor
+  name: Pile()
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1__ctor
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.#ctor
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Pile()
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Pile()
+  nameWithType: Pile<TCard>.Pile()
+  nameWithType.vb: Pile(Of TCard).Pile()
+- uid: Discord.Addons.MpGame.Collections.Pile`1.#ctor(System.Collections.Generic.IEnumerable{`0})
+  name: Pile(IEnumerable<TCard>)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1__ctor_System_Collections_Generic_IEnumerable__0__
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.#ctor(System.Collections.Generic.IEnumerable{`0})
+  name.vb: Pile(IEnumerable(Of TCard))
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Pile(System.Collections.Generic.IEnumerable<TCard>)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Pile(System.Collections.Generic.IEnumerable(Of TCard))
+  nameWithType: Pile<TCard>.Pile(IEnumerable<TCard>)
+  nameWithType.vb: Pile(Of TCard).Pile(IEnumerable(Of TCard))
+- uid: Discord.Addons.MpGame.Collections.Pile`1.#ctor*
+  name: Pile
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1__ctor_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.#ctor
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Pile
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Pile
+  nameWithType: Pile<TCard>.Pile
+  nameWithType.vb: Pile(Of TCard).Pile
+- uid: Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy
+  name: BufferStrategy
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_BufferStrategy
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.BufferStrategy
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).BufferStrategy
+  nameWithType: Pile<TCard>.BufferStrategy
+  nameWithType.vb: Pile(Of TCard).BufferStrategy
+- uid: Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy*
+  name: BufferStrategy
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_BufferStrategy_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.BufferStrategy
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).BufferStrategy
+  nameWithType: Pile<TCard>.BufferStrategy
+  nameWithType.vb: Pile(Of TCard).BufferStrategy
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanBrowse
+  name: CanBrowse
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanBrowse
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanBrowse
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanBrowse
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanBrowse
+  nameWithType: Pile<TCard>.CanBrowse
+  nameWithType.vb: Pile(Of TCard).CanBrowse
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanBrowse*
+  name: CanBrowse
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanBrowse_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.CanBrowse
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanBrowse
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanBrowse
+  nameWithType: Pile<TCard>.CanBrowse
+  nameWithType.vb: Pile(Of TCard).CanBrowse
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanClear
+  name: CanClear
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanClear
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanClear
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanClear
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanClear
+  nameWithType: Pile<TCard>.CanClear
+  nameWithType.vb: Pile(Of TCard).CanClear
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanClear*
+  name: CanClear
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanClear_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.CanClear
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanClear
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanClear
+  nameWithType: Pile<TCard>.CanClear
+  nameWithType.vb: Pile(Of TCard).CanClear
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanCut
+  name: CanCut
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanCut
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanCut
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanCut
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanCut
+  nameWithType: Pile<TCard>.CanCut
+  nameWithType.vb: Pile(Of TCard).CanCut
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanCut*
+  name: CanCut
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanCut_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.CanCut
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanCut
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanCut
+  nameWithType: Pile<TCard>.CanCut
+  nameWithType.vb: Pile(Of TCard).CanCut
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanDraw
+  name: CanDraw
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanDraw
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanDraw
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanDraw
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanDraw
+  nameWithType: Pile<TCard>.CanDraw
+  nameWithType.vb: Pile(Of TCard).CanDraw
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanDraw*
+  name: CanDraw
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanDraw_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.CanDraw
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanDraw
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanDraw
+  nameWithType: Pile<TCard>.CanDraw
+  nameWithType.vb: Pile(Of TCard).CanDraw
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanInsert
+  name: CanInsert
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanInsert
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanInsert
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanInsert
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanInsert
+  nameWithType: Pile<TCard>.CanInsert
+  nameWithType.vb: Pile(Of TCard).CanInsert
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanInsert*
+  name: CanInsert
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanInsert_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.CanInsert
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanInsert
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanInsert
+  nameWithType: Pile<TCard>.CanInsert
+  nameWithType.vb: Pile(Of TCard).CanInsert
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanPeek
+  name: CanPeek
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanPeek
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanPeek
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanPeek
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanPeek
+  nameWithType: Pile<TCard>.CanPeek
+  nameWithType.vb: Pile(Of TCard).CanPeek
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanPeek*
+  name: CanPeek
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanPeek_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.CanPeek
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanPeek
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanPeek
+  nameWithType: Pile<TCard>.CanPeek
+  nameWithType.vb: Pile(Of TCard).CanPeek
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanPut
+  name: CanPut
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanPut
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanPut
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanPut
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanPut
+  nameWithType: Pile<TCard>.CanPut
+  nameWithType.vb: Pile(Of TCard).CanPut
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanPut*
+  name: CanPut
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanPut_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.CanPut
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanPut
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanPut
+  nameWithType: Pile<TCard>.CanPut
+  nameWithType.vb: Pile(Of TCard).CanPut
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanPutBottom
+  name: CanPutBottom
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanPutBottom
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanPutBottom
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanPutBottom
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanPutBottom
+  nameWithType: Pile<TCard>.CanPutBottom
+  nameWithType.vb: Pile(Of TCard).CanPutBottom
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanPutBottom*
+  name: CanPutBottom
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanPutBottom_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.CanPutBottom
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanPutBottom
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanPutBottom
+  nameWithType: Pile<TCard>.CanPutBottom
+  nameWithType.vb: Pile(Of TCard).CanPutBottom
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanShuffle
+  name: CanShuffle
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanShuffle
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanShuffle
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanShuffle
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanShuffle
+  nameWithType: Pile<TCard>.CanShuffle
+  nameWithType.vb: Pile(Of TCard).CanShuffle
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanShuffle*
+  name: CanShuffle
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanShuffle_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.CanShuffle
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanShuffle
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanShuffle
+  nameWithType: Pile<TCard>.CanShuffle
+  nameWithType.vb: Pile(Of TCard).CanShuffle
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanTake
+  name: CanTake
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanTake
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanTake
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanTake
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanTake
+  nameWithType: Pile<TCard>.CanTake
+  nameWithType.vb: Pile(Of TCard).CanTake
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanTake*
+  name: CanTake
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanTake_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.CanTake
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanTake
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanTake
+  nameWithType: Pile<TCard>.CanTake
+  nameWithType.vb: Pile(Of TCard).CanTake
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Cards
+  name: Cards
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Cards
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.Cards
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Cards
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Cards
+  nameWithType: Pile<TCard>.Cards
+  nameWithType.vb: Pile(Of TCard).Cards
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Cards*
+  name: Cards
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Cards_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Cards
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Cards
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Cards
+  nameWithType: Pile<TCard>.Cards
+  nameWithType.vb: Pile(Of TCard).Cards
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Clear
+  name: Clear()
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Clear
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Clear
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Clear()
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Clear()
+  nameWithType: Pile<TCard>.Clear()
+  nameWithType.vb: Pile(Of TCard).Clear()
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Clear*
+  name: Clear
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Clear_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Clear
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Clear
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Clear
+  nameWithType: Pile<TCard>.Clear
+  nameWithType.vb: Pile(Of TCard).Clear
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Count
+  name: Count
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Count
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.Count
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Count
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Count
+  nameWithType: Pile<TCard>.Count
+  nameWithType.vb: Pile(Of TCard).Count
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Count*
+  name: Count
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Count_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Count
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Count
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Count
+  nameWithType: Pile<TCard>.Count
+  nameWithType.vb: Pile(Of TCard).Count
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Cut(System.Int32)
+  name: Cut(Int32)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Cut_System_Int32_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Cut(System.Int32)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Cut(System.Int32)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Cut(System.Int32)
+  nameWithType: Pile<TCard>.Cut(Int32)
+  nameWithType.vb: Pile(Of TCard).Cut(Int32)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Cut*
+  name: Cut
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Cut_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Cut
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Cut
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Cut
+  nameWithType: Pile<TCard>.Cut
+  nameWithType.vb: Pile(Of TCard).Cut
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Draw
+  name: Draw()
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Draw
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Draw
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Draw()
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Draw()
+  nameWithType: Pile<TCard>.Draw()
+  nameWithType.vb: Pile(Of TCard).Draw()
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Draw*
+  name: Draw
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Draw_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Draw
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Draw
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Draw
+  nameWithType: Pile<TCard>.Draw
+  nameWithType.vb: Pile(Of TCard).Draw
+- uid: Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)
+  name: InsertAt(TCard, Int32)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_InsertAt__0_System_Int32_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.InsertAt(TCard, System.Int32)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).InsertAt(TCard, System.Int32)
+  nameWithType: Pile<TCard>.InsertAt(TCard, Int32)
+  nameWithType.vb: Pile(Of TCard).InsertAt(TCard, Int32)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.InsertAt*
+  name: InsertAt
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_InsertAt_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.InsertAt
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.InsertAt
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).InsertAt
+  nameWithType: Pile<TCard>.InsertAt
+  nameWithType.vb: Pile(Of TCard).InsertAt
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw
+  name: OnLastDraw()
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnLastDraw
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnLastDraw()
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnLastDraw()
+  nameWithType: Pile<TCard>.OnLastDraw()
+  nameWithType.vb: Pile(Of TCard).OnLastDraw()
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw*
+  name: OnLastDraw
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnLastDraw_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnLastDraw
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnLastDraw
+  nameWithType: Pile<TCard>.OnLastDraw
+  nameWithType.vb: Pile(Of TCard).OnLastDraw
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
+  name: OnPut(TCard)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnPut__0_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnPut(TCard)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnPut(TCard)
+  nameWithType: Pile<TCard>.OnPut(TCard)
+  nameWithType.vb: Pile(Of TCard).OnPut(TCard)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnPut*
+  name: OnPut
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnPut_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.OnPut
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnPut
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnPut
+  nameWithType: Pile<TCard>.OnPut
+  nameWithType.vb: Pile(Of TCard).OnPut
+- uid: Discord.Addons.MpGame.Collections.Pile`1.PeekTop(System.Int32)
+  name: PeekTop(Int32)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_PeekTop_System_Int32_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.PeekTop(System.Int32)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.PeekTop(System.Int32)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).PeekTop(System.Int32)
+  nameWithType: Pile<TCard>.PeekTop(Int32)
+  nameWithType.vb: Pile(Of TCard).PeekTop(Int32)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.PeekTop*
+  name: PeekTop
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_PeekTop_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.PeekTop
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.PeekTop
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).PeekTop
+  nameWithType: Pile<TCard>.PeekTop
+  nameWithType.vb: Pile(Of TCard).PeekTop
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Put(`0)
+  name: Put(TCard)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Put__0_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Put(`0)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Put(TCard)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Put(TCard)
+  nameWithType: Pile<TCard>.Put(TCard)
+  nameWithType.vb: Pile(Of TCard).Put(TCard)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Put*
+  name: Put
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Put_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Put
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Put
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Put
+  nameWithType: Pile<TCard>.Put
+  nameWithType.vb: Pile(Of TCard).Put
+- uid: Discord.Addons.MpGame.Collections.Pile`1.PutBottom(`0)
+  name: PutBottom(TCard)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_PutBottom__0_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.PutBottom(`0)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.PutBottom(TCard)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).PutBottom(TCard)
+  nameWithType: Pile<TCard>.PutBottom(TCard)
+  nameWithType.vb: Pile(Of TCard).PutBottom(TCard)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.PutBottom*
+  name: PutBottom
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_PutBottom_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.PutBottom
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.PutBottom
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).PutBottom
+  nameWithType: Pile<TCard>.PutBottom
+  nameWithType.vb: Pile(Of TCard).PutBottom
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+  name: Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Shuffle_System_Func_System_Collections_Generic_IEnumerable__0__System_Collections_Generic_IEnumerable__0___
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+  name.vb: Shuffle(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Shuffle(System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Shuffle(System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
+  nameWithType: Pile<TCard>.Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
+  nameWithType.vb: Pile(Of TCard).Shuffle(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Shuffle*
+  name: Shuffle
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Shuffle_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Shuffle
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Shuffle
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Shuffle
+  nameWithType: Pile<TCard>.Shuffle
+  nameWithType.vb: Pile(Of TCard).Shuffle
+- uid: Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)
+  name: TakeAt(Int32)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_TakeAt_System_Int32_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.TakeAt(System.Int32)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).TakeAt(System.Int32)
+  nameWithType: Pile<TCard>.TakeAt(Int32)
+  nameWithType.vb: Pile(Of TCard).TakeAt(Int32)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.TakeAt*
+  name: TakeAt
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_TakeAt_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.TakeAt
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.TakeAt
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).TakeAt
+  nameWithType: Pile<TCard>.TakeAt
+  nameWithType.vb: Pile(Of TCard).TakeAt
+- uid: Discord.Addons.MpGame.CurrentlyPlaying
+  name: CurrentlyPlaying
+  href: api/Discord.Addons.MpGame.CurrentlyPlaying.html
+  commentId: T:Discord.Addons.MpGame.CurrentlyPlaying
+  fullName: Discord.Addons.MpGame.CurrentlyPlaying
+  nameWithType: CurrentlyPlaying
+- uid: Discord.Addons.MpGame.CurrentlyPlaying.DifferentGame
+  name: DifferentGame
+  href: api/Discord.Addons.MpGame.CurrentlyPlaying.html#Discord_Addons_MpGame_CurrentlyPlaying_DifferentGame
+  commentId: F:Discord.Addons.MpGame.CurrentlyPlaying.DifferentGame
+  fullName: Discord.Addons.MpGame.CurrentlyPlaying.DifferentGame
+  nameWithType: CurrentlyPlaying.DifferentGame
+- uid: Discord.Addons.MpGame.CurrentlyPlaying.None
+  name: None
+  href: api/Discord.Addons.MpGame.CurrentlyPlaying.html#Discord_Addons_MpGame_CurrentlyPlaying_None
+  commentId: F:Discord.Addons.MpGame.CurrentlyPlaying.None
+  fullName: Discord.Addons.MpGame.CurrentlyPlaying.None
+  nameWithType: CurrentlyPlaying.None
+- uid: Discord.Addons.MpGame.CurrentlyPlaying.ThisGame
+  name: ThisGame
+  href: api/Discord.Addons.MpGame.CurrentlyPlaying.html#Discord_Addons_MpGame_CurrentlyPlaying_ThisGame
+  commentId: F:Discord.Addons.MpGame.CurrentlyPlaying.ThisGame
+  fullName: Discord.Addons.MpGame.CurrentlyPlaying.ThisGame
+  nameWithType: CurrentlyPlaying.ThisGame
+- uid: Discord.Addons.MpGame.GameBase`1
+  name: GameBase<TPlayer>
+  href: api/Discord.Addons.MpGame.GameBase-1.html
+  commentId: T:Discord.Addons.MpGame.GameBase`1
+  name.vb: GameBase(Of TPlayer)
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer)
+  nameWithType: GameBase<TPlayer>
+  nameWithType.vb: GameBase(Of TPlayer)
+- uid: Discord.Addons.MpGame.GameBase`1.#ctor(Discord.IMessageChannel,System.Collections.Generic.IEnumerable{`0},System.Boolean)
+  name: GameBase(IMessageChannel, IEnumerable<TPlayer>, Boolean)
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1__ctor_Discord_IMessageChannel_System_Collections_Generic_IEnumerable__0__System_Boolean_
+  commentId: M:Discord.Addons.MpGame.GameBase`1.#ctor(Discord.IMessageChannel,System.Collections.Generic.IEnumerable{`0},System.Boolean)
+  name.vb: GameBase(IMessageChannel, IEnumerable(Of TPlayer), Boolean)
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.GameBase(Discord.IMessageChannel, System.Collections.Generic.IEnumerable<TPlayer>, System.Boolean)
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).GameBase(Discord.IMessageChannel, System.Collections.Generic.IEnumerable(Of TPlayer), System.Boolean)
+  nameWithType: GameBase<TPlayer>.GameBase(IMessageChannel, IEnumerable<TPlayer>, Boolean)
+  nameWithType.vb: GameBase(Of TPlayer).GameBase(IMessageChannel, IEnumerable(Of TPlayer), Boolean)
+- uid: Discord.Addons.MpGame.GameBase`1.#ctor*
+  name: GameBase
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1__ctor_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.#ctor
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.GameBase
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).GameBase
+  nameWithType: GameBase<TPlayer>.GameBase
+  nameWithType.vb: GameBase(Of TPlayer).GameBase
+- uid: Discord.Addons.MpGame.GameBase`1.Channel
+  name: Channel
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_Channel
+  commentId: P:Discord.Addons.MpGame.GameBase`1.Channel
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.Channel
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).Channel
+  nameWithType: GameBase<TPlayer>.Channel
+  nameWithType.vb: GameBase(Of TPlayer).Channel
+- uid: Discord.Addons.MpGame.GameBase`1.Channel*
+  name: Channel
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_Channel_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.Channel
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.Channel
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).Channel
+  nameWithType: GameBase<TPlayer>.Channel
+  nameWithType.vb: GameBase(Of TPlayer).Channel
+- uid: Discord.Addons.MpGame.GameBase`1.EndGame(System.String)
+  name: EndGame(String)
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_EndGame_System_String_
+  commentId: M:Discord.Addons.MpGame.GameBase`1.EndGame(System.String)
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.EndGame(System.String)
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).EndGame(System.String)
+  nameWithType: GameBase<TPlayer>.EndGame(String)
+  nameWithType.vb: GameBase(Of TPlayer).EndGame(String)
+- uid: Discord.Addons.MpGame.GameBase`1.EndGame*
+  name: EndGame
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_EndGame_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.EndGame
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.EndGame
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).EndGame
+  nameWithType: GameBase<TPlayer>.EndGame
+  nameWithType.vb: GameBase(Of TPlayer).EndGame
+- uid: Discord.Addons.MpGame.GameBase`1.GetGameState
+  name: GetGameState()
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_GetGameState
+  commentId: M:Discord.Addons.MpGame.GameBase`1.GetGameState
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.GetGameState()
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).GetGameState()
+  nameWithType: GameBase<TPlayer>.GetGameState()
+  nameWithType.vb: GameBase(Of TPlayer).GetGameState()
+- uid: Discord.Addons.MpGame.GameBase`1.GetGameState*
+  name: GetGameState
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_GetGameState_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.GetGameState
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.GetGameState
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).GetGameState
+  nameWithType: GameBase<TPlayer>.GetGameState
+  nameWithType.vb: GameBase(Of TPlayer).GetGameState
+- uid: Discord.Addons.MpGame.GameBase`1.GetGameStateEmbed
+  name: GetGameStateEmbed()
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_GetGameStateEmbed
+  commentId: M:Discord.Addons.MpGame.GameBase`1.GetGameStateEmbed
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.GetGameStateEmbed()
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).GetGameStateEmbed()
+  nameWithType: GameBase<TPlayer>.GetGameStateEmbed()
+  nameWithType.vb: GameBase(Of TPlayer).GetGameStateEmbed()
+- uid: Discord.Addons.MpGame.GameBase`1.GetGameStateEmbed*
+  name: GetGameStateEmbed
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_GetGameStateEmbed_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.GetGameStateEmbed
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.GetGameStateEmbed
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).GetGameStateEmbed
+  nameWithType: GameBase<TPlayer>.GetGameStateEmbed
+  nameWithType.vb: GameBase(Of TPlayer).GetGameStateEmbed
+- uid: Discord.Addons.MpGame.GameBase`1.IsTurnPlayerFirstPlayer
+  name: IsTurnPlayerFirstPlayer()
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_IsTurnPlayerFirstPlayer
+  commentId: M:Discord.Addons.MpGame.GameBase`1.IsTurnPlayerFirstPlayer
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.IsTurnPlayerFirstPlayer()
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).IsTurnPlayerFirstPlayer()
+  nameWithType: GameBase<TPlayer>.IsTurnPlayerFirstPlayer()
+  nameWithType.vb: GameBase(Of TPlayer).IsTurnPlayerFirstPlayer()
+- uid: Discord.Addons.MpGame.GameBase`1.IsTurnPlayerFirstPlayer*
+  name: IsTurnPlayerFirstPlayer
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_IsTurnPlayerFirstPlayer_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.IsTurnPlayerFirstPlayer
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.IsTurnPlayerFirstPlayer
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).IsTurnPlayerFirstPlayer
+  nameWithType: GameBase<TPlayer>.IsTurnPlayerFirstPlayer
+  nameWithType.vb: GameBase(Of TPlayer).IsTurnPlayerFirstPlayer
+- uid: Discord.Addons.MpGame.GameBase`1.IsTurnPlayerLastPlayer
+  name: IsTurnPlayerLastPlayer()
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_IsTurnPlayerLastPlayer
+  commentId: M:Discord.Addons.MpGame.GameBase`1.IsTurnPlayerLastPlayer
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.IsTurnPlayerLastPlayer()
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).IsTurnPlayerLastPlayer()
+  nameWithType: GameBase<TPlayer>.IsTurnPlayerLastPlayer()
+  nameWithType.vb: GameBase(Of TPlayer).IsTurnPlayerLastPlayer()
+- uid: Discord.Addons.MpGame.GameBase`1.IsTurnPlayerLastPlayer*
+  name: IsTurnPlayerLastPlayer
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_IsTurnPlayerLastPlayer_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.IsTurnPlayerLastPlayer
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.IsTurnPlayerLastPlayer
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).IsTurnPlayerLastPlayer
+  nameWithType: GameBase<TPlayer>.IsTurnPlayerLastPlayer
+  nameWithType.vb: GameBase(Of TPlayer).IsTurnPlayerLastPlayer
+- uid: Discord.Addons.MpGame.GameBase`1.NextTurn
+  name: NextTurn()
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_NextTurn
+  commentId: M:Discord.Addons.MpGame.GameBase`1.NextTurn
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.NextTurn()
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).NextTurn()
+  nameWithType: GameBase<TPlayer>.NextTurn()
+  nameWithType.vb: GameBase(Of TPlayer).NextTurn()
+- uid: Discord.Addons.MpGame.GameBase`1.NextTurn*
+  name: NextTurn
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_NextTurn_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.NextTurn
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.NextTurn
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).NextTurn
+  nameWithType: GameBase<TPlayer>.NextTurn
+  nameWithType.vb: GameBase(Of TPlayer).NextTurn
+- uid: Discord.Addons.MpGame.GameBase`1.OnPlayerAdded(`0)
+  name: OnPlayerAdded(TPlayer)
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_OnPlayerAdded__0_
+  commentId: M:Discord.Addons.MpGame.GameBase`1.OnPlayerAdded(`0)
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.OnPlayerAdded(TPlayer)
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).OnPlayerAdded(TPlayer)
+  nameWithType: GameBase<TPlayer>.OnPlayerAdded(TPlayer)
+  nameWithType.vb: GameBase(Of TPlayer).OnPlayerAdded(TPlayer)
+- uid: Discord.Addons.MpGame.GameBase`1.OnPlayerAdded*
+  name: OnPlayerAdded
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_OnPlayerAdded_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.OnPlayerAdded
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.OnPlayerAdded
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).OnPlayerAdded
+  nameWithType: GameBase<TPlayer>.OnPlayerAdded
+  nameWithType.vb: GameBase(Of TPlayer).OnPlayerAdded
+- uid: Discord.Addons.MpGame.GameBase`1.OnPlayerKicked(`0)
+  name: OnPlayerKicked(TPlayer)
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_OnPlayerKicked__0_
+  commentId: M:Discord.Addons.MpGame.GameBase`1.OnPlayerKicked(`0)
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.OnPlayerKicked(TPlayer)
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).OnPlayerKicked(TPlayer)
+  nameWithType: GameBase<TPlayer>.OnPlayerKicked(TPlayer)
+  nameWithType.vb: GameBase(Of TPlayer).OnPlayerKicked(TPlayer)
+- uid: Discord.Addons.MpGame.GameBase`1.OnPlayerKicked*
+  name: OnPlayerKicked
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_OnPlayerKicked_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.OnPlayerKicked
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.OnPlayerKicked
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).OnPlayerKicked
+  nameWithType: GameBase<TPlayer>.OnPlayerKicked
+  nameWithType.vb: GameBase(Of TPlayer).OnPlayerKicked
+- uid: Discord.Addons.MpGame.GameBase`1.Players
+  name: Players
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_Players
+  commentId: P:Discord.Addons.MpGame.GameBase`1.Players
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.Players
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).Players
+  nameWithType: GameBase<TPlayer>.Players
+  nameWithType.vb: GameBase(Of TPlayer).Players
+- uid: Discord.Addons.MpGame.GameBase`1.Players*
+  name: Players
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_Players_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.Players
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.Players
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).Players
+  nameWithType: GameBase<TPlayer>.Players
+  nameWithType.vb: GameBase(Of TPlayer).Players
+- uid: Discord.Addons.MpGame.GameBase`1.SetupGame
+  name: SetupGame()
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_SetupGame
+  commentId: M:Discord.Addons.MpGame.GameBase`1.SetupGame
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.SetupGame()
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).SetupGame()
+  nameWithType: GameBase<TPlayer>.SetupGame()
+  nameWithType.vb: GameBase(Of TPlayer).SetupGame()
+- uid: Discord.Addons.MpGame.GameBase`1.SetupGame*
+  name: SetupGame
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_SetupGame_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.SetupGame
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.SetupGame
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).SetupGame
+  nameWithType: GameBase<TPlayer>.SetupGame
+  nameWithType.vb: GameBase(Of TPlayer).SetupGame
+- uid: Discord.Addons.MpGame.GameBase`1.StartGame
+  name: StartGame()
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_StartGame
+  commentId: M:Discord.Addons.MpGame.GameBase`1.StartGame
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.StartGame()
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).StartGame()
+  nameWithType: GameBase<TPlayer>.StartGame()
+  nameWithType.vb: GameBase(Of TPlayer).StartGame()
+- uid: Discord.Addons.MpGame.GameBase`1.StartGame*
+  name: StartGame
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_StartGame_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.StartGame
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.StartGame
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).StartGame
+  nameWithType: GameBase<TPlayer>.StartGame
+  nameWithType.vb: GameBase(Of TPlayer).StartGame
+- uid: Discord.Addons.MpGame.GameBase`1.TurnPlayer
+  name: TurnPlayer
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_TurnPlayer
+  commentId: P:Discord.Addons.MpGame.GameBase`1.TurnPlayer
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.TurnPlayer
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).TurnPlayer
+  nameWithType: GameBase<TPlayer>.TurnPlayer
+  nameWithType.vb: GameBase(Of TPlayer).TurnPlayer
+- uid: Discord.Addons.MpGame.GameBase`1.TurnPlayer*
+  name: TurnPlayer
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_TurnPlayer_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.TurnPlayer
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.TurnPlayer
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).TurnPlayer
+  nameWithType: GameBase<TPlayer>.TurnPlayer
+  nameWithType.vb: GameBase(Of TPlayer).TurnPlayer
+- uid: Discord.Addons.MpGame.IServiceStrings
+  name: IServiceStrings
+  href: api/Discord.Addons.MpGame.IServiceStrings.html
+  commentId: T:Discord.Addons.MpGame.IServiceStrings
+  fullName: Discord.Addons.MpGame.IServiceStrings
+  nameWithType: IServiceStrings
+- uid: Discord.Addons.MpGame.IServiceStrings.CleaningDMChannel(Discord.IDMChannel)
+  name: CleaningDMChannel(IDMChannel)
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CleaningDMChannel_Discord_IDMChannel_
+  commentId: M:Discord.Addons.MpGame.IServiceStrings.CleaningDMChannel(Discord.IDMChannel)
+  fullName: Discord.Addons.MpGame.IServiceStrings.CleaningDMChannel(Discord.IDMChannel)
+  nameWithType: IServiceStrings.CleaningDMChannel(IDMChannel)
+- uid: Discord.Addons.MpGame.IServiceStrings.CleaningDMChannel*
+  name: CleaningDMChannel
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CleaningDMChannel_
+  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.CleaningDMChannel
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.IServiceStrings.CleaningDMChannel
+  nameWithType: IServiceStrings.CleaningDMChannel
+- uid: Discord.Addons.MpGame.IServiceStrings.CleaningGameData(System.String,Discord.IMessageChannel)
+  name: CleaningGameData(String, IMessageChannel)
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CleaningGameData_System_String_Discord_IMessageChannel_
+  commentId: M:Discord.Addons.MpGame.IServiceStrings.CleaningGameData(System.String,Discord.IMessageChannel)
+  fullName: Discord.Addons.MpGame.IServiceStrings.CleaningGameData(System.String, Discord.IMessageChannel)
+  nameWithType: IServiceStrings.CleaningGameData(String, IMessageChannel)
+- uid: Discord.Addons.MpGame.IServiceStrings.CleaningGameData*
+  name: CleaningGameData
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CleaningGameData_
+  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.CleaningGameData
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.IServiceStrings.CleaningGameData
+  nameWithType: IServiceStrings.CleaningGameData
+- uid: Discord.Addons.MpGame.IServiceStrings.CleaningGameString(Discord.IMessageChannel)
+  name: CleaningGameString(IMessageChannel)
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CleaningGameString_Discord_IMessageChannel_
+  commentId: M:Discord.Addons.MpGame.IServiceStrings.CleaningGameString(Discord.IMessageChannel)
+  fullName: Discord.Addons.MpGame.IServiceStrings.CleaningGameString(Discord.IMessageChannel)
+  nameWithType: IServiceStrings.CleaningGameString(IMessageChannel)
+- uid: Discord.Addons.MpGame.IServiceStrings.CleaningGameString*
+  name: CleaningGameString
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CleaningGameString_
+  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.CleaningGameString
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.IServiceStrings.CleaningGameString
+  nameWithType: IServiceStrings.CleaningGameString
+- uid: Discord.Addons.MpGame.IServiceStrings.CreatingGame(System.String,Discord.IMessageChannel)
+  name: CreatingGame(String, IMessageChannel)
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CreatingGame_System_String_Discord_IMessageChannel_
+  commentId: M:Discord.Addons.MpGame.IServiceStrings.CreatingGame(System.String,Discord.IMessageChannel)
+  fullName: Discord.Addons.MpGame.IServiceStrings.CreatingGame(System.String, Discord.IMessageChannel)
+  nameWithType: IServiceStrings.CreatingGame(String, IMessageChannel)
+- uid: Discord.Addons.MpGame.IServiceStrings.CreatingGame*
+  name: CreatingGame
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CreatingGame_
+  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.CreatingGame
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.IServiceStrings.CreatingGame
+  nameWithType: IServiceStrings.CreatingGame
+- uid: Discord.Addons.MpGame.IServiceStrings.DMsDisabledKickMessage(Discord.IUser)
+  name: DMsDisabledKickMessage(IUser)
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_DMsDisabledKickMessage_Discord_IUser_
+  commentId: M:Discord.Addons.MpGame.IServiceStrings.DMsDisabledKickMessage(Discord.IUser)
+  fullName: Discord.Addons.MpGame.IServiceStrings.DMsDisabledKickMessage(Discord.IUser)
+  nameWithType: IServiceStrings.DMsDisabledKickMessage(IUser)
+- uid: Discord.Addons.MpGame.IServiceStrings.DMsDisabledKickMessage*
+  name: DMsDisabledKickMessage
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_DMsDisabledKickMessage_
+  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.DMsDisabledKickMessage
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.IServiceStrings.DMsDisabledKickMessage
+  nameWithType: IServiceStrings.DMsDisabledKickMessage
+- uid: Discord.Addons.MpGame.IServiceStrings.DMsDisabledMessage(Discord.IUser)
+  name: DMsDisabledMessage(IUser)
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_DMsDisabledMessage_Discord_IUser_
+  commentId: M:Discord.Addons.MpGame.IServiceStrings.DMsDisabledMessage(Discord.IUser)
+  fullName: Discord.Addons.MpGame.IServiceStrings.DMsDisabledMessage(Discord.IUser)
+  nameWithType: IServiceStrings.DMsDisabledMessage(IUser)
+- uid: Discord.Addons.MpGame.IServiceStrings.DMsDisabledMessage*
+  name: DMsDisabledMessage
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_DMsDisabledMessage_
+  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.DMsDisabledMessage
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.IServiceStrings.DMsDisabledMessage
+  nameWithType: IServiceStrings.DMsDisabledMessage
+- uid: Discord.Addons.MpGame.IServiceStrings.LogRegistration(System.String)
+  name: LogRegistration(String)
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_LogRegistration_System_String_
+  commentId: M:Discord.Addons.MpGame.IServiceStrings.LogRegistration(System.String)
+  fullName: Discord.Addons.MpGame.IServiceStrings.LogRegistration(System.String)
+  nameWithType: IServiceStrings.LogRegistration(String)
+- uid: Discord.Addons.MpGame.IServiceStrings.LogRegistration*
+  name: LogRegistration
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_LogRegistration_
+  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.LogRegistration
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.IServiceStrings.LogRegistration
+  nameWithType: IServiceStrings.LogRegistration
+- uid: Discord.Addons.MpGame.IServiceStrings.PlayerKicked(Discord.IUser)
+  name: PlayerKicked(IUser)
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_PlayerKicked_Discord_IUser_
+  commentId: M:Discord.Addons.MpGame.IServiceStrings.PlayerKicked(Discord.IUser)
+  fullName: Discord.Addons.MpGame.IServiceStrings.PlayerKicked(Discord.IUser)
+  nameWithType: IServiceStrings.PlayerKicked(IUser)
+- uid: Discord.Addons.MpGame.IServiceStrings.PlayerKicked*
+  name: PlayerKicked
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_PlayerKicked_
+  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.PlayerKicked
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.IServiceStrings.PlayerKicked
+  nameWithType: IServiceStrings.PlayerKicked
+- uid: Discord.Addons.MpGame.IServiceStrings.SettingGame(System.String,Discord.IMessageChannel)
+  name: SettingGame(String, IMessageChannel)
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_SettingGame_System_String_Discord_IMessageChannel_
+  commentId: M:Discord.Addons.MpGame.IServiceStrings.SettingGame(System.String,Discord.IMessageChannel)
+  fullName: Discord.Addons.MpGame.IServiceStrings.SettingGame(System.String, Discord.IMessageChannel)
+  nameWithType: IServiceStrings.SettingGame(String, IMessageChannel)
+- uid: Discord.Addons.MpGame.IServiceStrings.SettingGame*
+  name: SettingGame
+  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_SettingGame_
+  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.SettingGame
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.IServiceStrings.SettingGame
+  nameWithType: IServiceStrings.SettingGame
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3
+  name: MpGameModuleBase<TService, TGame, TPlayer>
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html
+  commentId: T:Discord.Addons.MpGame.MpGameModuleBase`3
+  name.vb: MpGameModuleBase(Of TService, TGame, TPlayer)
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer)
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer)
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.#ctor(`0)
+  name: MpGameModuleBase(TService)
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3__ctor__0_
+  commentId: M:Discord.Addons.MpGame.MpGameModuleBase`3.#ctor(`0)
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.MpGameModuleBase(TService)
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).MpGameModuleBase(TService)
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.MpGameModuleBase(TService)
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).MpGameModuleBase(TService)
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.#ctor*
+  name: MpGameModuleBase
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3__ctor_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.#ctor
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.MpGameModuleBase
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).MpGameModuleBase
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.MpGameModuleBase
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).MpGameModuleBase
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.BeforeExecute(Discord.Commands.CommandInfo)
+  name: BeforeExecute(CommandInfo)
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_BeforeExecute_Discord_Commands_CommandInfo_
+  commentId: M:Discord.Addons.MpGame.MpGameModuleBase`3.BeforeExecute(Discord.Commands.CommandInfo)
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.BeforeExecute(Discord.Commands.CommandInfo)
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).BeforeExecute(Discord.Commands.CommandInfo)
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.BeforeExecute(CommandInfo)
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).BeforeExecute(CommandInfo)
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.BeforeExecute*
+  name: BeforeExecute
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_BeforeExecute_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.BeforeExecute
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.BeforeExecute
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).BeforeExecute
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.BeforeExecute
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).BeforeExecute
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.CancelGameCmd
+  name: CancelGameCmd()
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_CancelGameCmd
+  commentId: M:Discord.Addons.MpGame.MpGameModuleBase`3.CancelGameCmd
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.CancelGameCmd()
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).CancelGameCmd()
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.CancelGameCmd()
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).CancelGameCmd()
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.CancelGameCmd*
+  name: CancelGameCmd
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_CancelGameCmd_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.CancelGameCmd
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.CancelGameCmd
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).CancelGameCmd
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.CancelGameCmd
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).CancelGameCmd
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.EndGameCmd
+  name: EndGameCmd()
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_EndGameCmd
+  commentId: M:Discord.Addons.MpGame.MpGameModuleBase`3.EndGameCmd
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.EndGameCmd()
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).EndGameCmd()
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.EndGameCmd()
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).EndGameCmd()
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.EndGameCmd*
+  name: EndGameCmd
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_EndGameCmd_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.EndGameCmd
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.EndGameCmd
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).EndGameCmd
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.EndGameCmd
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).EndGameCmd
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.Game
+  name: Game
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_Game
+  commentId: P:Discord.Addons.MpGame.MpGameModuleBase`3.Game
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.Game
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).Game
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.Game
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).Game
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.Game*
+  name: Game
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_Game_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.Game
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.Game
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).Game
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.Game
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).Game
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.GameInProgress
+  name: GameInProgress
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_GameInProgress
+  commentId: P:Discord.Addons.MpGame.MpGameModuleBase`3.GameInProgress
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.GameInProgress
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).GameInProgress
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.GameInProgress
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).GameInProgress
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.GameInProgress*
+  name: GameInProgress
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_GameInProgress_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.GameInProgress
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.GameInProgress
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).GameInProgress
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.GameInProgress
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).GameInProgress
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.GameService
+  name: GameService
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_GameService
+  commentId: P:Discord.Addons.MpGame.MpGameModuleBase`3.GameService
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.GameService
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).GameService
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.GameService
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).GameService
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.GameService*
+  name: GameService
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_GameService_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.GameService
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.GameService
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).GameService
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.GameService
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).GameService
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.GameStateCmd
+  name: GameStateCmd()
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_GameStateCmd
+  commentId: M:Discord.Addons.MpGame.MpGameModuleBase`3.GameStateCmd
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.GameStateCmd()
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).GameStateCmd()
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.GameStateCmd()
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).GameStateCmd()
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.GameStateCmd*
+  name: GameStateCmd
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_GameStateCmd_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.GameStateCmd
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.GameStateCmd
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).GameStateCmd
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.GameStateCmd
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).GameStateCmd
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.JoinedUsers
+  name: JoinedUsers
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_JoinedUsers
+  commentId: P:Discord.Addons.MpGame.MpGameModuleBase`3.JoinedUsers
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.JoinedUsers
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).JoinedUsers
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.JoinedUsers
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).JoinedUsers
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.JoinedUsers*
+  name: JoinedUsers
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_JoinedUsers_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.JoinedUsers
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.JoinedUsers
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).JoinedUsers
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.JoinedUsers
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).JoinedUsers
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.JoinGameCmd
+  name: JoinGameCmd()
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_JoinGameCmd
+  commentId: M:Discord.Addons.MpGame.MpGameModuleBase`3.JoinGameCmd
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.JoinGameCmd()
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).JoinGameCmd()
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.JoinGameCmd()
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).JoinGameCmd()
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.JoinGameCmd*
+  name: JoinGameCmd
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_JoinGameCmd_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.JoinGameCmd
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.JoinGameCmd
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).JoinGameCmd
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.JoinGameCmd
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).JoinGameCmd
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.LeaveGameCmd
+  name: LeaveGameCmd()
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_LeaveGameCmd
+  commentId: M:Discord.Addons.MpGame.MpGameModuleBase`3.LeaveGameCmd
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.LeaveGameCmd()
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).LeaveGameCmd()
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.LeaveGameCmd()
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).LeaveGameCmd()
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.LeaveGameCmd*
+  name: LeaveGameCmd
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_LeaveGameCmd_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.LeaveGameCmd
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.LeaveGameCmd
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).LeaveGameCmd
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.LeaveGameCmd
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).LeaveGameCmd
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.NextTurnCmd
+  name: NextTurnCmd()
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_NextTurnCmd
+  commentId: M:Discord.Addons.MpGame.MpGameModuleBase`3.NextTurnCmd
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.NextTurnCmd()
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).NextTurnCmd()
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.NextTurnCmd()
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).NextTurnCmd()
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.NextTurnCmd*
+  name: NextTurnCmd
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_NextTurnCmd_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.NextTurnCmd
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.NextTurnCmd
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).NextTurnCmd
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.NextTurnCmd
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).NextTurnCmd
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.OnModuleBuilding(Discord.Commands.CommandService,Discord.Commands.Builders.ModuleBuilder)
+  name: OnModuleBuilding(CommandService, ModuleBuilder)
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_OnModuleBuilding_Discord_Commands_CommandService_Discord_Commands_Builders_ModuleBuilder_
+  commentId: M:Discord.Addons.MpGame.MpGameModuleBase`3.OnModuleBuilding(Discord.Commands.CommandService,Discord.Commands.Builders.ModuleBuilder)
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.OnModuleBuilding(Discord.Commands.CommandService, Discord.Commands.Builders.ModuleBuilder)
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).OnModuleBuilding(Discord.Commands.CommandService, Discord.Commands.Builders.ModuleBuilder)
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.OnModuleBuilding(CommandService, ModuleBuilder)
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).OnModuleBuilding(CommandService, ModuleBuilder)
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.OnModuleBuilding*
+  name: OnModuleBuilding
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_OnModuleBuilding_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.OnModuleBuilding
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.OnModuleBuilding
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).OnModuleBuilding
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.OnModuleBuilding
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).OnModuleBuilding
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.OpenGameCmd
+  name: OpenGameCmd()
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_OpenGameCmd
+  commentId: M:Discord.Addons.MpGame.MpGameModuleBase`3.OpenGameCmd
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.OpenGameCmd()
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).OpenGameCmd()
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.OpenGameCmd()
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).OpenGameCmd()
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.OpenGameCmd*
+  name: OpenGameCmd
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_OpenGameCmd_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.OpenGameCmd
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.OpenGameCmd
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).OpenGameCmd
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.OpenGameCmd
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).OpenGameCmd
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.OpenToJoin
+  name: OpenToJoin
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_OpenToJoin
+  commentId: P:Discord.Addons.MpGame.MpGameModuleBase`3.OpenToJoin
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.OpenToJoin
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).OpenToJoin
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.OpenToJoin
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).OpenToJoin
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.OpenToJoin*
+  name: OpenToJoin
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_OpenToJoin_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.OpenToJoin
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.OpenToJoin
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).OpenToJoin
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.OpenToJoin
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).OpenToJoin
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.Player
+  name: Player
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_Player
+  commentId: P:Discord.Addons.MpGame.MpGameModuleBase`3.Player
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.Player
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).Player
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.Player
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).Player
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.Player*
+  name: Player
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_Player_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.Player
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.Player
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).Player
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.Player
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).Player
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.RegisterPlayerTypeReader
+  name: RegisterPlayerTypeReader
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_RegisterPlayerTypeReader
+  commentId: P:Discord.Addons.MpGame.MpGameModuleBase`3.RegisterPlayerTypeReader
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.RegisterPlayerTypeReader
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).RegisterPlayerTypeReader
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.RegisterPlayerTypeReader
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).RegisterPlayerTypeReader
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.RegisterPlayerTypeReader*
+  name: RegisterPlayerTypeReader
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_RegisterPlayerTypeReader_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.RegisterPlayerTypeReader
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.RegisterPlayerTypeReader
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).RegisterPlayerTypeReader
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.RegisterPlayerTypeReader
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).RegisterPlayerTypeReader
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.ResendCmd
+  name: ResendCmd()
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_ResendCmd
+  commentId: M:Discord.Addons.MpGame.MpGameModuleBase`3.ResendCmd
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.ResendCmd()
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).ResendCmd()
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.ResendCmd()
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).ResendCmd()
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.ResendCmd*
+  name: ResendCmd
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_ResendCmd_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.ResendCmd
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.ResendCmd
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).ResendCmd
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.ResendCmd
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).ResendCmd
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.StartGameCmd
+  name: StartGameCmd()
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_StartGameCmd
+  commentId: M:Discord.Addons.MpGame.MpGameModuleBase`3.StartGameCmd
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.StartGameCmd()
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).StartGameCmd()
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.StartGameCmd()
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).StartGameCmd()
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.StartGameCmd*
+  name: StartGameCmd
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_StartGameCmd_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.StartGameCmd
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.StartGameCmd
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).StartGameCmd
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.StartGameCmd
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).StartGameCmd
+- uid: Discord.Addons.MpGame.MpGameService`2
+  name: MpGameService<TGame, TPlayer>
+  href: api/Discord.Addons.MpGame.MpGameService-2.html
+  commentId: T:Discord.Addons.MpGame.MpGameService`2
+  name.vb: MpGameService(Of TGame, TPlayer)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer)
+  nameWithType: MpGameService<TGame, TPlayer>
+  nameWithType.vb: MpGameService(Of TGame, TPlayer)
+- uid: Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,System.Func{Discord.LogMessage,System.Threading.Tasks.Task},Discord.Addons.MpGame.IServiceStrings)
+  name: MpGameService(BaseSocketClient, Func<LogMessage, Task>, IServiceStrings)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2__ctor_Discord_WebSocket_BaseSocketClient_System_Func_Discord_LogMessage_System_Threading_Tasks_Task__Discord_Addons_MpGame_IServiceStrings_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,System.Func{Discord.LogMessage,System.Threading.Tasks.Task},Discord.Addons.MpGame.IServiceStrings)
+  name.vb: MpGameService(BaseSocketClient, Func(Of LogMessage, Task), IServiceStrings)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameService(Discord.WebSocket.BaseSocketClient, System.Func<Discord.LogMessage, System.Threading.Tasks.Task>, Discord.Addons.MpGame.IServiceStrings)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameService(Discord.WebSocket.BaseSocketClient, System.Func(Of Discord.LogMessage, System.Threading.Tasks.Task), Discord.Addons.MpGame.IServiceStrings)
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameService(BaseSocketClient, Func<LogMessage, Task>, IServiceStrings)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameService(BaseSocketClient, Func(Of LogMessage, Task), IServiceStrings)
+- uid: Discord.Addons.MpGame.MpGameService`2.#ctor*
+  name: MpGameService
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2__ctor_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.#ctor
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameService
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameService
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameService
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameService
+- uid: Discord.Addons.MpGame.MpGameService`2.AddPlayer(`0,`1)
+  name: AddPlayer(TGame, TPlayer)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_AddPlayer__0__1_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.AddPlayer(`0,`1)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.AddPlayer(TGame, TPlayer)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).AddPlayer(TGame, TPlayer)
+  nameWithType: MpGameService<TGame, TPlayer>.AddPlayer(TGame, TPlayer)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).AddPlayer(TGame, TPlayer)
+- uid: Discord.Addons.MpGame.MpGameService`2.AddPlayer*
+  name: AddPlayer
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_AddPlayer_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.AddPlayer
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.AddPlayer
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).AddPlayer
+  nameWithType: MpGameService<TGame, TPlayer>.AddPlayer
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).AddPlayer
+- uid: Discord.Addons.MpGame.MpGameService`2.AddUser(Discord.IMessageChannel,Discord.IUser)
+  name: AddUser(IMessageChannel, IUser)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_AddUser_Discord_IMessageChannel_Discord_IUser_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.AddUser(Discord.IMessageChannel,Discord.IUser)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.AddUser(Discord.IMessageChannel, Discord.IUser)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).AddUser(Discord.IMessageChannel, Discord.IUser)
+  nameWithType: MpGameService<TGame, TPlayer>.AddUser(IMessageChannel, IUser)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).AddUser(IMessageChannel, IUser)
+- uid: Discord.Addons.MpGame.MpGameService`2.AddUser*
+  name: AddUser
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_AddUser_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.AddUser
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.AddUser
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).AddUser
+  nameWithType: MpGameService<TGame, TPlayer>.AddUser
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).AddUser
+- uid: Discord.Addons.MpGame.MpGameService`2.CancelGame(Discord.IMessageChannel)
+  name: CancelGame(IMessageChannel)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_CancelGame_Discord_IMessageChannel_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.CancelGame(Discord.IMessageChannel)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.CancelGame(Discord.IMessageChannel)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).CancelGame(Discord.IMessageChannel)
+  nameWithType: MpGameService<TGame, TPlayer>.CancelGame(IMessageChannel)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).CancelGame(IMessageChannel)
+- uid: Discord.Addons.MpGame.MpGameService`2.CancelGame*
+  name: CancelGame
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_CancelGame_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.CancelGame
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.CancelGame
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).CancelGame
+  nameWithType: MpGameService<TGame, TPlayer>.CancelGame
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).CancelGame
+- uid: Discord.Addons.MpGame.MpGameService`2.GetGameFromChannel(Discord.IMessageChannel)
+  name: GetGameFromChannel(IMessageChannel)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_GetGameFromChannel_Discord_IMessageChannel_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.GetGameFromChannel(Discord.IMessageChannel)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetGameFromChannel(Discord.IMessageChannel)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetGameFromChannel(Discord.IMessageChannel)
+  nameWithType: MpGameService<TGame, TPlayer>.GetGameFromChannel(IMessageChannel)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetGameFromChannel(IMessageChannel)
+- uid: Discord.Addons.MpGame.MpGameService`2.GetGameFromChannel*
+  name: GetGameFromChannel
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_GetGameFromChannel_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.GetGameFromChannel
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetGameFromChannel
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetGameFromChannel
+  nameWithType: MpGameService<TGame, TPlayer>.GetGameFromChannel
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetGameFromChannel
+- uid: Discord.Addons.MpGame.MpGameService`2.GetJoinedUsers(Discord.IMessageChannel)
+  name: GetJoinedUsers(IMessageChannel)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_GetJoinedUsers_Discord_IMessageChannel_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.GetJoinedUsers(Discord.IMessageChannel)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetJoinedUsers(Discord.IMessageChannel)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetJoinedUsers(Discord.IMessageChannel)
+  nameWithType: MpGameService<TGame, TPlayer>.GetJoinedUsers(IMessageChannel)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetJoinedUsers(IMessageChannel)
+- uid: Discord.Addons.MpGame.MpGameService`2.GetJoinedUsers*
+  name: GetJoinedUsers
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_GetJoinedUsers_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.GetJoinedUsers
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetJoinedUsers
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetJoinedUsers
+  nameWithType: MpGameService<TGame, TPlayer>.GetJoinedUsers
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetJoinedUsers
+- uid: Discord.Addons.MpGame.MpGameService`2.IsOpenToJoin(Discord.IMessageChannel)
+  name: IsOpenToJoin(IMessageChannel)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_IsOpenToJoin_Discord_IMessageChannel_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.IsOpenToJoin(Discord.IMessageChannel)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.IsOpenToJoin(Discord.IMessageChannel)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).IsOpenToJoin(Discord.IMessageChannel)
+  nameWithType: MpGameService<TGame, TPlayer>.IsOpenToJoin(IMessageChannel)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).IsOpenToJoin(IMessageChannel)
+- uid: Discord.Addons.MpGame.MpGameService`2.IsOpenToJoin*
+  name: IsOpenToJoin
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_IsOpenToJoin_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.IsOpenToJoin
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.IsOpenToJoin
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).IsOpenToJoin
+  nameWithType: MpGameService<TGame, TPlayer>.IsOpenToJoin
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).IsOpenToJoin
+- uid: Discord.Addons.MpGame.MpGameService`2.KickPlayer(`0,`1)
+  name: KickPlayer(TGame, TPlayer)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_KickPlayer__0__1_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.KickPlayer(`0,`1)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.KickPlayer(TGame, TPlayer)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).KickPlayer(TGame, TPlayer)
+  nameWithType: MpGameService<TGame, TPlayer>.KickPlayer(TGame, TPlayer)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).KickPlayer(TGame, TPlayer)
+- uid: Discord.Addons.MpGame.MpGameService`2.KickPlayer*
+  name: KickPlayer
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_KickPlayer_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.KickPlayer
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.KickPlayer
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).KickPlayer
+  nameWithType: MpGameService<TGame, TPlayer>.KickPlayer
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).KickPlayer
+- uid: Discord.Addons.MpGame.MpGameService`2.Logger
+  name: Logger
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_Logger
+  commentId: P:Discord.Addons.MpGame.MpGameService`2.Logger
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.Logger
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).Logger
+  nameWithType: MpGameService<TGame, TPlayer>.Logger
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).Logger
+- uid: Discord.Addons.MpGame.MpGameService`2.Logger*
+  name: Logger
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_Logger_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.Logger
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.Logger
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).Logger
+  nameWithType: MpGameService<TGame, TPlayer>.Logger
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).Logger
+- uid: Discord.Addons.MpGame.MpGameService`2.MessageChannelComparer
+  name: MessageChannelComparer
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_MessageChannelComparer
+  commentId: P:Discord.Addons.MpGame.MpGameService`2.MessageChannelComparer
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MessageChannelComparer
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MessageChannelComparer
+  nameWithType: MpGameService<TGame, TPlayer>.MessageChannelComparer
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MessageChannelComparer
+- uid: Discord.Addons.MpGame.MpGameService`2.MessageChannelComparer*
+  name: MessageChannelComparer
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_MessageChannelComparer_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.MessageChannelComparer
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MessageChannelComparer
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MessageChannelComparer
+  nameWithType: MpGameService<TGame, TPlayer>.MessageChannelComparer
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MessageChannelComparer
+- uid: Discord.Addons.MpGame.MpGameService`2.OpenNewGame(Discord.Commands.ICommandContext)
+  name: OpenNewGame(ICommandContext)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_OpenNewGame_Discord_Commands_ICommandContext_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.OpenNewGame(Discord.Commands.ICommandContext)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.OpenNewGame(Discord.Commands.ICommandContext)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).OpenNewGame(Discord.Commands.ICommandContext)
+  nameWithType: MpGameService<TGame, TPlayer>.OpenNewGame(ICommandContext)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).OpenNewGame(ICommandContext)
+- uid: Discord.Addons.MpGame.MpGameService`2.OpenNewGame*
+  name: OpenNewGame
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_OpenNewGame_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.OpenNewGame
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.OpenNewGame
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).OpenNewGame
+  nameWithType: MpGameService<TGame, TPlayer>.OpenNewGame
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).OpenNewGame
+- uid: Discord.Addons.MpGame.MpGameService`2.RemoveUser(Discord.IMessageChannel,Discord.IUser)
+  name: RemoveUser(IMessageChannel, IUser)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_RemoveUser_Discord_IMessageChannel_Discord_IUser_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.RemoveUser(Discord.IMessageChannel,Discord.IUser)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.RemoveUser(Discord.IMessageChannel, Discord.IUser)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).RemoveUser(Discord.IMessageChannel, Discord.IUser)
+  nameWithType: MpGameService<TGame, TPlayer>.RemoveUser(IMessageChannel, IUser)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).RemoveUser(IMessageChannel, IUser)
+- uid: Discord.Addons.MpGame.MpGameService`2.RemoveUser*
+  name: RemoveUser
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_RemoveUser_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.RemoveUser
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.RemoveUser
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).RemoveUser
+  nameWithType: MpGameService<TGame, TPlayer>.RemoveUser
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).RemoveUser
+- uid: Discord.Addons.MpGame.MpGameService`2.TryAddNewGame(Discord.IMessageChannel,`0)
+  name: TryAddNewGame(IMessageChannel, TGame)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_TryAddNewGame_Discord_IMessageChannel__0_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.TryAddNewGame(Discord.IMessageChannel,`0)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.TryAddNewGame(Discord.IMessageChannel, TGame)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).TryAddNewGame(Discord.IMessageChannel, TGame)
+  nameWithType: MpGameService<TGame, TPlayer>.TryAddNewGame(IMessageChannel, TGame)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).TryAddNewGame(IMessageChannel, TGame)
+- uid: Discord.Addons.MpGame.MpGameService`2.TryAddNewGame*
+  name: TryAddNewGame
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_TryAddNewGame_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.TryAddNewGame
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.TryAddNewGame
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).TryAddNewGame
+  nameWithType: MpGameService<TGame, TPlayer>.TryAddNewGame
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).TryAddNewGame
+- uid: Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin(Discord.IMessageChannel,System.Boolean,System.Boolean)
+  name: TryUpdateOpenToJoin(IMessageChannel, Boolean, Boolean)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_TryUpdateOpenToJoin_Discord_IMessageChannel_System_Boolean_System_Boolean_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin(Discord.IMessageChannel,System.Boolean,System.Boolean)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.TryUpdateOpenToJoin(Discord.IMessageChannel, System.Boolean, System.Boolean)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).TryUpdateOpenToJoin(Discord.IMessageChannel, System.Boolean, System.Boolean)
+  nameWithType: MpGameService<TGame, TPlayer>.TryUpdateOpenToJoin(IMessageChannel, Boolean, Boolean)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).TryUpdateOpenToJoin(IMessageChannel, Boolean, Boolean)
+- uid: Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin*
+  name: TryUpdateOpenToJoin
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_TryUpdateOpenToJoin_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.TryUpdateOpenToJoin
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).TryUpdateOpenToJoin
+  nameWithType: MpGameService<TGame, TPlayer>.TryUpdateOpenToJoin
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).TryUpdateOpenToJoin
+- uid: Discord.Addons.MpGame.Player
+  name: Player
+  href: api/Discord.Addons.MpGame.Player.html
+  commentId: T:Discord.Addons.MpGame.Player
+  fullName: Discord.Addons.MpGame.Player
+  nameWithType: Player
+- uid: Discord.Addons.MpGame.Player.#ctor(Discord.IUser,Discord.IMessageChannel)
+  name: Player(IUser, IMessageChannel)
+  href: api/Discord.Addons.MpGame.Player.html#Discord_Addons_MpGame_Player__ctor_Discord_IUser_Discord_IMessageChannel_
+  commentId: M:Discord.Addons.MpGame.Player.#ctor(Discord.IUser,Discord.IMessageChannel)
+  fullName: Discord.Addons.MpGame.Player.Player(Discord.IUser, Discord.IMessageChannel)
+  nameWithType: Player.Player(IUser, IMessageChannel)
+- uid: Discord.Addons.MpGame.Player.#ctor*
+  name: Player
+  href: api/Discord.Addons.MpGame.Player.html#Discord_Addons_MpGame_Player__ctor_
+  commentId: Overload:Discord.Addons.MpGame.Player.#ctor
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Player.Player
+  nameWithType: Player.Player
+- uid: Discord.Addons.MpGame.Player.SendMessageAsync(System.String,Discord.Embed)
+  name: SendMessageAsync(String, Embed)
+  href: api/Discord.Addons.MpGame.Player.html#Discord_Addons_MpGame_Player_SendMessageAsync_System_String_Discord_Embed_
+  commentId: M:Discord.Addons.MpGame.Player.SendMessageAsync(System.String,Discord.Embed)
+  fullName: Discord.Addons.MpGame.Player.SendMessageAsync(System.String, Discord.Embed)
+  nameWithType: Player.SendMessageAsync(String, Embed)
+- uid: Discord.Addons.MpGame.Player.SendMessageAsync*
+  name: SendMessageAsync
+  href: api/Discord.Addons.MpGame.Player.html#Discord_Addons_MpGame_Player_SendMessageAsync_
+  commentId: Overload:Discord.Addons.MpGame.Player.SendMessageAsync
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Player.SendMessageAsync
+  nameWithType: Player.SendMessageAsync
+- uid: Discord.Addons.MpGame.Player.ShouldKick(System.Int32)
+  name: ShouldKick(Int32)
+  href: api/Discord.Addons.MpGame.Player.html#Discord_Addons_MpGame_Player_ShouldKick_System_Int32_
+  commentId: M:Discord.Addons.MpGame.Player.ShouldKick(System.Int32)
+  fullName: Discord.Addons.MpGame.Player.ShouldKick(System.Int32)
+  nameWithType: Player.ShouldKick(Int32)
+- uid: Discord.Addons.MpGame.Player.ShouldKick*
+  name: ShouldKick
+  href: api/Discord.Addons.MpGame.Player.html#Discord_Addons_MpGame_Player_ShouldKick_
+  commentId: Overload:Discord.Addons.MpGame.Player.ShouldKick
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Player.ShouldKick
+  nameWithType: Player.ShouldKick
+- uid: Discord.Addons.MpGame.Player.User
+  name: User
+  href: api/Discord.Addons.MpGame.Player.html#Discord_Addons_MpGame_Player_User
+  commentId: P:Discord.Addons.MpGame.Player.User
+  fullName: Discord.Addons.MpGame.Player.User
+  nameWithType: Player.User
+- uid: Discord.Addons.MpGame.Player.User*
+  name: User
+  href: api/Discord.Addons.MpGame.Player.html#Discord_Addons_MpGame_Player_User_
+  commentId: Overload:Discord.Addons.MpGame.Player.User
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Player.User
+  nameWithType: Player.User
