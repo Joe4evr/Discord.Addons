@@ -4,7 +4,7 @@
     /// Defines a strategy to use for managing temporary buffers.
     /// </summary>
     /// <typeparam name="T">The object type.</typeparam>
-    internal interface IBufferStrategy<T>
+    public interface IBufferStrategy<T>
     {
         /// <summary>
         /// Gets a buffer of the specified size.

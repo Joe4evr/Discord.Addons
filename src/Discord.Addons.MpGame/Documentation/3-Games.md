@@ -118,7 +118,7 @@ public class CardGame : GameBase<CardPlayer> // Any player in a 'CardGame' is of
         {
             // Use 'TurnPlayer.Value' to get the
             // actual instance value of the player.
-            TurnPlayer.Value.AddCard(Deck.Pop());
+            TurnPlayer.Value.AddCard(Deck.Draw());
         }
     }
 

@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
+    <!--<Import Project="..\..\DiscordAddonsCore.props" />-->
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <AssemblyName>Discord.Addons.MpGame.Analyzers</AssemblyName>
+        <VersionPrefix>1.2.0</VersionPrefix>
+        <VersionSuffix>alpha5</VersionSuffix>
+        <Description>Analyzers to instruct usage of MpGame</Description>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis" Version="2.6.0" />

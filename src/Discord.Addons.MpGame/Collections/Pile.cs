@@ -6,13 +6,14 @@ using System.Runtime.CompilerServices;
 
 namespace Discord.Addons.MpGame.Collections
 {
-    [DebuggerDisplay("Count = {Count}")]
     /// <summary>
     /// Base type to represent a pile of objects,
     /// specifically for use in card games.
     /// </summary>
     /// <typeparam name="TCard">The card type.</typeparam>
-    /// <remarks>This class is not thread-safe.</remarks>
+    /// <remarks><div class="markdown level0 remarks"><div class="CAUTION">
+    /// <h5>Caution</h5><p>This class is not thread-safe.</p></div></div></remarks>
+    [DebuggerDisplay("Count = {Count}")]
     public abstract partial class Pile<TCard>
         where TCard : class
     {
@@ -43,7 +44,7 @@ namespace Discord.Addons.MpGame.Collections
         /// </summary>
         /// <remarks>The default strategy is to allocate new arrays and
         /// let the GC clean them up.</remarks>
-        internal IBufferStrategy<TCard> BufferStrategy { private get; set; } = NonPoolingStrategy.Instance;
+        protected IBufferStrategy<TCard> BufferStrategy { private get; set; } = NonPoolingStrategy.Instance;
 
         /// <summary>
         /// Indicates whether or not this <see cref="Pile{TCard}"/> is freely browsable.
@@ -54,6 +55,13 @@ namespace Discord.Addons.MpGame.Collections
         /// Indicates whether or not this <see cref="Pile{TCard}"/> can be cleared.
         /// </summary>
         public abstract bool CanClear { get; }
+
+        /// <summary>
+        /// Indicates whether or not this <see cref="Pile{TCard}"/>
+        /// can be cut, ie. taking a number of cards from the top
+        /// and putting them underneath the remainder.
+        /// </summary>
+        public abstract bool CanCut { get; }
 
         /// <summary>
         /// Indicates whether or not this <see cref="Pile{TCard}"/> allows drawing cards.
@@ -113,7 +121,7 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Draws a card from the pile. If the last card is
+        /// Draws the top card from the pile. If the last card is
         /// drawn, calls <see cref="OnLastDraw"/>.
         /// Requires <see cref="CanDraw"/>.
         /// </summary>
@@ -264,11 +272,38 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
+        /// Cuts the pile at a specified number of cards from the top
+        /// and places the taken cards on the bottom.
+        /// </summary>
+        /// <param name="cutIndex">The number of cards to send to the bottom.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="cutIndex"/>
+        /// was less than 0 or greater than the pile's current size.</exception>
+        /// <exception cref="InvalidOperationException">The instance does not
+        /// allow cutting the pile.</exception>
+        public void Cut(int cutIndex)
+        {
+            ThrowForFailedCheck(CanCut, ErrorStrings.NoCut);
+
+            if (cutIndex == 0 || cutIndex == Count)
+                return; //no changes
+
+            if (cutIndex < 0)
+                throw new ArgumentOutOfRangeException(message: "Cut index may not be negative.", paramName: nameof(cutIndex));
+            if (cutIndex > Count)
+                throw new ArgumentOutOfRangeException(message: "Cut index may not be greater than the pile's current size.", paramName: nameof(cutIndex));
+
+            for (int i = 0; i < cutIndex; i++)
+            {
+                _bottom.Enqueue(TakeTopInternal());
+            }
+        }
+
+        /// <summary>
         /// Reshuffles the pile using the specified function.
         /// Requires <see cref="CanShuffle"/>.
         /// </summary>
-        /// <param name="shuffleFunc">A function that produces a
-        /// new <see cref="IEnumerable{TCard}"/> for the pile.
+        /// <param name="shuffleFunc">A function that produces an
+        /// <see cref="IEnumerable{TCard}"/> in a new, random order.
         /// This function receives the cards currently in
         /// the pile as its argument.</param>
         /// <exception cref="InvalidOperationException">The instance
@@ -293,7 +328,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <param name="card">The card that is placed.</param>
         protected virtual void OnPut(TCard card) { }
 
-        private bool IsIndexInTop(int i) => i < _top.Count;
+        //private bool IsIndexInTop(int i) => i < _top.Count;
         private IReadOnlyCollection<TCard> GetAllInternal(bool clear)
         {
             var size = Count;
@@ -304,7 +339,7 @@ namespace Discord.Addons.MpGame.Collections
 
             return result;
         }
-        private TCard TakeTopInternal() => IsIndexInTop(0)
+        private TCard TakeTopInternal() => (_top.Count > 0) //IsIndexInTop(0)
             ? _top.Pop()
             : _bottom.Dequeue();
         private TCard[] MakeBuffer(int bufferSize)
@@ -337,6 +372,7 @@ namespace Discord.Addons.MpGame.Collections
     {
         internal static readonly string NoBrowse  = "Not allowed to browse this instance.";
         internal static readonly string NoClear   = "Not allowed to clear this instance.";
+        internal static readonly string NoCut     = "Not allowed to cut this instance.";
         internal static readonly string NoDraw    = "Not allowed to draw on this instance.";
         internal static readonly string NoInsert  = "Not allowed to insert at arbitrary index on this instance.";
         internal static readonly string NoPeek    = "Not allowed to peek on this instance.";

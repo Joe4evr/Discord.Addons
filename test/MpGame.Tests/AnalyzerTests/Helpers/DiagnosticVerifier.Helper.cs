@@ -21,8 +21,6 @@ namespace TestHelper
         private static readonly MetadataReference SystemCoreReference = MetadataReference.CreateFromFile(typeof(Enumerable).GetTypeInfo().Assembly.Location);
         private static readonly MetadataReference CSharpSymbolsReference = MetadataReference.CreateFromFile(typeof(CSharpCompilation).GetTypeInfo().Assembly.Location);
         private static readonly MetadataReference CodeAnalysisReference = MetadataReference.CreateFromFile(typeof(Compilation).GetTypeInfo().Assembly.Location);
-        //private static readonly MetadataReference DiscordNetReference = MetadataReference.CreateFromFile(typeof(IDiscordClient).GetTypeInfo().Assembly.Location);
-        //private static readonly MetadataReference DiscordCommandsReference = MetadataReference.CreateFromFile(typeof(CommandAttribute).GetTypeInfo().Assembly.Location);
         private static readonly Assembly MpgameAssembly = typeof(MpGameService<>).GetTypeInfo().Assembly;
 
         internal static string DefaultFilePathPrefix = "Test";

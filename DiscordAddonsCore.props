@@ -9,6 +9,7 @@
         <PackageId>$(AssemblyName)</PackageId>
         <RootNamespace>$(AssemblyName)</RootNamespace>
         <Title>$(AssemblyName)</Title>
+        <Authors>Joe4evr</Authors>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <PackageProjectUrl>https://github.com/Joe4evr/Discord.Addons</PackageProjectUrl>
         <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>

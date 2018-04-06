@@ -197,7 +197,7 @@ namespace Discord.Addons.MpGame
         /// <summary> Retrieve the game instance being played, if any. </summary>
         /// <param name="channel">A message channel. Can be both the public-facing channel
         /// or the DM channel of one of the players.</param>
-        /// <returns>The <see cref="TGame"/> instance being played in the specified channel,
+        /// <returns>The <typeparamref name="TGame"/> instance being played in the specified channel,
         /// or that the user is playing in, or <see langword="null"/> if there is none.</returns>
         public TGame GetGameFromChannel(IMessageChannel channel)
             => (TryGetPersistentData(channel, out var data))

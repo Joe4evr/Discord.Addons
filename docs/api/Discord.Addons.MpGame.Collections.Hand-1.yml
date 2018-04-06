@@ -11,6 +11,7 @@ items:
   - Discord.Addons.MpGame.Collections.Hand`1.Cards
   - Discord.Addons.MpGame.Collections.Hand`1.Clear
   - Discord.Addons.MpGame.Collections.Hand`1.Count
+  - Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
   - Discord.Addons.MpGame.Collections.Hand`1.TakeAt(System.Int32)
   - Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault(System.Func{`0,System.Boolean})
   langs:
@@ -373,6 +374,52 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Clear()
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+  id: Order(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+  parent: Discord.Addons.MpGame.Collections.Hand`1
+  langs:
+  - csharp
+  - vb
+  name: Order(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
+  nameWithType: Hand<TCard>.Order(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Order(System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Hand.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Order
+    path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
+    startLine: 108
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nOrders the cards using the specified function.\n"
+  example: []
+  syntax:
+    content: public void Order(Func<IEnumerable<TCard>, IEnumerable<TCard>> orderFunc)
+    parameters:
+    - id: orderFunc
+      type: System.Func{System.Collections.Generic.IEnumerable{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
+      description: >-
+        A function that produces an
+
+        <xref href="System.Collections.Generic.IEnumerable%601" data-throw-if-not-resolved="false"></xref> in a new order.
+
+        This function receives the cards currently in
+
+        the hand as its argument.
+    content.vb: Public Sub Order(orderFunc As Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+  overload: Discord.Addons.MpGame.Collections.Hand`1.Order*
+  nameWithType.vb: Hand(Of TCard).Order(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Order(System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
+  name.vb: Order(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
 references:
 - uid: Discord.Addons.MpGame.Collections.Pile`1
   commentId: T:Discord.Addons.MpGame.Collections.Pile`1
@@ -816,3 +863,107 @@ references:
   fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Clear
   nameWithType.vb: Hand(Of TCard).Clear
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Clear
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Order*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Order
+  isExternal: false
+  name: Order
+  nameWithType: Hand<TCard>.Order
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Order
+  nameWithType.vb: Hand(Of TCard).Order
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Order
+- uid: System.Func{System.Collections.Generic.IEnumerable{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
+  commentId: T:System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}}
+  parent: System
+  definition: System.Func`2
+  name: Func<IEnumerable<TCard>, IEnumerable<TCard>>
+  nameWithType: Func<IEnumerable<TCard>, IEnumerable<TCard>>
+  fullName: System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>
+  nameWithType.vb: Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard))
+  fullName.vb: System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard))
+  name.vb: Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )

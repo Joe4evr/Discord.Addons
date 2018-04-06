@@ -4,7 +4,7 @@ namespace Discord.Addons.MpGame.Collections
 {
     public abstract partial class Pile<TCard>
     {
-        private class NonPoolingStrategy : IBufferStrategy<TCard>
+        private sealed class NonPoolingStrategy : IBufferStrategy<TCard>
         {
             public static NonPoolingStrategy Instance { get; } = new NonPoolingStrategy();
 

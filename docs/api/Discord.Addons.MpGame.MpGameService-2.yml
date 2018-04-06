@@ -571,7 +571,7 @@ items:
     return:
       type: '{TGame}'
       description: >-
-        The <see cref="!:TGame"></see> instance being played in the specified channel,
+        The <code data-dev-comment-type="typeparamref" class="typeparamref">TGame</code> instance being played in the specified channel,
 
         or that the user is playing in, or <xref uid="langword_csharp_null" name="null" href=""></xref> if there is none.
     content.vb: Public Function GetGameFromChannel(channel As IMessageChannel) As TGame

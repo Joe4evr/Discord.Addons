@@ -45,7 +45,7 @@ items:
   summary: 'Base class to manage a game between Discord users. '
   example: []
   syntax:
-    content: 'public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<ICommandContext>, IModuleBase where TService : MpGameService<TGame, TPlayer> where TGame : GameBase<TPlayer> where TPlayer : Player'
+    content: 'public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<SocketCommandContext>, IModuleBase where TService : MpGameService<TGame, TPlayer> where TGame : GameBase<TPlayer> where TPlayer : Player'
     typeParameters:
     - id: TService
       description: The type of the service managing longer lived objects.
@@ -55,15 +55,15 @@ items:
       description: The type of the <xref href="Discord.Addons.MpGame.MpGameModuleBase%603.Player" data-throw-if-not-resolved="false"></xref> object.
     content.vb: >-
       Public MustInherit Class MpGameModuleBase(Of TService As MpGameService(Of TGame, TPlayer), TGame As GameBase(Of TPlayer), TPlayer As Player)
-          Inherits ModuleBase(Of ICommandContext)
+          Inherits ModuleBase(Of SocketCommandContext)
           Implements IModuleBase
   inheritance:
   - System.Object
-  - Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}
+  - Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}
   inheritedMembers:
-  - Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.ReplyAsync(System.String,System.Boolean,Discord.Embed,Discord.RequestOptions)
-  - Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.AfterExecute(Discord.Commands.CommandInfo)
-  - Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.Context
+  - Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.ReplyAsync(System.String,System.Boolean,Discord.Embed,Discord.RequestOptions)
+  - Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.AfterExecute(Discord.Commands.CommandInfo)
+  - Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.Context
   nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer)
   modifiers.csharp:
   - public
@@ -373,7 +373,7 @@ items:
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
-  summary: 'Initialize fields whose values come from the <see cref="!:TService"></see>&apos;s Dictionaries. '
+  summary: 'Initialize fields whose values come from the <code data-dev-comment-type="typeparamref" class="typeparamref">TService</code>&apos;s Dictionaries. '
   example: []
   syntax:
     content: protected override void BeforeExecute(CommandInfo command)
@@ -381,7 +381,7 @@ items:
     - id: command
       type: Discord.Commands.CommandInfo
     content.vb: Protected Overrides Sub BeforeExecute(command As CommandInfo)
-  overridden: Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.BeforeExecute(Discord.Commands.CommandInfo)
+  overridden: Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.BeforeExecute(Discord.Commands.CommandInfo)
   overload: Discord.Addons.MpGame.MpGameModuleBase`3.BeforeExecute*
   nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).BeforeExecute(CommandInfo)
   modifiers.csharp:
@@ -416,7 +416,7 @@ items:
   summary: >-
     Override this to return <xref uid="langword_csharp_false" name="false" href=""></xref> if you don&apos;t
 
-    want to register a type reader for the <see cref="!:TPlayer"></see> type.
+    want to register a type reader for the <code data-dev-comment-type="typeparamref" class="typeparamref">TPlayer</code> type.
   example: []
   syntax:
     content: protected virtual bool RegisterPlayerTypeReader { get; }
@@ -465,7 +465,7 @@ items:
     - id: builder
       type: Discord.Commands.Builders.ModuleBuilder
     content.vb: Protected Overrides Sub OnModuleBuilding(commandService As CommandService, builder As ModuleBuilder)
-  overridden: Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.OnModuleBuilding(Discord.Commands.CommandService,Discord.Commands.Builders.ModuleBuilder)
+  overridden: Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.OnModuleBuilding(Discord.Commands.CommandService,Discord.Commands.Builders.ModuleBuilder)
   overload: Discord.Addons.MpGame.MpGameModuleBase`3.OnModuleBuilding*
   nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).OnModuleBuilding(CommandService, ModuleBuilder)
   modifiers.csharp:
@@ -949,16 +949,16 @@ references:
   name: Object
   nameWithType: Object
   fullName: System.Object
-- uid: Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}
-  commentId: T:Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}
+- uid: Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}
+  commentId: T:Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}
   parent: Discord.Commands
   definition: Discord.Commands.ModuleBase`1
-  name: ModuleBase<ICommandContext>
-  nameWithType: ModuleBase<ICommandContext>
-  fullName: Discord.Commands.ModuleBase<Discord.Commands.ICommandContext>
-  nameWithType.vb: ModuleBase(Of ICommandContext)
-  fullName.vb: Discord.Commands.ModuleBase(Of Discord.Commands.ICommandContext)
-  name.vb: ModuleBase(Of ICommandContext)
+  name: ModuleBase<SocketCommandContext>
+  nameWithType: ModuleBase<SocketCommandContext>
+  fullName: Discord.Commands.ModuleBase<Discord.Commands.SocketCommandContext>
+  nameWithType.vb: ModuleBase(Of SocketCommandContext)
+  fullName.vb: Discord.Commands.ModuleBase(Of Discord.Commands.SocketCommandContext)
+  name.vb: ModuleBase(Of SocketCommandContext)
   spec.csharp:
   - uid: Discord.Commands.ModuleBase`1
     name: ModuleBase
@@ -968,10 +968,10 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - uid: Discord.Commands.ICommandContext
-    name: ICommandContext
-    nameWithType: ICommandContext
-    fullName: Discord.Commands.ICommandContext
+  - uid: Discord.Commands.SocketCommandContext
+    name: SocketCommandContext
+    nameWithType: SocketCommandContext
+    fullName: Discord.Commands.SocketCommandContext
     isExternal: true
   - name: '>'
     nameWithType: '>'
@@ -985,28 +985,28 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: Discord.Commands.ICommandContext
-    name: ICommandContext
-    nameWithType: ICommandContext
-    fullName: Discord.Commands.ICommandContext
+  - uid: Discord.Commands.SocketCommandContext
+    name: SocketCommandContext
+    nameWithType: SocketCommandContext
+    fullName: Discord.Commands.SocketCommandContext
     isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.ReplyAsync(System.String,System.Boolean,Discord.Embed,Discord.RequestOptions)
-  commentId: M:Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.ReplyAsync(System.String,System.Boolean,Discord.Embed,Discord.RequestOptions)
-  parent: Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}
+- uid: Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.ReplyAsync(System.String,System.Boolean,Discord.Embed,Discord.RequestOptions)
+  commentId: M:Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.ReplyAsync(System.String,System.Boolean,Discord.Embed,Discord.RequestOptions)
+  parent: Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}
   definition: Discord.Commands.ModuleBase`1.ReplyAsync(System.String,System.Boolean,Discord.Embed,Discord.RequestOptions)
   name: ReplyAsync(String, Boolean, Embed, RequestOptions)
-  nameWithType: ModuleBase<ICommandContext>.ReplyAsync(String, Boolean, Embed, RequestOptions)
-  fullName: Discord.Commands.ModuleBase<Discord.Commands.ICommandContext>.ReplyAsync(System.String, System.Boolean, Discord.Embed, Discord.RequestOptions)
-  nameWithType.vb: ModuleBase(Of ICommandContext).ReplyAsync(String, Boolean, Embed, RequestOptions)
-  fullName.vb: Discord.Commands.ModuleBase(Of Discord.Commands.ICommandContext).ReplyAsync(System.String, System.Boolean, Discord.Embed, Discord.RequestOptions)
+  nameWithType: ModuleBase<SocketCommandContext>.ReplyAsync(String, Boolean, Embed, RequestOptions)
+  fullName: Discord.Commands.ModuleBase<Discord.Commands.SocketCommandContext>.ReplyAsync(System.String, System.Boolean, Discord.Embed, Discord.RequestOptions)
+  nameWithType.vb: ModuleBase(Of SocketCommandContext).ReplyAsync(String, Boolean, Embed, RequestOptions)
+  fullName.vb: Discord.Commands.ModuleBase(Of Discord.Commands.SocketCommandContext).ReplyAsync(System.String, System.Boolean, Discord.Embed, Discord.RequestOptions)
   spec.csharp:
   - uid: Discord.Commands.ModuleBase`1.ReplyAsync(System.String,System.Boolean,Discord.Embed,Discord.RequestOptions)
     name: ReplyAsync
-    nameWithType: ModuleBase<ICommandContext>.ReplyAsync
-    fullName: Discord.Commands.ModuleBase<Discord.Commands.ICommandContext>.ReplyAsync
+    nameWithType: ModuleBase<SocketCommandContext>.ReplyAsync
+    fullName: Discord.Commands.ModuleBase<Discord.Commands.SocketCommandContext>.ReplyAsync
     isExternal: true
   - name: (
     nameWithType: (
@@ -1046,8 +1046,8 @@ references:
   spec.vb:
   - uid: Discord.Commands.ModuleBase`1.ReplyAsync(System.String,System.Boolean,Discord.Embed,Discord.RequestOptions)
     name: ReplyAsync
-    nameWithType: ModuleBase(Of ICommandContext).ReplyAsync
-    fullName: Discord.Commands.ModuleBase(Of Discord.Commands.ICommandContext).ReplyAsync
+    nameWithType: ModuleBase(Of SocketCommandContext).ReplyAsync
+    fullName: Discord.Commands.ModuleBase(Of Discord.Commands.SocketCommandContext).ReplyAsync
     isExternal: true
   - name: (
     nameWithType: (
@@ -1084,20 +1084,20 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.AfterExecute(Discord.Commands.CommandInfo)
-  commentId: M:Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.AfterExecute(Discord.Commands.CommandInfo)
-  parent: Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}
+- uid: Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.AfterExecute(Discord.Commands.CommandInfo)
+  commentId: M:Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.AfterExecute(Discord.Commands.CommandInfo)
+  parent: Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}
   definition: Discord.Commands.ModuleBase`1.AfterExecute(Discord.Commands.CommandInfo)
   name: AfterExecute(CommandInfo)
-  nameWithType: ModuleBase<ICommandContext>.AfterExecute(CommandInfo)
-  fullName: Discord.Commands.ModuleBase<Discord.Commands.ICommandContext>.AfterExecute(Discord.Commands.CommandInfo)
-  nameWithType.vb: ModuleBase(Of ICommandContext).AfterExecute(CommandInfo)
-  fullName.vb: Discord.Commands.ModuleBase(Of Discord.Commands.ICommandContext).AfterExecute(Discord.Commands.CommandInfo)
+  nameWithType: ModuleBase<SocketCommandContext>.AfterExecute(CommandInfo)
+  fullName: Discord.Commands.ModuleBase<Discord.Commands.SocketCommandContext>.AfterExecute(Discord.Commands.CommandInfo)
+  nameWithType.vb: ModuleBase(Of SocketCommandContext).AfterExecute(CommandInfo)
+  fullName.vb: Discord.Commands.ModuleBase(Of Discord.Commands.SocketCommandContext).AfterExecute(Discord.Commands.CommandInfo)
   spec.csharp:
   - uid: Discord.Commands.ModuleBase`1.AfterExecute(Discord.Commands.CommandInfo)
     name: AfterExecute
-    nameWithType: ModuleBase<ICommandContext>.AfterExecute
-    fullName: Discord.Commands.ModuleBase<Discord.Commands.ICommandContext>.AfterExecute
+    nameWithType: ModuleBase<SocketCommandContext>.AfterExecute
+    fullName: Discord.Commands.ModuleBase<Discord.Commands.SocketCommandContext>.AfterExecute
     isExternal: true
   - name: (
     nameWithType: (
@@ -1113,8 +1113,8 @@ references:
   spec.vb:
   - uid: Discord.Commands.ModuleBase`1.AfterExecute(Discord.Commands.CommandInfo)
     name: AfterExecute
-    nameWithType: ModuleBase(Of ICommandContext).AfterExecute
-    fullName: Discord.Commands.ModuleBase(Of Discord.Commands.ICommandContext).AfterExecute
+    nameWithType: ModuleBase(Of SocketCommandContext).AfterExecute
+    fullName: Discord.Commands.ModuleBase(Of Discord.Commands.SocketCommandContext).AfterExecute
     isExternal: true
   - name: (
     nameWithType: (
@@ -1127,15 +1127,15 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.Context
-  commentId: P:Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.Context
-  parent: Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}
+- uid: Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.Context
+  commentId: P:Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.Context
+  parent: Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}
   definition: Discord.Commands.ModuleBase`1.Context
   name: Context
-  nameWithType: ModuleBase<ICommandContext>.Context
-  fullName: Discord.Commands.ModuleBase<Discord.Commands.ICommandContext>.Context
-  nameWithType.vb: ModuleBase(Of ICommandContext).Context
-  fullName.vb: Discord.Commands.ModuleBase(Of Discord.Commands.ICommandContext).Context
+  nameWithType: ModuleBase<SocketCommandContext>.Context
+  fullName: Discord.Commands.ModuleBase<Discord.Commands.SocketCommandContext>.Context
+  nameWithType.vb: ModuleBase(Of SocketCommandContext).Context
+  fullName.vb: Discord.Commands.ModuleBase(Of Discord.Commands.SocketCommandContext).Context
 - uid: System
   commentId: N:System
   isExternal: false
@@ -1580,20 +1580,20 @@ references:
   name: System.Collections.Generic
   nameWithType: System.Collections.Generic
   fullName: System.Collections.Generic
-- uid: Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.BeforeExecute(Discord.Commands.CommandInfo)
-  commentId: M:Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.BeforeExecute(Discord.Commands.CommandInfo)
-  parent: Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}
+- uid: Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.BeforeExecute(Discord.Commands.CommandInfo)
+  commentId: M:Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.BeforeExecute(Discord.Commands.CommandInfo)
+  parent: Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}
   definition: Discord.Commands.ModuleBase`1.BeforeExecute(Discord.Commands.CommandInfo)
   name: BeforeExecute(CommandInfo)
-  nameWithType: ModuleBase<ICommandContext>.BeforeExecute(CommandInfo)
-  fullName: Discord.Commands.ModuleBase<Discord.Commands.ICommandContext>.BeforeExecute(Discord.Commands.CommandInfo)
-  nameWithType.vb: ModuleBase(Of ICommandContext).BeforeExecute(CommandInfo)
-  fullName.vb: Discord.Commands.ModuleBase(Of Discord.Commands.ICommandContext).BeforeExecute(Discord.Commands.CommandInfo)
+  nameWithType: ModuleBase<SocketCommandContext>.BeforeExecute(CommandInfo)
+  fullName: Discord.Commands.ModuleBase<Discord.Commands.SocketCommandContext>.BeforeExecute(Discord.Commands.CommandInfo)
+  nameWithType.vb: ModuleBase(Of SocketCommandContext).BeforeExecute(CommandInfo)
+  fullName.vb: Discord.Commands.ModuleBase(Of Discord.Commands.SocketCommandContext).BeforeExecute(Discord.Commands.CommandInfo)
   spec.csharp:
   - uid: Discord.Commands.ModuleBase`1.BeforeExecute(Discord.Commands.CommandInfo)
     name: BeforeExecute
-    nameWithType: ModuleBase<ICommandContext>.BeforeExecute
-    fullName: Discord.Commands.ModuleBase<Discord.Commands.ICommandContext>.BeforeExecute
+    nameWithType: ModuleBase<SocketCommandContext>.BeforeExecute
+    fullName: Discord.Commands.ModuleBase<Discord.Commands.SocketCommandContext>.BeforeExecute
     isExternal: true
   - name: (
     nameWithType: (
@@ -1609,8 +1609,8 @@ references:
   spec.vb:
   - uid: Discord.Commands.ModuleBase`1.BeforeExecute(Discord.Commands.CommandInfo)
     name: BeforeExecute
-    nameWithType: ModuleBase(Of ICommandContext).BeforeExecute
-    fullName: Discord.Commands.ModuleBase(Of Discord.Commands.ICommandContext).BeforeExecute
+    nameWithType: ModuleBase(Of SocketCommandContext).BeforeExecute
+    fullName: Discord.Commands.ModuleBase(Of Discord.Commands.SocketCommandContext).BeforeExecute
     isExternal: true
   - name: (
     nameWithType: (
@@ -1688,20 +1688,20 @@ references:
   fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.RegisterPlayerTypeReader
   nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).RegisterPlayerTypeReader
   fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).RegisterPlayerTypeReader
-- uid: Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.OnModuleBuilding(Discord.Commands.CommandService,Discord.Commands.Builders.ModuleBuilder)
-  commentId: M:Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}.OnModuleBuilding(Discord.Commands.CommandService,Discord.Commands.Builders.ModuleBuilder)
-  parent: Discord.Commands.ModuleBase{Discord.Commands.ICommandContext}
+- uid: Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.OnModuleBuilding(Discord.Commands.CommandService,Discord.Commands.Builders.ModuleBuilder)
+  commentId: M:Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}.OnModuleBuilding(Discord.Commands.CommandService,Discord.Commands.Builders.ModuleBuilder)
+  parent: Discord.Commands.ModuleBase{Discord.Commands.SocketCommandContext}
   definition: Discord.Commands.ModuleBase`1.OnModuleBuilding(Discord.Commands.CommandService,Discord.Commands.Builders.ModuleBuilder)
   name: OnModuleBuilding(CommandService, ModuleBuilder)
-  nameWithType: ModuleBase<ICommandContext>.OnModuleBuilding(CommandService, ModuleBuilder)
-  fullName: Discord.Commands.ModuleBase<Discord.Commands.ICommandContext>.OnModuleBuilding(Discord.Commands.CommandService, Discord.Commands.Builders.ModuleBuilder)
-  nameWithType.vb: ModuleBase(Of ICommandContext).OnModuleBuilding(CommandService, ModuleBuilder)
-  fullName.vb: Discord.Commands.ModuleBase(Of Discord.Commands.ICommandContext).OnModuleBuilding(Discord.Commands.CommandService, Discord.Commands.Builders.ModuleBuilder)
+  nameWithType: ModuleBase<SocketCommandContext>.OnModuleBuilding(CommandService, ModuleBuilder)
+  fullName: Discord.Commands.ModuleBase<Discord.Commands.SocketCommandContext>.OnModuleBuilding(Discord.Commands.CommandService, Discord.Commands.Builders.ModuleBuilder)
+  nameWithType.vb: ModuleBase(Of SocketCommandContext).OnModuleBuilding(CommandService, ModuleBuilder)
+  fullName.vb: Discord.Commands.ModuleBase(Of Discord.Commands.SocketCommandContext).OnModuleBuilding(Discord.Commands.CommandService, Discord.Commands.Builders.ModuleBuilder)
   spec.csharp:
   - uid: Discord.Commands.ModuleBase`1.OnModuleBuilding(Discord.Commands.CommandService,Discord.Commands.Builders.ModuleBuilder)
     name: OnModuleBuilding
-    nameWithType: ModuleBase<ICommandContext>.OnModuleBuilding
-    fullName: Discord.Commands.ModuleBase<Discord.Commands.ICommandContext>.OnModuleBuilding
+    nameWithType: ModuleBase<SocketCommandContext>.OnModuleBuilding
+    fullName: Discord.Commands.ModuleBase<Discord.Commands.SocketCommandContext>.OnModuleBuilding
     isExternal: true
   - name: (
     nameWithType: (
@@ -1725,8 +1725,8 @@ references:
   spec.vb:
   - uid: Discord.Commands.ModuleBase`1.OnModuleBuilding(Discord.Commands.CommandService,Discord.Commands.Builders.ModuleBuilder)
     name: OnModuleBuilding
-    nameWithType: ModuleBase(Of ICommandContext).OnModuleBuilding
-    fullName: Discord.Commands.ModuleBase(Of Discord.Commands.ICommandContext).OnModuleBuilding
+    nameWithType: ModuleBase(Of SocketCommandContext).OnModuleBuilding
+    fullName: Discord.Commands.ModuleBase(Of Discord.Commands.SocketCommandContext).OnModuleBuilding
     isExternal: true
   - name: (
     nameWithType: (

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Immutable;
-using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -12,13 +11,14 @@ namespace Discord.Addons.MpGame.Analyzers
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public sealed class BufferStrategySetterAnalyzer : DiagnosticAnalyzer
     {
-        private const string DiagnosticId = "MPG0001";
-        private const string Title = "Restrict BufferStrategy setting";
-        private const string MessageFormat = "Do not set the BufferStrategy outside of the constructor.";
-        private const string Description = "";
-        private const string Category = "API Usage";
+        internal const string DiagnosticId = "MPG0001";
+        internal const string Title = "Restrict BufferStrategy setting";
+        internal const string MessageFormat = "Do not set the BufferStrategy outside of the constructor.";
+        internal const string Description = "Do not set the BufferStrategy outside of the constructor.";
+        internal const string Category = "API Usage";
+        internal const DiagnosticSeverity Severity = DiagnosticSeverity.Warning;
 
-        private static DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
+        private static DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, Severity, isEnabledByDefault: true, description: Description);
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 
@@ -38,15 +38,6 @@ namespace Discord.Addons.MpGame.Analyzers
             var ctor = assignment.FirstAncestorOrSelf<ConstructorDeclarationSyntax>();
             if (ctor != null)
                 return; //we inside a ctor, this analyzer doesn't care anymore
-
-            var classDecl = assignment.FirstAncestorOrSelf<ClassDeclarationSyntax>();
-            if (classDecl == null)
-                return; //we're entirely irrelevant to structs
-
-            //may get removed if IBufferStrategy<T> gets used in more places
-            var classSymbol = context.SemanticModel.GetDeclaredSymbol(classDecl);
-            if (classSymbol != null && !classSymbol.IsOrDerivesFromType(_pileType))
-                return; //trigger was outside of a Pile-derived class, bail out
 
             var symbolInfo = context.SemanticModel.GetSymbolInfo(assignment.Left);
             if (!(symbolInfo.Symbol is IPropertySymbol symbol))

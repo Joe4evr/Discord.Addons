@@ -16,7 +16,7 @@ namespace Discord.Addons.MpGame.Collections
     public sealed class Hand<TCard>
         where TCard : class
     {
-        private readonly List<TCard> _hand;
+        private List<TCard> _hand;
 
         /// <summary>
         /// The amount of cards currently in the hand.
@@ -97,6 +97,18 @@ namespace Discord.Addons.MpGame.Collections
             var result = _hand.ToImmutableArray();
             _hand.Clear();
             return result;
+        }
+
+        /// <summary>
+        /// Orders the cards using the specified function.
+        /// </summary>
+        /// <param name="orderFunc">A function that produces an
+        /// <see cref="IEnumerable{TCard}"/> in a new order.
+        /// This function receives the cards currently in
+        /// the hand as its argument.</param>
+        public void Order(Func<IEnumerable<TCard>, IEnumerable<TCard>> orderFunc)
+        {
+            _hand = new List<TCard>(orderFunc(_hand.ToImmutableArray()));
         }
     }
 }

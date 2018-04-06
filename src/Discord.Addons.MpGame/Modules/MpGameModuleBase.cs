@@ -12,7 +12,7 @@ namespace Discord.Addons.MpGame
     /// <typeparam name="TService">The type of the service managing longer lived objects.</typeparam>
     /// <typeparam name="TGame">The type of game to manage.</typeparam>
     /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
-    public abstract partial class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<ICommandContext>
+    public abstract partial class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<SocketCommandContext>
         where TService : MpGameService<TGame, TPlayer>
         where TGame    : GameBase<TPlayer>
         where TPlayer  : Player
@@ -46,7 +46,7 @@ namespace Discord.Addons.MpGame
         /// updated until the <i>next</i> command invocation.</remarks>
         protected IReadOnlyCollection<IUser> JoinedUsers { get; private set; } = ImmutableHashSet<IUser>.Empty;
 
-        /// <summary> Initialize fields whose values come from the <see cref="TService"/>'s Dictionaries. </summary>
+        /// <summary> Initialize fields whose values come from the <typeparamref name="TService"/>'s Dictionaries. </summary>
         protected override void BeforeExecute(CommandInfo command)
         {
             base.BeforeExecute(command);
@@ -75,7 +75,7 @@ namespace Discord.Addons.MpGame
         }
 
         /// <summary> Override this to return <see langword="false"/> if you don't
-        /// want to register a type reader for the <see cref="TPlayer"/> type.</summary>
+        /// want to register a type reader for the <typeparamref name="TPlayer"/> type.</summary>
         protected virtual bool RegisterPlayerTypeReader => true;
 
         protected override void OnModuleBuilding(CommandService commandService, ModuleBuilder builder)

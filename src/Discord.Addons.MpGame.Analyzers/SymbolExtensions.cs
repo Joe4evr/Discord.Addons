@@ -10,10 +10,21 @@ namespace Discord.Addons.MpGame.Analyzers
             if (symbol.MetadataName == type.Name)
                 return true;
 
-            for (var bType = symbol.BaseType; bType != null; bType = bType.BaseType)
+            if (type.IsInterface)
             {
-                if (bType.MetadataName == type.Name)
-                    return true;
+                foreach (var iface in symbol.AllInterfaces)
+                {
+                    if (iface.MetadataName == type.Name)
+                        return true;
+                }
+            }
+            else
+            {
+                for (var bType = symbol.BaseType; bType != null; bType = bType.BaseType)
+                {
+                    if (bType.MetadataName == type.Name)
+                        return true;
+                }
             }
             return false;
         }

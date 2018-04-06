@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 using Discord.Addons.MpGame;
-using System.Threading.Tasks;
 
 namespace Examples.MpGame
 {
