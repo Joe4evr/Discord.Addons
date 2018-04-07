@@ -42,8 +42,9 @@ namespace Discord.Addons.MpGame.Collections
         /// <summary>
         /// Defines the strategy used for buffering cards.
         /// </summary>
-        /// <remarks>The default strategy is to allocate new arrays and
-        /// let the GC clean them up.</remarks>
+        /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
+        /// <h5>Note</h5><p>The default strategy is to allocate new arrays and
+        /// let the GC clean them up.</p></div></div></remarks>
         protected IBufferStrategy<TCard> BufferStrategy { private get; set; } = NonPoolingStrategy.Instance;
 
         /// <summary>
@@ -223,6 +224,11 @@ namespace Discord.Addons.MpGame.Collections
                 _top.Push(card);
                 return;
             }
+            if (index == Count)
+            {
+                _bottom.Enqueue(card);
+                return;
+            }
 
             var buffer = MakeBuffer(index);
             _top.Push(card);
@@ -249,6 +255,10 @@ namespace Discord.Addons.MpGame.Collections
             if (index == 0)
             {
                 return TakeTopInternal();
+            }
+            if (index == _top.Count)
+            {
+                return _bottom.Dequeue();
             }
 
             var buffer = MakeBuffer(index);
@@ -317,15 +327,17 @@ namespace Discord.Addons.MpGame.Collections
 
         /// <summary>
         /// Automatically called when the last card is drawn.
-        /// Does nothing by default.
         /// </summary>
+        /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
+        /// <h5>Note</h5><p>Does nothing by default.</p></div></div></remarks>
         protected virtual void OnLastDraw() { }
 
         /// <summary>
         /// Automatically called when a card is put on top of the pile.
-        /// Does nothing by default.
         /// </summary>
         /// <param name="card">The card that is placed.</param>
+        /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
+        /// <h5>Note</h5><p>Does nothing by default.</p></div></div></remarks>
         protected virtual void OnPut(TCard card) { }
 
         //private bool IsIndexInTop(int i) => i < _top.Count;

@@ -178,12 +178,17 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: ShouldKick
     path: ../src/Discord.Addons.MpGame/Models/Player.cs
-    startLine: 70
+    startLine: 72
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
   summary: "Can be overriden to determine if\na player should be kicked for not\nhaving DMs enabled for too long. "
-  remarks: The default implementation always returns <xref uid="langword_csharp_false" name="false" href=""></xref>.
+  remarks: >-
+    <div class="markdown level0 remarks"><div class="NOTE">
+
+    <h5>Note</h5><p>The default implementation always
+
+    returns <xref uid="langword_csharp_false" name="false" href=""></xref>.</p></div></div>
   example: []
   syntax:
     content: protected virtual bool ShouldKick(int backstuffedDms)

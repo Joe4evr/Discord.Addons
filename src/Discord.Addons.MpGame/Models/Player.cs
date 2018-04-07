@@ -67,7 +67,9 @@ namespace Discord.Addons.MpGame
         /// currently not sent to this player.</param>
         /// <returns><see langword="true"/> if the player should be kicked,
         /// otherwise <see langword="false"/>.</returns>
-        /// <remarks>The default implementation always returns <see langword="false"/>.</remarks>
+        /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
+        /// <h5>Note</h5><p>The default implementation always
+        /// returns <see langword="false"/>.</p></div></div></remarks>
         protected virtual bool ShouldKick(int backstuffedDms) => false;
 
         internal async Task RetrySendMessagesAsync()

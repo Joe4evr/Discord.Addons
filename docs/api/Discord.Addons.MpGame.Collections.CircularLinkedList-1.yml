@@ -327,7 +327,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Find
     path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
-    startLine: 171
+    startLine: 175
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -368,7 +368,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: GetEnumerator
     path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
-    startLine: 183
+    startLine: 187
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -407,7 +407,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: GetReverseEnumerator
     path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
-    startLine: 198
+    startLine: 202
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -444,7 +444,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Contains
     path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
-    startLine: 214
+    startLine: 218
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -486,7 +486,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: System.Collections.IEnumerable.GetEnumerator
     path: ../src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs
-    startLine: 245
+    startLine: 249
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections

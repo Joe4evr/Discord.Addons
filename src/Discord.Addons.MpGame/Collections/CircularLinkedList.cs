@@ -37,7 +37,7 @@ namespace Discord.Addons.MpGame.Collections
                     AddLast(item);
             }
 
-            _count = collection?.Count() ?? 0;
+            //_count = collection?.Count() ?? 0;
         }
 
         /// <summary> Gets the head node. Returns <see langword="null"/> if no node found </summary>
@@ -48,7 +48,7 @@ namespace Discord.Addons.MpGame.Collections
 
         /// <summary> Gets total number of items in the list </summary>
         public int Count => _count;
-        private int _count;
+        private int _count = 0;
 
         /// <summary> Gets the item at the current index </summary>
         /// <param name="index">Zero-based index</param>
@@ -73,19 +73,23 @@ namespace Discord.Addons.MpGame.Collections
         /// <param name="item">Item to be added</param>
         internal void AddLast(T item)
         {
-            // if head is null, then this will be the first item
-            if (Head == null)
+            lock (_lock)
             {
-                AddFirstItem(item);
-            }
-            else
-            {
-                var newNode = new Node<T>(item);
-                Tail.Next = newNode;
-                newNode.Next = Head;
-                newNode.Previous = Tail;
-                Tail = newNode;
-                Head.Previous = Tail;
+                // if head is null, then this will be the first item
+                if (Head == null)
+                {
+                    AddFirstItem(item);
+                }
+                else
+                {
+                    var newNode = new Node<T>(item);
+                    Tail.Next = newNode;
+                    newNode.Next = Head;
+                    newNode.Previous = Tail;
+                    Tail = newNode;
+                    Head.Previous = Tail;
+                }
+                Interlocked.Increment(ref _count);
             }
         }
 
@@ -97,7 +101,7 @@ namespace Discord.Addons.MpGame.Collections
             Head.Previous = Tail;
         }
 
-        /// <summary> Adds item to the last </summary>
+        /// <summary> Adds item to the list </summary>
         /// <param name="item">Item to be added</param>
         private void AddFirst(T item)
         {
@@ -217,7 +221,7 @@ namespace Discord.Addons.MpGame.Collections
 
         internal bool RemoveItem(T item)
         {
-            lock(_lock)
+            lock (_lock)
             {
                 var temp = Find(item);
                 if (temp != null)
