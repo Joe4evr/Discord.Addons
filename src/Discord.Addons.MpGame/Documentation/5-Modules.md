@@ -122,8 +122,10 @@ An extensive example can be found as my implementation of
 ### Inheriting a different ModuleBase
 To aid in composability, starting in version 1.2.0, `MpGameModuleBase<>`
 is decoupled from the `MpGameService<>`. So if you wish to combine MpGame
-with a different ModuleBase (or `ModuleBase<T>` directly), you only need
-to 1) inject the instance of the service into your module, and 2)
-override `BeforeExecute()` to get the associated data for that context.
+with a different ModuleBase (or inherit only `ModuleBase<T>` directly),
+you can do that by
+1. injecting the instance of the service into your module
+2. overriding `BeforeExecute()` where you can call `GetGameData()`
+to get the associated data for that context.
 
 [<- Part 4 - Services](4-Services.md) - Modules - [Part 6 - Final step ->](6-FinalStep.md)
