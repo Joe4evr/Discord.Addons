@@ -25,33 +25,33 @@ namespace MpGame.Tests
         public override bool CanShuffle   => HasPerm(PilePerms.CanShuffle);
         public override bool CanTake      => HasPerm(PilePerms.CanTake);
 
-        internal event Action<TestPile> LastDrawCalled;
+        internal event EventHandler<EventArgs> LastDrawCalled;
 
         protected override void OnLastDraw()
         {
             base.OnLastDraw();
-            LastDrawCalled?.Invoke(this);
+            LastDrawCalled?.Invoke(this, EventArgs.Empty);
         }
 
-        internal event Action<TestPile, TestCard> PutCalled;
+        internal event EventHandler<PutEventArgs> PutCalled;
 
         protected override void OnPut(TestCard card)
         {
             base.OnPut(card);
-            PutCalled?.Invoke(this, card);
+            PutCalled?.Invoke(this, new PutEventArgs(card));
         }
 
         private bool HasPerm(PilePerms perm) => (_perms & perm) == perm;
+    }
 
-        internal class PutEventArgs : EventArgs
+    internal class PutEventArgs : EventArgs
+    {
+        public PutEventArgs(TestCard card)
         {
-            public PutEventArgs(TestCard card)
-            {
-                Card = card;
-            }
-
-            public TestCard Card { get; }
+            Card = card;
         }
+
+        public TestCard Card { get; }
     }
 
     [Flags]

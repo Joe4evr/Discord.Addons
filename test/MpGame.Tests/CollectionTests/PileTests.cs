@@ -101,12 +101,12 @@ namespace MpGame.Tests.CollectionTests
         public void LastDrawCallsOnLastDraw()
         {
             var pile = new TestPile(withPerms: PilePerms.CanDraw, cards: CardFactory(1));
-            //Assert.Raises<EventArgs>(ea => pile.LastDrawCalled += ea, ea => pile.LastDrawCalled -= ea, () => pile.Draw());
-            pile.LastDrawCalled += p =>
+            pile.LastDrawCalled += (sender, e) =>
             {
-                Assert.Same(expected: pile, actual: p);
+                Assert.Same(expected: pile, actual: sender);
             };
-            var drawn = pile.Draw();
+
+            Assert.Raises<EventArgs>(handler => pile.LastDrawCalled += handler, handler => pile.LastDrawCalled -= handler, () => pile.Draw());
         }
 
         [Fact]
@@ -209,13 +209,14 @@ namespace MpGame.Tests.CollectionTests
         {
             var pile = new TestPile(withPerms: PilePerms.CanPut, cards: Enumerable.Empty<TestCard>());
             var newcard = new TestCard { Id = 1 };
-            pile.PutCalled += (p, c) =>
+            pile.PutCalled += (sender, e) =>
             {
-                Assert.Same(expected: pile, actual: p);
-                Assert.NotNull(c);
-                Assert.Same(expected: newcard, actual: c);
+                Assert.Same(expected: pile, actual: sender);
+                Assert.NotNull(e.Card);
+                Assert.Same(expected: newcard, actual: e.Card);
             };
-            pile.Put(card: newcard);
+
+            Assert.Raises<PutEventArgs>(handler => pile.PutCalled += handler, handler => pile.PutCalled -= handler, () => pile.Put(card: newcard));
         }
 
         [Fact]
