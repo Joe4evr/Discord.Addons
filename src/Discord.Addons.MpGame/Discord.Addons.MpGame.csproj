@@ -2,8 +2,8 @@
     <Import Project="..\..\DiscordAddonsCore.props" />
     <PropertyGroup>
         <AssemblyName>Discord.Addons.MpGame</AssemblyName>
-        <VersionPrefix>1.2.0</VersionPrefix>
-        <VersionSuffix>alpha5</VersionSuffix>
+        <VersionPrefix>$(MpGameMajor).$(DnetVersion).0</VersionPrefix>
+        <VersionSuffix>$(MpGameSuffix)</VersionSuffix>
         <Description>Base classes for text-based games in Discord</Description>
         <PackageTags>discord;commands;game</PackageTags>
     </PropertyGroup>
@@ -11,4 +11,7 @@
         <None Include="Documentation\*.md" />
         <None Include="README.md" />
     </ItemGroup>
+    <!--<ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis" Version="2.6.0" />
+    </ItemGroup>-->
 </Project>

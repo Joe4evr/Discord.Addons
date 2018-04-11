@@ -27,8 +27,7 @@ namespace Discord.Addons.MpGame.Analyzers
             context.RegisterSyntaxNodeAction(AnalyzeMemberAccess, SyntaxKind.SimpleAssignmentExpression);
         }
 
-        private static readonly Type _pileType = typeof(Pile<>);
-        private static readonly Type _bufferStratType = typeof(IBufferStrategy<>);
+        //private static readonly Type _bufferStratType = typeof(IBufferStrategy<>);
 
         private void AnalyzeMemberAccess(SyntaxNodeAnalysisContext context)
         {
@@ -43,7 +42,7 @@ namespace Discord.Addons.MpGame.Analyzers
             if (lhsType == null)
                 return; //assignment wasn't a property or field, get outta here
 
-            if (lhsType.IsOrDerivesFromType(_bufferStratType))
+            if (lhsType.IsOrDerivesFromType(typeof(IBufferStrategy<>)))
                 context.ReportDiagnostic(Diagnostic.Create(Rule, context.Node.GetLocation()));
         }
 

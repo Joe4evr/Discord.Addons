@@ -8,6 +8,6 @@
         <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Discord.Addons.MpGame.Analyzers\Discord.Addons.MpGame.Analyzers.csproj" />
+        <ProjectReference Include="..\..\src\Discord.Addons.MpGame.Analyzers\Discord.Addons.MpGame.Analyzers.csproj" />
     </ItemGroup>
 </Project>

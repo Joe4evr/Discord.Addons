@@ -2,8 +2,9 @@
     <Import Project="..\..\DiscordAddonsCore.props" />
     <PropertyGroup>
         <AssemblyName>Discord.Addons.MpGame.Analyzers</AssemblyName>
-        <VersionPrefix>1.2.0</VersionPrefix>
-        <VersionSuffix>alpha5</VersionSuffix>
+        <IsAnalyzer>true</IsAnalyzer>
+        <VersionPrefix>$(MpGameMajor).$(DnetVersion).0</VersionPrefix>
+        <VersionSuffix>$(MpGameSuffix)</VersionSuffix>
         <Description>Analyzers to instruct usage of MpGame</Description>
     </PropertyGroup>
     <ItemGroup>

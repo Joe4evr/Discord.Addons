@@ -19,6 +19,14 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>7.2</LangVersion>
     </PropertyGroup>
+    <PropertyGroup>
+        <DnetVersion>2</DnetVersion>
+
+        <MpGameMajor>1</MpGameMajor>
+        <MpGameSuffix>alpha5</MpGameSuffix>
+        <SimplePermMajor>1</SimplePermMajor>
+        <SimplePermSuffix>alpha1</SimplePermSuffix>
+</PropertyGroup>
     <ItemGroup>
         <!--<PackageReference Include="System.ValueTuple" Version="4.4.0" />-->
         <PackageReference Include="Discord.Net.Commands" Version="2.0.0-beta2-00915" />

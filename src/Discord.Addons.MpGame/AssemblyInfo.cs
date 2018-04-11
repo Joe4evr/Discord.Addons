@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Discord.Addons.MpGame.Analyzers")]
+[assembly: InternalsVisibleTo("MpGame.Tests")]
