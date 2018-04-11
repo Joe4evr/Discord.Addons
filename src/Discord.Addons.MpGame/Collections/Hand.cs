@@ -104,7 +104,7 @@ namespace Discord.Addons.MpGame.Collections
         public TCard TakeAt(int index)
         {
             ThrowArgOutOfRange(index < 0, ErrorStrings.RetrievalNegative, nameof(index));
-            ThrowArgOutOfRange(index > Count, ErrorStrings.RetrievalTooHigh, nameof(index));
+            ThrowArgOutOfRange(index > Count, ErrorStrings.RetrievalTooHighH, nameof(index));
 
             var tmp = _hand[index];
             _hand.RemoveAt(index);
@@ -147,7 +147,7 @@ namespace Discord.Addons.MpGame.Collections
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void ThrowArgOutOfRange(bool check, string msg, string argname)
         {
-            if (!check)
+            if (check)
                 throw new ArgumentOutOfRangeException(message: msg, paramName: argname);
         }
     }

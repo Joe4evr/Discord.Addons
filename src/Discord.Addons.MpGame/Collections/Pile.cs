@@ -406,8 +406,11 @@ namespace Discord.Addons.MpGame.Collections
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void ThrowArgOutOfRange(bool check, string msg, string argname)
         {
-            if (!check)
-                throw new ArgumentOutOfRangeException(message: msg, paramName: argname);
+            if (check)
+            {
+                var e = new ArgumentOutOfRangeException(message: msg, paramName: argname);
+                throw e;
+            }
         }
     }
 }

@@ -27,7 +27,7 @@ namespace MpGame.Tests.CollectionTests
         }
 
         [Fact]
-        public void BrowsingDoesNotClearPile()
+        public void BrowsingDoesNotDecreasePileSize()
         {
             var pile = new TestPile(withPerms: PilePerms.CanBrowse, cards: CardFactory(20));
             var cards = pile.Cards;
@@ -67,7 +67,7 @@ namespace MpGame.Tests.CollectionTests
         {
             var pile = new TestPile(withPerms: PilePerms.CanCut, cards: CardFactory(20));
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.Cut(cutIndex: -1));
-            Assert.Equal(expected: ErrorStrings.CutIndexNegative, actual: ex.Message);
+            Assert.Equal(expected: ErrorStrings.CutIndexNegative, actual: ex.Message.Substring(0, ErrorStrings.CutIndexNegative.Length));
         }
 
         [Fact]
@@ -75,7 +75,7 @@ namespace MpGame.Tests.CollectionTests
         {
             var pile = new TestPile(withPerms: PilePerms.CanCut, cards: CardFactory(20));
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.Cut(cutIndex: pile.Count + 1));
-            Assert.Equal(expected: ErrorStrings.CutIndexTooHigh, actual: ex.Message);
+            Assert.Equal(expected: ErrorStrings.CutIndexTooHigh, actual: ex.Message.Substring(0, ErrorStrings.CutIndexTooHigh.Length));
         }
 
         [Fact]
@@ -87,6 +87,15 @@ namespace MpGame.Tests.CollectionTests
         }
 
         [Fact]
+        public void DrawDecreasesPileByOne()
+        {
+            var pile = new TestPile(withPerms: PilePerms.CanDraw, cards: CardFactory(20));
+            var priorSize = pile.Count;
+            var drawn = pile.Draw();
+            Assert.Equal(expected: priorSize - 1, actual: pile.Count);
+        }
+
+        [Fact]
         public void LastDrawCallsOnLastDraw()
         {
             var pile = new TestPile(withPerms: PilePerms.CanDraw, cards: CardFactory(1));
@@ -95,7 +104,7 @@ namespace MpGame.Tests.CollectionTests
             {
                 Assert.Same(expected: pile, actual: p);
             };
-            pile.Draw();
+            var drawn = pile.Draw();
         }
 
         [Fact]
@@ -119,7 +128,7 @@ namespace MpGame.Tests.CollectionTests
         {
             var pile = new TestPile(withPerms: PilePerms.CanInsert, cards: CardFactory(20));
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.InsertAt(card: new TestCard(), index: -1));
-            Assert.Equal(expected: ErrorStrings.InsertionNegative, actual: ex.Message);
+            Assert.Equal(expected: ErrorStrings.InsertionNegative, actual: ex.Message.Substring(0, ErrorStrings.InsertionNegative.Length));
             Assert.Equal(expected: "index", actual: ex.ParamName);
         }
 
@@ -128,7 +137,7 @@ namespace MpGame.Tests.CollectionTests
         {
             var pile = new TestPile(withPerms: PilePerms.CanInsert, cards: CardFactory(20));
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.InsertAt(new TestCard(), index: pile.Count + 1));
-            Assert.Equal(expected: ErrorStrings.InsertionTooHigh, actual: ex.Message);
+            Assert.Equal(expected: ErrorStrings.InsertionTooHigh, actual: ex.Message.Substring(0, ErrorStrings.InsertionTooHigh.Length));
             Assert.Equal(expected: "index", actual: ex.ParamName);
         }
 
@@ -145,7 +154,7 @@ namespace MpGame.Tests.CollectionTests
         {
             var pile = new TestPile(withPerms: PilePerms.CanPeek, cards: CardFactory(20));
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.PeekTop(amount: -1));
-            Assert.Equal(expected: ErrorStrings.PeekAmountNegative, actual: ex.Message);
+            Assert.Equal(expected: ErrorStrings.PeekAmountNegative, actual: ex.Message.Substring(0, ErrorStrings.PeekAmountNegative.Length));
             Assert.Equal(expected: "amount", actual: ex.ParamName);
         }
 
@@ -154,8 +163,17 @@ namespace MpGame.Tests.CollectionTests
         {
             var pile = new TestPile(withPerms: PilePerms.CanPeek, cards: CardFactory(20));
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.PeekTop(amount: pile.Count + 1));
-            Assert.Equal(expected: ErrorStrings.PeekAmountTooHigh, actual: ex.Message);
+            Assert.Equal(expected: ErrorStrings.PeekAmountTooHigh, actual: ex.Message.Substring(0, ErrorStrings.PeekAmountTooHigh.Length));
             Assert.Equal(expected: "amount", actual: ex.ParamName);
+        }
+
+        [Fact]
+        public void PeekDoesNotDecreasePileSize()
+        {
+            var pile = new TestPile(withPerms: PilePerms.CanPeek, cards: CardFactory(20));
+            var priorSize = pile.Count;
+            var peeked = pile.PeekTop(3);
+            Assert.Equal(expected: priorSize, actual: pile.Count);
         }
 
         [Fact]
@@ -257,7 +275,7 @@ namespace MpGame.Tests.CollectionTests
         {
             var pile = new TestPile(withPerms: PilePerms.CanTake, cards: CardFactory(20));
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.TakeAt(index: -1));
-            Assert.Equal(expected: ErrorStrings.RetrievalNegative, actual: ex.Message);
+            Assert.Equal(expected: ErrorStrings.RetrievalNegative, actual: ex.Message.Substring(0, ErrorStrings.RetrievalNegative.Length));
             Assert.Equal(expected: "index", actual: ex.ParamName);
         }
 
@@ -266,7 +284,7 @@ namespace MpGame.Tests.CollectionTests
         {
             var pile = new TestPile(withPerms: PilePerms.CanTake, cards: CardFactory(20));
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.TakeAt(index: pile.Count + 1));
-            Assert.Equal(expected: ErrorStrings.RetrievalTooHigh, actual: ex.Message);
+            Assert.Equal(expected: ErrorStrings.RetrievalTooHigh, actual: ex.Message.Substring(0, ErrorStrings.RetrievalTooHigh.Length));
             Assert.Equal(expected: "index", actual: ex.ParamName);
         }
     }
