@@ -29,6 +29,7 @@ namespace Discord.Addons.MpGame.Collections
         internal static readonly string RetrievalTooHigh   = "Retrieval index may not be greater than the pile's current size.";
         internal static readonly string RetrievalTooHighH  = "Retrieval index may not be greater than the hand's current size.";
 
+        internal static readonly string NoSwappingStrategy = "Not allowed to switch buffer strategy after it is used.";
         internal static readonly string NullSequence = "New sequence may not be null.";
     }
 }

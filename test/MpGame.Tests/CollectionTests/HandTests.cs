@@ -40,7 +40,7 @@ namespace MpGame.Tests.CollectionTests
         {
             var hand = new Hand<TestCard>(CardFactory(5));
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => hand.TakeAt(index: - 1));
-            Assert.Equal(expected: ErrorStrings.RetrievalNegative, actual: ex.Message.Substring(0, ErrorStrings.RetrievalNegative.Length));
+            Assert.StartsWith(expectedStartString: ErrorStrings.RetrievalNegative, actualString: ex.Message);
             Assert.Equal(expected: "index", actual: ex.ParamName);
         }
 
@@ -49,7 +49,7 @@ namespace MpGame.Tests.CollectionTests
         {
             var hand = new Hand<TestCard>(CardFactory(5));
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => hand.TakeAt(index: hand.Count + 1));
-            Assert.Equal(expected: ErrorStrings.RetrievalTooHighH, actual: ex.Message.Substring(0, ErrorStrings.RetrievalTooHighH.Length));
+            Assert.StartsWith(expectedStartString: ErrorStrings.RetrievalTooHighH, actualString: ex.Message);
             Assert.Equal(expected: "index", actual: ex.ParamName);
         }
 

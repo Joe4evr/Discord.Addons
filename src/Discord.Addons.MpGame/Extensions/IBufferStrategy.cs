@@ -6,16 +6,7 @@
     /// <typeparam name="T">The object type.</typeparam>
     public interface IBufferStrategy<T>
     {
-        //public static IBufferStrategy<T> NonPoolingStrategy
-        //{
-        //    get
-        //    {
-        //        if (_nonPooling == null)
-        //            Interlocked.CompareExchange(ref _nonPooling, new NonPooling(), null);
-        //        return _nonPooling;
-        //    }
-        //}
-        //private static IBufferStrategy<T> _nonPooling;
+        //public static IBufferStrategy<T> NonPoolingStrategy { get; } = new NonPooling();
 
         /// <summary>
         /// Gets a buffer of the specified size.

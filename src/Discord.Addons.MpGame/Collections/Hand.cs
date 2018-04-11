@@ -90,7 +90,7 @@ namespace Discord.Addons.MpGame.Collections
             ThrowArgNull(orderFunc, nameof(orderFunc));
 
             var newOrder = orderFunc(_hand.ToImmutableArray());
-            ThrowInvalidOp(newOrder != null, ErrorStrings.NullSequence);
+            ThrowInvalidOp(newOrder == null, ErrorStrings.NullSequence);
 
             _hand = new List<TCard>(newOrder);
         }
@@ -132,7 +132,7 @@ namespace Discord.Addons.MpGame.Collections
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void ThrowInvalidOp(bool check, string msg)
         {
-            if (!check)
+            if (check)
                 throw new InvalidOperationException(message: msg);
         }
 

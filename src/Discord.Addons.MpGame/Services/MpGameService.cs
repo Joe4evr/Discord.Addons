@@ -39,8 +39,8 @@ namespace Discord.Addons.MpGame
 #else
             BaseSocketClient client,
 #endif
-            Func<LogMessage, Task> logger = null,
-            IServiceStrings strings = null)
+            IServiceStrings strings = null,
+            Func<LogMessage, Task> logger = null)
         {
             _strings = strings ?? DefaultStrings.Instance;
             Logger = logger ?? Extensions.NoOpLogger;
@@ -254,8 +254,8 @@ namespace Discord.Addons.MpGame
     {
         public MpGameService(
             BaseSocketClient client,
-            Func<LogMessage, Task> logger = null,
-            IServiceStrings strings = null)
-            : base(client, logger, strings) { }
+            IServiceStrings strings = null,
+            Func<LogMessage, Task> logger = null)
+            : base(client, strings, logger) { }
     }
 }

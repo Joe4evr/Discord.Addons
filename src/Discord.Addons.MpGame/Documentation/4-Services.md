@@ -20,8 +20,8 @@ public class MpGameService<TGame, TPlayer>
 
     public MpGameService(
         BaseSocketClient client,
-        Func<LogMessage, Task> logger = null,
-        IServiceStrings strings = null);
+        IServiceStrings strings = null,
+        Func<LogMessage, Task> logger = null);
 
     public bool OpenNewGame(ICommandContext context);
 
@@ -83,9 +83,9 @@ public sealed class CardGameService : MpGameService<CardGame, CardPlayer>
 {
     public CardGameService(
         BaseSocketClient client,
-        Func<LogMessage, Task> logger = null,
-        IServiceStrings strings = null)
-        : base(client, logger, strings)
+        IServiceStrings strings = null,
+        Func<LogMessage, Task> logger = null)
+        : base(client, strings, logger)
     {
         // You can now log anything you like by invoking the 'Logger'
         // delegate on the base class you can make use of. I would personally

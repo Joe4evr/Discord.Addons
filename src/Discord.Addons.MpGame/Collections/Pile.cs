@@ -19,6 +19,8 @@ namespace Discord.Addons.MpGame.Collections
     {
         private Stack<TCard> _top;
         private Queue<TCard> _bottom;
+        private bool _strategyUsed = false;
+        private IBufferStrategy<TCard> _bufferStrategy = NonPoolingStrategy.Instance;
 
         /// <summary>
         /// Initializes a new <see cref="Pile{TCard}"/> to an empty state.
@@ -48,7 +50,21 @@ namespace Discord.Addons.MpGame.Collections
         /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
         /// <h5>Note</h5><p>The default strategy is to allocate new arrays and
         /// let the GC clean them up.</p></div></div></remarks>
-        protected IBufferStrategy<TCard> BufferStrategy { private get; set; } = NonPoolingStrategy.Instance;
+        /// <exception cref="ArgumentNullException">The supplied
+        /// value is <see langword="null"/>.</exception>
+        /// <exception cref="InvalidOperationException">The strategy
+        /// implementation is already in use.</exception>
+        protected IBufferStrategy<TCard> BufferStrategy
+        {
+            private get => _bufferStrategy;
+            set
+            {
+                ThrowArgNull(value, nameof(value));
+                ThrowInvalidOp(_strategyUsed, ErrorStrings.NoSwappingStrategy);
+
+                _bufferStrategy = value;
+            }
+        }
 
         /// <summary>
         /// Indicates whether or not this <see cref="Pile{TCard}"/> is freely browsable.
@@ -118,7 +134,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             get
             {
-                ThrowInvalidOp(CanBrowse, ErrorStrings.NoBrowse);
+                ThrowInvalidOp(!CanBrowse, ErrorStrings.NoBrowse);
 
                 return GetAllInternal(clear: false);
             }
@@ -133,7 +149,7 @@ namespace Discord.Addons.MpGame.Collections
         /// does not allow clearing all cards.</exception>
         public IReadOnlyCollection<TCard> Clear()
         {
-            ThrowInvalidOp(CanClear, ErrorStrings.NoClear);
+            ThrowInvalidOp(!CanClear, ErrorStrings.NoClear);
 
             return GetAllInternal(clear: true);
         }
@@ -149,7 +165,7 @@ namespace Discord.Addons.MpGame.Collections
         /// allow cutting the pile.</exception>
         public void Cut(int cutIndex)
         {
-            ThrowInvalidOp(CanCut, ErrorStrings.NoCut);
+            ThrowInvalidOp(!CanCut, ErrorStrings.NoCut);
 
             if (cutIndex == 0 || cutIndex == Count)
                 return; //no changes
@@ -174,7 +190,7 @@ namespace Discord.Addons.MpGame.Collections
         /// does not allow drawing cards.</exception>
         public TCard Draw()
         {
-            ThrowInvalidOp(CanDraw, ErrorStrings.NoDraw);
+            ThrowInvalidOp(!CanDraw, ErrorStrings.NoDraw);
 
             if (Count > 0)
             {
@@ -201,7 +217,7 @@ namespace Discord.Addons.MpGame.Collections
         /// was less than 0 or greater than the pile's current size.</exception>
         public void InsertAt(TCard card, int index)
         {
-            ThrowInvalidOp(CanInsert, ErrorStrings.NoInsert);
+            ThrowInvalidOp(!CanInsert, ErrorStrings.NoInsert);
             ThrowArgNull(card, nameof(card));
             ThrowArgOutOfRange(index < 0, ErrorStrings.InsertionNegative, nameof(index));
             ThrowArgOutOfRange(index > Count, ErrorStrings.InsertionTooHigh, nameof(index));
@@ -235,7 +251,7 @@ namespace Discord.Addons.MpGame.Collections
         /// does not allow peeking cards.</exception>
         public IReadOnlyCollection<TCard> PeekTop(int amount)
         {
-            ThrowInvalidOp(CanPeek, ErrorStrings.NoPeek);
+            ThrowInvalidOp(!CanPeek, ErrorStrings.NoPeek);
             ThrowArgOutOfRange(amount < 0, ErrorStrings.PeekAmountNegative, nameof(amount));
             ThrowArgOutOfRange(amount > Count, ErrorStrings.PeekAmountTooHigh, nameof(amount));
 
@@ -256,7 +272,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <exception cref="ArgumentNullException"><paramref name="card"/> was <see langword="null"/>.</exception>
         public void Put(TCard card)
         {
-            ThrowInvalidOp(CanPut, ErrorStrings.NoPut);
+            ThrowInvalidOp(!CanPut, ErrorStrings.NoPut);
             ThrowArgNull(card, nameof(card));
 
             _top.Push(card);
@@ -272,7 +288,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <exception cref="ArgumentNullException"><paramref name="card"/> was <see langword="null"/>.</exception>
         public void PutBottom(TCard card)
         {
-            ThrowInvalidOp(CanPutBottom, ErrorStrings.NoPutBtm);
+            ThrowInvalidOp(!CanPutBottom, ErrorStrings.NoPutBtm);
             ThrowArgNull(card, nameof(card));
 
             _bottom.Enqueue(card);
@@ -292,21 +308,15 @@ namespace Discord.Addons.MpGame.Collections
         /// <exception cref="ArgumentNullException"><paramref name="shuffleFunc"/> was <see langword="null"/>.</exception>
         public void Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>> shuffleFunc)
         {
-            ThrowInvalidOp(CanShuffle, ErrorStrings.NoShuffle);
+            ThrowInvalidOp(!CanShuffle, ErrorStrings.NoShuffle);
             ThrowArgNull(shuffleFunc, nameof(shuffleFunc));
 
             var oldCount = Count;
             var shuffled = shuffleFunc(GetAllInternal(clear: true));
 
-            ThrowInvalidOp(shuffled != null, ErrorStrings.NullSequence);
+            ThrowInvalidOp(shuffled == null, ErrorStrings.NullSequence);
 
-            var newStack = new Stack<TCard>(shuffled);
-            //if (newStack.Count < oldCount)
-            //{
-
-            //}
-
-            _top = newStack;
+            _top = new Stack<TCard>(shuffled);
         }
 
         /// <summary>
@@ -319,7 +329,7 @@ namespace Discord.Addons.MpGame.Collections
         /// allow taking cards from an arbitrary location.</exception>
         public TCard TakeAt(int index)
         {
-            ThrowInvalidOp(CanTake, ErrorStrings.NoTake);
+            ThrowInvalidOp(!CanTake, ErrorStrings.NoTake);
             ThrowArgOutOfRange(index < 0, ErrorStrings.RetrievalNegative, nameof(index));
             ThrowArgOutOfRange(index > Count, ErrorStrings.RetrievalTooHigh, nameof(index));
 
@@ -372,6 +382,9 @@ namespace Discord.Addons.MpGame.Collections
             : _bottom.Dequeue();
         private TCard[] MakeBuffer(int bufferSize)
         {
+            if (!_strategyUsed)
+                _strategyUsed = true;
+
             var buffer = BufferStrategy.GetBuffer(bufferSize);
             for (int i = 0; i < bufferSize; i++)
             {
@@ -391,7 +404,7 @@ namespace Discord.Addons.MpGame.Collections
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void ThrowInvalidOp(bool check, string msg)
         {
-            if (!check)
+            if (check)
                 throw new InvalidOperationException(message: msg);
         }
 
@@ -407,10 +420,7 @@ namespace Discord.Addons.MpGame.Collections
         private static void ThrowArgOutOfRange(bool check, string msg, string argname)
         {
             if (check)
-            {
-                var e = new ArgumentOutOfRangeException(message: msg, paramName: argname);
-                throw e;
-            }
+                throw new ArgumentOutOfRangeException(message: msg, paramName: argname);
         }
     }
 }
