@@ -73,11 +73,13 @@ The constructor for the service has to get either a 'DiscordSocketClient'
 or a 'DiscordShardedClient' instance so that the service
 can listen for the 'ChannelDestroyed' event.
 
-There is also an optional paramater to pass a logging method from
+There is an optional parameter to pass in an object to configure
+parts of the base service, such as log strings and other switches
+that may be added in the future.
+
+There's also an optional paramater to pass a logging method from
 the caller to the base class. If you want to make use of the logger, then
 add the same parameter to your constructor in the derived class.
-Another optional parameter is for customizing logging strings,
-should you not like what is used by default.
 ```cs
 public sealed class CardGameService : MpGameService<CardGame, CardPlayer>
 {

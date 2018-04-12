@@ -10,5 +10,8 @@ namespace Discord.Addons.MpGame
         private DefaultConfig() { }
 
         ILogStrings IMpGameServiceConfig.LogStrings { get; } = DefaultLogStrings.Instance;
+
+        //bool IMpGameServiceConfig.AllowJoinMidGame  { get; }
+        //bool IMpGameServiceConfig.AllowLeaveMidGame { get; }
     }
 }

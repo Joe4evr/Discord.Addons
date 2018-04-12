@@ -7,5 +7,8 @@ namespace Discord.Addons.MpGame
     public interface IMpGameServiceConfig
     {
         ILogStrings LogStrings { get; }
+
+        //bool AllowJoinMidGame  { get; }
+        //bool AllowLeaveMidGame { get; }
     }
 }
