@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Discord.Addons;
 using Discord.Addons.MpGame.Collections;
 
 namespace MpGame.Tests
@@ -40,6 +41,9 @@ namespace MpGame.Tests
             base.OnPut(card);
             PutCalled?.Invoke(this, new PutEventArgs(card));
         }
+
+        internal void SetBufferStrat(IBufferStrategy<TestCard> bufferStrategy)
+            => BufferStrategy = bufferStrategy;
 
         private bool HasPerm(PilePerms perm) => (_perms & perm) == perm;
     }

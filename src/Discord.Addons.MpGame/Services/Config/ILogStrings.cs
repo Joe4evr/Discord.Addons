@@ -4,24 +4,24 @@ using System.Text;
 
 namespace Discord.Addons.MpGame
 {
-    public interface IServiceStrings
+    public interface ILogStrings
     {
         //MpGameService.ctor()
         string LogRegistration(string gameName);
 
         //MpGameService.OnGameEnd()
-        string CleaningGameData(string gameName, IMessageChannel channel);
+        string CleaningGameData(IMessageChannel channel, string gameName);
         string CleaningDMChannel(IDMChannel channel);
         string CleaningGameString(IMessageChannel channel);
 
         //MpGameService.OpenNewGame()
-        string CreatingGame(string gameName, IMessageChannel channel);
+        string CreatingGame(IMessageChannel channel, string gameName);
 
         //MpGameService.RemoveUser()
         string PlayerKicked(IUser user);
 
         //MpGameService.TryAddNewGame()
-        string SettingGame(string gameName, IMessageChannel channel);
+        string SettingGame(IMessageChannel channel, string gameName);
 
         //Player.cs
         string DMsDisabledMessage(IUser user);

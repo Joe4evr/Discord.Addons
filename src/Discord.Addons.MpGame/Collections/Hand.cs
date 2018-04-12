@@ -37,7 +37,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             ThrowArgNull(cards, nameof(cards));
 
-            _hand = new List<TCard>(cards);
+            _hand = new List<TCard>(cards.Where(c => c != null));
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Discord.Addons.MpGame.Collections
             ThrowArgNull(orderFunc, nameof(orderFunc));
 
             var newOrder = orderFunc(_hand.ToImmutableArray());
-            ThrowInvalidOp(newOrder == null, ErrorStrings.NullSequence);
+            ThrowInvalidOp(newOrder == null, ErrorStrings.NewSequenceNull);
 
             _hand = new List<TCard>(newOrder);
         }
@@ -100,11 +100,11 @@ namespace Discord.Addons.MpGame.Collections
         /// </summary>
         /// <param name="index">The index of the card to take.</param>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>
-        /// was less than 0 or greater than the pile's current size.</exception>
+        /// was less than 0 or greater than or equal to the pile's current size.</exception>
         public TCard TakeAt(int index)
         {
             ThrowArgOutOfRange(index < 0, ErrorStrings.RetrievalNegative, nameof(index));
-            ThrowArgOutOfRange(index > Count, ErrorStrings.RetrievalTooHighH, nameof(index));
+            ThrowArgOutOfRange(index >= Count, ErrorStrings.RetrievalTooHighH, nameof(index));
 
             var tmp = _hand[index];
             _hand.RemoveAt(index);
@@ -123,9 +123,8 @@ namespace Discord.Addons.MpGame.Collections
 
             var tmp = _hand.FirstOrDefault(predicate);
             if (tmp != null)
-            {
                 _hand.Remove(tmp);
-            }
+
             return tmp;
         }
 

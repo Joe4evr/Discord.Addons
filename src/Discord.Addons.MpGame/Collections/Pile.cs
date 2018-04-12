@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace Discord.Addons.MpGame.Collections
@@ -40,7 +41,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             ThrowArgNull(cards, nameof(cards));
 
-            _top = new Stack<TCard>(cards);
+            _top = new Stack<TCard>(cards.Where(c => c != null));
             _bottom = new Queue<TCard>();
         }
 
@@ -126,7 +127,9 @@ namespace Discord.Addons.MpGame.Collections
         public int Count => _top.Count + _bottom.Count;
 
         /// <summary>
-        /// The cards inside this pile. Requires <see cref="CanBrowse"/>.
+        /// A snapshot of all the cards
+        /// without removing them from the pile.
+        /// Requires <see cref="CanBrowse"/>.
         /// </summary>
         /// <exception cref="InvalidOperationException">The instance
         /// does not allow browsing the cards.</exception>
@@ -166,12 +169,11 @@ namespace Discord.Addons.MpGame.Collections
         public void Cut(int cutIndex)
         {
             ThrowInvalidOp(!CanCut, ErrorStrings.NoCut);
+            ThrowArgOutOfRange(cutIndex < 0, ErrorStrings.CutIndexNegative, nameof(cutIndex));
+            ThrowArgOutOfRange(cutIndex > Count, ErrorStrings.CutIndexTooHigh, nameof(cutIndex));
 
             if (cutIndex == 0 || cutIndex == Count)
                 return; //no changes
-
-            ThrowArgOutOfRange(cutIndex < 0, ErrorStrings.CutIndexNegative, nameof(cutIndex));
-            ThrowArgOutOfRange(cutIndex > Count, ErrorStrings.CutIndexTooHigh, nameof(cutIndex));
 
             for (int i = 0; i < cutIndex; i++)
             {
@@ -185,24 +187,20 @@ namespace Discord.Addons.MpGame.Collections
         /// Requires <see cref="CanDraw"/>.
         /// </summary>
         /// <returns>If the pile's current size is greater than 0, the card
-        /// currently at the top of the pile. Otherwise <see langword="null"/>.</returns>
+        /// currently at the top of the pile. Otherwise will throw.</returns>
         /// <exception cref="InvalidOperationException">The instance
-        /// does not allow drawing cards.</exception>
+        /// does not allow drawing cards OR There were no cards to draw.</exception>
         public TCard Draw()
         {
             ThrowInvalidOp(!CanDraw, ErrorStrings.NoDraw);
+            ThrowInvalidOp(Count == 0, ErrorStrings.PileEmpty);
 
-            if (Count > 0)
-            {
-                var tmp = TakeTopInternal();
+            var tmp = TakeTopInternal();
 
-                if (Count == 0)
-                {
-                    OnLastDraw();
-                }
-                return tmp;
-            }
-            return null;
+            if (Count == 0)
+                OnLastDraw();
+
+            return tmp;
         }
 
         /// <summary>
@@ -254,6 +252,9 @@ namespace Discord.Addons.MpGame.Collections
             ThrowInvalidOp(!CanPeek, ErrorStrings.NoPeek);
             ThrowArgOutOfRange(amount < 0, ErrorStrings.PeekAmountNegative, nameof(amount));
             ThrowArgOutOfRange(amount > Count, ErrorStrings.PeekAmountTooHigh, nameof(amount));
+
+            if (amount == 0)
+                return ImmutableArray<TCard>.Empty;
 
             var buffer = MakeBuffer(amount);
             var result = buffer.ToImmutableArray();
@@ -312,9 +313,9 @@ namespace Discord.Addons.MpGame.Collections
             ThrowArgNull(shuffleFunc, nameof(shuffleFunc));
 
             var oldCount = Count;
-            var shuffled = shuffleFunc(GetAllInternal(clear: true));
+            var shuffled = shuffleFunc(GetAllInternal(clear: false));
 
-            ThrowInvalidOp(shuffled == null, ErrorStrings.NullSequence);
+            ThrowInvalidOp(shuffled == null, ErrorStrings.NewSequenceNull);
 
             _top = new Stack<TCard>(shuffled);
         }
@@ -324,23 +325,19 @@ namespace Discord.Addons.MpGame.Collections
         /// </summary>
         /// <param name="index">The index to insert at.</param>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>
-        /// was less than 0 or greater than the pile's current size.</exception>
+        /// was less than 0 or greater than or equal to the pile's current size.</exception>
         /// <exception cref="InvalidOperationException">The instance does not
         /// allow taking cards from an arbitrary location.</exception>
         public TCard TakeAt(int index)
         {
             ThrowInvalidOp(!CanTake, ErrorStrings.NoTake);
             ThrowArgOutOfRange(index < 0, ErrorStrings.RetrievalNegative, nameof(index));
-            ThrowArgOutOfRange(index > Count, ErrorStrings.RetrievalTooHigh, nameof(index));
+            ThrowArgOutOfRange(index >= Count, ErrorStrings.RetrievalTooHighP, nameof(index));
 
             if (index == 0)
-            {
                 return TakeTopInternal();
-            }
             if (index == _top.Count)
-            {
                 return _bottom.Dequeue();
-            }
 
             var buffer = MakeBuffer(index);
             var tmp = TakeTopInternal();

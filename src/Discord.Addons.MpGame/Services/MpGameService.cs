@@ -20,8 +20,8 @@ namespace Discord.Addons.MpGame
     {
         internal const string LogSource = "MpGame";
 
-        /// <summary> A cached IEqualityComparer&lt;<see cref="IMessageChannel"/>&gt;instance to use when
-        /// instantiating a <see cref="Dictionary{TKey, TValue}"/> using <see cref="IMessageChannel"/> as the key.
+        /// <summary> A cached IEqualityComparer&lt;IMessageChannel&gt;instance to use when
+        /// instantiating a Dictionary&lt;IMessageChannel, TValue&gt;.
         /// This is the same instance as <see cref="DiscordComparers.ChannelComparer"/>.</summary>
         protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = DiscordComparers.ChannelComparer;
 
@@ -31,20 +31,27 @@ namespace Discord.Addons.MpGame
 
         protected internal Func<LogMessage, Task> Logger { get; }
 
-        private readonly IServiceStrings _strings;
+        private readonly IMpGameServiceConfig _mpconfig;
 
+        /// <summary>
+        /// Instantiates the MpGameService for
+        /// the specified Game and Player type.
+        /// </summary>
+        /// <param name="client">The Discord client.</param>
+        /// <param name="config">An optional config type.</param>
+        /// <param name="logger">An optional logging method.</param>
         public MpGameService(
 #if TEST
             IDiscordClient iclient,
 #else
             BaseSocketClient client,
 #endif
-            IServiceStrings strings = null,
+            IMpGameServiceConfig mpconfig = null,
             Func<LogMessage, Task> logger = null)
         {
-            _strings = strings ?? DefaultStrings.Instance;
+            _mpconfig = mpconfig ?? DefaultConfig.Instance;
             Logger = logger ?? Extensions.NoOpLogger;
-            Logger(new LogMessage(LogSeverity.Debug, LogSource, _strings.LogRegistration(_gameName)));
+            Logger(new LogMessage(LogSeverity.Debug, LogSource, _mpconfig.LogStrings.LogRegistration(_gameName)));
 
 #if TEST
             if (iclient is BaseSocketClient client)
@@ -64,15 +71,15 @@ namespace Discord.Addons.MpGame
             var success = _dataList.TryRemove(channel, out var data);
             if (success)
             {
-                await Logger(new LogMessage(LogSeverity.Verbose, LogSource, _strings.CleaningGameData(_gameName, channel))).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Verbose, LogSource, _mpconfig.LogStrings.CleaningGameData(channel, _gameName))).ConfigureAwait(false);
                 var tracker = GameTracker.Instance;
                 var channels = await Task.WhenAll(data.JoinedUsers.Select(u => u.GetOrCreateDMChannelAsync())).ConfigureAwait(false);
                 foreach (var ch in channels)
                 {
-                    await Logger(new LogMessage(LogSeverity.Debug, LogSource, _strings.CleaningDMChannel(ch))).ConfigureAwait(false);
+                    await Logger(new LogMessage(LogSeverity.Debug, LogSource, _mpconfig.LogStrings.CleaningDMChannel(ch))).ConfigureAwait(false);
                     tracker.TryRemoveGameChannel(ch);
                 }
-                await Logger(new LogMessage(LogSeverity.Debug, LogSource, _strings.CleaningGameString(channel))).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Debug, LogSource, _mpconfig.LogStrings.CleaningGameString(channel))).ConfigureAwait(false);
                 tracker.TryRemoveGameString(channel);
             }
             return success;
@@ -85,7 +92,7 @@ namespace Discord.Addons.MpGame
         {
             if (GameTracker.Instance.TryAddGameString(context.Channel, GameName))
             {
-                await Logger(new LogMessage(LogSeverity.Verbose, LogSource, _strings.CreatingGame(_gameName, context.Channel))).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Verbose, LogSource, _mpconfig.LogStrings.CreatingGame(context.Channel, _gameName))).ConfigureAwait(false);
                 var data = new PersistentGameData(context.Channel, context.User, this);
                 return _dataList.TryAdd(context.Channel, data)
                     && data.TryUpdateOpenToJoin(newValue: true, oldValue: false);
@@ -129,7 +136,7 @@ namespace Discord.Addons.MpGame
         /// <param name="player">The player to kick.</param>
         /// <returns><see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.</returns>
         public Task<bool> KickPlayer(TGame game, TPlayer player)
-            => RemovePlayer(game, player, _strings.PlayerKicked(player.User));
+            => RemovePlayer(game, player, _mpconfig.LogStrings.PlayerKicked(player.User));
 
         private async Task<bool> RemovePlayer(TGame game, TPlayer player, string reason)
         {
@@ -157,7 +164,7 @@ namespace Discord.Addons.MpGame
         {
             if (_dataList.TryGetValue(channel, out var data))
             {
-                await Logger(new LogMessage(LogSeverity.Verbose, LogSource, _strings.SettingGame(_gameName, channel))).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Verbose, LogSource, _mpconfig.LogStrings.SettingGame(channel, _gameName))).ConfigureAwait(false);
                 var gameSet = data.SetGame(game);
                 if (gameSet)
                 {
@@ -175,8 +182,8 @@ namespace Discord.Addons.MpGame
         private void PrepPlayer(TGame game, TPlayer player, bool addedInOngoig)
         {
             player.AutoKickCallback = (reason => RemovePlayer(game, player, reason));
-            player.DMsDisabledMessage = _strings.DMsDisabledMessage(player.User);
-            player.DMsDisabledKickMessage = _strings.DMsDisabledKickMessage(player.User);
+            player.DMsDisabledMessage = _mpconfig.LogStrings.DMsDisabledMessage(player.User);
+            player.DMsDisabledKickMessage = _mpconfig.LogStrings.DMsDisabledKickMessage(player.User);
 
             if (addedInOngoig)
             {
@@ -233,6 +240,11 @@ namespace Discord.Addons.MpGame
             return _dataList.TryGetValue(chan, out data);
         }
 
+        /// <summary>
+        /// Gets the game metadata associated with this context.
+        /// </summary>
+        /// <param name="context">The CommandContext to fetch metadata for.</param>
+        /// <returns>A snapshot of the current game metadata.</returns>
         public MpGameData GetGameData(ICommandContext context)
         {
             return (TryGetPersistentData(context.Channel, out var internalData))
@@ -252,10 +264,17 @@ namespace Discord.Addons.MpGame
     public class MpGameService<TGame> : MpGameService<TGame, Player>
         where TGame : GameBase<Player>
     {
+        /// <summary>
+        /// Instantiates the MpGameService for
+        /// the specified Game type.
+        /// </summary>
+        /// <param name="client">The Discord client.</param>
+        /// <param name="config">An optional config type.</param>
+        /// <param name="logger">An optional logging method.</param>
         public MpGameService(
             BaseSocketClient client,
-            IServiceStrings strings = null,
+            IMpGameServiceConfig mpconfig = null,
             Func<LogMessage, Task> logger = null)
-            : base(client, strings, logger) { }
+            : base(client, mpconfig, logger) { }
     }
 }
