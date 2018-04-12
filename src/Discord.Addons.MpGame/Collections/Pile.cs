@@ -371,6 +371,8 @@ namespace Discord.Addons.MpGame.Collections
             var result = ImmutableArray.Create(buffer, 0, size);
             if (!clear)
                 PushBuffer(buffer, size);
+            else
+                BufferStrategy.ReturnBuffer(buffer);
 
             return result;
         }

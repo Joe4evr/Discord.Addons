@@ -170,6 +170,7 @@ namespace MpGame.Tests.CollectionTests
             {
                 var hand = new Hand<TestCard>(CardFactory(5));
                 var priorSize = hand.Count;
+
                 var ex = Assert.Throws<ArgumentNullException>(() => hand.TakeFirstOrDefault(predicate: null));
                 Assert.Equal(expected: "predicate", actual: ex.ParamName);
                 Assert.Equal(expected: priorSize, actual: hand.Count);
@@ -180,7 +181,14 @@ namespace MpGame.Tests.CollectionTests
             {
                 var hand = new Hand<TestCard>(CardFactory(5));
                 var priorSize = hand.Count;
-                var taken = hand.TakeFirstOrDefault(predicate: c => c.Id == 3);
+                bool funcCalled = false;
+                var taken = hand.TakeFirstOrDefault(predicate: c =>
+                {
+                    funcCalled = true;
+                    return c.Id == 3;
+                });
+
+                Assert.True(funcCalled);
                 Assert.NotNull(taken);
                 Assert.Equal(expected: priorSize - 1, actual: hand.Count);
             }
@@ -190,7 +198,14 @@ namespace MpGame.Tests.CollectionTests
             {
                 var hand = new Hand<TestCard>(CardFactory(5));
                 var priorSize = hand.Count;
-                var taken = hand.TakeFirstOrDefault(predicate: c => c.Id == 10);
+                bool funcCalled = false;
+                var taken = hand.TakeFirstOrDefault(predicate: c =>
+                {
+                    funcCalled = true;
+                    return c.Id == 10;
+                });
+
+                Assert.True(funcCalled);
                 Assert.Null(taken);
                 Assert.Equal(expected: priorSize, actual: hand.Count);
             }

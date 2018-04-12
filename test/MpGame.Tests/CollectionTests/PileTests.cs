@@ -447,8 +447,14 @@ namespace MpGame.Tests.CollectionTests
             {
                 var pile = new TestPile(withPerms: PilePerms.CanShuffle, cards: CardFactory(20));
                 var priorSize = pile.Count;
+                bool funcCalled = false;
 
-                var ex = Assert.Throws<InvalidOperationException>(() => pile.Shuffle(shuffleFunc: cards => null));
+                var ex = Assert.Throws<InvalidOperationException>(() => pile.Shuffle(shuffleFunc: cards =>
+                {
+                    funcCalled = true;
+                    return null;
+                }));
+                Assert.True(funcCalled);
                 Assert.Equal(expected: ErrorStrings.NewSequenceNull, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
@@ -460,12 +466,15 @@ namespace MpGame.Tests.CollectionTests
 
                 var pile = new TestPile(withPerms: PilePerms.CanShuffle, cards: Enumerable.Empty<TestCard>());
                 var priorSize = pile.Count;
+                bool funcCalled = false;
                 pile.Shuffle(shuffleFunc: cards =>
                 {
+                    funcCalled = true;
                     Assert.NotNull(cards);
                     return cards.Concat(CardFactory(added));
                 });
 
+                Assert.True(funcCalled);
                 Assert.Equal(expected: priorSize + added, actual: pile.Count);
             }
         }
