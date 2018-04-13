@@ -24,7 +24,7 @@ items:
   - Discord.Addons.MpGame.Collections.Pile`1.Cut(System.Int32)
   - Discord.Addons.MpGame.Collections.Pile`1.Draw
   - Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)
-  - Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw
+  - Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
   - Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
   - Discord.Addons.MpGame.Collections.Pile`1.PeekTop(System.Int32)
   - Discord.Addons.MpGame.Collections.Pile`1.Put(`0)
@@ -830,7 +830,7 @@ items:
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
-  summary: "\nDraws the top card from the pile. If the last card is\ndrawn, calls <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.OnLastDraw\" data-throw-if-not-resolved=\"false\"></xref>.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanDraw\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  summary: "\nDraws the top card from the pile. If the last card is\ndrawn, calls <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.OnLastRemoved\" data-throw-if-not-resolved=\"false\"></xref>.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanDraw\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   example: []
   syntax:
     content: public TCard Draw()
@@ -1131,11 +1131,11 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TakeAt
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 335
+    startLine: 336
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
-  summary: "\nTakes a card from the given index. Requires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanTake\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  summary: "\nTakes a card from the given index. If the last card is\ndrawn, calls <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.OnLastRemoved\" data-throw-if-not-resolved=\"false\"></xref>. Requires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanTake\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   example: []
   syntax:
     content: public TCard TakeAt(int index)
@@ -1166,46 +1166,46 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).TakeAt(System.Int32)
-- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw
-  id: OnLastDraw
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
+  id: OnLastRemoved
   parent: Discord.Addons.MpGame.Collections.Pile`1
   langs:
   - csharp
   - vb
-  name: OnLastDraw()
-  nameWithType: Pile<TCard>.OnLastDraw()
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnLastDraw()
+  name: OnLastRemoved()
+  nameWithType: Pile<TCard>.OnLastRemoved()
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnLastRemoved()
   type: Method
   source:
     remote:
       path: src/Discord.Addons.MpGame/Collections/Pile.cs
       branch: master
       repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: OnLastDraw
+    id: OnLastRemoved
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 357
+    startLine: 366
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
-  summary: "\nAutomatically called when the last card is drawn.\n"
+  summary: "\nAutomatically called when the last card is removed from the pile.\n"
   remarks: >-
     <div class="markdown level0 remarks"><div class="NOTE">
 
     <h5>Note</h5><p>Does nothing by default.</p></div></div>
   example: []
   syntax:
-    content: protected virtual void OnLastDraw()
-    content.vb: Protected Overridable Sub OnLastDraw
-  overload: Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw*
-  nameWithType.vb: Pile(Of TCard).OnLastDraw()
+    content: protected virtual void OnLastRemoved()
+    content.vb: Protected Overridable Sub OnLastRemoved
+  overload: Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved*
+  nameWithType.vb: Pile(Of TCard).OnLastRemoved()
   modifiers.csharp:
   - protected
   - virtual
   modifiers.vb:
   - Protected
   - Overridable
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnLastDraw()
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnLastRemoved()
 - uid: Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
   commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
   id: OnPut(`0)
@@ -1224,7 +1224,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: OnPut
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 365
+    startLine: 374
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1704,8 +1704,8 @@ references:
   fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Cut
   nameWithType.vb: Pile(Of TCard).Cut
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Cut
-- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
 - uid: Discord.Addons.MpGame.Collections.Pile`1.CanDraw
   commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanDraw
 - uid: Discord.Addons.MpGame.Collections.Pile`1.Draw*
@@ -1936,14 +1936,14 @@ references:
   fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.TakeAt
   nameWithType.vb: Pile(Of TCard).TakeAt
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).TakeAt
-- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
   isExternal: false
-  name: OnLastDraw
-  nameWithType: Pile<TCard>.OnLastDraw
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnLastDraw
-  nameWithType.vb: Pile(Of TCard).OnLastDraw
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnLastDraw
+  name: OnLastRemoved
+  nameWithType: Pile<TCard>.OnLastRemoved
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnLastRemoved
+  nameWithType.vb: Pile(Of TCard).OnLastRemoved
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnLastRemoved
 - uid: Discord.Addons.MpGame.Collections.Pile`1.OnPut*
   commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.OnPut
   isExternal: false

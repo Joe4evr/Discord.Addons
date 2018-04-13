@@ -735,23 +735,23 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).InsertAt
   nameWithType: Pile<TCard>.InsertAt
   nameWithType.vb: Pile(Of TCard).InsertAt
-- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw
-  name: OnLastDraw()
-  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnLastDraw
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnLastDraw()
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnLastDraw()
-  nameWithType: Pile<TCard>.OnLastDraw()
-  nameWithType.vb: Pile(Of TCard).OnLastDraw()
-- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw*
-  name: OnLastDraw
-  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnLastDraw_
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
+  name: OnLastRemoved()
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnLastRemoved()
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnLastRemoved()
+  nameWithType: Pile<TCard>.OnLastRemoved()
+  nameWithType.vb: Pile(Of TCard).OnLastRemoved()
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved*
+  name: OnLastRemoved
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
   isSpec: "True"
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnLastDraw
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnLastDraw
-  nameWithType: Pile<TCard>.OnLastDraw
-  nameWithType.vb: Pile(Of TCard).OnLastDraw
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnLastRemoved
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnLastRemoved
+  nameWithType: Pile<TCard>.OnLastRemoved
+  nameWithType.vb: Pile(Of TCard).OnLastRemoved
 - uid: Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
   name: OnPut(TCard)
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnPut__0_
