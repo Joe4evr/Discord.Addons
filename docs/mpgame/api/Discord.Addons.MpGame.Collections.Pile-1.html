@@ -192,7 +192,7 @@ specifically for use in card games.</p>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_BufferStrategy_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_BufferStrategy" data-uid="Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy">BufferStrategy</h4>
-  <div class="markdown level1 summary"><p>Defines the strategy used for buffering cards.</p>
+  <div class="markdown level1 summary"><p>Defines the strategy used for buffering items during certain operations.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -871,7 +871,7 @@ allow inserting cards at an arbitrary location.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_OnLastDraw.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.OnLastDraw%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L357">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L358">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_OnLastDraw_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_OnLastDraw" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnLastDraw">OnLastDraw()</h4>
@@ -890,7 +890,7 @@ allow inserting cards at an arbitrary location.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_OnPut__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.OnPut(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L365">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L366">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_OnPut_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnPut*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_OnPut__0_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)">OnPut(TCard)</h4>
@@ -1101,7 +1101,7 @@ allow placing cards onto it.</p>
       <tr>
         <td><span class="xref">System.InvalidOperationException</span></td>
         <td><p>The instance does not
-allow inserting cards at an arbitrary location.</p>
+allow placing cards on the bottom.</p>
 </td>
       </tr>
       <tr>
@@ -1177,7 +1177,7 @@ does not allow reshuffling the cards OR The sequence produced from
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_TakeAt_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.TakeAt(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L335">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L336">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_TakeAt_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.TakeAt*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_TakeAt_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)">TakeAt(Int32)</h4>
@@ -1217,7 +1217,8 @@ does not allow reshuffling the cards OR The sequence produced from
     <tbody>
       <tr>
         <td><span class="xref">TCard</span></td>
-        <td></td>
+        <td><p>The card at the specified index.</p>
+</td>
       </tr>
     </tbody>
   </table>

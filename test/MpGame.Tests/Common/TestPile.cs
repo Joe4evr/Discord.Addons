@@ -28,9 +28,9 @@ namespace MpGame.Tests
 
         internal event EventHandler<EventArgs> LastDrawCalled;
 
-        protected override void OnLastDraw()
+        protected override void OnLastRemoved()
         {
-            base.OnLastDraw();
+            base.OnLastRemoved();
             LastDrawCalled?.Invoke(this, EventArgs.Empty);
         }
 

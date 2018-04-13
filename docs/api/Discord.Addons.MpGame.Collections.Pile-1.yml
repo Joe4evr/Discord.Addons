@@ -183,7 +183,7 @@ items:
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
-  summary: "\nDefines the strategy used for buffering cards.\n"
+  summary: "\nDefines the strategy used for buffering items during certain operations.\n"
   remarks: >-
     <div class="markdown level0 remarks"><div class="NOTE">
 
@@ -1050,7 +1050,7 @@ items:
     description: >-
       The instance does not
 
-      allow inserting cards at an arbitrary location.
+      allow placing cards on the bottom.
   - type: System.ArgumentNullException
     commentId: T:System.ArgumentNullException
     description: <code data-dev-comment-type="paramref" class="paramref">card</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
@@ -1131,7 +1131,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TakeAt
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 334
+    startLine: 335
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1145,6 +1145,7 @@ items:
       description: The index to insert at.
     return:
       type: '{TCard}'
+      description: The card at the specified index.
     content.vb: Public Function TakeAt(index As Integer) As TCard
   overload: Discord.Addons.MpGame.Collections.Pile`1.TakeAt*
   exceptions:
@@ -1183,7 +1184,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: OnLastDraw
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 356
+    startLine: 357
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1223,7 +1224,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: OnPut
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 364
+    startLine: 365
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections

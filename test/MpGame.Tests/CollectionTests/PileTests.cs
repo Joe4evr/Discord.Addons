@@ -204,7 +204,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void LastDrawCallsOnLastDraw()
+            public void LastDrawCallsOnLastRemoved()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanDraw, cards: CardFactory(1));
 
@@ -525,6 +525,16 @@ namespace MpGame.Tests.CollectionTests
                 var taken = pile.TakeAt(10);
 
                 Assert.Equal(expected: priorSize - 1, actual: pile.Count);
+            }
+
+            [Fact]
+            public void LastTakeCallsOnLastRemoved()
+            {
+                var pile = new TestPile(withPerms: PilePerms.CanTake, cards: CardFactory(1));
+
+                var ev = Assert.Raises<EventArgs>(handler => pile.LastDrawCalled += handler, handler => pile.LastDrawCalled -= handler, () => pile.TakeAt(0));
+                Assert.Same(expected: pile, actual: ev.Sender);
+                Assert.Equal(expected: 0, actual: pile.Count);
             }
         }
     }

@@ -50,7 +50,7 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Defines the strategy used for buffering cards.
+        /// Defines the strategy used for buffering items during certain operations.
         /// </summary>
         /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
         /// <h5>Note</h5><p>The default strategy is to allocate new arrays and
@@ -187,7 +187,7 @@ namespace Discord.Addons.MpGame.Collections
 
         /// <summary>
         /// Draws the top card from the pile. If the last card is
-        /// drawn, calls <see cref="OnLastDraw"/>.
+        /// drawn, calls <see cref="OnLastRemoved"/>.
         /// Requires <see cref="CanDraw"/>.
         /// </summary>
         /// <returns>If the pile's current size is greater than 0, the card
@@ -202,7 +202,7 @@ namespace Discord.Addons.MpGame.Collections
             var tmp = TakeTopInternal();
 
             if (Count == 0)
-                OnLastDraw();
+                OnLastRemoved();
 
             return tmp;
         }
@@ -289,7 +289,7 @@ namespace Discord.Addons.MpGame.Collections
         /// </summary>
         /// <param name="card">The card to place on the bottom.</param>
         /// <exception cref="InvalidOperationException">The instance does not
-        /// allow inserting cards at an arbitrary location.</exception>
+        /// allow placing cards on the bottom.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="card"/> was <see langword="null"/>.</exception>
         public void PutBottom(TCard card)
         {
@@ -325,9 +325,11 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Takes a card from the given index. Requires <see cref="CanTake"/>.
+        /// Takes a card from the given index. If the last card is
+        /// drawn, calls <see cref="OnLastRemoved"/>. Requires <see cref="CanTake"/>.
         /// </summary>
         /// <param name="index">The index to insert at.</param>
+        /// <returns>The card at the specified index.</returns>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>
         /// was less than 0 or greater than or equal to the pile's current size.</exception>
         /// <exception cref="InvalidOperationException">The instance does not
@@ -338,23 +340,31 @@ namespace Discord.Addons.MpGame.Collections
             ThrowArgOutOfRange(index < 0, ErrorStrings.RetrievalNegative, nameof(index));
             ThrowArgOutOfRange(index >= Count, ErrorStrings.RetrievalTooHighP, nameof(index));
 
-            if (index == 0)
-                return TakeTopInternal();
-            if (index == _top.Count)
-                return _bottom.Dequeue();
+            TCard tmp;
 
-            var buffer = MakeBuffer(index);
-            var tmp = TakeTopInternal();
-            PushBuffer(buffer, index);
+            if (index == _top.Count)
+                tmp = _bottom.Dequeue();
+            else if (index == 0)
+                tmp = TakeTopInternal();
+            else
+            {
+                var buffer = MakeBuffer(index);
+                tmp = TakeTopInternal();
+                PushBuffer(buffer, index);
+            }
+
+            if (Count == 0)
+                OnLastRemoved();
+
             return tmp;
         }
 
         /// <summary>
-        /// Automatically called when the last card is drawn.
+        /// Automatically called when the last card is removed from the pile.
         /// </summary>
         /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
         /// <h5>Note</h5><p>Does nothing by default.</p></div></div></remarks>
-        protected virtual void OnLastDraw() { }
+        protected virtual void OnLastRemoved() { }
 
         /// <summary>
         /// Automatically called when a card is put on top of the pile.
