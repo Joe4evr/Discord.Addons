@@ -35,9 +35,10 @@ namespace MpGame.Tests.CollectionTests
                 seed[10] = null;
                 seed[15] = null;
                 var nulls = seed.Count(c => c == null);
-                var pile = new TestPile(withPerms: PilePerms.None, cards: seed);
+                var pile = new TestPile(withPerms: PilePerms.CanBrowse, cards: seed);
 
                 Assert.Equal(expected: seed.Length - nulls, actual: pile.Count);
+                Assert.All(pile.Cards, c => Assert.NotNull(c));
             }
         }
 

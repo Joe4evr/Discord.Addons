@@ -1127,129 +1127,148 @@ references:
   fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).TurnPlayer
   nameWithType: GameBase<TPlayer>.TurnPlayer
   nameWithType.vb: GameBase(Of TPlayer).TurnPlayer
-- uid: Discord.Addons.MpGame.IServiceStrings
-  name: IServiceStrings
-  href: api/Discord.Addons.MpGame.IServiceStrings.html
-  commentId: T:Discord.Addons.MpGame.IServiceStrings
-  fullName: Discord.Addons.MpGame.IServiceStrings
-  nameWithType: IServiceStrings
-- uid: Discord.Addons.MpGame.IServiceStrings.CleaningDMChannel(Discord.IDMChannel)
+- uid: Discord.Addons.MpGame.ILogStrings
+  name: ILogStrings
+  href: api/Discord.Addons.MpGame.ILogStrings.html
+  commentId: T:Discord.Addons.MpGame.ILogStrings
+  fullName: Discord.Addons.MpGame.ILogStrings
+  nameWithType: ILogStrings
+- uid: Discord.Addons.MpGame.ILogStrings.CleaningDMChannel(Discord.IDMChannel)
   name: CleaningDMChannel(IDMChannel)
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CleaningDMChannel_Discord_IDMChannel_
-  commentId: M:Discord.Addons.MpGame.IServiceStrings.CleaningDMChannel(Discord.IDMChannel)
-  fullName: Discord.Addons.MpGame.IServiceStrings.CleaningDMChannel(Discord.IDMChannel)
-  nameWithType: IServiceStrings.CleaningDMChannel(IDMChannel)
-- uid: Discord.Addons.MpGame.IServiceStrings.CleaningDMChannel*
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_CleaningDMChannel_Discord_IDMChannel_
+  commentId: M:Discord.Addons.MpGame.ILogStrings.CleaningDMChannel(Discord.IDMChannel)
+  fullName: Discord.Addons.MpGame.ILogStrings.CleaningDMChannel(Discord.IDMChannel)
+  nameWithType: ILogStrings.CleaningDMChannel(IDMChannel)
+- uid: Discord.Addons.MpGame.ILogStrings.CleaningDMChannel*
   name: CleaningDMChannel
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CleaningDMChannel_
-  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.CleaningDMChannel
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_CleaningDMChannel_
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.CleaningDMChannel
   isSpec: "True"
-  fullName: Discord.Addons.MpGame.IServiceStrings.CleaningDMChannel
-  nameWithType: IServiceStrings.CleaningDMChannel
-- uid: Discord.Addons.MpGame.IServiceStrings.CleaningGameData(System.String,Discord.IMessageChannel)
-  name: CleaningGameData(String, IMessageChannel)
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CleaningGameData_System_String_Discord_IMessageChannel_
-  commentId: M:Discord.Addons.MpGame.IServiceStrings.CleaningGameData(System.String,Discord.IMessageChannel)
-  fullName: Discord.Addons.MpGame.IServiceStrings.CleaningGameData(System.String, Discord.IMessageChannel)
-  nameWithType: IServiceStrings.CleaningGameData(String, IMessageChannel)
-- uid: Discord.Addons.MpGame.IServiceStrings.CleaningGameData*
+  fullName: Discord.Addons.MpGame.ILogStrings.CleaningDMChannel
+  nameWithType: ILogStrings.CleaningDMChannel
+- uid: Discord.Addons.MpGame.ILogStrings.CleaningGameData(Discord.IMessageChannel,System.String)
+  name: CleaningGameData(IMessageChannel, String)
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_CleaningGameData_Discord_IMessageChannel_System_String_
+  commentId: M:Discord.Addons.MpGame.ILogStrings.CleaningGameData(Discord.IMessageChannel,System.String)
+  fullName: Discord.Addons.MpGame.ILogStrings.CleaningGameData(Discord.IMessageChannel, System.String)
+  nameWithType: ILogStrings.CleaningGameData(IMessageChannel, String)
+- uid: Discord.Addons.MpGame.ILogStrings.CleaningGameData*
   name: CleaningGameData
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CleaningGameData_
-  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.CleaningGameData
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_CleaningGameData_
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.CleaningGameData
   isSpec: "True"
-  fullName: Discord.Addons.MpGame.IServiceStrings.CleaningGameData
-  nameWithType: IServiceStrings.CleaningGameData
-- uid: Discord.Addons.MpGame.IServiceStrings.CleaningGameString(Discord.IMessageChannel)
+  fullName: Discord.Addons.MpGame.ILogStrings.CleaningGameData
+  nameWithType: ILogStrings.CleaningGameData
+- uid: Discord.Addons.MpGame.ILogStrings.CleaningGameString(Discord.IMessageChannel)
   name: CleaningGameString(IMessageChannel)
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CleaningGameString_Discord_IMessageChannel_
-  commentId: M:Discord.Addons.MpGame.IServiceStrings.CleaningGameString(Discord.IMessageChannel)
-  fullName: Discord.Addons.MpGame.IServiceStrings.CleaningGameString(Discord.IMessageChannel)
-  nameWithType: IServiceStrings.CleaningGameString(IMessageChannel)
-- uid: Discord.Addons.MpGame.IServiceStrings.CleaningGameString*
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_CleaningGameString_Discord_IMessageChannel_
+  commentId: M:Discord.Addons.MpGame.ILogStrings.CleaningGameString(Discord.IMessageChannel)
+  fullName: Discord.Addons.MpGame.ILogStrings.CleaningGameString(Discord.IMessageChannel)
+  nameWithType: ILogStrings.CleaningGameString(IMessageChannel)
+- uid: Discord.Addons.MpGame.ILogStrings.CleaningGameString*
   name: CleaningGameString
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CleaningGameString_
-  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.CleaningGameString
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_CleaningGameString_
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.CleaningGameString
   isSpec: "True"
-  fullName: Discord.Addons.MpGame.IServiceStrings.CleaningGameString
-  nameWithType: IServiceStrings.CleaningGameString
-- uid: Discord.Addons.MpGame.IServiceStrings.CreatingGame(System.String,Discord.IMessageChannel)
-  name: CreatingGame(String, IMessageChannel)
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CreatingGame_System_String_Discord_IMessageChannel_
-  commentId: M:Discord.Addons.MpGame.IServiceStrings.CreatingGame(System.String,Discord.IMessageChannel)
-  fullName: Discord.Addons.MpGame.IServiceStrings.CreatingGame(System.String, Discord.IMessageChannel)
-  nameWithType: IServiceStrings.CreatingGame(String, IMessageChannel)
-- uid: Discord.Addons.MpGame.IServiceStrings.CreatingGame*
+  fullName: Discord.Addons.MpGame.ILogStrings.CleaningGameString
+  nameWithType: ILogStrings.CleaningGameString
+- uid: Discord.Addons.MpGame.ILogStrings.CreatingGame(Discord.IMessageChannel,System.String)
+  name: CreatingGame(IMessageChannel, String)
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_CreatingGame_Discord_IMessageChannel_System_String_
+  commentId: M:Discord.Addons.MpGame.ILogStrings.CreatingGame(Discord.IMessageChannel,System.String)
+  fullName: Discord.Addons.MpGame.ILogStrings.CreatingGame(Discord.IMessageChannel, System.String)
+  nameWithType: ILogStrings.CreatingGame(IMessageChannel, String)
+- uid: Discord.Addons.MpGame.ILogStrings.CreatingGame*
   name: CreatingGame
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_CreatingGame_
-  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.CreatingGame
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_CreatingGame_
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.CreatingGame
   isSpec: "True"
-  fullName: Discord.Addons.MpGame.IServiceStrings.CreatingGame
-  nameWithType: IServiceStrings.CreatingGame
-- uid: Discord.Addons.MpGame.IServiceStrings.DMsDisabledKickMessage(Discord.IUser)
+  fullName: Discord.Addons.MpGame.ILogStrings.CreatingGame
+  nameWithType: ILogStrings.CreatingGame
+- uid: Discord.Addons.MpGame.ILogStrings.DMsDisabledKickMessage(Discord.IUser)
   name: DMsDisabledKickMessage(IUser)
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_DMsDisabledKickMessage_Discord_IUser_
-  commentId: M:Discord.Addons.MpGame.IServiceStrings.DMsDisabledKickMessage(Discord.IUser)
-  fullName: Discord.Addons.MpGame.IServiceStrings.DMsDisabledKickMessage(Discord.IUser)
-  nameWithType: IServiceStrings.DMsDisabledKickMessage(IUser)
-- uid: Discord.Addons.MpGame.IServiceStrings.DMsDisabledKickMessage*
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_DMsDisabledKickMessage_Discord_IUser_
+  commentId: M:Discord.Addons.MpGame.ILogStrings.DMsDisabledKickMessage(Discord.IUser)
+  fullName: Discord.Addons.MpGame.ILogStrings.DMsDisabledKickMessage(Discord.IUser)
+  nameWithType: ILogStrings.DMsDisabledKickMessage(IUser)
+- uid: Discord.Addons.MpGame.ILogStrings.DMsDisabledKickMessage*
   name: DMsDisabledKickMessage
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_DMsDisabledKickMessage_
-  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.DMsDisabledKickMessage
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_DMsDisabledKickMessage_
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.DMsDisabledKickMessage
   isSpec: "True"
-  fullName: Discord.Addons.MpGame.IServiceStrings.DMsDisabledKickMessage
-  nameWithType: IServiceStrings.DMsDisabledKickMessage
-- uid: Discord.Addons.MpGame.IServiceStrings.DMsDisabledMessage(Discord.IUser)
+  fullName: Discord.Addons.MpGame.ILogStrings.DMsDisabledKickMessage
+  nameWithType: ILogStrings.DMsDisabledKickMessage
+- uid: Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage(Discord.IUser)
   name: DMsDisabledMessage(IUser)
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_DMsDisabledMessage_Discord_IUser_
-  commentId: M:Discord.Addons.MpGame.IServiceStrings.DMsDisabledMessage(Discord.IUser)
-  fullName: Discord.Addons.MpGame.IServiceStrings.DMsDisabledMessage(Discord.IUser)
-  nameWithType: IServiceStrings.DMsDisabledMessage(IUser)
-- uid: Discord.Addons.MpGame.IServiceStrings.DMsDisabledMessage*
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_DMsDisabledMessage_Discord_IUser_
+  commentId: M:Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage(Discord.IUser)
+  fullName: Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage(Discord.IUser)
+  nameWithType: ILogStrings.DMsDisabledMessage(IUser)
+- uid: Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage*
   name: DMsDisabledMessage
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_DMsDisabledMessage_
-  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.DMsDisabledMessage
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_DMsDisabledMessage_
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage
   isSpec: "True"
-  fullName: Discord.Addons.MpGame.IServiceStrings.DMsDisabledMessage
-  nameWithType: IServiceStrings.DMsDisabledMessage
-- uid: Discord.Addons.MpGame.IServiceStrings.LogRegistration(System.String)
+  fullName: Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage
+  nameWithType: ILogStrings.DMsDisabledMessage
+- uid: Discord.Addons.MpGame.ILogStrings.LogRegistration(System.String)
   name: LogRegistration(String)
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_LogRegistration_System_String_
-  commentId: M:Discord.Addons.MpGame.IServiceStrings.LogRegistration(System.String)
-  fullName: Discord.Addons.MpGame.IServiceStrings.LogRegistration(System.String)
-  nameWithType: IServiceStrings.LogRegistration(String)
-- uid: Discord.Addons.MpGame.IServiceStrings.LogRegistration*
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_LogRegistration_System_String_
+  commentId: M:Discord.Addons.MpGame.ILogStrings.LogRegistration(System.String)
+  fullName: Discord.Addons.MpGame.ILogStrings.LogRegistration(System.String)
+  nameWithType: ILogStrings.LogRegistration(String)
+- uid: Discord.Addons.MpGame.ILogStrings.LogRegistration*
   name: LogRegistration
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_LogRegistration_
-  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.LogRegistration
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_LogRegistration_
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.LogRegistration
   isSpec: "True"
-  fullName: Discord.Addons.MpGame.IServiceStrings.LogRegistration
-  nameWithType: IServiceStrings.LogRegistration
-- uid: Discord.Addons.MpGame.IServiceStrings.PlayerKicked(Discord.IUser)
+  fullName: Discord.Addons.MpGame.ILogStrings.LogRegistration
+  nameWithType: ILogStrings.LogRegistration
+- uid: Discord.Addons.MpGame.ILogStrings.PlayerKicked(Discord.IUser)
   name: PlayerKicked(IUser)
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_PlayerKicked_Discord_IUser_
-  commentId: M:Discord.Addons.MpGame.IServiceStrings.PlayerKicked(Discord.IUser)
-  fullName: Discord.Addons.MpGame.IServiceStrings.PlayerKicked(Discord.IUser)
-  nameWithType: IServiceStrings.PlayerKicked(IUser)
-- uid: Discord.Addons.MpGame.IServiceStrings.PlayerKicked*
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_PlayerKicked_Discord_IUser_
+  commentId: M:Discord.Addons.MpGame.ILogStrings.PlayerKicked(Discord.IUser)
+  fullName: Discord.Addons.MpGame.ILogStrings.PlayerKicked(Discord.IUser)
+  nameWithType: ILogStrings.PlayerKicked(IUser)
+- uid: Discord.Addons.MpGame.ILogStrings.PlayerKicked*
   name: PlayerKicked
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_PlayerKicked_
-  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.PlayerKicked
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_PlayerKicked_
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.PlayerKicked
   isSpec: "True"
-  fullName: Discord.Addons.MpGame.IServiceStrings.PlayerKicked
-  nameWithType: IServiceStrings.PlayerKicked
-- uid: Discord.Addons.MpGame.IServiceStrings.SettingGame(System.String,Discord.IMessageChannel)
-  name: SettingGame(String, IMessageChannel)
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_SettingGame_System_String_Discord_IMessageChannel_
-  commentId: M:Discord.Addons.MpGame.IServiceStrings.SettingGame(System.String,Discord.IMessageChannel)
-  fullName: Discord.Addons.MpGame.IServiceStrings.SettingGame(System.String, Discord.IMessageChannel)
-  nameWithType: IServiceStrings.SettingGame(String, IMessageChannel)
-- uid: Discord.Addons.MpGame.IServiceStrings.SettingGame*
+  fullName: Discord.Addons.MpGame.ILogStrings.PlayerKicked
+  nameWithType: ILogStrings.PlayerKicked
+- uid: Discord.Addons.MpGame.ILogStrings.SettingGame(Discord.IMessageChannel,System.String)
+  name: SettingGame(IMessageChannel, String)
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_SettingGame_Discord_IMessageChannel_System_String_
+  commentId: M:Discord.Addons.MpGame.ILogStrings.SettingGame(Discord.IMessageChannel,System.String)
+  fullName: Discord.Addons.MpGame.ILogStrings.SettingGame(Discord.IMessageChannel, System.String)
+  nameWithType: ILogStrings.SettingGame(IMessageChannel, String)
+- uid: Discord.Addons.MpGame.ILogStrings.SettingGame*
   name: SettingGame
-  href: api/Discord.Addons.MpGame.IServiceStrings.html#Discord_Addons_MpGame_IServiceStrings_SettingGame_
-  commentId: Overload:Discord.Addons.MpGame.IServiceStrings.SettingGame
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_SettingGame_
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.SettingGame
   isSpec: "True"
-  fullName: Discord.Addons.MpGame.IServiceStrings.SettingGame
-  nameWithType: IServiceStrings.SettingGame
+  fullName: Discord.Addons.MpGame.ILogStrings.SettingGame
+  nameWithType: ILogStrings.SettingGame
+- uid: Discord.Addons.MpGame.IMpGameServiceConfig
+  name: IMpGameServiceConfig
+  href: api/Discord.Addons.MpGame.IMpGameServiceConfig.html
+  commentId: T:Discord.Addons.MpGame.IMpGameServiceConfig
+  fullName: Discord.Addons.MpGame.IMpGameServiceConfig
+  nameWithType: IMpGameServiceConfig
+- uid: Discord.Addons.MpGame.IMpGameServiceConfig.LogStrings
+  name: LogStrings
+  href: api/Discord.Addons.MpGame.IMpGameServiceConfig.html#Discord_Addons_MpGame_IMpGameServiceConfig_LogStrings
+  commentId: P:Discord.Addons.MpGame.IMpGameServiceConfig.LogStrings
+  fullName: Discord.Addons.MpGame.IMpGameServiceConfig.LogStrings
+  nameWithType: IMpGameServiceConfig.LogStrings
+- uid: Discord.Addons.MpGame.IMpGameServiceConfig.LogStrings*
+  name: LogStrings
+  href: api/Discord.Addons.MpGame.IMpGameServiceConfig.html#Discord_Addons_MpGame_IMpGameServiceConfig_LogStrings_
+  commentId: Overload:Discord.Addons.MpGame.IMpGameServiceConfig.LogStrings
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.IMpGameServiceConfig.LogStrings
+  nameWithType: IMpGameServiceConfig.LogStrings
 - uid: Discord.Addons.MpGame.MpGameModuleBase`3
   name: MpGameModuleBase<TService, TGame, TPlayer>
   href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html
@@ -1591,15 +1610,15 @@ references:
   fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer)
   nameWithType: MpGameService<TGame, TPlayer>
   nameWithType.vb: MpGameService(Of TGame, TPlayer)
-- uid: Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,System.Func{Discord.LogMessage,System.Threading.Tasks.Task},Discord.Addons.MpGame.IServiceStrings)
-  name: MpGameService(BaseSocketClient, Func<LogMessage, Task>, IServiceStrings)
-  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2__ctor_Discord_WebSocket_BaseSocketClient_System_Func_Discord_LogMessage_System_Threading_Tasks_Task__Discord_Addons_MpGame_IServiceStrings_
-  commentId: M:Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,System.Func{Discord.LogMessage,System.Threading.Tasks.Task},Discord.Addons.MpGame.IServiceStrings)
-  name.vb: MpGameService(BaseSocketClient, Func(Of LogMessage, Task), IServiceStrings)
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameService(Discord.WebSocket.BaseSocketClient, System.Func<Discord.LogMessage, System.Threading.Tasks.Task>, Discord.Addons.MpGame.IServiceStrings)
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameService(Discord.WebSocket.BaseSocketClient, System.Func(Of Discord.LogMessage, System.Threading.Tasks.Task), Discord.Addons.MpGame.IServiceStrings)
-  nameWithType: MpGameService<TGame, TPlayer>.MpGameService(BaseSocketClient, Func<LogMessage, Task>, IServiceStrings)
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameService(BaseSocketClient, Func(Of LogMessage, Task), IServiceStrings)
+- uid: Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,Discord.Addons.MpGame.IMpGameServiceConfig,System.Func{Discord.LogMessage,System.Threading.Tasks.Task})
+  name: MpGameService(BaseSocketClient, IMpGameServiceConfig, Func<LogMessage, Task>)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2__ctor_Discord_WebSocket_BaseSocketClient_Discord_Addons_MpGame_IMpGameServiceConfig_System_Func_Discord_LogMessage_System_Threading_Tasks_Task__
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,Discord.Addons.MpGame.IMpGameServiceConfig,System.Func{Discord.LogMessage,System.Threading.Tasks.Task})
+  name.vb: MpGameService(BaseSocketClient, IMpGameServiceConfig, Func(Of LogMessage, Task))
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameService(Discord.WebSocket.BaseSocketClient, Discord.Addons.MpGame.IMpGameServiceConfig, System.Func<Discord.LogMessage, System.Threading.Tasks.Task>)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameService(Discord.WebSocket.BaseSocketClient, Discord.Addons.MpGame.IMpGameServiceConfig, System.Func(Of Discord.LogMessage, System.Threading.Tasks.Task))
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameService(BaseSocketClient, IMpGameServiceConfig, Func<LogMessage, Task>)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameService(BaseSocketClient, IMpGameServiceConfig, Func(Of LogMessage, Task))
 - uid: Discord.Addons.MpGame.MpGameService`2.#ctor*
   name: MpGameService
   href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2__ctor_

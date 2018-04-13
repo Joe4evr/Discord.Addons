@@ -115,7 +115,7 @@ and optimized for representing a hand of cards.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1__ctor.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L35">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L26">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1__ctor_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.#ctor*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1__ctor" data-uid="Discord.Addons.MpGame.Collections.Hand`1.#ctor">Hand()</h4>
@@ -131,7 +131,7 @@ and optimized for representing a hand of cards.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1__ctor_System_Collections_Generic_IEnumerable__0__.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.%23ctor(System.Collections.Generic.IEnumerable%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L44">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L39">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1__ctor_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.#ctor*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1__ctor_System_Collections_Generic_IEnumerable__0__" data-uid="Discord.Addons.MpGame.Collections.Hand`1.#ctor(System.Collections.Generic.IEnumerable{`0})">Hand(IEnumerable&lt;TCard&gt;)</h4>
@@ -160,6 +160,26 @@ and optimized for representing a hand of cards.</p>
       </tr>
     </tbody>
   </table>
+  <h5 id="Discord_Addons_MpGame_Collections_Hand_1__ctor_System_Collections_Generic_IEnumerable__0___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><div class="markdown level0 remarks"><div class="NOTE">
+<h5>Note</h5><p>This constructor will filter out any items in
+<code data-dev-comment-type="paramref" class="paramref">cards</code> that are <span class="xref">null</span>.</p></div></div></div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">cards</code> was <span class="xref">null</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
@@ -167,7 +187,7 @@ and optimized for representing a hand of cards.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_Cards.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.Cards%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L30">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L54">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_Cards_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Cards*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Cards" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Cards">Cards</h4>
@@ -198,7 +218,7 @@ and optimized for representing a hand of cards.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_Count.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.Count%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L25">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L49">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_Count_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Count*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Count" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Count">Count</h4>
@@ -231,7 +251,7 @@ and optimized for representing a hand of cards.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_Add__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.Add(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L53">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L63">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_Add_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Add*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Add__0_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Add(`0)">Add(TCard)</h4>
@@ -260,12 +280,28 @@ and optimized for representing a hand of cards.</p>
       </tr>
     </tbody>
   </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">card</code> was <span class="xref">null</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_Clear.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.Clear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L96">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L74">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_Clear_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Clear*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Clear" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Clear">Clear()</h4>
@@ -297,7 +333,7 @@ and optimized for representing a hand of cards.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_Order_System_Func_System_Collections_Generic_IEnumerable__0__System_Collections_Generic_IEnumerable__0___.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.Order(System.Func%7BSystem.Collections.Generic.IEnumerable%7B%600%7D%2CSystem.Collections.Generic.IEnumerable%7B%600%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L110">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L91">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_Order_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Order*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Order_System_Func_System_Collections_Generic_IEnumerable__0__System_Collections_Generic_IEnumerable__0___" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})">Order(Func&lt;IEnumerable&lt;TCard&gt;, IEnumerable&lt;TCard&gt;&gt;)</h4>
@@ -329,12 +365,34 @@ the hand as its argument.</p>
       </tr>
     </tbody>
   </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">orderFunc</code> was <span class="xref">null</span>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The sequence produced from 
+<code data-dev-comment-type="paramref" class="paramref">orderFunc</code> was <span class="xref">null</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_TakeAt_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.TakeAt(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L61">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L107">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_TakeAt_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.TakeAt*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_TakeAt_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.TakeAt(System.Int32)">TakeAt(Int32)</h4>
@@ -390,7 +448,7 @@ the hand as its argument.</p>
       <tr>
         <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">index</code>
-    was less than 0 or greater than the pile&apos;s current size.</p>
+    was less than 0 or greater than or equal to the pile&apos;s current size.</p>
 </td>
       </tr>
     </tbody>
@@ -400,7 +458,7 @@ the hand as its argument.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_TakeFirstOrDefault_System_Func__0_System_Boolean__.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.TakeFirstOrDefault(System.Func%7B%600%2CSystem.Boolean%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L79">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L123">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_TakeFirstOrDefault_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_TakeFirstOrDefault_System_Func__0_System_Boolean__" data-uid="Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault(System.Func{`0,System.Boolean})">TakeFirstOrDefault(Func&lt;TCard, Boolean&gt;)</h4>
@@ -472,7 +530,7 @@ the hand as its argument.</p>
                     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L16" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L17" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

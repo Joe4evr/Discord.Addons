@@ -13,8 +13,10 @@
   - uid: Discord.Addons.MpGame.GameBase`1
     name: GameBase<TPlayer>
     name.vb: GameBase(Of TPlayer)
-  - uid: Discord.Addons.MpGame.IServiceStrings
-    name: IServiceStrings
+  - uid: Discord.Addons.MpGame.ILogStrings
+    name: ILogStrings
+  - uid: Discord.Addons.MpGame.IMpGameServiceConfig
+    name: IMpGameServiceConfig
   - uid: Discord.Addons.MpGame.MpGameModuleBase`3
     name: MpGameModuleBase<TService, TGame, TPlayer>
     name.vb: MpGameModuleBase(Of TService, TGame, TPlayer)

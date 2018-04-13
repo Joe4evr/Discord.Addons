@@ -60,7 +60,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: GetBuffer
     path: ../src/Discord.Addons.MpGame/Extensions/IBufferStrategy.cs
-    startLine: 13
+    startLine: 15
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons
@@ -97,7 +97,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: ReturnBuffer
     path: ../src/Discord.Addons.MpGame/Extensions/IBufferStrategy.cs
-    startLine: 19
+    startLine: 21
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons

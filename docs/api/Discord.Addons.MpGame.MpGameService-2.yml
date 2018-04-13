@@ -5,7 +5,7 @@ items:
   id: MpGameService`2
   parent: Discord.Addons.MpGame
   children:
-  - Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,System.Func{Discord.LogMessage,System.Threading.Tasks.Task},Discord.Addons.MpGame.IServiceStrings)
+  - Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,Discord.Addons.MpGame.IMpGameServiceConfig,System.Func{Discord.LogMessage,System.Threading.Tasks.Task})
   - Discord.Addons.MpGame.MpGameService`2.AddPlayer(`0,`1)
   - Discord.Addons.MpGame.MpGameService`2.AddUser(Discord.IMessageChannel,Discord.IUser)
   - Discord.Addons.MpGame.MpGameService`2.CancelGame(Discord.IMessageChannel)
@@ -84,9 +84,9 @@ items:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
   summary: >-
-    A cached IEqualityComparer&lt;<xref href="Discord.IMessageChannel" data-throw-if-not-resolved="false"></xref>>instance to use when
+    A cached IEqualityComparer&lt;IMessageChannel>instance to use when
 
-    instantiating a <xref href="System.Collections.Generic.Dictionary%602" data-throw-if-not-resolved="false"></xref> using <xref href="Discord.IMessageChannel" data-throw-if-not-resolved="false"></xref> as the key.
+    instantiating a Dictionary&lt;IMessageChannel, TValue>.
 
     This is the same instance as <xref href="Discord.DiscordComparers.ChannelComparer" data-throw-if-not-resolved="false"></xref>.
   example: []
@@ -144,16 +144,16 @@ items:
   - Protected
   - ReadOnly
   fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).Logger
-- uid: Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,System.Func{Discord.LogMessage,System.Threading.Tasks.Task},Discord.Addons.MpGame.IServiceStrings)
-  commentId: M:Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,System.Func{Discord.LogMessage,System.Threading.Tasks.Task},Discord.Addons.MpGame.IServiceStrings)
-  id: '#ctor(Discord.WebSocket.BaseSocketClient,System.Func{Discord.LogMessage,System.Threading.Tasks.Task},Discord.Addons.MpGame.IServiceStrings)'
+- uid: Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,Discord.Addons.MpGame.IMpGameServiceConfig,System.Func{Discord.LogMessage,System.Threading.Tasks.Task})
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,Discord.Addons.MpGame.IMpGameServiceConfig,System.Func{Discord.LogMessage,System.Threading.Tasks.Task})
+  id: '#ctor(Discord.WebSocket.BaseSocketClient,Discord.Addons.MpGame.IMpGameServiceConfig,System.Func{Discord.LogMessage,System.Threading.Tasks.Task})'
   parent: Discord.Addons.MpGame.MpGameService`2
   langs:
   - csharp
   - vb
-  name: MpGameService(BaseSocketClient, Func<LogMessage, Task>, IServiceStrings)
-  nameWithType: MpGameService<TGame, TPlayer>.MpGameService(BaseSocketClient, Func<LogMessage, Task>, IServiceStrings)
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameService(Discord.WebSocket.BaseSocketClient, System.Func<Discord.LogMessage, System.Threading.Tasks.Task>, Discord.Addons.MpGame.IServiceStrings)
+  name: MpGameService(BaseSocketClient, IMpGameServiceConfig, Func<LogMessage, Task>)
+  nameWithType: MpGameService<TGame, TPlayer>.MpGameService(BaseSocketClient, IMpGameServiceConfig, Func<LogMessage, Task>)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.MpGameService(Discord.WebSocket.BaseSocketClient, Discord.Addons.MpGame.IMpGameServiceConfig, System.Func<Discord.LogMessage, System.Threading.Tasks.Task>)
   type: Constructor
   source:
     remote:
@@ -162,28 +162,32 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: .ctor
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 35
+    startLine: 42
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
+  summary: "\nInstantiates the MpGameService for\nthe specified Game and Player type.\n"
+  example: []
   syntax:
-    content: public MpGameService(BaseSocketClient client, Func<LogMessage, Task> logger = null, IServiceStrings strings = null)
+    content: public MpGameService(BaseSocketClient client, IMpGameServiceConfig mpconfig = null, Func<LogMessage, Task> logger = null)
     parameters:
     - id: client
       type: Discord.WebSocket.BaseSocketClient
+      description: The Discord client.
+    - id: mpconfig
+      type: Discord.Addons.MpGame.IMpGameServiceConfig
     - id: logger
       type: System.Func{Discord.LogMessage,System.Threading.Tasks.Task}
-    - id: strings
-      type: Discord.Addons.MpGame.IServiceStrings
-    content.vb: Public Sub New(client As BaseSocketClient, logger As Func(Of LogMessage, Task) = Nothing, strings As IServiceStrings = Nothing)
+      description: An optional logging method.
+    content.vb: Public Sub New(client As BaseSocketClient, mpconfig As IMpGameServiceConfig = Nothing, logger As Func(Of LogMessage, Task) = Nothing)
   overload: Discord.Addons.MpGame.MpGameService`2.#ctor*
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameService(BaseSocketClient, Func(Of LogMessage, Task), IServiceStrings)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).MpGameService(BaseSocketClient, IMpGameServiceConfig, Func(Of LogMessage, Task))
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameService(Discord.WebSocket.BaseSocketClient, System.Func(Of Discord.LogMessage, System.Threading.Tasks.Task), Discord.Addons.MpGame.IServiceStrings)
-  name.vb: MpGameService(BaseSocketClient, Func(Of LogMessage, Task), IServiceStrings)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).MpGameService(Discord.WebSocket.BaseSocketClient, Discord.Addons.MpGame.IMpGameServiceConfig, System.Func(Of Discord.LogMessage, System.Threading.Tasks.Task))
+  name.vb: MpGameService(BaseSocketClient, IMpGameServiceConfig, Func(Of LogMessage, Task))
 - uid: Discord.Addons.MpGame.MpGameService`2.OpenNewGame(Discord.Commands.ICommandContext)
   commentId: M:Discord.Addons.MpGame.MpGameService`2.OpenNewGame(Discord.Commands.ICommandContext)
   id: OpenNewGame(Discord.Commands.ICommandContext)
@@ -202,7 +206,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: OpenNewGame
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 83
+    startLine: 90
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -243,7 +247,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: AddUser
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 99
+    startLine: 106
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -287,7 +291,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: RemoveUser
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 107
+    startLine: 114
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -331,7 +335,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: AddPlayer
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 115
+    startLine: 122
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -375,7 +379,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: KickPlayer
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 130
+    startLine: 137
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -419,7 +423,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: CancelGame
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 148
+    startLine: 155
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -460,7 +464,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TryAddNewGame
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 155
+    startLine: 162
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -504,7 +508,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TryUpdateOpenToJoin
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 192
+    startLine: 199
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -554,7 +558,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: GetGameFromChannel
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 201
+    startLine: 208
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -601,7 +605,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: GetJoinedUsers
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 210
+    startLine: 217
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -648,7 +652,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: IsOpenToJoin
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 222
+    startLine: 229
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -694,17 +698,21 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: GetGameData
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 235
+    startLine: 247
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
+  summary: "\nGets the game metadata associated with this context.\n"
+  example: []
   syntax:
     content: public MpGameService<TGame, TPlayer>.MpGameData GetGameData(ICommandContext context)
     parameters:
     - id: context
       type: Discord.Commands.ICommandContext
+      description: The CommandContext to fetch metadata for.
     return:
       type: Discord.Addons.MpGame.MpGameService`2.MpGameData
+      description: A snapshot of the current game metadata.
     content.vb: Public Function GetGameData(context As ICommandContext) As MpGameService(Of TGame, TPlayer).MpGameData
   overload: Discord.Addons.MpGame.MpGameService`2.GetGameData*
   nameWithType.vb: MpGameService(Of TGame, TPlayer).GetGameData(ICommandContext)
@@ -800,15 +808,6 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: Discord.IMessageChannel
-  commentId: T:Discord.IMessageChannel
-  parent: Discord
-  isExternal: true
-  name: IMessageChannel
-  nameWithType: IMessageChannel
-  fullName: Discord.IMessageChannel
-- uid: System.Collections.Generic.Dictionary`2
-  commentId: T:System.Collections.Generic.Dictionary`2
 - uid: Discord.DiscordComparers.ChannelComparer
   commentId: P:Discord.DiscordComparers.ChannelComparer
 - uid: Discord.Addons.MpGame.MpGameService`2.MessageChannelComparer*
@@ -863,12 +862,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Discord
-  commentId: N:Discord
-  isExternal: false
-  name: Discord
-  nameWithType: Discord
-  fullName: Discord
 - uid: System.Collections.Generic.IEqualityComparer`1
   commentId: T:System.Collections.Generic.IEqualityComparer`1
   isExternal: true
@@ -1048,13 +1041,13 @@ references:
   name: BaseSocketClient
   nameWithType: BaseSocketClient
   fullName: Discord.WebSocket.BaseSocketClient
-- uid: Discord.Addons.MpGame.IServiceStrings
-  commentId: T:Discord.Addons.MpGame.IServiceStrings
+- uid: Discord.Addons.MpGame.IMpGameServiceConfig
+  commentId: T:Discord.Addons.MpGame.IMpGameServiceConfig
   parent: Discord.Addons.MpGame
   isExternal: false
-  name: IServiceStrings
-  nameWithType: IServiceStrings
-  fullName: Discord.Addons.MpGame.IServiceStrings
+  name: IMpGameServiceConfig
+  nameWithType: IMpGameServiceConfig
+  fullName: Discord.Addons.MpGame.IMpGameServiceConfig
 - uid: Discord.WebSocket
   commentId: N:Discord.WebSocket
   isExternal: false
@@ -1179,6 +1172,13 @@ references:
   fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.AddUser
   nameWithType.vb: MpGameService(Of TGame, TPlayer).AddUser
   fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).AddUser
+- uid: Discord.IMessageChannel
+  commentId: T:Discord.IMessageChannel
+  parent: Discord
+  isExternal: true
+  name: IMessageChannel
+  nameWithType: IMessageChannel
+  fullName: Discord.IMessageChannel
 - uid: Discord.IUser
   commentId: T:Discord.IUser
   parent: Discord
@@ -1186,6 +1186,12 @@ references:
   name: IUser
   nameWithType: IUser
   fullName: Discord.IUser
+- uid: Discord
+  commentId: N:Discord
+  isExternal: false
+  name: Discord
+  nameWithType: Discord
+  fullName: Discord
 - uid: Discord.Addons.MpGame.MpGameService`2.RemoveUser*
   commentId: Overload:Discord.Addons.MpGame.MpGameService`2.RemoveUser
   isExternal: false

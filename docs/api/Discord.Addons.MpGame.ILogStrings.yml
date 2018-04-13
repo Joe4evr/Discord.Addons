@@ -1,0 +1,429 @@
+### YamlMime:ManagedReference
+items:
+- uid: Discord.Addons.MpGame.ILogStrings
+  commentId: T:Discord.Addons.MpGame.ILogStrings
+  id: ILogStrings
+  parent: Discord.Addons.MpGame
+  children:
+  - Discord.Addons.MpGame.ILogStrings.CleaningDMChannel(Discord.IDMChannel)
+  - Discord.Addons.MpGame.ILogStrings.CleaningGameData(Discord.IMessageChannel,System.String)
+  - Discord.Addons.MpGame.ILogStrings.CleaningGameString(Discord.IMessageChannel)
+  - Discord.Addons.MpGame.ILogStrings.CreatingGame(Discord.IMessageChannel,System.String)
+  - Discord.Addons.MpGame.ILogStrings.DMsDisabledKickMessage(Discord.IUser)
+  - Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage(Discord.IUser)
+  - Discord.Addons.MpGame.ILogStrings.LogRegistration(System.String)
+  - Discord.Addons.MpGame.ILogStrings.PlayerKicked(Discord.IUser)
+  - Discord.Addons.MpGame.ILogStrings.SettingGame(Discord.IMessageChannel,System.String)
+  langs:
+  - csharp
+  - vb
+  name: ILogStrings
+  nameWithType: ILogStrings
+  fullName: Discord.Addons.MpGame.ILogStrings
+  type: Interface
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: ILogStrings
+    path: ../src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+    startLine: 6
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  syntax:
+    content: public interface ILogStrings
+    content.vb: Public Interface ILogStrings
+  modifiers.csharp:
+  - public
+  - interface
+  modifiers.vb:
+  - Public
+  - Interface
+- uid: Discord.Addons.MpGame.ILogStrings.LogRegistration(System.String)
+  commentId: M:Discord.Addons.MpGame.ILogStrings.LogRegistration(System.String)
+  id: LogRegistration(System.String)
+  parent: Discord.Addons.MpGame.ILogStrings
+  langs:
+  - csharp
+  - vb
+  name: LogRegistration(String)
+  nameWithType: ILogStrings.LogRegistration(String)
+  fullName: Discord.Addons.MpGame.ILogStrings.LogRegistration(System.String)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: LogRegistration
+    path: ../src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+    startLine: 9
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  syntax:
+    content: string LogRegistration(string gameName)
+    parameters:
+    - id: gameName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Function LogRegistration(gameName As String) As String
+  overload: Discord.Addons.MpGame.ILogStrings.LogRegistration*
+- uid: Discord.Addons.MpGame.ILogStrings.CleaningGameData(Discord.IMessageChannel,System.String)
+  commentId: M:Discord.Addons.MpGame.ILogStrings.CleaningGameData(Discord.IMessageChannel,System.String)
+  id: CleaningGameData(Discord.IMessageChannel,System.String)
+  parent: Discord.Addons.MpGame.ILogStrings
+  langs:
+  - csharp
+  - vb
+  name: CleaningGameData(IMessageChannel, String)
+  nameWithType: ILogStrings.CleaningGameData(IMessageChannel, String)
+  fullName: Discord.Addons.MpGame.ILogStrings.CleaningGameData(Discord.IMessageChannel, System.String)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: CleaningGameData
+    path: ../src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+    startLine: 12
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  syntax:
+    content: string CleaningGameData(IMessageChannel channel, string gameName)
+    parameters:
+    - id: channel
+      type: Discord.IMessageChannel
+    - id: gameName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Function CleaningGameData(channel As IMessageChannel, gameName As String) As String
+  overload: Discord.Addons.MpGame.ILogStrings.CleaningGameData*
+- uid: Discord.Addons.MpGame.ILogStrings.CleaningDMChannel(Discord.IDMChannel)
+  commentId: M:Discord.Addons.MpGame.ILogStrings.CleaningDMChannel(Discord.IDMChannel)
+  id: CleaningDMChannel(Discord.IDMChannel)
+  parent: Discord.Addons.MpGame.ILogStrings
+  langs:
+  - csharp
+  - vb
+  name: CleaningDMChannel(IDMChannel)
+  nameWithType: ILogStrings.CleaningDMChannel(IDMChannel)
+  fullName: Discord.Addons.MpGame.ILogStrings.CleaningDMChannel(Discord.IDMChannel)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: CleaningDMChannel
+    path: ../src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+    startLine: 13
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  syntax:
+    content: string CleaningDMChannel(IDMChannel channel)
+    parameters:
+    - id: channel
+      type: Discord.IDMChannel
+    return:
+      type: System.String
+    content.vb: Function CleaningDMChannel(channel As IDMChannel) As String
+  overload: Discord.Addons.MpGame.ILogStrings.CleaningDMChannel*
+- uid: Discord.Addons.MpGame.ILogStrings.CleaningGameString(Discord.IMessageChannel)
+  commentId: M:Discord.Addons.MpGame.ILogStrings.CleaningGameString(Discord.IMessageChannel)
+  id: CleaningGameString(Discord.IMessageChannel)
+  parent: Discord.Addons.MpGame.ILogStrings
+  langs:
+  - csharp
+  - vb
+  name: CleaningGameString(IMessageChannel)
+  nameWithType: ILogStrings.CleaningGameString(IMessageChannel)
+  fullName: Discord.Addons.MpGame.ILogStrings.CleaningGameString(Discord.IMessageChannel)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: CleaningGameString
+    path: ../src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+    startLine: 14
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  syntax:
+    content: string CleaningGameString(IMessageChannel channel)
+    parameters:
+    - id: channel
+      type: Discord.IMessageChannel
+    return:
+      type: System.String
+    content.vb: Function CleaningGameString(channel As IMessageChannel) As String
+  overload: Discord.Addons.MpGame.ILogStrings.CleaningGameString*
+- uid: Discord.Addons.MpGame.ILogStrings.CreatingGame(Discord.IMessageChannel,System.String)
+  commentId: M:Discord.Addons.MpGame.ILogStrings.CreatingGame(Discord.IMessageChannel,System.String)
+  id: CreatingGame(Discord.IMessageChannel,System.String)
+  parent: Discord.Addons.MpGame.ILogStrings
+  langs:
+  - csharp
+  - vb
+  name: CreatingGame(IMessageChannel, String)
+  nameWithType: ILogStrings.CreatingGame(IMessageChannel, String)
+  fullName: Discord.Addons.MpGame.ILogStrings.CreatingGame(Discord.IMessageChannel, System.String)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: CreatingGame
+    path: ../src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+    startLine: 17
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  syntax:
+    content: string CreatingGame(IMessageChannel channel, string gameName)
+    parameters:
+    - id: channel
+      type: Discord.IMessageChannel
+    - id: gameName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Function CreatingGame(channel As IMessageChannel, gameName As String) As String
+  overload: Discord.Addons.MpGame.ILogStrings.CreatingGame*
+- uid: Discord.Addons.MpGame.ILogStrings.PlayerKicked(Discord.IUser)
+  commentId: M:Discord.Addons.MpGame.ILogStrings.PlayerKicked(Discord.IUser)
+  id: PlayerKicked(Discord.IUser)
+  parent: Discord.Addons.MpGame.ILogStrings
+  langs:
+  - csharp
+  - vb
+  name: PlayerKicked(IUser)
+  nameWithType: ILogStrings.PlayerKicked(IUser)
+  fullName: Discord.Addons.MpGame.ILogStrings.PlayerKicked(Discord.IUser)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: PlayerKicked
+    path: ../src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+    startLine: 20
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  syntax:
+    content: string PlayerKicked(IUser user)
+    parameters:
+    - id: user
+      type: Discord.IUser
+    return:
+      type: System.String
+    content.vb: Function PlayerKicked(user As IUser) As String
+  overload: Discord.Addons.MpGame.ILogStrings.PlayerKicked*
+- uid: Discord.Addons.MpGame.ILogStrings.SettingGame(Discord.IMessageChannel,System.String)
+  commentId: M:Discord.Addons.MpGame.ILogStrings.SettingGame(Discord.IMessageChannel,System.String)
+  id: SettingGame(Discord.IMessageChannel,System.String)
+  parent: Discord.Addons.MpGame.ILogStrings
+  langs:
+  - csharp
+  - vb
+  name: SettingGame(IMessageChannel, String)
+  nameWithType: ILogStrings.SettingGame(IMessageChannel, String)
+  fullName: Discord.Addons.MpGame.ILogStrings.SettingGame(Discord.IMessageChannel, System.String)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: SettingGame
+    path: ../src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+    startLine: 23
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  syntax:
+    content: string SettingGame(IMessageChannel channel, string gameName)
+    parameters:
+    - id: channel
+      type: Discord.IMessageChannel
+    - id: gameName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Function SettingGame(channel As IMessageChannel, gameName As String) As String
+  overload: Discord.Addons.MpGame.ILogStrings.SettingGame*
+- uid: Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage(Discord.IUser)
+  commentId: M:Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage(Discord.IUser)
+  id: DMsDisabledMessage(Discord.IUser)
+  parent: Discord.Addons.MpGame.ILogStrings
+  langs:
+  - csharp
+  - vb
+  name: DMsDisabledMessage(IUser)
+  nameWithType: ILogStrings.DMsDisabledMessage(IUser)
+  fullName: Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage(Discord.IUser)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: DMsDisabledMessage
+    path: ../src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+    startLine: 26
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  syntax:
+    content: string DMsDisabledMessage(IUser user)
+    parameters:
+    - id: user
+      type: Discord.IUser
+    return:
+      type: System.String
+    content.vb: Function DMsDisabledMessage(user As IUser) As String
+  overload: Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage*
+- uid: Discord.Addons.MpGame.ILogStrings.DMsDisabledKickMessage(Discord.IUser)
+  commentId: M:Discord.Addons.MpGame.ILogStrings.DMsDisabledKickMessage(Discord.IUser)
+  id: DMsDisabledKickMessage(Discord.IUser)
+  parent: Discord.Addons.MpGame.ILogStrings
+  langs:
+  - csharp
+  - vb
+  name: DMsDisabledKickMessage(IUser)
+  nameWithType: ILogStrings.DMsDisabledKickMessage(IUser)
+  fullName: Discord.Addons.MpGame.ILogStrings.DMsDisabledKickMessage(Discord.IUser)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: DMsDisabledKickMessage
+    path: ../src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+    startLine: 27
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  syntax:
+    content: string DMsDisabledKickMessage(IUser user)
+    parameters:
+    - id: user
+      type: Discord.IUser
+    return:
+      type: System.String
+    content.vb: Function DMsDisabledKickMessage(user As IUser) As String
+  overload: Discord.Addons.MpGame.ILogStrings.DMsDisabledKickMessage*
+references:
+- uid: Discord.Addons.MpGame
+  commentId: N:Discord.Addons.MpGame
+  isExternal: false
+  name: Discord.Addons.MpGame
+  nameWithType: Discord.Addons.MpGame
+  fullName: Discord.Addons.MpGame
+- uid: Discord.Addons.MpGame.ILogStrings.LogRegistration*
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.LogRegistration
+  isExternal: false
+  name: LogRegistration
+  nameWithType: ILogStrings.LogRegistration
+  fullName: Discord.Addons.MpGame.ILogStrings.LogRegistration
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System
+  commentId: N:System
+  isExternal: false
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Discord.Addons.MpGame.ILogStrings.CleaningGameData*
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.CleaningGameData
+  isExternal: false
+  name: CleaningGameData
+  nameWithType: ILogStrings.CleaningGameData
+  fullName: Discord.Addons.MpGame.ILogStrings.CleaningGameData
+- uid: Discord.IMessageChannel
+  commentId: T:Discord.IMessageChannel
+  parent: Discord
+  isExternal: true
+  name: IMessageChannel
+  nameWithType: IMessageChannel
+  fullName: Discord.IMessageChannel
+- uid: Discord
+  commentId: N:Discord
+  isExternal: false
+  name: Discord
+  nameWithType: Discord
+  fullName: Discord
+- uid: Discord.Addons.MpGame.ILogStrings.CleaningDMChannel*
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.CleaningDMChannel
+  isExternal: false
+  name: CleaningDMChannel
+  nameWithType: ILogStrings.CleaningDMChannel
+  fullName: Discord.Addons.MpGame.ILogStrings.CleaningDMChannel
+- uid: Discord.IDMChannel
+  commentId: T:Discord.IDMChannel
+  parent: Discord
+  isExternal: true
+  name: IDMChannel
+  nameWithType: IDMChannel
+  fullName: Discord.IDMChannel
+- uid: Discord.Addons.MpGame.ILogStrings.CleaningGameString*
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.CleaningGameString
+  isExternal: false
+  name: CleaningGameString
+  nameWithType: ILogStrings.CleaningGameString
+  fullName: Discord.Addons.MpGame.ILogStrings.CleaningGameString
+- uid: Discord.Addons.MpGame.ILogStrings.CreatingGame*
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.CreatingGame
+  isExternal: false
+  name: CreatingGame
+  nameWithType: ILogStrings.CreatingGame
+  fullName: Discord.Addons.MpGame.ILogStrings.CreatingGame
+- uid: Discord.Addons.MpGame.ILogStrings.PlayerKicked*
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.PlayerKicked
+  isExternal: false
+  name: PlayerKicked
+  nameWithType: ILogStrings.PlayerKicked
+  fullName: Discord.Addons.MpGame.ILogStrings.PlayerKicked
+- uid: Discord.IUser
+  commentId: T:Discord.IUser
+  parent: Discord
+  isExternal: true
+  name: IUser
+  nameWithType: IUser
+  fullName: Discord.IUser
+- uid: Discord.Addons.MpGame.ILogStrings.SettingGame*
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.SettingGame
+  isExternal: false
+  name: SettingGame
+  nameWithType: ILogStrings.SettingGame
+  fullName: Discord.Addons.MpGame.ILogStrings.SettingGame
+- uid: Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage*
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage
+  isExternal: false
+  name: DMsDisabledMessage
+  nameWithType: ILogStrings.DMsDisabledMessage
+  fullName: Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage
+- uid: Discord.Addons.MpGame.ILogStrings.DMsDisabledKickMessage*
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.DMsDisabledKickMessage
+  isExternal: false
+  name: DMsDisabledKickMessage
+  nameWithType: ILogStrings.DMsDisabledKickMessage
+  fullName: Discord.Addons.MpGame.ILogStrings.DMsDisabledKickMessage

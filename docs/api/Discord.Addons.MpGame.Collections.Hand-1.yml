@@ -28,7 +28,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Hand
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 15
+    startLine: 16
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -59,6 +59,89 @@ items:
   - Class
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard)
   name.vb: Hand(Of TCard)
+- uid: Discord.Addons.MpGame.Collections.Hand`1.#ctor
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.#ctor
+  id: '#ctor'
+  parent: Discord.Addons.MpGame.Collections.Hand`1
+  langs:
+  - csharp
+  - vb
+  name: Hand()
+  nameWithType: Hand<TCard>.Hand()
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Hand()
+  type: Constructor
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Hand.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: .ctor
+    path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
+    startLine: 25
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nInitializes a new <xref href=\"Discord.Addons.MpGame.Collections.Hand%601\" data-throw-if-not-resolved=\"false\"></xref> to an empty state.\n"
+  example: []
+  syntax:
+    content: public Hand()
+    content.vb: Public Sub New
+  overload: Discord.Addons.MpGame.Collections.Hand`1.#ctor*
+  nameWithType.vb: Hand(Of TCard).Hand()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Hand()
+- uid: Discord.Addons.MpGame.Collections.Hand`1.#ctor(System.Collections.Generic.IEnumerable{`0})
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.#ctor(System.Collections.Generic.IEnumerable{`0})
+  id: '#ctor(System.Collections.Generic.IEnumerable{`0})'
+  parent: Discord.Addons.MpGame.Collections.Hand`1
+  langs:
+  - csharp
+  - vb
+  name: Hand(IEnumerable<TCard>)
+  nameWithType: Hand<TCard>.Hand(IEnumerable<TCard>)
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Hand(System.Collections.Generic.IEnumerable<TCard>)
+  type: Constructor
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Hand.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: .ctor
+    path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
+    startLine: 38
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nInitializes a new <xref href=\"Discord.Addons.MpGame.Collections.Hand%601\" data-throw-if-not-resolved=\"false\"></xref> with the specified cards.\n"
+  remarks: >-
+    <div class="markdown level0 remarks"><div class="NOTE">
+
+    <h5>Note</h5><p>This constructor will filter out any items in
+
+    <code data-dev-comment-type="paramref" class="paramref">cards</code> that are <xref uid="langword_csharp_null" name="null" href=""></xref>.</p></div></div>
+  example: []
+  syntax:
+    content: public Hand(IEnumerable<TCard> cards)
+    parameters:
+    - id: cards
+      type: System.Collections.Generic.IEnumerable{{TCard}}
+      description: The cards to put in the hand.
+    content.vb: Public Sub New(cards As IEnumerable(Of TCard))
+  overload: Discord.Addons.MpGame.Collections.Hand`1.#ctor*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: <code data-dev-comment-type="paramref" class="paramref">cards</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
+  nameWithType.vb: Hand(Of TCard).Hand(IEnumerable(Of TCard))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Hand(System.Collections.Generic.IEnumerable(Of TCard))
+  name.vb: Hand(IEnumerable(Of TCard))
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Count
   commentId: P:Discord.Addons.MpGame.Collections.Hand`1.Count
   id: Count
@@ -77,7 +160,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Count
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 24
+    startLine: 48
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -116,7 +199,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Cards
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 29
+    startLine: 53
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -137,79 +220,6 @@ items:
   - Public
   - ReadOnly
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Cards
-- uid: Discord.Addons.MpGame.Collections.Hand`1.#ctor
-  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.#ctor
-  id: '#ctor'
-  parent: Discord.Addons.MpGame.Collections.Hand`1
-  langs:
-  - csharp
-  - vb
-  name: Hand()
-  nameWithType: Hand<TCard>.Hand()
-  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Hand()
-  type: Constructor
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Hand.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: .ctor
-    path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 34
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nInitializes a new <xref href=\"Discord.Addons.MpGame.Collections.Hand%601\" data-throw-if-not-resolved=\"false\"></xref> to an empty state.\n"
-  example: []
-  syntax:
-    content: public Hand()
-    content.vb: Public Sub New
-  overload: Discord.Addons.MpGame.Collections.Hand`1.#ctor*
-  nameWithType.vb: Hand(Of TCard).Hand()
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Hand()
-- uid: Discord.Addons.MpGame.Collections.Hand`1.#ctor(System.Collections.Generic.IEnumerable{`0})
-  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.#ctor(System.Collections.Generic.IEnumerable{`0})
-  id: '#ctor(System.Collections.Generic.IEnumerable{`0})'
-  parent: Discord.Addons.MpGame.Collections.Hand`1
-  langs:
-  - csharp
-  - vb
-  name: Hand(IEnumerable<TCard>)
-  nameWithType: Hand<TCard>.Hand(IEnumerable<TCard>)
-  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Hand(System.Collections.Generic.IEnumerable<TCard>)
-  type: Constructor
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Hand.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: .ctor
-    path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 43
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nInitializes a new <xref href=\"Discord.Addons.MpGame.Collections.Hand%601\" data-throw-if-not-resolved=\"false\"></xref> with the specified cards.\n"
-  example: []
-  syntax:
-    content: public Hand(IEnumerable<TCard> cards)
-    parameters:
-    - id: cards
-      type: System.Collections.Generic.IEnumerable{{TCard}}
-      description: The cards to put in the hand.
-    content.vb: Public Sub New(cards As IEnumerable(Of TCard))
-  overload: Discord.Addons.MpGame.Collections.Hand`1.#ctor*
-  nameWithType.vb: Hand(Of TCard).Hand(IEnumerable(Of TCard))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Hand(System.Collections.Generic.IEnumerable(Of TCard))
-  name.vb: Hand(IEnumerable(Of TCard))
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Add(`0)
   commentId: M:Discord.Addons.MpGame.Collections.Hand`1.Add(`0)
   id: Add(`0)
@@ -228,7 +238,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Add
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 52
+    startLine: 62
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -242,104 +252,16 @@ items:
       description: The card to add.
     content.vb: Public Sub Add(card As TCard)
   overload: Discord.Addons.MpGame.Collections.Hand`1.Add*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: <code data-dev-comment-type="paramref" class="paramref">card</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
   nameWithType.vb: Hand(Of TCard).Add(TCard)
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Add(TCard)
-- uid: Discord.Addons.MpGame.Collections.Hand`1.TakeAt(System.Int32)
-  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.TakeAt(System.Int32)
-  id: TakeAt(System.Int32)
-  parent: Discord.Addons.MpGame.Collections.Hand`1
-  langs:
-  - csharp
-  - vb
-  name: TakeAt(Int32)
-  nameWithType: Hand<TCard>.TakeAt(Int32)
-  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.TakeAt(System.Int32)
-  type: Method
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Hand.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: TakeAt
-    path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 60
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nTakes a card from the given index.\n"
-  example: []
-  syntax:
-    content: public TCard TakeAt(int index)
-    parameters:
-    - id: index
-      type: System.Int32
-      description: The index of the card to take.
-    return:
-      type: '{TCard}'
-    content.vb: Public Function TakeAt(index As Integer) As TCard
-  overload: Discord.Addons.MpGame.Collections.Hand`1.TakeAt*
-  exceptions:
-  - type: System.ArgumentOutOfRangeException
-    commentId: T:System.ArgumentOutOfRangeException
-    description: >-
-      <code data-dev-comment-type="paramref" class="paramref">index</code>
-          was less than 0 or greater than the pile&apos;s current size.
-  nameWithType.vb: Hand(Of TCard).TakeAt(Int32)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).TakeAt(System.Int32)
-- uid: Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault(System.Func{`0,System.Boolean})
-  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault(System.Func{`0,System.Boolean})
-  id: TakeFirstOrDefault(System.Func{`0,System.Boolean})
-  parent: Discord.Addons.MpGame.Collections.Hand`1
-  langs:
-  - csharp
-  - vb
-  name: TakeFirstOrDefault(Func<TCard, Boolean>)
-  nameWithType: Hand<TCard>.TakeFirstOrDefault(Func<TCard, Boolean>)
-  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.TakeFirstOrDefault(System.Func<TCard, System.Boolean>)
-  type: Method
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Hand.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: TakeFirstOrDefault
-    path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 78
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nTakes the first card that matches a given predicate.\n"
-  example: []
-  syntax:
-    content: public TCard TakeFirstOrDefault(Func<TCard, bool> predicate)
-    parameters:
-    - id: predicate
-      type: System.Func{{TCard},System.Boolean}
-      description: The predicate to match.
-    return:
-      type: '{TCard}'
-      description: The card, or <xref uid="langword_csharp_null" name="null" href=""></xref> if no match found.
-    content.vb: Public Function TakeFirstOrDefault(predicate As Func(Of TCard, Boolean)) As TCard
-  overload: Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault*
-  exceptions:
-  - type: System.ArgumentNullException
-    commentId: T:System.ArgumentNullException
-    description: <code data-dev-comment-type="paramref" class="paramref">predicate</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
-  nameWithType.vb: Hand(Of TCard).TakeFirstOrDefault(Func(Of TCard, Boolean))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).TakeFirstOrDefault(System.Func(Of TCard, System.Boolean))
-  name.vb: TakeFirstOrDefault(Func(Of TCard, Boolean))
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Clear
   commentId: M:Discord.Addons.MpGame.Collections.Hand`1.Clear
   id: Clear
@@ -358,7 +280,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Clear
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 95
+    startLine: 73
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -395,7 +317,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Order
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 109
+    startLine: 90
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -416,6 +338,13 @@ items:
         the hand as its argument.
     content.vb: Public Sub Order(orderFunc As Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
   overload: Discord.Addons.MpGame.Collections.Hand`1.Order*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: <code data-dev-comment-type="paramref" class="paramref">orderFunc</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: "The sequence produced from \n<code data-dev-comment-type=\"paramref\" class=\"paramref\">orderFunc</code> was <xref uid=\"langword_csharp_null\" name=\"null\" href=\"\"></xref>."
   nameWithType.vb: Hand(Of TCard).Order(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
   modifiers.csharp:
   - public
@@ -423,6 +352,98 @@ items:
   - Public
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Order(System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
   name.vb: Order(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+- uid: Discord.Addons.MpGame.Collections.Hand`1.TakeAt(System.Int32)
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.TakeAt(System.Int32)
+  id: TakeAt(System.Int32)
+  parent: Discord.Addons.MpGame.Collections.Hand`1
+  langs:
+  - csharp
+  - vb
+  name: TakeAt(Int32)
+  nameWithType: Hand<TCard>.TakeAt(Int32)
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.TakeAt(System.Int32)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Hand.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: TakeAt
+    path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
+    startLine: 106
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nTakes a card from the given index.\n"
+  example: []
+  syntax:
+    content: public TCard TakeAt(int index)
+    parameters:
+    - id: index
+      type: System.Int32
+      description: The index of the card to take.
+    return:
+      type: '{TCard}'
+    content.vb: Public Function TakeAt(index As Integer) As TCard
+  overload: Discord.Addons.MpGame.Collections.Hand`1.TakeAt*
+  exceptions:
+  - type: System.ArgumentOutOfRangeException
+    commentId: T:System.ArgumentOutOfRangeException
+    description: >-
+      <code data-dev-comment-type="paramref" class="paramref">index</code>
+          was less than 0 or greater than or equal to the pile&apos;s current size.
+  nameWithType.vb: Hand(Of TCard).TakeAt(Int32)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).TakeAt(System.Int32)
+- uid: Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault(System.Func{`0,System.Boolean})
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault(System.Func{`0,System.Boolean})
+  id: TakeFirstOrDefault(System.Func{`0,System.Boolean})
+  parent: Discord.Addons.MpGame.Collections.Hand`1
+  langs:
+  - csharp
+  - vb
+  name: TakeFirstOrDefault(Func<TCard, Boolean>)
+  nameWithType: Hand<TCard>.TakeFirstOrDefault(Func<TCard, Boolean>)
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.TakeFirstOrDefault(System.Func<TCard, System.Boolean>)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Hand.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: TakeFirstOrDefault
+    path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
+    startLine: 122
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nTakes the first card that matches a given predicate.\n"
+  example: []
+  syntax:
+    content: public TCard TakeFirstOrDefault(Func<TCard, bool> predicate)
+    parameters:
+    - id: predicate
+      type: System.Func{{TCard},System.Boolean}
+      description: The predicate to match.
+    return:
+      type: '{TCard}'
+      description: The card, or <xref uid="langword_csharp_null" name="null" href=""></xref> if no match found.
+    content.vb: Public Function TakeFirstOrDefault(predicate As Func(Of TCard, Boolean)) As TCard
+  overload: Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: <code data-dev-comment-type="paramref" class="paramref">predicate</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
+  nameWithType.vb: Hand(Of TCard).TakeFirstOrDefault(Func(Of TCard, Boolean))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).TakeFirstOrDefault(System.Func(Of TCard, System.Boolean))
+  name.vb: TakeFirstOrDefault(Func(Of TCard, Boolean))
 references:
 - uid: Discord.Addons.MpGame.Collections.Pile`1
   commentId: T:Discord.Addons.MpGame.Collections.Pile`1
@@ -480,6 +501,138 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: Discord.Addons.MpGame.Collections.Hand`1
+  commentId: T:Discord.Addons.MpGame.Collections.Hand`1
+  isExternal: false
+  name: Hand<TCard>
+  nameWithType: Hand<TCard>
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>
+  nameWithType.vb: Hand(Of TCard)
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard)
+  name.vb: Hand(Of TCard)
+  spec.csharp:
+  - uid: Discord.Addons.MpGame.Collections.Hand`1
+    name: Hand
+    nameWithType: Hand
+    fullName: Discord.Addons.MpGame.Collections.Hand
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: Discord.Addons.MpGame.Collections.Hand`1
+    name: Hand
+    nameWithType: Hand
+    fullName: Discord.Addons.MpGame.Collections.Hand
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: Discord.Addons.MpGame.Collections.Hand`1.#ctor*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.#ctor
+  isExternal: false
+  name: Hand
+  nameWithType: Hand<TCard>.Hand
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Hand
+  nameWithType.vb: Hand(Of TCard).Hand
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Hand
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
+- uid: System.Collections.Generic.IEnumerable{{TCard}}
+  commentId: T:System.Collections.Generic.IEnumerable{`0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<TCard>
+  nameWithType: IEnumerable<TCard>
+  fullName: System.Collections.Generic.IEnumerable<TCard>
+  nameWithType.vb: IEnumerable(Of TCard)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of TCard)
+  name.vb: IEnumerable(Of TCard)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: false
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Count*
   commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Count
   isExternal: false
@@ -582,136 +735,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Collections.Generic
-  commentId: N:System.Collections.Generic
-  isExternal: false
-  name: System.Collections.Generic
-  nameWithType: System.Collections.Generic
-  fullName: System.Collections.Generic
-- uid: Discord.Addons.MpGame.Collections.Hand`1
-  commentId: T:Discord.Addons.MpGame.Collections.Hand`1
-  isExternal: false
-  name: Hand<TCard>
-  nameWithType: Hand<TCard>
-  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>
-  nameWithType.vb: Hand(Of TCard)
-  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard)
-  name.vb: Hand(Of TCard)
-  spec.csharp:
-  - uid: Discord.Addons.MpGame.Collections.Hand`1
-    name: Hand
-    nameWithType: Hand
-    fullName: Discord.Addons.MpGame.Collections.Hand
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: TCard
-    nameWithType: TCard
-    fullName: TCard
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: Discord.Addons.MpGame.Collections.Hand`1
-    name: Hand
-    nameWithType: Hand
-    fullName: Discord.Addons.MpGame.Collections.Hand
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: TCard
-    nameWithType: TCard
-    fullName: TCard
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Discord.Addons.MpGame.Collections.Hand`1.#ctor*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.#ctor
-  isExternal: false
-  name: Hand
-  nameWithType: Hand<TCard>.Hand
-  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Hand
-  nameWithType.vb: Hand(Of TCard).Hand
-  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Hand
-- uid: System.Collections.Generic.IEnumerable{{TCard}}
-  commentId: T:System.Collections.Generic.IEnumerable{`0}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.IEnumerable`1
-  name: IEnumerable<TCard>
-  nameWithType: IEnumerable<TCard>
-  fullName: System.Collections.Generic.IEnumerable<TCard>
-  nameWithType.vb: IEnumerable(Of TCard)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of TCard)
-  name.vb: IEnumerable(Of TCard)
-  spec.csharp:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: TCard
-    nameWithType: TCard
-    fullName: TCard
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: TCard
-    nameWithType: TCard
-    fullName: TCard
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Collections.Generic.IEnumerable`1
-  commentId: T:System.Collections.Generic.IEnumerable`1
-  isExternal: true
-  name: IEnumerable<T>
-  nameWithType: IEnumerable<T>
-  fullName: System.Collections.Generic.IEnumerable<T>
-  nameWithType.vb: IEnumerable(Of T)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
-  name.vb: IEnumerable(Of T)
-  spec.csharp:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Add*
   commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Add
   isExternal: false
@@ -731,133 +754,6 @@ references:
   name: TCard
   nameWithType: TCard
   fullName: TCard
-- uid: System.ArgumentOutOfRangeException
-  commentId: T:System.ArgumentOutOfRangeException
-- uid: Discord.Addons.MpGame.Collections.Hand`1.TakeAt*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.TakeAt
-  isExternal: false
-  name: TakeAt
-  nameWithType: Hand<TCard>.TakeAt
-  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.TakeAt
-  nameWithType.vb: Hand(Of TCard).TakeAt
-  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).TakeAt
-- uid: System.ArgumentNullException
-  commentId: T:System.ArgumentNullException
-- uid: Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault
-  isExternal: false
-  name: TakeFirstOrDefault
-  nameWithType: Hand<TCard>.TakeFirstOrDefault
-  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.TakeFirstOrDefault
-  nameWithType.vb: Hand(Of TCard).TakeFirstOrDefault
-  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).TakeFirstOrDefault
-- uid: System.Func{{TCard},System.Boolean}
-  commentId: T:System.Func{`0,System.Boolean}
-  parent: System
-  definition: System.Func`2
-  name: Func<TCard, Boolean>
-  nameWithType: Func<TCard, Boolean>
-  fullName: System.Func<TCard, System.Boolean>
-  nameWithType.vb: Func(Of TCard, Boolean)
-  fullName.vb: System.Func(Of TCard, System.Boolean)
-  name.vb: Func(Of TCard, Boolean)
-  spec.csharp:
-  - uid: System.Func`2
-    name: Func
-    nameWithType: Func
-    fullName: System.Func
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: TCard
-    nameWithType: TCard
-    fullName: TCard
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Boolean
-    name: Boolean
-    nameWithType: Boolean
-    fullName: System.Boolean
-    isExternal: true
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Func`2
-    name: Func
-    nameWithType: Func
-    fullName: System.Func
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: TCard
-    nameWithType: TCard
-    fullName: TCard
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Boolean
-    name: Boolean
-    nameWithType: Boolean
-    fullName: System.Boolean
-    isExternal: true
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Func`2
-  commentId: T:System.Func`2
-  isExternal: true
-  name: Func<T, TResult>
-  nameWithType: Func<T, TResult>
-  fullName: System.Func<T, TResult>
-  nameWithType.vb: Func(Of T, TResult)
-  fullName.vb: System.Func(Of T, TResult)
-  name.vb: Func(Of T, TResult)
-  spec.csharp:
-  - uid: System.Func`2
-    name: Func
-    nameWithType: Func
-    fullName: System.Func
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - name: TResult
-    nameWithType: TResult
-    fullName: TResult
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Func`2
-    name: Func
-    nameWithType: Func
-    fullName: System.Func
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - name: TResult
-    nameWithType: TResult
-    fullName: TResult
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Clear*
   commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Clear
   isExternal: false
@@ -866,6 +762,8 @@ references:
   fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Clear
   nameWithType.vb: Hand(Of TCard).Clear
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Clear
+- uid: System.InvalidOperationException
+  commentId: T:System.InvalidOperationException
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Order*
   commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Order
   isExternal: false
@@ -967,6 +865,131 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.ArgumentOutOfRangeException
+  commentId: T:System.ArgumentOutOfRangeException
+- uid: Discord.Addons.MpGame.Collections.Hand`1.TakeAt*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.TakeAt
+  isExternal: false
+  name: TakeAt
+  nameWithType: Hand<TCard>.TakeAt
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.TakeAt
+  nameWithType.vb: Hand(Of TCard).TakeAt
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).TakeAt
+- uid: Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault
+  isExternal: false
+  name: TakeFirstOrDefault
+  nameWithType: Hand<TCard>.TakeFirstOrDefault
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.TakeFirstOrDefault
+  nameWithType.vb: Hand(Of TCard).TakeFirstOrDefault
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).TakeFirstOrDefault
+- uid: System.Func{{TCard},System.Boolean}
+  commentId: T:System.Func{`0,System.Boolean}
+  parent: System
+  definition: System.Func`2
+  name: Func<TCard, Boolean>
+  nameWithType: Func<TCard, Boolean>
+  fullName: System.Func<TCard, System.Boolean>
+  nameWithType.vb: Func(Of TCard, Boolean)
+  fullName.vb: System.Func(Of TCard, System.Boolean)
+  name.vb: Func(Of TCard, Boolean)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Boolean
+    name: Boolean
+    nameWithType: Boolean
+    fullName: System.Boolean
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )

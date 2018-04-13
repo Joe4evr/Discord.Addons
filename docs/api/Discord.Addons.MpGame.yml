@@ -6,7 +6,8 @@ items:
   children:
   - Discord.Addons.MpGame.CurrentlyPlaying
   - Discord.Addons.MpGame.GameBase`1
-  - Discord.Addons.MpGame.IServiceStrings
+  - Discord.Addons.MpGame.ILogStrings
+  - Discord.Addons.MpGame.IMpGameServiceConfig
   - Discord.Addons.MpGame.MpGameModuleBase`3
   - Discord.Addons.MpGame.MpGameService`2
   - Discord.Addons.MpGame.MpGameService`2.MpGameData
@@ -132,6 +133,20 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: Discord.Addons.MpGame.ILogStrings
+  commentId: T:Discord.Addons.MpGame.ILogStrings
+  parent: Discord.Addons.MpGame
+  isExternal: false
+  name: ILogStrings
+  nameWithType: ILogStrings
+  fullName: Discord.Addons.MpGame.ILogStrings
+- uid: Discord.Addons.MpGame.IMpGameServiceConfig
+  commentId: T:Discord.Addons.MpGame.IMpGameServiceConfig
+  parent: Discord.Addons.MpGame
+  isExternal: false
+  name: IMpGameServiceConfig
+  nameWithType: IMpGameServiceConfig
+  fullName: Discord.Addons.MpGame.IMpGameServiceConfig
 - uid: Discord.Addons.MpGame.MpGameService`2
   commentId: T:Discord.Addons.MpGame.MpGameService`2
   isExternal: false
@@ -213,13 +228,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: Discord.Addons.MpGame.IServiceStrings
-  commentId: T:Discord.Addons.MpGame.IServiceStrings
-  parent: Discord.Addons.MpGame
-  isExternal: false
-  name: IServiceStrings
-  nameWithType: IServiceStrings
-  fullName: Discord.Addons.MpGame.IServiceStrings
 - uid: Discord.Addons.MpGame
   commentId: N:Discord.Addons.MpGame
   isExternal: false

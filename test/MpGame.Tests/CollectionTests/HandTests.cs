@@ -30,6 +30,7 @@ namespace MpGame.Tests.CollectionTests
                 var hand = new Hand<TestCard>(seed);
 
                 Assert.Equal(expected: seed.Length - nulls, actual: hand.Count);
+                Assert.All(hand.Cards, c => Assert.NotNull(c));
             }
         }
 

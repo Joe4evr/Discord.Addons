@@ -113,18 +113,20 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameService_2__ctor_Discord_WebSocket_BaseSocketClient_System_Func_Discord_LogMessage_System_Threading_Tasks_Task__Discord_Addons_MpGame_IServiceStrings_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameService%602.%23ctor(Discord.WebSocket.BaseSocketClient%2CSystem.Func%7BDiscord.LogMessage%2CSystem.Threading.Tasks.Task%7D%2CDiscord.Addons.MpGame.IServiceStrings)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameService_2__ctor_Discord_WebSocket_BaseSocketClient_Discord_Addons_MpGame_IMpGameServiceConfig_System_Func_Discord_LogMessage_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameService%602.%23ctor(Discord.WebSocket.BaseSocketClient%2CDiscord.Addons.MpGame.IMpGameServiceConfig%2CSystem.Func%7BDiscord.LogMessage%2CSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L36">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L43">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameService_2__ctor_" data-uid="Discord.Addons.MpGame.MpGameService`2.#ctor*"></a>
-  <h4 id="Discord_Addons_MpGame_MpGameService_2__ctor_Discord_WebSocket_BaseSocketClient_System_Func_Discord_LogMessage_System_Threading_Tasks_Task__Discord_Addons_MpGame_IServiceStrings_" data-uid="Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,System.Func{Discord.LogMessage,System.Threading.Tasks.Task},Discord.Addons.MpGame.IServiceStrings)">MpGameService(BaseSocketClient, Func&lt;LogMessage, Task&gt;, IServiceStrings)</h4>
-  <div class="markdown level1 summary"></div>
+  <h4 id="Discord_Addons_MpGame_MpGameService_2__ctor_Discord_WebSocket_BaseSocketClient_Discord_Addons_MpGame_IMpGameServiceConfig_System_Func_Discord_LogMessage_System_Threading_Tasks_Task__" data-uid="Discord.Addons.MpGame.MpGameService`2.#ctor(Discord.WebSocket.BaseSocketClient,Discord.Addons.MpGame.IMpGameServiceConfig,System.Func{Discord.LogMessage,System.Threading.Tasks.Task})">MpGameService(BaseSocketClient, IMpGameServiceConfig, Func&lt;LogMessage, Task&gt;)</h4>
+  <div class="markdown level1 summary"><p>Instantiates the MpGameService for
+the specified Game and Player type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MpGameService(BaseSocketClient client, Func&lt;LogMessage, Task&gt; logger = null, IServiceStrings strings = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public MpGameService(BaseSocketClient client, IMpGameServiceConfig mpconfig = null, Func&lt;LogMessage, Task&gt; logger = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -139,17 +141,19 @@
       <tr>
         <td><span class="xref">Discord.WebSocket.BaseSocketClient</span></td>
         <td><span class="parametername">client</span></td>
+        <td><p>The Discord client.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Discord.Addons.MpGame.IMpGameServiceConfig.html">IMpGameServiceConfig</a></td>
+        <td><span class="parametername">mpconfig</span></td>
         <td></td>
       </tr>
       <tr>
         <td><span class="xref">System.Func</span>&lt;<span class="xref">Discord.LogMessage</span>, <span class="xref">System.Threading.Tasks.Task</span>&gt;</td>
         <td><span class="parametername">logger</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Discord.Addons.MpGame.IServiceStrings.html">IServiceStrings</a></td>
-        <td><span class="parametername">strings</span></td>
-        <td></td>
+        <td><p>An optional logging method.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -194,8 +198,8 @@
   </span>
   <a id="Discord_Addons_MpGame_MpGameService_2_MessageChannelComparer_" data-uid="Discord.Addons.MpGame.MpGameService`2.MessageChannelComparer*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameService_2_MessageChannelComparer" data-uid="Discord.Addons.MpGame.MpGameService`2.MessageChannelComparer">MessageChannelComparer</h4>
-  <div class="markdown level1 summary"><p>A cached IEqualityComparer&lt;<span class="xref">Discord.IMessageChannel</span>&gt;instance to use when
-instantiating a <span class="xref">System.Collections.Generic.Dictionary`2</span> using <span class="xref">Discord.IMessageChannel</span> as the key.
+  <div class="markdown level1 summary"><p>A cached IEqualityComparer&lt;IMessageChannel&gt;instance to use when
+instantiating a Dictionary&lt;IMessageChannel, TValue&gt;.
 This is the same instance as <span class="xref">Discord.DiscordComparers.ChannelComparer</span>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -225,7 +229,7 @@ This is the same instance as <span class="xref">Discord.DiscordComparers.Channel
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameService_2_AddPlayer__0__1_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameService%602.AddPlayer(%600%2C%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L116">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L123">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameService_2_AddPlayer_" data-uid="Discord.Addons.MpGame.MpGameService`2.AddPlayer*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameService_2_AddPlayer__0__1_" data-uid="Discord.Addons.MpGame.MpGameService`2.AddPlayer(`0,`1)">AddPlayer(TGame, TPlayer)</h4>
@@ -281,7 +285,7 @@ This is the same instance as <span class="xref">Discord.DiscordComparers.Channel
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameService_2_AddUser_Discord_IMessageChannel_Discord_IUser_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameService%602.AddUser(Discord.IMessageChannel%2CDiscord.IUser)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L100">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L107">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameService_2_AddUser_" data-uid="Discord.Addons.MpGame.MpGameService`2.AddUser*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameService_2_AddUser_Discord_IMessageChannel_Discord_IUser_" data-uid="Discord.Addons.MpGame.MpGameService`2.AddUser(Discord.IMessageChannel,Discord.IUser)">AddUser(IMessageChannel, IUser)</h4>
@@ -337,7 +341,7 @@ This is the same instance as <span class="xref">Discord.DiscordComparers.Channel
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameService_2_CancelGame_Discord_IMessageChannel_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameService%602.CancelGame(Discord.IMessageChannel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L149">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L156">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameService_2_CancelGame_" data-uid="Discord.Addons.MpGame.MpGameService`2.CancelGame*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameService_2_CancelGame_Discord_IMessageChannel_" data-uid="Discord.Addons.MpGame.MpGameService`2.CancelGame(Discord.IMessageChannel)">CancelGame(IMessageChannel)</h4>
@@ -387,11 +391,12 @@ This is the same instance as <span class="xref">Discord.DiscordComparers.Channel
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameService_2_GetGameData_Discord_Commands_ICommandContext_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameService%602.GetGameData(Discord.Commands.ICommandContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L236">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L248">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameService_2_GetGameData_" data-uid="Discord.Addons.MpGame.MpGameService`2.GetGameData*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameService_2_GetGameData_Discord_Commands_ICommandContext_" data-uid="Discord.Addons.MpGame.MpGameService`2.GetGameData(Discord.Commands.ICommandContext)">GetGameData(ICommandContext)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets the game metadata associated with this context.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -410,7 +415,8 @@ This is the same instance as <span class="xref">Discord.DiscordComparers.Channel
       <tr>
         <td><span class="xref">Discord.Commands.ICommandContext</span></td>
         <td><span class="parametername">context</span></td>
-        <td></td>
+        <td><p>The CommandContext to fetch metadata for.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -425,7 +431,8 @@ This is the same instance as <span class="xref">Discord.DiscordComparers.Channel
     <tbody>
       <tr>
         <td><a class="xref" href="Discord.Addons.MpGame.MpGameService-2.MpGameData.html">MpGameService.MpGameData</a>&lt;&gt;</td>
-        <td></td>
+        <td><p>A snapshot of the current game metadata.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -434,7 +441,7 @@ This is the same instance as <span class="xref">Discord.DiscordComparers.Channel
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameService_2_GetGameFromChannel_Discord_IMessageChannel_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameService%602.GetGameFromChannel(Discord.IMessageChannel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L202">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L209">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameService_2_GetGameFromChannel_" data-uid="Discord.Addons.MpGame.MpGameService`2.GetGameFromChannel*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameService_2_GetGameFromChannel_Discord_IMessageChannel_" data-uid="Discord.Addons.MpGame.MpGameService`2.GetGameFromChannel(Discord.IMessageChannel)">GetGameFromChannel(IMessageChannel)</h4>
@@ -486,7 +493,7 @@ or that the user is playing in, or <span class="xref">null</span> if there is no
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameService_2_GetJoinedUsers_Discord_IMessageChannel_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameService%602.GetJoinedUsers(Discord.IMessageChannel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L211">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L218">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameService_2_GetJoinedUsers_" data-uid="Discord.Addons.MpGame.MpGameService`2.GetJoinedUsers*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameService_2_GetJoinedUsers_Discord_IMessageChannel_" data-uid="Discord.Addons.MpGame.MpGameService`2.GetJoinedUsers(Discord.IMessageChannel)">GetJoinedUsers(IMessageChannel)</h4>
@@ -538,7 +545,7 @@ if there is no data.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameService_2_IsOpenToJoin_Discord_IMessageChannel_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameService%602.IsOpenToJoin(Discord.IMessageChannel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L223">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L230">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameService_2_IsOpenToJoin_" data-uid="Discord.Addons.MpGame.MpGameService`2.IsOpenToJoin*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameService_2_IsOpenToJoin_Discord_IMessageChannel_" data-uid="Discord.Addons.MpGame.MpGameService`2.IsOpenToJoin(Discord.IMessageChannel)">IsOpenToJoin(IMessageChannel)</h4>
@@ -590,7 +597,7 @@ or the DM channel of one of the players.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameService_2_KickPlayer__0__1_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameService%602.KickPlayer(%600%2C%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L131">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L138">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameService_2_KickPlayer_" data-uid="Discord.Addons.MpGame.MpGameService`2.KickPlayer*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameService_2_KickPlayer__0__1_" data-uid="Discord.Addons.MpGame.MpGameService`2.KickPlayer(`0,`1)">KickPlayer(TGame, TPlayer)</h4>
@@ -646,7 +653,7 @@ or the DM channel of one of the players.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameService_2_OpenNewGame_Discord_Commands_ICommandContext_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameService%602.OpenNewGame(Discord.Commands.ICommandContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L84">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L91">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameService_2_OpenNewGame_" data-uid="Discord.Addons.MpGame.MpGameService`2.OpenNewGame*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameService_2_OpenNewGame_Discord_Commands_ICommandContext_" data-uid="Discord.Addons.MpGame.MpGameService`2.OpenNewGame(Discord.Commands.ICommandContext)">OpenNewGame(ICommandContext)</h4>
@@ -696,7 +703,7 @@ or the DM channel of one of the players.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameService_2_RemoveUser_Discord_IMessageChannel_Discord_IUser_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameService%602.RemoveUser(Discord.IMessageChannel%2CDiscord.IUser)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L108">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L115">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameService_2_RemoveUser_" data-uid="Discord.Addons.MpGame.MpGameService`2.RemoveUser*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameService_2_RemoveUser_Discord_IMessageChannel_Discord_IUser_" data-uid="Discord.Addons.MpGame.MpGameService`2.RemoveUser(Discord.IMessageChannel,Discord.IUser)">RemoveUser(IMessageChannel, IUser)</h4>
@@ -752,7 +759,7 @@ or the DM channel of one of the players.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameService_2_TryAddNewGame_Discord_IMessageChannel__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameService%602.TryAddNewGame(Discord.IMessageChannel%2C%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L156">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L163">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameService_2_TryAddNewGame_" data-uid="Discord.Addons.MpGame.MpGameService`2.TryAddNewGame*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameService_2_TryAddNewGame_Discord_IMessageChannel__0_" data-uid="Discord.Addons.MpGame.MpGameService`2.TryAddNewGame(Discord.IMessageChannel,`0)">TryAddNewGame(IMessageChannel, TGame)</h4>
@@ -808,7 +815,7 @@ or the DM channel of one of the players.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameService_2_TryUpdateOpenToJoin_Discord_IMessageChannel_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameService%602.TryUpdateOpenToJoin(Discord.IMessageChannel%2CSystem.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L193">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Services/MpGameService.cs/#L200">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameService_2_TryUpdateOpenToJoin_" data-uid="Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameService_2_TryUpdateOpenToJoin_Discord_IMessageChannel_System_Boolean_System_Boolean_" data-uid="Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin(Discord.IMessageChannel,System.Boolean,System.Boolean)">TryUpdateOpenToJoin(IMessageChannel, Boolean, Boolean)</h4>
