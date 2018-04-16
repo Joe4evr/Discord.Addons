@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace Discord.Addons.MpGame.Collections
 {
@@ -18,18 +19,22 @@ namespace Discord.Addons.MpGame.Collections
     public abstract partial class Pile<TCard>
         where TCard : class
     {
-        private Stack<TCard> _top;
-        private Queue<TCard> _bottom;
-        private bool _strategyUsed = false;
-        private IBufferStrategy<TCard> _bufferStrategy = NonPoolingStrategy.Instance;
+        //private Stack<TCard> _top;
+        //private Queue<TCard> _bottom;
+        //private bool _strategyUsed = false;
+        //private IBufferStrategy<TCard> _bufferStrategy = NonPoolingStrategy.Instance;
+
+        private Node _head;
+        private Node _tail;
+        private int _count = 0;
 
         /// <summary>
         /// Initializes a new <see cref="Pile{TCard}"/> to an empty state.
         /// </summary>
         protected Pile()
         {
-            _top = new Stack<TCard>();
-            _bottom = new Queue<TCard>();
+            //_top = new Stack<TCard>();
+            //_bottom = new Queue<TCard>();
         }
 
         /// <summary>
@@ -45,30 +50,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             ThrowArgNull(cards, nameof(cards));
 
-            _top = new Stack<TCard>(cards.Where(c => c != null));
-            _bottom = new Queue<TCard>();
-        }
-
-        /// <summary>
-        /// Defines the strategy used for buffering items during certain operations.
-        /// </summary>
-        /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
-        /// <h5>Note</h5><p>The default strategy is to allocate new arrays and
-        /// let the GC clean them up.</p></div></div></remarks>
-        /// <exception cref="ArgumentNullException">The supplied
-        /// value is <see langword="null"/>.</exception>
-        /// <exception cref="InvalidOperationException">The strategy
-        /// implementation is already in use.</exception>
-        protected IBufferStrategy<TCard> BufferStrategy
-        {
-            private get => _bufferStrategy;
-            set
-            {
-                ThrowArgNull(value, nameof(value));
-                ThrowInvalidOp(_strategyUsed, ErrorStrings.NoSwappingStrategy);
-
-                _bufferStrategy = value;
-            }
+            SetNewSequence(cards);
         }
 
         /// <summary>
@@ -89,9 +71,16 @@ namespace Discord.Addons.MpGame.Collections
         public abstract bool CanCut { get; }
 
         /// <summary>
-        /// Indicates whether or not this <see cref="Pile{TCard}"/> allows drawing cards.
+        /// Indicates whether or not this <see cref="Pile{TCard}"/>
+        /// allows drawing cards from the top.
         /// </summary>
         public abstract bool CanDraw { get; }
+
+        /// <summary>
+        /// Indicates whether or not this <see cref="Pile{TCard}"/>
+        /// allows drawing cards from the bottom.
+        /// </summary>
+        public abstract bool CanDrawBottom { get; }
 
         /// <summary>
         /// Indicates whether or not this <see cref="Pile{TCard}"/>
@@ -128,7 +117,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <summary>
         /// The amount of cards currently in the pile.
         /// </summary>
-        public int Count => _top.Count + _bottom.Count;
+        public int Count => _count;
 
         /// <summary>
         /// A snapshot of all the cards
@@ -179,10 +168,11 @@ namespace Discord.Addons.MpGame.Collections
             if (cutIndex == 0 || cutIndex == Count)
                 return; //no changes
 
-            for (int i = 0; i < cutIndex; i++)
-            {
-                _bottom.Enqueue(TakeTopInternal());
-            }
+            var tmp = GetAt(cutIndex);
+            _head.Previous = _tail;
+            _head = tmp.Next;
+            _tail = tmp;
+            
         }
 
         /// <summary>
@@ -199,7 +189,31 @@ namespace Discord.Addons.MpGame.Collections
             ThrowInvalidOp(!CanDraw, ErrorStrings.NoDraw);
             ThrowInvalidOp(Count == 0, ErrorStrings.PileEmpty);
 
-            var tmp = TakeTopInternal();
+            var tmp = Break(_head);
+            _head = _head.Next;
+
+            if (Count == 0)
+                OnLastRemoved();
+
+            return tmp;
+        }
+
+        /// <summary>
+        /// Draws the bottom card from the pile. If the last card is
+        /// drawn, calls <see cref="OnLastRemoved"/>.
+        /// Requires <see cref="CanDrawBottom"/>.
+        /// </summary>
+        /// <returns>If the pile's current size is greater than 0, the card
+        /// currently at the bottom of the pile. Otherwise will throw.</returns>
+        /// <exception cref="InvalidOperationException">The instance
+        /// does not allow drawing cards OR There were no cards to draw.</exception>
+        public TCard DrawBottom()
+        {
+            ThrowInvalidOp(!CanDraw, ErrorStrings.NoDraw);
+            ThrowInvalidOp(Count == 0, ErrorStrings.PileEmpty);
+
+            var tmp = Break(_tail);
+            _tail = _tail.Previous;
 
             if (Count == 0)
                 OnLastRemoved();
@@ -226,18 +240,16 @@ namespace Discord.Addons.MpGame.Collections
 
             if (index == 0)
             {
-                _top.Push(card);
-                return;
+                AddHead(card);
             }
-            if (index == Count)
+            else if (index == Count)
             {
-                _bottom.Enqueue(card);
-                return;
+                _tail = AddAfter(_tail, card);
             }
-
-            var buffer = MakeBuffer(index);
-            _top.Push(card);
-            PushBuffer(buffer, index);
+            else
+            {
+                AddAfter(GetAt(index), card);
+            }
         }
 
         /// <summary>
@@ -260,10 +272,13 @@ namespace Discord.Addons.MpGame.Collections
             if (amount == 0)
                 return ImmutableArray<TCard>.Empty;
 
-            var buffer = MakeBuffer(amount);
-            var result = buffer.ToImmutableArray();
-            PushBuffer(buffer, amount);
-            return result;
+            var result = new List<TCard>(capacity: amount);
+
+            var tmp = _head;
+            for (int i = 0; i < amount; i++)
+                result.Add(tmp.Value);
+
+            return result.ToImmutableArray();
         }
 
         /// <summary>
@@ -280,7 +295,7 @@ namespace Discord.Addons.MpGame.Collections
             ThrowInvalidOp(!CanPut, ErrorStrings.NoPut);
             ThrowArgNull(card, nameof(card));
 
-            _top.Push(card);
+            AddHead(card);
             OnPut(card);
         }
 
@@ -296,7 +311,7 @@ namespace Discord.Addons.MpGame.Collections
             ThrowInvalidOp(!CanPutBottom, ErrorStrings.NoPutBtm);
             ThrowArgNull(card, nameof(card));
 
-            _bottom.Enqueue(card);
+            AddTail(card);
         }
 
         /// <summary>
@@ -321,7 +336,7 @@ namespace Discord.Addons.MpGame.Collections
 
             ThrowInvalidOp(shuffled == null, ErrorStrings.NewSequenceNull);
 
-            _top = new Stack<TCard>(shuffled);
+            SetNewSequence(shuffled);
         }
 
         /// <summary>
@@ -340,18 +355,7 @@ namespace Discord.Addons.MpGame.Collections
             ThrowArgOutOfRange(index < 0, ErrorStrings.RetrievalNegative, nameof(index));
             ThrowArgOutOfRange(index >= Count, ErrorStrings.RetrievalTooHighP, nameof(index));
 
-            TCard tmp;
-
-            if (index == _top.Count)
-                tmp = _bottom.Dequeue();
-            else if (index == 0)
-                tmp = TakeTopInternal();
-            else
-            {
-                var buffer = MakeBuffer(index);
-                tmp = TakeTopInternal();
-                PushBuffer(buffer, index);
-            }
+            var tmp = Break(GetAt(index));
 
             if (Count == 0)
                 OnLastRemoved();
@@ -374,44 +378,105 @@ namespace Discord.Addons.MpGame.Collections
         /// <h5>Note</h5><p>Does nothing by default.</p></div></div></remarks>
         protected virtual void OnPut(TCard card) { }
 
-        //private bool IsIndexInTop(int i) => i < _top.Count;
         private IReadOnlyCollection<TCard> GetAllInternal(bool clear)
         {
             if (Count == 0)
                 return ImmutableArray<TCard>.Empty;
 
-            var size = Count;
-            var buffer = MakeBuffer(size);
-            var result = ImmutableArray.Create(buffer, 0, size);
-            if (!clear)
-                PushBuffer(buffer, size);
-            else
-                BufferStrategy.ReturnBuffer(buffer);
+            var result = new List<TCard>(capacity: Count);
 
-            return result;
-        }
-        private TCard TakeTopInternal() => (_top.Count > 0) //IsIndexInTop(0)
-            ? _top.Pop()
-            : _bottom.Dequeue();
-        private TCard[] MakeBuffer(int bufferSize)
-        {
-            if (!_strategyUsed)
-                _strategyUsed = true;
+            for (var n = _head; n != null; n = n.Next)
+                result.Add(n.Value);
 
-            var buffer = BufferStrategy.GetBuffer(bufferSize);
-            for (int i = 0; i < bufferSize; i++)
+            if (clear)
             {
-                buffer[i] = TakeTopInternal();
+                _head = null;
+                _tail = null;
+                Interlocked.Exchange(ref _count, 0);
             }
-            return buffer;
+
+            return result.ToImmutableArray();
         }
-        private void PushBuffer(TCard[] buffer, int bufferSize)
+
+        private Node GetAt(int index)
         {
-            for (int i = bufferSize - 1; i >= 0; i--)
+            if (index == 0)
+                return _head;
+            if (index == Count - 1)
+                return _tail;
+
+            var tmp = _head;
+            for (int i = 0; i < index; i++)
+                tmp = tmp.Next;
+
+            return tmp;
+        }
+        private Node AddHead(TCard card)
+        {
+            var tmp = new Node(card)
             {
-                _top.Push(buffer[i]);
+                Next = _head
+            };
+
+            if (_head != null)
+                _head.Previous = tmp;
+
+            _head = tmp;
+            Interlocked.Increment(ref _count);
+            //_count++;
+            return tmp;
+        }
+        private Node AddTail(TCard card)
+        {
+            var tmp = new Node(card)
+            {
+                Previous = _tail
+            };
+
+            if (_tail != null)
+                _tail.Next = tmp;
+
+            _tail = tmp;
+            Interlocked.Increment(ref _count);
+            //_count++;
+            return tmp;
+        }
+        private Node AddAfter(Node node, TCard card)
+        {
+            var tmp = new Node(card)
+            {
+                Next = node?.Next,
+                Previous = node
+            };
+
+            node.Next = tmp;
+            Interlocked.Increment(ref _count);
+            //_count++;
+            return tmp;
+        }
+        private TCard Break(Node node)
+        {
+            if (node.Previous != null)
+                node.Previous.Next = node.Next;
+            if (node.Next != null)
+                node.Next.Previous = node.Previous;
+
+            Interlocked.Decrement(ref _count);
+            //_count--;
+            return node.Value;
+        }
+
+        private void SetNewSequence(IEnumerable<TCard> cards)
+        {
+            _head = null;
+            _tail = null;
+            Interlocked.Exchange(ref _count, 0);
+            foreach (var item in cards.Where(c => c != null))
+            {
+                _ = (_head == null)
+                    ? (_tail = AddHead(item))
+                    : AddTail(item);
             }
-            BufferStrategy.ReturnBuffer(buffer);
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -434,6 +499,18 @@ namespace Discord.Addons.MpGame.Collections
         {
             if (check)
                 throw new ArgumentOutOfRangeException(message: msg, paramName: argname);
+        }
+
+        private sealed class Node
+        {
+            public Node Next     { get; set; }
+            public Node Previous { get; set; }
+            public TCard Value   { get; }
+
+            public Node(TCard value)
+            {
+                Value = value ?? throw new ArgumentNullException(nameof(value));
+            }
         }
     }
 }

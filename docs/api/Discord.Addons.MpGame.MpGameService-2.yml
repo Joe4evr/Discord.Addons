@@ -206,7 +206,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: OpenNewGame
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 90
+    startLine: 64
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -247,7 +247,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: AddUser
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 106
+    startLine: 82
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -291,7 +291,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: RemoveUser
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 114
+    startLine: 90
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -335,7 +335,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: AddPlayer
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 122
+    startLine: 98
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -379,7 +379,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: KickPlayer
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 137
+    startLine: 113
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -423,7 +423,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: CancelGame
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 155
+    startLine: 119
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -464,7 +464,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TryAddNewGame
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 162
+    startLine: 126
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -508,7 +508,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TryUpdateOpenToJoin
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 199
+    startLine: 153
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -558,7 +558,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: GetGameFromChannel
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 208
+    startLine: 162
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -605,7 +605,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: GetJoinedUsers
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 217
+    startLine: 171
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -652,7 +652,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: IsOpenToJoin
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 229
+    startLine: 183
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -698,7 +698,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: GetGameData
     path: ../src/Discord.Addons.MpGame/Services/MpGameService.cs
-    startLine: 247
+    startLine: 193
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame

@@ -1,56 +1,6 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
-- uid: Discord.Addons
-  name: Discord.Addons
-  href: api/Discord.Addons.html
-  commentId: N:Discord.Addons
-  fullName: Discord.Addons
-  nameWithType: Discord.Addons
-- uid: Discord.Addons.IBufferStrategy`1
-  name: IBufferStrategy<T>
-  href: api/Discord.Addons.IBufferStrategy-1.html
-  commentId: T:Discord.Addons.IBufferStrategy`1
-  name.vb: IBufferStrategy(Of T)
-  fullName: Discord.Addons.IBufferStrategy<T>
-  fullName.vb: Discord.Addons.IBufferStrategy(Of T)
-  nameWithType: IBufferStrategy<T>
-  nameWithType.vb: IBufferStrategy(Of T)
-- uid: Discord.Addons.IBufferStrategy`1.GetBuffer(System.Int32)
-  name: GetBuffer(Int32)
-  href: api/Discord.Addons.IBufferStrategy-1.html#Discord_Addons_IBufferStrategy_1_GetBuffer_System_Int32_
-  commentId: M:Discord.Addons.IBufferStrategy`1.GetBuffer(System.Int32)
-  fullName: Discord.Addons.IBufferStrategy<T>.GetBuffer(System.Int32)
-  fullName.vb: Discord.Addons.IBufferStrategy(Of T).GetBuffer(System.Int32)
-  nameWithType: IBufferStrategy<T>.GetBuffer(Int32)
-  nameWithType.vb: IBufferStrategy(Of T).GetBuffer(Int32)
-- uid: Discord.Addons.IBufferStrategy`1.GetBuffer*
-  name: GetBuffer
-  href: api/Discord.Addons.IBufferStrategy-1.html#Discord_Addons_IBufferStrategy_1_GetBuffer_
-  commentId: Overload:Discord.Addons.IBufferStrategy`1.GetBuffer
-  isSpec: "True"
-  fullName: Discord.Addons.IBufferStrategy<T>.GetBuffer
-  fullName.vb: Discord.Addons.IBufferStrategy(Of T).GetBuffer
-  nameWithType: IBufferStrategy<T>.GetBuffer
-  nameWithType.vb: IBufferStrategy(Of T).GetBuffer
-- uid: Discord.Addons.IBufferStrategy`1.ReturnBuffer(`0[])
-  name: ReturnBuffer(T[])
-  href: api/Discord.Addons.IBufferStrategy-1.html#Discord_Addons_IBufferStrategy_1_ReturnBuffer__0___
-  commentId: M:Discord.Addons.IBufferStrategy`1.ReturnBuffer(`0[])
-  name.vb: ReturnBuffer(T())
-  fullName: Discord.Addons.IBufferStrategy<T>.ReturnBuffer(T[])
-  fullName.vb: Discord.Addons.IBufferStrategy(Of T).ReturnBuffer(T())
-  nameWithType: IBufferStrategy<T>.ReturnBuffer(T[])
-  nameWithType.vb: IBufferStrategy(Of T).ReturnBuffer(T())
-- uid: Discord.Addons.IBufferStrategy`1.ReturnBuffer*
-  name: ReturnBuffer
-  href: api/Discord.Addons.IBufferStrategy-1.html#Discord_Addons_IBufferStrategy_1_ReturnBuffer_
-  commentId: Overload:Discord.Addons.IBufferStrategy`1.ReturnBuffer
-  isSpec: "True"
-  fullName: Discord.Addons.IBufferStrategy<T>.ReturnBuffer
-  fullName.vb: Discord.Addons.IBufferStrategy(Of T).ReturnBuffer
-  nameWithType: IBufferStrategy<T>.ReturnBuffer
-  nameWithType.vb: IBufferStrategy(Of T).ReturnBuffer
 - uid: Discord.Addons.MpGame
   name: Discord.Addons.MpGame
   href: api/Discord.Addons.MpGame.html
@@ -446,23 +396,6 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Pile
   nameWithType: Pile<TCard>.Pile
   nameWithType.vb: Pile(Of TCard).Pile
-- uid: Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy
-  name: BufferStrategy
-  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_BufferStrategy
-  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.BufferStrategy
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).BufferStrategy
-  nameWithType: Pile<TCard>.BufferStrategy
-  nameWithType.vb: Pile(Of TCard).BufferStrategy
-- uid: Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy*
-  name: BufferStrategy
-  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_BufferStrategy_
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy
-  isSpec: "True"
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.BufferStrategy
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).BufferStrategy
-  nameWithType: Pile<TCard>.BufferStrategy
-  nameWithType.vb: Pile(Of TCard).BufferStrategy
 - uid: Discord.Addons.MpGame.Collections.Pile`1.CanBrowse
   name: CanBrowse
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanBrowse
@@ -531,6 +464,23 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanDraw
   nameWithType: Pile<TCard>.CanDraw
   nameWithType.vb: Pile(Of TCard).CanDraw
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom
+  name: CanDrawBottom
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanDrawBottom
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanDrawBottom
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanDrawBottom
+  nameWithType: Pile<TCard>.CanDrawBottom
+  nameWithType.vb: Pile(Of TCard).CanDrawBottom
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom*
+  name: CanDrawBottom
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanDrawBottom_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanDrawBottom
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanDrawBottom
+  nameWithType: Pile<TCard>.CanDrawBottom
+  nameWithType.vb: Pile(Of TCard).CanDrawBottom
 - uid: Discord.Addons.MpGame.Collections.Pile`1.CanInsert
   name: CanInsert
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanInsert
@@ -718,6 +668,23 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Draw
   nameWithType: Pile<TCard>.Draw
   nameWithType.vb: Pile(Of TCard).Draw
+- uid: Discord.Addons.MpGame.Collections.Pile`1.DrawBottom
+  name: DrawBottom()
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_DrawBottom
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.DrawBottom
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.DrawBottom()
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).DrawBottom()
+  nameWithType: Pile<TCard>.DrawBottom()
+  nameWithType.vb: Pile(Of TCard).DrawBottom()
+- uid: Discord.Addons.MpGame.Collections.Pile`1.DrawBottom*
+  name: DrawBottom
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_DrawBottom_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.DrawBottom
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.DrawBottom
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).DrawBottom
+  nameWithType: Pile<TCard>.DrawBottom
+  nameWithType.vb: Pile(Of TCard).DrawBottom
 - uid: Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)
   name: InsertAt(TCard, Int32)
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_InsertAt__0_System_Int32_
@@ -1237,6 +1204,19 @@ references:
   isSpec: "True"
   fullName: Discord.Addons.MpGame.ILogStrings.PlayerKicked
   nameWithType: ILogStrings.PlayerKicked
+- uid: Discord.Addons.MpGame.ILogStrings.RegisteringPlayerTypeReader(System.String)
+  name: RegisteringPlayerTypeReader(String)
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_RegisteringPlayerTypeReader_System_String_
+  commentId: M:Discord.Addons.MpGame.ILogStrings.RegisteringPlayerTypeReader(System.String)
+  fullName: Discord.Addons.MpGame.ILogStrings.RegisteringPlayerTypeReader(System.String)
+  nameWithType: ILogStrings.RegisteringPlayerTypeReader(String)
+- uid: Discord.Addons.MpGame.ILogStrings.RegisteringPlayerTypeReader*
+  name: RegisteringPlayerTypeReader
+  href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_RegisteringPlayerTypeReader_
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.RegisteringPlayerTypeReader
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.ILogStrings.RegisteringPlayerTypeReader
+  nameWithType: ILogStrings.RegisteringPlayerTypeReader
 - uid: Discord.Addons.MpGame.ILogStrings.SettingGame(Discord.IMessageChannel,System.String)
   name: SettingGame(IMessageChannel, String)
   href: api/Discord.Addons.MpGame.ILogStrings.html#Discord_Addons_MpGame_ILogStrings_SettingGame_Discord_IMessageChannel_System_String_

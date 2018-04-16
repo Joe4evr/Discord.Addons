@@ -115,7 +115,7 @@ specifically for use in card games.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1__ctor.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L29">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L34">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1__ctor_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.#ctor*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1__ctor" data-uid="Discord.Addons.MpGame.Collections.Pile`1.#ctor">Pile()</h4>
@@ -131,7 +131,7 @@ specifically for use in card games.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1__ctor_System_Collections_Generic_IEnumerable__0__.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.%23ctor(System.Collections.Generic.IEnumerable%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L44">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L49">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1__ctor_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.#ctor*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1__ctor_System_Collections_Generic_IEnumerable__0__" data-uid="Discord.Addons.MpGame.Collections.Pile`1.#ctor(System.Collections.Generic.IEnumerable{`0})">Pile(IEnumerable&lt;TCard&gt;)</h4>
@@ -185,68 +185,10 @@ specifically for use in card games.</p>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_BufferStrategy.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.BufferStrategy%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L62">View Source</a>
-  </span>
-  <a id="Discord_Addons_MpGame_Collections_Pile_1_BufferStrategy_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy*"></a>
-  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_BufferStrategy" data-uid="Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy">BufferStrategy</h4>
-  <div class="markdown level1 summary"><p>Defines the strategy used for buffering items during certain operations.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected IBufferStrategy&lt;TCard&gt; BufferStrategy { set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Discord.Addons.IBufferStrategy-1.html">IBufferStrategy</a>&lt;TCard&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Discord_Addons_MpGame_Collections_Pile_1_BufferStrategy_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><div class="markdown level0 remarks"><div class="NOTE">
-<h5>Note</h5><p>The default strategy is to allocate new arrays and
-let the GC clean them up.</p></div></div></div>
-  <h5 class="exceptions">Exceptions</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Condition</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.ArgumentNullException</span></td>
-        <td><p>The supplied
-value is <span class="xref">null</span>.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
-        <td><p>The strategy
-implementation is already in use.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanBrowse.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanBrowse%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L77">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L59">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_CanBrowse_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanBrowse*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanBrowse" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanBrowse">CanBrowse</h4>
@@ -277,7 +219,7 @@ implementation is already in use.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanClear.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanClear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L82">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L64">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_CanClear_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanClear*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanClear" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanClear">CanClear</h4>
@@ -308,7 +250,7 @@ implementation is already in use.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanCut.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanCut%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L89">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L71">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_CanCut_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanCut*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanCut" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanCut">CanCut</h4>
@@ -341,11 +283,12 @@ and putting them underneath the remainder.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanDraw.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanDraw%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L94">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L77">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_CanDraw_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanDraw*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanDraw" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanDraw">CanDraw</h4>
-  <div class="markdown level1 summary"><p>Indicates whether or not this <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html">Pile&lt;TCard&gt;</a> allows drawing cards.</p>
+  <div class="markdown level1 summary"><p>Indicates whether or not this <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html">Pile&lt;TCard&gt;</a>
+allows drawing cards from the top.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -369,10 +312,42 @@ and putting them underneath the remainder.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanDrawBottom.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanDrawBottom%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L83">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_CanDrawBottom_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanDrawBottom" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom">CanDrawBottom</h4>
+  <div class="markdown level1 summary"><p>Indicates whether or not this <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html">Pile&lt;TCard&gt;</a>
+allows drawing cards from the bottom.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool CanDrawBottom { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanInsert.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanInsert%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L100">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L89">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_CanInsert_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanInsert*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanInsert" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanInsert">CanInsert</h4>
@@ -404,7 +379,7 @@ allows inserting cards at an arbitrary index.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanPeek.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanPeek%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L105">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L94">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_CanPeek_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanPeek*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanPeek" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanPeek">CanPeek</h4>
@@ -435,7 +410,7 @@ allows inserting cards at an arbitrary index.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanPut.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanPut%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L110">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L99">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_CanPut_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanPut*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanPut" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanPut">CanPut</h4>
@@ -466,7 +441,7 @@ allows inserting cards at an arbitrary index.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanPutBottom.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanPutBottom%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L115">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L104">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_CanPutBottom_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanPutBottom*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanPutBottom" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanPutBottom">CanPutBottom</h4>
@@ -497,7 +472,7 @@ allows inserting cards at an arbitrary index.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanShuffle.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanShuffle%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L120">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L109">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_CanShuffle_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanShuffle*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanShuffle" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanShuffle">CanShuffle</h4>
@@ -528,7 +503,7 @@ allows inserting cards at an arbitrary index.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanTake.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanTake%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L126">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L115">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_CanTake_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanTake*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanTake" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanTake">CanTake</h4>
@@ -560,7 +535,7 @@ allows taking cards from an arbitrary index.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Cards.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Cards%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L140">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L129">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_Cards_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Cards*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Cards" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Cards">Cards</h4>
@@ -610,7 +585,7 @@ does not allow browsing the cards.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Count.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Count%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L131">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L120">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_Count_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Count*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Count" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Count">Count</h4>
@@ -643,7 +618,7 @@ does not allow browsing the cards.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Clear.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Clear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L157">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L146">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_Clear_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Clear*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Clear" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Clear">Clear()</h4>
@@ -693,7 +668,7 @@ does not allow clearing all cards.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Cut_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Cut(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L173">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L162">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_Cut_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Cut*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Cut_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Cut(System.Int32)">Cut(Int32)</h4>
@@ -751,7 +726,7 @@ allow cutting the pile.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Draw.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Draw%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L197">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L187">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_Draw_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Draw*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Draw" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Draw">Draw()</h4>
@@ -800,10 +775,62 @@ does not allow drawing cards OR There were no cards to draw.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_DrawBottom.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.DrawBottom%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L210">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_DrawBottom_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.DrawBottom*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_DrawBottom" data-uid="Discord.Addons.MpGame.Collections.Pile`1.DrawBottom">DrawBottom()</h4>
+  <div class="markdown level1 summary"><p>Draws the bottom card from the pile. If the last card is
+drawn, calls <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved">OnLastRemoved()</a>.
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanDrawBottom">CanDrawBottom</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TCard DrawBottom()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCard</span></td>
+        <td><p>If the pile&apos;s current size is greater than 0, the card
+currently at the bottom of the pile. Otherwise will throw.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The instance
+does not allow drawing cards OR There were no cards to draw.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_InsertAt__0_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.InsertAt(%600%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L220">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L234">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_InsertAt_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.InsertAt*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_InsertAt__0_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)">InsertAt(TCard, Int32)</h4>
@@ -871,7 +898,7 @@ allow inserting cards at an arbitrary location.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.OnLastRemoved%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L367">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L371">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved">OnLastRemoved()</h4>
@@ -890,7 +917,7 @@ allow inserting cards at an arbitrary location.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_OnPut__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.OnPut(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L375">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L379">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_OnPut_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnPut*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_OnPut__0_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)">OnPut(TCard)</h4>
@@ -927,7 +954,7 @@ allow inserting cards at an arbitrary location.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_PeekTop_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.PeekTop(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L254">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L266">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_PeekTop_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PeekTop*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_PeekTop_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PeekTop(System.Int32)">PeekTop(Int32)</h4>
@@ -1002,7 +1029,7 @@ does not allow peeking cards.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Put__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Put(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L278">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L293">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_Put_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Put*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Put__0_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Put(`0)">Put(TCard)</h4>
@@ -1060,7 +1087,7 @@ allow placing cards onto it.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_PutBottom__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.PutBottom(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L294">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L309">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_PutBottom_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PutBottom*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_PutBottom__0_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PutBottom(`0)">PutBottom(TCard)</h4>
@@ -1116,7 +1143,7 @@ allow placing cards on the bottom.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Shuffle_System_Func_System_Collections_Generic_IEnumerable__0__System_Collections_Generic_IEnumerable__0___.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Shuffle(System.Func%7BSystem.Collections.Generic.IEnumerable%7B%600%7D%2CSystem.Collections.Generic.IEnumerable%7B%600%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L314">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L329">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_Shuffle_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Shuffle*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Shuffle_System_Func_System_Collections_Generic_IEnumerable__0__System_Collections_Generic_IEnumerable__0___" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})">Shuffle(Func&lt;IEnumerable&lt;TCard&gt;, IEnumerable&lt;TCard&gt;&gt;)</h4>
@@ -1177,7 +1204,7 @@ does not allow reshuffling the cards OR The sequence produced from
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_TakeAt_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.TakeAt(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L337">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L352">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_TakeAt_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.TakeAt*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_TakeAt_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)">TakeAt(Int32)</h4>
@@ -1257,7 +1284,7 @@ allow taking cards from an arbitrary location.</p>
                     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Extensions/NonPoolingStrategy.cs/#L5" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L18" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

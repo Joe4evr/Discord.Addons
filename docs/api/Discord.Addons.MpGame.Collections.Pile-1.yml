@@ -7,11 +7,11 @@ items:
   children:
   - Discord.Addons.MpGame.Collections.Pile`1.#ctor
   - Discord.Addons.MpGame.Collections.Pile`1.#ctor(System.Collections.Generic.IEnumerable{`0})
-  - Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy
   - Discord.Addons.MpGame.Collections.Pile`1.CanBrowse
   - Discord.Addons.MpGame.Collections.Pile`1.CanClear
   - Discord.Addons.MpGame.Collections.Pile`1.CanCut
   - Discord.Addons.MpGame.Collections.Pile`1.CanDraw
+  - Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom
   - Discord.Addons.MpGame.Collections.Pile`1.CanInsert
   - Discord.Addons.MpGame.Collections.Pile`1.CanPeek
   - Discord.Addons.MpGame.Collections.Pile`1.CanPut
@@ -23,6 +23,7 @@ items:
   - Discord.Addons.MpGame.Collections.Pile`1.Count
   - Discord.Addons.MpGame.Collections.Pile`1.Cut(System.Int32)
   - Discord.Addons.MpGame.Collections.Pile`1.Draw
+  - Discord.Addons.MpGame.Collections.Pile`1.DrawBottom
   - Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)
   - Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
   - Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
@@ -40,12 +41,12 @@ items:
   type: Class
   source:
     remote:
-      path: src/Discord.Addons.MpGame/Extensions/NonPoolingStrategy.cs
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
       branch: master
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Pile
-    path: ../src/Discord.Addons.MpGame/Extensions/NonPoolingStrategy.cs
-    startLine: 4
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 17
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -94,7 +95,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: .ctor
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 28
+    startLine: 33
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -128,7 +129,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: .ctor
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 43
+    startLine: 48
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -161,64 +162,6 @@ items:
   - Protected
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Pile(System.Collections.Generic.IEnumerable(Of TCard))
   name.vb: Pile(IEnumerable(Of TCard))
-- uid: Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy
-  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy
-  id: BufferStrategy
-  parent: Discord.Addons.MpGame.Collections.Pile`1
-  langs:
-  - csharp
-  - vb
-  name: BufferStrategy
-  nameWithType: Pile<TCard>.BufferStrategy
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.BufferStrategy
-  type: Property
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Pile.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: BufferStrategy
-    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 61
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nDefines the strategy used for buffering items during certain operations.\n"
-  remarks: >-
-    <div class="markdown level0 remarks"><div class="NOTE">
-
-    <h5>Note</h5><p>The default strategy is to allocate new arrays and
-
-    let the GC clean them up.</p></div></div>
-  example: []
-  syntax:
-    content: protected IBufferStrategy<TCard> BufferStrategy { set; }
-    parameters: []
-    return:
-      type: Discord.Addons.IBufferStrategy{{TCard}}
-    content.vb: Protected WriteOnly Property BufferStrategy As IBufferStrategy(Of TCard)
-  overload: Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy*
-  exceptions:
-  - type: System.ArgumentNullException
-    commentId: T:System.ArgumentNullException
-    description: >-
-      The supplied
-
-      value is <xref uid="langword_csharp_null" name="null" href=""></xref>.
-  - type: System.InvalidOperationException
-    commentId: T:System.InvalidOperationException
-    description: >-
-      The strategy
-
-      implementation is already in use.
-  nameWithType.vb: Pile(Of TCard).BufferStrategy
-  modifiers.csharp:
-  - protected
-  - set
-  modifiers.vb:
-  - Protected
-  - WriteOnly
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).BufferStrategy
 - uid: Discord.Addons.MpGame.Collections.Pile`1.CanBrowse
   commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanBrowse
   id: CanBrowse
@@ -237,7 +180,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: CanBrowse
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 76
+    startLine: 58
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -278,7 +221,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: CanClear
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 81
+    startLine: 63
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -319,7 +262,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: CanCut
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 88
+    startLine: 70
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -360,11 +303,11 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: CanDraw
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 93
+    startLine: 76
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
-  summary: "\nIndicates whether or not this <xref href=\"Discord.Addons.MpGame.Collections.Pile%601\" data-throw-if-not-resolved=\"false\"></xref> allows drawing cards.\n"
+  summary: "\nIndicates whether or not this <xref href=\"Discord.Addons.MpGame.Collections.Pile%601\" data-throw-if-not-resolved=\"false\"></xref>\nallows drawing cards from the top.\n"
   example: []
   syntax:
     content: public abstract bool CanDraw { get; }
@@ -383,6 +326,47 @@ items:
   - MustOverride
   - ReadOnly
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanDraw
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom
+  id: CanDrawBottom
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: CanDrawBottom
+  nameWithType: Pile<TCard>.CanDrawBottom
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanDrawBottom
+  type: Property
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: CanDrawBottom
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 82
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nIndicates whether or not this <xref href=\"Discord.Addons.MpGame.Collections.Pile%601\" data-throw-if-not-resolved=\"false\"></xref>\nallows drawing cards from the bottom.\n"
+  example: []
+  syntax:
+    content: public abstract bool CanDrawBottom { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public MustOverride ReadOnly Property CanDrawBottom As Boolean
+  overload: Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom*
+  nameWithType.vb: Pile(Of TCard).CanDrawBottom
+  modifiers.csharp:
+  - public
+  - abstract
+  - get
+  modifiers.vb:
+  - Public
+  - MustOverride
+  - ReadOnly
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanDrawBottom
 - uid: Discord.Addons.MpGame.Collections.Pile`1.CanInsert
   commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanInsert
   id: CanInsert
@@ -401,7 +385,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: CanInsert
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 99
+    startLine: 88
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -442,7 +426,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: CanPeek
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 104
+    startLine: 93
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -483,7 +467,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: CanPut
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 109
+    startLine: 98
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -524,7 +508,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: CanPutBottom
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 114
+    startLine: 103
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -565,7 +549,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: CanShuffle
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 119
+    startLine: 108
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -606,7 +590,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: CanTake
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 125
+    startLine: 114
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -647,7 +631,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Count
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 130
+    startLine: 119
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -686,7 +670,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Cards
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 139
+    startLine: 128
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -732,7 +716,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Clear
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 156
+    startLine: 145
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -776,7 +760,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Cut
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 172
+    startLine: 161
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -826,7 +810,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Draw
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 196
+    startLine: 186
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -855,6 +839,53 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Draw()
+- uid: Discord.Addons.MpGame.Collections.Pile`1.DrawBottom
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.DrawBottom
+  id: DrawBottom
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: DrawBottom()
+  nameWithType: Pile<TCard>.DrawBottom()
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.DrawBottom()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: DrawBottom
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 209
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nDraws the bottom card from the pile. If the last card is\ndrawn, calls <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.OnLastRemoved\" data-throw-if-not-resolved=\"false\"></xref>.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanDrawBottom\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  example: []
+  syntax:
+    content: public TCard DrawBottom()
+    return:
+      type: '{TCard}'
+      description: >-
+        If the pile&apos;s current size is greater than 0, the card
+
+        currently at the bottom of the pile. Otherwise will throw.
+    content.vb: Public Function DrawBottom As TCard
+  overload: Discord.Addons.MpGame.Collections.Pile`1.DrawBottom*
+  exceptions:
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: >-
+      The instance
+
+      does not allow drawing cards OR There were no cards to draw.
+  nameWithType.vb: Pile(Of TCard).DrawBottom()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).DrawBottom()
 - uid: Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)
   commentId: M:Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)
   id: InsertAt(`0,System.Int32)
@@ -873,7 +904,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: InsertAt
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 219
+    startLine: 233
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -929,7 +960,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: PeekTop
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 253
+    startLine: 265
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -982,7 +1013,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Put
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 277
+    startLine: 292
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1030,7 +1061,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: PutBottom
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 293
+    startLine: 308
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1078,7 +1109,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Shuffle
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 313
+    startLine: 328
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1131,7 +1162,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TakeAt
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 336
+    startLine: 351
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1184,7 +1215,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: OnLastRemoved
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 366
+    startLine: 370
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1224,7 +1255,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: OnPut
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 374
+    startLine: 378
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1402,97 +1433,6 @@ references:
   name: System.Collections.Generic
   nameWithType: System.Collections.Generic
   fullName: System.Collections.Generic
-- uid: System.InvalidOperationException
-  commentId: T:System.InvalidOperationException
-- uid: Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.BufferStrategy
-  isExternal: false
-  name: BufferStrategy
-  nameWithType: Pile<TCard>.BufferStrategy
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.BufferStrategy
-  nameWithType.vb: Pile(Of TCard).BufferStrategy
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).BufferStrategy
-- uid: Discord.Addons.IBufferStrategy{{TCard}}
-  commentId: T:Discord.Addons.IBufferStrategy{`0}
-  parent: Discord.Addons
-  definition: Discord.Addons.IBufferStrategy`1
-  name: IBufferStrategy<TCard>
-  nameWithType: IBufferStrategy<TCard>
-  fullName: Discord.Addons.IBufferStrategy<TCard>
-  nameWithType.vb: IBufferStrategy(Of TCard)
-  fullName.vb: Discord.Addons.IBufferStrategy(Of TCard)
-  name.vb: IBufferStrategy(Of TCard)
-  spec.csharp:
-  - uid: Discord.Addons.IBufferStrategy`1
-    name: IBufferStrategy
-    nameWithType: IBufferStrategy
-    fullName: Discord.Addons.IBufferStrategy
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: TCard
-    nameWithType: TCard
-    fullName: TCard
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: Discord.Addons.IBufferStrategy`1
-    name: IBufferStrategy
-    nameWithType: IBufferStrategy
-    fullName: Discord.Addons.IBufferStrategy
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: TCard
-    nameWithType: TCard
-    fullName: TCard
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Discord.Addons.IBufferStrategy`1
-  commentId: T:Discord.Addons.IBufferStrategy`1
-  isExternal: false
-  name: IBufferStrategy<T>
-  nameWithType: IBufferStrategy<T>
-  fullName: Discord.Addons.IBufferStrategy<T>
-  nameWithType.vb: IBufferStrategy(Of T)
-  fullName.vb: Discord.Addons.IBufferStrategy(Of T)
-  name.vb: IBufferStrategy(Of T)
-  spec.csharp:
-  - uid: Discord.Addons.IBufferStrategy`1
-    name: IBufferStrategy
-    nameWithType: IBufferStrategy
-    fullName: Discord.Addons.IBufferStrategy
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: Discord.Addons.IBufferStrategy`1
-    name: IBufferStrategy
-    nameWithType: IBufferStrategy
-    fullName: Discord.Addons.IBufferStrategy
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: Discord.Addons
-  commentId: N:Discord.Addons
-  isExternal: false
-  name: Discord.Addons
-  nameWithType: Discord.Addons
-  fullName: Discord.Addons
 - uid: Discord.Addons.MpGame.Collections.Pile`1.CanBrowse*
   commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.CanBrowse
   isExternal: false
@@ -1532,6 +1472,14 @@ references:
   fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanDraw
   nameWithType.vb: Pile(Of TCard).CanDraw
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanDraw
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom
+  isExternal: false
+  name: CanDrawBottom
+  nameWithType: Pile<TCard>.CanDrawBottom
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.CanDrawBottom
+  nameWithType.vb: Pile(Of TCard).CanDrawBottom
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).CanDrawBottom
 - uid: Discord.Addons.MpGame.Collections.Pile`1.CanInsert*
   commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.CanInsert
   isExternal: false
@@ -1597,6 +1545,8 @@ references:
   fullName: System.Int32
 - uid: Discord.Addons.MpGame.Collections.Pile`1.CanBrowse
   commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanBrowse
+- uid: System.InvalidOperationException
+  commentId: T:System.InvalidOperationException
 - uid: Discord.Addons.MpGame.Collections.Pile`1.Cards*
   commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Cards
   isExternal: false
@@ -1727,6 +1677,16 @@ references:
   name: TCard
   nameWithType: TCard
   fullName: TCard
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom
+- uid: Discord.Addons.MpGame.Collections.Pile`1.DrawBottom*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.DrawBottom
+  isExternal: false
+  name: DrawBottom
+  nameWithType: Pile<TCard>.DrawBottom
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.DrawBottom
+  nameWithType.vb: Pile(Of TCard).DrawBottom
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).DrawBottom
 - uid: Discord.Addons.MpGame.Collections.Pile`1.CanInsert
   commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanInsert
 - uid: Discord.Addons.MpGame.Collections.Pile`1.InsertAt*

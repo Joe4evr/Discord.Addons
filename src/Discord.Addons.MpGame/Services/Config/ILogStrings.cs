@@ -23,6 +23,9 @@ namespace Discord.Addons.MpGame
         //MpGameService.TryAddNewGame()
         string SettingGame(IMessageChannel channel, string gameName);
 
+        //MpGameModuleBase.BeforeExecute()
+        string RegisteringPlayerTypeReader(string typeName);
+
         //Player.cs
         string DMsDisabledMessage(IUser user);
         string DMsDisabledKickMessage(IUser user);

@@ -1,10 +1,4 @@
 ### YamlMime:TableOfContent
-- uid: Discord.Addons
-  name: Discord.Addons
-  items:
-  - uid: Discord.Addons.IBufferStrategy`1
-    name: IBufferStrategy<T>
-    name.vb: IBufferStrategy(Of T)
 - uid: Discord.Addons.MpGame
   name: Discord.Addons.MpGame
   items:

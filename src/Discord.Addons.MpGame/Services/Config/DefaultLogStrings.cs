@@ -6,7 +6,7 @@ namespace Discord.Addons.MpGame
 {
     internal sealed class DefaultLogStrings : ILogStrings
     {
-        public static DefaultLogStrings Instance { get; } = new DefaultLogStrings();
+        public static ILogStrings Instance { get; } = new DefaultLogStrings();
         private DefaultLogStrings() { }
 
         string ILogStrings.LogRegistration(string gameName)
@@ -23,6 +23,8 @@ namespace Discord.Addons.MpGame
             => $"Player '{user.Username}' kicked";
         string ILogStrings.SettingGame(IMessageChannel channel, string gameName)
             => $"Setting game '{gameName}' for channel: #{channel.Id}";
+        string ILogStrings.RegisteringPlayerTypeReader(string typeName)
+            => $"Registering type reader for {typeName}";
         string ILogStrings.DMsDisabledMessage(IUser user)
             => $"Player {user.Mention} has their DMs disabled. Please enable DMs and use the resend command if available.";
         string ILogStrings.DMsDisabledKickMessage(IUser user)

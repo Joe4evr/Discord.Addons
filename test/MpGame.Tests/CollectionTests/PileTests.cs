@@ -12,11 +12,11 @@ namespace MpGame.Tests.CollectionTests
         private static IEnumerable<TestCard> CardFactory(int amount, int start = 1)
             => Enumerable.Range(start, amount).Select(i => new TestCard { Id = i });
 
-        private sealed class DummyBufferStrat : IBufferStrategy<TestCard>
-        {
-            TestCard[] IBufferStrategy<TestCard>.GetBuffer(int size) => throw new NotImplementedException();
-            void IBufferStrategy<TestCard>.ReturnBuffer(TestCard[] buffer) => throw new NotImplementedException();
-        }
+        //private sealed class DummyBufferStrat : IBufferStrategy<TestCard>
+        //{
+        //    TestCard[] IBufferStrategy<TestCard>.GetBuffer(int size) => throw new NotImplementedException();
+        //    void IBufferStrategy<TestCard>.ReturnBuffer(TestCard[] buffer) => throw new NotImplementedException();
+        //}
 
         public sealed class Ctor
         {
@@ -80,31 +80,31 @@ namespace MpGame.Tests.CollectionTests
             }
         }
 
-        public sealed class BufferStrategy
-        {
-            [Fact]
-            public void BufferStratThrowsOnNull()
-            {
-                var pile = new TestPile(withPerms: PilePerms.None, cards: Enumerable.Empty<TestCard>());
-                var priorSize = pile.Count;
+        //public sealed class BufferStrategy
+        //{
+        //    [Fact]
+        //    public void BufferStratThrowsOnNull()
+        //    {
+        //        var pile = new TestPile(withPerms: PilePerms.None, cards: Enumerable.Empty<TestCard>());
+        //        var priorSize = pile.Count;
 
-                var ex = Assert.Throws<ArgumentNullException>(() => pile.SetBufferStrat(null));
-                Assert.Equal(expected: "value", actual: ex.ParamName);
-                Assert.Equal(expected: priorSize, actual: pile.Count);
-            }
+        //        var ex = Assert.Throws<ArgumentNullException>(() => pile.SetBufferStrat(null));
+        //        Assert.Equal(expected: "value", actual: ex.ParamName);
+        //        Assert.Equal(expected: priorSize, actual: pile.Count);
+        //    }
 
-            [Fact]
-            public void SettingBufferStratAfterUseThrows()
-            {
-                var pile = new TestPile(withPerms: PilePerms.CanBrowse, cards: CardFactory(20));
-                var priorSize = pile.Count;
-                var browsing = pile.Cards;
+        //    [Fact]
+        //    public void SettingBufferStratAfterUseThrows()
+        //    {
+        //        var pile = new TestPile(withPerms: PilePerms.CanBrowse, cards: CardFactory(20));
+        //        var priorSize = pile.Count;
+        //        var browsing = pile.Cards;
 
-                var ex = Assert.Throws<InvalidOperationException>(() => pile.SetBufferStrat(new DummyBufferStrat()));
-                Assert.StartsWith(expectedStartString: ErrorStrings.NoSwappingStrategy, actualString: ex.Message);
-                Assert.Equal(expected: priorSize, actual: pile.Count);
-            }
-        }
+        //        var ex = Assert.Throws<InvalidOperationException>(() => pile.SetBufferStrat(new DummyBufferStrat()));
+        //        Assert.StartsWith(expectedStartString: ErrorStrings.NoSwappingStrategy, actualString: ex.Message);
+        //        Assert.Equal(expected: priorSize, actual: pile.Count);
+        //    }
+        //}
 
         public sealed class Clear
         {

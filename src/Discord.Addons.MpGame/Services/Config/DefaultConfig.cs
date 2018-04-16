@@ -6,7 +6,7 @@ namespace Discord.Addons.MpGame
 {
     internal sealed class DefaultConfig : IMpGameServiceConfig
     {
-        public static DefaultConfig Instance { get; } = new DefaultConfig();
+        public static IMpGameServiceConfig Instance { get; } = new DefaultConfig();
         private DefaultConfig() { }
 
         ILogStrings IMpGameServiceConfig.LogStrings { get; } = DefaultLogStrings.Instance;

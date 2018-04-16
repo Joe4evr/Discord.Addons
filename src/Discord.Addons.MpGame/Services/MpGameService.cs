@@ -18,7 +18,7 @@ namespace Discord.Addons.MpGame
         where TGame   : GameBase<TPlayer>
         where TPlayer : Player
     {
-        internal const string LogSource = "MpGame";
+        private const string LogSource = "MpGame";
 
         /// <summary> A cached IEqualityComparer&lt;IMessageChannel&gt;instance to use when
         /// instantiating a Dictionary&lt;IMessageChannel, TValue&gt;.
@@ -29,7 +29,7 @@ namespace Discord.Addons.MpGame
         private readonly ConcurrentDictionary<IMessageChannel, PersistentGameData> _dataList =
             new ConcurrentDictionary<IMessageChannel, PersistentGameData>(MessageChannelComparer);
 
-        protected internal Func<LogMessage, Task> Logger { get; }
+        protected Func<LogMessage, Task> Logger { get; }
 
         private readonly IMpGameServiceConfig _mpconfig;
 
@@ -59,32 +59,6 @@ namespace Discord.Addons.MpGame
             client.ChannelDestroyed += CheckDestroyedChannel;
         }
 
-        private Task CheckDestroyedChannel(SocketChannel channel)
-        {
-            return (channel is IMessageChannel msgChannel)
-                ? OnGameEnd(msgChannel)
-                : Task.CompletedTask;
-        }
-
-        private async Task<bool> OnGameEnd(IMessageChannel channel)
-        {
-            var success = _dataList.TryRemove(channel, out var data);
-            if (success)
-            {
-                await Logger(new LogMessage(LogSeverity.Verbose, LogSource, _mpconfig.LogStrings.CleaningGameData(channel, _gameName))).ConfigureAwait(false);
-                var tracker = GameTracker.Instance;
-                var channels = await Task.WhenAll(data.JoinedUsers.Select(u => u.GetOrCreateDMChannelAsync())).ConfigureAwait(false);
-                foreach (var ch in channels)
-                {
-                    await Logger(new LogMessage(LogSeverity.Debug, LogSource, _mpconfig.LogStrings.CleaningDMChannel(ch))).ConfigureAwait(false);
-                    tracker.TryRemoveGameChannel(ch);
-                }
-                await Logger(new LogMessage(LogSeverity.Debug, LogSource, _mpconfig.LogStrings.CleaningGameString(channel))).ConfigureAwait(false);
-                tracker.TryRemoveGameString(channel);
-            }
-            return success;
-        }
-
         /// <summary> Prepare to set up a new game in a specified channel. </summary>
         /// <param name="context">Context of where this game is intended to be opened.</param>
         /// <returns><see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.</returns>
@@ -92,7 +66,9 @@ namespace Discord.Addons.MpGame
         {
             if (GameTracker.Instance.TryAddGameString(context.Channel, GameName))
             {
-                await Logger(new LogMessage(LogSeverity.Verbose, LogSource, _mpconfig.LogStrings.CreatingGame(context.Channel, _gameName))).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Verbose, LogSource,
+                    _mpconfig.LogStrings.CreatingGame(context.Channel, _gameName))).ConfigureAwait(false);
+
                 var data = new PersistentGameData(context.Channel, context.User, this);
                 return _dataList.TryAdd(context.Channel, data)
                     && data.TryUpdateOpenToJoin(newValue: true, oldValue: false);
@@ -138,18 +114,6 @@ namespace Discord.Addons.MpGame
         public Task<bool> KickPlayer(TGame game, TPlayer player)
             => RemovePlayer(game, player, _mpconfig.LogStrings.PlayerKicked(player.User));
 
-        private async Task<bool> RemovePlayer(TGame game, TPlayer player, string reason)
-        {
-            var success = game.Players.RemoveItem(player);
-            if (success)
-            {
-                game.OnPlayerKicked(player);
-                GameTracker.Instance.TryRemoveGameChannel(await player.User.GetOrCreateDMChannelAsync().ConfigureAwait(false));
-                await game.Channel.SendMessageAsync(reason).ConfigureAwait(false);
-            }
-            return success;
-        }
-
         /// <summary> Cancel a game that has not yet started. </summary>
         /// <param name="channel">Public facing channel of this game.</param>
         /// <returns><see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.</returns>
@@ -164,7 +128,9 @@ namespace Discord.Addons.MpGame
         {
             if (_dataList.TryGetValue(channel, out var data))
             {
-                await Logger(new LogMessage(LogSeverity.Verbose, LogSource, _mpconfig.LogStrings.SettingGame(channel, _gameName))).ConfigureAwait(false);
+                await Logger(new LogMessage(LogSeverity.Verbose, LogSource,
+                    _mpconfig.LogStrings.SettingGame(channel, _gameName))).ConfigureAwait(false);
+
                 var gameSet = data.SetGame(game);
                 if (gameSet)
                 {
@@ -177,18 +143,6 @@ namespace Discord.Addons.MpGame
                 return gameSet;
             }
             return false;
-        }
-
-        private void PrepPlayer(TGame game, TPlayer player, bool addedInOngoig)
-        {
-            player.AutoKickCallback = (reason => RemovePlayer(game, player, reason));
-            player.DMsDisabledMessage = _mpconfig.LogStrings.DMsDisabledMessage(player.User);
-            player.DMsDisabledKickMessage = _mpconfig.LogStrings.DMsDisabledKickMessage(player.User);
-
-            if (addedInOngoig)
-            {
-                game.OnPlayerAdded(player);
-            }
         }
 
         /// <summary> Updates the flag indicating if a game can be joined or not. </summary>
@@ -232,14 +186,6 @@ namespace Discord.Addons.MpGame
             return TryGetPersistentData(channel, out var data) && data.OpenToJoin;
         }
 
-        private bool TryGetPersistentData(IMessageChannel channel, out PersistentGameData data)
-        {
-            var chan = (channel is IDMChannel dm && GameTracker.Instance.TryGetGameChannel(dm, out var pubc))
-                ? pubc : channel;
-
-            return _dataList.TryGetValue(chan, out data);
-        }
-
         /// <summary>
         /// Gets the game metadata associated with this context.
         /// </summary>
@@ -250,6 +196,74 @@ namespace Discord.Addons.MpGame
             return (TryGetPersistentData(context.Channel, out var internalData))
                 ? new MpGameData(internalData, context)
                 : MpGameData.Default;
+        }
+
+        internal void LogRegisteringPlayerTypeReader()
+            => Logger(new LogMessage(LogSeverity.Info, LogSource,
+                _mpconfig.LogStrings.RegisteringPlayerTypeReader(typeof(TPlayer).Name))).ConfigureAwait(false);
+
+        private bool TryGetPersistentData(IMessageChannel channel, out PersistentGameData data)
+        {
+            var chan = (channel is IDMChannel dm && GameTracker.Instance.TryGetGameChannel(dm, out var pubc))
+                ? pubc : channel;
+
+            return _dataList.TryGetValue(chan, out data);
+        }
+
+        private void PrepPlayer(TGame game, TPlayer player, bool addedInOngoig)
+        {
+            player.AutoKickCallback = (reason => RemovePlayer(game, player, reason));
+            player.DMsDisabledMessage = _mpconfig.LogStrings.DMsDisabledMessage(player.User);
+            player.DMsDisabledKickMessage = _mpconfig.LogStrings.DMsDisabledKickMessage(player.User);
+
+            if (addedInOngoig)
+            {
+                game.OnPlayerAdded(player);
+            }
+        }
+
+        private async Task<bool> RemovePlayer(TGame game, TPlayer player, string reason)
+        {
+            var success = game.Players.RemoveItem(player);
+            if (success)
+            {
+                game.OnPlayerKicked(player);
+                GameTracker.Instance.TryRemoveGameChannel(await player.User.GetOrCreateDMChannelAsync().ConfigureAwait(false));
+                await game.Channel.SendMessageAsync(reason).ConfigureAwait(false);
+            }
+            return success;
+        }
+
+        private async Task<bool> OnGameEnd(IMessageChannel channel)
+        {
+            var success = _dataList.TryRemove(channel, out var data);
+            if (success)
+            {
+                await Logger(new LogMessage(LogSeverity.Verbose, LogSource,
+                    _mpconfig.LogStrings.CleaningGameData(channel, _gameName))).ConfigureAwait(false);
+
+                var tracker = GameTracker.Instance;
+                var channels = await Task.WhenAll(data.JoinedUsers.Select(u => u.GetOrCreateDMChannelAsync())).ConfigureAwait(false);
+                foreach (var ch in channels)
+                {
+                    await Logger(new LogMessage(LogSeverity.Debug, LogSource,
+                        _mpconfig.LogStrings.CleaningDMChannel(ch))).ConfigureAwait(false);
+
+                    tracker.TryRemoveGameChannel(ch);
+                }
+                await Logger(new LogMessage(LogSeverity.Debug, LogSource,
+                    _mpconfig.LogStrings.CleaningGameString(channel))).ConfigureAwait(false);
+
+                tracker.TryRemoveGameString(channel);
+            }
+            return success;
+        }
+
+        private Task CheckDestroyedChannel(SocketChannel channel)
+        {
+            return (channel is IMessageChannel msgChannel)
+                ? OnGameEnd(msgChannel)
+                : Task.CompletedTask;
         }
 
         //micro-optimization

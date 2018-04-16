@@ -13,6 +13,7 @@ items:
   - Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage(Discord.IUser)
   - Discord.Addons.MpGame.ILogStrings.LogRegistration(System.String)
   - Discord.Addons.MpGame.ILogStrings.PlayerKicked(Discord.IUser)
+  - Discord.Addons.MpGame.ILogStrings.RegisteringPlayerTypeReader(System.String)
   - Discord.Addons.MpGame.ILogStrings.SettingGame(Discord.IMessageChannel,System.String)
   langs:
   - csharp
@@ -264,6 +265,37 @@ items:
       type: System.String
     content.vb: Function SettingGame(channel As IMessageChannel, gameName As String) As String
   overload: Discord.Addons.MpGame.ILogStrings.SettingGame*
+- uid: Discord.Addons.MpGame.ILogStrings.RegisteringPlayerTypeReader(System.String)
+  commentId: M:Discord.Addons.MpGame.ILogStrings.RegisteringPlayerTypeReader(System.String)
+  id: RegisteringPlayerTypeReader(System.String)
+  parent: Discord.Addons.MpGame.ILogStrings
+  langs:
+  - csharp
+  - vb
+  name: RegisteringPlayerTypeReader(String)
+  nameWithType: ILogStrings.RegisteringPlayerTypeReader(String)
+  fullName: Discord.Addons.MpGame.ILogStrings.RegisteringPlayerTypeReader(System.String)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: RegisteringPlayerTypeReader
+    path: ../src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
+    startLine: 26
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame
+  syntax:
+    content: string RegisteringPlayerTypeReader(string typeName)
+    parameters:
+    - id: typeName
+      type: System.String
+    return:
+      type: System.String
+    content.vb: Function RegisteringPlayerTypeReader(typeName As String) As String
+  overload: Discord.Addons.MpGame.ILogStrings.RegisteringPlayerTypeReader*
 - uid: Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage(Discord.IUser)
   commentId: M:Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage(Discord.IUser)
   id: DMsDisabledMessage(Discord.IUser)
@@ -282,7 +314,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: DMsDisabledMessage
     path: ../src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
-    startLine: 26
+    startLine: 29
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -313,7 +345,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: DMsDisabledKickMessage
     path: ../src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
-    startLine: 27
+    startLine: 30
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -415,6 +447,12 @@ references:
   name: SettingGame
   nameWithType: ILogStrings.SettingGame
   fullName: Discord.Addons.MpGame.ILogStrings.SettingGame
+- uid: Discord.Addons.MpGame.ILogStrings.RegisteringPlayerTypeReader*
+  commentId: Overload:Discord.Addons.MpGame.ILogStrings.RegisteringPlayerTypeReader
+  isExternal: false
+  name: RegisteringPlayerTypeReader
+  nameWithType: ILogStrings.RegisteringPlayerTypeReader
+  fullName: Discord.Addons.MpGame.ILogStrings.RegisteringPlayerTypeReader
 - uid: Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage*
   commentId: Overload:Discord.Addons.MpGame.ILogStrings.DMsDisabledMessage
   isExternal: false
