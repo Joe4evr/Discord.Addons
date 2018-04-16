@@ -19,11 +19,6 @@ namespace Discord.Addons.MpGame.Collections
     public abstract partial class Pile<TCard>
         where TCard : class
     {
-        //private Stack<TCard> _top;
-        //private Queue<TCard> _bottom;
-        //private bool _strategyUsed = false;
-        //private IBufferStrategy<TCard> _bufferStrategy = NonPoolingStrategy.Instance;
-
         private Node _head;
         private Node _tail;
         private int _count = 0;

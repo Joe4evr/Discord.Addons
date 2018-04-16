@@ -41,17 +41,17 @@ namespace Discord.Addons.SimplePermissions
             Logger = logAction ?? Extensions.NoOpLogger;
             Log(LogSeverity.Info, "Creating Permission service.");
 
-            ConfigStore = configstore ?? throw new ArgumentNullException(nameof(configstore));
-            CService = commands ?? throw new ArgumentNullException(nameof(commands));
-            SocketClient = client ?? throw new ArgumentNullException(nameof(client));
+            ConfigStore  = configstore ?? throw new ArgumentNullException(nameof(configstore));
+            CService     = commands    ?? throw new ArgumentNullException(nameof(commands));
+            SocketClient = client      ?? throw new ArgumentNullException(nameof(client));
 
             //client.Ready += CheckDuplicateModuleNames;
-            client.GuildAvailable += GuildAvailable;
-            client.UserJoined += UserJoined;
-            client.ChannelCreated += ChannelCreated;
+            client.GuildAvailable   += GuildAvailable;
+            client.UserJoined       += UserJoined;
+            client.ChannelCreated   += ChannelCreated;
             client.ChannelDestroyed += ChannelDestroyed;
-            client.ReactionAdded += ReactionAdded;
-            client.MessageDeleted += MessageDeleted;
+            client.ReactionAdded    += ReactionAdded;
+            client.MessageDeleted   += MessageDeleted;
         }
 
         //public PermissionsService(

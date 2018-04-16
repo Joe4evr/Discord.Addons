@@ -10,7 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discord.Addons.SimplePermis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discord.Addons.SimplePermissions.JsonProvider", "src\Discord.Addons.SimplePermissions.JsonProvider\Discord.Addons.SimplePermissions.JsonProvider.csproj", "{33C18A5B-BCF6-437F-85A9-F114FC7F3A52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord.Addons.SimplePermissions.LiteDbProvider", "src\Discord.Addons.SimplePermissions.LiteDbProvider\Discord.Addons.SimplePermissions.LiteDbProvider.csproj", "{C9B66875-D546-4E72-A027-C3CED5E93CC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discord.Addons.SimplePermissions.LiteDbProvider", "src\Discord.Addons.SimplePermissions.LiteDbProvider\Discord.Addons.SimplePermissions.LiteDbProvider.csproj", "{C9B66875-D546-4E72-A027-C3CED5E93CC3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BD3473A-1D2A-49AC-97D1-BAB136B39A19}"
 	ProjectSection(SolutionItems) = preProject

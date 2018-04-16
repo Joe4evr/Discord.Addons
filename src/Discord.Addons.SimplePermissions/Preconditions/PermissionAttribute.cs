@@ -41,6 +41,9 @@ namespace Discord.Addons.SimplePermissions
                 //using (var config = svc.ReadOnlyConfig)
                 using (var config = svc.LoadConfig())
                 {
+                    var adminRoleId = config.GetGuildAdminRole(context.Guild)?.Id;
+                    var modRoleId = config.GetGuildModRole(context.Guild)?.Id;
+
                     var wlms = config.GetChannelModuleWhitelist(chan).Concat(config.GetGuildModuleWhitelist(context.Guild));
                     if (IsModuleWhitelisted(wlms, command.Module))
                     {
@@ -60,7 +63,7 @@ namespace Discord.Addons.SimplePermissions
                             }
                         }
                         else if (Permission == MinimumPermission.Special
-                            && config.GetSpecialPermissionUsersList(chan).Contains(user.Id))
+                            && config.GetSpecialPermissionUsersList(chan).Contains(user, DiscordComparers.UserComparer))
                         {
                             return PreconditionResult.FromSuccess();
                         }
@@ -70,12 +73,14 @@ namespace Discord.Addons.SimplePermissions
                             return PreconditionResult.FromSuccess();
                         }
                         else if (Permission <= MinimumPermission.AdminRole
-                            && user.RoleIds.Any(r => r == config.GetGuildAdminRole(context.Guild)))
+                            && adminRoleId.HasValue
+                            && user.RoleIds.Contains(adminRoleId.Value))
                         {
                             return PreconditionResult.FromSuccess();
                         }
                         else if (Permission <= MinimumPermission.ModRole
-                            && user.RoleIds.Any(r => r == config.GetGuildModRole(context.Guild)))
+                            && modRoleId.HasValue
+                            && user.RoleIds.Contains(modRoleId.Value))
                         {
                             return PreconditionResult.FromSuccess();
                         }
