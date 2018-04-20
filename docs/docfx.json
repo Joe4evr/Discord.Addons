@@ -48,7 +48,9 @@
         ]
       }
     ],
-    "xref": [],
+    "xref": [
+      "https://docs.stillu.cc/xrefmap.yml"
+    ],
     "dest": "_site",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
@@ -59,6 +61,9 @@
     "noLangKeyword": false,
     "keepFileLink": false,
     "cleanupCacheHistory": true,
-    "disableGitFeatures": false
+    "disableGitFeatures": false,
+    "xrefService": [
+      "https://xref.docs.microsoft.com/query?uid={uid}"
+    ]
   }
 }

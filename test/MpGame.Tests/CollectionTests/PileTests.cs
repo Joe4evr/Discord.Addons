@@ -38,7 +38,7 @@ namespace MpGame.Tests.CollectionTests
                 var pile = new TestPile(withPerms: PilePerms.CanBrowse, cards: seed);
 
                 Assert.Equal(expected: seed.Length - nulls, actual: pile.Count);
-                Assert.All(pile.Cards, c => Assert.NotNull(c));
+                Assert.All(pile.Browse(), c => Assert.NotNull(c));
             }
         }
 
@@ -50,7 +50,7 @@ namespace MpGame.Tests.CollectionTests
                 var pile = new TestPile(withPerms: PilePerms.All ^ PilePerms.CanBrowse, cards: CardFactory(20));
                 var priorSize = pile.Count;
 
-                var ex = Assert.Throws<InvalidOperationException>(() => pile.Cards);
+                var ex = Assert.Throws<InvalidOperationException>(() => pile.Browse());
                 Assert.Equal(expected: ErrorStrings.NoBrowse, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
@@ -60,22 +60,29 @@ namespace MpGame.Tests.CollectionTests
             {
                 var pile = new TestPile(withPerms: PilePerms.CanBrowse, cards: CardFactory(20));
                 var priorSize = pile.Count;
-                var cards = pile.Cards;
+                var cards = pile.Browse();
 
-                Assert.NotNull(cards);
+                var expectedSeq = new[]
+                {
+                     1, 2, 3, 4, 5, 6, 7, 8, 9,10,
+                    11,12,13,14,15,16,17,18,19,20,
+                };
+
+                Assert.False(cards.IsDefault);
                 Assert.NotEmpty(cards);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
-                Assert.Equal(expected: priorSize, actual: cards.Count);
+                Assert.Equal(expected: priorSize, actual: cards.Length);
+                Assert.Equal(expected: expectedSeq, actual: cards.Select(c => c.Id));
             }
 
             [Fact]
             public void EmptyPileIsNotNull()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanBrowse, cards: Enumerable.Empty<TestCard>());
-                var cards = pile.Cards;
+                var cards = pile.Browse();
 
                 Assert.Equal(expected: 0, actual: pile.Count);
-                Assert.NotNull(cards);
+                Assert.False(cards.IsDefault);
                 Assert.Empty(cards);
             }
         }
@@ -127,7 +134,7 @@ namespace MpGame.Tests.CollectionTests
                 var cleared = pile.Clear();
 
                 Assert.Equal(expected: 0, actual: pile.Count);
-                Assert.Equal(expected: priorSize, actual: cleared.Count);
+                Assert.Equal(expected: priorSize, actual: cleared.Length);
             }
         }
 
@@ -139,7 +146,7 @@ namespace MpGame.Tests.CollectionTests
                 var pile = new TestPile(withPerms: PilePerms.All ^ PilePerms.CanCut, cards: CardFactory(20));
                 var priorSize = pile.Count;
 
-                var ex = Assert.Throws<InvalidOperationException>(() => pile.Cut(cutIndex: 10));
+                var ex = Assert.Throws<InvalidOperationException>(() => pile.Cut(cutAmount: 10));
                 Assert.Equal(expected: ErrorStrings.NoCut, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
@@ -150,9 +157,9 @@ namespace MpGame.Tests.CollectionTests
                 var pile = new TestPile(withPerms: PilePerms.CanCut, cards: CardFactory(20));
                 var priorSize = pile.Count;
 
-                var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.Cut(cutIndex: -1));
+                var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.Cut(cutAmount: -1));
                 Assert.StartsWith(expectedStartString: ErrorStrings.CutIndexNegative, actualString: ex.Message);
-                Assert.Equal(expected: "cutIndex", actual: ex.ParamName);
+                Assert.Equal(expected: "cutAmount", actual: ex.ParamName);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
 
@@ -162,20 +169,26 @@ namespace MpGame.Tests.CollectionTests
                 var pile = new TestPile(withPerms: PilePerms.CanCut, cards: CardFactory(20));
                 var priorSize = pile.Count;
 
-                var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.Cut(cutIndex: pile.Count + 1));
+                var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.Cut(cutAmount: pile.Count + 1));
                 Assert.StartsWith(expectedStartString: ErrorStrings.CutIndexTooHigh, actualString: ex.Message);
-                Assert.Equal(expected: "cutIndex", actual: ex.ParamName);
+                Assert.Equal(expected: "cutAmount", actual: ex.ParamName);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
 
             [Fact]
             public void CutDoesNotChangePileSize()
             {
-                var pile = new TestPile(withPerms: PilePerms.CanCut, cards: CardFactory(20));
+                var pile = new TestPile(withPerms: PilePerms.CanCut | PilePerms.CanBrowse, cards: CardFactory(20));
                 var priorSize = pile.Count;
-                pile.Cut(cutIndex: 10);
+                pile.Cut(cutAmount: 10);
+                var expectedSeq = new[]
+                {
+                    11,12,13,14,15,16,17,18,19,20,
+                     1, 2, 3, 4, 5, 6, 7, 8, 9,10
+                };
 
                 Assert.Equal(expected: priorSize, actual: pile.Count);
+                Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
             }
         }
 
@@ -329,7 +342,7 @@ namespace MpGame.Tests.CollectionTests
                 var priorSize = pile.Count;
                 var peeked = pile.PeekTop(3);
 
-                Assert.NotNull(peeked);
+                Assert.False(peeked.IsDefault);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
         }

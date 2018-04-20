@@ -134,7 +134,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: SendMessageAsync
     path: ../src/Discord.Addons.MpGame/Models/Player.cs
-    startLine: 37
+    startLine: 38
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame
@@ -148,6 +148,7 @@ items:
       description: The text to send.
     - id: embed
       type: Discord.Embed
+      description: If provided, an embed to send.
     return:
       type: System.Threading.Tasks.Task{Discord.IUserMessage}
       description: >-
@@ -178,7 +179,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: ShouldKick
     path: ../src/Discord.Addons.MpGame/Models/Player.cs
-    startLine: 72
+    startLine: 73
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame

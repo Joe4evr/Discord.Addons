@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Discord.Addons.MpGame.Collections;
 using Xunit;
@@ -211,5 +212,12 @@ namespace MpGame.Tests.CollectionTests
                 Assert.Equal(expected: priorSize, actual: hand.Count);
             }
         }
+
+        //[Fact]
+        //public void IDvISD()
+        //{
+        //    var d = CardFactory(10).ToImmutableDictionary(c => c.Id);
+        //    var sd = CardFactory(10).ToImmutableSortedDictionary(c => c.Id, c => c);
+        //}
     }
 }

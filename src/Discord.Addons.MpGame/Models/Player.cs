@@ -33,6 +33,7 @@ namespace Discord.Addons.MpGame
         /// <summary> Sends a message to this <see cref="Player"/>'s DM Channel
         /// and will cache the message if the user has DMs disabled. </summary>
         /// <param name="text">The text to send.</param>
+        /// <param name="embed">If provided, an embed to send.</param>
         /// <returns>The message that is sent, or
         /// <see langword="null"/> if it couldn't be sent.</returns>
         public async Task<IUserMessage> SendMessageAsync(string text, Embed embed = null)

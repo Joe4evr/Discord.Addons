@@ -93,7 +93,7 @@ namespace Discord.Addons.MpGame.Collections
             ThrowArgNull(orderFunc, nameof(orderFunc));
 
             var newOrder = orderFunc(_hand.ToImmutableArray());
-            ThrowInvalidOp(newOrder == null, ErrorStrings.NewSequenceNull);
+            ThrowInvalidOpIf(newOrder == null, ErrorStrings.NewSequenceNull);
 
             _hand = new List<TCard>(newOrder);
         }
@@ -101,13 +101,13 @@ namespace Discord.Addons.MpGame.Collections
         /// <summary>
         /// Takes a card from the given index.
         /// </summary>
-        /// <param name="index">The index of the card to take.</param>
+        /// <param name="index">The 0-based index of the card to take.</param>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>
         /// was less than 0 or greater than or equal to the pile's current size.</exception>
         public TCard TakeAt(int index)
         {
-            ThrowArgOutOfRange(index < 0, ErrorStrings.RetrievalNegative, nameof(index));
-            ThrowArgOutOfRange(index >= Count, ErrorStrings.RetrievalTooHighH, nameof(index));
+            ThrowArgOutOfRangeIf(index < 0, ErrorStrings.RetrievalNegative, nameof(index));
+            ThrowArgOutOfRangeIf(index >= Count, ErrorStrings.RetrievalTooHighH, nameof(index));
 
             var tmp = _hand[index];
             _hand.RemoveAt(index);
@@ -132,7 +132,7 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void ThrowInvalidOp(bool check, string msg)
+        private static void ThrowInvalidOpIf(bool check, string msg)
         {
             if (check)
                 throw new InvalidOperationException(message: msg);
@@ -147,7 +147,7 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void ThrowArgOutOfRange(bool check, string msg, string argname)
+        private static void ThrowArgOutOfRangeIf(bool check, string msg, string argname)
         {
             if (check)
                 throw new ArgumentOutOfRangeException(message: msg, paramName: argname);

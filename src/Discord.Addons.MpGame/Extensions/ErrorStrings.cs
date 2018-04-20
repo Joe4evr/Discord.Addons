@@ -9,6 +9,7 @@ namespace Discord.Addons.MpGame.Collections
     internal static class ErrorStrings
     {
         internal static readonly string NoBrowse  = "Not allowed to browse this instance.";
+        internal static readonly string NoBrowseAndTake = "Pile needs to allow both Browsing and Taking.";
         internal static readonly string NoClear   = "Not allowed to clear this instance.";
         internal static readonly string NoCut     = "Not allowed to cut this instance.";
         internal static readonly string NoDraw    = "Not allowed to draw on this instance.";

@@ -381,7 +381,7 @@ items:
     parameters:
     - id: index
       type: System.Int32
-      description: The index of the card to take.
+      description: The 0-based index of the card to take.
     return:
       type: '{TCard}'
     content.vb: Public Function TakeAt(index As Integer) As TCard
