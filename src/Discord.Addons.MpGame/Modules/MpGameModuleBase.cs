@@ -77,7 +77,7 @@ namespace Discord.Addons.MpGame
         }
 
         /// <summary> Command to open a game for others to join. </summary>
-        /// <example><code>[Command("opengame")]
+        /// <example><code language="c#">[Command("opengame")]
         ///public override async Task OpenGameCmd()
         ///{
         ///    if (OpenToJoin)
@@ -100,7 +100,7 @@ namespace Discord.Addons.MpGame
         public abstract Task OpenGameCmd();
 
         /// <summary> Command to join a game that is open. </summary>
-        /// <example><code>[Command("join")]
+        /// <example><code language="c#">[Command("join")]
         ///public override async Task JoinGameCmd()
         ///{
         ///    if (Game != null)
@@ -123,7 +123,7 @@ namespace Discord.Addons.MpGame
         public abstract Task JoinGameCmd();
 
         /// <summary> Command to leave a game that is not yet started. </summary>
-        /// <example><code>[Command("leave")]
+        /// <example><code language="c#">[Command("leave")]
         ///public override async Task LeaveGameCmd()
         ///{
         ///    if (Game != null)
@@ -146,7 +146,7 @@ namespace Discord.Addons.MpGame
         public abstract Task LeaveGameCmd();
 
         /// <summary> Command to cancel a game before it started. </summary>
-        /// <example><code>[Command("cancel")]
+        /// <example><code language="c#">[Command("cancel")]
         ///public override async Task CancelGameCmd()
         ///{
         ///    if (Game != null)
@@ -169,7 +169,7 @@ namespace Discord.Addons.MpGame
         public abstract Task CancelGameCmd();
 
         /// <summary> Command to start a game with the players who joined. </summary>
-        /// <example><code>[Command("start")]
+        /// <example><code language="c#">[Command("start")]
         ///public override async Task StartGameCmd()
         ///{
         ///    if (Game != null)
@@ -204,7 +204,7 @@ namespace Discord.Addons.MpGame
         public abstract Task StartGameCmd();
 
         /// <summary> Command to advance to the next turn (if applicable). </summary>
-        /// <example><code>[Command("turn")]
+        /// <example><code language="c#">[Command("turn")]
         ///public override Task NextTurnCmd()
         ///    => (Game != null)
         ///        ? Game.NextTurn()
@@ -215,7 +215,7 @@ namespace Discord.Addons.MpGame
         public abstract Task NextTurnCmd();
 
         /// <summary> Command to display the current state of the game. </summary>
-        /// <example><code>[Command("state")]
+        /// <example><code language="c#">[Command("state")]
         ///public override Task GameStateCmd()
         ///    => (Game != null)
         ///        ? ReplyAsync(Game.GetGameState())
@@ -227,7 +227,7 @@ namespace Discord.Addons.MpGame
         public abstract Task GameStateCmd();
 
         /// <summary> Command to end a game in progress early. </summary>
-        /// <example><code>[Command("end")] //Should be restricted to mods/admins to prevent abuse
+        /// <example><code language="c#">[Command("end")] //Should be restricted to mods/admins to prevent abuse
         ///public override Task EndGameCmd()
         ///    => (Game != null)
         ///        ? Game.EndGame("Game ended early by moderator.")
@@ -238,7 +238,7 @@ namespace Discord.Addons.MpGame
         public abstract Task EndGameCmd();
 
         /// <summary> Command to resend a message to someone who had their DMs disabled. </summary>
-        /// <example><code>[Command("resend")]
+        /// <example><code language="c#">[Command("resend")]
         ///public override Task ResendCmd() => base.ResendCmd();
         /// </code></example>
         public virtual Task ResendCmd()

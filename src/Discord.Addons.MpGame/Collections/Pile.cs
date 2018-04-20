@@ -134,6 +134,98 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
+        /// Browse for and take one or more cards from the pile in a single operation.
+        /// Requires <see cref="CanBrowse"/> and <see cref="CanTake"/>.
+        /// </summary>
+        /// <param name="selector">A function that returns an array
+        /// of the indeces of the desired cards. The key for each value is the index
+        /// of that card. Returning a <see langword="null"/> or empty array
+        /// is considered choosing nothing and will return an empty array.</param>
+        /// <param name="filter">An optional function to filter
+        /// to cards that can be taken.</param>
+        /// <param name="shuffleFunc">An optional function to reshuffle the pile
+        /// after taking the selected cards. If provided,
+        /// requires <see cref="CanShuffle"/>.</param>
+        /// <returns>The cards at the chosen indeces, or an empty
+        /// array if it was chosen to not take any.</returns>
+        /// <exception cref="InvalidOperationException">The pile does not
+        /// allow browsing AND taking OR The sequence produced from 
+        /// <paramref name="shuffleFunc"/> was <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="selector"/> was <see langword="null"/>.</exception>
+        /// <exception cref="IndexOutOfRangeException">One of the
+        /// selected indices was not within the provided indices.</exception>
+        /// <example><code language="c#">
+        /// // An effect was used that allows the user to
+        /// // search their deck for a number of red cards
+        /// deck.BrowseAndTake(async cards =>
+        /// {
+        ///     // Show the available options to the user
+        ///     await ShowUser(cards);
+        ///     // Wait for the user to make a decision, with 'num'
+        ///     // being the max amount of cards they can choose
+        ///     return await UserInput(num);
+        /// },
+        /// // Only show red cards
+        /// filter: c => c.Color == CardColor.Red,
+        /// // Shuffle the pile afterwards
+        /// // with some custom function
+        /// shuffleFunc: cards => cards.ShuffleItems());
+        /// </code></example>
+        public async Task<ImmutableArray<TCard>> BrowseAndTake(
+            Func<ImmutableDictionary<int, TCard>, Task<int[]>> selector,
+            Func<TCard, bool> filter = null,
+            Func<IEnumerable<TCard>, IEnumerable<TCard>> shuffleFunc = null)
+        {
+            ThrowInvalidOpIf(!(CanBrowse && CanTake), ErrorStrings.NoBrowseAndTake);
+            ThrowArgNull(selector, nameof(selector));
+
+            using (_rwlock.UsingWriteLock())
+            {
+                var cards = GetAllD(filter ?? _defaultPredicate);
+                var selection = await selector(cards);
+                var result = BuildSelection(cards, selection, out var cs);
+
+                if (CanShuffle && shuffleFunc != null)
+                    ShuffleInternal(shuffleFunc, cs.Values);
+
+                return result;
+            }
+
+            ImmutableArray<TCard> BuildSelection(ImmutableDictionary<int, TCard> cs, int[] sel, out ImmutableDictionary<int, TCard> cs2)
+            {
+                if (sel == null)
+                {
+                    cs2 = cs;
+                    return ImmutableArray<TCard>.Empty;
+                }
+
+                var un = sel.Distinct();
+                if (!un.Any())
+                {
+                    cs2 = cs;
+                    return ImmutableArray<TCard>.Empty;
+                }
+
+                var ex = un.Except(cs.Keys);
+                if (ex.Any())
+                    throw new IndexOutOfRangeException($"Selected indeces '{String.Join("', '", ex)}' must be one of the provided card indices.");
+
+                var builder = ImmutableArray.CreateBuilder<TCard>(sel.Length);
+
+                for (int i = 0; i < sel.Length; i++)
+                {
+                    var s = sel[i];
+                    builder.Add(cs[s]);
+                    cs = cs.Remove(s);
+                }
+
+                cs2 = cs;
+                return builder.ToImmutable();
+            }
+        }
+
+        /// <summary>
         /// Clears the entire pile and returns the cards
         /// that were in it. Requires <see cref="CanClear"/>.
         /// </summary>
@@ -391,81 +483,6 @@ namespace Discord.Addons.MpGame.Collections
         /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
         /// <h5>Note</h5><p>Does nothing by default.</p></div></div></remarks>
         protected virtual void OnPut(TCard card) { }
-
-        /// <summary>
-        /// Browse for and take one or more cards from the pile in a single operation.
-        /// Requires <see cref="CanBrowse"/> and <see cref="CanTake"/>.
-        /// </summary>
-        /// <param name="selector">A function that returns an array
-        /// of the indeces of the desired cards. The key for each value is the index
-        /// of that card. Returning a <see langword="null"/> or empty array
-        /// is considered choosing nothing and will return an empty array.</param>
-        /// <param name="filter">An optional function to filter
-        /// to cards that can be taken.</param>
-        /// <param name="shuffleFunc">An optional function to reshuffle the pile
-        /// after taking the selected cards. If provided,
-        /// requires <see cref="CanShuffle"/>.</param>
-        /// <returns>The cards at the chosen indeces, or an empty
-        /// array if it was chosen to not take any.</returns>
-        /// <exception cref="InvalidOperationException">The pile does not
-        /// allow browsing AND taking OR The sequence produced from 
-        /// <paramref name="shuffleFunc"/> was <see langword="null"/>.</exception>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="selector"/> was <see langword="null"/>.</exception>
-        /// <exception cref="IndexOutOfRangeException">One of the
-        /// selected indices was not within the provided indices.</exception>
-        public async Task<ImmutableArray<TCard>> BrowseAndTake(
-            Func<ImmutableDictionary<int, TCard>, Task<int[]>> selector,
-            Func<TCard, bool> filter = null,
-            Func<IEnumerable<TCard>, IEnumerable<TCard>> shuffleFunc = null)
-        {
-            ThrowInvalidOpIf(!(CanBrowse && CanTake), ErrorStrings.NoBrowseAndTake);
-            ThrowArgNull(selector, nameof(selector));
-
-            using (_rwlock.UsingWriteLock())
-            {
-                var cards = GetAllD(filter ?? _defaultPredicate);
-                var selection = await selector(cards);
-                var result = BuildSelection(cards, selection, out var cs);
-
-                if (CanShuffle && shuffleFunc != null)
-                    ShuffleInternal(shuffleFunc, cs.Values);
-
-                return result;
-            }
-
-            ImmutableArray<TCard> BuildSelection(ImmutableDictionary<int, TCard> cs, int[] sel, out ImmutableDictionary<int, TCard> cs2)
-            {
-                if (sel == null)
-                {
-                    cs2 = cs;
-                    return ImmutableArray<TCard>.Empty;
-                }
-
-                var un = sel.Distinct();
-                if (!un.Any())
-                {
-                    cs2 = cs;
-                    return ImmutableArray<TCard>.Empty;
-                }
-
-                var ex = un.Except(cs.Keys);
-                if (ex.Any())
-                    throw new IndexOutOfRangeException($"Selected indeces '{String.Join("', '", ex)}' must be one of the provided card indices.");
-
-                var builder = ImmutableArray.CreateBuilder<TCard>(sel.Length);
-
-                for (int i = 0; i < sel.Length; i++)
-                {
-                    var s = sel[i];
-                    builder.Add(cs[s]);
-                    cs = cs.Remove(s);
-                }
-
-                cs2 = cs;
-                return builder.ToImmutable();
-            }
-        }
 
         private ImmutableDictionary<int, TCard> GetAllD(Func<TCard, bool> predicate)
         {

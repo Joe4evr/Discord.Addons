@@ -503,7 +503,7 @@ items:
   summary: 'Command to open a game for others to join. '
   example:
   - >-
-    <pre><code>[Command(&quot;opengame&quot;)]
+    <pre><code class="c#">[Command(&quot;opengame&quot;)]
         public override async Task OpenGameCmd()
         {
             if (OpenToJoin)
@@ -561,7 +561,7 @@ items:
   summary: 'Command to join a game that is open. '
   example:
   - >-
-    <pre><code>[Command(&quot;join&quot;)]
+    <pre><code class="c#">[Command(&quot;join&quot;)]
         public override async Task JoinGameCmd()
         {
             if (Game != null)
@@ -619,7 +619,7 @@ items:
   summary: 'Command to leave a game that is not yet started. '
   example:
   - >-
-    <pre><code>[Command(&quot;leave&quot;)]
+    <pre><code class="c#">[Command(&quot;leave&quot;)]
         public override async Task LeaveGameCmd()
         {
             if (Game != null)
@@ -677,7 +677,7 @@ items:
   summary: 'Command to cancel a game before it started. '
   example:
   - >-
-    <pre><code>[Command(&quot;cancel&quot;)]
+    <pre><code class="c#">[Command(&quot;cancel&quot;)]
         public override async Task CancelGameCmd()
         {
             if (Game != null)
@@ -735,7 +735,7 @@ items:
   summary: 'Command to start a game with the players who joined. '
   example:
   - >-
-    <pre><code>[Command(&quot;start&quot;)]
+    <pre><code class="c#">[Command(&quot;start&quot;)]
         public override async Task StartGameCmd()
         {
             if (Game != null)
@@ -805,7 +805,7 @@ items:
   summary: 'Command to advance to the next turn (if applicable). '
   example:
   - >-
-    <pre><code>[Command(&quot;turn&quot;)]
+    <pre><code class="c#">[Command(&quot;turn&quot;)]
         public override Task NextTurnCmd()
             => (Game != null)
                 ? Game.NextTurn()
@@ -851,7 +851,7 @@ items:
   summary: 'Command to display the current state of the game. '
   example:
   - >-
-    <pre><code>[Command(&quot;state&quot;)]
+    <pre><code class="c#">[Command(&quot;state&quot;)]
         public override Task GameStateCmd()
             => (Game != null)
                 ? ReplyAsync(Game.GetGameState())
@@ -898,7 +898,7 @@ items:
   summary: 'Command to end a game in progress early. '
   example:
   - >-
-    <pre><code>[Command(&quot;end&quot;)] //Should be restricted to mods/admins to prevent abuse
+    <pre><code class="c#">[Command(&quot;end&quot;)] //Should be restricted to mods/admins to prevent abuse
         public override Task EndGameCmd()
             => (Game != null)
                 ? Game.EndGame(&quot;Game ended early by moderator.&quot;)
@@ -944,7 +944,7 @@ items:
   summary: 'Command to resend a message to someone who had their DMs disabled. '
   example:
   - >-
-    <pre><code>[Command(&quot;resend&quot;)]
+    <pre><code class="c#">[Command(&quot;resend&quot;)]
         public override Task ResendCmd() => base.ResendCmd();</code></pre>
   syntax:
     content: public virtual Task ResendCmd()

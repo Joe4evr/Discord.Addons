@@ -696,588 +696,6 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Browse()
-- uid: Discord.Addons.MpGame.Collections.Pile`1.Clear
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Clear
-  id: Clear
-  parent: Discord.Addons.MpGame.Collections.Pile`1
-  langs:
-  - csharp
-  - vb
-  name: Clear()
-  nameWithType: Pile<TCard>.Clear()
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Clear()
-  type: Method
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Pile.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: Clear
-    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 142
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nClears the entire pile and returns the cards\nthat were in it. Requires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanClear\" data-throw-if-not-resolved=\"false\"></xref>.\n"
-  example: []
-  syntax:
-    content: public ImmutableArray<TCard> Clear()
-    return:
-      type: System.Collections.Immutable.ImmutableArray{{TCard}}
-      description: The collection as it was before it is cleared.
-    content.vb: Public Function Clear As ImmutableArray(Of TCard)
-  overload: Discord.Addons.MpGame.Collections.Pile`1.Clear*
-  exceptions:
-  - type: System.InvalidOperationException
-    commentId: T:System.InvalidOperationException
-    description: >-
-      The instance
-
-      does not allow clearing all cards.
-  nameWithType.vb: Pile(Of TCard).Clear()
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Clear()
-- uid: Discord.Addons.MpGame.Collections.Pile`1.Cut(System.Int32)
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Cut(System.Int32)
-  id: Cut(System.Int32)
-  parent: Discord.Addons.MpGame.Collections.Pile`1
-  langs:
-  - csharp
-  - vb
-  name: Cut(Int32)
-  nameWithType: Pile<TCard>.Cut(Int32)
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Cut(System.Int32)
-  type: Method
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Pile.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: Cut
-    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 161
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nCuts the pile at a specified number of cards from the top\nand places the taken cards on the bottom.\n"
-  example: []
-  syntax:
-    content: public void Cut(int cutAmount)
-    parameters:
-    - id: cutAmount
-      type: System.Int32
-    content.vb: Public Sub Cut(cutAmount As Integer)
-  overload: Discord.Addons.MpGame.Collections.Pile`1.Cut*
-  exceptions:
-  - type: System.ArgumentOutOfRangeException
-    commentId: T:System.ArgumentOutOfRangeException
-    description: >-
-      <code data-dev-comment-type="paramref" class="paramref">cutIndex</code>
-          was less than 0 or greater than the pile&apos;s current size.
-  - type: System.InvalidOperationException
-    commentId: T:System.InvalidOperationException
-    description: >-
-      The instance does not
-
-      allow cutting the pile.
-  nameWithType.vb: Pile(Of TCard).Cut(Int32)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Cut(System.Int32)
-- uid: Discord.Addons.MpGame.Collections.Pile`1.Draw
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Draw
-  id: Draw
-  parent: Discord.Addons.MpGame.Collections.Pile`1
-  langs:
-  - csharp
-  - vb
-  name: Draw()
-  nameWithType: Pile<TCard>.Draw()
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Draw()
-  type: Method
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Pile.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: Draw
-    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 192
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nDraws the top card from the pile. If the last card is\ndrawn, calls <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.OnLastRemoved\" data-throw-if-not-resolved=\"false\"></xref>.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanDraw\" data-throw-if-not-resolved=\"false\"></xref>.\n"
-  example: []
-  syntax:
-    content: public TCard Draw()
-    return:
-      type: '{TCard}'
-      description: >-
-        If the pile&apos;s current size is greater than 0, the card
-
-        currently at the top of the pile. Otherwise will throw.
-    content.vb: Public Function Draw As TCard
-  overload: Discord.Addons.MpGame.Collections.Pile`1.Draw*
-  exceptions:
-  - type: System.InvalidOperationException
-    commentId: T:System.InvalidOperationException
-    description: >-
-      The instance
-
-      does not allow drawing cards OR There were no cards to draw.
-  nameWithType.vb: Pile(Of TCard).Draw()
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Draw()
-- uid: Discord.Addons.MpGame.Collections.Pile`1.DrawBottom
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.DrawBottom
-  id: DrawBottom
-  parent: Discord.Addons.MpGame.Collections.Pile`1
-  langs:
-  - csharp
-  - vb
-  name: DrawBottom()
-  nameWithType: Pile<TCard>.DrawBottom()
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.DrawBottom()
-  type: Method
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Pile.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: DrawBottom
-    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 218
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nDraws the bottom card from the pile. If the last card is\ndrawn, calls <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.OnLastRemoved\" data-throw-if-not-resolved=\"false\"></xref>.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanDrawBottom\" data-throw-if-not-resolved=\"false\"></xref>.\n"
-  example: []
-  syntax:
-    content: public TCard DrawBottom()
-    return:
-      type: '{TCard}'
-      description: >-
-        If the pile&apos;s current size is greater than 0, the card
-
-        currently at the bottom of the pile. Otherwise will throw.
-    content.vb: Public Function DrawBottom As TCard
-  overload: Discord.Addons.MpGame.Collections.Pile`1.DrawBottom*
-  exceptions:
-  - type: System.InvalidOperationException
-    commentId: T:System.InvalidOperationException
-    description: >-
-      The instance
-
-      does not allow drawing cards OR There were no cards to draw.
-  nameWithType.vb: Pile(Of TCard).DrawBottom()
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).DrawBottom()
-- uid: Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)
-  id: InsertAt(`0,System.Int32)
-  parent: Discord.Addons.MpGame.Collections.Pile`1
-  langs:
-  - csharp
-  - vb
-  name: InsertAt(TCard, Int32)
-  nameWithType: Pile<TCard>.InsertAt(TCard, Int32)
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.InsertAt(TCard, System.Int32)
-  type: Method
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Pile.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: InsertAt
-    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 245
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nInserts a card at the given index. Requires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanInsert\" data-throw-if-not-resolved=\"false\"></xref>.\n"
-  example: []
-  syntax:
-    content: public void InsertAt(TCard card, int index)
-    parameters:
-    - id: card
-      type: '{TCard}'
-      description: The card to insert.
-    - id: index
-      type: System.Int32
-      description: The 0-based index to insert at.
-    content.vb: Public Sub InsertAt(card As TCard, index As Integer)
-  overload: Discord.Addons.MpGame.Collections.Pile`1.InsertAt*
-  exceptions:
-  - type: System.InvalidOperationException
-    commentId: T:System.InvalidOperationException
-    description: >-
-      The instance does not
-
-      allow inserting cards at an arbitrary location.
-  - type: System.ArgumentNullException
-    commentId: T:System.ArgumentNullException
-    description: <code data-dev-comment-type="paramref" class="paramref">card</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
-  - type: System.ArgumentOutOfRangeException
-    commentId: T:System.ArgumentOutOfRangeException
-    description: >-
-      <code data-dev-comment-type="paramref" class="paramref">index</code>
-          was less than 0 or greater than the pile&apos;s current size.
-  nameWithType.vb: Pile(Of TCard).InsertAt(TCard, Int32)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).InsertAt(TCard, System.Int32)
-- uid: Discord.Addons.MpGame.Collections.Pile`1.PeekTop(System.Int32)
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.PeekTop(System.Int32)
-  id: PeekTop(System.Int32)
-  parent: Discord.Addons.MpGame.Collections.Pile`1
-  langs:
-  - csharp
-  - vb
-  name: PeekTop(Int32)
-  nameWithType: Pile<TCard>.PeekTop(Int32)
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.PeekTop(System.Int32)
-  type: Method
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Pile.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: PeekTop
-    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 274
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nPeeks the <code data-dev-comment-type=\"paramref\" class=\"paramref\">amount</code> of\ncards without removing them from the pile.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanPeek\" data-throw-if-not-resolved=\"false\"></xref>.\n"
-  example: []
-  syntax:
-    content: public ImmutableArray<TCard> PeekTop(int amount)
-    parameters:
-    - id: amount
-      type: System.Int32
-      description: The amount of cards to peek.
-    return:
-      type: System.Collections.Immutable.ImmutableArray{{TCard}}
-      description: An array of the cards currently at the top of the pile.
-    content.vb: Public Function PeekTop(amount As Integer) As ImmutableArray(Of TCard)
-  overload: Discord.Addons.MpGame.Collections.Pile`1.PeekTop*
-  exceptions:
-  - type: System.ArgumentOutOfRangeException
-    commentId: T:System.ArgumentOutOfRangeException
-    description: >-
-      <code data-dev-comment-type="paramref" class="paramref">amount</code>
-          was less than 0 or greater than the pile&apos;s current size.
-  - type: System.InvalidOperationException
-    commentId: T:System.InvalidOperationException
-    description: >-
-      The instance
-
-      does not allow peeking cards.
-  nameWithType.vb: Pile(Of TCard).PeekTop(Int32)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).PeekTop(System.Int32)
-- uid: Discord.Addons.MpGame.Collections.Pile`1.Put(`0)
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Put(`0)
-  id: Put(`0)
-  parent: Discord.Addons.MpGame.Collections.Pile`1
-  langs:
-  - csharp
-  - vb
-  name: Put(TCard)
-  nameWithType: Pile<TCard>.Put(TCard)
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Put(TCard)
-  type: Method
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Pile.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: Put
-    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 304
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nPuts a card on top of the pile.\nCalls <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.OnPut(%600)\" data-throw-if-not-resolved=\"false\"></xref>.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanPut\" data-throw-if-not-resolved=\"false\"></xref>.\n"
-  example: []
-  syntax:
-    content: public void Put(TCard card)
-    parameters:
-    - id: card
-      type: '{TCard}'
-      description: The card to place on top.
-    content.vb: Public Sub Put(card As TCard)
-  overload: Discord.Addons.MpGame.Collections.Pile`1.Put*
-  exceptions:
-  - type: System.InvalidOperationException
-    commentId: T:System.InvalidOperationException
-    description: >-
-      The instance does not
-
-      allow placing cards onto it.
-  - type: System.ArgumentNullException
-    commentId: T:System.ArgumentNullException
-    description: <code data-dev-comment-type="paramref" class="paramref">card</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
-  nameWithType.vb: Pile(Of TCard).Put(TCard)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Put(TCard)
-- uid: Discord.Addons.MpGame.Collections.Pile`1.PutBottom(`0)
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.PutBottom(`0)
-  id: PutBottom(`0)
-  parent: Discord.Addons.MpGame.Collections.Pile`1
-  langs:
-  - csharp
-  - vb
-  name: PutBottom(TCard)
-  nameWithType: Pile<TCard>.PutBottom(TCard)
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.PutBottom(TCard)
-  type: Method
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Pile.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: PutBottom
-    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 323
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nPuts a card on the bottom of the pile. Requires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanPutBottom\" data-throw-if-not-resolved=\"false\"></xref>.\n"
-  example: []
-  syntax:
-    content: public void PutBottom(TCard card)
-    parameters:
-    - id: card
-      type: '{TCard}'
-      description: The card to place on the bottom.
-    content.vb: Public Sub PutBottom(card As TCard)
-  overload: Discord.Addons.MpGame.Collections.Pile`1.PutBottom*
-  exceptions:
-  - type: System.InvalidOperationException
-    commentId: T:System.InvalidOperationException
-    description: >-
-      The instance does not
-
-      allow placing cards on the bottom.
-  - type: System.ArgumentNullException
-    commentId: T:System.ArgumentNullException
-    description: <code data-dev-comment-type="paramref" class="paramref">card</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
-  nameWithType.vb: Pile(Of TCard).PutBottom(TCard)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).PutBottom(TCard)
-- uid: Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  id: Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  parent: Discord.Addons.MpGame.Collections.Pile`1
-  langs:
-  - csharp
-  - vb
-  name: Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
-  nameWithType: Pile<TCard>.Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Shuffle(System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
-  type: Method
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Pile.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: Shuffle
-    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 346
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nReshuffles the pile using the specified function.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanShuffle\" data-throw-if-not-resolved=\"false\"></xref>.\n"
-  example: []
-  syntax:
-    content: public void Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>> shuffleFunc)
-    parameters:
-    - id: shuffleFunc
-      type: System.Func{System.Collections.Generic.IEnumerable{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
-      description: >-
-        A function that produces an
-
-        <xref href="System.Collections.Generic.IEnumerable%601" data-throw-if-not-resolved="false"></xref> in a new, random order.
-
-        This function receives the cards currently in
-
-        the pile as its argument.
-    content.vb: Public Sub Shuffle(shuffleFunc As Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
-  overload: Discord.Addons.MpGame.Collections.Pile`1.Shuffle*
-  exceptions:
-  - type: System.InvalidOperationException
-    commentId: T:System.InvalidOperationException
-    description: "The instance\ndoes not allow reshuffling the cards OR The sequence produced from \n<code data-dev-comment-type=\"paramref\" class=\"paramref\">shuffleFunc</code> was <xref uid=\"langword_csharp_null\" name=\"null\" href=\"\"></xref>."
-  - type: System.ArgumentNullException
-    commentId: T:System.ArgumentNullException
-    description: <code data-dev-comment-type="paramref" class="paramref">shuffleFunc</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
-  nameWithType.vb: Pile(Of TCard).Shuffle(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Shuffle(System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
-  name.vb: Shuffle(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
-- uid: Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)
-  id: TakeAt(System.Int32)
-  parent: Discord.Addons.MpGame.Collections.Pile`1
-  langs:
-  - csharp
-  - vb
-  name: TakeAt(Int32)
-  nameWithType: Pile<TCard>.TakeAt(Int32)
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.TakeAt(System.Int32)
-  type: Method
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Pile.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: TakeAt
-    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 367
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nTakes a card from the given index. If the last card is\ntaken, calls <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.OnLastRemoved\" data-throw-if-not-resolved=\"false\"></xref>. Requires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanTake\" data-throw-if-not-resolved=\"false\"></xref>.\n"
-  example: []
-  syntax:
-    content: public TCard TakeAt(int index)
-    parameters:
-    - id: index
-      type: System.Int32
-      description: The 0-based index to take.
-    return:
-      type: '{TCard}'
-      description: The card at the specified index.
-    content.vb: Public Function TakeAt(index As Integer) As TCard
-  overload: Discord.Addons.MpGame.Collections.Pile`1.TakeAt*
-  exceptions:
-  - type: System.ArgumentOutOfRangeException
-    commentId: T:System.ArgumentOutOfRangeException
-    description: >-
-      <code data-dev-comment-type="paramref" class="paramref">index</code>
-          was less than 0 or greater than or equal to the pile&apos;s current size.
-  - type: System.InvalidOperationException
-    commentId: T:System.InvalidOperationException
-    description: >-
-      The instance does not
-
-      allow taking cards from an arbitrary location.
-  nameWithType.vb: Pile(Of TCard).TakeAt(Int32)
-  modifiers.csharp:
-  - public
-  modifiers.vb:
-  - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).TakeAt(System.Int32)
-- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
-  id: OnLastRemoved
-  parent: Discord.Addons.MpGame.Collections.Pile`1
-  langs:
-  - csharp
-  - vb
-  name: OnLastRemoved()
-  nameWithType: Pile<TCard>.OnLastRemoved()
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnLastRemoved()
-  type: Method
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Pile.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: OnLastRemoved
-    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 384
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nAutomatically called when the last card is removed from the pile.\n"
-  remarks: >-
-    <div class="markdown level0 remarks"><div class="NOTE">
-
-    <h5>Note</h5><p>Does nothing by default.</p></div></div>
-  example: []
-  syntax:
-    content: protected virtual void OnLastRemoved()
-    content.vb: Protected Overridable Sub OnLastRemoved
-  overload: Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved*
-  nameWithType.vb: Pile(Of TCard).OnLastRemoved()
-  modifiers.csharp:
-  - protected
-  - virtual
-  modifiers.vb:
-  - Protected
-  - Overridable
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnLastRemoved()
-- uid: Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
-  id: OnPut(`0)
-  parent: Discord.Addons.MpGame.Collections.Pile`1
-  langs:
-  - csharp
-  - vb
-  name: OnPut(TCard)
-  nameWithType: Pile<TCard>.OnPut(TCard)
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnPut(TCard)
-  type: Method
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Pile.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: OnPut
-    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 392
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nAutomatically called when a card is put on top of the pile.\n"
-  remarks: >-
-    <div class="markdown level0 remarks"><div class="NOTE">
-
-    <h5>Note</h5><p>Does nothing by default.</p></div></div>
-  example: []
-  syntax:
-    content: protected virtual void OnPut(TCard card)
-    parameters:
-    - id: card
-      type: '{TCard}'
-      description: The card that is placed.
-    content.vb: Protected Overridable Sub OnPut(card As TCard)
-  overload: Discord.Addons.MpGame.Collections.Pile`1.OnPut*
-  nameWithType.vb: Pile(Of TCard).OnPut(TCard)
-  modifiers.csharp:
-  - protected
-  - virtual
-  modifiers.vb:
-  - Protected
-  - Overridable
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnPut(TCard)
 - uid: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
   commentId: M:Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
   id: BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
@@ -1296,12 +714,28 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: BrowseAndTake
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 416
+    startLine: 174
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
   summary: "\nBrowse for and take one or more cards from the pile in a single operation.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanBrowse\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanTake\" data-throw-if-not-resolved=\"false\"></xref>.\n"
-  example: []
+  example:
+  - >-
+    <pre><code class="c#">    // An effect was used that allows the user to
+        // search their deck for a number of red cards
+        deck.BrowseAndTake(async cards =>
+        {
+            // Show the available options to the user
+            await ShowUser(cards);
+            // Wait for the user to make a decision, with &apos;num&apos;
+            // being the max amount of cards they can choose
+            return await UserInput(num);
+        },
+        // Only show red cards
+        filter: c => c.Color == CardColor.Red,
+        // Shuffle the pile afterwards
+        // with some custom function
+        shuffleFunc: cards => cards.ShuffleItems());</code></pre>
   syntax:
     content: public Task<ImmutableArray<TCard>> BrowseAndTake(Func<ImmutableDictionary<int, TCard>, Task<int[]>> selector, Func<TCard, bool> filter = null, Func<IEnumerable<TCard>, IEnumerable<TCard>> shuffleFunc = null)
     parameters:
@@ -1357,6 +791,588 @@ items:
   - Public
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).BrowseAndTake(System.Func(Of System.Collections.Immutable.ImmutableDictionary(Of System.Int32, TCard), System.Threading.Tasks.Task(Of System.Int32())), System.Func(Of TCard, System.Boolean), System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
   name.vb: BrowseAndTake(Func(Of ImmutableDictionary(Of Int32, TCard), Task(Of Int32())), Func(Of TCard, Boolean), Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Clear
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Clear
+  id: Clear
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: Clear()
+  nameWithType: Pile<TCard>.Clear()
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Clear()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Clear
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 234
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nClears the entire pile and returns the cards\nthat were in it. Requires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanClear\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  example: []
+  syntax:
+    content: public ImmutableArray<TCard> Clear()
+    return:
+      type: System.Collections.Immutable.ImmutableArray{{TCard}}
+      description: The collection as it was before it is cleared.
+    content.vb: Public Function Clear As ImmutableArray(Of TCard)
+  overload: Discord.Addons.MpGame.Collections.Pile`1.Clear*
+  exceptions:
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: >-
+      The instance
+
+      does not allow clearing all cards.
+  nameWithType.vb: Pile(Of TCard).Clear()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Clear()
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Cut(System.Int32)
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Cut(System.Int32)
+  id: Cut(System.Int32)
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: Cut(Int32)
+  nameWithType: Pile<TCard>.Cut(Int32)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Cut(System.Int32)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Cut
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 253
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nCuts the pile at a specified number of cards from the top\nand places the taken cards on the bottom.\n"
+  example: []
+  syntax:
+    content: public void Cut(int cutAmount)
+    parameters:
+    - id: cutAmount
+      type: System.Int32
+    content.vb: Public Sub Cut(cutAmount As Integer)
+  overload: Discord.Addons.MpGame.Collections.Pile`1.Cut*
+  exceptions:
+  - type: System.ArgumentOutOfRangeException
+    commentId: T:System.ArgumentOutOfRangeException
+    description: >-
+      <code data-dev-comment-type="paramref" class="paramref">cutIndex</code>
+          was less than 0 or greater than the pile&apos;s current size.
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: >-
+      The instance does not
+
+      allow cutting the pile.
+  nameWithType.vb: Pile(Of TCard).Cut(Int32)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Cut(System.Int32)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Draw
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Draw
+  id: Draw
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: Draw()
+  nameWithType: Pile<TCard>.Draw()
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Draw()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Draw
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 284
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nDraws the top card from the pile. If the last card is\ndrawn, calls <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.OnLastRemoved\" data-throw-if-not-resolved=\"false\"></xref>.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanDraw\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  example: []
+  syntax:
+    content: public TCard Draw()
+    return:
+      type: '{TCard}'
+      description: >-
+        If the pile&apos;s current size is greater than 0, the card
+
+        currently at the top of the pile. Otherwise will throw.
+    content.vb: Public Function Draw As TCard
+  overload: Discord.Addons.MpGame.Collections.Pile`1.Draw*
+  exceptions:
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: >-
+      The instance
+
+      does not allow drawing cards OR There were no cards to draw.
+  nameWithType.vb: Pile(Of TCard).Draw()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Draw()
+- uid: Discord.Addons.MpGame.Collections.Pile`1.DrawBottom
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.DrawBottom
+  id: DrawBottom
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: DrawBottom()
+  nameWithType: Pile<TCard>.DrawBottom()
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.DrawBottom()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: DrawBottom
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 310
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nDraws the bottom card from the pile. If the last card is\ndrawn, calls <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.OnLastRemoved\" data-throw-if-not-resolved=\"false\"></xref>.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanDrawBottom\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  example: []
+  syntax:
+    content: public TCard DrawBottom()
+    return:
+      type: '{TCard}'
+      description: >-
+        If the pile&apos;s current size is greater than 0, the card
+
+        currently at the bottom of the pile. Otherwise will throw.
+    content.vb: Public Function DrawBottom As TCard
+  overload: Discord.Addons.MpGame.Collections.Pile`1.DrawBottom*
+  exceptions:
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: >-
+      The instance
+
+      does not allow drawing cards OR There were no cards to draw.
+  nameWithType.vb: Pile(Of TCard).DrawBottom()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).DrawBottom()
+- uid: Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)
+  id: InsertAt(`0,System.Int32)
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: InsertAt(TCard, Int32)
+  nameWithType: Pile<TCard>.InsertAt(TCard, Int32)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.InsertAt(TCard, System.Int32)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: InsertAt
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 337
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nInserts a card at the given index. Requires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanInsert\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  example: []
+  syntax:
+    content: public void InsertAt(TCard card, int index)
+    parameters:
+    - id: card
+      type: '{TCard}'
+      description: The card to insert.
+    - id: index
+      type: System.Int32
+      description: The 0-based index to insert at.
+    content.vb: Public Sub InsertAt(card As TCard, index As Integer)
+  overload: Discord.Addons.MpGame.Collections.Pile`1.InsertAt*
+  exceptions:
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: >-
+      The instance does not
+
+      allow inserting cards at an arbitrary location.
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: <code data-dev-comment-type="paramref" class="paramref">card</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
+  - type: System.ArgumentOutOfRangeException
+    commentId: T:System.ArgumentOutOfRangeException
+    description: >-
+      <code data-dev-comment-type="paramref" class="paramref">index</code>
+          was less than 0 or greater than the pile&apos;s current size.
+  nameWithType.vb: Pile(Of TCard).InsertAt(TCard, Int32)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).InsertAt(TCard, System.Int32)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.PeekTop(System.Int32)
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.PeekTop(System.Int32)
+  id: PeekTop(System.Int32)
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: PeekTop(Int32)
+  nameWithType: Pile<TCard>.PeekTop(Int32)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.PeekTop(System.Int32)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: PeekTop
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 366
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nPeeks the <code data-dev-comment-type=\"paramref\" class=\"paramref\">amount</code> of\ncards without removing them from the pile.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanPeek\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  example: []
+  syntax:
+    content: public ImmutableArray<TCard> PeekTop(int amount)
+    parameters:
+    - id: amount
+      type: System.Int32
+      description: The amount of cards to peek.
+    return:
+      type: System.Collections.Immutable.ImmutableArray{{TCard}}
+      description: An array of the cards currently at the top of the pile.
+    content.vb: Public Function PeekTop(amount As Integer) As ImmutableArray(Of TCard)
+  overload: Discord.Addons.MpGame.Collections.Pile`1.PeekTop*
+  exceptions:
+  - type: System.ArgumentOutOfRangeException
+    commentId: T:System.ArgumentOutOfRangeException
+    description: >-
+      <code data-dev-comment-type="paramref" class="paramref">amount</code>
+          was less than 0 or greater than the pile&apos;s current size.
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: >-
+      The instance
+
+      does not allow peeking cards.
+  nameWithType.vb: Pile(Of TCard).PeekTop(Int32)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).PeekTop(System.Int32)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Put(`0)
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Put(`0)
+  id: Put(`0)
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: Put(TCard)
+  nameWithType: Pile<TCard>.Put(TCard)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Put(TCard)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Put
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 396
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nPuts a card on top of the pile.\nCalls <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.OnPut(%600)\" data-throw-if-not-resolved=\"false\"></xref>.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanPut\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  example: []
+  syntax:
+    content: public void Put(TCard card)
+    parameters:
+    - id: card
+      type: '{TCard}'
+      description: The card to place on top.
+    content.vb: Public Sub Put(card As TCard)
+  overload: Discord.Addons.MpGame.Collections.Pile`1.Put*
+  exceptions:
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: >-
+      The instance does not
+
+      allow placing cards onto it.
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: <code data-dev-comment-type="paramref" class="paramref">card</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
+  nameWithType.vb: Pile(Of TCard).Put(TCard)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Put(TCard)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.PutBottom(`0)
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.PutBottom(`0)
+  id: PutBottom(`0)
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: PutBottom(TCard)
+  nameWithType: Pile<TCard>.PutBottom(TCard)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.PutBottom(TCard)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: PutBottom
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 415
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nPuts a card on the bottom of the pile. Requires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanPutBottom\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  example: []
+  syntax:
+    content: public void PutBottom(TCard card)
+    parameters:
+    - id: card
+      type: '{TCard}'
+      description: The card to place on the bottom.
+    content.vb: Public Sub PutBottom(card As TCard)
+  overload: Discord.Addons.MpGame.Collections.Pile`1.PutBottom*
+  exceptions:
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: >-
+      The instance does not
+
+      allow placing cards on the bottom.
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: <code data-dev-comment-type="paramref" class="paramref">card</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
+  nameWithType.vb: Pile(Of TCard).PutBottom(TCard)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).PutBottom(TCard)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+  id: Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
+  nameWithType: Pile<TCard>.Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Shuffle(System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Shuffle
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 438
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nReshuffles the pile using the specified function.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanShuffle\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  example: []
+  syntax:
+    content: public void Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>> shuffleFunc)
+    parameters:
+    - id: shuffleFunc
+      type: System.Func{System.Collections.Generic.IEnumerable{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
+      description: >-
+        A function that produces an
+
+        <xref href="System.Collections.Generic.IEnumerable%601" data-throw-if-not-resolved="false"></xref> in a new, random order.
+
+        This function receives the cards currently in
+
+        the pile as its argument.
+    content.vb: Public Sub Shuffle(shuffleFunc As Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+  overload: Discord.Addons.MpGame.Collections.Pile`1.Shuffle*
+  exceptions:
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: "The instance\ndoes not allow reshuffling the cards OR The sequence produced from \n<code data-dev-comment-type=\"paramref\" class=\"paramref\">shuffleFunc</code> was <xref uid=\"langword_csharp_null\" name=\"null\" href=\"\"></xref>."
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: <code data-dev-comment-type="paramref" class="paramref">shuffleFunc</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
+  nameWithType.vb: Pile(Of TCard).Shuffle(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Shuffle(System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
+  name.vb: Shuffle(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+- uid: Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)
+  id: TakeAt(System.Int32)
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: TakeAt(Int32)
+  nameWithType: Pile<TCard>.TakeAt(Int32)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.TakeAt(System.Int32)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: TakeAt
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 459
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nTakes a card from the given index. If the last card is\ntaken, calls <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.OnLastRemoved\" data-throw-if-not-resolved=\"false\"></xref>. Requires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanTake\" data-throw-if-not-resolved=\"false\"></xref>.\n"
+  example: []
+  syntax:
+    content: public TCard TakeAt(int index)
+    parameters:
+    - id: index
+      type: System.Int32
+      description: The 0-based index to take.
+    return:
+      type: '{TCard}'
+      description: The card at the specified index.
+    content.vb: Public Function TakeAt(index As Integer) As TCard
+  overload: Discord.Addons.MpGame.Collections.Pile`1.TakeAt*
+  exceptions:
+  - type: System.ArgumentOutOfRangeException
+    commentId: T:System.ArgumentOutOfRangeException
+    description: >-
+      <code data-dev-comment-type="paramref" class="paramref">index</code>
+          was less than 0 or greater than or equal to the pile&apos;s current size.
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: >-
+      The instance does not
+
+      allow taking cards from an arbitrary location.
+  nameWithType.vb: Pile(Of TCard).TakeAt(Int32)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).TakeAt(System.Int32)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
+  id: OnLastRemoved
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: OnLastRemoved()
+  nameWithType: Pile<TCard>.OnLastRemoved()
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnLastRemoved()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: OnLastRemoved
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 476
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nAutomatically called when the last card is removed from the pile.\n"
+  remarks: >-
+    <div class="markdown level0 remarks"><div class="NOTE">
+
+    <h5>Note</h5><p>Does nothing by default.</p></div></div>
+  example: []
+  syntax:
+    content: protected virtual void OnLastRemoved()
+    content.vb: Protected Overridable Sub OnLastRemoved
+  overload: Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved*
+  nameWithType.vb: Pile(Of TCard).OnLastRemoved()
+  modifiers.csharp:
+  - protected
+  - virtual
+  modifiers.vb:
+  - Protected
+  - Overridable
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnLastRemoved()
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
+  id: OnPut(`0)
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: OnPut(TCard)
+  nameWithType: Pile<TCard>.OnPut(TCard)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnPut(TCard)
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: OnPut
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 484
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nAutomatically called when a card is put on top of the pile.\n"
+  remarks: >-
+    <div class="markdown level0 remarks"><div class="NOTE">
+
+    <h5>Note</h5><p>Does nothing by default.</p></div></div>
+  example: []
+  syntax:
+    content: protected virtual void OnPut(TCard card)
+    parameters:
+    - id: card
+      type: '{TCard}'
+      description: The card that is placed.
+    content.vb: Protected Overridable Sub OnPut(card As TCard)
+  overload: Discord.Addons.MpGame.Collections.Pile`1.OnPut*
+  nameWithType.vb: Pile(Of TCard).OnPut(TCard)
+  modifiers.csharp:
+  - protected
+  - virtual
+  modifiers.vb:
+  - Protected
+  - Overridable
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnPut(TCard)
 references:
 - uid: Discord.Addons.MpGame.Collections
   commentId: N:Discord.Addons.MpGame.Collections
@@ -1716,284 +1732,10 @@ references:
   name: System.Collections.Immutable
   nameWithType: System.Collections.Immutable
   fullName: System.Collections.Immutable
-- uid: Discord.Addons.MpGame.Collections.Pile`1.CanClear
-  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanClear
-- uid: Discord.Addons.MpGame.Collections.Pile`1.Clear*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Clear
-  isExternal: false
-  name: Clear
-  nameWithType: Pile<TCard>.Clear
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Clear
-  nameWithType.vb: Pile(Of TCard).Clear
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Clear
-- uid: System.ArgumentOutOfRangeException
-  commentId: T:System.ArgumentOutOfRangeException
-- uid: Discord.Addons.MpGame.Collections.Pile`1.Cut*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Cut
-  isExternal: false
-  name: Cut
-  nameWithType: Pile<TCard>.Cut
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Cut
-  nameWithType.vb: Pile(Of TCard).Cut
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Cut
-- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
-- uid: Discord.Addons.MpGame.Collections.Pile`1.CanDraw
-  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanDraw
-- uid: Discord.Addons.MpGame.Collections.Pile`1.Draw*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Draw
-  isExternal: false
-  name: Draw
-  nameWithType: Pile<TCard>.Draw
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Draw
-  nameWithType.vb: Pile(Of TCard).Draw
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Draw
-- uid: '{TCard}'
-  commentId: '!:TCard'
-  definition: TCard
-  name: TCard
-  nameWithType: TCard
-  fullName: TCard
-- uid: TCard
-  isExternal: false
-  name: TCard
-  nameWithType: TCard
-  fullName: TCard
-- uid: Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom
-  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom
-- uid: Discord.Addons.MpGame.Collections.Pile`1.DrawBottom*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.DrawBottom
-  isExternal: false
-  name: DrawBottom
-  nameWithType: Pile<TCard>.DrawBottom
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.DrawBottom
-  nameWithType.vb: Pile(Of TCard).DrawBottom
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).DrawBottom
-- uid: Discord.Addons.MpGame.Collections.Pile`1.CanInsert
-  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanInsert
-- uid: Discord.Addons.MpGame.Collections.Pile`1.InsertAt*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.InsertAt
-  isExternal: false
-  name: InsertAt
-  nameWithType: Pile<TCard>.InsertAt
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.InsertAt
-  nameWithType.vb: Pile(Of TCard).InsertAt
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).InsertAt
-- uid: Discord.Addons.MpGame.Collections.Pile`1.CanPeek
-  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanPeek
-- uid: Discord.Addons.MpGame.Collections.Pile`1.PeekTop*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.PeekTop
-  isExternal: false
-  name: PeekTop
-  nameWithType: Pile<TCard>.PeekTop
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.PeekTop
-  nameWithType.vb: Pile(Of TCard).PeekTop
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).PeekTop
-- uid: Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
-- uid: Discord.Addons.MpGame.Collections.Pile`1.CanPut
-  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanPut
-- uid: Discord.Addons.MpGame.Collections.Pile`1.Put*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Put
-  isExternal: false
-  name: Put
-  nameWithType: Pile<TCard>.Put
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Put
-  nameWithType.vb: Pile(Of TCard).Put
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Put
-- uid: Discord.Addons.MpGame.Collections.Pile`1.CanPutBottom
-  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanPutBottom
-- uid: Discord.Addons.MpGame.Collections.Pile`1.PutBottom*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.PutBottom
-  isExternal: false
-  name: PutBottom
-  nameWithType: Pile<TCard>.PutBottom
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.PutBottom
-  nameWithType.vb: Pile(Of TCard).PutBottom
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).PutBottom
-- uid: Discord.Addons.MpGame.Collections.Pile`1.CanShuffle
-  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanShuffle
-- uid: Discord.Addons.MpGame.Collections.Pile`1.Shuffle*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Shuffle
-  isExternal: false
-  name: Shuffle
-  nameWithType: Pile<TCard>.Shuffle
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Shuffle
-  nameWithType.vb: Pile(Of TCard).Shuffle
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Shuffle
-- uid: System.Func{System.Collections.Generic.IEnumerable{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
-  commentId: T:System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}}
-  parent: System
-  definition: System.Func`2
-  name: Func<IEnumerable<TCard>, IEnumerable<TCard>>
-  nameWithType: Func<IEnumerable<TCard>, IEnumerable<TCard>>
-  fullName: System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>
-  nameWithType.vb: Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard))
-  fullName.vb: System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard))
-  name.vb: Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard))
-  spec.csharp:
-  - uid: System.Func`2
-    name: Func
-    nameWithType: Func
-    fullName: System.Func
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: TCard
-    nameWithType: TCard
-    fullName: TCard
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: TCard
-    nameWithType: TCard
-    fullName: TCard
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Func`2
-    name: Func
-    nameWithType: Func
-    fullName: System.Func
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: TCard
-    nameWithType: TCard
-    fullName: TCard
-  - name: )
-    nameWithType: )
-    fullName: )
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: TCard
-    nameWithType: TCard
-    fullName: TCard
-  - name: )
-    nameWithType: )
-    fullName: )
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Func`2
-  commentId: T:System.Func`2
-  isExternal: true
-  name: Func<T, TResult>
-  nameWithType: Func<T, TResult>
-  fullName: System.Func<T, TResult>
-  nameWithType.vb: Func(Of T, TResult)
-  fullName.vb: System.Func(Of T, TResult)
-  name.vb: Func(Of T, TResult)
-  spec.csharp:
-  - uid: System.Func`2
-    name: Func
-    nameWithType: Func
-    fullName: System.Func
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - name: TResult
-    nameWithType: TResult
-    fullName: TResult
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Func`2
-    name: Func
-    nameWithType: Func
-    fullName: System.Func
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: ', '
-    nameWithType: ', '
-    fullName: ', '
-  - name: TResult
-    nameWithType: TResult
-    fullName: TResult
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: Discord.Addons.MpGame.Collections.Pile`1.CanTake
   commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanTake
-- uid: Discord.Addons.MpGame.Collections.Pile`1.TakeAt*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.TakeAt
-  isExternal: false
-  name: TakeAt
-  nameWithType: Pile<TCard>.TakeAt
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.TakeAt
-  nameWithType.vb: Pile(Of TCard).TakeAt
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).TakeAt
-- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
-  isExternal: false
-  name: OnLastRemoved
-  nameWithType: Pile<TCard>.OnLastRemoved
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnLastRemoved
-  nameWithType.vb: Pile(Of TCard).OnLastRemoved
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnLastRemoved
-- uid: Discord.Addons.MpGame.Collections.Pile`1.OnPut*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.OnPut
-  isExternal: false
-  name: OnPut
-  nameWithType: Pile<TCard>.OnPut
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnPut
-  nameWithType.vb: Pile(Of TCard).OnPut
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnPut
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanShuffle
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanShuffle
 - uid: System.IndexOutOfRangeException
   commentId: T:System.IndexOutOfRangeException
 - uid: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake*
@@ -2182,6 +1924,102 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: System.Func{System.Collections.Generic.IEnumerable{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
+  commentId: T:System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}}
+  parent: System
+  definition: System.Func`2
+  name: Func<IEnumerable<TCard>, IEnumerable<TCard>>
+  nameWithType: Func<IEnumerable<TCard>, IEnumerable<TCard>>
+  fullName: System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>
+  nameWithType.vb: Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard))
+  fullName.vb: System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard))
+  name.vb: Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard))
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Threading.Tasks.Task{System.Collections.Immutable.ImmutableArray{{TCard}}}
   commentId: T:System.Threading.Tasks.Task{System.Collections.Immutable.ImmutableArray{`0}}
   parent: System.Threading.Tasks
@@ -2244,6 +2082,57 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: System.Func`2
+  commentId: T:System.Func`2
+  isExternal: true
+  name: Func<T, TResult>
+  nameWithType: Func<T, TResult>
+  fullName: System.Func<T, TResult>
+  nameWithType.vb: Func(Of T, TResult)
+  fullName.vb: System.Func(Of T, TResult)
+  name.vb: Func(Of T, TResult)
+  spec.csharp:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Func`2
+    name: Func
+    nameWithType: Func
+    fullName: System.Func
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TResult
+    nameWithType: TResult
+    fullName: TResult
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: System.Threading.Tasks.Task`1
   commentId: T:System.Threading.Tasks.Task`1
   isExternal: true
@@ -2289,3 +2178,130 @@ references:
   name: System.Threading.Tasks
   nameWithType: System.Threading.Tasks
   fullName: System.Threading.Tasks
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanClear
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanClear
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Clear*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Clear
+  isExternal: false
+  name: Clear
+  nameWithType: Pile<TCard>.Clear
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Clear
+  nameWithType.vb: Pile(Of TCard).Clear
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Clear
+- uid: System.ArgumentOutOfRangeException
+  commentId: T:System.ArgumentOutOfRangeException
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Cut*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Cut
+  isExternal: false
+  name: Cut
+  nameWithType: Pile<TCard>.Cut
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Cut
+  nameWithType.vb: Pile(Of TCard).Cut
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Cut
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanDraw
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanDraw
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Draw*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Draw
+  isExternal: false
+  name: Draw
+  nameWithType: Pile<TCard>.Draw
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Draw
+  nameWithType.vb: Pile(Of TCard).Draw
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Draw
+- uid: '{TCard}'
+  commentId: '!:TCard'
+  definition: TCard
+  name: TCard
+  nameWithType: TCard
+  fullName: TCard
+- uid: TCard
+  isExternal: false
+  name: TCard
+  nameWithType: TCard
+  fullName: TCard
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom
+- uid: Discord.Addons.MpGame.Collections.Pile`1.DrawBottom*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.DrawBottom
+  isExternal: false
+  name: DrawBottom
+  nameWithType: Pile<TCard>.DrawBottom
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.DrawBottom
+  nameWithType.vb: Pile(Of TCard).DrawBottom
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).DrawBottom
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanInsert
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanInsert
+- uid: Discord.Addons.MpGame.Collections.Pile`1.InsertAt*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.InsertAt
+  isExternal: false
+  name: InsertAt
+  nameWithType: Pile<TCard>.InsertAt
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.InsertAt
+  nameWithType.vb: Pile(Of TCard).InsertAt
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).InsertAt
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanPeek
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanPeek
+- uid: Discord.Addons.MpGame.Collections.Pile`1.PeekTop*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.PeekTop
+  isExternal: false
+  name: PeekTop
+  nameWithType: Pile<TCard>.PeekTop
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.PeekTop
+  nameWithType.vb: Pile(Of TCard).PeekTop
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).PeekTop
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanPut
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanPut
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Put*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Put
+  isExternal: false
+  name: Put
+  nameWithType: Pile<TCard>.Put
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Put
+  nameWithType.vb: Pile(Of TCard).Put
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Put
+- uid: Discord.Addons.MpGame.Collections.Pile`1.CanPutBottom
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanPutBottom
+- uid: Discord.Addons.MpGame.Collections.Pile`1.PutBottom*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.PutBottom
+  isExternal: false
+  name: PutBottom
+  nameWithType: Pile<TCard>.PutBottom
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.PutBottom
+  nameWithType.vb: Pile(Of TCard).PutBottom
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).PutBottom
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Shuffle*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Shuffle
+  isExternal: false
+  name: Shuffle
+  nameWithType: Pile<TCard>.Shuffle
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Shuffle
+  nameWithType.vb: Pile(Of TCard).Shuffle
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Shuffle
+- uid: Discord.Addons.MpGame.Collections.Pile`1.TakeAt*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.TakeAt
+  isExternal: false
+  name: TakeAt
+  nameWithType: Pile<TCard>.TakeAt
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.TakeAt
+  nameWithType.vb: Pile(Of TCard).TakeAt
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).TakeAt
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved
+  isExternal: false
+  name: OnLastRemoved
+  nameWithType: Pile<TCard>.OnLastRemoved
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnLastRemoved
+  nameWithType.vb: Pile(Of TCard).OnLastRemoved
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnLastRemoved
+- uid: Discord.Addons.MpGame.Collections.Pile`1.OnPut*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.OnPut
+  isExternal: false
+  name: OnPut
+  nameWithType: Pile<TCard>.OnPut
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.OnPut
+  nameWithType.vb: Pile(Of TCard).OnPut
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).OnPut
