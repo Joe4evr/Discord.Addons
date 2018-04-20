@@ -138,7 +138,7 @@ namespace Discord.Addons.MpGame.Collections
         /// Requires <see cref="CanBrowse"/> and <see cref="CanTake"/>.
         /// </summary>
         /// <param name="selector">A function that returns an array
-        /// of the indeces of the desired cards. The key for each value is the index
+        /// of the indeces of the desired cards. The key of each pair is the index
         /// of that card. Returning a <see langword="null"/> or empty array
         /// is considered choosing nothing and will return an empty array.</param>
         /// <param name="filter">An optional function to filter
@@ -158,7 +158,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <example><code language="c#">
         /// // An effect was used that allows the user to
         /// // search their deck for a number of red cards
-        /// deck.BrowseAndTake(async cards =>
+        /// var picked = await deck.BrowseAndTake(async cards =>
         /// {
         ///     // Show the available options to the user
         ///     await ShowUser(cards);
@@ -171,6 +171,9 @@ namespace Discord.Addons.MpGame.Collections
         /// // Shuffle the pile afterwards
         /// // with some custom function
         /// shuffleFunc: cards => cards.ShuffleItems());
+        /// // Add the picked cards to the user's hand:
+        /// foreach (var card in picked)
+        ///     player.AddToHand(card);
         /// </code></example>
         public async Task<ImmutableArray<TCard>> BrowseAndTake(
             Func<ImmutableDictionary<int, TCard>, Task<int[]>> selector,

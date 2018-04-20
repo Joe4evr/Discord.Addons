@@ -714,7 +714,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: BrowseAndTake
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 174
+    startLine: 177
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -723,7 +723,7 @@ items:
   - >-
     <pre><code class="c#">    // An effect was used that allows the user to
         // search their deck for a number of red cards
-        deck.BrowseAndTake(async cards =>
+        var picked = await deck.BrowseAndTake(async cards =>
         {
             // Show the available options to the user
             await ShowUser(cards);
@@ -735,7 +735,10 @@ items:
         filter: c => c.Color == CardColor.Red,
         // Shuffle the pile afterwards
         // with some custom function
-        shuffleFunc: cards => cards.ShuffleItems());</code></pre>
+        shuffleFunc: cards => cards.ShuffleItems());
+        // Add the picked cards to the user&apos;s hand:
+        foreach (var card in picked)
+            player.AddToHand(card);</code></pre>
   syntax:
     content: public Task<ImmutableArray<TCard>> BrowseAndTake(Func<ImmutableDictionary<int, TCard>, Task<int[]>> selector, Func<TCard, bool> filter = null, Func<IEnumerable<TCard>, IEnumerable<TCard>> shuffleFunc = null)
     parameters:
@@ -744,7 +747,7 @@ items:
       description: >-
         A function that returns an array
 
-        of the indeces of the desired cards. The key for each value is the index
+        of the indeces of the desired cards. The key of each pair is the index
 
         of that card. Returning a <xref uid="langword_csharp_null" name="null" href=""></xref> or empty array
 
@@ -809,7 +812,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Clear
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 234
+    startLine: 237
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -853,7 +856,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Cut
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 253
+    startLine: 256
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -902,7 +905,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Draw
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 284
+    startLine: 287
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -949,7 +952,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: DrawBottom
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 310
+    startLine: 313
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -996,7 +999,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: InsertAt
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 337
+    startLine: 340
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1052,7 +1055,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: PeekTop
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 366
+    startLine: 369
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1105,7 +1108,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Put
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 396
+    startLine: 399
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1153,7 +1156,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: PutBottom
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 415
+    startLine: 418
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1201,7 +1204,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Shuffle
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 438
+    startLine: 441
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1254,7 +1257,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TakeAt
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 459
+    startLine: 462
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1307,7 +1310,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: OnLastRemoved
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 476
+    startLine: 479
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1347,7 +1350,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: OnPut
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 484
+    startLine: 487
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
