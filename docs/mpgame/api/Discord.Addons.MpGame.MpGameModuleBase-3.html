@@ -455,7 +455,7 @@ want to register a type reader for the <code data-dev-comment-type="typeparamref
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_CancelGameCmd_examples">Examples</h5>
-  <pre><code>[Command(&quot;cancel&quot;)]
+  <pre><code class="c#">[Command(&quot;cancel&quot;)]
     public override async Task CancelGameCmd()
     {
         if (Game != null)
@@ -506,7 +506,7 @@ want to register a type reader for the <code data-dev-comment-type="typeparamref
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_EndGameCmd_examples">Examples</h5>
-  <pre><code>[Command(&quot;end&quot;)] //Should be restricted to mods/admins to prevent abuse
+  <pre><code class="c#">[Command(&quot;end&quot;)] //Should be restricted to mods/admins to prevent abuse
     public override Task EndGameCmd()
         => (Game != null)
             ? Game.EndGame(&quot;Game ended early by moderator.&quot;)
@@ -545,7 +545,7 @@ want to register a type reader for the <code data-dev-comment-type="typeparamref
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_GameStateCmd_examples">Examples</h5>
-  <pre><code>[Command(&quot;state&quot;)]
+  <pre><code class="c#">[Command(&quot;state&quot;)]
     public override Task GameStateCmd()
         => (Game != null)
             ? ReplyAsync(Game.GetGameState())
@@ -585,7 +585,7 @@ want to register a type reader for the <code data-dev-comment-type="typeparamref
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_JoinGameCmd_examples">Examples</h5>
-  <pre><code>[Command(&quot;join&quot;)]
+  <pre><code class="c#">[Command(&quot;join&quot;)]
     public override async Task JoinGameCmd()
     {
         if (Game != null)
@@ -636,7 +636,7 @@ want to register a type reader for the <code data-dev-comment-type="typeparamref
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_LeaveGameCmd_examples">Examples</h5>
-  <pre><code>[Command(&quot;leave&quot;)]
+  <pre><code class="c#">[Command(&quot;leave&quot;)]
     public override async Task LeaveGameCmd()
     {
         if (Game != null)
@@ -687,7 +687,7 @@ want to register a type reader for the <code data-dev-comment-type="typeparamref
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_NextTurnCmd_examples">Examples</h5>
-  <pre><code>[Command(&quot;turn&quot;)]
+  <pre><code class="c#">[Command(&quot;turn&quot;)]
     public override Task NextTurnCmd()
         => (Game != null)
             ? Game.NextTurn()
@@ -765,7 +765,7 @@ want to register a type reader for the <code data-dev-comment-type="typeparamref
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_OpenGameCmd_examples">Examples</h5>
-  <pre><code>[Command(&quot;opengame&quot;)]
+  <pre><code class="c#">[Command(&quot;opengame&quot;)]
     public override async Task OpenGameCmd()
     {
         if (OpenToJoin)
@@ -816,7 +816,7 @@ want to register a type reader for the <code data-dev-comment-type="typeparamref
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_ResendCmd_examples">Examples</h5>
-  <pre><code>[Command(&quot;resend&quot;)]
+  <pre><code class="c#">[Command(&quot;resend&quot;)]
     public override Task ResendCmd() => base.ResendCmd();</code></pre>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -850,7 +850,7 @@ want to register a type reader for the <code data-dev-comment-type="typeparamref
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_StartGameCmd_examples">Examples</h5>
-  <pre><code>[Command(&quot;start&quot;)]
+  <pre><code class="c#">[Command(&quot;start&quot;)]
     public override async Task StartGameCmd()
     {
         if (Game != null)
