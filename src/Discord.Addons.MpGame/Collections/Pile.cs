@@ -153,7 +153,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <paramref name="shuffleFunc"/> was <see langword="null"/>.</exception>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="selector"/> was <see langword="null"/>.</exception>
-        /// <exception cref="IndexOutOfRangeException">One of the
+        /// <exception cref="IndexOutOfRangeException">One or more of the
         /// selected indices was not within the provided indices.</exception>
         /// <example><code language="c#">
         /// // An effect was used that allows the user to
@@ -186,45 +186,49 @@ namespace Discord.Addons.MpGame.Collections
             using (_rwlock.UsingWriteLock())
             {
                 var cards = GetAllD(filter ?? _defaultPredicate);
-                var selection = await selector(cards);
-                var result = BuildSelection(cards, selection, out var cs);
+                //ReaderWriterLockSlim has thread affinity, so
+                //force continuation back onto *this* context.
+                var selection = await selector(cards).ConfigureAwait(true);
+                var nodes = BuildSelection(selection, ref cards);
 
                 if (CanShuffle && shuffleFunc != null)
-                    ShuffleInternal(shuffleFunc, cs.Values);
+                {
+                    ShuffleInternal(shuffleFunc, cards.Values);
 
-                return result;
+                    return nodes.Select(n => n.Value).ToImmutableArray();
+                }
+                else
+                {
+                    var builder = ImmutableArray.CreateBuilder<TCard>(nodes.Length);
+                    foreach (var node in nodes)
+                        builder.Add(Break(node));
+
+                    return builder.ToImmutable();
+                }
             }
 
-            ImmutableArray<TCard> BuildSelection(ImmutableDictionary<int, TCard> cs, int[] sel, out ImmutableDictionary<int, TCard> cs2)
+            Node[] BuildSelection(int[] sel, ref ImmutableDictionary<int, TCard> cs)
             {
                 if (sel == null)
+                    return Array.Empty<Node>();
+
+                var un = sel.Distinct().ToArray();
+                if (un.Length == 0)
+                    return Array.Empty<Node>();
+
+                if (un.Except(cs.Keys).Any())
+                    throw new IndexOutOfRangeException($"Selected indeces '{String.Join("', '", un.Except(cs.Keys))}' must be one of the provided card indices.");
+
+                var arr = new Node[un.Length];
+
+                for (int i = 0; i < un.Length; i++)
                 {
-                    cs2 = cs;
-                    return ImmutableArray<TCard>.Empty;
-                }
-
-                var un = sel.Distinct();
-                if (!un.Any())
-                {
-                    cs2 = cs;
-                    return ImmutableArray<TCard>.Empty;
-                }
-
-                var ex = un.Except(cs.Keys);
-                if (ex.Any())
-                    throw new IndexOutOfRangeException($"Selected indeces '{String.Join("', '", ex)}' must be one of the provided card indices.");
-
-                var builder = ImmutableArray.CreateBuilder<TCard>(sel.Length);
-
-                for (int i = 0; i < sel.Length; i++)
-                {
-                    var s = sel[i];
-                    builder.Add(cs[s]);
+                    var s = un[i];
+                    arr[i] = GetNodeAt(s);
                     cs = cs.Remove(s);
                 }
 
-                cs2 = cs;
-                return builder.ToImmutable();
+                return arr;
             }
         }
 
