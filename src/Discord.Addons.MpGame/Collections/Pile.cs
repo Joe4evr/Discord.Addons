@@ -21,7 +21,7 @@ namespace Discord.Addons.MpGame.Collections
     public abstract partial class Pile<TCard>
         where TCard : class
     {
-        private static readonly Func<TCard, bool> _defaultPredicate = (_ => true);
+        private static readonly Func<TCard, bool> _noFilter = (_ => true);
 
         private readonly ReaderWriterLockSlim _rwlock = new ReaderWriterLockSlim();
 
@@ -166,7 +166,7 @@ namespace Discord.Addons.MpGame.Collections
         ///     // being the max amount of cards they can choose
         ///     return await UserInput(num);
         /// },
-        /// // Only show red cards
+        /// // Only pass in the red cards
         /// filter: c => c.Color == CardColor.Red,
         /// // Shuffle the pile afterwards
         /// // with some custom function
@@ -185,7 +185,7 @@ namespace Discord.Addons.MpGame.Collections
 
             using (_rwlock.UsingWriteLock())
             {
-                var cards = GetAllD(filter ?? _defaultPredicate);
+                var cards = GetAllD(filter ?? _noFilter);
                 //ReaderWriterLockSlim has thread affinity, so
                 //force continuation back onto *this* context.
                 var selection = await selector(cards).ConfigureAwait(true);
@@ -193,7 +193,7 @@ namespace Discord.Addons.MpGame.Collections
 
                 if (CanShuffle && shuffleFunc != null)
                 {
-                    ShuffleInternal(shuffleFunc, cards.Values);
+                    Resequence(shuffleFunc(cards.Values));
 
                     return nodes.Select(n => n.Value).ToImmutableArray();
                 }
@@ -216,8 +216,9 @@ namespace Discord.Addons.MpGame.Collections
                 if (un.Length == 0)
                     return Array.Empty<Node>();
 
-                if (un.Except(cs.Keys).Any())
-                    throw new IndexOutOfRangeException($"Selected indeces '{String.Join("', '", un.Except(cs.Keys))}' must be one of the provided card indices.");
+                var ex = un.Except(cs.Keys);
+                if (ex.Any())
+                    throw new IndexOutOfRangeException($"Selected indeces '{String.Join("', '", ex)}' must be one of the provided card indices.");
 
                 var arr = new Node[un.Length];
 
@@ -450,9 +451,20 @@ namespace Discord.Addons.MpGame.Collections
 
             using (_rwlock.UsingWriteLock())
             {
-                ShuffleInternal(shuffleFunc, GetAllInternal(clear: false));
+                Resequence(shuffleFunc(GetAllInternal(clear: false)));
             }
         }
+
+        //private async Task ShuffleAsync(Func<IEnumerable<TCard>, Task<IEnumerable<TCard>>> shuffleFunc)
+        //{
+        //    ThrowInvalidOpIf(!CanShuffle, ErrorStrings.NoShuffle);
+        //    ThrowArgNull(shuffleFunc, nameof(shuffleFunc));
+
+        //    using (_rwlock.UsingWriteLock())
+        //    {
+        //        Resequence(await shuffleFunc(GetAllInternal(clear: false)));
+        //    }
+        //}
 
         /// <summary>
         /// Takes a card from the given index. If the last card is
@@ -490,6 +502,8 @@ namespace Discord.Addons.MpGame.Collections
         /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
         /// <h5>Note</h5><p>Does nothing by default.</p></div></div></remarks>
         protected virtual void OnPut(TCard card) { }
+
+        //private void OnResequence() { }
 
         private ImmutableDictionary<int, TCard> GetAllD(Func<TCard, bool> predicate)
         {
@@ -613,19 +627,16 @@ namespace Discord.Addons.MpGame.Collections
 
             return tmp;
         }
-        private void ShuffleInternal(
-            Func<IEnumerable<TCard>, IEnumerable<TCard>> shuffleFunc,
-            IEnumerable <TCard> initialPile)
+        private void Resequence(IEnumerable <TCard> newSequence)
         {
-            var shuffled = shuffleFunc(initialPile);
-
-            ThrowInvalidOpIf(shuffled == null, ErrorStrings.NewSequenceNull);
+            ThrowInvalidOpIf(newSequence == null, ErrorStrings.NewSequenceNull);
 
             _head = null;
             _tail = null;
             Interlocked.Exchange(ref _count, 0);
 
-            AddSequence(shuffled);
+            AddSequence(newSequence);
+            //OnResequence();
         }
 
         //private TCard this[int index]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord.Addons;
@@ -12,12 +13,6 @@ namespace MpGame.Tests.CollectionTests
     {
         private static IEnumerable<TestCard> CardFactory(int amount, int start = 1)
             => Enumerable.Range(start, amount).Select(i => new TestCard { Id = i });
-
-        //private sealed class DummyBufferStrat : IBufferStrategy<TestCard>
-        //{
-        //    TestCard[] IBufferStrategy<TestCard>.GetBuffer(int size) => throw new NotImplementedException();
-        //    void IBufferStrategy<TestCard>.ReturnBuffer(TestCard[] buffer) => throw new NotImplementedException();
-        //}
 
         public sealed class Ctor
         {
@@ -159,11 +154,6 @@ namespace MpGame.Tests.CollectionTests
             {
                 var pile = new TestPile(withPerms: PilePerms.CanBrowse | PilePerms.CanTake, cards: CardFactory(20));
                 var priorSize = pile.Count;
-                var expectedSeq = new[]
-                {
-                     1, 2, 3, 4, 5,    7, 8, 9,10,
-                       12,13,14,15,16,17,18,19,20,
-                };
                 var picks = await pile.BrowseAndTake(
                     cs =>
                     {
@@ -171,6 +161,11 @@ namespace MpGame.Tests.CollectionTests
 
                         return Task.FromResult(new[] { 5, 10, 5, 10 });
                     });
+                var expectedSeq = new[]
+                {
+                     1, 2, 3, 4, 5,    7, 8, 9,10,
+                       12,13,14,15,16,17,18,19,20,
+                };
 
                 Assert.False(picks.IsDefault);
                 Assert.NotEmpty(picks);
@@ -184,11 +179,6 @@ namespace MpGame.Tests.CollectionTests
             {
                 var pile = new TestPile(withPerms: PilePerms.CanBrowse | PilePerms.CanTake, cards: CardFactory(20));
                 var priorSize = pile.Count;
-                var expectedSeq = new[]
-                {
-                     1, 2, 3, 4, 5,    7, 8, 9,10,
-                       12,13,14,15,16,17,18,19,20,
-                };
                 var picks = await pile.BrowseAndTake(
                     cs =>
                     {
@@ -197,6 +187,11 @@ namespace MpGame.Tests.CollectionTests
                         return Task.FromResult(new[] { 5, 10 });
                     },
                     shuffleFunc: cs => cs.Reverse());
+                var expectedSeq = new[]
+                {
+                     1, 2, 3, 4, 5,    7, 8, 9,10,
+                       12,13,14,15,16,17,18,19,20,
+                };
 
                 Assert.False(picks.IsDefault);
                 Assert.NotEmpty(picks);
@@ -206,24 +201,24 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public async Task FilterWorks()
+            public async Task SelectorReceivesOnlyItemsThatAreNotFilteredOut()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanBrowse | PilePerms.CanTake, cards: CardFactory(20));
                 var priorSize = pile.Count;
+                var picks = await pile.BrowseAndTake(
+                    cs =>
+                    {
+                        Assert.NotEmpty(cs);
+                        Assert.All(cs.Values, c => Assert.True(LessThanEqualToTenFilter(c)));
+
+                        return Task.FromResult(new[] { 5 });
+                    },
+                    filter: LessThanEqualToTenFilter);
                 var expectedSeq = new[]
                 {
                      1, 2, 3, 4, 5,    7, 8, 9,10,
                     11,12,13,14,15,16,17,18,19,20,
                 };
-                var picks = await pile.BrowseAndTake(
-                    cs =>
-                    {
-                        Assert.NotEmpty(cs);
-                        Assert.All(cs, kvp => Assert.True(LessThanEqualToTenFilter(kvp.Value)));
-
-                        return Task.FromResult(new[] { 5 });
-                    },
-                    filter: LessThanEqualToTenFilter);
 
                 Assert.False(picks.IsDefault);
                 Assert.NotEmpty(picks);
@@ -232,6 +227,56 @@ namespace MpGame.Tests.CollectionTests
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
 
                 bool LessThanEqualToTenFilter(TestCard c) => c.Id <= 10;
+            }
+
+            [Fact]
+            public async Task ShuffleWorksWhenAllowed()
+            {
+                var pile = new TestPile(withPerms: PilePerms.CanBrowse | PilePerms.CanTake | PilePerms.CanShuffle, cards: CardFactory(20));
+                var priorSize = pile.Count;
+                var picks = await pile.BrowseAndTake(
+                    cs =>
+                    {
+                        Assert.NotEmpty(cs);
+
+                        return Task.FromResult(new[] { 5, 10 });
+                    },
+                    shuffleFunc: cs => cs.Reverse());
+                var expectedSeq = new[]
+                {
+                    20,19,18,17,16,15,14,13,12,
+                    10, 9, 8, 7,    5, 4, 3, 2, 1
+                };
+
+                Assert.False(picks.IsDefault);
+                Assert.NotEmpty(picks);
+                Assert.Equal(expected: 2, actual: picks.Length);
+                Assert.Equal(expected: priorSize - 2, actual: pile.Count);
+                Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
+            }
+
+            [Fact]
+            public async Task EmptySelectionArrayDoesNotDecreasePileSize()
+            {
+                var pile = new TestPile(withPerms: PilePerms.CanBrowse | PilePerms.CanTake, cards: CardFactory(20));
+                var priorSize = pile.Count;
+                var picks = await pile.BrowseAndTake(
+                    cs =>
+                    {
+                        Assert.NotEmpty(cs);
+
+                        return Task.FromResult(Array.Empty<int>());
+                    });
+                var expectedSeq = new[]
+                {
+                     1, 2, 3, 4, 5, 6, 7, 8, 9,10,
+                    11,12,13,14,15,16,17,18,19,20,
+                };
+
+                Assert.False(picks.IsDefault);
+                Assert.Empty(picks);
+                Assert.Equal(expected: priorSize, actual: pile.Count);
+                Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
             }
         }
 
@@ -274,7 +319,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void CutThrowsNegativeIndex()
+            public void ThrowsNegativeIndex()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanCut, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -286,7 +331,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void CutThrowsTooHighIndex()
+            public void ThrowsTooHighIndex()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanCut, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -298,7 +343,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void CutDoesNotChangePileSize()
+            public void DoesNotChangePileSize()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanCut | PilePerms.CanBrowse, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -328,7 +373,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void DrawDecreasesPileByOne()
+            public void DecreasesPileByOne()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanDraw, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -374,7 +419,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void InsertThrowsOnNullCard()
+            public void ThrowsOnNullCard()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanInsert, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -385,7 +430,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void InsertThrowsNegativeIndex()
+            public void ThrowsNegativeIndex()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanInsert, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -397,7 +442,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void InsertThrowsTooHighIndex()
+            public void ThrowsTooHighIndex()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanInsert, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -409,7 +454,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void InsertIncreasesPileByOne()
+            public void IncreasesPileByOne()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanInsert, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -434,7 +479,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void PeekThrowsNegativeIndex()
+            public void ThrowsNegativeIndex()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanPeek, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -446,7 +491,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void PeekThrowsTooHighIndex()
+            public void ThrowsTooHighIndex()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanPeek, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -458,7 +503,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void PeekDoesNotChangePileSize()
+            public void DoesNotChangePileSize()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanPeek, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -483,7 +528,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void PutThrowsOnNullCard()
+            public void ThrowsOnNullCard()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanPut, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -494,7 +539,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void PutCallsOnPut()
+            public void CallsOnPut()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanPut, cards: Enumerable.Empty<TestCard>());
                 var priorSize = pile.Count;
@@ -522,7 +567,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void PutBottomThrowsOnNullCard()
+            public void ThrowsOnNullCard()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanPutBottom, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -533,7 +578,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void PutBottomIncreasesPileByOne()
+            public void IncreasesPileByOne()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanPutBottom, cards: Enumerable.Empty<TestCard>());
                 var priorSize = pile.Count;
@@ -558,7 +603,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void ShuffleThrowsOnNullFunc()
+            public void ThrowsOnNullFunc()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanShuffle, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -569,7 +614,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void ShuffleThrowsOnNullFuncReturn()
+            public void ThrowsOnNullFuncReturn()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanShuffle, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -619,7 +664,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void TakeThrowsNegativeIndex()
+            public void ThrowsNegativeIndex()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanTake, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -631,7 +676,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void TakeThrowsTooHighIndex()
+            public void ThrowsTooHighIndex()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanTake, cards: CardFactory(20));
                 var priorSize = pile.Count;
@@ -643,7 +688,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void TakeDecreasesPileByOne()
+            public void DecreasesPileByOne()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanTake, cards: CardFactory(20));
                 var priorSize = pile.Count;
