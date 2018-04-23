@@ -20,8 +20,8 @@ namespace Discord.Addons.MpGame.Collections
         internal static readonly string NoShuffle = "Not allowed to reshuffle this instance.";
         internal static readonly string NoTake    = "Not allowed to take from an arbitrary index on this instance.";
 
-        internal static readonly string CutIndexNegative   = "Cut index may not be negative.";
-        internal static readonly string CutIndexTooHigh    = "Cut index may not be greater than the pile's current size.";
+        internal static readonly string CutAmountNegative  = "Cut amount may not be negative.";
+        internal static readonly string CutAmountTooHigh   = "Cut amount may not be greater than the pile's current size.";
         internal static readonly string InsertionNegative  = "Insertion index may not be negative.";
         internal static readonly string InsertionTooHigh   = "Insertion index may not be greater than the pile's current size.";
         internal static readonly string NoSwappingStrategy = "Not allowed to switch buffer strategy after it is used.";

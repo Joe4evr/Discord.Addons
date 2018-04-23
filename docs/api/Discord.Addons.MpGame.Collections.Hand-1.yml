@@ -33,10 +33,6 @@ items:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
   summary: "\nSimilar to <xref href=\"Discord.Addons.MpGame.Collections.Pile%601\" data-throw-if-not-resolved=\"false\"></xref> but specialized\nand optimized for representing a hand of cards.\n"
-  remarks: >-
-    <div class="markdown level0 remarks"><div class="CAUTION">
-
-    <h5>Caution</h5><p>This class is not thread-safe.</p></div></div>
   example: []
   syntax:
     content: >-
@@ -77,7 +73,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: .ctor
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 25
+    startLine: 27
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -111,7 +107,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: .ctor
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 38
+    startLine: 40
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -160,7 +156,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Count
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 48
+    startLine: 50
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -199,7 +195,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Add
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 55
+    startLine: 57
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -241,7 +237,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Browse
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 65
+    startLine: 70
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -277,7 +273,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Clear
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 73
+    startLine: 84
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -314,7 +310,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Order
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 90
+    startLine: 104
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -367,7 +363,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TakeAt
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 106
+    startLine: 122
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -413,7 +409,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TakeFirstOrDefault
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 122
+    startLine: 141
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections

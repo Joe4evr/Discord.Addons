@@ -4,6 +4,8 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using Discord.Addons.Core;
 
 namespace Discord.Addons.MpGame.Collections
 {
@@ -12,12 +14,12 @@ namespace Discord.Addons.MpGame.Collections
     /// and optimized for representing a hand of cards.
     /// </summary>
     /// <typeparam name="TCard">The card type.</typeparam>
-    /// <remarks><div class="markdown level0 remarks"><div class="CAUTION">
-    /// <h5>Caution</h5><p>This class is not thread-safe.</p></div></div></remarks>
     [DebuggerDisplay("Count = {Count}")]
     public sealed class Hand<TCard>
         where TCard : class
     {
+        private readonly ReaderWriterLockSlim _rwlock = new ReaderWriterLockSlim();
+
         private List<TCard> _hand;
 
         /// <summary>
@@ -57,15 +59,24 @@ namespace Discord.Addons.MpGame.Collections
         {
             ThrowArgNull(card, nameof(card));
 
-            _hand.Add(card);
+            using (_rwlock.UsingWriteLock())
+            {
+                _hand.Add(card);
+            }
         }
 
         /// <summary>
         /// The cards inside this hand.
         /// </summary>
-        public ImmutableArray<TCard> Browse() => (Count == 0)
-                ? ImmutableArray<TCard>.Empty
-                : _hand.ToImmutableArray();
+        public ImmutableArray<TCard> Browse()
+        {
+            using (_rwlock.UsingReadLock())
+            {
+                return (Count == 0)
+                    ? ImmutableArray<TCard>.Empty
+                    : _hand.ToImmutableArray();
+            }
+        }
 
         /// <summary>
         /// Clears the entire hand and returns the cards that were in it.
@@ -73,9 +84,12 @@ namespace Discord.Addons.MpGame.Collections
         /// <returns>The collection as it was before it is cleared.</returns>
         public ImmutableArray<TCard> Clear()
         {
-            var result = _hand.ToImmutableArray();
-            _hand.Clear();
-            return result;
+            using (_rwlock.UsingWriteLock())
+            {
+                var result = _hand.ToImmutableArray();
+                _hand.Clear();
+                return result;
+            }
         }
 
         /// <summary>
@@ -92,10 +106,12 @@ namespace Discord.Addons.MpGame.Collections
         {
             ThrowArgNull(orderFunc, nameof(orderFunc));
 
-            var newOrder = orderFunc(_hand.ToImmutableArray());
-            ThrowInvalidOpIf(newOrder == null, ErrorStrings.NewSequenceNull);
-
-            _hand = new List<TCard>(newOrder);
+            using (_rwlock.UsingWriteLock())
+            {
+                var newOrder = orderFunc(_hand.ToImmutableArray());
+                ThrowInvalidOpIf(newOrder == null, ErrorStrings.NewSequenceNull);
+                _hand = new List<TCard>(newOrder);
+            }
         }
 
         /// <summary>
@@ -109,9 +125,12 @@ namespace Discord.Addons.MpGame.Collections
             ThrowArgOutOfRangeIf(index < 0, ErrorStrings.RetrievalNegative, nameof(index));
             ThrowArgOutOfRangeIf(index >= Count, ErrorStrings.RetrievalTooHighH, nameof(index));
 
-            var tmp = _hand[index];
-            _hand.RemoveAt(index);
-            return tmp;
+            using (_rwlock.UsingWriteLock())
+            {
+                var tmp = _hand[index];
+                _hand.RemoveAt(index);
+                return tmp;
+            }
         }
 
         /// <summary>
@@ -124,11 +143,14 @@ namespace Discord.Addons.MpGame.Collections
         {
             ThrowArgNull(predicate, nameof(predicate));
 
-            var tmp = _hand.FirstOrDefault(predicate);
-            if (tmp != null)
-                _hand.Remove(tmp);
+            using (_rwlock.UsingWriteLock())
+            {
+                var tmp = _hand.FirstOrDefault(predicate);
+                if (tmp != null)
+                    _hand.Remove(tmp);
 
-            return tmp;
+                return tmp;
+            }
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]

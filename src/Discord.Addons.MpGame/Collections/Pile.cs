@@ -15,8 +15,6 @@ namespace Discord.Addons.MpGame.Collections
     /// specifically for use in card games.
     /// </summary>
     /// <typeparam name="TCard">The card type.</typeparam>
-    /// <remarks><div class="markdown level0 remarks"><div class="CAUTION">
-    /// <h5>Caution</h5><p>This class is not thread-safe.</p></div></div></remarks>
     [DebuggerDisplay("Count = {Count}")]
     public abstract partial class Pile<TCard>
         where TCard : class
@@ -25,8 +23,8 @@ namespace Discord.Addons.MpGame.Collections
 
         private readonly ReaderWriterLockSlim _rwlock = new ReaderWriterLockSlim();
 
-        private Node _head;
-        private Node _tail;
+        private Node _head = null;
+        private Node _tail = null;
         private int _count = 0;
 
         /// <summary>
@@ -118,14 +116,14 @@ namespace Discord.Addons.MpGame.Collections
 
         /// <summary>
         /// Iterates the contents of this pile as an <see cref="IEnumerable{T}"/>.
-        /// Requires <see cref="CanBrowse"/>
+        /// Requires <see cref="CanBrowse"/>.
         /// </summary>
         /// <returns>The contents of the pile in a lazily-evaluated <see cref="IEnumerable{T}"/>.</returns>
         /// <remarks><div class="markdown level0 remarks"><div class="WARNING">
         /// <h5>Warning</h5><p>This method holds a read lock until the enumeration ends
         /// and should be used only for fairly quick one-shot operations.
-        /// If you need to hold the data for longer or iterate more than once,
-        /// use <see cref="Browse"/> instead.</p></div></div></remarks>
+        /// If you need to hold the data for longer or iterate the same
+        /// snapshot more than once, use <see cref="Browse"/> instead.</p></div></div></remarks>
         /// <exception cref="InvalidOperationException">The instance
         /// does not allow browsing the cards.</exception>
         public IEnumerable<TCard> AsEnumerable()
@@ -287,8 +285,8 @@ namespace Discord.Addons.MpGame.Collections
         public void Cut(int cutAmount)
         {
             ThrowInvalidOpIf(!CanCut, ErrorStrings.NoCut);
-            ThrowArgOutOfRangeIf(cutAmount < 0, ErrorStrings.CutIndexNegative, nameof(cutAmount));
-            ThrowArgOutOfRangeIf(cutAmount > Count, ErrorStrings.CutIndexTooHigh, nameof(cutAmount));
+            ThrowArgOutOfRangeIf(cutAmount < 0, ErrorStrings.CutAmountNegative, nameof(cutAmount));
+            ThrowArgOutOfRangeIf(cutAmount > Count, ErrorStrings.CutAmountTooHigh, nameof(cutAmount));
 
             if (cutAmount == 0 || cutAmount == Count)
                 return; //no changes

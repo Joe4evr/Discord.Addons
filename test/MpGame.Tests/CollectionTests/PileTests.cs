@@ -49,6 +49,20 @@ namespace MpGame.Tests.CollectionTests
                 Assert.Equal(expected: ErrorStrings.NoBrowse, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
+
+            [Fact]
+            public void IsSameSequenceAsPile()
+            {
+                var pile = new TestPile(withPerms: PilePerms.CanBrowse, cards: CardFactory(20));
+                var expectedSeq = new[]
+                {
+                     1, 2, 3, 4, 5, 6, 7, 8, 9,10,
+                    11,12,13,14,15,16,17,18,19,20
+                };
+
+                Assert.Equal(expected: expectedSeq, actual: pile.AsEnumerable().Select(c => c.Id));
+                Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
+            }
         }
 
         public sealed class Browse
@@ -395,7 +409,7 @@ namespace MpGame.Tests.CollectionTests
                 var priorSize = pile.Count;
 
                 var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.Cut(cutAmount: -1));
-                Assert.StartsWith(expectedStartString: ErrorStrings.CutIndexNegative, actualString: ex.Message);
+                Assert.StartsWith(expectedStartString: ErrorStrings.CutAmountNegative, actualString: ex.Message);
                 Assert.Equal(expected: "cutAmount", actual: ex.ParamName);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
@@ -407,7 +421,7 @@ namespace MpGame.Tests.CollectionTests
                 var priorSize = pile.Count;
 
                 var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.Cut(cutAmount: pile.Count + 1));
-                Assert.StartsWith(expectedStartString: ErrorStrings.CutIndexTooHigh, actualString: ex.Message);
+                Assert.StartsWith(expectedStartString: ErrorStrings.CutAmountTooHigh, actualString: ex.Message);
                 Assert.Equal(expected: "cutAmount", actual: ex.ParamName);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
