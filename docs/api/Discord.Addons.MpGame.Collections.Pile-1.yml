@@ -678,9 +678,9 @@ items:
   namespace: Discord.Addons.MpGame.Collections
   summary: "\nIterates the contents of this pile as an <xref href=\"System.Collections.Generic.IEnumerable%601\" data-throw-if-not-resolved=\"false\"></xref>.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanBrowse\" data-throw-if-not-resolved=\"false\"></xref>\n"
   remarks: >-
-    <div class="markdown level0 remarks"><div class="NOTE">
+    <div class="markdown level0 remarks"><div class="WARNING">
 
-    <h5>Note</h5><p>This method holds a read lock until the enumeration ends
+    <h5>Warning</h5><p>This method holds a read lock until the enumeration ends
 
     and should be used only for fairly quick one-shot operations.
 

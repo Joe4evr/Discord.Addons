@@ -121,8 +121,8 @@ namespace Discord.Addons.MpGame.Collections
         /// Requires <see cref="CanBrowse"/>
         /// </summary>
         /// <returns>The contents of the pile in a lazily-evaluated <see cref="IEnumerable{T}"/>.</returns>
-        /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
-        /// <h5>Note</h5><p>This method holds a read lock until the enumeration ends
+        /// <remarks><div class="markdown level0 remarks"><div class="WARNING">
+        /// <h5>Warning</h5><p>This method holds a read lock until the enumeration ends
         /// and should be used only for fairly quick one-shot operations.
         /// If you need to hold the data for longer or iterate more than once,
         /// use <see cref="Browse"/> instead.</p></div></div></remarks>
