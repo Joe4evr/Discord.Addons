@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
-using Discord.Addons;
 using Discord.Addons.MpGame.Collections;
 using Xunit;
 
@@ -35,6 +34,20 @@ namespace MpGame.Tests.CollectionTests
 
                 Assert.Equal(expected: seed.Length - nulls, actual: pile.Count);
                 Assert.All(pile.Browse(), c => Assert.NotNull(c));
+            }
+        }
+
+        public sealed class AsEnumerable
+        {
+            [Fact]
+            public void ThrowsWhenNotBrowsable()
+            {
+                var pile = new TestPile(withPerms: PilePerms.All ^ PilePerms.CanBrowse, cards: CardFactory(20));
+                var priorSize = pile.Count;
+
+                var ex = Assert.Throws<InvalidOperationException>(() => pile.AsEnumerable().Any());
+                Assert.Equal(expected: ErrorStrings.NoBrowse, actual: ex.Message);
+                Assert.Equal(expected: priorSize, actual: pile.Count);
             }
         }
 
@@ -79,7 +92,7 @@ namespace MpGame.Tests.CollectionTests
 
                 Assert.Equal(expected: 0, actual: pile.Count);
                 Assert.False(cards.IsDefault);
-                Assert.Empty(cards);
+                Assert.True(cards.IsEmpty);
             }
         }
 
@@ -90,9 +103,16 @@ namespace MpGame.Tests.CollectionTests
             {
                 var pile = new TestPile(withPerms: PilePerms.All ^ PilePerms.CanBrowse, cards: CardFactory(20));
                 var priorSize = pile.Count;
+                bool selectorCalled = false;
 
-                var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => pile.BrowseAndTake(
-                    cs => Task.FromResult(new[] { 5, 10 })));
+                var ex = await Assert.ThrowsAsync<InvalidOperationException>(
+                    () => pile.BrowseAndTake(selector: cards =>
+                    {
+                        selectorCalled = true;
+
+                        return Task.FromResult(new[] { 5, 10 });
+                    }));
+                Assert.False(selectorCalled);
                 Assert.Equal(expected: ErrorStrings.NoBrowseAndTake, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
@@ -102,9 +122,16 @@ namespace MpGame.Tests.CollectionTests
             {
                 var pile = new TestPile(withPerms: PilePerms.All ^ PilePerms.CanTake, cards: CardFactory(20));
                 var priorSize = pile.Count;
+                bool selectorCalled = false;
 
-                var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => pile.BrowseAndTake(
-                    cs => Task.FromResult(new[] { 5, 10 })));
+                var ex = await Assert.ThrowsAsync<InvalidOperationException>(
+                    () => pile.BrowseAndTake(selector: cards =>
+                    {
+                        selectorCalled = true;
+
+                        return Task.FromResult(new[] { 5, 10 });
+                    }));
+                Assert.False(selectorCalled);
                 Assert.Equal(expected: ErrorStrings.NoBrowseAndTake, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
@@ -120,7 +147,8 @@ namespace MpGame.Tests.CollectionTests
                     11,12,13,14,15,16,17,18,19,20,
                 };
 
-                var ex = await Assert.ThrowsAsync<ArgumentNullException>(() => pile.BrowseAndTake(selector: null));
+                var ex = await Assert.ThrowsAsync<ArgumentNullException>(
+                    () => pile.BrowseAndTake(selector: null));
                 Assert.Equal(expected: "selector", actual: ex.ParamName);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
@@ -136,14 +164,18 @@ namespace MpGame.Tests.CollectionTests
                      1, 2, 3, 4, 5, 6, 7, 8, 9,10,
                     11,12,13,14,15,16,17,18,19,20,
                 };
+                bool selectorCalled = false;
 
                 var ex = await Assert.ThrowsAsync<IndexOutOfRangeException>(() =>
-                    pile.BrowseAndTake(selector: cs =>
+                    pile.BrowseAndTake(selector: cards =>
                     {
-                        Assert.NotEmpty(cs);
+                        selectorCalled = true;
+                        Assert.NotNull(cards);
+                        Assert.NotEmpty(cards);
 
                         return Task.FromResult(new[] { 25 });
                     }));
+                Assert.True(selectorCalled);
                 Assert.Equal(expected: "Selected indeces '25' must be one of the provided card indices.", actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
@@ -154,10 +186,13 @@ namespace MpGame.Tests.CollectionTests
             {
                 var pile = new TestPile(withPerms: PilePerms.CanBrowse | PilePerms.CanTake, cards: CardFactory(20));
                 var priorSize = pile.Count;
+                bool selectorCalled = false;
                 var picks = await pile.BrowseAndTake(
-                    cs =>
+                    selector: cards =>
                     {
-                        Assert.NotEmpty(cs);
+                        selectorCalled = true;
+                        Assert.NotNull(cards);
+                        Assert.NotEmpty(cards);
 
                         return Task.FromResult(new[] { 5, 10, 5, 10 });
                     });
@@ -167,6 +202,7 @@ namespace MpGame.Tests.CollectionTests
                        12,13,14,15,16,17,18,19,20,
                 };
 
+                Assert.True(selectorCalled);
                 Assert.False(picks.IsDefault);
                 Assert.NotEmpty(picks);
                 Assert.Equal(expected: 2, actual: picks.Length);
@@ -179,20 +215,30 @@ namespace MpGame.Tests.CollectionTests
             {
                 var pile = new TestPile(withPerms: PilePerms.CanBrowse | PilePerms.CanTake, cards: CardFactory(20));
                 var priorSize = pile.Count;
+                bool selectorCalled = false;
+                bool shuffleFuncCalled = false;
                 var picks = await pile.BrowseAndTake(
-                    cs =>
+                    selector: cards =>
                     {
-                        Assert.NotEmpty(cs);
+                        selectorCalled = true;
+                        Assert.NotEmpty(cards);
 
                         return Task.FromResult(new[] { 5, 10 });
                     },
-                    shuffleFunc: cs => cs.Reverse());
+                    shuffleFunc: cards =>
+                    {
+                        shuffleFuncCalled = true;
+
+                        return cards.Reverse();
+                    });
                 var expectedSeq = new[]
                 {
                      1, 2, 3, 4, 5,    7, 8, 9,10,
                        12,13,14,15,16,17,18,19,20,
                 };
 
+                Assert.True(selectorCalled);
+                Assert.False(shuffleFuncCalled);
                 Assert.False(picks.IsDefault);
                 Assert.NotEmpty(picks);
                 Assert.Equal(expected: 2, actual: picks.Length);
@@ -205,28 +251,38 @@ namespace MpGame.Tests.CollectionTests
             {
                 var pile = new TestPile(withPerms: PilePerms.CanBrowse | PilePerms.CanTake, cards: CardFactory(20));
                 var priorSize = pile.Count;
+                bool selectorCalled = false;
+                bool filterCalled = false;
                 var picks = await pile.BrowseAndTake(
-                    cs =>
+                    selector: cards =>
                     {
-                        Assert.NotEmpty(cs);
-                        Assert.All(cs.Values, c => Assert.True(LessThanEqualToTenFilter(c)));
+                        selectorCalled = true;
+                        Assert.NotEmpty(cards);
+                        Assert.All(cards.Values, c => Assert.True(LessThanOrEqualToTenFilter(c)));
 
                         return Task.FromResult(new[] { 5 });
                     },
-                    filter: LessThanEqualToTenFilter);
+                    filter: c => 
+                    {
+                        filterCalled = true;
+                        
+                        return LessThanOrEqualToTenFilter(c);
+                    });
                 var expectedSeq = new[]
                 {
                      1, 2, 3, 4, 5,    7, 8, 9,10,
                     11,12,13,14,15,16,17,18,19,20,
                 };
 
+                Assert.True(selectorCalled);
+                Assert.True(filterCalled);
                 Assert.False(picks.IsDefault);
                 Assert.NotEmpty(picks);
                 Assert.Single(picks);
                 Assert.Equal(expected: priorSize - 1, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
 
-                bool LessThanEqualToTenFilter(TestCard c) => c.Id <= 10;
+                bool LessThanOrEqualToTenFilter(TestCard c) => c.Id <= 10;
             }
 
             [Fact]
@@ -234,20 +290,31 @@ namespace MpGame.Tests.CollectionTests
             {
                 var pile = new TestPile(withPerms: PilePerms.CanBrowse | PilePerms.CanTake | PilePerms.CanShuffle, cards: CardFactory(20));
                 var priorSize = pile.Count;
+                bool selectorCalled = false;
+                bool shuffleFuncCalled = false;
                 var picks = await pile.BrowseAndTake(
-                    cs =>
+                    selector: cards =>
                     {
-                        Assert.NotEmpty(cs);
+                        selectorCalled = true;
+                        Assert.NotNull(cards);
+                        Assert.NotEmpty(cards);
 
                         return Task.FromResult(new[] { 5, 10 });
                     },
-                    shuffleFunc: cs => cs.Reverse());
+                    shuffleFunc: cards =>
+                    {
+                        shuffleFuncCalled = true;
+
+                        return cards.Reverse();
+                    });
                 var expectedSeq = new[]
                 {
                     20,19,18,17,16,15,14,13,12,
                     10, 9, 8, 7,    5, 4, 3, 2, 1
                 };
 
+                Assert.True(selectorCalled);
+                Assert.True(shuffleFuncCalled);
                 Assert.False(picks.IsDefault);
                 Assert.NotEmpty(picks);
                 Assert.Equal(expected: 2, actual: picks.Length);
@@ -260,10 +327,12 @@ namespace MpGame.Tests.CollectionTests
             {
                 var pile = new TestPile(withPerms: PilePerms.CanBrowse | PilePerms.CanTake, cards: CardFactory(20));
                 var priorSize = pile.Count;
+                bool selectorCalled = false;
                 var picks = await pile.BrowseAndTake(
-                    cs =>
+                    selector: cards =>
                     {
-                        Assert.NotEmpty(cs);
+                        selectorCalled = true;
+                        Assert.NotEmpty(cards);
 
                         return Task.FromResult(Array.Empty<int>());
                     });
@@ -273,8 +342,9 @@ namespace MpGame.Tests.CollectionTests
                     11,12,13,14,15,16,17,18,19,20,
                 };
 
+                Assert.True(selectorCalled);
                 Assert.False(picks.IsDefault);
-                Assert.Empty(picks);
+                Assert.True(picks.IsEmpty);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
             }
@@ -631,7 +701,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void ShuffleFuncDoesNotGiveNullArgument()
+            public void ShuffleFuncDoesNotGiveDefaultArray()
             {
                 const int added = 10;
 
@@ -641,7 +711,7 @@ namespace MpGame.Tests.CollectionTests
                 pile.Shuffle(shuffleFunc: cards =>
                 {
                     funcCalled = true;
-                    Assert.NotNull(cards);
+                    Assert.False(cards.IsDefault);
                     return cards.Concat(CardFactory(added));
                 });
 

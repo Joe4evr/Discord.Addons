@@ -257,23 +257,23 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Add
   nameWithType: Hand<TCard>.Add
   nameWithType.vb: Hand(Of TCard).Add
-- uid: Discord.Addons.MpGame.Collections.Hand`1.Cards
-  name: Cards
-  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Cards
-  commentId: P:Discord.Addons.MpGame.Collections.Hand`1.Cards
-  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Cards
-  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Cards
-  nameWithType: Hand<TCard>.Cards
-  nameWithType.vb: Hand(Of TCard).Cards
-- uid: Discord.Addons.MpGame.Collections.Hand`1.Cards*
-  name: Cards
-  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Cards_
-  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Cards
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Browse
+  name: Browse()
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Browse
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.Browse
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Browse()
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Browse()
+  nameWithType: Hand<TCard>.Browse()
+  nameWithType.vb: Hand(Of TCard).Browse()
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Browse*
+  name: Browse
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Browse_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Browse
   isSpec: "True"
-  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Cards
-  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Cards
-  nameWithType: Hand<TCard>.Cards
-  nameWithType.vb: Hand(Of TCard).Cards
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Browse
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Browse
+  nameWithType: Hand<TCard>.Browse
+  nameWithType.vb: Hand(Of TCard).Browse
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Clear
   name: Clear()
   href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Clear
@@ -308,15 +308,15 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Count
   nameWithType: Hand<TCard>.Count
   nameWithType.vb: Hand(Of TCard).Count
-- uid: Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  name: Order(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
-  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Order_System_Func_System_Collections_Generic_IEnumerable__0__System_Collections_Generic_IEnumerable__0___
-  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  name.vb: Order(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
-  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Order(System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
-  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Order(System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
-  nameWithType: Hand<TCard>.Order(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
-  nameWithType.vb: Hand(Of TCard).Order(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
+  name: Order(Func<ImmutableArray<TCard>, IEnumerable<TCard>>)
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Order_System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
+  name.vb: Order(Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)))
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Order(System.Func<System.Collections.Immutable.ImmutableArray<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Order(System.Func(Of System.Collections.Immutable.ImmutableArray(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
+  nameWithType: Hand<TCard>.Order(Func<ImmutableArray<TCard>, IEnumerable<TCard>>)
+  nameWithType.vb: Hand(Of TCard).Order(Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)))
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Order*
   name: Order
   href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Order_
@@ -396,6 +396,23 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Pile
   nameWithType: Pile<TCard>.Pile
   nameWithType.vb: Pile(Of TCard).Pile
+- uid: Discord.Addons.MpGame.Collections.Pile`1.AsEnumerable
+  name: AsEnumerable()
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_AsEnumerable
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.AsEnumerable
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.AsEnumerable()
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).AsEnumerable()
+  nameWithType: Pile<TCard>.AsEnumerable()
+  nameWithType.vb: Pile(Of TCard).AsEnumerable()
+- uid: Discord.Addons.MpGame.Collections.Pile`1.AsEnumerable*
+  name: AsEnumerable
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_AsEnumerable_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.AsEnumerable
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.AsEnumerable
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).AsEnumerable
+  nameWithType: Pile<TCard>.AsEnumerable
+  nameWithType.vb: Pile(Of TCard).AsEnumerable
 - uid: Discord.Addons.MpGame.Collections.Pile`1.Browse
   name: Browse()
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Browse
@@ -413,15 +430,15 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Browse
   nameWithType: Pile<TCard>.Browse
   nameWithType.vb: Pile(Of TCard).Browse
-- uid: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  name: BrowseAndTake(Func<ImmutableDictionary<Int32, TCard>, Task<Int32[]>>, Func<TCard, Boolean>, Func<IEnumerable<TCard>, IEnumerable<TCard>>)
-  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTake_System_Func_System_Collections_Immutable_ImmutableDictionary_System_Int32__0__System_Threading_Tasks_Task_System_Int32_____System_Func__0_System_Boolean__System_Func_System_Collections_Generic_IEnumerable__0__System_Collections_Generic_IEnumerable__0___
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  name.vb: BrowseAndTake(Func(Of ImmutableDictionary(Of Int32, TCard), Task(Of Int32())), Func(Of TCard, Boolean), Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.BrowseAndTake(System.Func<System.Collections.Immutable.ImmutableDictionary<System.Int32, TCard>, System.Threading.Tasks.Task<System.Int32[]>>, System.Func<TCard, System.Boolean>, System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).BrowseAndTake(System.Func(Of System.Collections.Immutable.ImmutableDictionary(Of System.Int32, TCard), System.Threading.Tasks.Task(Of System.Int32())), System.Func(Of TCard, System.Boolean), System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
-  nameWithType: Pile<TCard>.BrowseAndTake(Func<ImmutableDictionary<Int32, TCard>, Task<Int32[]>>, Func<TCard, Boolean>, Func<IEnumerable<TCard>, IEnumerable<TCard>>)
-  nameWithType.vb: Pile(Of TCard).BrowseAndTake(Func(Of ImmutableDictionary(Of Int32, TCard), Task(Of Int32())), Func(Of TCard, Boolean), Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+- uid: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
+  name: BrowseAndTake(Func<ImmutableDictionary<Int32, TCard>, Task<Int32[]>>, Func<TCard, Boolean>, Func<ImmutableArray<TCard>, IEnumerable<TCard>>)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTake_System_Func_System_Collections_Immutable_ImmutableDictionary_System_Int32__0__System_Threading_Tasks_Task_System_Int32_____System_Func__0_System_Boolean__System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
+  name.vb: BrowseAndTake(Func(Of ImmutableDictionary(Of Int32, TCard), Task(Of Int32())), Func(Of TCard, Boolean), Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)))
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.BrowseAndTake(System.Func<System.Collections.Immutable.ImmutableDictionary<System.Int32, TCard>, System.Threading.Tasks.Task<System.Int32[]>>, System.Func<TCard, System.Boolean>, System.Func<System.Collections.Immutable.ImmutableArray<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).BrowseAndTake(System.Func(Of System.Collections.Immutable.ImmutableDictionary(Of System.Int32, TCard), System.Threading.Tasks.Task(Of System.Int32())), System.Func(Of TCard, System.Boolean), System.Func(Of System.Collections.Immutable.ImmutableArray(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
+  nameWithType: Pile<TCard>.BrowseAndTake(Func<ImmutableDictionary<Int32, TCard>, Task<Int32[]>>, Func<TCard, Boolean>, Func<ImmutableArray<TCard>, IEnumerable<TCard>>)
+  nameWithType.vb: Pile(Of TCard).BrowseAndTake(Func(Of ImmutableDictionary(Of Int32, TCard), Task(Of Int32())), Func(Of TCard, Boolean), Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)))
 - uid: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake*
   name: BrowseAndTake
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTake_
@@ -805,15 +822,15 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).PutBottom
   nameWithType: Pile<TCard>.PutBottom
   nameWithType.vb: Pile(Of TCard).PutBottom
-- uid: Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  name: Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
-  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Shuffle_System_Func_System_Collections_Generic_IEnumerable__0__System_Collections_Generic_IEnumerable__0___
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  name.vb: Shuffle(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Shuffle(System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Shuffle(System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
-  nameWithType: Pile<TCard>.Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
-  nameWithType.vb: Pile(Of TCard).Shuffle(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
+  name: Shuffle(Func<ImmutableArray<TCard>, IEnumerable<TCard>>)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Shuffle_System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
+  name.vb: Shuffle(Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)))
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Shuffle(System.Func<System.Collections.Immutable.ImmutableArray<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Shuffle(System.Func(Of System.Collections.Immutable.ImmutableArray(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
+  nameWithType: Pile<TCard>.Shuffle(Func<ImmutableArray<TCard>, IEnumerable<TCard>>)
+  nameWithType.vb: Pile(Of TCard).Shuffle(Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)))
 - uid: Discord.Addons.MpGame.Collections.Pile`1.Shuffle*
   name: Shuffle
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Shuffle_

@@ -31,36 +31,14 @@ namespace MpGame.Tests.CollectionTests
                 var hand = new Hand<TestCard>(seed);
 
                 Assert.Equal(expected: seed.Length - nulls, actual: hand.Count);
-                Assert.All(hand.Cards, c => Assert.NotNull(c));
-            }
-        }
-
-        public sealed class Browse
-        {
-            [Fact]
-            public void BrowsingDoesNotChangeHandSize()
-            {
-                var hand = new Hand<TestCard>(CardFactory(5));
-                var cards = hand.Cards;
-                Assert.NotNull(cards);
-                Assert.NotEmpty(cards);
-                Assert.Equal(expected: cards.Count, actual: hand.Count);
-            }
-
-            [Fact]
-            public void EmptyHandIsNotNull()
-            {
-                var hand = new Hand<TestCard>();
-                Assert.Equal(expected: 0, actual: hand.Count);
-                Assert.NotNull(hand.Cards);
-                Assert.Empty(hand.Cards);
+                Assert.All(hand.Browse(), c => Assert.NotNull(c));
             }
         }
 
         public sealed class Add
         {
             [Fact]
-            public void AddThrowsOnNullCard()
+            public void ThrowsOnNullCard()
             {
                 var hand = new Hand<TestCard>(CardFactory(5));
                 var ex = Assert.Throws<ArgumentNullException>(() => hand.Add(card: null));
@@ -68,7 +46,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void AddIncreasesPileByOne()
+            public void IncreasesPileByOne()
             {
                 var hand = new Hand<TestCard>(CardFactory(5));
                 var priorSize = hand.Count;
@@ -78,54 +56,86 @@ namespace MpGame.Tests.CollectionTests
             }
         }
 
+        public sealed class Browse
+        {
+            [Fact]
+            public void DoesNotChangeHandSize()
+            {
+                var hand = new Hand<TestCard>(CardFactory(5));
+                var cards = hand.Browse();
+
+                Assert.False(cards.IsDefault);
+                Assert.NotEmpty(cards);
+                Assert.Equal(expected: cards.Length, actual: hand.Count);
+            }
+
+            [Fact]
+            public void EmptyHandIsNotNull()
+            {
+                var hand = new Hand<TestCard>();
+                var cards = hand.Browse();
+
+                Assert.Equal(expected: 0, actual: hand.Count);
+                Assert.False(cards.IsDefault);
+                Assert.True(cards.IsEmpty);
+            }
+        }
+
         public sealed class Clear
         {
             [Fact]
-            public void ClearingEmptiesHand()
+            public void EmptiesHand()
             {
                 var hand = new Hand<TestCard>(CardFactory(5));
                 var priorSize = hand.Count;
                 var cleared = hand.Clear();
+
+                Assert.False(cleared.IsDefault);
                 Assert.Equal(expected: 0, actual: hand.Count);
-                Assert.Equal(expected: priorSize, actual: cleared.Count);
+                Assert.Equal(expected: priorSize, actual: cleared.Length);
             }
         }
 
         public sealed class Order
         {
             [Fact]
-            public void OrderThrowsOnNullFunc()
+            public void ThrowsOnNullFunc()
             {
                 var hand = new Hand<TestCard>(CardFactory(5));
                 var priorSize = hand.Count;
+
                 var ex = Assert.Throws<ArgumentNullException>(() => hand.Order(orderFunc: null));
                 Assert.Equal(expected: "orderFunc", actual: ex.ParamName);
                 Assert.Equal(expected: priorSize, actual: hand.Count);
             }
 
             [Fact]
-            public void OrderThrowsOnNullFuncReturn()
+            public void ThrowsOnNullFuncReturn()
             {
                 var hand = new Hand<TestCard>(CardFactory(5));
                 var priorSize = hand.Count;
+
                 var ex = Assert.Throws<InvalidOperationException>(() => hand.Order(orderFunc: cards => null));
                 Assert.Equal(expected: ErrorStrings.NewSequenceNull, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: hand.Count);
             }
 
             [Fact]
-            public void OrderFuncDoesNotGiveNullArgument()
+            public void FuncDoesNotGiveDefaultArray()
             {
                 const int init = 0;
                 const int added = 5;
 
                 var hand = new Hand<TestCard>();
+                bool funcCalled = false;
                 hand.Order(orderFunc: cards =>
                 {
-                    Assert.NotNull(cards);
+                    funcCalled = true;
+                    Assert.False(cards.IsDefault);
                     return cards.Concat(CardFactory(added));
                 });
 
+                Assert.True(funcCalled);
                 Assert.Equal(expected: init + added, actual: hand.Count);
             }
         }
@@ -133,7 +143,7 @@ namespace MpGame.Tests.CollectionTests
         public sealed class TakeAt
         {
             [Fact]
-            public void TakeThrowsNegativeIndex()
+            public void ThrowsNegativeIndex()
             {
                 var hand = new Hand<TestCard>(CardFactory(5));
                 var priorSize = hand.Count;
@@ -144,7 +154,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void TakeThrowsTooHighIndex()
+            public void ThrowsTooHighIndex()
             {
                 var hand = new Hand<TestCard>(CardFactory(5));
                 var priorSize = hand.Count;
@@ -155,7 +165,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void TakeDecreasesPileByOne()
+            public void DecreasesPileByOne()
             {
                 var hand = new Hand<TestCard>(CardFactory(5));
                 var priorSize = hand.Count;
@@ -168,7 +178,7 @@ namespace MpGame.Tests.CollectionTests
         public sealed class TakeFirstOrDefault
         {
             [Fact]
-            public void TakePredicateThrowsOnNullPredicate()
+            public void PredicateThrowsOnNullPredicate()
             {
                 var hand = new Hand<TestCard>(CardFactory(5));
                 var priorSize = hand.Count;
@@ -212,12 +222,5 @@ namespace MpGame.Tests.CollectionTests
                 Assert.Equal(expected: priorSize, actual: hand.Count);
             }
         }
-
-        //[Fact]
-        //public void IDvISD()
-        //{
-        //    var d = CardFactory(10).ToImmutableDictionary(c => c.Id);
-        //    var sd = CardFactory(10).ToImmutableSortedDictionary(c => c.Id, c => c);
-        //}
     }
 }

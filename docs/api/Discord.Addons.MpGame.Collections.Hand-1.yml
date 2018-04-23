@@ -8,10 +8,10 @@ items:
   - Discord.Addons.MpGame.Collections.Hand`1.#ctor
   - Discord.Addons.MpGame.Collections.Hand`1.#ctor(System.Collections.Generic.IEnumerable{`0})
   - Discord.Addons.MpGame.Collections.Hand`1.Add(`0)
-  - Discord.Addons.MpGame.Collections.Hand`1.Cards
+  - Discord.Addons.MpGame.Collections.Hand`1.Browse
   - Discord.Addons.MpGame.Collections.Hand`1.Clear
   - Discord.Addons.MpGame.Collections.Hand`1.Count
-  - Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+  - Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
   - Discord.Addons.MpGame.Collections.Hand`1.TakeAt(System.Int32)
   - Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault(System.Func{`0,System.Boolean})
   langs:
@@ -181,45 +181,6 @@ items:
   - Public
   - ReadOnly
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Count
-- uid: Discord.Addons.MpGame.Collections.Hand`1.Cards
-  commentId: P:Discord.Addons.MpGame.Collections.Hand`1.Cards
-  id: Cards
-  parent: Discord.Addons.MpGame.Collections.Hand`1
-  langs:
-  - csharp
-  - vb
-  name: Cards
-  nameWithType: Hand<TCard>.Cards
-  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Cards
-  type: Property
-  source:
-    remote:
-      path: src/Discord.Addons.MpGame/Collections/Hand.cs
-      branch: master
-      repo: git@github.com:Joe4evr/Discord.Addons.git
-    id: Cards
-    path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 53
-  assemblies:
-  - Discord.Addons.MpGame
-  namespace: Discord.Addons.MpGame.Collections
-  summary: "\nThe cards inside this hand.\n"
-  example: []
-  syntax:
-    content: public IReadOnlyCollection<TCard> Cards { get; }
-    parameters: []
-    return:
-      type: System.Collections.Generic.IReadOnlyCollection{{TCard}}
-    content.vb: Public ReadOnly Property Cards As IReadOnlyCollection(Of TCard)
-  overload: Discord.Addons.MpGame.Collections.Hand`1.Cards*
-  nameWithType.vb: Hand(Of TCard).Cards
-  modifiers.csharp:
-  - public
-  - get
-  modifiers.vb:
-  - Public
-  - ReadOnly
-  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Cards
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Add(`0)
   commentId: M:Discord.Addons.MpGame.Collections.Hand`1.Add(`0)
   id: Add(`0)
@@ -238,7 +199,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Add
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 62
+    startLine: 55
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -262,6 +223,42 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Add(TCard)
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Browse
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.Browse
+  id: Browse
+  parent: Discord.Addons.MpGame.Collections.Hand`1
+  langs:
+  - csharp
+  - vb
+  name: Browse()
+  nameWithType: Hand<TCard>.Browse()
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Browse()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Hand.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: Browse
+    path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
+    startLine: 65
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nThe cards inside this hand.\n"
+  example: []
+  syntax:
+    content: public ImmutableArray<TCard> Browse()
+    return:
+      type: System.Collections.Immutable.ImmutableArray{{TCard}}
+    content.vb: Public Function Browse As ImmutableArray(Of TCard)
+  overload: Discord.Addons.MpGame.Collections.Hand`1.Browse*
+  nameWithType.vb: Hand(Of TCard).Browse()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Browse()
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Clear
   commentId: M:Discord.Addons.MpGame.Collections.Hand`1.Clear
   id: Clear
@@ -287,11 +284,11 @@ items:
   summary: "\nClears the entire hand and returns the cards that were in it.\n"
   example: []
   syntax:
-    content: public IReadOnlyCollection<TCard> Clear()
+    content: public ImmutableArray<TCard> Clear()
     return:
-      type: System.Collections.Generic.IReadOnlyCollection{{TCard}}
+      type: System.Collections.Immutable.ImmutableArray{{TCard}}
       description: The collection as it was before it is cleared.
-    content.vb: Public Function Clear As IReadOnlyCollection(Of TCard)
+    content.vb: Public Function Clear As ImmutableArray(Of TCard)
   overload: Discord.Addons.MpGame.Collections.Hand`1.Clear*
   nameWithType.vb: Hand(Of TCard).Clear()
   modifiers.csharp:
@@ -299,16 +296,16 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Clear()
-- uid: Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  id: Order(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
+  id: Order(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
   parent: Discord.Addons.MpGame.Collections.Hand`1
   langs:
   - csharp
   - vb
-  name: Order(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
-  nameWithType: Hand<TCard>.Order(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
-  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Order(System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
+  name: Order(Func<ImmutableArray<TCard>, IEnumerable<TCard>>)
+  nameWithType: Hand<TCard>.Order(Func<ImmutableArray<TCard>, IEnumerable<TCard>>)
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Order(System.Func<System.Collections.Immutable.ImmutableArray<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
   type: Method
   source:
     remote:
@@ -324,10 +321,10 @@ items:
   summary: "\nOrders the cards using the specified function.\n"
   example: []
   syntax:
-    content: public void Order(Func<IEnumerable<TCard>, IEnumerable<TCard>> orderFunc)
+    content: public void Order(Func<ImmutableArray<TCard>, IEnumerable<TCard>> orderFunc)
     parameters:
     - id: orderFunc
-      type: System.Func{System.Collections.Generic.IEnumerable{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
+      type: System.Func{System.Collections.Immutable.ImmutableArray{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
       description: >-
         A function that produces an
 
@@ -336,7 +333,7 @@ items:
         This function receives the cards currently in
 
         the hand as its argument.
-    content.vb: Public Sub Order(orderFunc As Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+    content.vb: Public Sub Order(orderFunc As Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)))
   overload: Discord.Addons.MpGame.Collections.Hand`1.Order*
   exceptions:
   - type: System.ArgumentNullException
@@ -345,13 +342,13 @@ items:
   - type: System.InvalidOperationException
     commentId: T:System.InvalidOperationException
     description: "The sequence produced from \n<code data-dev-comment-type=\"paramref\" class=\"paramref\">orderFunc</code> was <xref uid=\"langword_csharp_null\" name=\"null\" href=\"\"></xref>."
-  nameWithType.vb: Hand(Of TCard).Order(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+  nameWithType.vb: Hand(Of TCard).Order(Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)))
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Order(System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
-  name.vb: Order(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Order(System.Func(Of System.Collections.Immutable.ImmutableArray(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
+  name.vb: Order(Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)))
 - uid: Discord.Addons.MpGame.Collections.Hand`1.TakeAt(System.Int32)
   commentId: M:Discord.Addons.MpGame.Collections.Hand`1.TakeAt(System.Int32)
   id: TakeAt(System.Int32)
@@ -648,93 +645,6 @@ references:
   name: Int32
   nameWithType: Int32
   fullName: System.Int32
-- uid: Discord.Addons.MpGame.Collections.Hand`1.Cards*
-  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Cards
-  isExternal: false
-  name: Cards
-  nameWithType: Hand<TCard>.Cards
-  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Cards
-  nameWithType.vb: Hand(Of TCard).Cards
-  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Cards
-- uid: System.Collections.Generic.IReadOnlyCollection{{TCard}}
-  commentId: T:System.Collections.Generic.IReadOnlyCollection{`0}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.IReadOnlyCollection`1
-  name: IReadOnlyCollection<TCard>
-  nameWithType: IReadOnlyCollection<TCard>
-  fullName: System.Collections.Generic.IReadOnlyCollection<TCard>
-  nameWithType.vb: IReadOnlyCollection(Of TCard)
-  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of TCard)
-  name.vb: IReadOnlyCollection(Of TCard)
-  spec.csharp:
-  - uid: System.Collections.Generic.IReadOnlyCollection`1
-    name: IReadOnlyCollection
-    nameWithType: IReadOnlyCollection
-    fullName: System.Collections.Generic.IReadOnlyCollection
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: TCard
-    nameWithType: TCard
-    fullName: TCard
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IReadOnlyCollection`1
-    name: IReadOnlyCollection
-    nameWithType: IReadOnlyCollection
-    fullName: System.Collections.Generic.IReadOnlyCollection
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: TCard
-    nameWithType: TCard
-    fullName: TCard
-  - name: )
-    nameWithType: )
-    fullName: )
-- uid: System.Collections.Generic.IReadOnlyCollection`1
-  commentId: T:System.Collections.Generic.IReadOnlyCollection`1
-  isExternal: true
-  name: IReadOnlyCollection<T>
-  nameWithType: IReadOnlyCollection<T>
-  fullName: System.Collections.Generic.IReadOnlyCollection<T>
-  nameWithType.vb: IReadOnlyCollection(Of T)
-  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of T)
-  name.vb: IReadOnlyCollection(Of T)
-  spec.csharp:
-  - uid: System.Collections.Generic.IReadOnlyCollection`1
-    name: IReadOnlyCollection
-    nameWithType: IReadOnlyCollection
-    fullName: System.Collections.Generic.IReadOnlyCollection
-    isExternal: true
-  - name: <
-    nameWithType: <
-    fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: '>'
-    nameWithType: '>'
-    fullName: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IReadOnlyCollection`1
-    name: IReadOnlyCollection
-    nameWithType: IReadOnlyCollection
-    fullName: System.Collections.Generic.IReadOnlyCollection
-    isExternal: true
-  - name: '(Of '
-    nameWithType: '(Of '
-    fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Add*
   commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Add
   isExternal: false
@@ -754,6 +664,99 @@ references:
   name: TCard
   nameWithType: TCard
   fullName: TCard
+- uid: Discord.Addons.MpGame.Collections.Hand`1.Browse*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Browse
+  isExternal: false
+  name: Browse
+  nameWithType: Hand<TCard>.Browse
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Browse
+  nameWithType.vb: Hand(Of TCard).Browse
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Browse
+- uid: System.Collections.Immutable.ImmutableArray{{TCard}}
+  commentId: T:System.Collections.Immutable.ImmutableArray{`0}
+  parent: System.Collections.Immutable
+  definition: System.Collections.Immutable.ImmutableArray`1
+  name: ImmutableArray<TCard>
+  nameWithType: ImmutableArray<TCard>
+  fullName: System.Collections.Immutable.ImmutableArray<TCard>
+  nameWithType.vb: ImmutableArray(Of TCard)
+  fullName.vb: System.Collections.Immutable.ImmutableArray(Of TCard)
+  name.vb: ImmutableArray(Of TCard)
+  spec.csharp:
+  - uid: System.Collections.Immutable.ImmutableArray`1
+    name: ImmutableArray
+    nameWithType: ImmutableArray
+    fullName: System.Collections.Immutable.ImmutableArray
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Immutable.ImmutableArray`1
+    name: ImmutableArray
+    nameWithType: ImmutableArray
+    fullName: System.Collections.Immutable.ImmutableArray
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TCard
+    nameWithType: TCard
+    fullName: TCard
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Immutable.ImmutableArray`1
+  commentId: T:System.Collections.Immutable.ImmutableArray`1
+  isExternal: true
+  name: ImmutableArray<T>
+  nameWithType: ImmutableArray<T>
+  fullName: System.Collections.Immutable.ImmutableArray<T>
+  nameWithType.vb: ImmutableArray(Of T)
+  fullName.vb: System.Collections.Immutable.ImmutableArray(Of T)
+  name.vb: ImmutableArray(Of T)
+  spec.csharp:
+  - uid: System.Collections.Immutable.ImmutableArray`1
+    name: ImmutableArray
+    nameWithType: ImmutableArray
+    fullName: System.Collections.Immutable.ImmutableArray
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Immutable.ImmutableArray`1
+    name: ImmutableArray
+    nameWithType: ImmutableArray
+    fullName: System.Collections.Immutable.ImmutableArray
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Immutable
+  commentId: N:System.Collections.Immutable
+  isExternal: false
+  name: System.Collections.Immutable
+  nameWithType: System.Collections.Immutable
+  fullName: System.Collections.Immutable
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Clear*
   commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Clear
   isExternal: false
@@ -772,16 +775,16 @@ references:
   fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Order
   nameWithType.vb: Hand(Of TCard).Order
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Order
-- uid: System.Func{System.Collections.Generic.IEnumerable{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
-  commentId: T:System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}}
+- uid: System.Func{System.Collections.Immutable.ImmutableArray{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
+  commentId: T:System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}}
   parent: System
   definition: System.Func`2
-  name: Func<IEnumerable<TCard>, IEnumerable<TCard>>
-  nameWithType: Func<IEnumerable<TCard>, IEnumerable<TCard>>
-  fullName: System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>
-  nameWithType.vb: Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard))
-  fullName.vb: System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard))
-  name.vb: Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard))
+  name: Func<ImmutableArray<TCard>, IEnumerable<TCard>>
+  nameWithType: Func<ImmutableArray<TCard>, IEnumerable<TCard>>
+  fullName: System.Func<System.Collections.Immutable.ImmutableArray<TCard>, System.Collections.Generic.IEnumerable<TCard>>
+  nameWithType.vb: Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard))
+  fullName.vb: System.Func(Of System.Collections.Immutable.ImmutableArray(Of TCard), System.Collections.Generic.IEnumerable(Of TCard))
+  name.vb: Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard))
   spec.csharp:
   - uid: System.Func`2
     name: Func
@@ -791,10 +794,10 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
+  - uid: System.Collections.Immutable.ImmutableArray`1
+    name: ImmutableArray
+    nameWithType: ImmutableArray
+    fullName: System.Collections.Immutable.ImmutableArray
     isExternal: true
   - name: <
     nameWithType: <
@@ -834,10 +837,10 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
+  - uid: System.Collections.Immutable.ImmutableArray`1
+    name: ImmutableArray
+    nameWithType: ImmutableArray
+    fullName: System.Collections.Immutable.ImmutableArray
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '

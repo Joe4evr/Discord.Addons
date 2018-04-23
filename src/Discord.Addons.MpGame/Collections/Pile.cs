@@ -117,6 +117,29 @@ namespace Discord.Addons.MpGame.Collections
         public int Count => _count;
 
         /// <summary>
+        /// Iterates the contents of this pile as an <see cref="IEnumerable{T}"/>.
+        /// Requires <see cref="CanBrowse"/>
+        /// </summary>
+        /// <returns>The contents of the pile in a lazily-evaluated <see cref="IEnumerable{T}"/>.</returns>
+        /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
+        /// <h5>Note</h5><p>This method holds a read lock until the enumeration ends
+        /// and should be used only for fairly quick one-shot operations.
+        /// If you need to hold the data for longer or iterate more than once,
+        /// use <see cref="Browse"/> instead.</p></div></div></remarks>
+        /// <exception cref="InvalidOperationException">The instance
+        /// does not allow browsing the cards.</exception>
+        public IEnumerable<TCard> AsEnumerable()
+        {
+            ThrowInvalidOpIf(!CanBrowse, ErrorStrings.NoBrowse);
+
+            using (_rwlock.UsingReadLock())
+            {
+                for (var n = _head; n != null; n = n.Next)
+                    yield return n.Value;
+            }
+        }
+
+        /// <summary>
         /// A snapshot of all the cards
         /// without removing them from the pile.
         /// Requires <see cref="CanBrowse"/>.
@@ -178,7 +201,7 @@ namespace Discord.Addons.MpGame.Collections
         public async Task<ImmutableArray<TCard>> BrowseAndTake(
             Func<ImmutableDictionary<int, TCard>, Task<int[]>> selector,
             Func<TCard, bool> filter = null,
-            Func<IEnumerable<TCard>, IEnumerable<TCard>> shuffleFunc = null)
+            Func<ImmutableArray<TCard>, IEnumerable<TCard>> shuffleFunc = null)
         {
             ThrowInvalidOpIf(!(CanBrowse && CanTake), ErrorStrings.NoBrowseAndTake);
             ThrowArgNull(selector, nameof(selector));
@@ -193,7 +216,7 @@ namespace Discord.Addons.MpGame.Collections
 
                 if (CanShuffle && shuffleFunc != null)
                 {
-                    Resequence(shuffleFunc(cards.Values));
+                    Resequence(shuffleFunc(cards.Values.ToImmutableArray()));
 
                     return nodes.Select(n => n.Value).ToImmutableArray();
                 }
@@ -254,8 +277,10 @@ namespace Discord.Addons.MpGame.Collections
         /// Cuts the pile at a specified number of cards from the top
         /// and places the taken cards on the bottom.
         /// </summary>
-        /// <param name="cutIndex">The number of cards to send to the bottom.</param>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="cutIndex"/>
+        /// <param name="cutAmount">The number of cards to send to the bottom.</param>
+        /// <remarks>If <paramref name="cutAmount"/> is 0 or equal to <see cref="Count"/>,
+        /// this function will act like a no-op.</remarks>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="cutAmount"/>
         /// was less than 0 or greater than the pile's current size.</exception>
         /// <exception cref="InvalidOperationException">The instance does not
         /// allow cutting the pile.</exception>
@@ -444,7 +469,7 @@ namespace Discord.Addons.MpGame.Collections
         /// does not allow reshuffling the cards OR The sequence produced from 
         /// <paramref name="shuffleFunc"/> was <see langword="null"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="shuffleFunc"/> was <see langword="null"/>.</exception>
-        public void Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>> shuffleFunc)
+        public void Shuffle(Func<ImmutableArray<TCard>, IEnumerable<TCard>> shuffleFunc)
         {
             ThrowInvalidOpIf(!CanShuffle, ErrorStrings.NoShuffle);
             ThrowArgNull(shuffleFunc, nameof(shuffleFunc));
@@ -454,17 +479,6 @@ namespace Discord.Addons.MpGame.Collections
                 Resequence(shuffleFunc(GetAllInternal(clear: false)));
             }
         }
-
-        //private async Task ShuffleAsync(Func<IEnumerable<TCard>, Task<IEnumerable<TCard>>> shuffleFunc)
-        //{
-        //    ThrowInvalidOpIf(!CanShuffle, ErrorStrings.NoShuffle);
-        //    ThrowArgNull(shuffleFunc, nameof(shuffleFunc));
-
-        //    using (_rwlock.UsingWriteLock())
-        //    {
-        //        Resequence(await shuffleFunc(GetAllInternal(clear: false)));
-        //    }
-        //}
 
         /// <summary>
         /// Takes a card from the given index. If the last card is
@@ -627,7 +641,7 @@ namespace Discord.Addons.MpGame.Collections
 
             return tmp;
         }
-        private void Resequence(IEnumerable <TCard> newSequence)
+        private void Resequence(IEnumerable<TCard> newSequence)
         {
             ThrowInvalidOpIf(newSequence == null, ErrorStrings.NewSequenceNull);
 

@@ -7,8 +7,9 @@ items:
   children:
   - Discord.Addons.MpGame.Collections.Pile`1.#ctor
   - Discord.Addons.MpGame.Collections.Pile`1.#ctor(System.Collections.Generic.IEnumerable{`0})
+  - Discord.Addons.MpGame.Collections.Pile`1.AsEnumerable
   - Discord.Addons.MpGame.Collections.Pile`1.Browse
-  - Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+  - Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
   - Discord.Addons.MpGame.Collections.Pile`1.CanBrowse
   - Discord.Addons.MpGame.Collections.Pile`1.CanClear
   - Discord.Addons.MpGame.Collections.Pile`1.CanCut
@@ -31,7 +32,7 @@ items:
   - Discord.Addons.MpGame.Collections.Pile`1.PeekTop(System.Int32)
   - Discord.Addons.MpGame.Collections.Pile`1.Put(`0)
   - Discord.Addons.MpGame.Collections.Pile`1.PutBottom(`0)
-  - Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+  - Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
   - Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)
   langs:
   - csharp
@@ -653,6 +654,60 @@ items:
   - Public
   - ReadOnly
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Count
+- uid: Discord.Addons.MpGame.Collections.Pile`1.AsEnumerable
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.AsEnumerable
+  id: AsEnumerable
+  parent: Discord.Addons.MpGame.Collections.Pile`1
+  langs:
+  - csharp
+  - vb
+  name: AsEnumerable()
+  nameWithType: Pile<TCard>.AsEnumerable()
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.AsEnumerable()
+  type: Method
+  source:
+    remote:
+      path: src/Discord.Addons.MpGame/Collections/Pile.cs
+      branch: master
+      repo: git@github.com:Joe4evr/Discord.Addons.git
+    id: AsEnumerable
+    path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
+    startLine: 130
+  assemblies:
+  - Discord.Addons.MpGame
+  namespace: Discord.Addons.MpGame.Collections
+  summary: "\nIterates the contents of this pile as an <xref href=\"System.Collections.Generic.IEnumerable%601\" data-throw-if-not-resolved=\"false\"></xref>.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanBrowse\" data-throw-if-not-resolved=\"false\"></xref>\n"
+  remarks: >-
+    <div class="markdown level0 remarks"><div class="NOTE">
+
+    <h5>Note</h5><p>This method holds a read lock until the enumeration ends
+
+    and should be used only for fairly quick one-shot operations.
+
+    If you need to hold the data for longer or iterate more than once,
+
+    use <xref href="Discord.Addons.MpGame.Collections.Pile%601.Browse" data-throw-if-not-resolved="false"></xref> instead.</p></div></div>
+  example: []
+  syntax:
+    content: public IEnumerable<TCard> AsEnumerable()
+    return:
+      type: System.Collections.Generic.IEnumerable{{TCard}}
+      description: The contents of the pile in a lazily-evaluated <xref href="System.Collections.Generic.IEnumerable%601" data-throw-if-not-resolved="false"></xref>.
+    content.vb: Public Function AsEnumerable As IEnumerable(Of TCard)
+  overload: Discord.Addons.MpGame.Collections.Pile`1.AsEnumerable*
+  exceptions:
+  - type: System.InvalidOperationException
+    commentId: T:System.InvalidOperationException
+    description: >-
+      The instance
+
+      does not allow browsing the cards.
+  nameWithType.vb: Pile(Of TCard).AsEnumerable()
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).AsEnumerable()
 - uid: Discord.Addons.MpGame.Collections.Pile`1.Browse
   commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Browse
   id: Browse
@@ -671,7 +726,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Browse
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 125
+    startLine: 148
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -696,16 +751,16 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Browse()
-- uid: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  id: BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+- uid: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
+  id: BrowseAndTake(System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
   parent: Discord.Addons.MpGame.Collections.Pile`1
   langs:
   - csharp
   - vb
-  name: BrowseAndTake(Func<ImmutableDictionary<Int32, TCard>, Task<Int32[]>>, Func<TCard, Boolean>, Func<IEnumerable<TCard>, IEnumerable<TCard>>)
-  nameWithType: Pile<TCard>.BrowseAndTake(Func<ImmutableDictionary<Int32, TCard>, Task<Int32[]>>, Func<TCard, Boolean>, Func<IEnumerable<TCard>, IEnumerable<TCard>>)
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.BrowseAndTake(System.Func<System.Collections.Immutable.ImmutableDictionary<System.Int32, TCard>, System.Threading.Tasks.Task<System.Int32[]>>, System.Func<TCard, System.Boolean>, System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
+  name: BrowseAndTake(Func<ImmutableDictionary<Int32, TCard>, Task<Int32[]>>, Func<TCard, Boolean>, Func<ImmutableArray<TCard>, IEnumerable<TCard>>)
+  nameWithType: Pile<TCard>.BrowseAndTake(Func<ImmutableDictionary<Int32, TCard>, Task<Int32[]>>, Func<TCard, Boolean>, Func<ImmutableArray<TCard>, IEnumerable<TCard>>)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.BrowseAndTake(System.Func<System.Collections.Immutable.ImmutableDictionary<System.Int32, TCard>, System.Threading.Tasks.Task<System.Int32[]>>, System.Func<TCard, System.Boolean>, System.Func<System.Collections.Immutable.ImmutableArray<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
   type: Method
   source:
     remote:
@@ -714,7 +769,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: BrowseAndTake
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 177
+    startLine: 200
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -731,7 +786,7 @@ items:
             // being the max amount of cards they can choose
             return await UserInput(num);
         },
-        // Only show red cards
+        // Only pass in the red cards
         filter: c => c.Color == CardColor.Red,
         // Shuffle the pile afterwards
         // with some custom function
@@ -740,7 +795,7 @@ items:
         foreach (var card in picked)
             player.AddToHand(card);</code></pre>
   syntax:
-    content: public Task<ImmutableArray<TCard>> BrowseAndTake(Func<ImmutableDictionary<int, TCard>, Task<int[]>> selector, Func<TCard, bool> filter = null, Func<IEnumerable<TCard>, IEnumerable<TCard>> shuffleFunc = null)
+    content: public Task<ImmutableArray<TCard>> BrowseAndTake(Func<ImmutableDictionary<int, TCard>, Task<int[]>> selector, Func<TCard, bool> filter = null, Func<ImmutableArray<TCard>, IEnumerable<TCard>> shuffleFunc = null)
     parameters:
     - id: selector
       type: System.Func{System.Collections.Immutable.ImmutableDictionary{System.Int32,{TCard}},System.Threading.Tasks.Task{System.Int32[]}}
@@ -759,7 +814,7 @@ items:
 
         to cards that can be taken.
     - id: shuffleFunc
-      type: System.Func{System.Collections.Generic.IEnumerable{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
+      type: System.Func{System.Collections.Immutable.ImmutableArray{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
       description: >-
         An optional function to reshuffle the pile
 
@@ -772,7 +827,7 @@ items:
         The cards at the chosen indeces, or an empty
 
         array if it was chosen to not take any.
-    content.vb: Public Function BrowseAndTake(selector As Func(Of ImmutableDictionary(Of Integer, TCard), Task(Of Integer())), filter As Func(Of TCard, Boolean) = Nothing, shuffleFunc As Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)) = Nothing) As Task(Of ImmutableArray(Of TCard))
+    content.vb: Public Function BrowseAndTake(selector As Func(Of ImmutableDictionary(Of Integer, TCard), Task(Of Integer())), filter As Func(Of TCard, Boolean) = Nothing, shuffleFunc As Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)) = Nothing) As Task(Of ImmutableArray(Of TCard))
   overload: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTake*
   exceptions:
   - type: System.InvalidOperationException
@@ -784,16 +839,16 @@ items:
   - type: System.IndexOutOfRangeException
     commentId: T:System.IndexOutOfRangeException
     description: >-
-      One of the
+      One or more of the
 
       selected indices was not within the provided indices.
-  nameWithType.vb: Pile(Of TCard).BrowseAndTake(Func(Of ImmutableDictionary(Of Int32, TCard), Task(Of Int32())), Func(Of TCard, Boolean), Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+  nameWithType.vb: Pile(Of TCard).BrowseAndTake(Func(Of ImmutableDictionary(Of Int32, TCard), Task(Of Int32())), Func(Of TCard, Boolean), Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)))
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).BrowseAndTake(System.Func(Of System.Collections.Immutable.ImmutableDictionary(Of System.Int32, TCard), System.Threading.Tasks.Task(Of System.Int32())), System.Func(Of TCard, System.Boolean), System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
-  name.vb: BrowseAndTake(Func(Of ImmutableDictionary(Of Int32, TCard), Task(Of Int32())), Func(Of TCard, Boolean), Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).BrowseAndTake(System.Func(Of System.Collections.Immutable.ImmutableDictionary(Of System.Int32, TCard), System.Threading.Tasks.Task(Of System.Int32())), System.Func(Of TCard, System.Boolean), System.Func(Of System.Collections.Immutable.ImmutableArray(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
+  name.vb: BrowseAndTake(Func(Of ImmutableDictionary(Of Int32, TCard), Task(Of Int32())), Func(Of TCard, Boolean), Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)))
 - uid: Discord.Addons.MpGame.Collections.Pile`1.Clear
   commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Clear
   id: Clear
@@ -812,7 +867,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Clear
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 237
+    startLine: 265
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -856,24 +911,29 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Cut
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 256
+    startLine: 286
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
   summary: "\nCuts the pile at a specified number of cards from the top\nand places the taken cards on the bottom.\n"
+  remarks: >-
+    If <code data-dev-comment-type="paramref" class="paramref">cutAmount</code> is 0 or equal to <xref href="Discord.Addons.MpGame.Collections.Pile%601.Count" data-throw-if-not-resolved="false"></xref>,
+
+    this function will act like a no-op.
   example: []
   syntax:
     content: public void Cut(int cutAmount)
     parameters:
     - id: cutAmount
       type: System.Int32
+      description: The number of cards to send to the bottom.
     content.vb: Public Sub Cut(cutAmount As Integer)
   overload: Discord.Addons.MpGame.Collections.Pile`1.Cut*
   exceptions:
   - type: System.ArgumentOutOfRangeException
     commentId: T:System.ArgumentOutOfRangeException
     description: >-
-      <code data-dev-comment-type="paramref" class="paramref">cutIndex</code>
+      <code data-dev-comment-type="paramref" class="paramref">cutAmount</code>
           was less than 0 or greater than the pile&apos;s current size.
   - type: System.InvalidOperationException
     commentId: T:System.InvalidOperationException
@@ -905,7 +965,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Draw
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 287
+    startLine: 317
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -952,7 +1012,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: DrawBottom
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 313
+    startLine: 343
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -999,7 +1059,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: InsertAt
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 340
+    startLine: 370
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1055,7 +1115,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: PeekTop
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 369
+    startLine: 399
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1108,7 +1168,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Put
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 399
+    startLine: 429
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1156,7 +1216,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: PutBottom
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 418
+    startLine: 448
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1186,16 +1246,16 @@ items:
   modifiers.vb:
   - Public
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).PutBottom(TCard)
-- uid: Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
-  id: Shuffle(System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}})
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
+  id: Shuffle(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
   parent: Discord.Addons.MpGame.Collections.Pile`1
   langs:
   - csharp
   - vb
-  name: Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
-  nameWithType: Pile<TCard>.Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>>)
-  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Shuffle(System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
+  name: Shuffle(Func<ImmutableArray<TCard>, IEnumerable<TCard>>)
+  nameWithType: Pile<TCard>.Shuffle(Func<ImmutableArray<TCard>, IEnumerable<TCard>>)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Shuffle(System.Func<System.Collections.Immutable.ImmutableArray<TCard>, System.Collections.Generic.IEnumerable<TCard>>)
   type: Method
   source:
     remote:
@@ -1204,17 +1264,17 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Shuffle
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 441
+    startLine: 471
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
   summary: "\nReshuffles the pile using the specified function.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanShuffle\" data-throw-if-not-resolved=\"false\"></xref>.\n"
   example: []
   syntax:
-    content: public void Shuffle(Func<IEnumerable<TCard>, IEnumerable<TCard>> shuffleFunc)
+    content: public void Shuffle(Func<ImmutableArray<TCard>, IEnumerable<TCard>> shuffleFunc)
     parameters:
     - id: shuffleFunc
-      type: System.Func{System.Collections.Generic.IEnumerable{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
+      type: System.Func{System.Collections.Immutable.ImmutableArray{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
       description: >-
         A function that produces an
 
@@ -1223,7 +1283,7 @@ items:
         This function receives the cards currently in
 
         the pile as its argument.
-    content.vb: Public Sub Shuffle(shuffleFunc As Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+    content.vb: Public Sub Shuffle(shuffleFunc As Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)))
   overload: Discord.Addons.MpGame.Collections.Pile`1.Shuffle*
   exceptions:
   - type: System.InvalidOperationException
@@ -1232,13 +1292,13 @@ items:
   - type: System.ArgumentNullException
     commentId: T:System.ArgumentNullException
     description: <code data-dev-comment-type="paramref" class="paramref">shuffleFunc</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
-  nameWithType.vb: Pile(Of TCard).Shuffle(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+  nameWithType.vb: Pile(Of TCard).Shuffle(Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)))
   modifiers.csharp:
   - public
   modifiers.vb:
   - Public
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Shuffle(System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
-  name.vb: Shuffle(Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard)))
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Shuffle(System.Func(Of System.Collections.Immutable.ImmutableArray(Of TCard), System.Collections.Generic.IEnumerable(Of TCard)))
+  name.vb: Shuffle(Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard)))
 - uid: Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)
   commentId: M:Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)
   id: TakeAt(System.Int32)
@@ -1257,7 +1317,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TakeAt
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 462
+    startLine: 492
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1310,7 +1370,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: OnLastRemoved
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 479
+    startLine: 509
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1350,7 +1410,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: OnPut
     path: ../src/Discord.Addons.MpGame/Collections/Pile.cs
-    startLine: 487
+    startLine: 517
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -1640,8 +1700,18 @@ references:
   fullName: System.Int32
 - uid: Discord.Addons.MpGame.Collections.Pile`1.CanBrowse
   commentId: P:Discord.Addons.MpGame.Collections.Pile`1.CanBrowse
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Browse
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Browse
 - uid: System.InvalidOperationException
   commentId: T:System.InvalidOperationException
+- uid: Discord.Addons.MpGame.Collections.Pile`1.AsEnumerable*
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.AsEnumerable
+  isExternal: false
+  name: AsEnumerable
+  nameWithType: Pile<TCard>.AsEnumerable
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.AsEnumerable
+  nameWithType.vb: Pile(Of TCard).AsEnumerable
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).AsEnumerable
 - uid: Discord.Addons.MpGame.Collections.Pile`1.Browse*
   commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Browse
   isExternal: false
@@ -1927,16 +1997,16 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Func{System.Collections.Generic.IEnumerable{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
-  commentId: T:System.Func{System.Collections.Generic.IEnumerable{`0},System.Collections.Generic.IEnumerable{`0}}
+- uid: System.Func{System.Collections.Immutable.ImmutableArray{{TCard}},System.Collections.Generic.IEnumerable{{TCard}}}
+  commentId: T:System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}}
   parent: System
   definition: System.Func`2
-  name: Func<IEnumerable<TCard>, IEnumerable<TCard>>
-  nameWithType: Func<IEnumerable<TCard>, IEnumerable<TCard>>
-  fullName: System.Func<System.Collections.Generic.IEnumerable<TCard>, System.Collections.Generic.IEnumerable<TCard>>
-  nameWithType.vb: Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard))
-  fullName.vb: System.Func(Of System.Collections.Generic.IEnumerable(Of TCard), System.Collections.Generic.IEnumerable(Of TCard))
-  name.vb: Func(Of IEnumerable(Of TCard), IEnumerable(Of TCard))
+  name: Func<ImmutableArray<TCard>, IEnumerable<TCard>>
+  nameWithType: Func<ImmutableArray<TCard>, IEnumerable<TCard>>
+  fullName: System.Func<System.Collections.Immutable.ImmutableArray<TCard>, System.Collections.Generic.IEnumerable<TCard>>
+  nameWithType.vb: Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard))
+  fullName.vb: System.Func(Of System.Collections.Immutable.ImmutableArray(Of TCard), System.Collections.Generic.IEnumerable(Of TCard))
+  name.vb: Func(Of ImmutableArray(Of TCard), IEnumerable(Of TCard))
   spec.csharp:
   - uid: System.Func`2
     name: Func
@@ -1946,10 +2016,10 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
+  - uid: System.Collections.Immutable.ImmutableArray`1
+    name: ImmutableArray
+    nameWithType: ImmutableArray
+    fullName: System.Collections.Immutable.ImmutableArray
     isExternal: true
   - name: <
     nameWithType: <
@@ -1989,10 +2059,10 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
-    nameWithType: IEnumerable
-    fullName: System.Collections.Generic.IEnumerable
+  - uid: System.Collections.Immutable.ImmutableArray`1
+    name: ImmutableArray
+    nameWithType: ImmutableArray
+    fullName: System.Collections.Immutable.ImmutableArray
     isExternal: true
   - name: '(Of '
     nameWithType: '(Of '
@@ -2191,6 +2261,8 @@ references:
   fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Clear
   nameWithType.vb: Pile(Of TCard).Clear
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Clear
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Count
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.Count
 - uid: System.ArgumentOutOfRangeException
   commentId: T:System.ArgumentOutOfRangeException
 - uid: Discord.Addons.MpGame.Collections.Pile`1.Cut*

@@ -49,13 +49,6 @@ namespace Discord.Addons.MpGame.Collections
         public int Count => _hand.Count;
 
         /// <summary>
-        /// The cards inside this hand.
-        /// </summary>
-        public IReadOnlyCollection<TCard> Cards => (Count == 0)
-                ? ImmutableArray<TCard>.Empty
-                : _hand.ToImmutableArray();
-
-        /// <summary>
         /// Adds a card to the hand.
         /// </summary>
         /// <param name="card">The card to add.</param>
@@ -68,10 +61,17 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
+        /// The cards inside this hand.
+        /// </summary>
+        public ImmutableArray<TCard> Browse() => (Count == 0)
+                ? ImmutableArray<TCard>.Empty
+                : _hand.ToImmutableArray();
+
+        /// <summary>
         /// Clears the entire hand and returns the cards that were in it.
         /// </summary>
         /// <returns>The collection as it was before it is cleared.</returns>
-        public IReadOnlyCollection<TCard> Clear()
+        public ImmutableArray<TCard> Clear()
         {
             var result = _hand.ToImmutableArray();
             _hand.Clear();
@@ -88,7 +88,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <exception cref="ArgumentNullException"><paramref name="orderFunc"/> was <see langword="null"/>.</exception>
         /// <exception cref="InvalidOperationException">The sequence produced from 
         /// <paramref name="orderFunc"/> was <see langword="null"/>.</exception>
-        public void Order(Func<IEnumerable<TCard>, IEnumerable<TCard>> orderFunc)
+        public void Order(Func<ImmutableArray<TCard>, IEnumerable<TCard>> orderFunc)
         {
             ThrowArgNull(orderFunc, nameof(orderFunc));
 
