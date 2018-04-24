@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Discord.Addons;
 using Discord.Addons.MpGame.Collections;
 
 namespace MpGame.Tests
@@ -27,12 +26,12 @@ namespace MpGame.Tests
         public override bool CanShuffle    => HasPerm(PilePerms.CanShuffle);
         public override bool CanTake       => HasPerm(PilePerms.CanTake);
 
-        internal event EventHandler<EventArgs> LastDrawCalled;
+        internal event EventHandler<EventArgs> LastRemoveCalled;
 
         protected override void OnLastRemoved()
         {
             base.OnLastRemoved();
-            LastDrawCalled?.Invoke(this, EventArgs.Empty);
+            LastRemoveCalled?.Invoke(this, EventArgs.Empty);
         }
 
         internal event EventHandler<PutEventArgs> PutCalled;

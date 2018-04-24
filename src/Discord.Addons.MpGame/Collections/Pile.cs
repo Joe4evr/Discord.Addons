@@ -36,9 +36,8 @@ namespace Discord.Addons.MpGame.Collections
         /// Initializes a new <see cref="Pile{TCard}"/> with the specified cards.
         /// </summary>
         /// <param name="cards">The cards to put in the pile.</param>
-        /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
-        /// <h5>Note</h5><p>This constructor will filter out any items in
-        /// <paramref name="cards"/> that are <see langword="null"/>.</p></div></div></remarks>
+        /// <remarks><note type="note">This constructor will filter out any items in
+        /// <paramref name="cards"/> that are <see langword="null"/>.</note></remarks>
         /// <exception cref="ArgumentNullException"><paramref name="cards"/>
         /// was <see langword="null"/>.</exception>
         protected Pile(IEnumerable<TCard> cards)
@@ -119,16 +118,16 @@ namespace Discord.Addons.MpGame.Collections
         /// Requires <see cref="CanBrowse"/>.
         /// </summary>
         /// <returns>The contents of the pile in a lazily-evaluated <see cref="IEnumerable{T}"/>.</returns>
-        /// <remarks><div class="markdown level0 remarks"><div class="WARNING">
-        /// <h5>Warning</h5><p>This method holds a read lock until the enumeration ends
+        /// <remarks><note type="warning">This method holds a read lock until the enumeration ends
         /// and should be used only for fairly quick one-shot operations.
         /// If you need to hold the data for longer or iterate the same
-        /// snapshot more than once, use <see cref="Browse"/> instead.</p></div></div></remarks>
+        /// snapshot more than once, use <see cref="Browse"/> instead.</note></remarks>
         /// <exception cref="InvalidOperationException">The instance
         /// does not allow browsing the cards.</exception>
         public IEnumerable<TCard> AsEnumerable()
         {
-            ThrowInvalidOpIf(!CanBrowse, ErrorStrings.NoBrowse);
+            if (!CanBrowse)
+                ThrowInvalidOp(ErrorStrings.NoBrowse);
 
             using (_rwlock.UsingReadLock())
             {
@@ -146,7 +145,8 @@ namespace Discord.Addons.MpGame.Collections
         /// does not allow browsing the cards.</exception>
         public ImmutableArray<TCard> Browse()
         {
-            ThrowInvalidOpIf(!CanBrowse, ErrorStrings.NoBrowse);
+            if (!CanBrowse)
+                ThrowInvalidOp(ErrorStrings.NoBrowse);
 
             using (_rwlock.UsingReadLock())
             {
@@ -181,9 +181,11 @@ namespace Discord.Addons.MpGame.Collections
         /// // search their deck for a number of red cards
         /// var picked = await deck.BrowseAndTake(async cards =>
         /// {
-        ///     // Show the available options to the user
+        ///     // Example: Call a method that shows
+        ///     // the available options to the user
         ///     await ShowUser(cards);
-        ///     // Wait for the user to make a decision, with 'num'
+        ///     // Example: Call a method that waits
+        ///     // for the user to make a decision, with 'num'
         ///     // being the max amount of cards they can choose
         ///     return await UserInput(num);
         /// },
@@ -192,7 +194,7 @@ namespace Discord.Addons.MpGame.Collections
         /// // Shuffle the pile afterwards
         /// // with some custom function
         /// shuffleFunc: cards => cards.ShuffleItems());
-        /// // Add the picked cards to the user's hand:
+        /// // Add the chosen cards to the user's hand:
         /// foreach (var card in picked)
         ///     player.AddToHand(card);
         /// </code></example>
@@ -201,7 +203,8 @@ namespace Discord.Addons.MpGame.Collections
             Func<TCard, bool> filter = null,
             Func<ImmutableArray<TCard>, IEnumerable<TCard>> shuffleFunc = null)
         {
-            ThrowInvalidOpIf(!(CanBrowse && CanTake), ErrorStrings.NoBrowseAndTake);
+            if (!(CanBrowse && CanTake))
+                ThrowInvalidOp(ErrorStrings.NoBrowseAndTake);
             ThrowArgNull(selector, nameof(selector));
 
             using (_rwlock.UsingWriteLock())
@@ -239,7 +242,7 @@ namespace Discord.Addons.MpGame.Collections
 
                 var ex = un.Except(cs.Keys);
                 if (ex.Any())
-                    throw new IndexOutOfRangeException($"Selected indeces '{String.Join("', '", ex)}' must be one of the provided card indices.");
+                    throw new IndexOutOfRangeException($"Selected indeces '{String.Join(", ", ex)}' must be one of the provided card indices.");
 
                 var arr = new Node[un.Length];
 
@@ -263,7 +266,8 @@ namespace Discord.Addons.MpGame.Collections
         /// does not allow clearing all cards.</exception>
         public ImmutableArray<TCard> Clear()
         {
-            ThrowInvalidOpIf(!CanClear, ErrorStrings.NoClear);
+            if (!CanClear)
+                ThrowInvalidOp(ErrorStrings.NoClear);
 
             using (_rwlock.UsingWriteLock())
             {
@@ -284,9 +288,12 @@ namespace Discord.Addons.MpGame.Collections
         /// allow cutting the pile.</exception>
         public void Cut(int cutAmount)
         {
-            ThrowInvalidOpIf(!CanCut, ErrorStrings.NoCut);
-            ThrowArgOutOfRangeIf(cutAmount < 0, ErrorStrings.CutAmountNegative, nameof(cutAmount));
-            ThrowArgOutOfRangeIf(cutAmount > Count, ErrorStrings.CutAmountTooHigh, nameof(cutAmount));
+            if (!CanCut)
+                ThrowInvalidOp(ErrorStrings.NoCut);
+            if (cutAmount < 0)
+                ThrowArgOutOfRange(ErrorStrings.CutAmountNegative, nameof(cutAmount));
+            if (cutAmount > Count)
+                ThrowArgOutOfRange(ErrorStrings.CutAmountTooHigh, nameof(cutAmount));
 
             if (cutAmount == 0 || cutAmount == Count)
                 return; //no changes
@@ -315,9 +322,11 @@ namespace Discord.Addons.MpGame.Collections
         /// does not allow drawing cards OR There were no cards to draw.</exception>
         public TCard Draw()
         {
-            ThrowInvalidOpIf(!CanDraw, ErrorStrings.NoDraw);
+            if (!CanDraw)
+                ThrowInvalidOp(ErrorStrings.NoDraw);
             var topCard = Interlocked.Exchange(ref _head, _head?.Next);
-            ThrowInvalidOpIf(topCard == null, ErrorStrings.PileEmpty);
+            if (topCard == null)
+                ThrowInvalidOp(ErrorStrings.PileEmpty);
 
             using (_rwlock.UsingWriteLock())
             {
@@ -341,9 +350,11 @@ namespace Discord.Addons.MpGame.Collections
         /// does not allow drawing cards OR There were no cards to draw.</exception>
         public TCard DrawBottom()
         {
-            ThrowInvalidOpIf(!CanDraw, ErrorStrings.NoDraw);
+            if (!CanDraw)
+                ThrowInvalidOp(ErrorStrings.NoDraw);
             var bottomCard = Interlocked.Exchange(ref _tail, _tail?.Previous);
-            ThrowInvalidOpIf(bottomCard == null, ErrorStrings.PileEmpty);
+            if (bottomCard == null)
+                ThrowInvalidOp(ErrorStrings.PileEmpty);
 
             using (_rwlock.UsingWriteLock())
             {
@@ -368,10 +379,13 @@ namespace Discord.Addons.MpGame.Collections
         /// was less than 0 or greater than the pile's current size.</exception>
         public void InsertAt(TCard card, int index)
         {
-            ThrowInvalidOpIf(!CanInsert, ErrorStrings.NoInsert);
+            if (!CanInsert)
+                ThrowInvalidOp(ErrorStrings.NoInsert);
             ThrowArgNull(card, nameof(card));
-            ThrowArgOutOfRangeIf(index < 0, ErrorStrings.InsertionNegative, nameof(index));
-            ThrowArgOutOfRangeIf(index > Count, ErrorStrings.InsertionTooHigh, nameof(index));
+            if (index < 0)
+                ThrowArgOutOfRange(ErrorStrings.InsertionNegative, nameof(index));
+            if (index > Count)
+                ThrowArgOutOfRange(ErrorStrings.InsertionTooHigh, nameof(index));
 
             using (_rwlock.UsingWriteLock())
             {
@@ -397,9 +411,12 @@ namespace Discord.Addons.MpGame.Collections
         /// does not allow peeking cards.</exception>
         public ImmutableArray<TCard> PeekTop(int amount)
         {
-            ThrowInvalidOpIf(!CanPeek, ErrorStrings.NoPeek);
-            ThrowArgOutOfRangeIf(amount < 0, ErrorStrings.PeekAmountNegative, nameof(amount));
-            ThrowArgOutOfRangeIf(amount > Count, ErrorStrings.PeekAmountTooHigh, nameof(amount));
+            if (!CanPeek)
+                ThrowInvalidOp(ErrorStrings.NoPeek);
+            if (amount < 0)
+                ThrowArgOutOfRange(ErrorStrings.PeekAmountNegative, nameof(amount));
+            if (amount > Count)
+                ThrowArgOutOfRange(ErrorStrings.PeekAmountTooHigh, nameof(amount));
 
             if (amount == 0)
                 return ImmutableArray<TCard>.Empty;
@@ -427,7 +444,8 @@ namespace Discord.Addons.MpGame.Collections
         /// <exception cref="ArgumentNullException"><paramref name="card"/> was <see langword="null"/>.</exception>
         public void Put(TCard card)
         {
-            ThrowInvalidOpIf(!CanPut, ErrorStrings.NoPut);
+            if (!CanPut)
+                ThrowInvalidOp(ErrorStrings.NoPut);
             ThrowArgNull(card, nameof(card));
 
             using (_rwlock.UsingWriteLock())
@@ -446,7 +464,8 @@ namespace Discord.Addons.MpGame.Collections
         /// <exception cref="ArgumentNullException"><paramref name="card"/> was <see langword="null"/>.</exception>
         public void PutBottom(TCard card)
         {
-            ThrowInvalidOpIf(!CanPutBottom, ErrorStrings.NoPutBtm);
+            if (!CanPutBottom)
+                ThrowInvalidOp(ErrorStrings.NoPutBtm);
             ThrowArgNull(card, nameof(card));
 
             using (_rwlock.UsingWriteLock())
@@ -469,7 +488,8 @@ namespace Discord.Addons.MpGame.Collections
         /// <exception cref="ArgumentNullException"><paramref name="shuffleFunc"/> was <see langword="null"/>.</exception>
         public void Shuffle(Func<ImmutableArray<TCard>, IEnumerable<TCard>> shuffleFunc)
         {
-            ThrowInvalidOpIf(!CanShuffle, ErrorStrings.NoShuffle);
+            if (!CanShuffle)
+                ThrowInvalidOp(ErrorStrings.NoShuffle);
             ThrowArgNull(shuffleFunc, nameof(shuffleFunc));
 
             using (_rwlock.UsingWriteLock())
@@ -490,9 +510,12 @@ namespace Discord.Addons.MpGame.Collections
         /// allow taking cards from an arbitrary location.</exception>
         public TCard TakeAt(int index)
         {
-            ThrowInvalidOpIf(!CanTake, ErrorStrings.NoTake);
-            ThrowArgOutOfRangeIf(index < 0, ErrorStrings.RetrievalNegative, nameof(index));
-            ThrowArgOutOfRangeIf(index >= Count, ErrorStrings.RetrievalTooHighP, nameof(index));
+            if (!CanTake)
+                ThrowInvalidOp(ErrorStrings.NoTake);
+            if (index < 0)
+                ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
+            if (index >= Count)
+                ThrowArgOutOfRange(ErrorStrings.RetrievalTooHighP, nameof(index));
 
             using (_rwlock.UsingWriteLock())
             {
@@ -503,16 +526,14 @@ namespace Discord.Addons.MpGame.Collections
         /// <summary>
         /// Automatically called when the last card is removed from the pile.
         /// </summary>
-        /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
-        /// <h5>Note</h5><p>Does nothing by default.</p></div></div></remarks>
+        /// <remarks><note type="note">Does nothing by default.</note></remarks>
         protected virtual void OnLastRemoved() { }
 
         /// <summary>
         /// Automatically called when a card is put on top of the pile.
         /// </summary>
         /// <param name="card">The card that is placed.</param>
-        /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
-        /// <h5>Note</h5><p>Does nothing by default.</p></div></div></remarks>
+        /// <remarks><note type="note">Does nothing by default.</note></remarks>
         protected virtual void OnPut(TCard card) { }
 
         //private void OnResequence() { }
@@ -641,7 +662,8 @@ namespace Discord.Addons.MpGame.Collections
         }
         private void Resequence(IEnumerable<TCard> newSequence)
         {
-            ThrowInvalidOpIf(newSequence == null, ErrorStrings.NewSequenceNull);
+            if (newSequence == null)
+                ThrowInvalidOp(ErrorStrings.NewSequenceNull);
 
             _head = null;
             _tail = null;
@@ -662,6 +684,19 @@ namespace Discord.Addons.MpGame.Collections
         //    }
         //}
 
+        //private void Mill(Pile<TCard> targetPile)
+        //{
+        //    var topCard = Interlocked.Exchange(ref _head, _head?.Next);
+        //    ThrowInvalidOpIf(topCard == null, ErrorStrings.PileEmpty);
+
+        //    using (_rwlock.UsingWriteLock())
+        //    {
+        //        targetPile.Put(Break(topCard));
+        //    }
+        //    if (Count == 0)
+        //        OnLastRemoved();
+        //}
+
         private void AddSequence(IEnumerable<TCard> cards)
         {
             foreach (var item in cards.Where(c => c != null))
@@ -671,11 +706,8 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void ThrowInvalidOpIf(bool check, string msg)
-        {
-            if (check)
-                throw new InvalidOperationException(message: msg);
-        }
+        private static void ThrowInvalidOp(string msg)
+            => throw new InvalidOperationException(message: msg);
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void ThrowArgNull<T>(T arg, string argname)
@@ -686,11 +718,8 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void ThrowArgOutOfRangeIf(bool check, string msg, string argname)
-        {
-            if (check)
-                throw new ArgumentOutOfRangeException(message: msg, paramName: argname);
-        }
+        private static void ThrowArgOutOfRange(string msg, string argname)
+            => throw new ArgumentOutOfRangeException(message: msg, paramName: argname);
 
         private sealed class Node
         {

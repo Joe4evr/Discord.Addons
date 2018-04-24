@@ -363,7 +363,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TakeAt
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 122
+    startLine: 124
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -409,7 +409,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TakeFirstOrDefault
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 141
+    startLine: 145
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections

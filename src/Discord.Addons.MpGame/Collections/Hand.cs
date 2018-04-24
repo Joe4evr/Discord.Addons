@@ -109,7 +109,9 @@ namespace Discord.Addons.MpGame.Collections
             using (_rwlock.UsingWriteLock())
             {
                 var newOrder = orderFunc(_hand.ToImmutableArray());
-                ThrowInvalidOpIf(newOrder == null, ErrorStrings.NewSequenceNull);
+                if (newOrder == null)
+                    ThrowInvalidOp(ErrorStrings.NewSequenceNull);
+
                 _hand = new List<TCard>(newOrder);
             }
         }
@@ -122,8 +124,10 @@ namespace Discord.Addons.MpGame.Collections
         /// was less than 0 or greater than or equal to the pile's current size.</exception>
         public TCard TakeAt(int index)
         {
-            ThrowArgOutOfRangeIf(index < 0, ErrorStrings.RetrievalNegative, nameof(index));
-            ThrowArgOutOfRangeIf(index >= Count, ErrorStrings.RetrievalTooHighH, nameof(index));
+            if (index < 0)
+                ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
+            if (index >= Count)
+                ThrowArgOutOfRange(ErrorStrings.RetrievalTooHighH, nameof(index));
 
             using (_rwlock.UsingWriteLock())
             {
@@ -154,11 +158,8 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void ThrowInvalidOpIf(bool check, string msg)
-        {
-            if (check)
-                throw new InvalidOperationException(message: msg);
-        }
+        private static void ThrowInvalidOp(string msg)
+            => throw new InvalidOperationException(message: msg);
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void ThrowArgNull<T>(T arg, string argname)
@@ -169,10 +170,7 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void ThrowArgOutOfRangeIf(bool check, string msg, string argname)
-        {
-            if (check)
-                throw new ArgumentOutOfRangeException(message: msg, paramName: argname);
-        }
+        private static void ThrowArgOutOfRange(string msg, string argname)
+            => throw new ArgumentOutOfRangeException(message: msg, paramName: argname);
     }
 }
