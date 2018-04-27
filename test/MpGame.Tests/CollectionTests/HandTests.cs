@@ -9,9 +9,6 @@ namespace MpGame.Tests.CollectionTests
 {
     public static class HandTests
     {
-        private static IEnumerable<TestCard> CardFactory(int amount)
-            => Enumerable.Range(1, amount).Select(i => new TestCard { Id = i });
-
         public sealed class Ctor
         {
             [Fact]
@@ -24,7 +21,7 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void SeedingCtorFiltersOutNulls()
             {
-                var seed = CardFactory(5).ToArray();
+                var seed = TestCard.Factory(5).ToArray();
                 seed[1] = null;
                 seed[3] = null;
                 var nulls = seed.Count(c => c == null);
@@ -40,7 +37,7 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void ThrowsOnNullCard()
             {
-                var hand = new Hand<TestCard>(CardFactory(5));
+                var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var ex = Assert.Throws<ArgumentNullException>(() => hand.Add(card: null));
                 Assert.Equal(expected: "card", actual: ex.ParamName);
             }
@@ -48,9 +45,9 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void IncreasesPileByOne()
             {
-                var hand = new Hand<TestCard>(CardFactory(5));
+                var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
-                var newcard = new TestCard { Id = 1 };
+                var newcard = new TestCard(id: 1);
                 hand.Add(newcard);
                 Assert.Equal(expected: priorSize + 1, actual: hand.Count);
             }
@@ -61,7 +58,7 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void DoesNotChangeHandSize()
             {
-                var hand = new Hand<TestCard>(CardFactory(5));
+                var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var cards = hand.Browse();
 
                 Assert.False(cards.IsDefault);
@@ -86,7 +83,7 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void EmptiesHand()
             {
-                var hand = new Hand<TestCard>(CardFactory(5));
+                var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
                 var cleared = hand.Clear();
 
@@ -101,7 +98,7 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void ThrowsOnNullFunc()
             {
-                var hand = new Hand<TestCard>(CardFactory(5));
+                var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
 
                 var ex = Assert.Throws<ArgumentNullException>(() => hand.Order(orderFunc: null));
@@ -112,7 +109,7 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void ThrowsOnNullFuncReturn()
             {
-                var hand = new Hand<TestCard>(CardFactory(5));
+                var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
 
                 var ex = Assert.Throws<InvalidOperationException>(() => hand.Order(orderFunc: cards => null));
@@ -132,7 +129,7 @@ namespace MpGame.Tests.CollectionTests
                 {
                     funcCalled = true;
                     Assert.False(cards.IsDefault);
-                    return cards.Concat(CardFactory(added));
+                    return cards.Concat(TestCard.Factory(added));
                 });
 
                 Assert.True(funcCalled);
@@ -145,7 +142,7 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void ThrowsNegativeIndex()
             {
-                var hand = new Hand<TestCard>(CardFactory(5));
+                var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
                 var ex = Assert.Throws<ArgumentOutOfRangeException>(() => hand.TakeAt(index: -1));
                 Assert.StartsWith(expectedStartString: ErrorStrings.RetrievalNegative, actualString: ex.Message);
@@ -156,7 +153,7 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void ThrowsTooHighIndex()
             {
-                var hand = new Hand<TestCard>(CardFactory(5));
+                var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
                 var ex = Assert.Throws<ArgumentOutOfRangeException>(() => hand.TakeAt(index: hand.Count + 1));
                 Assert.StartsWith(expectedStartString: ErrorStrings.RetrievalTooHighH, actualString: ex.Message);
@@ -167,7 +164,7 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void DecreasesPileByOne()
             {
-                var hand = new Hand<TestCard>(CardFactory(5));
+                var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
                 var taken = hand.TakeAt(index: 3);
                 Assert.NotNull(taken);
@@ -180,7 +177,7 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void PredicateThrowsOnNullPredicate()
             {
-                var hand = new Hand<TestCard>(CardFactory(5));
+                var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
 
                 var ex = Assert.Throws<ArgumentNullException>(() => hand.TakeFirstOrDefault(predicate: null));
@@ -191,7 +188,7 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void MatchingPredicateDecreasesPileByOne()
             {
-                var hand = new Hand<TestCard>(CardFactory(5));
+                var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
                 bool funcCalled = false;
                 var taken = hand.TakeFirstOrDefault(predicate: c =>
@@ -208,7 +205,7 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void NonMatchingPredicateReturnsNull()
             {
-                var hand = new Hand<TestCard>(CardFactory(5));
+                var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
                 bool funcCalled = false;
                 var taken = hand.TakeFirstOrDefault(predicate: c =>

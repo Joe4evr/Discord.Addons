@@ -107,30 +107,17 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: .ctor
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 40
+    startLine: 39
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
-  summary: "\nInitializes a new <xref href=\"Discord.Addons.MpGame.Collections.Hand%601\" data-throw-if-not-resolved=\"false\"></xref> with the specified cards.\n"
-  remarks: >-
-    <div class="markdown level0 remarks"><div class="NOTE">
-
-    <h5>Note</h5><p>This constructor will filter out any items in
-
-    <code data-dev-comment-type="paramref" class="paramref">cards</code> that are <xref uid="langword_csharp_null" name="null" href=""></xref>.</p></div></div>
-  example: []
   syntax:
     content: public Hand(IEnumerable<TCard> cards)
     parameters:
     - id: cards
       type: System.Collections.Generic.IEnumerable{{TCard}}
-      description: The cards to put in the hand.
     content.vb: Public Sub New(cards As IEnumerable(Of TCard))
   overload: Discord.Addons.MpGame.Collections.Hand`1.#ctor*
-  exceptions:
-  - type: System.ArgumentNullException
-    commentId: T:System.ArgumentNullException
-    description: <code data-dev-comment-type="paramref" class="paramref">cards</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
   nameWithType.vb: Hand(Of TCard).Hand(IEnumerable(Of TCard))
   modifiers.csharp:
   - public
@@ -156,7 +143,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Count
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 50
+    startLine: 49
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -195,7 +182,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Add
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 57
+    startLine: 56
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -237,7 +224,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Browse
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 70
+    startLine: 69
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -273,7 +260,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Clear
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 84
+    startLine: 83
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -310,7 +297,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: Order
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 104
+    startLine: 103
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -363,7 +350,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TakeAt
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 124
+    startLine: 123
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -409,7 +396,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: TakeFirstOrDefault
     path: ../src/Discord.Addons.MpGame/Collections/Hand.cs
-    startLine: 145
+    startLine: 144
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
@@ -539,8 +526,6 @@ references:
   fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Hand
   nameWithType.vb: Hand(Of TCard).Hand
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Hand
-- uid: System.ArgumentNullException
-  commentId: T:System.ArgumentNullException
 - uid: System.Collections.Generic.IEnumerable{{TCard}}
   commentId: T:System.Collections.Generic.IEnumerable{`0}
   parent: System.Collections.Generic
@@ -641,6 +626,8 @@ references:
   name: Int32
   nameWithType: Int32
   fullName: System.Int32
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Add*
   commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Add
   isExternal: false

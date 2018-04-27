@@ -21,10 +21,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.Hand-1.html",
-          "hash": "T2tWqZfW8rmtrZPFiizrig=="
+          "hash": "qOyueuiH4Dqtj6KMEJI59Q=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -33,10 +33,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.Pile-1.html",
-          "hash": "GEjc8qSLLwd/NA/GAYGGkg=="
+          "hash": "aZX7LIV4PLm+wX+JQNdnsA=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -48,7 +48,7 @@
           "hash": "0fK2+2yVzw0WMzmta8aBAA=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {

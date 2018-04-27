@@ -2,41 +2,62 @@
 {
     [string] $ProjectLocation;
     [string] $TestsLocation;
-    ProjectRef([string] $project, [string] $tests)
+    [string] $DocsLocation;
+    ProjectRef([string] $project, [string] $tests, [string] $docs)
     {
         $this.ProjectLocation = $project;
         $this.TestsLocation = $tests;
+        $this.DocsLocation = $docs;
     }
 
     BuildAndTest([string] $name)
     {
-        Write-Host "Restore pakcages for project '"$name"'";
-        dotnet restore $this.ProjectLocation;
+        Write-Host "Restoring pakcages for project '$name'";
+        dotnet restore $this.ProjectLocation | Write-Host -ForegroundColor DarkGray;
         if ($LastExitCode -ne 0)
         {
-            Write-Host "Failed to find/restore project";
+            Write-Host "Failed to find/restore project" -ForegroundColor Red;
             return;
         }
 
         if (-not [String]::IsNullOrEmpty($this.TestsLocation))
         {
-            Write-Host "Testing project '"$name"'";
-            dotnet test $this.TestsLocation;
+            Write-Host "Testing project '$name'";
+            dotnet test $this.TestsLocation -c Release | Write-Host -ForegroundColor DarkGray;
             if ($LastExitCode -ne 0)
             {
-                Write-Host "Package not published because of failed tests";
+                Write-Host "Package not published because of failed tests" -ForegroundColor Red;
                 return;
             }
         }
         
-        Write-Host "Packing project '"$name"'";
-        dotnet pack $this.ProjectLocation -c Release -o C:\nugetpacks;
+        Write-Host "Packing project '$name'";
+        dotnet pack $this.ProjectLocation -c Release -o C:\nugetpacks | Write-Host -ForegroundColor DarkGray;
+        if ($LastExitCode -ne 0)
+        {
+            Write-Host "Packing failed" -ForegroundColor Red;
+            return;
+        }
+
+
+        if (-not [String]::IsNullOrEmpty($this.DocsLocation))
+        {
+            Write-Host "Building docs";
+            docfx "docs\docfx.json" | Write-Host -ForegroundColor DarkGray;
+            if ($LastExitCode -ne 0)
+            {
+                Write-Host "Docs building failed" -ForegroundColor Red;
+                return;
+            }
+
+            Copy-Item -Path "docs\_site\*" -Destination $this.DocsLocation -Recurse -Force;
+        }
     }
 }
 
 $projects = @{
-    "MpGame" = [ProjectRef]::new("src\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj", "test\MpGame.Tests\MpGame.Tests.csproj");
-    "SimplePermissions" = [ProjectRef]::new("src\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj", [String]::Empty);
+    "MpGame" = [ProjectRef]::new("src\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj", "test\MpGame.Tests\MpGame.Tests.csproj", "docs\mpgame\");
+    "SimplePermissions" = [ProjectRef]::new("src\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj", [String]::Empty, [String]::Empty);
 }
 
 if ($args[0] -eq "all")
@@ -63,4 +84,4 @@ else
         Write-Host "No args given.";
     }
 }
-pause
+#pause

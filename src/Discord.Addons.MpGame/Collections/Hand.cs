@@ -34,9 +34,8 @@ namespace Discord.Addons.MpGame.Collections
         /// Initializes a new <see cref="Hand{TCard}"/> with the specified cards.
         /// </summary>
         /// <param name="cards">The cards to put in the hand.</param>
-        /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
-        /// <h5>Note</h5><p>This constructor will filter out any items in
-        /// <paramref name="cards"/> that are <see langword="null"/>.</p></div></div></remarks>
+        /// <remarks><note type="note">This constructor will filter out any items in
+        /// <paramref name="cards"/> that are <see langword="null"/>.</remarks>
         /// <exception cref="ArgumentNullException"><paramref name="cards"/> was <see langword="null"/>.</exception>
         public Hand(IEnumerable<TCard> cards)
         {
