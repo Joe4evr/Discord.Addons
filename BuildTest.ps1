@@ -58,13 +58,13 @@
 $projects = @{
     "MpGame" = [ProjectRef]::new("src\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj", "test\MpGame.Tests\MpGame.Tests.csproj", "docs\mpgame\");
     "SimplePermissions" = [ProjectRef]::new("src\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj", [String]::Empty, [String]::Empty);
-}
+};
 
-if ($args[0] -eq "all")
+if ($args.Length -eq 1 -and $args[0] -eq "all")
 {
-    foreach ($project in $projects.Values)
+    foreach ($key in $projects.Keys)
     {
-        $project.BuildAndTest();
+        $projects[$key].BuildAndTest($key);
     }
 }
 else
@@ -84,4 +84,3 @@ else
         Write-Host "No args given.";
     }
 }
-#pause
