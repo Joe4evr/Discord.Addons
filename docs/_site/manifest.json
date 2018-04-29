@@ -5,11 +5,11 @@
   "files": [
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.yml",
+      "source_relative_path": "api/mpgame/Discord.Addons.MpGame.Collections.CircularLinkedList-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html",
-          "hash": "tWxJTiYbMfb1VWUUn4bPPQ=="
+          "relative_path": "api/mpgame/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html",
+          "hash": "+1tNWFkEMY5y4btxzecBxA=="
         }
       },
       "is_incremental": true,
@@ -17,11 +17,23 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Discord.Addons.MpGame.Collections.Hand-1.yml",
+      "source_relative_path": "api/mpgame/Discord.Addons.MpGame.Collections.Hand-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Discord.Addons.MpGame.Collections.Hand-1.html",
-          "hash": "qOyueuiH4Dqtj6KMEJI59Q=="
+          "relative_path": "api/mpgame/Discord.Addons.MpGame.Collections.Hand-1.html",
+          "hash": "8/njkxbABhEuVVn7BO1oag=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/mpgame/Discord.Addons.MpGame.Collections.Pile-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/mpgame/Discord.Addons.MpGame.Collections.Pile-1.html",
+          "hash": "4ZbbTjKTd7iKpysvcJqdvw=="
         }
       },
       "is_incremental": true,
@@ -29,11 +41,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Discord.Addons.MpGame.Collections.Pile-1.yml",
+      "source_relative_path": "api/mpgame/Discord.Addons.MpGame.Collections.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Discord.Addons.MpGame.Collections.Pile-1.html",
-          "hash": "aZX7LIV4PLm+wX+JQNdnsA=="
+          "relative_path": "api/mpgame/Discord.Addons.MpGame.Collections.html",
+          "hash": "3mT/K37+2zDMRHR9Ko4A4w=="
         }
       },
       "is_incremental": true,
@@ -41,11 +53,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Discord.Addons.MpGame.Collections.yml",
+      "source_relative_path": "api/mpgame/Discord.Addons.MpGame.CurrentlyPlaying.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Discord.Addons.MpGame.Collections.html",
-          "hash": "0fK2+2yVzw0WMzmta8aBAA=="
+          "relative_path": "api/mpgame/Discord.Addons.MpGame.CurrentlyPlaying.html",
+          "hash": "p4m8xeSSkO4wgemiZz0nGg=="
         }
       },
       "is_incremental": true,
@@ -53,11 +65,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Discord.Addons.MpGame.CurrentlyPlaying.yml",
+      "source_relative_path": "api/mpgame/Discord.Addons.MpGame.GameBase-1.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Discord.Addons.MpGame.CurrentlyPlaying.html",
-          "hash": "N+P8hIoqn0wOn9S7zgwFWA=="
+          "relative_path": "api/mpgame/Discord.Addons.MpGame.GameBase-1.html",
+          "hash": "QJVpacsA86HipI/WFlohaA=="
         }
       },
       "is_incremental": true,
@@ -65,11 +77,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Discord.Addons.MpGame.GameBase-1.yml",
+      "source_relative_path": "api/mpgame/Discord.Addons.MpGame.ILogStrings.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Discord.Addons.MpGame.GameBase-1.html",
-          "hash": "CbkR3q46bXrQtHesdNXpQA=="
+          "relative_path": "api/mpgame/Discord.Addons.MpGame.ILogStrings.html",
+          "hash": "GReFvqUk2Z0ZwN2B9bjcJQ=="
         }
       },
       "is_incremental": true,
@@ -77,11 +89,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Discord.Addons.MpGame.ILogStrings.yml",
+      "source_relative_path": "api/mpgame/Discord.Addons.MpGame.IMpGameServiceConfig.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Discord.Addons.MpGame.ILogStrings.html",
-          "hash": "SB2TDlN+KkF0orTgfSr5Ng=="
+          "relative_path": "api/mpgame/Discord.Addons.MpGame.IMpGameServiceConfig.html",
+          "hash": "3cGupBDYCoogdwu0fEzvrQ=="
         }
       },
       "is_incremental": true,
@@ -89,11 +101,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Discord.Addons.MpGame.IMpGameServiceConfig.yml",
+      "source_relative_path": "api/mpgame/Discord.Addons.MpGame.MpGameModuleBase-3.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Discord.Addons.MpGame.IMpGameServiceConfig.html",
-          "hash": "KMXsqT9QZCsQHkoa14zR+A=="
+          "relative_path": "api/mpgame/Discord.Addons.MpGame.MpGameModuleBase-3.html",
+          "hash": "oFh1hKHZRx9KagiXfiK0jQ=="
         }
       },
       "is_incremental": true,
@@ -101,11 +113,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Discord.Addons.MpGame.MpGameModuleBase-3.yml",
+      "source_relative_path": "api/mpgame/Discord.Addons.MpGame.MpGameService-2.MpGameData.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Discord.Addons.MpGame.MpGameModuleBase-3.html",
-          "hash": "Lc2o75XImuc9DDOY7+XjdQ=="
+          "relative_path": "api/mpgame/Discord.Addons.MpGame.MpGameService-2.MpGameData.html",
+          "hash": "IEYJJ/eAksoRynGW9urTnA=="
         }
       },
       "is_incremental": true,
@@ -113,11 +125,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Discord.Addons.MpGame.MpGameService-2.MpGameData.yml",
+      "source_relative_path": "api/mpgame/Discord.Addons.MpGame.MpGameService-2.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html",
-          "hash": "5HVloY5mDhCn3GDlddml0g=="
+          "relative_path": "api/mpgame/Discord.Addons.MpGame.MpGameService-2.html",
+          "hash": "3gT/UoefXLcjLrhOYzcIKg=="
         }
       },
       "is_incremental": true,
@@ -125,11 +137,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Discord.Addons.MpGame.MpGameService-2.yml",
+      "source_relative_path": "api/mpgame/Discord.Addons.MpGame.Player.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Discord.Addons.MpGame.MpGameService-2.html",
-          "hash": "fouPvxXCebijFKB5f3Gr4g=="
+          "relative_path": "api/mpgame/Discord.Addons.MpGame.Player.html",
+          "hash": "B506KuzPmWAQaCf7EKakNA=="
         }
       },
       "is_incremental": true,
@@ -137,35 +149,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Discord.Addons.MpGame.Player.yml",
+      "source_relative_path": "api/mpgame/Discord.Addons.MpGame.yml",
       "output": {
         ".html": {
-          "relative_path": "api/Discord.Addons.MpGame.Player.html",
-          "hash": "TlL57o5+elIOk1FOTwXtfw=="
-        }
-      },
-      "is_incremental": true,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Discord.Addons.MpGame.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Discord.Addons.MpGame.html",
-          "hash": "qkIiPpCnN3X43xJCh9MR1g=="
-        }
-      },
-      "is_incremental": true,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "api/index.md",
-      "output": {
-        ".html": {
-          "relative_path": "api/index.html",
-          "hash": "wO4UotcDeGkhNpc0ROghbw=="
+          "relative_path": "api/mpgame/Discord.Addons.MpGame.html",
+          "hash": "TGMMYV2BNYw1QFo3jWDeTg=="
         }
       },
       "is_incremental": true,
@@ -173,10 +161,10 @@
     },
     {
       "type": "Toc",
-      "source_relative_path": "api/toc.yml",
+      "source_relative_path": "api/mpgame/toc.yml",
       "output": {
         ".html": {
-          "relative_path": "api/toc.html",
+          "relative_path": "api/mpgame/toc.html",
           "hash": "CaTjHvcJP7Wvv+yZUXLjFw=="
         }
       },
@@ -208,12 +196,15 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Toc",
       "source_relative_path": "toc.yml",
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "zUEcqxeC8MmPdFio0fKEQA=="
+          "hash": "DxTRTRzkyOXR4olUK706nA=="
         }
       },
       "is_incremental": false,
@@ -232,11 +223,11 @@
           "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ConceptualDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build"
         }

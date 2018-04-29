@@ -16,7 +16,7 @@ namespace Discord.Addons.MpGame
                 string input,
                 IServiceProvider services)
             {
-                var result = await base.ReadAsync(context, input, services);
+                var result = await base.ReadAsync(context, input, services).ConfigureAwait(false);
                 if (!(result.IsSuccess && result.BestMatch is IUser user))
                     return result;
 

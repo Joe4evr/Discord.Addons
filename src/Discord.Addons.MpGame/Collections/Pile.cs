@@ -111,7 +111,16 @@ namespace Discord.Addons.MpGame.Collections
         /// <summary>
         /// The amount of cards currently in the pile.
         /// </summary>
-        public int Count => _count;
+        public int Count
+        {
+            get
+            {
+                using (_rwlock.UsingReadLock())
+                {
+                    return _count;
+                }
+            }
+        }
 
         /// <summary>
         /// Iterates the contents of this pile as an <see cref="IEnumerable{T}"/>.
@@ -293,10 +302,10 @@ namespace Discord.Addons.MpGame.Collections
                 ThrowInvalidOp(ErrorStrings.NoCut);
             if (cutAmount < 0)
                 ThrowArgOutOfRange(ErrorStrings.CutAmountNegative, nameof(cutAmount));
-            if (cutAmount > Count)
+            if (cutAmount > _count)
                 ThrowArgOutOfRange(ErrorStrings.CutAmountTooHigh, nameof(cutAmount));
 
-            if (cutAmount == 0 || cutAmount == Count)
+            if (cutAmount == 0 || cutAmount == _count)
                 return; //no changes
 
             using (_rwlock.UsingWriteLock())
@@ -325,15 +334,16 @@ namespace Discord.Addons.MpGame.Collections
         {
             if (!CanDraw)
                 ThrowInvalidOp(ErrorStrings.NoDraw);
-            var topCard = Interlocked.Exchange(ref _head, _head?.Next);
-            if (topCard == null)
-                ThrowInvalidOp(ErrorStrings.PileEmpty);
 
             using (_rwlock.UsingWriteLock())
             {
+                var topCard = Interlocked.Exchange(ref _head, _head?.Next);
+                if (topCard == null)
+                    ThrowInvalidOp(ErrorStrings.PileEmpty);
+
                 var tmp = Break(topCard);
 
-                if (Count == 0)
+                if (_count == 0)
                     OnLastRemoved();
 
                 return tmp;
@@ -351,17 +361,18 @@ namespace Discord.Addons.MpGame.Collections
         /// does not allow drawing cards OR There were no cards to draw.</exception>
         public TCard DrawBottom()
         {
-            if (!CanDraw)
+            if (!CanDrawBottom)
                 ThrowInvalidOp(ErrorStrings.NoDraw);
-            var bottomCard = Interlocked.Exchange(ref _tail, _tail?.Previous);
-            if (bottomCard == null)
-                ThrowInvalidOp(ErrorStrings.PileEmpty);
 
             using (_rwlock.UsingWriteLock())
             {
+                var bottomCard = Interlocked.Exchange(ref _tail, _tail?.Previous);
+                if (bottomCard == null)
+                    ThrowInvalidOp(ErrorStrings.PileEmpty);
+
                 var tmp = Break(bottomCard);
 
-                if (Count == 0)
+                if (_count == 0)
                     OnLastRemoved();
 
                 return tmp;
@@ -385,17 +396,51 @@ namespace Discord.Addons.MpGame.Collections
             ThrowArgNull(card, nameof(card));
             if (index < 0)
                 ThrowArgOutOfRange(ErrorStrings.InsertionNegative, nameof(index));
-            if (index > Count)
+            if (index > _count)
                 ThrowArgOutOfRange(ErrorStrings.InsertionTooHigh, nameof(index));
 
             using (_rwlock.UsingWriteLock())
             {
                 if (index == 0)
                     AddHead(card);
-                else if (index == Count)
+                else if (index == _count)
                     AddTail(card);
                 else
                     AddAfter(GetNodeAt(index), card);
+            }
+        }
+
+        /// <summary>
+        /// Puts the top card of *this* pile on top of another pile.
+        /// Requires <see cref="CanDraw"/> on this pile and <see cref="CanPut"/>
+        /// on the target pile.
+        /// </summary>
+        /// <param name="targetPile">The pile to place a card on.</param>
+        /// <remarks><note type="note">Calls <see cref="OnPut(TCard)"/> on the target pile.
+        /// If the last card of this pile was taken, calls
+        /// <see cref="OnLastRemoved"/> *after* the card is placed on the target pile.
+        /// </note></remarks>
+        /// <exception cref="InvalidOperationException">This pile
+        /// does not allow drawing cards OR The target pile
+        /// does not allow placing cards on top OR
+        /// This pile was empty.</exception>
+        public void Mill(Pile<TCard> targetPile)
+        {
+            if (!CanDraw)
+                ThrowInvalidOp(ErrorStrings.NoDraw);
+            if (!targetPile.CanPut)
+                ThrowInvalidOp(ErrorStrings.NoPutTarget);
+
+            using (_rwlock.UsingWriteLock())
+            {
+                var topCard = Interlocked.Exchange(ref _head, _head?.Next);
+                if (topCard == null)
+                    ThrowInvalidOp(ErrorStrings.PileEmpty);
+
+                targetPile.Put(Break(topCard));
+
+                if (_count == 0)
+                    OnLastRemoved();
             }
         }
 
@@ -416,7 +461,7 @@ namespace Discord.Addons.MpGame.Collections
                 ThrowInvalidOp(ErrorStrings.NoPeek);
             if (amount < 0)
                 ThrowArgOutOfRange(ErrorStrings.PeekAmountNegative, nameof(amount));
-            if (amount > Count)
+            if (amount > _count)
                 ThrowArgOutOfRange(ErrorStrings.PeekAmountTooHigh, nameof(amount));
 
             if (amount == 0)
@@ -466,7 +511,7 @@ namespace Discord.Addons.MpGame.Collections
         public void PutBottom(TCard card)
         {
             if (!CanPutBottom)
-                ThrowInvalidOp(ErrorStrings.NoPutBtm);
+                ThrowInvalidOp(ErrorStrings.NoPutBottom);
             ThrowArgNull(card, nameof(card));
 
             using (_rwlock.UsingWriteLock())
@@ -515,7 +560,7 @@ namespace Discord.Addons.MpGame.Collections
                 ThrowInvalidOp(ErrorStrings.NoTake);
             if (index < 0)
                 ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
-            if (index >= Count)
+            if (index >= _count)
                 ThrowArgOutOfRange(ErrorStrings.RetrievalTooHighP, nameof(index));
 
             using (_rwlock.UsingWriteLock())
@@ -541,7 +586,7 @@ namespace Discord.Addons.MpGame.Collections
 
         private ImmutableDictionary<int, TCard> GetAllD(Func<TCard, bool> predicate)
         {
-            if (Count == 0)
+            if (_count == 0)
                 return ImmutableDictionary<int, TCard>.Empty;
 
             var builder = ImmutableDictionary.CreateBuilder<int, TCard>();
@@ -569,10 +614,10 @@ namespace Discord.Addons.MpGame.Collections
 
         private ImmutableArray<TCard> GetAllInternal(bool clear)
         {
-            if (Count == 0)
+            if (_count == 0)
                 return ImmutableArray<TCard>.Empty;
 
-            var builder = ImmutableArray.CreateBuilder<TCard>(Count);
+            var builder = ImmutableArray.CreateBuilder<TCard>(_count);
 
             for (var n = _head; n != null; n = n.Next)
                 builder.Add(n.Value);
@@ -591,7 +636,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             if (index == 0)
                 return _head;
-            if (index == Count - 1)
+            if (index == _count - 1)
                 return _tail;
 
             var tmp = _head;
@@ -656,7 +701,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             var tmp = Break(GetNodeAt(index));
 
-            if (Count == 0)
+            if (_count == 0)
                 OnLastRemoved();
 
             return tmp;
@@ -724,9 +769,9 @@ namespace Discord.Addons.MpGame.Collections
 
         private sealed class Node
         {
-            public Node Next     { get; set; }
+            public Node Next { get; set; }
             public Node Previous { get; set; }
-            public TCard Value   { get; }
+            public TCard Value { get; }
 
             public Node(TCard value)
             {

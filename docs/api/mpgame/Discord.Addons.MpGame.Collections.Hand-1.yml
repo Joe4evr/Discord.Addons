@@ -111,13 +111,24 @@ items:
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
+  summary: "\nInitializes a new <xref href=\"Discord.Addons.MpGame.Collections.Hand%601\" data-throw-if-not-resolved=\"false\"></xref> with the specified cards.\n"
+  remarks: >-
+    <div class="NOTE"><h5>note</h5><p>This constructor will filter out any items in
+
+    <code data-dev-comment-type="paramref" class="paramref">cards</code> that are <xref uid="langword_csharp_null" name="null" href=""></xref>.</p></div>
+  example: []
   syntax:
     content: public Hand(IEnumerable<TCard> cards)
     parameters:
     - id: cards
       type: System.Collections.Generic.IEnumerable{{TCard}}
+      description: The cards to put in the hand.
     content.vb: Public Sub New(cards As IEnumerable(Of TCard))
   overload: Discord.Addons.MpGame.Collections.Hand`1.#ctor*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: <code data-dev-comment-type="paramref" class="paramref">cards</code> was <xref uid="langword_csharp_null" name="null" href=""></xref>.
   nameWithType.vb: Hand(Of TCard).Hand(IEnumerable(Of TCard))
   modifiers.csharp:
   - public
@@ -427,6 +438,7 @@ items:
 references:
 - uid: Discord.Addons.MpGame.Collections.Pile`1
   commentId: T:Discord.Addons.MpGame.Collections.Pile`1
+  parent: Discord.Addons.MpGame.Collections
   isExternal: false
   name: Pile<TCard>
   nameWithType: Pile<TCard>
@@ -526,6 +538,8 @@ references:
   fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.Hand
   nameWithType.vb: Hand(Of TCard).Hand
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Hand
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
 - uid: System.Collections.Generic.IEnumerable{{TCard}}
   commentId: T:System.Collections.Generic.IEnumerable{`0}
   parent: System.Collections.Generic
@@ -626,8 +640,6 @@ references:
   name: Int32
   nameWithType: Int32
   fullName: System.Int32
-- uid: System.ArgumentNullException
-  commentId: T:System.ArgumentNullException
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Add*
   commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.Add
   isExternal: false

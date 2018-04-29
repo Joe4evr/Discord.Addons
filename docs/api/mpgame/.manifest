@@ -46,6 +46,7 @@
   "Discord.Addons.MpGame.Collections.Pile`1.Draw": "Discord.Addons.MpGame.Collections.Pile-1.yml",
   "Discord.Addons.MpGame.Collections.Pile`1.DrawBottom": "Discord.Addons.MpGame.Collections.Pile-1.yml",
   "Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)": "Discord.Addons.MpGame.Collections.Pile-1.yml",
+  "Discord.Addons.MpGame.Collections.Pile`1.Mill(Discord.Addons.MpGame.Collections.Pile{`0})": "Discord.Addons.MpGame.Collections.Pile-1.yml",
   "Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved": "Discord.Addons.MpGame.Collections.Pile-1.yml",
   "Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)": "Discord.Addons.MpGame.Collections.Pile-1.yml",
   "Discord.Addons.MpGame.Collections.Pile`1.PeekTop(System.Int32)": "Discord.Addons.MpGame.Collections.Pile-1.yml",

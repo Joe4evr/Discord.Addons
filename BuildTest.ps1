@@ -2,12 +2,10 @@
 {
     [string] $ProjectLocation;
     [string] $TestsLocation;
-    [string] $DocsLocation;
-    ProjectRef([string] $project, [string] $tests, [string] $docs)
+    ProjectRef([string] $project, [string] $tests)
     {
         $this.ProjectLocation = $project;
         $this.TestsLocation = $tests;
-        $this.DocsLocation = $docs;
     }
 
     BuildAndTest([string] $name)
@@ -38,26 +36,19 @@
             Write-Host "Packing failed" -ForegroundColor Red;
             return;
         }
-
-
-        if (-not [String]::IsNullOrEmpty($this.DocsLocation))
-        {
-            Write-Host "Building docs";
-            docfx "docs\docfx.json" | Write-Host -ForegroundColor DarkGray;
-            if ($LastExitCode -ne 0)
-            {
-                Write-Host "Docs building failed" -ForegroundColor Red;
-                return;
-            }
-
-            Copy-Item -Path "docs\_site\*" -Destination $this.DocsLocation -Recurse -Force;
-        }
     }
 }
 
+if ($args.Length -eq 0)
+{
+    Write-Host "No args given.";
+    return;
+}
+
 $projects = @{
-    "MpGame" = [ProjectRef]::new("src\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj", "test\MpGame.Tests\MpGame.Tests.csproj", "docs\mpgame\");
-    "SimplePermissions" = [ProjectRef]::new("src\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj", [String]::Empty, [String]::Empty);
+    "MpGame" = [ProjectRef]::new("src\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj", "test\MpGame.Tests\MpGame.Tests.csproj");
+    "SimplePermissions" = [ProjectRef]::new("src\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj", [String]::Empty);
+    "EFProvider" = [ProjectRef]::new("src\Discord.Addons.SimplePermissions.EFProvider\Discord.Addons.SimplePermissions.EFProvider.csproj", [String]::Empty);
 };
 
 if ($args.Length -eq 1 -and $args[0] -eq "all")
@@ -69,18 +60,19 @@ if ($args.Length -eq 1 -and $args[0] -eq "all")
 }
 else
 {
-    if ($args.Length -gt 0)
+    foreach ($arg in $args)
     {
-        foreach ($arg in $args)
+        if ($projects.ContainsKey($arg))
         {
-            if ($projects.ContainsKey($arg))
-            {
-                $projects[$arg].BuildAndTest($arg);
-            }
+            $projects[$arg].BuildAndTest($arg);
         }
     }
-    else
-    {
-        Write-Host "No args given.";
-    }
+}
+
+Write-Host "Building docs";
+docfx "docs\docfx.json" | Write-Host -ForegroundColor DarkGray;
+if ($LastExitCode -ne 0)
+{
+    Write-Host "Docs building failed" -ForegroundColor Red;
+    return;
 }

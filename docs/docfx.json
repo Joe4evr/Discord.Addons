@@ -8,7 +8,7 @@
           "src": "../src"
         }
       ],
-      "dest": "api",
+      "dest": "api/mpgame",
       "filter": "filterConfig.yml",
       "disableGitFeatures": false
     }

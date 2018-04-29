@@ -16,7 +16,8 @@ namespace Discord.Addons.MpGame.Collections
         internal static readonly string NoInsert  = "Not allowed to insert at arbitrary index on this instance.";
         internal static readonly string NoPeek    = "Not allowed to peek on this instance.";
         internal static readonly string NoPut     = "Not allowed to put cards on top of this instance.";
-        internal static readonly string NoPutBtm  = "Not allowed to put cards on the bottom of this instance.";
+        internal static readonly string NoPutTarget = "Not allowed to put cards on top of the target instance.";
+        internal static readonly string NoPutBottom = "Not allowed to put cards on the bottom of this instance.";
         internal static readonly string NoShuffle = "Not allowed to reshuffle this instance.";
         internal static readonly string NoTake    = "Not allowed to take from an arbitrary index on this instance.";
 

@@ -93,6 +93,7 @@ references:
     fullName: )
 - uid: Discord.Addons.MpGame.Collections.Pile`1
   commentId: T:Discord.Addons.MpGame.Collections.Pile`1
+  parent: Discord.Addons.MpGame.Collections
   isExternal: false
   name: Pile<TCard>
   nameWithType: Pile<TCard>
@@ -128,3 +129,9 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: Discord.Addons.MpGame.Collections
+  commentId: N:Discord.Addons.MpGame.Collections
+  isExternal: false
+  name: Discord.Addons.MpGame.Collections
+  nameWithType: Discord.Addons.MpGame.Collections
+  fullName: Discord.Addons.MpGame.Collections

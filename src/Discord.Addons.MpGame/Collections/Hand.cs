@@ -35,7 +35,7 @@ namespace Discord.Addons.MpGame.Collections
         /// </summary>
         /// <param name="cards">The cards to put in the hand.</param>
         /// <remarks><note type="note">This constructor will filter out any items in
-        /// <paramref name="cards"/> that are <see langword="null"/>.</remarks>
+        /// <paramref name="cards"/> that are <see langword="null"/>.</note></remarks>
         /// <exception cref="ArgumentNullException"><paramref name="cards"/> was <see langword="null"/>.</exception>
         public Hand(IEnumerable<TCard> cards)
         {

@@ -468,6 +468,7 @@ namespace MpGame.Tests.CollectionTests
                 var drawn = pile.Draw();
 
                 Assert.NotNull(drawn);
+                Assert.Equal(expected: 1, actual: drawn.Id);
                 Assert.Equal(expected: priorSize - 1, actual: pile.Count);
             }
 
@@ -488,6 +489,53 @@ namespace MpGame.Tests.CollectionTests
                 var priorSize = pile.Count;
 
                 var ex = Assert.Throws<InvalidOperationException>(() => pile.Draw());
+                Assert.Equal(expected: ErrorStrings.PileEmpty, actual: ex.Message);
+                Assert.Equal(expected: priorSize, actual: pile.Count);
+            }
+        }
+
+        public sealed class DrawBottom
+        {
+            [Fact]
+            public void ThrowsWhenNotDrawable()
+            {
+                var pile = new TestPile(withPerms: PilePerms.All ^ PilePerms.CanDrawBottom, cards: TestCard.Factory(20));
+                var priorSize = pile.Count;
+
+                var ex = Assert.Throws<InvalidOperationException>(() => pile.DrawBottom());
+                Assert.Equal(expected: ErrorStrings.NoDraw, actual: ex.Message);
+                Assert.Equal(expected: priorSize, actual: pile.Count);
+            }
+
+            [Fact]
+            public void DecreasesPileByOne()
+            {
+                var pile = new TestPile(withPerms: PilePerms.CanDrawBottom, cards: TestCard.Factory(20));
+                var priorSize = pile.Count;
+                var drawn = pile.DrawBottom();
+
+                Assert.NotNull(drawn);
+                Assert.Equal(expected: 20, actual: drawn.Id);
+                Assert.Equal(expected: priorSize - 1, actual: pile.Count);
+            }
+
+            [Fact]
+            public void LastDrawCallsOnLastRemoved()
+            {
+                var pile = new TestPile(withPerms: PilePerms.CanDrawBottom, cards: TestCard.Factory(1));
+
+                var ev = Assert.Raises<EventArgs>(handler => pile.LastRemoveCalled += handler, handler => pile.LastRemoveCalled -= handler, () => pile.DrawBottom());
+                Assert.Same(expected: pile, actual: ev.Sender);
+                Assert.Equal(expected: 0, actual: pile.Count);
+            }
+
+            [Fact]
+            public void ThrowsOnEmptyPile()
+            {
+                var pile = new TestPile(withPerms: PilePerms.CanDrawBottom, cards: Enumerable.Empty<TestCard>());
+                var priorSize = pile.Count;
+
+                var ex = Assert.Throws<InvalidOperationException>(() => pile.DrawBottom());
                 Assert.Equal(expected: ErrorStrings.PileEmpty, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
@@ -550,6 +598,64 @@ namespace MpGame.Tests.CollectionTests
                 pile.InsertAt(card: newcard, index: 10);
 
                 Assert.Equal(expected: priorSize + 1, actual: pile.Count);
+            }
+        }
+
+        public sealed class Mill
+        {
+            [Fact]
+            public void ThrowsWhenNotDrawable()
+            {
+                var source = new TestPile(withPerms: PilePerms.All ^ PilePerms.CanDraw, cards: TestCard.Factory(20));
+                var target = new TestPile(withPerms: PilePerms.CanPut, cards: Enumerable.Empty<TestCard>());
+                var sourceSize = source.Count;
+                var targetSize = target.Count;
+
+                var ex = Assert.Throws<InvalidOperationException>(() => source.Mill(target));
+                Assert.Equal(expected: ErrorStrings.NoDraw, actual: ex.Message);
+                Assert.Equal(expected: sourceSize, actual: source.Count);
+                Assert.Equal(expected: targetSize, actual: target.Count);
+            }
+
+            [Fact]
+            public void ThrowsWhenNotPuttable()
+            {
+                var source = new TestPile(withPerms: PilePerms.CanDraw, cards: TestCard.Factory(20));
+                var target = new TestPile(withPerms: PilePerms.All ^ PilePerms.CanPut, cards: Enumerable.Empty<TestCard>());
+                var sourceSize = source.Count;
+                var targetSize = target.Count;
+
+                var ex = Assert.Throws<InvalidOperationException>(() => source.Mill(target));
+                Assert.Equal(expected: ErrorStrings.NoPutTarget, actual: ex.Message);
+                Assert.Equal(expected: sourceSize, actual: source.Count);
+                Assert.Equal(expected: targetSize, actual: target.Count);
+            }
+
+            [Fact]
+            public void ThrowsOnEmptyPile()
+            {
+                var source = new TestPile(withPerms: PilePerms.CanDraw, cards: Enumerable.Empty<TestCard>());
+                var target = new TestPile(withPerms: PilePerms.CanPut, cards: Enumerable.Empty<TestCard>());
+                var sourceSize = source.Count;
+                var targetSize = target.Count;
+
+                var ex = Assert.Throws<InvalidOperationException>(() => source.Mill(target));
+                Assert.Equal(expected: ErrorStrings.PileEmpty, actual: ex.Message);
+                Assert.Equal(expected: sourceSize, actual: source.Count);
+                Assert.Equal(expected: targetSize, actual: target.Count);
+            }
+
+            [Fact]
+            public void DecreasesSourseSizeIncreasesTargetSizeByOne()
+            {
+                var source = new TestPile(withPerms: PilePerms.CanDraw, cards: TestCard.Factory(20));
+                var target = new TestPile(withPerms: PilePerms.CanPut, cards: Enumerable.Empty<TestCard>());
+                var sourceSize = source.Count;
+                var targetSize = target.Count;
+
+                source.Mill(target);
+                Assert.Equal(expected: sourceSize - 1, actual: source.Count);
+                Assert.Equal(expected: targetSize + 1, actual: target.Count);
             }
         }
 
@@ -660,7 +766,7 @@ namespace MpGame.Tests.CollectionTests
                 var priorSize = pile.Count;
 
                 var ex = Assert.Throws<InvalidOperationException>(() => pile.PutBottom(card: new TestCard(id: 2)));
-                Assert.Equal(expected: ErrorStrings.NoPutBtm, actual: ex.Message);
+                Assert.Equal(expected: ErrorStrings.NoPutBottom, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
 
