@@ -36,33 +36,5 @@ namespace Discord.Addons.MpGame
                 return TypeReaderResult.FromError(CommandError.ObjectNotFound, "Game service not found.");
             }
         }
-
-        //private sealed class PlayerTypeReader : UserTypeReader<IUser>
-        //{
-        //    public override async Task<TypeReaderResult> ReadAsync(ICommandContext context, string input, IServiceProvider services)
-        //    {
-        //        var baseResult = await base.ReadAsync(context, input, services);
-        //        if (baseResult.IsSuccess)
-        //        {
-        //            var svc = services.GetService<TService>();
-        //            if (svc != null)
-        //            {
-        //                var game = svc.GetGameFromChannel(context.Channel);
-        //                if (game != null)
-        //                {
-        //                    var userId = (baseResult.Values.First().Value as IUser).Id;
-
-        //                    var player = game.Players.SingleOrDefault(p => p.User.Id == userId);
-        //                    return (player != null)
-        //                        ? TypeReaderResult.FromSuccess(player)
-        //                        : TypeReaderResult.FromError(CommandError.ObjectNotFound, "Specified user not a player in this game.");
-        //                }
-        //                return TypeReaderResult.FromError(CommandError.ObjectNotFound, "No game going on.");
-        //            }
-        //            return TypeReaderResult.FromError(CommandError.ObjectNotFound, "Game service not found.");
-        //        }
-        //        return baseResult;
-        //    }
-        //}
     }
 }
