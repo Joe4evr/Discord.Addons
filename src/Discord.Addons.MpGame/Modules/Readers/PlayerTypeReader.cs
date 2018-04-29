@@ -9,23 +9,16 @@ namespace Discord.Addons.MpGame
 {
     public abstract partial class MpGameModuleBase<TService, TGame, TPlayer>
     {
-        private sealed class PlayerTypeReader : TypeReader
+        private sealed class PlayerTypeReader : UserTypeReader<IUser>
         {
-            private static readonly Regex _mentionParser = new Regex(@"^<@!?(?<digits>\d+)>$", RegexOptions.Compiled);
-            private static readonly Regex _nameDiscrimParser = new Regex(@"^(?<name>.*)#(?<discrim>\d{4})$", RegexOptions.Compiled);
-
-            public override async Task<TypeReaderResult> ReadAsync(ICommandContext context, string input, IServiceProvider services)
+            public override async Task<TypeReaderResult> ReadAsync(
+                ICommandContext context,
+                string input,
+                IServiceProvider services)
             {
-                var idMatch = _mentionParser.Match(input);
-                if (!idMatch.Success || !UInt64.TryParse(idMatch.Groups["digits"].Value, out var id))
-                {
-                    var nameDiscrimMatch = _nameDiscrimParser.Match(input);
-                    if (!nameDiscrimMatch.Success)
-                    {
-                        return TypeReaderResult.FromError(CommandError.ParseFailed, "Could not parse input.");
-                    }
-                    id = (await context.Client.GetUserAsync(nameDiscrimMatch.Groups["name"].Value, nameDiscrimMatch.Groups["discrim"].Value)).Id;
-                }
+                var result = await base.ReadAsync(context, input, services);
+                if (!(result.IsSuccess && result.BestMatch is IUser user))
+                    return result;
 
                 var svc = services.GetService<TService>();
                 if (svc != null)
@@ -33,7 +26,7 @@ namespace Discord.Addons.MpGame
                     var game = svc.GetGameFromChannel(context.Channel);
                     if (game != null)
                     {
-                        var player = game.Players.SingleOrDefault(p => p.User.Id == id);
+                        var player = game.Players.SingleOrDefault(p => p.User.Id == user.Id);
                         return (player != null)
                             ? TypeReaderResult.FromSuccess(player)
                             : TypeReaderResult.FromError(CommandError.ObjectNotFound, "Specified user not a player in this game.");

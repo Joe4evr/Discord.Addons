@@ -1,5 +1,5 @@
 ﻿<Project>
-    <!--<Import Condition="'$(Configuration)' == 'Debug'" Project=".\Analyzers.props" />-->
+    <Import Condition="'$(Configuration)' == 'Debug'" Project=".\Analyzers.props" />
     <PropertyGroup Label="Configuration">
         <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
         <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -26,11 +26,13 @@
         <MpGameSuffix>alpha5</MpGameSuffix>
         <SimplePermMajor>1</SimplePermMajor>
         <SimplePermSuffix>alpha1</SimplePermSuffix>
+        <PreconMajor>1</PreconMajor>
+        <PreconSuffix>alpha1</PreconSuffix>
 </PropertyGroup>
     <ItemGroup>
         <!--<PackageReference Include="System.ValueTuple" Version="4.4.0" />-->
-        <PackageReference Include="Discord.Net.Commands" Version="2.0.0-beta2-00915" />
-        <PackageReference Include="Discord.Net.WebSocket" Version="2.0.0-beta2-00915" />
+        <PackageReference Include="Discord.Net.Commands" Version="2.0.0-beta2-00933" />
+        <PackageReference Include="Discord.Net.WebSocket" Version="2.0.0-beta2-00933" />
     </ItemGroup>
     <PropertyGroup Condition="'$(Configuration)' == 'Release'">
         <Optimize>True</Optimize>
