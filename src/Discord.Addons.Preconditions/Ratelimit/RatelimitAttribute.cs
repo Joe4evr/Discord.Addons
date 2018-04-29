@@ -23,15 +23,17 @@ namespace Discord.Addons.Preconditions
         /// <param name="times">The number of times a user may use the command within a certain period.</param>
         /// <param name="period">The amount of time since first invoke a user has until the limit is lifted.</param>
         /// <param name="measure">The scale in which the <paramref name="period"/> parameter should be measured.</param>
-        /// <param name="noLimitInDMs">Set whether or not there is no limit to the command in DMs. Defaults to false.</param>
-        /// <param name="noLimitForAdmins">Set whether or not there is no limit to the command for guild admins. Defaults to false.</param>
-        /// <param name="applyPerGuild">Set whether or not to apply a limit per guild. Defaults to false.</param>
-        public RatelimitAttribute(uint times, double period, Measure measure, bool noLimitInDMs = false, bool noLimitForAdmins = false, bool applyPerGuild = false)
+        /// <param name="flags">Flags to set behavior of the ratelimit.</param>
+        public RatelimitAttribute(
+            uint times,
+            double period,
+            Measure measure,
+            RatelimitFlags flags = RatelimitFlags.None)
         {
             _invokeLimit = times;
-            _noLimitInDMs = noLimitInDMs;
-            _noLimitForAdmins = noLimitForAdmins;
-            _applyPerGuild = applyPerGuild;
+            _noLimitInDMs = (flags & RatelimitFlags.NoLimitInDMs) == RatelimitFlags.NoLimitInDMs;
+            _noLimitForAdmins = (flags & RatelimitFlags.NoLimitForAdmins) == RatelimitFlags.NoLimitForAdmins;
+            _applyPerGuild = (flags & RatelimitFlags.ApplyPerGuild) == RatelimitFlags.ApplyPerGuild;
 
             //TODO: C# 8 candidate switch expression
             switch (measure)
@@ -51,16 +53,18 @@ namespace Discord.Addons.Preconditions
         /// <summary> Sets how often a user is allowed to use this command. </summary>
         /// <param name="times">The number of times a user may use the command within a certain period.</param>
         /// <param name="period">The amount of time since first invoke a user has until the limit is lifted.</param>
-        /// <param name="noLimitInDMs">Set whether or not there is no limit to the command in DMs. Defaults to false.</param>
-        /// <param name="noLimitForAdmins">Set whether or not there is no limit to the command for guild admins. Defaults to false.</param>
-        /// <param name="applyPerGuild">Set whether or not to apply a limit per guild. Defaults to false.</param>
-        public RatelimitAttribute(uint times, TimeSpan period, bool noLimitInDMs = false, bool noLimitForAdmins = false, bool applyPerGuild = false)
+        /// <param name="flags">Flags to set bahavior of the ratelimit.</param>
+        public RatelimitAttribute(
+            uint times,
+            TimeSpan period,
+            RatelimitFlags flags = RatelimitFlags.None)
         {
             _invokeLimit = times;
-            _noLimitInDMs = noLimitInDMs;
-            _noLimitForAdmins = noLimitForAdmins;
+            _noLimitInDMs = (flags & RatelimitFlags.NoLimitInDMs) == RatelimitFlags.NoLimitInDMs;
+            _noLimitForAdmins = (flags & RatelimitFlags.NoLimitForAdmins) == RatelimitFlags.NoLimitForAdmins;
+            _applyPerGuild = (flags & RatelimitFlags.ApplyPerGuild) == RatelimitFlags.ApplyPerGuild;
+
             _invokeLimitPeriod = period;
-            _applyPerGuild = applyPerGuild;
         }
 
         /// <inheritdoc />
@@ -95,7 +99,7 @@ namespace Discord.Addons.Preconditions
             }
         }
 
-        private class CommandTimeout
+        private sealed class CommandTimeout
         {
             public uint TimesInvoked { get; set; }
             public DateTime FirstInvoke { get; }
@@ -118,5 +122,22 @@ namespace Discord.Addons.Preconditions
 
         /// <summary> Period is measured in minutes. </summary>
         Minutes
+    }
+
+    /// <summary> Used to set behavior of the ratelimit </summary>
+    [Flags]
+    public enum RatelimitFlags
+    {
+        /// <summary> Set none of the flags. </summary>
+        None = 0,
+
+        /// <summary> Set whether or not there is no limit to the command in DMs. </summary>
+        NoLimitInDMs = 1 << 0,
+
+        /// <summary> Set whether or not there is no limit to the command for guild admins. </summary>
+        NoLimitForAdmins = 1 << 1,
+
+        /// <summary> Set whether or not to apply a limit per guild. </summary>
+        ApplyPerGuild = 1 << 2
     }
 }

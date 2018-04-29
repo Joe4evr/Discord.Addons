@@ -27,7 +27,7 @@
         <SimplePermMajor>1</SimplePermMajor>
         <SimplePermSuffix>alpha1</SimplePermSuffix>
         <PreconMajor>1</PreconMajor>
-        <PreconSuffix>alpha1</PreconSuffix>
+        <PreconSuffix>alpha2</PreconSuffix>
 </PropertyGroup>
     <ItemGroup>
         <!--<PackageReference Include="System.ValueTuple" Version="4.4.0" />-->

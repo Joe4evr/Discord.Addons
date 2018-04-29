@@ -2,8 +2,8 @@
     <Import Project="..\..\DiscordAddonsCore.props" />
     <PropertyGroup>
         <AssemblyName>Discord.Addons.Preconditions</AssemblyName>
-        <VersionPrefix>1.2.0</VersionPrefix>
-        <VersionSuffix>alpha1</VersionSuffix>
+        <VersionPrefix>$(PreconMajor).$(DnetVersion).0</VersionPrefix>
+        <VersionSuffix>$(PreconSuffix)</VersionSuffix>
         <Description>Useful preconditions for Discord.Net 2.0.</Description>
         <Authors>Joe4evr</Authors>
         <PackageTags>discord;commands;preconditions</PackageTags>
