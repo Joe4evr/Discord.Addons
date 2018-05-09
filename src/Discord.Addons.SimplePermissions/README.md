@@ -21,19 +21,23 @@ Next, create an instance of your config store as your bot starts
 up and call the `UseSimplePermissions()` extension method.
 ```cs
 // At the top in your Program class:
-private readonly IConfigStore<MyBotConfig> configstore = new JsonConfigStore<MyBotConfig>("config.json");
+private readonly IConfigStore<MyBotConfig> _configstore = new JsonConfigStore<MyBotConfig>("config.json");
 
-// When adding all your modules:
-await commandService.UseSimplePermissions(client, configstore, map, Logger);
+// When configuring all your services:
+.AddSingleton(new PermissionsService(_configstore, _commands, _client, Logger))
 // 'Logger' is an optional delegate that can point to your logging method
+
+// When setting up your commands:
+await _commands.AddModuleAsync<PermissionsModule>(_services);
 ```
 
-Now you can also use the `configstore` for other parts of your configuration.
-Note, since the config now has to be an `IDisposable` too, wrap all the access
+Now you can also use the `_configstore` for other parts of your configuration.
+Note, since the config is also an `IDisposable`, wrap all the access
 to the config object in a `using` statement:
 ```cs
 using (var config = configstore.Load())
 {
+    // Actually a pretty bad idea, but it demonstrates well
     await client.LoginAsync(TokenType.Bot, config.Token);
 }
 ```
@@ -67,7 +71,7 @@ BotOwner
 ```
 
 The first four levels are in a hierarchy; these can execute
-commands of their own level or below. `Special` and `BotOwner` are **not**
+commands of their own level or of lower value. `Special` and `BotOwner` are **not**
 part of the permission hierarchy, these must match ***exactly*** in order to pass.
 
 Once your bot has joined a new Guild (server), the owner of that Guild has to set
