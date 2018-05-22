@@ -16,9 +16,9 @@ namespace Discord.Addons.SimplePermissions
     /// <typeparam name="TChannel">The Channel configuration type.</typeparam>
     /// <typeparam name="TUser">The User configuration type.</typeparam>
     public abstract partial class EFBaseConfigContext<TGuild, TChannel, TUser> : DbContext
-        where TGuild   : ConfigGuild<TChannel, TUser>, new()
+        where TGuild : ConfigGuild<TChannel, TUser>, new()
         where TChannel : ConfigChannel<TUser>, new()
-        where TUser    : ConfigUser, new()
+        where TUser : ConfigUser, new()
     {
         /// <summary> </summary>
         public DbSet<TGuild> Guilds { get; set; }
@@ -64,85 +64,82 @@ namespace Discord.Addons.SimplePermissions
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ChannelUser<TChannel, TUser>>()
-                .HasOne(cu => cu.Channel);
+            modelBuilder.Entity<TGuild>(guild =>
+            {
+                guild.Property<long>("GuildSnowflake")
+                    .HasField(nameof(ConfigGuild._gid))
+                    .IsRequired(true);
 
-            modelBuilder.Entity<ChannelUser<TChannel, TUser>>()
-                .HasOne(cu => cu.User);
+                guild.HasIndex("GuildSnowflake")
+                    .IsUnique(true);
 
-            modelBuilder.Entity<ChannelModule<TChannel, TUser>>()
-                .HasOne(cm => cm.Channel);
+                guild.Property<long>("AdminRoleSnowflake")
+                    .HasField(nameof(ConfigGuild._aid))
+                    .HasDefaultValue(0L)
+                    .ValueGeneratedNever()
+                    .IsRequired(true);
 
-            modelBuilder.Entity<ChannelModule<TChannel, TUser>>()
-                .HasOne(cm => cm.Module);
+                guild.Property<long>("ModRoleSnowflake")
+                    .HasField(nameof(ConfigGuild._mid))
+                    .HasDefaultValue(0L)
+                    .ValueGeneratedNever()
+                    .IsRequired(true);
 
-            modelBuilder.Entity<GuildModule<TGuild, TChannel, TUser>>()
-                .HasOne(gm => gm.Guild);
+                guild.HasMany(g => g.WhiteListedModules);
 
-            modelBuilder.Entity<GuildModule<TGuild, TChannel, TUser>>()
-                .HasOne(gm => gm.Module);
+                guild.HasMany(g => g.Channels);
+            });
 
+            modelBuilder.Entity<TChannel>(channel =>
+            {
+                channel.Property<long>("ChannelSnowflake")
+                    .HasField(nameof(ConfigChannel._cid))
+                    .IsRequired(true);
 
+                channel.HasIndex("ChannelSnowflake")
+                    .IsUnique(true);
 
-            modelBuilder.Entity<ConfigModule>()
-                .HasAlternateKey(e => e.ModuleName);
+                channel.HasMany(c => c.SpecialUsers);
 
-            modelBuilder.Entity<TUser>()
-                .Property<long>("User_Id")
-                .HasField("_uid")
-                .IsRequired(true);
+                channel.HasMany(c => c.WhiteListedModules);
+            });
 
+            modelBuilder.Entity<TUser>(user =>
+            {
+                user.Property<long>("UserSnowflake")
+                    .HasField(nameof(ConfigUser._uid))
+                    .IsRequired(true);
 
-            modelBuilder.Entity<TChannel>()
-                .Property<long>("Channel_Id")
-                .HasField("_cid")
-                .IsRequired(true);
+                user.HasIndex("UserSnowflake")
+                    .IsUnique(true);
+            });
 
+            modelBuilder.Entity<ConfigModule>(module =>
+            {
+                module.HasAlternateKey(e => e.ModuleName);
+            });
 
-            modelBuilder.Entity<TChannel>()
-                .HasMany(c => c.SpecialUsers);
+            modelBuilder.Entity<ChannelUser<TChannel, TUser>>(channelUser =>
+            {
+                channelUser.HasOne(cu => cu.Channel);
 
-            modelBuilder.Entity<TChannel>()
-                .HasMany(c => c.WhiteListedModules);
+                channelUser.HasOne(cu => cu.User);
+            });
 
+            modelBuilder.Entity<ChannelModule<TChannel, TUser>>(channelModule =>
+            {
+                channelModule.HasOne(cm => cm.Channel);
 
-            modelBuilder.Entity<TGuild>()
-                .Property<long>("Guild_Id")
-                .HasField("_gid")
-                .IsRequired(true);
+                channelModule.HasOne(cm => cm.Module);
+            });
 
-            modelBuilder.Entity<TGuild>()
-                .Property<long>("Mod_Id")
-                .HasField("_mid")
-                .HasDefaultValue(0L)
-                .ValueGeneratedNever()
-                .IsRequired(true);
+            modelBuilder.Entity<GuildModule<TGuild, TChannel, TUser>>(guildModule =>
+            {
+                guildModule.HasOne(gm => gm.Guild);
 
-            modelBuilder.Entity<TGuild>()
-                .Property<long>("Admin_Id")
-                .HasField("_aid")
-                .HasDefaultValue(0L)
-                .ValueGeneratedNever()
-                .IsRequired(true);
+                guildModule.HasOne(gm => gm.Module);
+            });
 
-
-            modelBuilder.Entity<TGuild>()
-                .HasMany(g => g.WhiteListedModules);
-
-            modelBuilder.Entity<TGuild>()
-                .HasMany(g => g.Channels);
-
-
-            //modelBuilder.Entity<GuildModule<TGuild, TChannel, TUser>>()
-            //    .HasAlternateKey(gm => new { gm.Guild, gm.Module });
-
-            //modelBuilder.Entity<ChannelModule<TChannel, TUser>>()
-            //    .HasAlternateKey(cm => new { cm.Channel, cm.Module });
-
-            //modelBuilder.Entity<ChannelUser<TChannel, TUser>>()
-            //    .HasAlternateKey(cu => new { cu.Channel, cu.User });
-
-            // TODO: test this
             modelBuilder.Ignore<ChannelModule<ConfigChannel<TUser>, TUser>>()
                 .Ignore<ChannelUser<ConfigChannel<TUser>, TUser>>()
                 .Ignore<GuildModule<ConfigGuild<TChannel, TUser>, TChannel, TUser>>();

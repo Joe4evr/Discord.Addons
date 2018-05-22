@@ -15,7 +15,7 @@ namespace Discord.Addons.SimplePermissions
         Task<bool> GetFancyHelpValue(IGuild guild);
 
         /// <summary> Add a new Guild (and all its Channels) to the config. </summary>
-        Task AddNewGuild(IGuild guild);
+        Task AddNewGuild(IGuild guild, IReadOnlyCollection<IGuildUser> users);
 
         /// <summary> Add a new Channel to the config. </summary>
         Task AddChannel(ITextChannel channel);
@@ -34,12 +34,12 @@ namespace Discord.Addons.SimplePermissions
         /// <summary> Sets the ID of the group that is considered
         /// the Admin role in a specified guild. </summary>
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
-        Task<bool> SetGuildAdminRole(IGuild guild, IRole role);
+        Task<bool> SetGuildAdminRole(IRole role);
 
         /// <summary> Sets the ID of the group that is considered
         /// the Moderator role in a specified guild. </summary>
         /// <returns><see cref="true"/> if the operation succeeded.</returns>
-        Task<bool> SetGuildModRole(IGuild guild, IRole role);
+        Task<bool> SetGuildModRole(IRole role);
 
         /// <summary> Gets the list of modules that are
         /// whitelisted in a specified channel. </summary>

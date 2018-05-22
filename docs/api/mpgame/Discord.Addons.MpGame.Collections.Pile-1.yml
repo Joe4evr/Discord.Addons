@@ -1112,7 +1112,7 @@ items:
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame.Collections
-  summary: "\nPuts the top card of *this* pile on top of another pile.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanDraw\" data-throw-if-not-resolved=\"false\"></xref> on this pile and <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanPut\" data-throw-if-not-resolved=\"false\"></xref>\non the target pile.\n"
+  summary: "\nPuts the top card of *this* pile on top of another pile.\nRequires <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanDraw\" data-throw-if-not-resolved=\"false\"></xref> on this pile\nand <xref href=\"Discord.Addons.MpGame.Collections.Pile%601.CanPut\" data-throw-if-not-resolved=\"false\"></xref> on the target pile.\n"
   remarks: >-
     <div class="NOTE"><h5>note</h5><p>Calls <xref href="Discord.Addons.MpGame.Collections.Pile%601.OnPut(%600)" data-throw-if-not-resolved="false"></xref> on the target pile.
         If the last card of this pile was taken, calls

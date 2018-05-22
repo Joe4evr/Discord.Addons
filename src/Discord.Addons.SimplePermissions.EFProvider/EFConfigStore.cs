@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,13 +17,16 @@ namespace Discord.Addons.SimplePermissions
     /// <typeparam name="TUser">The User configuration type.</typeparam>
     public partial class EFConfigStore<TContext, TGuild, TChannel, TUser> : IConfigStore<TContext>
         where TContext : EFBaseConfigContext<TGuild, TChannel, TUser>
-        where TGuild   : ConfigGuild<TChannel, TUser>, new()
+        where TGuild : ConfigGuild<TChannel, TUser>, new()
         where TChannel : ConfigChannel<TUser>, new()
-        where TUser    : ConfigUser, new()
+        where TUser : ConfigUser, new()
     {
         private readonly CommandService _commands;
 
         private readonly Func<LogMessage, Task> _logger;
+        private IServiceProvider _services;
+
+        public IServiceProvider Services { set => Interlocked.CompareExchange(ref _services, value, null); }
 
         /// <summary> Initializes a new instance of <see cref="EFConfigStore{TContext}"/>. </summary>
         public EFConfigStore(
@@ -34,9 +38,14 @@ namespace Discord.Addons.SimplePermissions
         }
 
         /// <summary> Loads an instance of the DB Context. </summary>
-        public TContext Load(IServiceProvider services)
+        /// <exception cref="InvalidOperationException">
+        /// <see cref="Services"/> was not set.</exception>
+        public TContext Load()
         {
-            var ctx = services.CreateScope().ServiceProvider.GetService<TContext>();
+            if (_services == null)
+                ThrowHelper.ThrowInvalidOp("It is required to set the 'Services' property before loading a Config Context.");
+
+            var ctx = _services.CreateScope().ServiceProvider.GetService<TContext>();
             ctx.ModuleInfos = _commands.Modules.ToDictionary(m => m.Name, StringComparer.OrdinalIgnoreCase);
             return ctx;
         }

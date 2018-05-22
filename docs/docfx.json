@@ -11,6 +11,18 @@
       "dest": "api/mpgame",
       "filter": "filterConfig.yml",
       "disableGitFeatures": false
+    },
+    {
+      "src": [
+        {
+          "files": [ "Discord.Addons.SimpleAudio/Discord.Addons.SimpleAudio.csproj" ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
+          "src": "../src"
+        }
+      ],
+      "dest": "api/audio",
+      "filter": "filterConfig.yml",
+      "disableGitFeatures": false
     }
   ],
   "build": {

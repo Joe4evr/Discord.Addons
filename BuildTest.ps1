@@ -10,11 +10,11 @@
 
     BuildAndTest([string] $name)
     {
-        Write-Host "Restoring pakcages for project '$name'";
-        dotnet restore $this.ProjectLocation | Write-Host -ForegroundColor DarkGray;
+        Write-Host "Building packages for project '$name'";
+        dotnet build $this.ProjectLocation -c Release | Write-Host -ForegroundColor DarkGray;
         if ($LastExitCode -ne 0)
         {
-            Write-Host "Failed to find/restore project" -ForegroundColor Red;
+            Write-Host "Failed to build project" -ForegroundColor Red;
             return;
         }
 
@@ -69,10 +69,10 @@ else
     }
 }
 
-Write-Host "Building docs";
-docfx "docs\docfx.json" | Write-Host -ForegroundColor DarkGray;
-if ($LastExitCode -ne 0)
-{
-    Write-Host "Docs building failed" -ForegroundColor Red;
-    return;
-}
+# Write-Host "Building docs";
+# docfx "docs\docfx.json" | Write-Host -ForegroundColor DarkGray;
+# if ($LastExitCode -ne 0)
+# {
+    # Write-Host "Docs building failed" -ForegroundColor Red;
+    # return;
+# }

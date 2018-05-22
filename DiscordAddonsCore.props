@@ -10,12 +10,12 @@
         <RootNamespace>$(AssemblyName)</RootNamespace>
         <Title>$(AssemblyName)</Title>
         <Authors>Joe4evr</Authors>
-        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
         <PackageProjectUrl>https://github.com/Joe4evr/Discord.Addons</PackageProjectUrl>
         <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
-        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>7.2</LangVersion>
     </PropertyGroup>
@@ -25,7 +25,7 @@
         <MpGameMajor>1</MpGameMajor>
         <MpGameSuffix>alpha5</MpGameSuffix>
         <SimplePermMajor>1</SimplePermMajor>
-        <SimplePermSuffix>alpha1</SimplePermSuffix>
+        <SimplePermSuffix>alpha3</SimplePermSuffix>
         <PreconMajor>1</PreconMajor>
         <PreconSuffix>alpha2</PreconSuffix>
 </PropertyGroup>

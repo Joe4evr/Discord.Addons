@@ -42,7 +42,7 @@ namespace Discord.Addons.SimplePermissions
 
         /// <summary> </summary>
         [NotMapped]
-        public ulong ModRole
+        public ulong ModRoleId
         {
             get => unchecked((ulong)_mid);
             set => _mid = unchecked((long)value);
@@ -50,7 +50,7 @@ namespace Discord.Addons.SimplePermissions
 
         /// <summary> </summary>
         [NotMapped]
-        public ulong AdminRole
+        public ulong AdminRoleId
         {
             get => unchecked((ulong)_aid);
             set => _aid = unchecked((long)value);
@@ -74,7 +74,7 @@ namespace Discord.Addons.SimplePermissions
         public bool HidePermCommands { get; set; }
 
         /// <summary> </summary>
-        public IEnumerable<TChannel> Channels { get; set; }
+        public ICollection<TChannel> Channels { get; set; }
     }
 
     public class ConfigGuild<TUser> : ConfigGuild<ConfigChannel<TUser>, TUser>

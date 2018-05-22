@@ -10,6 +10,6 @@ namespace Discord.Addons.SimplePermissions
     {
         /// <summary> Load the configuration object. </summary>
         /// <returns>The config object.</returns>
-        TConfig Load(IServiceProvider services = null);
+        TConfig Load();
     }
 }

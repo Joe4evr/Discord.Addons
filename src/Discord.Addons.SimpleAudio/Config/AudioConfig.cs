@@ -4,12 +4,14 @@ using System.Collections.Generic;
 
 namespace Discord.Addons.SimpleAudio
 {
-    /// <summary>  </summary>
+    /// <summary>
+    /// Global configuration for SimpleAudio.
+    /// </summary>
     public sealed class AudioConfig
     {
         private IDictionary<ulong, IAudioGuildConfig> _guildConfigs = new Dictionary<ulong, IAudioGuildConfig>();
 
-        /// <summary>  </summary>
+        /// <summary> Initializes a new instance of the global configuration. </summary>
         /// <param name="ffmpegPath">Path to 'ffmpeg.exe'.</param>
         /// <param name="musicBasePath">Base path to find music files.</param>
         /// <exception cref="AggregateException">Argument '<paramref name="ffmpegPath"/>' did not point to a valid file path

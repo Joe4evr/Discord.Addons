@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Discord.Addons.MpGame.Collections;
 using Xunit;
@@ -42,7 +43,7 @@ namespace MpGame.Tests.CollectionTests
                 var pile = new TestPile(withPerms: PilePerms.All ^ PilePerms.CanBrowse, cards: TestCard.Factory(20));
                 var priorSize = pile.Count;
 
-                var ex = Assert.Throws<InvalidOperationException>(() => pile.AsEnumerable().Any());
+                var ex = Assert.Throws<InvalidOperationException>(() => pile.AsEnumerable());
                 Assert.Equal(expected: ErrorStrings.NoBrowse, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
@@ -65,6 +66,30 @@ namespace MpGame.Tests.CollectionTests
 
 
                 Assert.Equal(expected: expectedSeq, actual: pile.AsEnumerable().Select(c => c.Id));
+                Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
+            }
+
+            [Fact]
+            public void ThrowsWhenAttemptingToChangeDuringEnumeration()
+            {
+                var pile = new TestPile(withPerms: PilePerms.CanBrowse | PilePerms.CanDraw, cards: TestCard.Factory(20));
+                var expectedSeq = new[]
+                {
+                     1, 2, 3, 4, 5, 6, 7, 8, 9,10,
+                    11,12,13,14,15,16,17,18,19,20
+                };
+
+                int i = 0;
+                foreach (var item in pile.AsEnumerable())
+                {
+                    if (i >= 3)
+                    {
+                        var ex = Assert.Throws<LockRecursionException>(() => pile.Draw());
+
+                        break;
+                    }
+                    i++;
+                }
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
             }
         }
@@ -401,7 +426,7 @@ namespace MpGame.Tests.CollectionTests
                 var pile = new TestPile(withPerms: PilePerms.All ^ PilePerms.CanCut, cards: TestCard.Factory(20));
                 var priorSize = pile.Count;
 
-                var ex = Assert.Throws<InvalidOperationException>(() => pile.Cut(cutAmount: 10));
+                var ex = Assert.Throws<InvalidOperationException>(() => pile.Cut(amount: 10));
                 Assert.Equal(expected: ErrorStrings.NoCut, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
@@ -412,9 +437,9 @@ namespace MpGame.Tests.CollectionTests
                 var pile = new TestPile(withPerms: PilePerms.CanCut, cards: TestCard.Factory(20));
                 var priorSize = pile.Count;
 
-                var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.Cut(cutAmount: -1));
+                var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.Cut(amount: -1));
                 Assert.StartsWith(expectedStartString: ErrorStrings.CutAmountNegative, actualString: ex.Message);
-                Assert.Equal(expected: "cutAmount", actual: ex.ParamName);
+                Assert.Equal(expected: "amount", actual: ex.ParamName);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
 
@@ -424,9 +449,9 @@ namespace MpGame.Tests.CollectionTests
                 var pile = new TestPile(withPerms: PilePerms.CanCut, cards: TestCard.Factory(20));
                 var priorSize = pile.Count;
 
-                var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.Cut(cutAmount: pile.Count + 1));
+                var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.Cut(amount: pile.Count + 1));
                 Assert.StartsWith(expectedStartString: ErrorStrings.CutAmountTooHigh, actualString: ex.Message);
-                Assert.Equal(expected: "cutAmount", actual: ex.ParamName);
+                Assert.Equal(expected: "amount", actual: ex.ParamName);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
 
@@ -435,7 +460,7 @@ namespace MpGame.Tests.CollectionTests
             {
                 var pile = new TestPile(withPerms: PilePerms.CanCut | PilePerms.CanBrowse, cards: TestCard.Factory(20));
                 var priorSize = pile.Count;
-                pile.Cut(cutAmount: 10);
+                pile.Cut(amount: 10);
                 var expectedSeq = new[]
                 {
                     11,12,13,14,15,16,17,18,19,20,
@@ -604,7 +629,7 @@ namespace MpGame.Tests.CollectionTests
         public sealed class Mill
         {
             [Fact]
-            public void ThrowsWhenNotDrawable()
+            public void ThrowsWhenNotSourceDrawable()
             {
                 var source = new TestPile(withPerms: PilePerms.All ^ PilePerms.CanDraw, cards: TestCard.Factory(20));
                 var target = new TestPile(withPerms: PilePerms.CanPut, cards: Enumerable.Empty<TestCard>());
@@ -618,7 +643,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void ThrowsWhenNotPuttable()
+            public void ThrowsWhenTargetNotPuttable()
             {
                 var source = new TestPile(withPerms: PilePerms.CanDraw, cards: TestCard.Factory(20));
                 var target = new TestPile(withPerms: PilePerms.All ^ PilePerms.CanPut, cards: Enumerable.Empty<TestCard>());
@@ -648,14 +673,33 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void DecreasesSourseSizeIncreasesTargetSizeByOne()
             {
-                var source = new TestPile(withPerms: PilePerms.CanDraw, cards: TestCard.Factory(20));
-                var target = new TestPile(withPerms: PilePerms.CanPut, cards: Enumerable.Empty<TestCard>());
+                var source = new TestPile(withPerms: PilePerms.CanDraw | PilePerms.CanPeek, cards: TestCard.Factory(1));
+                var target = new TestPile(withPerms: PilePerms.CanPut  | PilePerms.CanPeek, cards: Enumerable.Empty<TestCard>());
                 var sourceSize = source.Count;
                 var targetSize = target.Count;
+                var topcard = source.PeekTop(1).Single();
+                int firstCall = 0;
+                bool putCalled = false;
+                bool lastRmCalled = false;
+
+                target.PutCalled += (s, e) =>
+                {
+                    putCalled = true;
+                    Interlocked.CompareExchange(ref firstCall, value: 1, comparand: 0);
+                };
+                source.LastRemoveCalled += (s, e) =>
+                {
+                    lastRmCalled = true;
+                    Interlocked.CompareExchange(ref firstCall, value: 2, comparand: 0);
+                };
 
                 source.Mill(target);
+                Assert.True(lastRmCalled);
+                Assert.True(putCalled);
+                Assert.Equal(expected: 1, actual: firstCall);
                 Assert.Equal(expected: sourceSize - 1, actual: source.Count);
                 Assert.Equal(expected: targetSize + 1, actual: target.Count);
+                Assert.Same(expected: topcard, actual: target.PeekTop(1).Single());
             }
         }
 

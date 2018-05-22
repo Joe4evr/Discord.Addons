@@ -189,7 +189,7 @@ namespace Discord.Addons.SimplePermissions
                 return;
             }
 
-            if (await _permService.SetGuildAdminRole(Context.Guild, role).ConfigureAwait(false))
+            if (await _permService.SetGuildAdminRole(role).ConfigureAwait(false))
                 await ReplyAsync($"Set **{role.Name}** as the admin role for this server.").ConfigureAwait(false);
         }
 
@@ -206,7 +206,7 @@ namespace Discord.Addons.SimplePermissions
                 return;
             }
 
-            if (await _permService.SetGuildModRole(Context.Guild, role).ConfigureAwait(false))
+            if (await _permService.SetGuildModRole(role).ConfigureAwait(false))
                 await ReplyAsync($"Set **{role.Name}** as the mod role for this server.").ConfigureAwait(false);
         }
 

@@ -39,7 +39,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <exception cref="ArgumentNullException"><paramref name="cards"/> was <see langword="null"/>.</exception>
         public Hand(IEnumerable<TCard> cards)
         {
-            ThrowArgNull(cards, nameof(cards));
+            ThrowHelper.ThrowIfArgNull(cards, nameof(cards));
 
             _hand = new List<TCard>(cards.Where(c => c != null));
         }
@@ -56,7 +56,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <exception cref="ArgumentNullException"><paramref name="card"/> was <see langword="null"/>.</exception>
         public void Add(TCard card)
         {
-            ThrowArgNull(card, nameof(card));
+            ThrowHelper.ThrowIfArgNull(card, nameof(card));
 
             using (_rwlock.UsingWriteLock())
             {
@@ -103,13 +103,13 @@ namespace Discord.Addons.MpGame.Collections
         /// <paramref name="orderFunc"/> was <see langword="null"/>.</exception>
         public void Order(Func<ImmutableArray<TCard>, IEnumerable<TCard>> orderFunc)
         {
-            ThrowArgNull(orderFunc, nameof(orderFunc));
+            ThrowHelper.ThrowIfArgNull(orderFunc, nameof(orderFunc));
 
             using (_rwlock.UsingWriteLock())
             {
                 var newOrder = orderFunc(_hand.ToImmutableArray());
                 if (newOrder == null)
-                    ThrowInvalidOp(ErrorStrings.NewSequenceNull);
+                    ThrowHelper.ThrowInvalidOp(ErrorStrings.NewSequenceNull);
 
                 _hand = new List<TCard>(newOrder);
             }
@@ -124,9 +124,9 @@ namespace Discord.Addons.MpGame.Collections
         public TCard TakeAt(int index)
         {
             if (index < 0)
-                ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
+                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
             if (index >= Count)
-                ThrowArgOutOfRange(ErrorStrings.RetrievalTooHighH, nameof(index));
+                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalTooHighH, nameof(index));
 
             using (_rwlock.UsingWriteLock())
             {
@@ -144,7 +144,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <exception cref="ArgumentNullException"><paramref name="predicate"/> was <see langword="null"/>.</exception>
         public TCard TakeFirstOrDefault(Func<TCard, bool> predicate)
         {
-            ThrowArgNull(predicate, nameof(predicate));
+            ThrowHelper.ThrowIfArgNull(predicate, nameof(predicate));
 
             using (_rwlock.UsingWriteLock())
             {
@@ -155,21 +155,5 @@ namespace Discord.Addons.MpGame.Collections
                 return tmp;
             }
         }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void ThrowInvalidOp(string msg)
-            => throw new InvalidOperationException(message: msg);
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void ThrowArgNull<T>(T arg, string argname)
-            where T : class
-        {
-            if (arg == null)
-                throw new ArgumentNullException(paramName: argname);
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void ThrowArgOutOfRange(string msg, string argname)
-            => throw new ArgumentOutOfRangeException(message: msg, paramName: argname);
     }
 }

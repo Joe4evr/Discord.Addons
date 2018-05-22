@@ -78,7 +78,8 @@ namespace Discord.Addons.SimplePermissions
             {
                 using (var config = ConfigStore.Load())
                 {
-                    await config.AddNewGuild(guild).ConfigureAwait(false);
+                    await guild.DownloadUsersAsync().ConfigureAwait(false);
+                    await config.AddNewGuild(guild, guild.Users).ConfigureAwait(false);
                     config.Save();
                 }
             });
@@ -240,27 +241,25 @@ namespace Discord.Addons.SimplePermissions
             return Task.CompletedTask;
         }
 
-        internal async Task<bool> SetGuildAdminRole(IGuild guild, IRole role)
+        internal async Task<bool> SetGuildAdminRole(IRole role)
         {
             using (var config = ConfigStore.Load())
             {
                 await _lock.WaitAsync();
-                var result = await config.SetGuildAdminRole(guild, role).ConfigureAwait(false);
+                var result = await config.SetGuildAdminRole(role).ConfigureAwait(false);
                 config.Save();
-                //await ReadOnlyConfig.SetGuildAdminRole(guild, role).ConfigureAwait(false);
                 _lock.Release();
                 return result;
             }
         }
 
-        internal async Task<bool> SetGuildModRole(IGuild guild, IRole role)
+        internal async Task<bool> SetGuildModRole(IRole role)
         {
             using (var config = ConfigStore.Load())
             {
                 await _lock.WaitAsync();
-                var result = await config.SetGuildModRole(guild, role).ConfigureAwait(false);
+                var result = await config.SetGuildModRole(role).ConfigureAwait(false);
                 config.Save();
-                //await ReadOnlyConfig.SetGuildModRole(guild, role).ConfigureAwait(false);
                 _lock.Release();
                 return result;
             }

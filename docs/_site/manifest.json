@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "api/mpgame/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html",
-          "hash": "+1tNWFkEMY5y4btxzecBxA=="
+          "hash": "QoDLLG/NN/jBZiGisZ6skQ=="
         }
       },
       "is_incremental": true,
@@ -21,10 +21,10 @@
       "output": {
         ".html": {
           "relative_path": "api/mpgame/Discord.Addons.MpGame.Collections.Hand-1.html",
-          "hash": "8/njkxbABhEuVVn7BO1oag=="
+          "hash": "qV9Gft2OZtrUJXDSxlH6mg=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/mpgame/Discord.Addons.MpGame.Collections.Pile-1.html",
-          "hash": "4ZbbTjKTd7iKpysvcJqdvw=="
+          "hash": "wfxUf55Vbo96kWHT6ItvWw=="
         }
       },
       "is_incremental": true,
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/mpgame/Discord.Addons.MpGame.Collections.html",
-          "hash": "3mT/K37+2zDMRHR9Ko4A4w=="
+          "hash": "SvnDe8REI4BqsPZMCnJypQ=="
         }
       },
       "is_incremental": true,
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "api/mpgame/Discord.Addons.MpGame.CurrentlyPlaying.html",
-          "hash": "p4m8xeSSkO4wgemiZz0nGg=="
+          "hash": "iQ2cVFAu6F/QosKzou+kyQ=="
         }
       },
       "is_incremental": true,
@@ -69,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "api/mpgame/Discord.Addons.MpGame.GameBase-1.html",
-          "hash": "QJVpacsA86HipI/WFlohaA=="
+          "hash": "eXaLWTZ0cGScc5yOO6ovYw=="
         }
       },
       "is_incremental": true,
@@ -81,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "api/mpgame/Discord.Addons.MpGame.ILogStrings.html",
-          "hash": "GReFvqUk2Z0ZwN2B9bjcJQ=="
+          "hash": "G8iIGubz9AiANJVXsbVAew=="
         }
       },
       "is_incremental": true,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/mpgame/Discord.Addons.MpGame.IMpGameServiceConfig.html",
-          "hash": "3cGupBDYCoogdwu0fEzvrQ=="
+          "hash": "lmbhQ6twiwbaU/v6IN/aVQ=="
         }
       },
       "is_incremental": true,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/mpgame/Discord.Addons.MpGame.MpGameModuleBase-3.html",
-          "hash": "oFh1hKHZRx9KagiXfiK0jQ=="
+          "hash": "mmw95HVOfVQ37DHoA+xWxA=="
         }
       },
       "is_incremental": true,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "api/mpgame/Discord.Addons.MpGame.MpGameService-2.MpGameData.html",
-          "hash": "IEYJJ/eAksoRynGW9urTnA=="
+          "hash": "pSaX8oMFcSC54TM545X/Sw=="
         }
       },
       "is_incremental": true,
@@ -129,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/mpgame/Discord.Addons.MpGame.MpGameService-2.html",
-          "hash": "3gT/UoefXLcjLrhOYzcIKg=="
+          "hash": "A0e1wPwp7NIY0fXTLubZDQ=="
         }
       },
       "is_incremental": true,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/mpgame/Discord.Addons.MpGame.Player.html",
-          "hash": "B506KuzPmWAQaCf7EKakNA=="
+          "hash": "wn+VJUdqDkUSXSY2CL30iA=="
         }
       },
       "is_incremental": true,
@@ -153,7 +153,7 @@
       "output": {
         ".html": {
           "relative_path": "api/mpgame/Discord.Addons.MpGame.html",
-          "hash": "TGMMYV2BNYw1QFo3jWDeTg=="
+          "hash": "/3f+U4ZwIwP3GCWx68VCbA=="
         }
       },
       "is_incremental": true,
@@ -172,12 +172,27 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "DxTRTRzkyOXR4olUK706nA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "articles/intro.md",
       "output": {
         ".html": {
           "relative_path": "articles/intro.html",
-          "hash": "TseZYTSrjyygn+R9nuYx5A=="
+          "hash": "xrpy/zSSv5bobuIuZmDG/g=="
         }
       },
       "is_incremental": true,
@@ -204,7 +219,7 @@
       "output": {
         ".html": {
           "relative_path": "toc.html",
-          "hash": "DxTRTRzkyOXR4olUK706nA=="
+          "hash": "8Z9r21VbCTW57lSQAj0ROg=="
         }
       },
       "is_incremental": false,

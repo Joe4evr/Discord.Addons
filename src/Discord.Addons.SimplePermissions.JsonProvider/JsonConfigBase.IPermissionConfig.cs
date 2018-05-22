@@ -20,7 +20,7 @@ namespace Discord.Addons.SimplePermissions
             return Task.FromResult(UseFancyHelps[guild.Id]);
         }
 
-        async Task IPermissionConfig.AddNewGuild(IGuild guild)
+        async Task IPermissionConfig.AddNewGuild(IGuild guild, IReadOnlyCollection<IGuildUser> users)
         {
             if (!GuildAdminRole.ContainsKey(guild.Id))
             {
@@ -39,7 +39,7 @@ namespace Discord.Addons.SimplePermissions
                 UseFancyHelps[guild.Id] = false;
             }
 
-            foreach (var channel in await guild.GetTextChannelsAsync())
+            foreach (var channel in await guild.GetTextChannelsAsync().ConfigureAwait(false))
             {
                 if (!ChannelModuleWhitelist.ContainsKey(channel.Id))
                 {
@@ -89,15 +89,15 @@ namespace Discord.Addons.SimplePermissions
             return guild.GetRole(GuildModRole[guild.Id]);
         }
 
-        Task<bool> IPermissionConfig.SetGuildAdminRole(IGuild guild, IRole role)
+        Task<bool> IPermissionConfig.SetGuildAdminRole(IRole role)
         {
-            GuildAdminRole[guild.Id] = role.Id;
+            GuildAdminRole[role.Guild.Id] = role.Id;
             return Task.FromResult(true);
         }
 
-        Task<bool> IPermissionConfig.SetGuildModRole(IGuild guild, IRole role)
+        Task<bool> IPermissionConfig.SetGuildModRole(IRole role)
         {
-            GuildModRole[guild.Id] = role.Id;
+            GuildModRole[role.Guild.Id] = role.Id;
             return Task.FromResult(true);
         }
 

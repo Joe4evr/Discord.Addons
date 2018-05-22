@@ -21,12 +21,12 @@ namespace Discord.Addons.SimpleAudio
         public virtual Task JoinCmd([ValidateVoiceChannel] IVoiceChannel target = null)
         {
             target = target ?? (Context.User as IVoiceState).VoiceChannel;
-            var self = Context.Guild.CurrentUser;
-            if (!self.HasPerms(target, AudioExt.DiscordPermissions.CONNECT))
+            var channelPerms = Context.Guild.CurrentUser.GetPermissions(target);
+            if (!channelPerms.Connect)
             {
                 return ReplyAsync("I can't connect to that channel.");
             }
-            else if (!self.HasPerms(target, AudioExt.DiscordPermissions.SPEAK))
+            else if (!channelPerms.Speak)
             {
                 return ReplyAsync("I can't play in that channel.");
             }
