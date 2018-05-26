@@ -248,7 +248,8 @@ namespace MpGame.Tests.CollectionTests
                 Assert.True(selectorCalled);
                 Assert.False(picks.IsDefault);
                 Assert.NotEmpty(picks);
-                Assert.Equal(expected: 2, actual: picks.Length);
+                //Assert.Equal(expected: 2, actual: picks.Length);
+                Assert.Equal(expected: new[] { 6, 11 }, actual: picks.Select(c => c.Id));
                 Assert.Equal(expected: priorSize - 2, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
             }
@@ -284,7 +285,8 @@ namespace MpGame.Tests.CollectionTests
                 Assert.False(shuffleFuncCalled);
                 Assert.False(picks.IsDefault);
                 Assert.NotEmpty(picks);
-                Assert.Equal(expected: 2, actual: picks.Length);
+                //Assert.Equal(expected: 2, actual: picks.Length);
+                Assert.Equal(expected: new[] { 6, 11 }, actual: picks.Select(c => c.Id));
                 Assert.Equal(expected: priorSize - 2, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
             }
@@ -321,7 +323,8 @@ namespace MpGame.Tests.CollectionTests
                 Assert.True(filterCalled);
                 Assert.False(picks.IsDefault);
                 Assert.NotEmpty(picks);
-                Assert.Single(picks);
+                //Assert.Single(picks);
+                Assert.Equal(expected: new[] { 6 }, actual: picks.Select(c => c.Id));
                 Assert.Equal(expected: priorSize - 1, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
 
@@ -360,7 +363,8 @@ namespace MpGame.Tests.CollectionTests
                 Assert.True(shuffleFuncCalled);
                 Assert.False(picks.IsDefault);
                 Assert.NotEmpty(picks);
-                Assert.Equal(expected: 2, actual: picks.Length);
+                //Assert.Equal(expected: 2, actual: picks.Length);
+                Assert.Equal(expected: new[] { 6, 11 }, actual: picks.Select(c => c.Id));
                 Assert.Equal(expected: priorSize - 2, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
             }

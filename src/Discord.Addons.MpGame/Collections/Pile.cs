@@ -18,8 +18,6 @@ namespace Discord.Addons.MpGame.Collections
     public abstract class Pile<TCard>
         where TCard : class
     {
-        private static readonly Func<TCard, bool> _noFilter = (_ => true);
-
         private readonly ReaderWriterLockSlim _rwlock = new ReaderWriterLockSlim();
 
         private Node _head = null;
@@ -223,7 +221,7 @@ namespace Discord.Addons.MpGame.Collections
 
             using (_rwlock.UsingWriteLock())
             {
-                var cards = GetAllD(filter ?? _noFilter);
+                var cards = GetAllD(filter);
                 //ReaderWriterLockSlim has thread affinity, so
                 //force continuation back onto *this* context.
                 var selection = await selector(cards).ConfigureAwait(true);
@@ -314,14 +312,17 @@ namespace Discord.Addons.MpGame.Collections
 
             using (_rwlock.UsingWriteLock())
             {
-                //'amount' acts as if it's 1-indexed, so subtract one here
-                var tmp = GetNodeAt(amount - 1);
-                _head.Previous = _tail;
-                _tail.Next = _head;
-                _head = tmp.Next;
-                _tail = tmp;
-                _head.Previous = null;
-                _tail.Next = null;
+                var oldHead = _head;
+                var oldTail = _tail;
+                var newHead = GetNodeAt(amount);
+                var newTail = newHead.Previous;
+
+                oldHead.Previous = oldTail;
+                oldTail.Next = oldHead;
+                newHead.Previous = null;
+                newTail.Next = null;
+                _head = newHead;
+                _tail = newTail;
             }
         }
 
@@ -603,7 +604,7 @@ namespace Discord.Addons.MpGame.Collections
 
             for (var (n, i) = (_head, 0); n != null; (n, i) = (n.Next, i + 1))
             {
-                if (predicate(n.Value))
+                if (predicate == null || predicate(n.Value))
                     builder.Add(i, n.Value);
             }
 
@@ -715,9 +716,10 @@ namespace Discord.Addons.MpGame.Collections
         }
         private void AddSequence(IEnumerable<TCard> sequence)
         {
-            foreach (var item in sequence.Where(c => c != null))
+            foreach (var item in sequence)
             {
-                AddTail(item);
+                if (item != null)
+                    AddTail(item);
             }
         }
 

@@ -25,6 +25,8 @@ namespace MpGame.Tests
         public override bool CanPutBottom  => HasPerm(PilePerms.CanPutBottom);
         public override bool CanShuffle    => HasPerm(PilePerms.CanShuffle);
         public override bool CanTake       => HasPerm(PilePerms.CanTake);
+        //public bool CanTake { override get; internal set; }
+        //public override bool CanTake { get; new internal set; }
 
         internal event EventHandler<EventArgs> LastRemoveCalled;
 

@@ -25,34 +25,45 @@ internal class CardDeck : Pile<Card>
 
     //A deck is a private zone, it may not
     //be freely browsed at will.
-    public override bool CanBrowse  { get; } = false;
+    public override bool CanBrowse     => false;
 
     //In this game, it's not uncommon to have
     //the entire deck emptied for some reason.
-    public override bool CanClear   { get; } = true;
+    public override bool CanClear      => true;
+
+    //It is allowed to Cut the deck.
+    public override bool CanCut        => true;
 
     //It needs to be possible to draw the top card,
     //otherwise why is this a deck of cards?
-    public override bool CanDraw    { get; } = true;
+    public override bool CanDraw       => true;
+
+    //You can't draw from the bottom card of the deck.
+    //(This is exceeedingly rare, but Exploding Kittens
+    //is one game that would require this.)
+    public override bool CanDrawBottom => false;
 
     //You can't just insert a card at an arbitrary place.
-    public override bool CanInsert  { get; } = false;
+    public override bool CanInsert     => false;
 
     //It's common enough that a player can peek
     //at the top X cards to see what is coming up.
-    public override bool CanPeek    { get; } = true;
+    public override bool CanPeek       => true;
 
     //You can't put cards on the top of the pile.
-    //(Zones like a "Graveyard", "Discard pile",
-    //or what have you, are where you want this.)
-    public override bool CanPut     { get; } = false;
+    //(Zones like a "Graveyard"/"Discard pile"/what-have-you
+    //are where you want this.)
+    public override bool CanPut        => false;
+
+    //You can't put cards on the bottom of the pile, either.
+    public override bool CanPutBottom  => false;
 
     //This deck can be reshuffled.
-    public override bool CanShuffle { get; } = true;
+    public override bool CanShuffle    => true;
 
     //It's not allowed to take a card from an
     //arbitrary place in the deck.
-    public override bool CanTake    { get; } = false;
+    public override bool CanTake       => false;
 }
 ```
 * `Hand<TCard>`: A companion type to `Pile<TCard>`, this collection is specifically
