@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Discord.Addons.MpGame
 {
-    public interface ILogStrings
+    public /*partial*/ interface ILogStrings
     {
+        //public static ILogStrings Default { get; } = new DefaultLogStrings();
+
         //MpGameService.ctor()
         string LogRegistration(string gameName);
 

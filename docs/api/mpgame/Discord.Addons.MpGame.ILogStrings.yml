@@ -29,7 +29,7 @@ items:
       repo: git@github.com:Joe4evr/Discord.Addons.git
     id: ILogStrings
     path: ../src/Discord.Addons.MpGame/Services/Config/ILogStrings.cs
-    startLine: 6
+    startLine: 4
   assemblies:
   - Discord.Addons.MpGame
   namespace: Discord.Addons.MpGame

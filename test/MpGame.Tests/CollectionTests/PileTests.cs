@@ -58,13 +58,6 @@ namespace MpGame.Tests.CollectionTests
                     11,12,13,14,15,16,17,18,19,20
                 };
 
-
-
-                _ = pile.AsEnumerable().Count(c => c.Color == CardColor.Red);
-
-
-
-
                 Assert.Equal(expected: expectedSeq, actual: pile.AsEnumerable().Select(c => c.Id));
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
             }
@@ -366,6 +359,50 @@ namespace MpGame.Tests.CollectionTests
                 //Assert.Equal(expected: 2, actual: picks.Length);
                 Assert.Equal(expected: new[] { 6, 11 }, actual: picks.Select(c => c.Id));
                 Assert.Equal(expected: priorSize - 2, actual: pile.Count);
+                Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
+            }
+
+            [Fact]
+            public async Task ShufflesBackAllCards()
+            {
+                var pile = new TestPile(withPerms: PilePerms.CanBrowse | PilePerms.CanTake | PilePerms.CanShuffle, cards: TestCard.Factory(10));
+                var priorSize = pile.Count;
+                bool selectorCalled = false;
+                bool shuffleFuncCalled = false;
+                bool filterCalled = false;
+                var picks = await pile.BrowseAndTake(
+                    selector: cards =>
+                    {
+                        selectorCalled = true;
+                        Assert.NotNull(cards);
+                        Assert.NotEmpty(cards);
+
+                        return Task.FromResult(new[] { cards.First().Key });
+                    },
+                    shuffleFunc: cards =>
+                    {
+                        shuffleFuncCalled = true;
+
+                        return cards.Reverse();
+                    },
+                    filter: card =>
+                    {
+                        filterCalled = true;
+
+                        return card.Color == CardColor.Green;
+                    });
+                var expectedSeq = new[]
+                {
+                    10, 9, 8, 7, 6, 5, 4, 3, 2
+                };
+
+                Assert.True(selectorCalled);
+                Assert.True(shuffleFuncCalled);
+                Assert.True(filterCalled);
+                Assert.False(picks.IsDefault);
+                Assert.NotEmpty(picks);
+                Assert.Equal(expected: new[] { 1 }, actual: picks.Select(c => c.Id));
+                Assert.Equal(expected: priorSize - 1, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
             }
 
@@ -677,11 +714,11 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void DecreasesSourseSizeIncreasesTargetSizeByOne()
             {
-                var source = new TestPile(withPerms: PilePerms.CanDraw | PilePerms.CanPeek, cards: TestCard.Factory(1));
-                var target = new TestPile(withPerms: PilePerms.CanPut  | PilePerms.CanPeek, cards: Enumerable.Empty<TestCard>());
+                var source = new TestPile(withPerms: PilePerms.CanDraw | PilePerms.CanPeek,   cards: TestCard.Factory(1));
+                var target = new TestPile(withPerms: PilePerms.CanPut  | PilePerms.CanBrowse, cards: Enumerable.Empty<TestCard>());
                 var sourceSize = source.Count;
                 var targetSize = target.Count;
-                var topcard = source.PeekTop(1).Single();
+                var topcard = source.Top;
                 int firstCall = 0;
                 bool putCalled = false;
                 bool lastRmCalled = false;
@@ -700,10 +737,10 @@ namespace MpGame.Tests.CollectionTests
                 source.Mill(target);
                 Assert.True(lastRmCalled);
                 Assert.True(putCalled);
-                Assert.Equal(expected: 1, actual: firstCall);
+                //Assert.Equal(expected: 1, actual: firstCall);
                 Assert.Equal(expected: sourceSize - 1, actual: source.Count);
                 Assert.Equal(expected: targetSize + 1, actual: target.Count);
-                Assert.Same(expected: topcard, actual: target.PeekTop(1).Single());
+                Assert.Same(expected: topcard, actual: target.Top);
             }
         }
 
@@ -749,9 +786,11 @@ namespace MpGame.Tests.CollectionTests
             {
                 var pile = new TestPile(withPerms: PilePerms.CanPeek, cards: TestCard.Factory(20));
                 var priorSize = pile.Count;
+                var expectedSeq = new[] { 1, 2, 3 };
                 var peeked = pile.PeekTop(3);
 
                 Assert.False(peeked.IsDefault);
+                Assert.Equal(expected: expectedSeq, actual: peeked.Select(c => c.Id));
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
 
@@ -957,6 +996,41 @@ namespace MpGame.Tests.CollectionTests
                 var ev = Assert.Raises<EventArgs>(handler => pile.LastRemoveCalled += handler, handler => pile.LastRemoveCalled -= handler, () => pile.TakeAt(0));
                 Assert.Same(expected: pile, actual: ev.Sender);
                 Assert.Equal(expected: 0, actual: pile.Count);
+            }
+        }
+
+        public sealed class Top
+        {
+            [Fact]
+            public void ThrowsWhenNotBrowsableOrPeekable()
+            {
+                var pile = new TestPile(withPerms: PilePerms.All ^ (PilePerms.CanBrowse | PilePerms.CanPeek), cards: TestCard.Factory(20));
+                var priorSize = pile.Count;
+
+                var ex = Assert.Throws<InvalidOperationException>(() => pile.Top);
+                Assert.Equal(expected: ErrorStrings.NoBrowseOrPeek, actual: ex.Message);
+                Assert.Equal(expected: priorSize, actual: pile.Count);
+            }
+
+            [Fact]
+            public void ReturnsNullOnEmptyPile()
+            {
+                var pile = new TestPile(withPerms: PilePerms.CanBrowse, cards: Enumerable.Empty<TestCard>());
+                var c = pile.Top;
+
+                Assert.Equal(expected: 0, actual: pile.Count);
+                Assert.Null(c);
+            }
+
+            [Fact]
+            public void ReturnsProperValueWhenNotEmpty()
+            {
+                var pile = new TestPile(withPerms: PilePerms.CanBrowse, cards: TestCard.Factory(20));
+                var priorSize = pile.Count;
+                var c = pile.Top;
+
+                Assert.Equal(expected: 1, actual: c.Id);
+                Assert.Equal(expected: priorSize, actual: pile.Count);
             }
         }
     }

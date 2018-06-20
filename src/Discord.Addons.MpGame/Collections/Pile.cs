@@ -20,9 +20,9 @@ namespace Discord.Addons.MpGame.Collections
     {
         private readonly ReaderWriterLockSlim _rwlock = new ReaderWriterLockSlim();
 
+        private int _count = 0;
         private Node _head = null;
         private Node _tail = null;
-        private int _count = 0;
 
         /// <summary>
         /// Initializes a new <see cref="Pile{TCard}"/> to an empty state.
@@ -108,16 +108,41 @@ namespace Discord.Addons.MpGame.Collections
         /// <summary>
         /// The amount of cards currently in the pile.
         /// </summary>
-        public int Count
+        public int Count => Volatile.Read(ref _count);
+        //{
+        //    get
+        //    {
+        //        using (_rwlock.UsingReadLock())
+        //        {
+        //            return _count;
+        //        }
+        //    }
+        //}
+
+        /// <summary>
+        /// Peeks the single card currently on top
+        /// without removing it from the pile,
+        /// or <see langword="null" /> if the pile is empty.
+        /// Requires <see cref="CanBrowse"/> *or* <see cref="CanPeek"/>.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">The instance
+        /// does not allow browsing *or* peeking the cards.</exception>
+        public TCard Top
         {
             get
             {
-                using (_rwlock.UsingReadLock())
-                {
-                    return _count;
-                }
+                if (!(CanBrowse || CanPeek))
+                    ThrowHelper.ThrowInvalidOp(ErrorStrings.NoBrowseOrPeek);
+
+                //using (_rwlock.UsingReadLock())
+                //{
+                    return VHead?.Value;
+                //}
             }
         }
+
+        private Node VHead => Volatile.Read(ref _head);
+        private Node VTail => Volatile.Read(ref _tail);
 
         /// <summary>
         /// Iterates the contents of this pile as an <see cref="IEnumerable{T}"/>.
@@ -142,7 +167,7 @@ namespace Discord.Addons.MpGame.Collections
             {
                 using (_rwlock.UsingReadLock())
                 {
-                    for (var n = _head; n != null; n = n.Next)
+                    for (var n = VHead; n != null; n = n.Next)
                         yield return n.Value;
                 }
             }
@@ -221,29 +246,30 @@ namespace Discord.Addons.MpGame.Collections
 
             using (_rwlock.UsingWriteLock())
             {
-                var cards = GetAllD(filter);
+                var cards = GetAllD();
+                var imm =ImmutableDictionary.CreateRange<int, TCard>(
+                    (filter != null)
+                        ? cards.Where(kv => filter(kv.Value))
+                        : cards);
+
                 //ReaderWriterLockSlim has thread affinity, so
                 //force continuation back onto *this* context.
-                var selection = await selector(cards).ConfigureAwait(true);
-                var nodes = BuildSelection(selection, ref cards);
+                var selection = await selector(imm).ConfigureAwait(true);
+                var nodes = BuildSelection(selection, cards, imm);
 
                 if (CanShuffle && shuffleFunc != null)
                 {
                     Resequence(shuffleFunc(cards.Values.ToImmutableArray()));
 
-                    return nodes.Select(n => n.Value).ToImmutableArray();
+                    return ImmutableArray.CreateRange(nodes.Select(n => n.Value));
                 }
                 else
                 {
-                    var builder = ImmutableArray.CreateBuilder<TCard>(nodes.Length);
-                    foreach (var node in nodes)
-                        builder.Add(Break(node));
-
-                    return builder.ToImmutable();
+                    return ImmutableArray.CreateRange(nodes.Select(n => Break(n)));
                 }
             }
 
-            Node[] BuildSelection(int[] sel, ref ImmutableDictionary<int, TCard> cs)
+            Node[] BuildSelection(int[] sel, Dictionary<int, TCard> cs, ImmutableDictionary<int, TCard> ics)
             {
                 if (sel == null)
                     return Array.Empty<Node>();
@@ -252,7 +278,7 @@ namespace Discord.Addons.MpGame.Collections
                 if (un.Length == 0)
                     return Array.Empty<Node>();
 
-                var ex = un.Except(cs.Keys);
+                var ex = un.Except(ics.Keys);
                 if (ex.Any())
                     ThrowHelper.ThrowIndexOutOfRange($"Selected indeces '{String.Join(", ", ex)}' must be one of the provided card indices.");
 
@@ -262,7 +288,7 @@ namespace Discord.Addons.MpGame.Collections
                 {
                     var s = un[i];
                     arr[i] = GetNodeAt(s);
-                    cs = cs.Remove(s);
+                    cs.Remove(s);
                 }
 
                 return arr;
@@ -304,25 +330,28 @@ namespace Discord.Addons.MpGame.Collections
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoCut);
             if (amount < 0)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.CutAmountNegative, nameof(amount));
-            if (amount > _count)
+            if (amount > Count)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.CutAmountTooHigh, nameof(amount));
 
-            if (amount == 0 || amount == _count)
+            if (amount == 0 || amount == Count)
                 return; //no changes
 
             using (_rwlock.UsingWriteLock())
             {
-                var oldHead = _head;
-                var oldTail = _tail;
+                var oldHead = VHead;
+                var oldTail = VTail;
                 var newHead = GetNodeAt(amount);
                 var newTail = newHead.Previous;
 
                 oldHead.Previous = oldTail;
-                oldTail.Next = oldHead;
+                oldTail.Next     = oldHead;
                 newHead.Previous = null;
-                newTail.Next = null;
-                _head = newHead;
-                _tail = newTail;
+                newTail.Next     = null;
+
+                //Interlocked.Exchange(ref _head, newHead);
+                //Interlocked.Exchange(ref _tail, newTail);
+                Volatile.Write(ref _head, newHead);
+                Volatile.Write(ref _tail, newTail);
             }
         }
 
@@ -348,7 +377,7 @@ namespace Discord.Addons.MpGame.Collections
 
                 var tmp = Break(topCard);
 
-                if (_count == 0)
+                if (Count == 0)
                     OnLastRemoved();
 
                 return tmp;
@@ -377,7 +406,7 @@ namespace Discord.Addons.MpGame.Collections
 
                 var tmp = Break(bottomCard);
 
-                if (_count == 0)
+                if (Count == 0)
                     OnLastRemoved();
 
                 return tmp;
@@ -401,14 +430,14 @@ namespace Discord.Addons.MpGame.Collections
             ThrowHelper.ThrowIfArgNull(card, nameof(card));
             if (index < 0)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.InsertionNegative, nameof(index));
-            if (index > _count)
+            if (index > Count)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.InsertionTooHigh, nameof(index));
 
             using (_rwlock.UsingWriteLock())
             {
                 if (index == 0)
                     AddHead(card);
-                else if (index == _count)
+                else if (index == Count)
                     AddTail(card);
                 else
                     AddAfter(GetNodeAt(index), card);
@@ -427,7 +456,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <param name="targetPile">The pile to place a card on.</param>
         /// <remarks><note type="note">Calls <see cref="OnPut(TCard)"/> on the target pile.
         /// If the last card of this pile was taken, calls
-        /// <see cref="OnLastRemoved"/> *after* the card is placed on the target pile.
+        /// <see cref="OnLastRemoved"/> *before* the card is placed on the target pile.
         /// </note></remarks>
         /// <exception cref="InvalidOperationException">This pile
         /// does not allow drawing cards OR The target pile
@@ -441,24 +470,40 @@ namespace Discord.Addons.MpGame.Collections
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoPutTarget);
 
             using (_rwlock.UsingWriteLock())
+            using (targetPile._rwlock.UsingWriteLock())
             {
-                var topCard = Interlocked.Exchange(ref _head, _head?.Next);
-                if (topCard == null)
+                var millNode = Interlocked.Exchange(ref _head, _head?.Next);
+                if (millNode == null)
                     ThrowHelper.ThrowInvalidOp(ErrorStrings.PileEmpty);
+                Interlocked.CompareExchange(ref _tail, value: _tail?.Previous, comparand: millNode);
 
-                targetPile.Put(Break(topCard));
+                if (VHead != null)
+                    VHead.Previous = null;
+                CountDecOne();
 
-                if (_count == 0)
+                var targetHead = Interlocked.Exchange(ref targetPile._head, millNode);
+                Interlocked.CompareExchange(ref _tail, value: millNode, comparand: null);
+                targetPile.CountIncOne();
+                millNode.Next = targetHead;
+
+                if (targetHead != null)
+                    targetHead.Previous = millNode;
+
+                if (Count == 0)
                     OnLastRemoved();
+
+                targetPile.OnPut(millNode.Value);
             }
         }
 
         /// <summary>
-        /// Peeks the <paramref name="amount"/> of
+        /// Peeks the top <paramref name="amount"/> of
         /// cards without removing them from the pile.
         /// Requires <see cref="CanPeek"/>.
         /// </summary>
         /// <param name="amount">The amount of cards to peek.</param>
+        /// <remarks><note type="note">Peeking the single top card is
+        /// done better through <see cref="Top"/>.</note></remarks>
         /// <returns>An array of the cards currently at the top of the pile.</returns>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="amount"/>
         /// was less than 0 or greater than the pile's current size.</exception>
@@ -468,21 +513,19 @@ namespace Discord.Addons.MpGame.Collections
         {
             if (!CanPeek)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoPeek);
+            if (Count == 0 || amount == 0)
+                return ImmutableArray<TCard>.Empty;
             if (amount < 0)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.PeekAmountNegative, nameof(amount));
-            if (amount > _count)
+            if (amount > Count)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.PeekAmountTooHigh, nameof(amount));
-
-            if (amount == 0)
-                return ImmutableArray<TCard>.Empty;
 
             using (_rwlock.UsingReadLock())
             {
                 var builder = ImmutableArray.CreateBuilder<TCard>(amount);
 
-                var tmp = _head;
-                for (int i = 0; i < amount; i++)
-                    builder.Add(tmp.Value);
+                for (var (n, i) = (VHead, 0); i < amount; (n, i) = (n.Next, i + 1))
+                    builder.Add(n.Value);
 
                 return builder.ToImmutable();
             }
@@ -569,7 +612,7 @@ namespace Discord.Addons.MpGame.Collections
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoTake);
             if (index < 0)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
-            if (index >= _count)
+            if (index >= Count)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalTooHighP, nameof(index));
 
             using (_rwlock.UsingWriteLock())
@@ -595,36 +638,31 @@ namespace Discord.Addons.MpGame.Collections
         /// <remarks><note type="note">Does nothing by default.</note></remarks>
         protected virtual void OnPut(TCard card) { }
 
-        private ImmutableDictionary<int, TCard> GetAllD(Func<TCard, bool> predicate)
+        private Dictionary<int, TCard> GetAllD()
         {
-            if (_count == 0)
-                return ImmutableDictionary<int, TCard>.Empty;
-
-            var builder = ImmutableDictionary.CreateBuilder<int, TCard>();
-
-            for (var (n, i) = (_head, 0); n != null; (n, i) = (n.Next, i + 1))
+            var res = new Dictionary<int, TCard>();
+            if (Count > 0)
             {
-                if (predicate == null || predicate(n.Value))
-                    builder.Add(i, n.Value);
+                for (var (n, i) = (VHead, 0); n != null; (n, i) = (n.Next, i + 1))
+                {
+                    res.Add(i, n.Value);
+                }
             }
-
-            return builder.ToImmutable();
+            return res;
         }
         private ImmutableArray<TCard> GetAllInternal(bool clear)
         {
-            if (_count == 0)
+            if (Count == 0)
                 return ImmutableArray<TCard>.Empty;
 
-            var builder = ImmutableArray.CreateBuilder<TCard>(_count);
+            var builder = ImmutableArray.CreateBuilder<TCard>(Count);
 
-            for (var n = _head; n != null; n = n.Next)
+            for (var n = VHead; n != null; n = n.Next)
                 builder.Add(n.Value);
 
             if (clear)
             {
-                _head = null;
-                _tail = null;
-                Interlocked.Exchange(ref _count, 0);
+                Reset();
             }
 
             return builder.ToImmutable();
@@ -632,11 +670,11 @@ namespace Discord.Addons.MpGame.Collections
         private Node GetNodeAt(int index)
         {
             if (index == 0)
-                return _head;
-            if (index == _count - 1)
-                return _tail;
+                return VHead;
+            if (index == Count - 1)
+                return VTail;
 
-            var tmp = _head;
+            var tmp = VHead;
             for (int i = 0; i < index; i++)
                 tmp = tmp.Next;
 
@@ -647,7 +685,7 @@ namespace Discord.Addons.MpGame.Collections
             var tmp = new Node(card);
             var oldHead = Interlocked.Exchange(ref _head, tmp);
             Interlocked.CompareExchange(ref _tail, value: tmp, comparand: null);
-            Interlocked.Increment(ref _count);
+            CountIncOne();
             tmp.Next = oldHead;
 
             if (oldHead != null)
@@ -660,7 +698,7 @@ namespace Discord.Addons.MpGame.Collections
             var tmp = new Node(card);
             var oldTail = Interlocked.Exchange(ref _tail, tmp);
             Interlocked.CompareExchange(ref _head, value: tmp, comparand: null);
-            Interlocked.Increment(ref _count);
+            CountIncOne();
             tmp.Previous = oldTail;
 
             if (oldTail != null)
@@ -677,15 +715,14 @@ namespace Discord.Addons.MpGame.Collections
             };
 
             node.Next = tmp;
-            Interlocked.Increment(ref _count);
+            CountIncOne();
             return tmp;
         }
         private TCard Break(Node node)
         {
             Interlocked.CompareExchange(ref _head, value: _head?.Next, comparand: node);
             Interlocked.CompareExchange(ref _tail, value: _tail?.Previous, comparand: node);
-            if (Interlocked.Decrement(ref _count) <= 0)
-                Interlocked.Exchange(ref _count, 0);
+            CountDecOne();
 
             if (node.Previous != null)
                 node.Previous.Next = node.Next;
@@ -698,7 +735,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             var tmp = Break(GetNodeAt(index));
 
-            if (_count == 0)
+            if (Count == 0)
                 OnLastRemoved();
 
             return tmp;
@@ -708,9 +745,7 @@ namespace Discord.Addons.MpGame.Collections
             if (newSequence == null)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NewSequenceNull);
 
-            _head = null;
-            _tail = null;
-            Interlocked.Exchange(ref _count, 0);
+            Reset();
 
             AddSequence(newSequence);
         }
@@ -721,6 +756,20 @@ namespace Discord.Addons.MpGame.Collections
                 if (item != null)
                     AddTail(item);
             }
+        }
+
+        private void CountIncOne()
+            => Interlocked.Increment(ref _count);
+        private void CountDecOne()
+            => Interlocked.Decrement(ref _count);
+        private void Reset()
+        {
+            //Interlocked.Exchange(ref _head, null);
+            //Interlocked.Exchange(ref _tail, null);
+            //Interlocked.Exchange(ref _count, 0);
+            Volatile.Write(ref _head, null);
+            Volatile.Write(ref _tail, null);
+            Volatile.Write(ref _count, 0);
         }
 
         private sealed class Node

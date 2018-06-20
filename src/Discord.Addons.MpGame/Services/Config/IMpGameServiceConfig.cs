@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Discord.Addons.MpGame
 {
-    public interface IMpGameServiceConfig
+    public /*partial*/ interface IMpGameServiceConfig
     {
+        //public static IMpGameServiceConfig Default { get; } = new DefaultConfig();
+
         ILogStrings LogStrings { get; }
 
         //bool AllowJoinMidGame  { get; }

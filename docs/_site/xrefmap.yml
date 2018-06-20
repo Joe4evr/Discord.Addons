@@ -875,6 +875,23 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).TakeAt
   nameWithType: Pile<TCard>.TakeAt
   nameWithType.vb: Pile(Of TCard).TakeAt
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Top
+  name: Top
+  href: api/mpgame/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Top
+  commentId: P:Discord.Addons.MpGame.Collections.Pile`1.Top
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Top
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Top
+  nameWithType: Pile<TCard>.Top
+  nameWithType.vb: Pile(Of TCard).Top
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Top*
+  name: Top
+  href: api/mpgame/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Top_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.Top
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard>.Top
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard).Top
+  nameWithType: Pile<TCard>.Top
+  nameWithType.vb: Pile(Of TCard).Top
 - uid: Discord.Addons.MpGame.CurrentlyPlaying
   name: CurrentlyPlaying
   href: api/mpgame/Discord.Addons.MpGame.CurrentlyPlaying.html

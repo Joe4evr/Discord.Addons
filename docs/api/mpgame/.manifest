@@ -54,6 +54,7 @@
   "Discord.Addons.MpGame.Collections.Pile`1.PutBottom(`0)": "Discord.Addons.MpGame.Collections.Pile-1.yml",
   "Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})": "Discord.Addons.MpGame.Collections.Pile-1.yml",
   "Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)": "Discord.Addons.MpGame.Collections.Pile-1.yml",
+  "Discord.Addons.MpGame.Collections.Pile`1.Top": "Discord.Addons.MpGame.Collections.Pile-1.yml",
   "Discord.Addons.MpGame.CurrentlyPlaying": "Discord.Addons.MpGame.CurrentlyPlaying.yml",
   "Discord.Addons.MpGame.CurrentlyPlaying.DifferentGame": "Discord.Addons.MpGame.CurrentlyPlaying.yml",
   "Discord.Addons.MpGame.CurrentlyPlaying.None": "Discord.Addons.MpGame.CurrentlyPlaying.yml",

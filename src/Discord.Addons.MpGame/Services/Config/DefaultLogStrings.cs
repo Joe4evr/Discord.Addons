@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Discord.Addons.MpGame
 {
+    //public partial interface ILogStrings
+    //{
     internal sealed class DefaultLogStrings : ILogStrings
     {
         public static ILogStrings Instance { get; } = new DefaultLogStrings();
@@ -30,4 +30,5 @@ namespace Discord.Addons.MpGame
         string ILogStrings.DMsDisabledKickMessage(IUser user)
             => $"Player '{user.Username}' has been kicked for having DMs disabled too long.";
     }
+    //}
 }

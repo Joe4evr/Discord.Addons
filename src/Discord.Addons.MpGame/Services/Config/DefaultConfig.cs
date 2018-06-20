@@ -1,17 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Discord.Addons.MpGame
 {
+    //public partial interface IMpGameServiceConfig
+    //{
     internal sealed class DefaultConfig : IMpGameServiceConfig
     {
         public static IMpGameServiceConfig Instance { get; } = new DefaultConfig();
         private DefaultConfig() { }
 
         ILogStrings IMpGameServiceConfig.LogStrings { get; } = DefaultLogStrings.Instance;
+        //ILogStrings IMpGameServiceConfig.LogStrings { get; } = ILogStrings.Default;
 
-        //bool IMpGameServiceConfig.AllowJoinMidGame  { get; }
-        //bool IMpGameServiceConfig.AllowLeaveMidGame { get; }
+        //bool IMpGameServiceConfig.AllowJoinMidGame  { get; } = false;
+        //bool IMpGameServiceConfig.AllowLeaveMidGame { get; } = false;
     }
+    //}
 }
