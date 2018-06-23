@@ -26,6 +26,7 @@ namespace Discord.Addons.MpGame.Collections
         internal static readonly string CutAmountTooHigh   = "Cut amount may not be greater than the pile's current size.";
         internal static readonly string InsertionNegative  = "Insertion index may not be negative.";
         internal static readonly string InsertionTooHigh   = "Insertion index may not be greater than the pile's current size.";
+        internal static readonly string MillTargetSamePile = "Mill target cannot be the same instance as the source pile.";
         internal static readonly string NoSwappingStrategy = "Not allowed to switch buffer strategy after it is used.";
         internal static readonly string NewSequenceNull    = "New sequence may not be null.";
         internal static readonly string PeekAmountNegative = "Peek amount may not be negative.";

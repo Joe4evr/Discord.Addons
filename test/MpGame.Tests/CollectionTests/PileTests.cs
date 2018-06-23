@@ -698,6 +698,17 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
+            public void ThrowsWhenTargetIsSourceInstance()
+            {
+                var source = new TestPile(withPerms: PilePerms.CanDraw | PilePerms.CanPut, cards: TestCard.Factory(20));
+                var sourceSize = source.Count;
+
+                var ex = Assert.Throws<InvalidOperationException>(() => source.Mill(source));
+                Assert.Equal(expected: ErrorStrings.MillTargetSamePile, actual: ex.Message);
+                Assert.Equal(expected: sourceSize, actual: source.Count);
+            }
+
+            [Fact]
             public void ThrowsOnEmptyPile()
             {
                 var source = new TestPile(withPerms: PilePerms.CanDraw, cards: Enumerable.Empty<TestCard>());
@@ -737,7 +748,7 @@ namespace MpGame.Tests.CollectionTests
                 source.Mill(target);
                 Assert.True(lastRmCalled);
                 Assert.True(putCalled);
-                //Assert.Equal(expected: 1, actual: firstCall);
+                Assert.Equal(expected: 2, actual: firstCall);
                 Assert.Equal(expected: sourceSize - 1, actual: source.Count);
                 Assert.Equal(expected: targetSize + 1, actual: target.Count);
                 Assert.Same(expected: topcard, actual: target.Top);
@@ -1023,12 +1034,13 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void ReturnsProperValueWhenNotEmpty()
+            public void DoesNotChangePileSize()
             {
                 var pile = new TestPile(withPerms: PilePerms.CanBrowse, cards: TestCard.Factory(20));
                 var priorSize = pile.Count;
                 var c = pile.Top;
 
+                Assert.NotNull(c);
                 Assert.Equal(expected: 1, actual: c.Id);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }

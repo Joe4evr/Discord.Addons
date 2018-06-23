@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -108,16 +109,16 @@ namespace Discord.Addons.MpGame.Collections
         /// <summary>
         /// The amount of cards currently in the pile.
         /// </summary>
-        public int Count => Volatile.Read(ref _count);
-        //{
-        //    get
-        //    {
-        //        using (_rwlock.UsingReadLock())
-        //        {
-        //            return _count;
-        //        }
-        //    }
-        //}
+        public int Count
+        {
+            get
+            {
+                using (_rwlock.UsingReadLock())
+                {
+                    return _count;
+                }
+            }
+        }
 
         /// <summary>
         /// Peeks the single card currently on top
@@ -141,6 +142,7 @@ namespace Discord.Addons.MpGame.Collections
             }
         }
 
+        private int VCount => Volatile.Read(ref _count);
         private Node VHead => Volatile.Read(ref _head);
         private Node VTail => Volatile.Read(ref _tail);
 
@@ -151,8 +153,8 @@ namespace Discord.Addons.MpGame.Collections
         /// <returns>The contents of the pile in a lazily-evaluated <see cref="IEnumerable{T}"/>.</returns>
         /// <remarks><note type="warning">This method holds a read lock
         /// from when you start enumerating until the enumeration ends
-        /// and should be used only for fairly quick one-shot operations.
-        /// If you need to hold the data for longer or iterate the same
+        /// and should be used only for fairly quick one-shot operations
+        /// (e.g. LINQ). If you need to hold the data for longer or iterate the same
         /// snapshot more than once, use <see cref="Browse"/> instead.</note></remarks>
         /// <exception cref="InvalidOperationException">The instance
         /// does not allow browsing the cards.</exception>
@@ -316,10 +318,11 @@ namespace Discord.Addons.MpGame.Collections
         /// <summary>
         /// Cuts the pile at a specified number of cards from the top
         /// and places the taken cards on the bottom.
+        /// Requires <see cref="CanCut"/>.
         /// </summary>
         /// <param name="amount">The number of cards to send to the bottom.</param>
-        /// <remarks>If <paramref name="amount"/> is 0 or equal to <see cref="Count"/>,
-        /// this function will act like a no-op.</remarks>
+        /// <remarks><note type="note">If <paramref name="amount"/> is 0 or equal to <see cref="Count"/>,
+        /// this function is a no-op.</note></remarks>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="amount"/>
         /// was less than 0 or greater than the pile's current size.</exception>
         /// <exception cref="InvalidOperationException">The instance does not
@@ -330,10 +333,10 @@ namespace Discord.Addons.MpGame.Collections
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoCut);
             if (amount < 0)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.CutAmountNegative, nameof(amount));
-            if (amount > Count)
+            if (amount > VCount)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.CutAmountTooHigh, nameof(amount));
 
-            if (amount == 0 || amount == Count)
+            if (amount == 0 || amount == VCount)
                 return; //no changes
 
             using (_rwlock.UsingWriteLock())
@@ -377,7 +380,7 @@ namespace Discord.Addons.MpGame.Collections
 
                 var tmp = Break(topCard);
 
-                if (Count == 0)
+                if (VCount == 0)
                     OnLastRemoved();
 
                 return tmp;
@@ -406,7 +409,7 @@ namespace Discord.Addons.MpGame.Collections
 
                 var tmp = Break(bottomCard);
 
-                if (Count == 0)
+                if (VCount == 0)
                     OnLastRemoved();
 
                 return tmp;
@@ -430,14 +433,14 @@ namespace Discord.Addons.MpGame.Collections
             ThrowHelper.ThrowIfArgNull(card, nameof(card));
             if (index < 0)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.InsertionNegative, nameof(index));
-            if (index > Count)
+            if (index > VCount)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.InsertionTooHigh, nameof(index));
 
             using (_rwlock.UsingWriteLock())
             {
                 if (index == 0)
                     AddHead(card);
-                else if (index == Count)
+                else if (index == VCount)
                     AddTail(card);
                 else
                     AddAfter(GetNodeAt(index), card);
@@ -461,13 +464,16 @@ namespace Discord.Addons.MpGame.Collections
         /// <exception cref="InvalidOperationException">This pile
         /// does not allow drawing cards OR The target pile
         /// does not allow placing cards on top OR
-        /// This pile was empty.</exception>
+        /// <paramref name="targetPile"/> was the same instance as the source
+        /// OR This pile was empty.</exception>
         public void Mill(Pile<TCard> targetPile)
         {
             if (!CanDraw)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoDraw);
             if (!targetPile.CanPut)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoPutTarget);
+            if (ReferenceEquals(this, targetPile))
+                ThrowHelper.ThrowInvalidOp(ErrorStrings.MillTargetSamePile);
 
             using (_rwlock.UsingWriteLock())
             using (targetPile._rwlock.UsingWriteLock())
@@ -482,14 +488,14 @@ namespace Discord.Addons.MpGame.Collections
                 CountDecOne();
 
                 var targetHead = Interlocked.Exchange(ref targetPile._head, millNode);
-                Interlocked.CompareExchange(ref _tail, value: millNode, comparand: null);
-                targetPile.CountIncOne();
+                Interlocked.CompareExchange(ref targetPile._tail, value: millNode, comparand: null);
                 millNode.Next = targetHead;
 
                 if (targetHead != null)
                     targetHead.Previous = millNode;
+                targetPile.CountIncOne();
 
-                if (Count == 0)
+                if (VCount == 0)
                     OnLastRemoved();
 
                 targetPile.OnPut(millNode.Value);
@@ -513,11 +519,11 @@ namespace Discord.Addons.MpGame.Collections
         {
             if (!CanPeek)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoPeek);
-            if (Count == 0 || amount == 0)
+            if (VCount == 0 || amount == 0)
                 return ImmutableArray<TCard>.Empty;
             if (amount < 0)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.PeekAmountNegative, nameof(amount));
-            if (amount > Count)
+            if (amount > VCount)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.PeekAmountTooHigh, nameof(amount));
 
             using (_rwlock.UsingReadLock())
@@ -612,7 +618,7 @@ namespace Discord.Addons.MpGame.Collections
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoTake);
             if (index < 0)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
-            if (index >= Count)
+            if (index >= VCount)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalTooHighP, nameof(index));
 
             using (_rwlock.UsingWriteLock())
@@ -641,7 +647,7 @@ namespace Discord.Addons.MpGame.Collections
         private Dictionary<int, TCard> GetAllD()
         {
             var res = new Dictionary<int, TCard>();
-            if (Count > 0)
+            if (VCount > 0)
             {
                 for (var (n, i) = (VHead, 0); n != null; (n, i) = (n.Next, i + 1))
                 {
@@ -652,10 +658,10 @@ namespace Discord.Addons.MpGame.Collections
         }
         private ImmutableArray<TCard> GetAllInternal(bool clear)
         {
-            if (Count == 0)
+            if (VCount == 0)
                 return ImmutableArray<TCard>.Empty;
 
-            var builder = ImmutableArray.CreateBuilder<TCard>(Count);
+            var builder = ImmutableArray.CreateBuilder<TCard>(VCount);
 
             for (var n = VHead; n != null; n = n.Next)
                 builder.Add(n.Value);
@@ -671,7 +677,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             if (index == 0)
                 return VHead;
-            if (index == Count - 1)
+            if (index == VCount - 1)
                 return VTail;
 
             var tmp = VHead;
@@ -735,7 +741,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             var tmp = Break(GetNodeAt(index));
 
-            if (Count == 0)
+            if (VCount == 0)
                 OnLastRemoved();
 
             return tmp;
