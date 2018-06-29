@@ -684,6 +684,17 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
+            public void ThrowsWhenTargetNull()
+            {
+                var source = new TestPile(withPerms: PilePerms.CanDraw, cards: TestCard.Factory(20));
+                var sourceSize = source.Count;
+
+                var ex = Assert.Throws<ArgumentNullException>(() => source.Mill(targetPile: null));
+                Assert.Equal(expected: "targetPile", actual: ex.ParamName);
+                Assert.Equal(expected: sourceSize, actual: source.Count);
+            }
+
+            [Fact]
             public void ThrowsWhenTargetNotPuttable()
             {
                 var source = new TestPile(withPerms: PilePerms.CanDraw, cards: TestCard.Factory(20));
@@ -734,21 +745,21 @@ namespace MpGame.Tests.CollectionTests
                 bool putCalled = false;
                 bool lastRmCalled = false;
 
-                target.PutCalled += (s, e) =>
-                {
-                    putCalled = true;
-                    Interlocked.CompareExchange(ref firstCall, value: 1, comparand: 0);
-                };
                 source.LastRemoveCalled += (s, e) =>
                 {
                     lastRmCalled = true;
+                    Interlocked.CompareExchange(ref firstCall, value: 1, comparand: 0);
+                };
+                target.PutCalled += (s, e) =>
+                {
+                    putCalled = true;
                     Interlocked.CompareExchange(ref firstCall, value: 2, comparand: 0);
                 };
 
                 source.Mill(target);
                 Assert.True(lastRmCalled);
                 Assert.True(putCalled);
-                Assert.Equal(expected: 2, actual: firstCall);
+                Assert.Equal(expected: 1, actual: firstCall);
                 Assert.Equal(expected: sourceSize - 1, actual: source.Count);
                 Assert.Equal(expected: targetSize + 1, actual: target.Count);
                 Assert.Same(expected: topcard, actual: target.Top);

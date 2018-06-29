@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Discord.Addons.Core;
@@ -15,9 +16,16 @@ namespace Discord.Addons.MpGame.Collections
     /// specifically for use in card games.
     /// </summary>
     /// <typeparam name="TCard">The card type.</typeparam>
+    /// <typeparam name="TWrapper">A domain-specific
+    /// wrapper type, if needed.</typeparam>
+    /// <remarks><note type="caution">
+    /// This version of the type is for advanced usage only.
+    /// For the simple case, use <see cref="Pile{TCard}"/>.
+    /// </note></remarks>
     [DebuggerDisplay("Count = {Count}")]
-    public abstract class Pile<TCard>
+    public abstract class Pile<TCard, TWrapper>
         where TCard : class
+        where TWrapper : ICardWrapper<TCard>
     {
         private readonly ReaderWriterLockSlim _rwlock = new ReaderWriterLockSlim();
 
@@ -135,10 +143,15 @@ namespace Discord.Addons.MpGame.Collections
                 if (!(CanBrowse || CanPeek))
                     ThrowHelper.ThrowInvalidOp(ErrorStrings.NoBrowseOrPeek);
 
-                //using (_rwlock.UsingReadLock())
-                //{
-                    return VHead?.Value;
-                //}
+                using (_rwlock.UsingReadLock())
+                {
+                    var n = VHead;
+                    if (n == null)
+                        return null;
+
+                    var wrapper = n.Value;
+                    return wrapper.Unwrap();
+                }
             }
         }
 
@@ -170,7 +183,10 @@ namespace Discord.Addons.MpGame.Collections
                 using (_rwlock.UsingReadLock())
                 {
                     for (var n = VHead; n != null; n = n.Next)
-                        yield return n.Value;
+                    {
+                        var wrapper = n.Value;
+                        yield return wrapper.Unwrap();
+                    }
                 }
             }
         }
@@ -209,7 +225,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <returns>The cards at the chosen indeces, or an empty
         /// array if it was chosen to not take any.</returns>
         /// <exception cref="InvalidOperationException">The pile does not
-        /// allow browsing AND taking OR The sequence produced from 
+        /// allow browsing AND taking<br/>-OR-<br/>The sequence produced from 
         /// <paramref name="shuffleFunc"/> was <see langword="null"/>.</exception>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="selector"/> was <see langword="null"/>.</exception>
@@ -248,8 +264,8 @@ namespace Discord.Addons.MpGame.Collections
 
             using (_rwlock.UsingWriteLock())
             {
-                var cards = GetAllD();
-                var imm =ImmutableDictionary.CreateRange<int, TCard>(
+                var cards = GetAllDictionary();
+                var imm = ImmutableDictionary.CreateRange<int, TCard>(
                     (filter != null)
                         ? cards.Where(kv => filter(kv.Value))
                         : cards);
@@ -263,7 +279,7 @@ namespace Discord.Addons.MpGame.Collections
                 {
                     Resequence(shuffleFunc(cards.Values.ToImmutableArray()));
 
-                    return ImmutableArray.CreateRange(nodes.Select(n => n.Value));
+                    return ImmutableArray.CreateRange(nodes.Select(n => n.Value.Unwrap()));
                 }
                 else
                 {
@@ -321,8 +337,8 @@ namespace Discord.Addons.MpGame.Collections
         /// Requires <see cref="CanCut"/>.
         /// </summary>
         /// <param name="amount">The number of cards to send to the bottom.</param>
-        /// <remarks><note type="note">If <paramref name="amount"/> is 0 or equal to <see cref="Count"/>,
-        /// this function is a no-op.</note></remarks>
+        /// <remarks><note type="note">If <paramref name="amount"/> is 0 or equal to
+        /// <see cref="Count"/>, this function is a no-op.</note></remarks>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="amount"/>
         /// was less than 0 or greater than the pile's current size.</exception>
         /// <exception cref="InvalidOperationException">The instance does not
@@ -347,9 +363,9 @@ namespace Discord.Addons.MpGame.Collections
                 var newTail = newHead.Previous;
 
                 oldHead.Previous = oldTail;
-                oldTail.Next     = oldHead;
+                oldTail.Next = oldHead;
                 newHead.Previous = null;
-                newTail.Next     = null;
+                newTail.Next = null;
 
                 //Interlocked.Exchange(ref _head, newHead);
                 //Interlocked.Exchange(ref _tail, newTail);
@@ -366,7 +382,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <returns>If the pile's current size is greater than 0, the card
         /// currently at the top of the pile. Otherwise will throw.</returns>
         /// <exception cref="InvalidOperationException">The instance
-        /// does not allow drawing cards OR There were no cards to draw.</exception>
+        /// does not allow drawing cards<br/>-OR-<br/>There were no cards to draw.</exception>
         public TCard Draw()
         {
             if (!CanDraw)
@@ -395,7 +411,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <returns>If the pile's current size is greater than 0, the card
         /// currently at the bottom of the pile. Otherwise will throw.</returns>
         /// <exception cref="InvalidOperationException">The instance
-        /// does not allow drawing cards OR There were no cards to draw.</exception>
+        /// does not allow drawing cards<br/>-OR-<br/>There were no cards to draw.</exception>
         public TCard DrawBottom()
         {
             if (!CanDrawBottom)
@@ -448,8 +464,8 @@ namespace Discord.Addons.MpGame.Collections
         }
 
 
-        //private void InsertAt(TCard card, Index index)
-        //    => InsertAt(card, index.FromEnd ? (Count - index.Value) : index.Value);
+        //public void InsertAt(TCard card, Index index)
+        //    => InsertAt(card, index.FromEnd ? (VCount - index.Value) : index.Value);
 
         /// <summary>
         /// Puts the top card of *this* pile on top of another pile.
@@ -459,17 +475,20 @@ namespace Discord.Addons.MpGame.Collections
         /// <param name="targetPile">The pile to place a card on.</param>
         /// <remarks><note type="note">Calls <see cref="OnPut(TCard)"/> on the target pile.
         /// If the last card of this pile was taken, calls
-        /// <see cref="OnLastRemoved"/> *before* the card is placed on the target pile.
+        /// <see cref="OnLastRemoved"/> as well.
         /// </note></remarks>
         /// <exception cref="InvalidOperationException">This pile
-        /// does not allow drawing cards OR The target pile
-        /// does not allow placing cards on top OR
+        /// does not allow drawing cards<br/>-OR-<br/>The target pile
+        /// does not allow placing cards on top<br/>-OR-<br/>
         /// <paramref name="targetPile"/> was the same instance as the source
-        /// OR This pile was empty.</exception>
-        public void Mill(Pile<TCard> targetPile)
+        /// <br/>-OR-<br/>This pile was empty.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="targetPile"/>
+        /// was <see langword="null"/>.</exception>
+        public void Mill(Pile<TCard, TWrapper> targetPile)
         {
             if (!CanDraw)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoDraw);
+            ThrowHelper.ThrowIfArgNull(targetPile, nameof(targetPile));
             if (!targetPile.CanPut)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoPutTarget);
             if (ReferenceEquals(this, targetPile))
@@ -495,10 +514,13 @@ namespace Discord.Addons.MpGame.Collections
                     targetHead.Previous = millNode;
                 targetPile.CountIncOne();
 
+                var wrapper = millNode.Value;
+                wrapper.Reset(targetPile);
+
                 if (VCount == 0)
                     OnLastRemoved();
 
-                targetPile.OnPut(millNode.Value);
+                targetPile.OnPut(wrapper.Unwrap());
             }
         }
 
@@ -531,7 +553,7 @@ namespace Discord.Addons.MpGame.Collections
                 var builder = ImmutableArray.CreateBuilder<TCard>(amount);
 
                 for (var (n, i) = (VHead, 0); i < amount; (n, i) = (n.Next, i + 1))
-                    builder.Add(n.Value);
+                    builder.Add(n.Value.Unwrap());
 
                 return builder.ToImmutable();
             }
@@ -587,7 +609,7 @@ namespace Discord.Addons.MpGame.Collections
         /// This function receives the cards currently in
         /// the pile as its argument.</param>
         /// <exception cref="InvalidOperationException">The instance
-        /// does not allow reshuffling the cards OR The sequence produced from 
+        /// does not allow reshuffling the cards<br/>-OR-<br/>The sequence produced from 
         /// <paramref name="shuffleFunc"/> was <see langword="null"/>.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="shuffleFunc"/> was <see langword="null"/>.</exception>
         public void Shuffle(Func<ImmutableArray<TCard>, IEnumerable<TCard>> shuffleFunc)
@@ -628,8 +650,8 @@ namespace Discord.Addons.MpGame.Collections
         }
 
 
-        //private TCard TakeAt(Index index)
-        //    => TakeAt(index.FromEnd ? (Count - index.Value) : index.Value);
+        //public TCard TakeAt(Index index)
+        //    => TakeAt(index.FromEnd ? (VCount - index.Value) : index.Value);
 
         /// <summary>
         /// Automatically called when the last card is removed from the pile.
@@ -644,14 +666,31 @@ namespace Discord.Addons.MpGame.Collections
         /// <remarks><note type="note">Does nothing by default.</note></remarks>
         protected virtual void OnPut(TCard card) { }
 
-        private Dictionary<int, TCard> GetAllD()
+        /// <summary>
+        /// Function that puts a <typeparamref name="TCard"/>
+        /// into a <typeparamref name="TWrapper"/>.
+        /// </summary>
+        protected abstract TWrapper Wrap(TCard card);
+
+        //protected abstract void CardMoved(TWrapper wrapper);
+
+        ///// <summary>
+        ///// Function that gets the <typeparamref name="TCard"/>
+        ///// out of a <typeparamref name="TWrapper"/>.
+        ///// </summary>
+        //protected abstract TCard CardOut(TWrapper wrapper);
+
+        //protected abstract bool IsCardViewable(TWrapper wrapper);
+
+        private Dictionary<int, TCard> GetAllDictionary()
         {
             var res = new Dictionary<int, TCard>();
             if (VCount > 0)
             {
                 for (var (n, i) = (VHead, 0); n != null; (n, i) = (n.Next, i + 1))
                 {
-                    res.Add(i, n.Value);
+                    var wrapper = n.Value;
+                    res.Add(i, wrapper.Unwrap());
                 }
             }
             return res;
@@ -664,7 +703,10 @@ namespace Discord.Addons.MpGame.Collections
             var builder = ImmutableArray.CreateBuilder<TCard>(VCount);
 
             for (var n = VHead; n != null; n = n.Next)
-                builder.Add(n.Value);
+            {
+                var wrapper = n.Value;
+                builder.Add(wrapper.Unwrap());
+            }
 
             if (clear)
             {
@@ -688,7 +730,7 @@ namespace Discord.Addons.MpGame.Collections
         }
         private Node AddHead(TCard card)
         {
-            var tmp = new Node(card);
+            var tmp = new Node(Wrap(card));
             var oldHead = Interlocked.Exchange(ref _head, tmp);
             Interlocked.CompareExchange(ref _tail, value: tmp, comparand: null);
             CountIncOne();
@@ -701,7 +743,7 @@ namespace Discord.Addons.MpGame.Collections
         }
         private Node AddTail(TCard card)
         {
-            var tmp = new Node(card);
+            var tmp = new Node(Wrap(card));
             var oldTail = Interlocked.Exchange(ref _tail, tmp);
             Interlocked.CompareExchange(ref _head, value: tmp, comparand: null);
             CountIncOne();
@@ -714,7 +756,7 @@ namespace Discord.Addons.MpGame.Collections
         }
         private Node AddAfter(Node node, TCard card)
         {
-            var tmp = new Node(card)
+            var tmp = new Node(Wrap(card))
             {
                 Next = node?.Next,
                 Previous = node
@@ -735,7 +777,7 @@ namespace Discord.Addons.MpGame.Collections
             if (node.Next != null)
                 node.Next.Previous = node.Previous;
 
-            return node.Value;
+            return node.Value.Unwrap();
         }
         private TCard TakeInternal(int index)
         {
@@ -745,6 +787,11 @@ namespace Discord.Addons.MpGame.Collections
                 OnLastRemoved();
 
             return tmp;
+        }
+        protected TWrapper GetWrapperAt(int index)
+        {
+            var n = GetNodeAt(index);
+            return n.Value;
         }
         private void Resequence(IEnumerable<TCard> newSequence)
         {
@@ -782,11 +829,60 @@ namespace Discord.Addons.MpGame.Collections
         {
             public Node Next { get; set; }
             public Node Previous { get; set; }
-            public TCard Value { get; }
+            public TWrapper Value { get; }
 
-            public Node(TCard value)
+            public Node(TWrapper value)
             {
-                Value = value ?? throw new ArgumentNullException(nameof(value));
+                if (value == null)
+                    throw new ArgumentNullException(nameof(value));
+
+                Value = value;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Base type to represent a pile of objects,
+    /// specifically for use in card games.
+    /// </summary>
+    /// <typeparam name="TCard">The card type.</typeparam>
+    public abstract class Pile<TCard> : Pile<TCard, Pile<TCard>.DefaultWrapper>
+        where TCard : class
+    {
+        /// <inheritdoc/>
+        protected Pile() : base() { }
+        /// <inheritdoc/>
+        protected Pile(IEnumerable<TCard> cards) : base(cards) { }
+
+        /// <inheritdoc/>
+        protected sealed override DefaultWrapper Wrap(TCard card)
+            => new DefaultWrapper(card);
+
+        /// <summary>
+        /// Default, lightwewight wrapper.
+        /// </summary>
+        public struct DefaultWrapper : ICardWrapper<TCard>
+        {
+            private readonly TCard _card;
+
+            internal DefaultWrapper(TCard card)
+            {
+                _card = card;
+            }
+
+            TCard ICardWrapper<TCard>.Unwrap()
+            {
+                ThrowIfDefault();
+                return _card;
+            }
+            void ICardWrapper<TCard>.Reset<TWrapper>(Pile<TCard, TWrapper> newPile)
+                => ThrowIfDefault();
+
+            [MethodImpl(MethodImplOptions.NoInlining), DebuggerStepThrough]
+            private void ThrowIfDefault()
+            {
+                if (_card == null)
+                    throw new NullReferenceException();
             }
         }
     }

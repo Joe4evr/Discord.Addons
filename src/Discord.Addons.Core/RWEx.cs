@@ -7,39 +7,39 @@ namespace Discord.Addons.Core
     internal static class RWEx
     {
         [DebuggerStepThrough]
-        public static IDisposable UsingReadLock(this ReaderWriterLockSlim readerWriterLock)
-            => new ReadLock(readerWriterLock);
+        internal static AcquiredReadLock UsingReadLock(this ReaderWriterLockSlim readerWriterLock)
+            => new AcquiredReadLock(readerWriterLock);
         [DebuggerStepThrough]
-        public static IDisposable UsingWriteLock(this ReaderWriterLockSlim readerWriterLock)
-            => new WriteLock(readerWriterLock);
+        internal static AcquiredWriteLock UsingWriteLock(this ReaderWriterLockSlim readerWriterLock)
+            => new AcquiredWriteLock(readerWriterLock);
 
-        private sealed class ReadLock : IDisposable
+        internal readonly struct AcquiredReadLock : IDisposable
         {
             private readonly ReaderWriterLockSlim _lock;
 
             [DebuggerStepThrough]
-            public ReadLock(ReaderWriterLockSlim @lock)
+            public AcquiredReadLock(ReaderWriterLockSlim @lock)
             {
                 _lock = @lock;
                 _lock.EnterReadLock();
             }
 
             [DebuggerStepThrough]
-            public void Dispose() => _lock.ExitReadLock();
+            void IDisposable.Dispose() => _lock.ExitReadLock();
         }
-        private sealed class WriteLock : IDisposable
+        internal readonly struct AcquiredWriteLock : IDisposable
         {
             private readonly ReaderWriterLockSlim _lock;
 
             [DebuggerStepThrough]
-            public WriteLock(ReaderWriterLockSlim @lock)
+            public AcquiredWriteLock(ReaderWriterLockSlim @lock)
             {
                 _lock = @lock;
                 _lock.EnterWriteLock();
             }
 
             [DebuggerStepThrough]
-            public void Dispose() => _lock.ExitWriteLock();
+            void IDisposable.Dispose() => _lock.ExitWriteLock();
         }
     }
 }

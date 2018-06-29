@@ -12,7 +12,7 @@ namespace Discord.Addons.Core
             => throw new InvalidOperationException(message: msg);
 
         [MethodImpl(MethodImplOptions.NoInlining), DebuggerStepThrough]
-        internal static void ThrowIfArgNull<T>([EnsuresNotNull] T arg, string argname)
+        internal static void ThrowIfArgNull<T>(/*[EnsuresNotNull]*/ T arg, string argname)
             where T : class
         {
             if (arg == null)
@@ -27,7 +27,7 @@ namespace Discord.Addons.Core
         internal static void ThrowIndexOutOfRange(string msg)
             => throw new IndexOutOfRangeException(message: msg);
 
-        [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]
-        internal sealed class EnsuresNotNullAttribute : Attribute { }
+        //[AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]
+        //internal sealed class EnsuresNotNullAttribute : Attribute { }
     }
 }
