@@ -10,10 +10,11 @@ using Discord.Addons.Core;
 namespace Discord.Addons.MpGame.Collections
 {
     /// <summary>
-    /// Similar to <see cref="Pile{TCard}"/> but specialized
-    /// and optimized for representing a hand of cards.
+    ///     Similar to <see cref="Pile{TCard}"/> but specialized and optimized for representing a hand of cards.
     /// </summary>
-    /// <typeparam name="TCard">The card type.</typeparam>
+    /// <typeparam name="TCard">
+    ///     The card type.
+    /// </typeparam>
     [DebuggerDisplay("Count = {Count}")]
     public sealed class Hand<TCard>
         where TCard : class
@@ -23,7 +24,7 @@ namespace Discord.Addons.MpGame.Collections
         private List<TCard> _hand;
 
         /// <summary>
-        /// Initializes a new <see cref="Hand{TCard}"/> to an empty state.
+        ///     Initializes a new <see cref="Hand{TCard}"/> to an empty state.
         /// </summary>
         public Hand()
         {
@@ -31,12 +32,19 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Initializes a new <see cref="Hand{TCard}"/> with the specified cards.
+        ///     Initializes a new <see cref="Hand{TCard}"/> with the specified cards.
         /// </summary>
-        /// <param name="cards">The cards to put in the hand.</param>
-        /// <remarks><note type="note">This constructor will filter out any items in
-        /// <paramref name="cards"/> that are <see langword="null"/>.</note></remarks>
-        /// <exception cref="ArgumentNullException"><paramref name="cards"/> was <see langword="null"/>.</exception>
+        /// <param name="cards">
+        ///     The cards to put in the hand.
+        /// </param>
+        /// <remarks>
+        ///     <note type="note">
+        ///         This constructor will filter out any items in <paramref name="cards"/> that are <see langword="null"/>.
+        ///     </note>
+        /// </remarks>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="cards"/> was <see langword="null"/>.
+        /// </exception>
         public Hand(IEnumerable<TCard> cards)
         {
             ThrowHelper.ThrowIfArgNull(cards, nameof(cards));
@@ -45,15 +53,19 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// The amount of cards currently in the hand.
+        ///     The amount of cards currently in the hand.
         /// </summary>
         public int Count => _hand.Count;
 
         /// <summary>
-        /// Adds a card to the hand.
+        ///     Adds a card to the hand.
         /// </summary>
-        /// <param name="card">The card to add.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="card"/> was <see langword="null"/>.</exception>
+        /// <param name="card">
+        ///     The card to add.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="card"/> was <see langword="null"/>.
+        /// </exception>
         public void Add(TCard card)
         {
             ThrowHelper.ThrowIfArgNull(card, nameof(card));
@@ -65,7 +77,7 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// The cards inside this hand.
+        ///     The cards inside this hand.
         /// </summary>
         public ImmutableArray<TCard> Browse()
         {
@@ -78,9 +90,11 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Clears the entire hand and returns the cards that were in it.
+        ///     Clears the entire hand and returns the cards that were in it.
         /// </summary>
-        /// <returns>The collection as it was before it is cleared.</returns>
+        /// <returns>
+        ///     The collection as it was before it is cleared.
+        /// </returns>
         public ImmutableArray<TCard> Clear()
         {
             using (_rwlock.UsingWriteLock())
@@ -92,15 +106,18 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Orders the cards using the specified function.
+        ///     Orders the cards using the specified function.
         /// </summary>
-        /// <param name="orderFunc">A function that produces an
-        /// <see cref="IEnumerable{TCard}"/> in a new order.
-        /// This function receives the cards currently in
-        /// the hand as its argument.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="orderFunc"/> was <see langword="null"/>.</exception>
-        /// <exception cref="InvalidOperationException">The sequence produced from 
-        /// <paramref name="orderFunc"/> was <see langword="null"/>.</exception>
+        /// <param name="orderFunc">
+        ///     A function that produces an <see cref="IEnumerable{TCard}"/> in a new order.<br/>
+        ///     This function receives the cards currently in the hand as its argument.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="orderFunc"/> was <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        ///     The sequence produced from <paramref name="orderFunc"/> was <see langword="null"/>.
+        /// </exception>
         public void Order(Func<ImmutableArray<TCard>, IEnumerable<TCard>> orderFunc)
         {
             ThrowHelper.ThrowIfArgNull(orderFunc, nameof(orderFunc));
@@ -116,11 +133,14 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Takes a card from the given index.
+        ///     Takes a card from the given index.
         /// </summary>
-        /// <param name="index">The 0-based index of the card to take.</param>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>
-        /// was less than 0 or greater than or equal to the pile's current size.</exception>
+        /// <param name="index">
+        ///     The 0-based index of the card to take.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <paramref name="index"/> was less than 0 or greater than or equal to the pile's current size.
+        /// </exception>
         public TCard TakeAt(int index)
         {
             if (index < 0)
@@ -137,11 +157,17 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Takes the first card that matches a given predicate.
+        ///     Takes the first card that matches a given predicate.
         /// </summary>
-        /// <param name="predicate">The predicate to match.</param>
-        /// <returns>The card, or <see langword="null"/> if no match found.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="predicate"/> was <see langword="null"/>.</exception>
+        /// <param name="predicate">
+        ///     The predicate to match.
+        /// </param>
+        /// <returns>
+        ///     The first card to match the given predicate, or <see langword="null"/> if no match found.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="predicate"/> was <see langword="null"/>.
+        /// </exception>
         public TCard TakeFirstOrDefault(Func<TCard, bool> predicate)
         {
             ThrowHelper.ThrowIfArgNull(predicate, nameof(predicate));

@@ -12,16 +12,20 @@ using Discord.Addons.Core;
 namespace Discord.Addons.MpGame.Collections
 {
     /// <summary>
-    /// Base type to represent a pile of objects,
-    /// specifically for use in card games.
+    ///     Base type to represent a pile of objects, specifically for use in card games.
     /// </summary>
-    /// <typeparam name="TCard">The card type.</typeparam>
-    /// <typeparam name="TWrapper">A domain-specific
-    /// wrapper type, if needed.</typeparam>
-    /// <remarks><note type="caution">
-    /// This version of the type is for advanced usage only.
-    /// For the simple case, use <see cref="Pile{TCard}"/>.
-    /// </note></remarks>
+    /// <typeparam name="TCard">
+    ///     The card type.
+    /// </typeparam>
+    /// <typeparam name="TWrapper">
+    ///     A domain-specific wrapper type, if needed.
+    /// </typeparam>
+    /// <remarks>
+    ///     <note type="caution">
+    ///         This version of the type is for advanced usage only.<br/>
+    ///         For the simple case, use <see cref="Pile{TCard}"/>.
+    ///     </note>
+    /// </remarks>
     [DebuggerDisplay("Count = {Count}")]
     public abstract class Pile<TCard, TWrapper>
         where TCard : class
@@ -34,18 +38,23 @@ namespace Discord.Addons.MpGame.Collections
         private Node _tail = null;
 
         /// <summary>
-        /// Initializes a new <see cref="Pile{TCard}"/> to an empty state.
+        ///     Initializes a new pile to an empty state.
         /// </summary>
         protected Pile() { }
 
         /// <summary>
-        /// Initializes a new <see cref="Pile{TCard}"/> with the specified cards.
+        ///     Initializes a new pile with the specified cards.
         /// </summary>
-        /// <param name="cards">The cards to put in the pile.</param>
-        /// <remarks><note type="note">This constructor will filter out any items in
-        /// <paramref name="cards"/> that are <see langword="null"/>.</note></remarks>
-        /// <exception cref="ArgumentNullException"><paramref name="cards"/>
-        /// was <see langword="null"/>.</exception>
+        /// <param name="cards">
+        ///     The cards to put in the pile.</param>
+        /// <remarks>
+        ///     <note type="note">
+        ///         This constructor will filter out any items in <paramref name="cards"/> that are <see langword="null"/>.
+        ///     </note>
+        /// </remarks>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="cards"/> was <see langword="null"/>.
+        /// </exception>
         protected Pile(IEnumerable<TCard> cards)
         {
             ThrowHelper.ThrowIfArgNull(cards, nameof(cards));
@@ -54,68 +63,63 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Indicates whether or not this <see cref="Pile{TCard}"/> is freely browsable.
+        ///     Indicates whether or not this pile is freely browsable.
         /// </summary>
         public abstract bool CanBrowse { get; }
 
         /// <summary>
-        /// Indicates whether or not this <see cref="Pile{TCard}"/> can be cleared.
+        ///     Indicates whether or not this pile can be cleared.
         /// </summary>
         public abstract bool CanClear { get; }
 
         /// <summary>
-        /// Indicates whether or not this <see cref="Pile{TCard}"/>
-        /// can be cut, ie. taking a number of cards from the top
-        /// and putting them underneath the remainder.
+        ///     Indicates whether or not this pile can be cut,<br/>
+        ///     ie. taking a number of cards from the top and putting them underneath the remainder.
         /// </summary>
         public abstract bool CanCut { get; }
 
         /// <summary>
-        /// Indicates whether or not this <see cref="Pile{TCard}"/>
-        /// allows drawing cards from the top.
+        ///     Indicates whether or not this pile allows drawing cards from the top.
         /// </summary>
         public abstract bool CanDraw { get; }
 
         /// <summary>
-        /// Indicates whether or not this <see cref="Pile{TCard}"/>
-        /// allows drawing cards from the bottom.
+        ///     Indicates whether or not this pile allows drawing cards from the bottom.
         /// </summary>
         public abstract bool CanDrawBottom { get; }
 
         /// <summary>
-        /// Indicates whether or not this <see cref="Pile{TCard}"/>
-        /// allows inserting cards at an arbitrary index.
+        ///     Indicates whether or not this pile allows inserting cards at an arbitrary index.
         /// </summary>
         public abstract bool CanInsert { get; }
 
         /// <summary>
-        /// Indicates whether or not this <see cref="Pile{TCard}"/> allows peeking at cards.
+        ///     Indicates whether or not this pile allows peeking at cards.
         /// </summary>
         public abstract bool CanPeek { get; }
 
         /// <summary>
-        /// Indicates whether or not this <see cref="Pile{TCard}"/> allows putting cards on the top.
+        ///     Indicates whether or not this pile allows putting cards on the top.
         /// </summary>
         public abstract bool CanPut { get; }
 
         /// <summary>
-        /// Indicates whether or not this <see cref="Pile{TCard}"/> allows putting cards on the bottom.
+        ///     Indicates whether or not this pile allows putting cards on the bottom.
         /// </summary>
         public abstract bool CanPutBottom { get; }
 
         /// <summary>
-        /// Indicates whether or not this <see cref="Pile{TCard}"/> can be reshuffled.
+        ///     Indicates whether or not this pile can be reshuffled.
         /// </summary>
         public abstract bool CanShuffle { get; }
 
         /// <summary>
-        /// Indicates whether or not this <see cref="Pile{TCard}"/>
-        /// allows taking cards from an arbitrary index.
+        ///     Indicates whether or not this pile allows taking cards from an arbitrary index.
         /// </summary>
         public abstract bool CanTake { get; }
 
         /// <summary>
-        /// The amount of cards currently in the pile.
+        ///     The amount of cards currently in the pile.
         /// </summary>
         public int Count
         {
@@ -129,13 +133,12 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Peeks the single card currently on top
-        /// without removing it from the pile,
-        /// or <see langword="null" /> if the pile is empty.
-        /// Requires <see cref="CanBrowse"/> *or* <see cref="CanPeek"/>.
+        ///     Peeks the single card currently on top without removing it from the pile, or <see langword="null" /> if the pile is empty.<br/>
+        ///     Requires <see cref="CanBrowse"/> *or* <see cref="CanPeek"/>.
         /// </summary>
-        /// <exception cref="InvalidOperationException">The instance
-        /// does not allow browsing *or* peeking the cards.</exception>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow browsing *or* peeking the cards.
+        /// </exception>
         public TCard Top
         {
             get
@@ -160,17 +163,23 @@ namespace Discord.Addons.MpGame.Collections
         private Node VTail => Volatile.Read(ref _tail);
 
         /// <summary>
-        /// Iterates the contents of this pile as an <see cref="IEnumerable{T}"/>.
-        /// Requires <see cref="CanBrowse"/>.
+        ///     Iterates the contents of this pile as an <see cref="IEnumerable{T}"/>.<br/>
+        ///     Requires <see cref="CanBrowse"/>.
         /// </summary>
-        /// <returns>The contents of the pile in a lazily-evaluated <see cref="IEnumerable{T}"/>.</returns>
-        /// <remarks><note type="warning">This method holds a read lock
-        /// from when you start enumerating until the enumeration ends
-        /// and should be used only for fairly quick one-shot operations
-        /// (e.g. LINQ). If you need to hold the data for longer or iterate the same
-        /// snapshot more than once, use <see cref="Browse"/> instead.</note></remarks>
-        /// <exception cref="InvalidOperationException">The instance
-        /// does not allow browsing the cards.</exception>
+        /// <returns>
+        ///     The contents of the pile in a lazily-evaluated <see cref="IEnumerable{T}"/>.
+        /// </returns>
+        /// <remarks>
+        ///     <note type="warning">
+        ///         This method holds a read lock from when you start enumerating until the enumeration ends
+        ///         and should be used only for fairly quick one-shot operations (e.g. LINQ).<br/>
+        ///         If you need to hold the data for longer or iterate the same
+        ///         snapshot more than once, use <see cref="Browse"/> instead.
+        ///     </note>
+        /// </remarks>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow browsing the cards.
+        /// </exception>
         public IEnumerable<TCard> AsEnumerable()
         {
             if (!CanBrowse)
@@ -192,12 +201,12 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// A snapshot of all the cards
-        /// without removing them from the pile.
-        /// Requires <see cref="CanBrowse"/>.
+        ///     A snapshot of all the cards without removing them from the pile.<br/>
+        ///     Requires <see cref="CanBrowse"/>.
         /// </summary>
-        /// <exception cref="InvalidOperationException">The instance
-        /// does not allow browsing the cards.</exception>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow browsing the cards.
+        /// </exception>
         public ImmutableArray<TCard> Browse()
         {
             if (!CanBrowse)
@@ -210,49 +219,59 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Browse for and take one or more cards from the pile in a single operation.
-        /// Requires <see cref="CanBrowse"/> and <see cref="CanTake"/>.
+        ///     Browse for and take one or more cards from the pile in a single operation.<br/>
+        ///     Requires <see cref="CanBrowse"/> and <see cref="CanTake"/>.
         /// </summary>
-        /// <param name="selector">A function that returns an array
-        /// of the indeces of the desired cards. The key of each pair is the index
-        /// of that card. Returning a <see langword="null"/> or empty array
-        /// is considered choosing nothing and will return an empty array.</param>
-        /// <param name="filter">An optional function to filter
-        /// to cards that can be taken.</param>
-        /// <param name="shuffleFunc">An optional function to reshuffle the pile
-        /// after taking the selected cards. If provided,
-        /// requires <see cref="CanShuffle"/>.</param>
-        /// <returns>The cards at the chosen indeces, or an empty
-        /// array if it was chosen to not take any.</returns>
-        /// <exception cref="InvalidOperationException">The pile does not
-        /// allow browsing AND taking<br/>-OR-<br/>The sequence produced from 
-        /// <paramref name="shuffleFunc"/> was <see langword="null"/>.</exception>
+        /// <param name="selector">
+        ///     A function that returns an array of the indeces of the desired cards.<br/>
+        ///     The key of each pair is the index of that card.<br/>
+        ///     Returning a <see langword="null"/> or empty array is considered choosing nothing and will return an empty array.
+        /// </param>
+        /// <param name="filter">
+        ///     An optional function to filter to cards that can be taken.
+        /// </param>
+        /// <param name="shuffleFunc">
+        ///     An optional function to reshuffle the pile after taking the selected cards.<br/>
+        ///     If provided, requires <see cref="CanShuffle"/>.
+        /// </param>
+        /// <returns>
+        ///     The cards at the chosen indeces, or an empty array if it was chosen to not take any.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        ///     The pile does not allow browsing AND taking<br/>
+        ///     -OR-<br/>
+        ///     The sequence produced from  <paramref name="shuffleFunc"/> was <see langword="null"/>.
+        /// </exception>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="selector"/> was <see langword="null"/>.</exception>
-        /// <exception cref="IndexOutOfRangeException">One or more of the
-        /// selected indices was not within the provided indices.</exception>
-        /// <example><code language="c#">
-        /// // An effect was used that allows the user to
-        /// // search their deck for a number of red cards
-        /// var picked = await deck.BrowseAndTake(async cards =>
-        /// {
-        ///     // Example: Call a method that shows
-        ///     // the available options to the user
-        ///     await ShowUser(cards);
-        ///     // Example: Call a method that waits
-        ///     // for the user to make a decision, with 'num'
-        ///     // being the max amount of cards they can choose
-        ///     return await UserInput(num);
-        /// },
-        /// // Only pass in the red cards
-        /// filter: c => c.Color == CardColor.Red,
-        /// // Shuffle the pile afterwards
-        /// // with some custom function
-        /// shuffleFunc: cards => cards.ShuffleItems());
-        /// // Add the chosen cards to the user's hand:
-        /// foreach (var card in picked)
-        ///     player.AddToHand(card);
-        /// </code></example>
+        ///     <paramref name="selector"/> was <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="IndexOutOfRangeException">
+        ///     One or more of the selected indices was not within the provided indices.
+        /// </exception>
+        /// <example>
+        ///     <code language="c#">
+        ///         // An effect was used that allows the user to
+        ///         // search their deck for a number of red cards
+        ///         var picked = await deck.BrowseAndTake(async cards =>
+        ///         {
+        ///             // Example: Call a method that shows
+        ///             // the available options to the user
+        ///             await ShowUser(cards);
+        ///             // Example: Call a method that waits
+        ///             // for the user to make a decision, with 'num'
+        ///             // being the max amount of cards they can choose
+        ///             return await UserInput(num);
+        ///         },
+        ///         // Only pass in the red cards
+        ///         filter: c => c.Color == CardColor.Red,
+        ///         // Shuffle the pile afterwards
+        ///         // with some custom function
+        ///         shuffleFunc: cards => cards.ShuffleItems());
+        ///         // Add the chosen cards to the user's hand:
+        ///         foreach (var card in picked)
+        ///             player.AddToHand(card);
+        ///     </code>
+        /// </example>
         public async Task<ImmutableArray<TCard>> BrowseAndTake(
             Func<ImmutableDictionary<int, TCard>, Task<int[]>> selector,
             Func<TCard, bool> filter = null,
@@ -314,12 +333,15 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Clears the entire pile and returns the cards
-        /// that were in it. Requires <see cref="CanClear"/>.
+        ///     Clears the entire pile and returns the cards that were in it.<br/>
+        ///     Requires <see cref="CanClear"/>.
         /// </summary>
-        /// <returns>The collection as it was before it is cleared.</returns>
-        /// <exception cref="InvalidOperationException">The instance
-        /// does not allow clearing all cards.</exception>
+        /// <returns>
+        ///     The collection as it was before it is cleared.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow clearing all cards.
+        /// </exception>
         public ImmutableArray<TCard> Clear()
         {
             if (!CanClear)
@@ -332,17 +354,23 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Cuts the pile at a specified number of cards from the top
-        /// and places the taken cards on the bottom.
-        /// Requires <see cref="CanCut"/>.
+        ///     Cuts the pile at a specified number of cards from the top and places the taken cards on the bottom.<br/>
+        ///     Requires <see cref="CanCut"/>.
         /// </summary>
-        /// <param name="amount">The number of cards to send to the bottom.</param>
-        /// <remarks><note type="note">If <paramref name="amount"/> is 0 or equal to
-        /// <see cref="Count"/>, this function is a no-op.</note></remarks>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="amount"/>
-        /// was less than 0 or greater than the pile's current size.</exception>
-        /// <exception cref="InvalidOperationException">The instance does not
-        /// allow cutting the pile.</exception>
+        /// <param name="amount">
+        ///     The number of cards to send to the bottom.
+        /// </param>
+        /// <remarks>
+        ///     <note type="note">
+        ///         If <paramref name="amount"/> is 0 or equal to <see cref="Count"/>, this function is a no-op.
+        ///     </note>
+        /// </remarks>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow cutting the pile.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <paramref name="amount"/> was less than 0 or greater than the pile's current size.
+        /// </exception>
         public void Cut(int amount)
         {
             if (!CanCut)
@@ -375,14 +403,18 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Draws the top card from the pile. If the last card is
-        /// drawn, calls <see cref="OnLastRemoved"/>.
-        /// Requires <see cref="CanDraw"/>.
+        ///     Draws the top card from the pile.<br/>
+        ///     If the last card is drawn, calls <see cref="OnLastRemoved"/>.<br/>
+        ///     Requires <see cref="CanDraw"/>.
         /// </summary>
-        /// <returns>If the pile's current size is greater than 0, the card
-        /// currently at the top of the pile. Otherwise will throw.</returns>
-        /// <exception cref="InvalidOperationException">The instance
-        /// does not allow drawing cards<br/>-OR-<br/>There were no cards to draw.</exception>
+        /// <returns>
+        /// If the pile's current size is greater than 0, the card currently at the top of the pile. Otherwise will throw.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow drawing cards<br/>
+        ///     -OR-<br/>
+        ///     There were no cards to draw.
+        /// </exception>
         public TCard Draw()
         {
             if (!CanDraw)
@@ -404,14 +436,18 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Draws the bottom card from the pile. If the last card is
-        /// drawn, calls <see cref="OnLastRemoved"/>.
-        /// Requires <see cref="CanDrawBottom"/>.
+        ///     Draws the bottom card from the pile.<br/>
+        ///     If the last card is drawn, calls <see cref="OnLastRemoved"/>.<br/>
+        ///     Requires <see cref="CanDrawBottom"/>.
         /// </summary>
-        /// <returns>If the pile's current size is greater than 0, the card
-        /// currently at the bottom of the pile. Otherwise will throw.</returns>
-        /// <exception cref="InvalidOperationException">The instance
-        /// does not allow drawing cards<br/>-OR-<br/>There were no cards to draw.</exception>
+        /// <returns>
+        ///     If the pile's current size is greater than 0, the card currently at the bottom of the pile. Otherwise will throw.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow drawing cards<br/>
+        ///     -OR-<br/>
+        ///     There were no cards to draw.
+        /// </exception>
         public TCard DrawBottom()
         {
             if (!CanDrawBottom)
@@ -433,15 +469,24 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Inserts a card at the given index. Requires <see cref="CanInsert"/>.
+        ///     Inserts a card at the given index.<br/>
+        ///     Requires <see cref="CanInsert"/>.
         /// </summary>
-        /// <param name="card">The card to insert.</param>
-        /// <param name="index">The 0-based index to insert at.</param>
-        /// <exception cref="InvalidOperationException">The instance does not
-        /// allow inserting cards at an arbitrary location.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="card"/> was <see langword="null"/>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>
-        /// was less than 0 or greater than the pile's current size.</exception>
+        /// <param name="card">
+        ///     The card to insert.
+        /// </param>
+        /// <param name="index">
+        ///     The 0-based index to insert at.
+        /// </param>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow inserting cards at an arbitrary location.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="card"/> was <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <paramref name="index"/> was less than 0 or greater than the pile's current size.
+        /// </exception>
         public void InsertAt(TCard card, int index)
         {
             if (!CanInsert)
@@ -468,22 +513,30 @@ namespace Discord.Addons.MpGame.Collections
         //    => InsertAt(card, index.FromEnd ? (VCount - index.Value) : index.Value);
 
         /// <summary>
-        /// Puts the top card of *this* pile on top of another pile.
-        /// Requires <see cref="CanDraw"/> on this pile
-        /// and <see cref="CanPut"/> on the target pile.
+        ///     Puts the top card of *this* pile on top of another pile.<br/>
+        ///     Requires <see cref="CanDraw"/> on this pile and <see cref="CanPut"/> on the target pile.
         /// </summary>
-        /// <param name="targetPile">The pile to place a card on.</param>
-        /// <remarks><note type="note">Calls <see cref="OnPut(TCard)"/> on the target pile.
-        /// If the last card of this pile was taken, calls
-        /// <see cref="OnLastRemoved"/> as well.
-        /// </note></remarks>
-        /// <exception cref="InvalidOperationException">This pile
-        /// does not allow drawing cards<br/>-OR-<br/>The target pile
-        /// does not allow placing cards on top<br/>-OR-<br/>
-        /// <paramref name="targetPile"/> was the same instance as the source
-        /// <br/>-OR-<br/>This pile was empty.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="targetPile"/>
-        /// was <see langword="null"/>.</exception>
+        /// <param name="targetPile">
+        ///     The pile to place a card on.
+        /// </param>
+        /// <remarks>
+        ///     <note type="note">
+        ///         Calls <see cref="OnPut(TCard)"/> on the target pile.<br/>
+        ///         If the last card of this pile was taken, calls <see cref="OnLastRemoved"/> as well.
+        ///     </note>
+        /// </remarks>
+        /// <exception cref="InvalidOperationException">
+        ///     This pile does not allow drawing cards<br/>
+        ///     -OR-<br/>
+        ///     The target pile does not allow placing cards on top<br/>
+        ///     -OR-<br/>
+        ///     <paramref name="targetPile"/> was the same instance as the source<br/>
+        ///     -OR-<br/>
+        ///     This pile was empty.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="targetPile"/> was <see langword="null"/>.
+        /// </exception>
         public void Mill(Pile<TCard, TWrapper> targetPile)
         {
             if (!CanDraw)
@@ -525,18 +578,26 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Peeks the top <paramref name="amount"/> of
-        /// cards without removing them from the pile.
-        /// Requires <see cref="CanPeek"/>.
+        ///     Peeks the top <paramref name="amount"/> of cards without removing them from the pile.<br/>
+        ///     Requires <see cref="CanPeek"/>.
         /// </summary>
-        /// <param name="amount">The amount of cards to peek.</param>
-        /// <remarks><note type="note">Peeking the single top card is
-        /// done better through <see cref="Top"/>.</note></remarks>
-        /// <returns>An array of the cards currently at the top of the pile.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="amount"/>
-        /// was less than 0 or greater than the pile's current size.</exception>
-        /// <exception cref="InvalidOperationException">The instance
-        /// does not allow peeking cards.</exception>
+        /// <param name="amount">
+        ///     The amount of cards to peek.
+        /// </param>
+        /// <remarks>
+        ///     <note type="note">
+        ///         Peeking the single top card is done better through <see cref="Top"/>.
+        ///     </note>
+        /// </remarks>
+        /// <returns>
+        ///     An array of the cards currently at the top of the pile.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow peeking cards.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <paramref name="amount"/> was less than 0 or greater than the pile's current size.
+        /// </exception>
         public ImmutableArray<TCard> PeekTop(int amount)
         {
             if (!CanPeek)
@@ -560,14 +621,19 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Puts a card on top of the pile.
-        /// Calls <see cref="OnPut(TCard)"/>.
-        /// Requires <see cref="CanPut"/>.
+        ///     Puts a card on top of the pile.<br/>
+        ///     Calls <see cref="OnPut(TCard)"/>.<br/>
+        ///     Requires <see cref="CanPut"/>.
         /// </summary>
-        /// <param name="card">The card to place on top.</param>
-        /// <exception cref="InvalidOperationException">The instance does not
-        /// allow placing cards onto it.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="card"/> was <see langword="null"/>.</exception>
+        /// <param name="card">
+        ///     The card to place on top.
+        /// </param>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow placing cards onto it.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="card"/> was <see langword="null"/>.
+        /// </exception>
         public void Put(TCard card)
         {
             if (!CanPut)
@@ -582,12 +648,18 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Puts a card on the bottom of the pile. Requires <see cref="CanPutBottom"/>.
+        ///     Puts a card on the bottom of the pile.<br/>
+        ///     Requires <see cref="CanPutBottom"/>.
         /// </summary>
-        /// <param name="card">The card to place on the bottom.</param>
-        /// <exception cref="InvalidOperationException">The instance does not
-        /// allow placing cards on the bottom.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="card"/> was <see langword="null"/>.</exception>
+        /// <param name="card">
+        ///     The card to place on the bottom.
+        /// </param>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow placing cards on the bottom.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="card"/> was <see langword="null"/>.
+        /// </exception>
         public void PutBottom(TCard card)
         {
             if (!CanPutBottom)
@@ -601,17 +673,21 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Reshuffles the pile using the specified function.
-        /// Requires <see cref="CanShuffle"/>.
+        ///     Reshuffles the pile using the specified function.<br/>
+        ///     Requires <see cref="CanShuffle"/>.
         /// </summary>
-        /// <param name="shuffleFunc">A function that produces an
-        /// <see cref="IEnumerable{TCard}"/> in a new, random order.
-        /// This function receives the cards currently in
-        /// the pile as its argument.</param>
-        /// <exception cref="InvalidOperationException">The instance
-        /// does not allow reshuffling the cards<br/>-OR-<br/>The sequence produced from 
-        /// <paramref name="shuffleFunc"/> was <see langword="null"/>.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="shuffleFunc"/> was <see langword="null"/>.</exception>
+        /// <param name="shuffleFunc">
+        ///     A function that produces an <see cref="IEnumerable{TCard}"/> in a new, random order.<br/>
+        ///     This function receives the cards currently in the pile as its argument.
+        /// </param>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow reshuffling the cards<br/>
+        ///     -OR-<br/>
+        ///     The sequence produced from  <paramref name="shuffleFunc"/> was <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="shuffleFunc"/> was <see langword="null"/>.
+        /// </exception>
         public void Shuffle(Func<ImmutableArray<TCard>, IEnumerable<TCard>> shuffleFunc)
         {
             if (!CanShuffle)
@@ -625,15 +701,22 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        /// Takes a card from the given index. If the last card is
-        /// taken, calls <see cref="OnLastRemoved"/>. Requires <see cref="CanTake"/>.
+        ///     Takes a card from the given index.<br/>
+        ///     If the last card is taken, calls <see cref="OnLastRemoved"/>.<br/>
+        ///     Requires <see cref="CanTake"/>.
         /// </summary>
-        /// <param name="index">The 0-based index to take.</param>
-        /// <returns>The card at the specified index.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/>
-        /// was less than 0 or greater than or equal to the pile's current size.</exception>
-        /// <exception cref="InvalidOperationException">The instance does not
-        /// allow taking cards from an arbitrary location.</exception>
+        /// <param name="index">
+        ///     The 0-based index to take.
+        /// </param>
+        /// <returns>
+        ///     The card at the specified index.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow taking cards from an arbitrary location.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <paramref name="index"/> was less than 0 or greater than or equal to the pile's current size.
+        /// </exception>
         public TCard TakeAt(int index)
         {
             if (!CanTake)
@@ -654,33 +737,58 @@ namespace Discord.Addons.MpGame.Collections
         //    => TakeAt(index.FromEnd ? (VCount - index.Value) : index.Value);
 
         /// <summary>
-        /// Automatically called when the last card is removed from the pile.
+        ///     Gets the wrapper object at the specified location.
         /// </summary>
-        /// <remarks><note type="note">Does nothing by default.</note></remarks>
+        /// <param name="index">
+        ///     The 0-based index to get.
+        /// </param>
+        /// <returns>
+        ///     The wrapper at the specified index.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <paramref name="index"/> was less than 0 or greater than or equal to the pile's current size.
+        /// </exception>
+        protected TWrapper GetWrapperAt(int index)
+        {
+            if (index < 0)
+                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
+            if (index >= VCount)
+                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalTooHighP, nameof(index));
+
+            using (_rwlock.UsingReadLock())
+            {
+                var n = GetNodeAt(index);
+                return n.Value;
+            }
+        }
+
+        /// <summary>
+        ///     Automatically called when the last card is removed from the pile.
+        /// </summary>
+        /// <remarks>
+        ///     <note type="note">
+        ///         Does nothing by default.
+        ///     </note>
+        /// </remarks>
         protected virtual void OnLastRemoved() { }
 
         /// <summary>
-        /// Automatically called when a card is put on top of the pile.
+        ///     Automatically called when a card is put on top of the pile.
         /// </summary>
-        /// <param name="card">The card that is placed.</param>
-        /// <remarks><note type="note">Does nothing by default.</note></remarks>
+        /// <param name="card">
+        ///     The card that is placed.
+        /// </param>
+        /// <remarks>
+        ///     <note type="note">
+        ///         Does nothing by default.
+        ///     </note>
+        /// </remarks>
         protected virtual void OnPut(TCard card) { }
 
         /// <summary>
-        /// Function that puts a <typeparamref name="TCard"/>
-        /// into a <typeparamref name="TWrapper"/>.
+        ///     Function that puts a <typeparamref name="TCard"/> into a <typeparamref name="TWrapper"/>.
         /// </summary>
         protected abstract TWrapper Wrap(TCard card);
-
-        //protected abstract void CardMoved(TWrapper wrapper);
-
-        ///// <summary>
-        ///// Function that gets the <typeparamref name="TCard"/>
-        ///// out of a <typeparamref name="TWrapper"/>.
-        ///// </summary>
-        //protected abstract TCard CardOut(TWrapper wrapper);
-
-        //protected abstract bool IsCardViewable(TWrapper wrapper);
 
         private Dictionary<int, TCard> GetAllDictionary()
         {
@@ -788,11 +896,6 @@ namespace Discord.Addons.MpGame.Collections
 
             return tmp;
         }
-        protected TWrapper GetWrapperAt(int index)
-        {
-            var n = GetNodeAt(index);
-            return n.Value;
-        }
         private void Resequence(IEnumerable<TCard> newSequence)
         {
             if (newSequence == null)
@@ -837,52 +940,6 @@ namespace Discord.Addons.MpGame.Collections
                     throw new ArgumentNullException(nameof(value));
 
                 Value = value;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Base type to represent a pile of objects,
-    /// specifically for use in card games.
-    /// </summary>
-    /// <typeparam name="TCard">The card type.</typeparam>
-    public abstract class Pile<TCard> : Pile<TCard, Pile<TCard>.DefaultWrapper>
-        where TCard : class
-    {
-        /// <inheritdoc/>
-        protected Pile() : base() { }
-        /// <inheritdoc/>
-        protected Pile(IEnumerable<TCard> cards) : base(cards) { }
-
-        /// <inheritdoc/>
-        protected sealed override DefaultWrapper Wrap(TCard card)
-            => new DefaultWrapper(card);
-
-        /// <summary>
-        /// Default, lightwewight wrapper.
-        /// </summary>
-        public struct DefaultWrapper : ICardWrapper<TCard>
-        {
-            private readonly TCard _card;
-
-            internal DefaultWrapper(TCard card)
-            {
-                _card = card;
-            }
-
-            TCard ICardWrapper<TCard>.Unwrap()
-            {
-                ThrowIfDefault();
-                return _card;
-            }
-            void ICardWrapper<TCard>.Reset<TWrapper>(Pile<TCard, TWrapper> newPile)
-                => ThrowIfDefault();
-
-            [MethodImpl(MethodImplOptions.NoInlining), DebuggerStepThrough]
-            private void ThrowIfDefault()
-            {
-                if (_card == null)
-                    throw new NullReferenceException();
             }
         }
     }
