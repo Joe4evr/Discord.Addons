@@ -14,9 +14,24 @@ namespace Discord.Addons.MpGame.Collections
     public abstract class Pile<TCard> : Pile<TCard, Pile<TCard>.DefaultWrapper>
         where TCard : class
     {
-        /// <inheritdoc/>
+        /// <summary>
+        ///     Initializes a new pile to an empty state.
+        /// </summary>
         protected Pile() : base() { }
-        /// <inheritdoc/>
+
+        /// <summary>
+        ///     Initializes a new pile with the specified cards.
+        /// </summary>
+        /// <param name="cards">
+        ///     The cards to put in the pile.</param>
+        /// <remarks>
+        ///     <note type="note">
+        ///         This constructor will filter out any items in <paramref name="cards"/> that are <see langword="null"/>.
+        ///     </note>
+        /// </remarks>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="cards"/> was <see langword="null"/>.
+        /// </exception>
         protected Pile(IEnumerable<TCard> cards) : base(cards) { }
 
         /// <inheritdoc/>
@@ -32,6 +47,9 @@ namespace Discord.Addons.MpGame.Collections
 
             internal DefaultWrapper(TCard card)
             {
+                if (card == null)
+                    throw new ArgumentNullException(nameof(card));
+
                 _card = card;
             }
 

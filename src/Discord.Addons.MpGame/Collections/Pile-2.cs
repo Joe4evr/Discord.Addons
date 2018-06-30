@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Discord.Addons.Core;
@@ -788,6 +786,12 @@ namespace Discord.Addons.MpGame.Collections
         /// <summary>
         ///     Function that puts a <typeparamref name="TCard"/> into a <typeparamref name="TWrapper"/>.
         /// </summary>
+        /// <param name="card">
+        ///     The card that needs to be wrapped.
+        /// </param>
+        /// <returns>
+        ///     The wrapped version of the card.
+        /// </returns>
         protected abstract TWrapper Wrap(TCard card);
 
         private Dictionary<int, TCard> GetAllDictionary()
