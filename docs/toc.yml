@@ -1,8 +1,5 @@
-# - name: MpGame
-  # href: mpgame/
-  # items:
-    # - name: API
-      # href: api/
+- name: Articles
+  href: articles/
 - name: Api Documentation
   href: api/
   homepage: api/index.md

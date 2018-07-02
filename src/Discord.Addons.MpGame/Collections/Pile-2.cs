@@ -26,8 +26,8 @@ namespace Discord.Addons.MpGame.Collections
     /// </remarks>
     [DebuggerDisplay("Count = {Count}")]
     public abstract class Pile<TCard, TWrapper>
-        where TCard : class
         where TWrapper : ICardWrapper<TCard>
+        where TCard : class
     {
         private readonly ReaderWriterLockSlim _rwlock = new ReaderWriterLockSlim();
 
@@ -151,7 +151,7 @@ namespace Discord.Addons.MpGame.Collections
                         return null;
 
                     var wrapper = n.Value;
-                    return wrapper.Unwrap();
+                    return wrapper.Unwrap(revealing: false);
                 }
             }
         }
@@ -192,7 +192,7 @@ namespace Discord.Addons.MpGame.Collections
                     for (var n = VHead; n != null; n = n.Next)
                     {
                         var wrapper = n.Value;
-                        yield return wrapper.Unwrap();
+                        yield return wrapper.Unwrap(revealing: false);
                     }
                 }
             }
@@ -296,7 +296,7 @@ namespace Discord.Addons.MpGame.Collections
                 {
                     Resequence(shuffleFunc(cards.Values.ToImmutableArray()));
 
-                    return ImmutableArray.CreateRange(nodes.Select(n => n.Value.Unwrap()));
+                    return ImmutableArray.CreateRange(nodes.Select(n => n.Value.Unwrap(revealing: true)));
                 }
                 else
                 {
@@ -571,7 +571,7 @@ namespace Discord.Addons.MpGame.Collections
                 if (VCount == 0)
                     OnLastRemoved();
 
-                targetPile.OnPut(wrapper.Unwrap());
+                targetPile.OnPut(wrapper.Unwrap(revealing: false));
             }
         }
 
@@ -612,7 +612,7 @@ namespace Discord.Addons.MpGame.Collections
                 var builder = ImmutableArray.CreateBuilder<TCard>(amount);
 
                 for (var (n, i) = (VHead, 0); i < amount; (n, i) = (n.Next, i + 1))
-                    builder.Add(n.Value.Unwrap());
+                    builder.Add(n.Value.Unwrap(revealing: CanPeek));
 
                 return builder.ToImmutable();
             }
@@ -802,7 +802,7 @@ namespace Discord.Addons.MpGame.Collections
                 for (var (n, i) = (VHead, 0); n != null; (n, i) = (n.Next, i + 1))
                 {
                     var wrapper = n.Value;
-                    res.Add(i, wrapper.Unwrap());
+                    res.Add(i, wrapper.Unwrap(revealing: CanBrowse));
                 }
             }
             return res;
@@ -817,7 +817,7 @@ namespace Discord.Addons.MpGame.Collections
             for (var n = VHead; n != null; n = n.Next)
             {
                 var wrapper = n.Value;
-                builder.Add(wrapper.Unwrap());
+                builder.Add(wrapper.Unwrap(revealing: clear));
             }
 
             if (clear)
@@ -889,7 +889,7 @@ namespace Discord.Addons.MpGame.Collections
             if (node.Next != null)
                 node.Next.Previous = node.Previous;
 
-            return node.Value.Unwrap();
+            return node.Value.Unwrap(revealing: true);
         }
         private TCard TakeInternal(int index)
         {

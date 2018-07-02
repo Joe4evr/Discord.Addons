@@ -53,7 +53,7 @@ namespace Discord.Addons.MpGame.Collections
                 _card = card;
             }
 
-            TCard ICardWrapper<TCard>.Unwrap()
+            TCard ICardWrapper<TCard>.Unwrap(bool _)
             {
                 ThrowIfDefault();
                 return _card;

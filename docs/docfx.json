@@ -3,24 +3,13 @@
     {
       "src": [
         {
-          "files": [ "Discord.Addons.MpGame/Discord.Addons.MpGame.csproj" ],
-          "exclude": [ "**/bin/**", "**/obj/**" ],
-          "src": "../src"
+          "src": "../src",
+          "files": [
+            "Discord.Addons.MpGame/Discord.Addons.MpGame.csproj"
+          ]
         }
       ],
-      "dest": "api/mpgame",
-      "filter": "filterConfig.yml",
-      "disableGitFeatures": false
-    },
-    {
-      "src": [
-        {
-          "files": [ "Discord.Addons.SimpleAudio/Discord.Addons.SimpleAudio.csproj" ],
-          "exclude": [ "**/bin/**", "**/obj/**" ],
-          "src": "../src"
-        }
-      ],
-      "dest": "api/audio",
+      "dest": "api",
       "filter": "filterConfig.yml",
       "disableGitFeatures": false
     }
@@ -45,7 +34,8 @@
     "resource": [
       {
         "files": [
-          "images/**"
+          "images/**",
+          "langwordMapping.yml"
         ]
       }
     ],
@@ -61,16 +51,19 @@
       }
     ],
     "xref": [
-      "https://docs.stillu.cc/xrefmap.yml"
+      "Yes"
     ],
     "dest": "_site",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
-    "template":  "default",
+    "template": [
+      "statictoc"
+    ],
     "postProcessors": [],
+    "markdownEngineName": "markdig",
     "noLangKeyword": false,
     "keepFileLink": false,
-    "cleanupCacheHistory": true,
+    "cleanupCacheHistory": false,
     "disableGitFeatures": false,
     "xrefService": [
       "https://xref.docs.microsoft.com/query?uid={uid}"

@@ -1,8 +1,16 @@
 apiRules:
 - exclude:
-    uidRegex: ^System\.Object
+    uidRegex: ^System\.Object$
 - exclude:
+    uidRegex: ^System\.ValueType
+- include:
+    uidRegex: '^System\.[^.]*Exception$'
+    type: Type
+- exclude:
+    # CLL Node
     uidRegex: ^Discord\.Addons\.MpGame\.Collections\.Node`1$
+- exclude:
+    uidRegex: ^Discord\.Addons\.MpGame\.Collections\.Pile`2\.Wrap$
 - exclude:
     uidRegex: ^Discord\.Addons\.MpGame\.MpGameModuleBase`1$
 - exclude:
