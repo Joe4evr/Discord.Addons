@@ -53,7 +53,7 @@
     "xref": [
       "Yes"
     ],
-    "dest": "_site",
+    "dest": "site",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
