@@ -321,7 +321,7 @@ namespace MpGame.Tests.CollectionTests
                 Assert.Equal(expected: priorSize - 1, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
 
-                bool LessThanOrEqualToTenFilter(TestCard c) => c.Id <= 10;
+                bool LessThanOrEqualToTenFilter(ITestCard c) => c.Id <= 10;
             }
 
             [Fact]

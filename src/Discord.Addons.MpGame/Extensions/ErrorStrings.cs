@@ -35,5 +35,6 @@ namespace Discord.Addons.MpGame.Collections
         internal static readonly string RetrievalNegative  = "Retrieval index may not be negative.";
         internal static readonly string RetrievalTooHighP  = "Retrieval index may not be greater than or equal to the pile's current size.";
         internal static readonly string RetrievalTooHighH  = "Retrieval index may not be greater than or equal to the hand's current size.";
+        internal static readonly string WrapperTypeNotStruct = "This operation is only valid on value types (structs).";
     }
 }

@@ -70,23 +70,35 @@ namespace Discord.Addons.MpGame
         {
             internal static MpGameData Default { get; } = new MpGameData();
 
-            /// <summary> Determines if a game in the current channel is open to join or not. </summary>
+            /// <summary>
+            ///     Determines if a game in the current channel is open to join or not.
+            /// </summary>
             public bool OpenToJoin { get; }
 
-            /// <summary> The instance of the game being played (if active). </summary>
+            /// <summary>
+            ///     The instance of the game being played (if active).
+            /// </summary>
             public TGame Game { get; }
 
-            /// <summary> The player object that wraps the user executing this command
-            /// (if a game is active AND the user is a player in that game). </summary>
+            /// <summary>
+            ///     The player object that wraps the user executing this command
+            ///     (if a game is active AND the user is a player in that game).
+            /// </summary>
             public TPlayer Player { get; }
 
-            /// <summary> Determines if a game in the current channel is in progress or not. </summary>
+            /// <summary>
+            ///     Determines if a game in the current channel is in progress or not.
+            /// </summary>
             public CurrentlyPlaying GameInProgress { get; }
 
-            /// <summary> The list of users ready to play. </summary>
-            /// <remarks><div class="markdown level0 remarks"><div class="NOTE">
-            /// <h5>Note</h5><p>This is an immutable snapshot, it is not
-            /// updated until the *next* command invocation.</p></div></div></remarks>
+            /// <summary>
+            ///     The list of users ready to play.
+            /// </summary>
+            /// <remarks>
+            ///     <note type="note">
+            ///         This is an immutable snapshot, it is not updated until the *next* command invocation.
+            ///     </note>
+            /// </remarks>
             public IReadOnlyCollection<IUser> JoinedUsers { get; }
 
             private MpGameData()

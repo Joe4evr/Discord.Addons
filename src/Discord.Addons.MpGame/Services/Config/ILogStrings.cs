@@ -2,6 +2,9 @@
 
 namespace Discord.Addons.MpGame
 {
+    /// <summary>
+    ///     Contract for the log strings used in a <see cref="MpGameService{TGame, TPlayer}"/>.
+    /// </summary>
     public /*partial*/ interface ILogStrings
     {
         //public static ILogStrings Default { get; } = new DefaultLogStrings();

@@ -4,7 +4,8 @@
         where TCard : class
     {
         /// <summary>
-        ///     Unwraps the wrapped card.
+        ///     Unwraps the wrapped card.<br/>
+        ///     <i>May</i> do domain-specific checks or operations.
         /// </summary>
         /// <param name="revealing">
         ///     Indicates if the actual card is required to be returned.

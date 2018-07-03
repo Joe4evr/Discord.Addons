@@ -39,7 +39,7 @@ namespace Discord.Addons.MpGame.Collections
             => new DefaultWrapper(card);
 
         /// <summary>
-        ///     Default, lightwewight wrapper.
+        ///     Default, lightweight wrapper.
         /// </summary>
         public struct DefaultWrapper : ICardWrapper<TCard>
         {
@@ -53,12 +53,16 @@ namespace Discord.Addons.MpGame.Collections
                 _card = card;
             }
 
-            TCard ICardWrapper<TCard>.Unwrap(bool _)
+            /// <inheritdoc/>
+            public TCard Unwrap(bool _)
             {
                 ThrowIfDefault();
                 return _card;
             }
-            void ICardWrapper<TCard>.Reset<TWrapper>(Pile<TCard, TWrapper> newPile)
+
+            /// <inheritdoc/>
+            public void Reset<TWrapper>(Pile<TCard, TWrapper> _)
+                where TWrapper : ICardWrapper<TCard>
                 => ThrowIfDefault();
 
             [MethodImpl(MethodImplOptions.NoInlining), DebuggerStepThrough]

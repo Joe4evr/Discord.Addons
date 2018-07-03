@@ -4,11 +4,11 @@ using Discord.Addons.MpGame.Collections;
 
 namespace MpGame.Tests
 {
-    internal sealed class TestPile : Pile<TestCard>
+    internal sealed class TestPile : Pile<ITestCard>
     {
         private readonly PilePerms _perms;
 
-        public TestPile(PilePerms withPerms, IEnumerable<TestCard> cards)
+        public TestPile(PilePerms withPerms, IEnumerable<ITestCard> cards)
             : base(cards)
         {
             _perms = withPerms;
@@ -38,7 +38,7 @@ namespace MpGame.Tests
 
         internal event EventHandler<PutEventArgs> PutCalled;
 
-        protected override void OnPut(TestCard card)
+        protected override void OnPut(ITestCard card)
         {
             base.OnPut(card);
             PutCalled?.Invoke(this, new PutEventArgs(card));
@@ -52,12 +52,12 @@ namespace MpGame.Tests
 
     internal class PutEventArgs : EventArgs
     {
-        public PutEventArgs(TestCard card)
+        public PutEventArgs(ITestCard card)
         {
             Card = card;
         }
 
-        public TestCard Card { get; }
+        public ITestCard Card { get; }
     }
 
     [Flags]

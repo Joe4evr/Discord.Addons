@@ -4,10 +4,11 @@ using System.Linq;
 
 namespace MpGame.Tests
 {
-    public sealed class TestCard
+    public sealed class TestCard : ITestCard
     {
         public int Id { get; private set; }
         public CardColor Color { get; private set; }
+        //bool ITestCard.IsFaceDown { get; set; }
 
         private TestCard() { }
         public TestCard(int id)
@@ -26,8 +27,20 @@ namespace MpGame.Tests
             => Enumerable.Range(start, amount).Select(i => new TestCard { Id = i, Color = (CardColor)(i % _colorCount) });
     }
 
+    internal sealed class FaceDownCard : ITestCard
+    {
+        public static FaceDownCard Instance { get; } = new FaceDownCard();
+        private FaceDownCard() { }
+
+        public CardColor Color => CardColor.None;
+        public int Id          => -1;
+
+        //bool ITestCard.IsFaceDown { get => true; set { } }
+    }
+
     public enum CardColor
     {
+        None   = -1,
         Yellow = 0,
         Green  = 1,
         Red    = 2,

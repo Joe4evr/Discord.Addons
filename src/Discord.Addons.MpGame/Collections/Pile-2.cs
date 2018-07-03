@@ -29,6 +29,8 @@ namespace Discord.Addons.MpGame.Collections
         where TWrapper : ICardWrapper<TCard>
         where TCard : class
     {
+        private static readonly bool _isValueWrapper = typeof(TWrapper).IsValueType;
+
         private readonly ReaderWriterLockSlim _rwlock = new ReaderWriterLockSlim();
 
         private int _count = 0;
@@ -738,7 +740,7 @@ namespace Discord.Addons.MpGame.Collections
         ///     Gets the wrapper object at the specified location.
         /// </summary>
         /// <param name="index">
-        ///     The 0-based index to get.
+        ///     The 0-based index to get at.
         /// </param>
         /// <returns>
         ///     The wrapper at the specified index.
@@ -757,6 +759,39 @@ namespace Discord.Addons.MpGame.Collections
             {
                 var n = GetNodeAt(index);
                 return n.Value;
+            }
+        }
+
+        /// <summary>
+        ///     Gets the wrapper object at the specified location and allows.to update it.<br/>
+        ///     This operation is only allowed if <typeparamref name="TWrapper"/> is a <see langword="struct"/>.
+        /// </summary>
+        /// <param name="index">
+        ///     The 0-based index to get at.
+        /// </param>
+        /// <param name="updateFunc">
+        ///     A function that performs the updating.
+        /// </param>
+        /// <exception cref="InvalidOperationException">
+        ///     The wrapper type for this pile was not a value-type.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <paramref name="index"/> was less than 0 or greater than or equal to the pile's current size.
+        /// </exception>
+        protected void GetWrapperAndUpdate(int index, Func<TWrapper, TWrapper> updateFunc)
+        {
+            if (!_isValueWrapper)
+                ThrowHelper.ThrowInvalidOp(ErrorStrings.WrapperTypeNotStruct);
+            if (index < 0)
+                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
+            if (index >= VCount)
+                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalTooHighP, nameof(index));
+
+            using (_rwlock.UsingWriteLock())
+            {
+                var n = GetNodeAt(index);
+                var updated = updateFunc(n.Value);
+                n.Update(updated);
             }
         }
 
@@ -934,16 +969,24 @@ namespace Discord.Addons.MpGame.Collections
 
         private sealed class Node
         {
-            public Node Next { get; set; }
-            public Node Previous { get; set; }
-            public TWrapper Value { get; }
+            internal Node Next { get; set; }
+            internal Node Previous { get; set; }
+            internal TWrapper Value { get; private set; }
 
-            public Node(TWrapper value)
+            internal Node(TWrapper value)
             {
                 if (value == null)
                     throw new ArgumentNullException(nameof(value));
 
                 Value = value;
+            }
+
+            internal void Update(TWrapper wrapper)
+            {
+                if (!_isValueWrapper)
+                    ThrowHelper.ThrowInvalidOp(ErrorStrings.WrapperTypeNotStruct);
+
+                Value = wrapper;
             }
         }
     }
