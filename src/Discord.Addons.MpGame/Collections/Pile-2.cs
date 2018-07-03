@@ -764,13 +764,14 @@ namespace Discord.Addons.MpGame.Collections
 
         /// <summary>
         ///     Gets the wrapper object at the specified location and allows.to update it.<br/>
-        ///     This operation is only allowed if <typeparamref name="TWrapper"/> is a <see langword="struct"/>.
+        ///     This operation is only allowed if <typeparamref name="TWrapper"/> is a value-type (struct).
         /// </summary>
         /// <param name="index">
         ///     The 0-based index to get at.
         /// </param>
         /// <param name="updateFunc">
-        ///     A function that performs the updating.
+        ///     A function that performs the updating.<br/>
+        ///     Due to the by-value copying, this function should return the updated instance.
         /// </param>
         /// <exception cref="InvalidOperationException">
         ///     The wrapper type for this pile was not a value-type.
