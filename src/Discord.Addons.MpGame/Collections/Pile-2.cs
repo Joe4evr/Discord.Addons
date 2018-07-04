@@ -776,6 +776,12 @@ namespace Discord.Addons.MpGame.Collections
         /// <returns>
         ///     The wrapper at the specified index.
         /// </returns>
+        /// <remarks>
+        ///     <note type="warning">
+        ///         While a reference-type wrapper <i>can</i> be modified and changes reflected, it is advised to only perform read operations after calling this method.<br/>
+        ///         If you intend to modify something in the wrapper, use <see cref="GetWrapperAndUpdate(int, Func{TWrapper, TWrapper})"/> to ensure it happens inside a write lock.
+        ///     </note>
+        /// </remarks>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     <paramref name="index"/> was less than 0 or greater than or equal to the pile's current size.
         /// </exception>
@@ -794,41 +800,41 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        ///     Gets the wrapper object at the specified location and allows.to update it.<br/>
-        ///     This operation is only allowed if <typeparamref name="TWrapper"/> is a value-type (struct).
+        ///     Gets the wrapper object at the specified location and allows modifying it as an atomic operation.
         /// </summary>
         /// <param name="index">
         ///     The 0-based index to get at.
         /// </param>
         /// <param name="updateFunc">
         ///     A function that performs the updating.<br/>
-        ///     Due to the by-value copying, this function should return the updated instance.
+        ///     Due to by-value copying of value-types, this function has to return the updated instance.
         /// </param>
-        /// <remarks>
-        ///     <note type="info">
-        ///         If your wrapper is a reference-type, simply use <see cref="GetWrapperAt(int)"/> instead.
-        ///     </note>
-        /// </remarks>
-        /// <exception cref="InvalidOperationException">
-        ///     The wrapper type for this pile was not a value-type.
-        /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     <paramref name="index"/> was less than 0 or greater than or equal to the pile's current size.
         /// </exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="updateFunc"/> was <see langword="null"/>.
+        /// </exception>
         protected void GetWrapperAndUpdate(int index, Func<TWrapper, TWrapper> updateFunc)
         {
-            if (!_isValueWrapper)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.WrapperTypeNotStruct);
+            //if (!_isValueWrapper)
+            //    ThrowHelper.ThrowInvalidOp(ErrorStrings.WrapperTypeNotStruct);
             if (index < 0)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
             if (index >= VCount)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalTooHighP, nameof(index));
+            ThrowHelper.ThrowIfArgNull(updateFunc, nameof(updateFunc));
 
             using (_rwlock.UsingWriteLock())
             {
                 var n = GetNodeAt(index);
-                var updated = updateFunc(n.Value);
-                n.Update(updated);
+                var wrapper = n.Value;
+                var updated = updateFunc(wrapper);
+
+                if (_isValueWrapper)
+                    n.Update(updated);
+                //else if (!ReferenceEquals(updated, wrapper))
+                //    ThrowHelper.ThrowInvalidOp("");
             }
         }
 
