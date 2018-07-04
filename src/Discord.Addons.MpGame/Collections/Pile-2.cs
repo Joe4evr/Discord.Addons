@@ -778,7 +778,7 @@ namespace Discord.Addons.MpGame.Collections
         /// </returns>
         /// <remarks>
         ///     <note type="warning">
-        ///         While a reference-type wrapper <i>can</i> be modified and changes reflected, it is advised to only perform read operations after calling this method.<br/>
+        ///         While a reference-type (class) wrapper <i>can</i> be modified and have changes reflected, it is advised to only perform read operations after calling this method.<br/>
         ///         If you intend to modify something in the wrapper, use <see cref="GetWrapperAndUpdate(int, Func{TWrapper, TWrapper})"/> to ensure it happens inside a write lock.
         ///     </note>
         /// </remarks>
