@@ -578,6 +578,37 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
+        ///     Peeks a single card at the specified index without removig it from the pile.
+        /// </summary>
+        /// <param name="index">
+        ///     The 0-based index to peek at.
+        /// </param>
+        /// <returns>
+        ///     The card at the specified index.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow peeking cards.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <paramref name="index"/> was less than 0 or greater than or equal to the pile's current size.
+        /// </exception>
+        public TCard PeekAt(int index)
+        {
+            if (!CanPeek)
+                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoPeek);
+            if (index < 0)
+                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.PeekAmountNegative, nameof(index));
+            if (index > VCount)
+                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.PeekAmountTooHigh, nameof(index));
+
+            using (_rwlock.UsingReadLock())
+            {
+                var node = GetNodeAt(index);
+                return node.Value.Unwrap(revealing: false);
+            }
+        }
+
+        /// <summary>
         ///     Peeks the top <paramref name="amount"/> of cards without removing them from the pile.<br/>
         ///     Requires <see cref="CanPeek"/>.
         /// </summary>
@@ -773,6 +804,11 @@ namespace Discord.Addons.MpGame.Collections
         ///     A function that performs the updating.<br/>
         ///     Due to the by-value copying, this function should return the updated instance.
         /// </param>
+        /// <remarks>
+        ///     <note type="info">
+        ///         If your wrapper is a reference-type, simply use <see cref="GetWrapperAt(int)"/> instead.
+        ///     </note>
+        /// </remarks>
         /// <exception cref="InvalidOperationException">
         ///     The wrapper type for this pile was not a value-type.
         /// </exception>

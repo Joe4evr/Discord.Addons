@@ -920,6 +920,23 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard, TWrapper).OnPut
   nameWithType: Pile<TCard, TWrapper>.OnPut
   nameWithType.vb: Pile(Of TCard, TWrapper).OnPut
+- uid: Discord.Addons.MpGame.Collections.Pile`2.PeekAt(System.Int32)
+  name: PeekAt(Int32)
+  href: api/Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_PeekAt_System_Int32_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`2.PeekAt(System.Int32)
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard, TWrapper>.PeekAt(System.Int32)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard, TWrapper).PeekAt(System.Int32)
+  nameWithType: Pile<TCard, TWrapper>.PeekAt(Int32)
+  nameWithType.vb: Pile(Of TCard, TWrapper).PeekAt(Int32)
+- uid: Discord.Addons.MpGame.Collections.Pile`2.PeekAt*
+  name: PeekAt
+  href: api/Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_PeekAt_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`2.PeekAt
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<TCard, TWrapper>.PeekAt
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of TCard, TWrapper).PeekAt
+  nameWithType: Pile<TCard, TWrapper>.PeekAt
+  nameWithType.vb: Pile(Of TCard, TWrapper).PeekAt
 - uid: Discord.Addons.MpGame.Collections.Pile`2.PeekTop(System.Int32)
   name: PeekTop(Int32)
   href: api/Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_PeekTop_System_Int32_

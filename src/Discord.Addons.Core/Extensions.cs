@@ -11,6 +11,7 @@ namespace Discord.Addons.Core
     {
         public static Func<LogMessage, Task> NoOpLogger   { get; } = (_ => Task.CompletedTask);
         public static Func<string, Task> NoOpStringToTask { get; } = (_ => Task.CompletedTask);
+        public static Func<string, ValueTask> NoOpStringToVTask { get; } = (_ => new ValueTask(Task.CompletedTask));
 
         internal static string ToNiceString(this TimeSpan ts)
         {
