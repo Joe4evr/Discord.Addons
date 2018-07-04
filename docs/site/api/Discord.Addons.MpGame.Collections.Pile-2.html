@@ -156,7 +156,7 @@
   <h5 id="Discord_Addons_MpGame_Collections_Pile_2_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public abstract class Pile&lt;TCard, TWrapper&gt;
-    where TCard : class where TWrapper : ICardWrapper&lt;TCard&gt;</code></pre>
+    where TCard : class where TWrapper : struct, ICardWrapper&lt;TCard&gt;</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1153,8 +1153,8 @@ There were no cards to draw.</p>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;TWrapper, TWrapper&gt;</td>
         <td><span class="parametername">updateFunc</span></td>
-        <td><p>A function that performs the updating.<br>
-Due to by-value copying of value-types, this function has to return the updated instance.</p>
+        <td><p>A function that performs the modification.<br>
+Due to by-value copying, this function has to return the updated instance.</p>
 </td>
       </tr>
     </tbody>
@@ -1232,8 +1232,8 @@ Due to by-value copying of value-types, this function has to return the updated 
   </table>
   <h5 id="Discord_Addons_MpGame_Collections_Pile_2_GetWrapperAt_System_Int32__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><div class="WARNING"><h5>warning</h5><p>
-    While a reference-type (class) wrapper <em>can</em> be modified and have changes reflected, it is advised to only perform read operations after calling this method.<br>
-    If you intend to modify something in the wrapper, use <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_GetWrapperAndUpdate_System_Int32_System_Func__1__1__">GetWrapperAndUpdate(Int32, Func&lt;TWrapper, TWrapper&gt;)</a> to ensure it happens inside a write lock.
+    Since <code data-dev-comment-type="typeparamref" class="typeparamref">TWrapper</code> is constrained to always be a value-type (struct), mutations on this value will not be reflected back to the pile.
+    If you intend to modify something in the wrapper, use <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_GetWrapperAndUpdate_System_Int32_System_Func__1__1__">GetWrapperAndUpdate(Int32, Func&lt;TWrapper, TWrapper&gt;)</a> which also ensures it happens inside a write lock.
 </p></div>
 </div>
   <h5 class="exceptions">Exceptions</h5>
@@ -1392,7 +1392,7 @@ This pile was empty.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_2_OnLastRemoved.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%602.OnLastRemoved%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile-2.cs/#L849">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile-2.cs/#L848">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_2_OnLastRemoved_" data-uid="Discord.Addons.MpGame.Collections.Pile`2.OnLastRemoved*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_2_OnLastRemoved" data-uid="Discord.Addons.MpGame.Collections.Pile`2.OnLastRemoved">OnLastRemoved()</h4>
@@ -1413,7 +1413,7 @@ This pile was empty.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_2_OnPut__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%602.OnPut(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile-2.cs/#L862">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile-2.cs/#L861">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_2_OnPut_" data-uid="Discord.Addons.MpGame.Collections.Pile`2.OnPut*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_2_OnPut__0_" data-uid="Discord.Addons.MpGame.Collections.Pile`2.OnPut(`0)">OnPut(TCard)</h4>
@@ -1845,7 +1845,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Dis
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_2_Wrap__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%602.Wrap(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile-2.cs/#L873">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile-2.cs/#L872">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_2_Wrap_" data-uid="Discord.Addons.MpGame.Collections.Pile`2.Wrap*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_2_Wrap__0_" data-uid="Discord.Addons.MpGame.Collections.Pile`2.Wrap(`0)">Wrap(TCard)</h4>

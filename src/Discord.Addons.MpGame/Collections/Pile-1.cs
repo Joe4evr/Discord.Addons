@@ -41,7 +41,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <summary>
         ///     Default, lightweight wrapper.
         /// </summary>
-        public struct DefaultWrapper : ICardWrapper<TCard>
+        public readonly struct DefaultWrapper : ICardWrapper<TCard>
         {
             private readonly TCard _card;
 
@@ -62,7 +62,7 @@ namespace Discord.Addons.MpGame.Collections
 
             /// <inheritdoc/>
             public void Reset<TWrapper>(Pile<TCard, TWrapper> _)
-                where TWrapper : ICardWrapper<TCard>
+                where TWrapper : struct, ICardWrapper<TCard>
                 => ThrowIfDefault();
 
             [MethodImpl(MethodImplOptions.NoInlining), DebuggerStepThrough]

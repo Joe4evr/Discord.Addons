@@ -51,7 +51,35 @@ $projects = @{
     "EFProvider" = [ProjectRef]::new("src\Discord.Addons.SimplePermissions.EFProvider\Discord.Addons.SimplePermissions.EFProvider.csproj", [String]::Empty);
 };
 
-if ($args.Length -eq 1 -and $args[0] -eq "all")
+
+# if ($args.Length -eq 1 -and $args[0] -eq "-clean")
+# {
+    # Write-Host "Cleaning up bins.";
+    # foreach ($dir in [Directory]::EnumerateDirectories("src\", "bin", [SearchOption]::AllDirectories))
+    # {
+        # [Directory]::Delete($dir, true);
+    # }
+    
+    # Write-Host "Cleaning up objs.";
+    # foreach ($dir in [Directory]::EnumerateDirectories("src\", "obj", [SearchOption]::AllDirectories))
+    # {
+        # [Directory]::Delete($dir, true);
+    # }
+    
+    # Write-Host "Cleaning up docs.";
+    # foreach ($file in [Directory]::EnumerateFiles("docs\api\", "*.yml"))
+    # {
+        # [File]::Delete($file);
+    # }
+    # foreach ($file in [Directory]::EnumerateFiles("docs\site\api\", "*.html"))
+    # {
+        # [File]::Delete($file);
+    # }
+    
+    # return;
+# }
+
+if ($args.Length -eq 1 -and $args[0] -eq "-all")
 {
     foreach ($key in $projects.Keys)
     {

@@ -26,10 +26,10 @@ namespace Discord.Addons.MpGame.Collections
     /// </remarks>
     [DebuggerDisplay("Count = {Count}")]
     public abstract class Pile<TCard, TWrapper>
-        where TWrapper : ICardWrapper<TCard>
-        where TCard : class
+        where TCard    : class
+        where TWrapper : struct, ICardWrapper<TCard>
     {
-        private static readonly bool _isValueWrapper = typeof(TWrapper).IsValueType;
+        //private static readonly bool _isValueWrapper = typeof(TWrapper).IsValueType;
 
         private readonly ReaderWriterLockSlim _rwlock = new ReaderWriterLockSlim();
 
@@ -778,8 +778,8 @@ namespace Discord.Addons.MpGame.Collections
         /// </returns>
         /// <remarks>
         ///     <note type="warning">
-        ///         While a reference-type (class) wrapper <i>can</i> be modified and have changes reflected, it is advised to only perform read operations after calling this method.<br/>
-        ///         If you intend to modify something in the wrapper, use <see cref="GetWrapperAndUpdate(int, Func{TWrapper, TWrapper})"/> to ensure it happens inside a write lock.
+        ///         Since <typeparamref name="TWrapper"/> is constrained to always be a value-type (struct), mutations on this value will not be reflected back to the pile.
+        ///         If you intend to modify something in the wrapper, use <see cref="GetWrapperAndUpdate(int, Func{TWrapper, TWrapper})"/> which also ensures it happens inside a write lock.
         ///     </note>
         /// </remarks>
         /// <exception cref="ArgumentOutOfRangeException">
@@ -806,8 +806,8 @@ namespace Discord.Addons.MpGame.Collections
         ///     The 0-based index to get at.
         /// </param>
         /// <param name="updateFunc">
-        ///     A function that performs the updating.<br/>
-        ///     Due to by-value copying of value-types, this function has to return the updated instance.
+        ///     A function that performs the modification.<br/>
+        ///     Due to by-value copying, this function has to return the updated instance.
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     <paramref name="index"/> was less than 0 or greater than or equal to the pile's current size.
@@ -827,12 +827,11 @@ namespace Discord.Addons.MpGame.Collections
 
             using (_rwlock.UsingWriteLock())
             {
-                var n = GetNodeAt(index);
-                var wrapper = n.Value;
-                var updated = updateFunc(wrapper);
+                var node = GetNodeAt(index);
+                var updated = updateFunc(node.Value);
+                node.Update(updated);
 
-                if (_isValueWrapper)
-                    n.Update(updated);
+                //if (_isValueWrapper)
                 //else if (!ReferenceEquals(updated, wrapper))
                 //    ThrowHelper.ThrowInvalidOp("");
             }
@@ -1018,16 +1017,16 @@ namespace Discord.Addons.MpGame.Collections
 
             internal Node(TWrapper value)
             {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
+                //if (value == null)
+                //    throw new ArgumentNullException(nameof(value));
 
                 Value = value;
             }
 
             internal void Update(TWrapper wrapper)
             {
-                if (!_isValueWrapper)
-                    ThrowHelper.ThrowInvalidOp(ErrorStrings.WrapperTypeNotStruct);
+                //if (!_isValueWrapper)
+                //    ThrowHelper.ThrowInvalidOp(ErrorStrings.WrapperTypeNotStruct);
 
                 Value = wrapper;
             }
