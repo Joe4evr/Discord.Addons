@@ -36,7 +36,7 @@
           "hash": "6pFyYtQrCy3xUtCn+DwDqw=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -45,10 +45,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.Pile-1.html",
-          "hash": "8y7AwTjvIWIDkLoNL5ICzw=="
+          "hash": "GCdQxtsub9z18aDdbFznAQ=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -57,10 +57,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.Pile-2.html",
-          "hash": "V8JHahmYgHCxZUUh9zRZJA=="
+          "hash": "gYoEopMK2ghaU2K/8ZFZNA=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -72,7 +72,7 @@
           "hash": "vpxhAI13smdhYyclQJhf/Q=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -219,11 +219,11 @@
           "details": "Processor TocDocumentProcessor cannot suppport incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build"
         },
-        "ConceptualDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build"
         },
-        "ManagedReferenceDocumentProcessor": {
+        "ConceptualDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build"
         },

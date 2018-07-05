@@ -42,11 +42,12 @@
     "overwrite": [
       {
         "files": [
-          "apidoc/**.md"
+          "apidoc/**.md",
+          "_overwrites/**/**.md"
         ],
         "exclude": [
           "obj/**",
-          "_site/**"
+          "site/**"
         ]
       }
     ],

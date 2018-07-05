@@ -569,6 +569,7 @@ namespace Discord.Addons.MpGame.Collections
 
                 var wrapper = millNode.Value;
                 wrapper.Reset(targetPile);
+                millNode.Update(wrapper);
 
                 if (VCount == 0)
                     OnLastRemoved();
@@ -768,38 +769,6 @@ namespace Discord.Addons.MpGame.Collections
         //    => TakeAt(index.FromEnd ? (VCount - index.Value) : index.Value);
 
         /// <summary>
-        ///     Gets the wrapper object at the specified location.
-        /// </summary>
-        /// <param name="index">
-        ///     The 0-based index to get at.
-        /// </param>
-        /// <returns>
-        ///     The wrapper at the specified index.
-        /// </returns>
-        /// <remarks>
-        ///     <note type="warning">
-        ///         Since <typeparamref name="TWrapper"/> is constrained to always be a value-type (struct), mutations on this value will not be reflected back to the pile.
-        ///         If you intend to modify something in the wrapper, use <see cref="GetWrapperAndUpdate(int, Func{TWrapper, TWrapper})"/> which also ensures it happens inside a write lock.
-        ///     </note>
-        /// </remarks>
-        /// <exception cref="ArgumentOutOfRangeException">
-        ///     <paramref name="index"/> was less than 0 or greater than or equal to the pile's current size.
-        /// </exception>
-        protected TWrapper GetWrapperAt(int index)
-        {
-            if (index < 0)
-                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
-            if (index >= VCount)
-                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalTooHighP, nameof(index));
-
-            using (_rwlock.UsingReadLock())
-            {
-                var n = GetNodeAt(index);
-                return n.Value;
-            }
-        }
-
-        /// <summary>
         ///     Gets the wrapper object at the specified location and allows modifying it as an atomic operation.
         /// </summary>
         /// <param name="index">
@@ -834,6 +803,40 @@ namespace Discord.Addons.MpGame.Collections
                 //if (_isValueWrapper)
                 //else if (!ReferenceEquals(updated, wrapper))
                 //    ThrowHelper.ThrowInvalidOp("");
+            }
+        }
+
+        /// <summary>
+        ///     Gets the wrapper object at the specified location.
+        /// </summary>
+        /// <param name="index">
+        ///     The 0-based index to get at.
+        /// </param>
+        /// <returns>
+        ///     The wrapper at the specified index.
+        /// </returns>
+        /// <remarks>
+        ///     <note type="warning">
+        ///         Since <typeparamref name="TWrapper"/> is constrained to always be a value-type (struct),
+        ///         mutations on this value will not be reflected back to the pile.
+        ///         If you intend to modify something in the wrapper,
+        ///         use <see cref="GetWrapperAndUpdate(int, Func{TWrapper, TWrapper})"/> which also ensures it happens inside a write lock.
+        ///     </note>
+        /// </remarks>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <paramref name="index"/> was less than 0 or greater than or equal to the pile's current size.
+        /// </exception>
+        protected TWrapper GetWrapperAt(int index)
+        {
+            if (index < 0)
+                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
+            if (index >= VCount)
+                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalTooHighP, nameof(index));
+
+            using (_rwlock.UsingReadLock())
+            {
+                var n = GetNodeAt(index);
+                return n.Value;
             }
         }
 
