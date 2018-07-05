@@ -99,7 +99,7 @@ namespace Discord.Addons.MpGame
         /// </summary>
         /// <remarks>
         ///     <note type="implement">
-        ///         Does not *need* to be implemented if <see cref="GetGameStateEmbed"/> is used.
+        ///         Does not <i>need</i> to be implemented if only <see cref="GetGameStateEmbed"/> is used.
         ///     </note>
         /// </remarks>
         public abstract string GetGameState();
@@ -109,7 +109,7 @@ namespace Discord.Addons.MpGame
         /// </summary>
         /// <remarks>
         ///     <note type="implement">
-        ///         Does not *need* to be implemented if <see cref="GetGameState"/> is used.
+        ///         Does not <i>need</i> to be implemented if only <see cref="GetGameState"/> is used.
         ///     </note>
         /// </remarks>
         public abstract Embed GetGameStateEmbed();

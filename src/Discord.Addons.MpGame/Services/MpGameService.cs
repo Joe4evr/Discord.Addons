@@ -27,7 +27,8 @@ namespace Discord.Addons.MpGame
         private const string LogSource = "MpGame";
 
         /// <summary>
-        ///     A cached IEqualityComparer&lt;IMessageChannel&gt;instance to use when instantiating a Dictionary&lt;IMessageChannel, TValue&gt;.<br/>
+        ///     A cached <see cref="IEqualityComparer{IMessageChannel}"/> instance to use
+        ///     when instantiating a <see cref="Dictionary{IMessageChannel, TValue}"/> keyed by channel.<br/>
         ///     This is the same instance as <see cref="DiscordComparers.ChannelComparer"/>.
         /// </summary>
         protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = DiscordComparers.ChannelComparer;
