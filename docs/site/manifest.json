@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.Hand-1.html",
-          "hash": "oZCzI6NQu8S444iHzLewmw=="
+          "hash": "2lb3TrQ0yvA7F5C15mmSFw=="
         }
       },
       "is_incremental": true,
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.ICardWrapper-1.html",
-          "hash": "iR/GyFw+PgVC46+4Avm8zg=="
+          "hash": "6pFyYtQrCy3xUtCn+DwDqw=="
         }
       },
       "is_incremental": true,
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.Pile-1.html",
-          "hash": "MfnMc/3VJAcJgKCs29TJCA=="
+          "hash": "ct4Q79BQk+DQMfFjAXhZbg=="
         }
       },
       "is_incremental": true,
@@ -57,10 +57,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.Pile-2.html",
-          "hash": "vmP51Jefk8SArCrUV4nTwg=="
+          "hash": "2FkR125t1alJ0Ti2C8lEdg=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -72,7 +72,7 @@
           "hash": "vpxhAI13smdhYyclQJhf/Q=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.GameBase-1.html",
-          "hash": "MBpHa9mSlGLB7po1ans75Q=="
+          "hash": "yNjbPVQx8IlKLtOq8xd6Zg=="
         }
       },
       "is_incremental": true,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.MpGameModuleBase-3.html",
-          "hash": "vHMo1bitrIsHdJ+uwP06Jg=="
+          "hash": "VqOhpgP5fA2A6/bpz2/S7w=="
         }
       },
       "is_incremental": true,
@@ -129,10 +129,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.MpGameService-2.html",
-          "hash": "x5hcrsFe6c4ZUhP+xO3plA=="
+          "hash": "G9d1uz2jsYnKyRzC30ixlw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -156,7 +156,7 @@
           "hash": "dwFR0Cho754pA/L8Sq7kUQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {

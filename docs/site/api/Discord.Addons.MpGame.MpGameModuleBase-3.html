@@ -167,7 +167,10 @@
   <h6><strong>Assembly</strong>: Discord.Addons.MpGame.dll</h6>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class MpGameModuleBase&lt;TService, TGame, TPlayer&gt; : ModuleBase&lt;SocketCommandContext&gt;, IModuleBase where TService : MpGameService&lt;TGame, TPlayer&gt; where TGame : GameBase&lt;TPlayer&gt; where TPlayer : Player</code></pre>
+    <pre><code class="lang-csharp hljs">public class MpGameModuleBase&lt;TService, TGame, TPlayer&gt; : ModuleBase&lt;SocketCommandContext&gt;
+    where TService : MpGameService&lt;TGame, TPlayer&gt;
+    where TGame    : GameBase&lt;TPlayer&gt;
+    where TPlayer  : Player</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -970,7 +973,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameModuleBase_3.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameModuleBase%603%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/docs/_overwrites/MpGame/MpGameModuleBase.SyntaxOverwrite.md/#L2" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
                     <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/Readers/PlayerTypeReader.cs/#L10" class="contribution-link">View Source</a>
