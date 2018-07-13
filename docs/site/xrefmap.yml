@@ -1,6 +1,33 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
+- uid: Addons.Introduction
+  name: Introduction to Discord.Addons
+  href: guides/intro.html
+- uid: Addons.MpGame.Extra
+  name: Extra considerations
+  href: guides/mpgame/extraconsiderations.html
+- uid: Addons.MpGame.Final
+  name: Final step
+  href: guides/mpgame/finalstep.html
+- uid: Addons.MpGame.Games
+  name: Games
+  href: guides/mpgame/games.html
+- uid: Addons.MpGame.Introduction
+  name: Getting started with MpGame
+  href: guides/mpgame/intro.html
+- uid: Addons.MpGame.Modules
+  name: Modules
+  href: guides/mpgame/modules.html
+- uid: Addons.MpGame.Players
+  name: Players
+  href: guides/mpgame/players.html
+- uid: Addons.MpGame.Services
+  name: Services
+  href: guides/mpgame/services.html
+- uid: Addons.MpGame.Specialized
+  name: Specialized types
+  href: guides/mpgame/specializedtypes.html
 - uid: Discord.Addons.MpGame
   name: Discord.Addons.MpGame
   href: api/Discord.Addons.MpGame.html
@@ -257,6 +284,23 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).Add
   nameWithType: Hand<TCard>.Add
   nameWithType.vb: Hand(Of TCard).Add
+- uid: Discord.Addons.MpGame.Collections.Hand`1.AsIndexed
+  name: AsIndexed()
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_AsIndexed
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.AsIndexed
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.AsIndexed()
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).AsIndexed()
+  nameWithType: Hand<TCard>.AsIndexed()
+  nameWithType.vb: Hand(Of TCard).AsIndexed()
+- uid: Discord.Addons.MpGame.Collections.Hand`1.AsIndexed*
+  name: AsIndexed
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_AsIndexed_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.AsIndexed
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Hand<TCard>.AsIndexed
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of TCard).AsIndexed
+  nameWithType: Hand<TCard>.AsIndexed
+  nameWithType.vb: Hand(Of TCard).AsIndexed
 - uid: Discord.Addons.MpGame.Collections.Hand`1.Browse
   name: Browse()
   href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_Browse
@@ -2003,14 +2047,14 @@ references:
   fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).TryAddNewGame
   nameWithType: MpGameService<TGame, TPlayer>.TryAddNewGame
   nameWithType.vb: MpGameService(Of TGame, TPlayer).TryAddNewGame
-- uid: Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin(Discord.IMessageChannel,System.Boolean,System.Boolean)
-  name: TryUpdateOpenToJoin(IMessageChannel, Boolean, Boolean)
-  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_TryUpdateOpenToJoin_Discord_IMessageChannel_System_Boolean_System_Boolean_
-  commentId: M:Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin(Discord.IMessageChannel,System.Boolean,System.Boolean)
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.TryUpdateOpenToJoin(Discord.IMessageChannel, System.Boolean, System.Boolean)
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).TryUpdateOpenToJoin(Discord.IMessageChannel, System.Boolean, System.Boolean)
-  nameWithType: MpGameService<TGame, TPlayer>.TryUpdateOpenToJoin(IMessageChannel, Boolean, Boolean)
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).TryUpdateOpenToJoin(IMessageChannel, Boolean, Boolean)
+- uid: Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin(Discord.IMessageChannel,System.Boolean)
+  name: TryUpdateOpenToJoin(IMessageChannel, Boolean)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_TryUpdateOpenToJoin_Discord_IMessageChannel_System_Boolean_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin(Discord.IMessageChannel,System.Boolean)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.TryUpdateOpenToJoin(Discord.IMessageChannel, System.Boolean)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).TryUpdateOpenToJoin(Discord.IMessageChannel, System.Boolean)
+  nameWithType: MpGameService<TGame, TPlayer>.TryUpdateOpenToJoin(IMessageChannel, Boolean)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).TryUpdateOpenToJoin(IMessageChannel, Boolean)
 - uid: Discord.Addons.MpGame.MpGameService`2.TryUpdateOpenToJoin*
   name: TryUpdateOpenToJoin
   href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_TryUpdateOpenToJoin_

@@ -29,6 +29,12 @@
           "toc.yml",
           "*.md"
         ]
+      },
+      {
+        "files": [
+          "guides/**.md",
+          "guides/**/toc.yml"
+        ]
       }
     ],
     "resource": [

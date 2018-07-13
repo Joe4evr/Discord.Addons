@@ -27,6 +27,6 @@
         ///     The new Pile that now owns this wrapper.
         /// </param>
         void Reset<TWrapper>(Pile<TCard, TWrapper> newPile)
-            where TWrapper : struct, ICardWrapper<TCard>; //{ }
+            where TWrapper : struct, ICardWrapper<TCard>;
     }
 }

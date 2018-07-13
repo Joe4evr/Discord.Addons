@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Services </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Services ">
+    <meta name="generator" content="docfx 2.35.4.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/master.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/dark.css">
+    <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.6/release/featherlight.min.css" type="text/css" rel="stylesheet">
+    <meta property="docfx:navrel" content="../../toc">
+    <meta property="docfx:tocrel" content="../toc">
+    <meta id="docfx-style:rel" content="../../">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                <ul class="nav level1 navbar-nav">
+                  <li class="active">
+                    <a href="../../guides/intro.html" title="Guides" class="active">Guides</a>
+                  </li>
+                  <li class="">
+                    <a href="../../api/index.html" title="Api Documentation" class="">Api Documentation</a>
+                  </li>
+                </ul>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidefilter">
+                <form class="toc-filter">
+                  <span class="glyphicon glyphicon-filter filter-icon"></span>
+                  <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+                </form>
+              </div>
+              <div class="sidetoc">
+                <div class="toc" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="">
+                      <a href="../intro.html" title="Introduction" class="">Introduction</a>
+                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">MpGame</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../mpgame/intro.html" title="Getting started" class="">Getting started</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/players.html" title="Players" class="">Players</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/games.html" title="Games" class="">Games</a>
+                          </li>
+                          <li class="active">
+                            <a href="../mpgame/services.html" title="Services" class="active">Services</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/modules.html" title="Modules" class="">Modules</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/finalstep.html" title="Final step" class="">Final step</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/extraconsiderations.html" title="Extra considerations" class="">Extra considerations</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/specializedtypes.html" title="Specialized types" class="">Specialized types</a>
+                          </li>
+                        </ul>  </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Addons.MpGame.Services">
+<h2 id="services">Services</h2>
+
+<p>The service is a major component to know about, whether you make your own or not.</p>
+<p>The lifetime of a Module is only as long as a command is running, similar to Controllers
+in ASP.NET MVC. This means that you can't store persistent data <em>in</em>
+a Module; you need a 'service' class that stores persistent data
+outside of a module lifetime instead.</p>
+<p>The <code>MpGameService</code> class looks like this:</p>
+<pre><code class="lang-cs">public class MpGameService&lt;TGame, TPlayer&gt;
+    where TGame   : GameBase&lt;TPlayer&gt;
+    where TPlayer : Player
+{
+    protected static IEqualityComparer&lt;IMessageChannel&gt; MessageChannelComparer { get; }
+
+    protected Func&lt;LogMessage, Task&gt; Logger { get; }
+
+    public MpGameService(
+        BaseSocketClient client,
+        IMpGameServiceConfig mpconfig = null,
+        Func&lt;LogMessage, Task&gt; logger = null);
+
+    public bool OpenNewGame(ICommandContext context);
+
+    public Task&lt;bool&gt; AddUser(IMessageChannel channel, IUser user);
+
+    public Task&lt;bool&gt; RemoveUser(IMessageChannel channel, IUser user);
+
+    public Task&lt;bool&gt; AddPlayer(TGame game, TPlayer player);
+
+    public Task&lt;bool&gt; KickPlayer(TGame game, TPlayer player);
+
+    public bool CancelGame(IMessageChannel channel);
+
+    public bool TryAddNewGame(IMessageChannel channel, TGame game);
+
+    public bool TryUpdateOpenToJoin(IMessageChannel channel, bool newValue, bool comparisonValue);
+
+    public TGame GetGameFromChannel(IMessageChannel channel);
+
+    public IReadOnlyCollection&lt;IUser&gt; GetJoinedUsers(IMessageChannel channel);
+
+    public bool IsOpenToJoin(IMessageChannel channel);
+
+    public MpGameData GetGameData(ICommandContext context);
+}
+</code></pre>
+<p>While making your own is technically optional, it's recommended to at least make
+an empty class that derives from it, so that adding persistent data later on
+won't involve a lot more trouble than necessary.</p>
+<pre><code class="lang-cs">public sealed class CardGameService : MpGameService&lt;CardGame, CardPlayer&gt;
+{
+    // It's generally advised to store your data in some kind of
+    // 'ConcurrentDictionary&lt;ulong, T&gt;' where the key is the channel/guild/user ID
+    // and replace 'T' with whatever type you have your data in.
+    public ConcurrentDictionary&lt;ulong, DataType&gt; SomeDataDictionary { get; }
+        = new ConcurrentDictionary&lt;ulong, DataType&gt;();
+
+    // Alternatively, you can use 'IMessageChannel' as a key
+    // like the base class does, as long as you pass in the
+    // base-provided 'MessageChannelComparer'.
+    public ConcurrentDictionary&lt;IMessageChannel, DataType&gt; SomeDataDictionary { get; }
+        = new ConcurrentDictionary&lt;IMessageChannel, DataType&gt;(MessageChannelComparer);
+}
+</code></pre>
+<p>The constructor for the service has to get either a 'DiscordSocketClient'
+or a 'DiscordShardedClient' instance so that the service
+can listen for the 'ChannelDestroyed' event.</p>
+<p>There is an optional parameter to pass in an object to configure
+parts of the base service, such as log strings and other switches
+that may be added in the future.</p>
+<p>There's also an optional paramater to pass a logging method from
+the caller to the base class. If you want to make use of the logger, then
+add the same parameter to your constructor in the derived class.</p>
+<pre><code class="lang-cs">public sealed class CardGameService : MpGameService&lt;CardGame, CardPlayer&gt;
+{
+    public CardGameService(
+        BaseSocketClient client,
+        IMpGameServiceConfig mpconfig = null,
+        Func&lt;LogMessage, Task&gt; logger = null)
+        : base(client, mpconfig, logger)
+    {
+        // You can now log anything you like by invoking the 'Logger'
+        // delegate on the base class you can make use of. I would personally
+        // recommend having your own method as seen below as a wrapper.
+        Log(LogSeverity.Debug, &quot;Creating CardGame Service&quot;);
+    }
+
+    intenal Task Log(LogSeverity severity, string msg)
+    {
+        return base.Logger(new LogMessage(severity, &quot;CardGameService&quot;, msg));
+    }
+}
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/docs/guides/mpgame/services.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    <script src="//cdn.rawgit.com/noelboss/featherlight/1.7.6/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../../styles/plugin-featherlight.js"></script>
+    <script type="text/javascript" src="//malsup.github.io/jquery.corner.js"></script>
+    <script type="text/javascript" src="../../styles/cornerify.js"></script>  </body>
+</html>

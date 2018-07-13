@@ -1,0 +1,20 @@
+- name: Introduction
+  topicUid: Addons.Introduction
+- name: MpGame
+  items:
+    - name: Getting started
+      topicUid: Addons.MpGame.Introduction
+    - name: Players
+      topicUid: Addons.MpGame.Players
+    - name: Games
+      topicUid: Addons.MpGame.Games
+    - name: Services
+      topicUid: Addons.MpGame.Services
+    - name: Modules
+      topicUid: Addons.MpGame.Modules
+    - name: Final step
+      topicUid: Addons.MpGame.Final
+    - name: Extra considerations
+      topicUid: Addons.MpGame.Extra
+    - name: Specialized types
+      topicUid: Addons.MpGame.Specialized

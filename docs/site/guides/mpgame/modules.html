@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Modules </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Modules ">
+    <meta name="generator" content="docfx 2.35.4.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/master.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/dark.css">
+    <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.6/release/featherlight.min.css" type="text/css" rel="stylesheet">
+    <meta property="docfx:navrel" content="../../toc">
+    <meta property="docfx:tocrel" content="../toc">
+    <meta id="docfx-style:rel" content="../../">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                <ul class="nav level1 navbar-nav">
+                  <li class="active">
+                    <a href="../../guides/intro.html" title="Guides" class="active">Guides</a>
+                  </li>
+                  <li class="">
+                    <a href="../../api/index.html" title="Api Documentation" class="">Api Documentation</a>
+                  </li>
+                </ul>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidefilter">
+                <form class="toc-filter">
+                  <span class="glyphicon glyphicon-filter filter-icon"></span>
+                  <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+                </form>
+              </div>
+              <div class="sidetoc">
+                <div class="toc" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="">
+                      <a href="../intro.html" title="Introduction" class="">Introduction</a>
+                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">MpGame</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../mpgame/intro.html" title="Getting started" class="">Getting started</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/players.html" title="Players" class="">Players</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/games.html" title="Games" class="">Games</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/services.html" title="Services" class="">Services</a>
+                          </li>
+                          <li class="active">
+                            <a href="../mpgame/modules.html" title="Modules" class="active">Modules</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/finalstep.html" title="Final step" class="">Final step</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/extraconsiderations.html" title="Extra considerations" class="">Extra considerations</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/specializedtypes.html" title="Specialized types" class="">Specialized types</a>
+                          </li>
+                        </ul>  </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Addons.MpGame.Modules">
+<h2 id="modules">Modules</h2>
+
+<p>The Module is the final piece, and is what is needed to move a game forward.</p>
+<p>The <code>MpGameModule</code> class looks like this:</p>
+<pre><code class="lang-cs">public abstract class MpGameModuleBase&lt;TService, TGame, TPlayer&gt; : ModuleBase&lt;SocketCommandContext&gt;
+    where TService : MpGameService&lt;TGame, TPlayer&gt;
+    where TGame    : GameBase&lt;TPlayer&gt;
+    where TPlayer  : Player
+{
+    protected MpGameModuleBase(TService gameService);
+
+    protected TService GameService { get; }
+
+    protected TGame Game { get; }
+
+    protected TPlayer Player { get; }
+
+    protected CurrentlyPlaying GameInProgress { get; }
+
+    protected bool OpenToJoin { get; }
+
+    protected IReadOnlyCollection&lt;IUser&gt; JoinedUsers { get; }
+
+    protected virtual bool RegisterPlayerTypeReader { get; }
+
+    public abstract Task OpenGameCmd();
+
+    public abstract Task CancelGameCmd();
+
+    public abstract Task JoinGameCmd();
+
+    public abstract Task LeaveGameCmd();
+
+    public abstract Task StartGameCmd();
+
+    public abstract Task NextTurnCmd();
+
+    public abstract Task GameStateCmd();
+
+    public abstract Task EndGameCmd();
+
+    public virtual async Task ResendCmd();
+}
+
+public enum CurrentlyPlaying
+{
+    None,
+    ThisGame,
+    DifferentGame
+}
+</code></pre>
+<p>Other versions of this class with less generic parameters also exist,
+so you don't <em>need</em> to supply all the type parameters. Consult
+IntelliSense for the details.</p>
+<p><code>CurrentlyPlaying</code> is an enum that indicates if the channel already
+has a game going on, and if it is the game type that this module handles
+or another game type. You can use this to ensure that you won't get
+two different games being played simultaniously in the same channel.</p>
+<p><code>RegisterPlayerTypeReader</code> is an overridable flag with which you can specify
+to add a TypeReader for your <code>Player</code> type so that you can take in that type
+as a command parameter directly. The default value of this flag is <code>true</code>.</p>
+<p>There are 8 methods you can implement, corresponding to the
+actions needed in most games. When you implement these, you decorate them with <code>[Command]</code>
+so that the command system recognizes them. There may be methods you don't want or need to
+implement, in which case you can omit the <code>[Command]</code> attribute so it can't be called.
+Likewise, you'll most likely be adding <em>more</em> commands in order to control your game.</p>
+<p>One command is predefined which will retry sending a DM
+to a user after they have been notified to enable DMs.
+If you want to make use of this command, you will need to override
+it just to call the base method and add the <code>[Command]</code> attribute.</p>
+<p>With your own service class and a data type for persistent data, you should derive
+from this class as follows:</p>
+<pre><code class="lang-cs">public class CardGameModule : MpGameModuleBase&lt;CardGameService, CardGame, CardPlayer&gt;
+{
+    public CardGameModule(CardGameService service)
+        : base(service)
+    {
+    }
+
+    protected override void BeforeExecute(CommandInfo command)
+    {
+        // If you choose to override this method, you *must* call the base version first.
+        base.BeforeExecute(command);
+        // If you have any persistent data of your own, load
+        // the relevant instance from the dictionary
+        // in your service class here and store
+        // the result in a private field.
+        GameService.SomeDataDictionary.TryGetValue(Context.Channel.Id, out _data);
+    }
+    private DataType _data;
+}
+</code></pre>
+<p>While having an explicit service class will make it easier to expand in the future,
+you <em>can</em> omit the type parameter to use the default if you have no other persistent
+data to store for your game:</p>
+<pre><code class="lang-cs">public class CardGameModule : MpGameModuleBase&lt;CardGame, CardPlayer&gt;
+{
+    public CardGameModule(MpGameService&lt;CardGame, CardPlayer&gt; service)
+        : base(service)
+    {
+    }
+}
+</code></pre>
+<p>Example implementations for the abstract methods can be found
+<a class="xref" href="../../api/Discord.Addons.MpGame.MpGameModuleBase-3.html">on the API documentation page</a>.
+An extensive example can be found as my implementation of
+<a href="https://github.com/Joe4evr/MechHisui/tree/master/src/MechHisui.SecretHitler">Secret Hitler</a>.</p>
+<h3 id="inheriting-a-different-modulebase">Inheriting a different ModuleBase</h3>
+<p>To aid in composability, starting in version 1.2.0, <code>MpGameModuleBase&lt;&gt;</code>
+is decoupled from the <code>MpGameService&lt;&gt;</code>. So if you wish to combine MpGame
+with a different ModuleBase (or inherit only <code>ModuleBase&lt;T&gt;</code> directly),
+you can do that by</p>
+<ol>
+<li>injecting the instance of the service into your module</li>
+<li>overriding <code>BeforeExecute()</code> where you can call <code>GetGameData()</code>
+to get the associated data for that context.</li>
+</ol>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/docs/guides/mpgame/modules.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    <script src="//cdn.rawgit.com/noelboss/featherlight/1.7.6/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../../styles/plugin-featherlight.js"></script>
+    <script type="text/javascript" src="//malsup.github.io/jquery.corner.js"></script>
+    <script type="text/javascript" src="../../styles/cornerify.js"></script>  </body>
+</html>

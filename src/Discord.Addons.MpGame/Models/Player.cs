@@ -56,21 +56,27 @@ namespace Discord.Addons.MpGame
         {
             try
             {
-                return await User.SendMessageAsync(text, embed: embed).ConfigureAwait(false);
+                if (!User.IsBot)
+                {
+                    return await User.SendMessageAsync(text, embed: embed).ConfigureAwait(false);
+                }
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
             {
                 _unsentDms.Enqueue((text, embed));
 
-                if (ShouldKick(_unsentDms.Count))
+                if (!(PubChannel is IDMChannel))
                 {
-                    if (!String.IsNullOrWhiteSpace(DMsDisabledKickMessage))
-                        await AutoKickCallback(DMsDisabledKickMessage).ConfigureAwait(false);
-                }
-                else
-                {
-                    if (!String.IsNullOrWhiteSpace(DMsDisabledMessage))
-                        await PubChannel.SendMessageAsync(DMsDisabledMessage).ConfigureAwait(false);
+                    if (ShouldKick(_unsentDms.Count))
+                    {
+                        if (!String.IsNullOrWhiteSpace(DMsDisabledKickMessage))
+                            await AutoKickCallback(DMsDisabledKickMessage).ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        if (!String.IsNullOrWhiteSpace(DMsDisabledMessage))
+                            await PubChannel.SendMessageAsync(DMsDisabledMessage).ConfigureAwait(false);
+                    }
                 }
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.BadRequest) { }

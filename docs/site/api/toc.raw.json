@@ -1,0 +1,308 @@
+{
+    "items":[
+        {
+            "name":"Discord.Addons.MpGame",
+            "href":"Discord.Addons.MpGame.html",
+            "topicHref":"Discord.Addons.MpGame.html",
+            "topicUid":"Discord.Addons.MpGame",
+            "items":[
+                {
+                    "name":"CurrentlyPlaying",
+                    "href":"Discord.Addons.MpGame.CurrentlyPlaying.html",
+                    "topicHref":"Discord.Addons.MpGame.CurrentlyPlaying.html",
+                    "topicUid":"Discord.Addons.MpGame.CurrentlyPlaying"
+                },
+                {
+                    "name":"GameBase<TPlayer>",
+                    "href":"Discord.Addons.MpGame.GameBase-1.html",
+                    "topicHref":"Discord.Addons.MpGame.GameBase-1.html",
+                    "topicUid":"Discord.Addons.MpGame.GameBase`1",
+                    "name.vb":"GameBase(Of TPlayer)"
+                },
+                {
+                    "name":"MpGameModuleBase<TService, TGame, TPlayer>",
+                    "href":"Discord.Addons.MpGame.MpGameModuleBase-3.html",
+                    "topicHref":"Discord.Addons.MpGame.MpGameModuleBase-3.html",
+                    "topicUid":"Discord.Addons.MpGame.MpGameModuleBase`3",
+                    "name.vb":"MpGameModuleBase(Of TService, TGame, TPlayer)"
+                },
+                {
+                    "name":"MpGameService<TGame, TPlayer>",
+                    "href":"Discord.Addons.MpGame.MpGameService-2.html",
+                    "topicHref":"Discord.Addons.MpGame.MpGameService-2.html",
+                    "topicUid":"Discord.Addons.MpGame.MpGameService`2",
+                    "name.vb":"MpGameService(Of TGame, TPlayer)"
+                },
+                {
+                    "name":"MpGameService<TGame, TPlayer>.MpGameData",
+                    "href":"Discord.Addons.MpGame.MpGameService-2.MpGameData.html",
+                    "topicHref":"Discord.Addons.MpGame.MpGameService-2.MpGameData.html",
+                    "topicUid":"Discord.Addons.MpGame.MpGameService`2.MpGameData",
+                    "name.vb":"MpGameService(Of TGame, TPlayer).MpGameData"
+                },
+                {
+                    "name":"Player",
+                    "href":"Discord.Addons.MpGame.Player.html",
+                    "topicHref":"Discord.Addons.MpGame.Player.html",
+                    "topicUid":"Discord.Addons.MpGame.Player"
+                }
+            ]
+        },
+        {
+            "name":"Discord.Addons.MpGame.Collections",
+            "href":"Discord.Addons.MpGame.Collections.html",
+            "topicHref":"Discord.Addons.MpGame.Collections.html",
+            "topicUid":"Discord.Addons.MpGame.Collections",
+            "items":[
+                {
+                    "name":"CircularLinkedList<T>",
+                    "href":"Discord.Addons.MpGame.Collections.CircularLinkedList-1.html",
+                    "topicHref":"Discord.Addons.MpGame.Collections.CircularLinkedList-1.html",
+                    "topicUid":"Discord.Addons.MpGame.Collections.CircularLinkedList`1",
+                    "name.vb":"CircularLinkedList(Of T)"
+                },
+                {
+                    "name":"Hand<TCard>",
+                    "href":"Discord.Addons.MpGame.Collections.Hand-1.html",
+                    "topicHref":"Discord.Addons.MpGame.Collections.Hand-1.html",
+                    "topicUid":"Discord.Addons.MpGame.Collections.Hand`1",
+                    "name.vb":"Hand(Of TCard)"
+                },
+                {
+                    "name":"ICardWrapper<TCard>",
+                    "href":"Discord.Addons.MpGame.Collections.ICardWrapper-1.html",
+                    "topicHref":"Discord.Addons.MpGame.Collections.ICardWrapper-1.html",
+                    "topicUid":"Discord.Addons.MpGame.Collections.ICardWrapper`1",
+                    "name.vb":"ICardWrapper(Of TCard)"
+                },
+                {
+                    "name":"Pile<TCard, TWrapper>",
+                    "href":"Discord.Addons.MpGame.Collections.Pile-2.html",
+                    "topicHref":"Discord.Addons.MpGame.Collections.Pile-2.html",
+                    "topicUid":"Discord.Addons.MpGame.Collections.Pile`2",
+                    "name.vb":"Pile(Of TCard, TWrapper)"
+                },
+                {
+                    "name":"Pile<TCard>",
+                    "href":"Discord.Addons.MpGame.Collections.Pile-1.html",
+                    "topicHref":"Discord.Addons.MpGame.Collections.Pile-1.html",
+                    "topicUid":"Discord.Addons.MpGame.Collections.Pile`1",
+                    "name.vb":"Pile(Of TCard)"
+                }
+            ]
+        }
+    ],
+    "_docfxVersion":"2.35.4.0",
+    "_lang":"csharp",
+    "_tocPath":"api/toc",
+    "_navPath":"toc",
+    "_rel":"../",
+    "_path":"api/toc",
+    "_key":"api/toc.yml",
+    "_navRel":"../toc",
+    "_tocRel":"toc",
+    "_navKey":"~/toc.yml",
+    "_tocKey":"~/api/toc.yml",
+    "__global":{
+        "classesInSubtitle":"Classes",
+        "structsInSubtitle":"Structs",
+        "interfacesInSubtitle":"Interfaces",
+        "enumsInSubtitle":"Enums",
+        "delegatesInSubtitle":"Delegates",
+        "constructorsInSubtitle":"Constructors",
+        "fieldsInSubtitle":"Fields",
+        "propertiesInSubtitle":"Properties",
+        "methodsInSubtitle":"Methods",
+        "eventsInSubtitle":"Events",
+        "operatorsInSubtitle":"Operators",
+        "eiisInSubtitle":"Explicit Interface Implementations",
+        "functionsInSubtitle":"Functions",
+        "membersInSubtitle":"Members",
+        "improveThisDoc":"Improve this Doc",
+        "viewSource":"View Source",
+        "inheritance":"Inheritance",
+        "inheritedMembers":"Inherited Members",
+        "namespace":"Namespace",
+        "assembly":"Assembly",
+        "syntax":"Syntax",
+        "overrides":"Overrides",
+        "implements":"Implements",
+        "remarks":"Remarks",
+        "examples":"Examples",
+        "seealso":"See Also",
+        "declaration":"Declaration",
+        "parameters":"Parameters",
+        "typeParameters":"Type Parameters",
+        "type":"Type",
+        "name":"Name",
+        "description":"Description",
+        "returns":"Returns",
+        "fieldValue":"Field Value",
+        "propertyValue":"Property Value",
+        "eventType":"Event Type",
+        "exceptions":"Exceptions",
+        "condition":"Condition",
+        "extensionMethods":"Extension Methods",
+        "note":"<h5>Note</h5>",
+        "warning":"<h5>Warning</h5>",
+        "tip":"<h5>Tip</h5>",
+        "important":"<h5>Important</h5>",
+        "caution":"<h5>Caution</h5>",
+        "_shared":{
+            "~/articles/toc.yml":{
+                "items":[
+                    {
+                        "name":"Introduction",
+                        "href":"intro.html",
+                        "topicHref":"intro.html"
+                    }
+                ],
+                "_docfxVersion":"2.35.4.0",
+                "_lang":"csharp",
+                "_tocPath":"articles/toc",
+                "_navPath":"toc",
+                "_rel":"../",
+                "_path":"articles/toc",
+                "_key":"articles/toc.yml",
+                "_navRel":"../toc",
+                "_tocRel":"toc",
+                "_navKey":"~/toc.yml",
+                "_tocKey":"~/articles/toc.yml"
+            },
+            "~/api/toc.yml":{
+                "items":[
+                    {
+                        "name":"Discord.Addons.MpGame",
+                        "href":"Discord.Addons.MpGame.html",
+                        "topicHref":"Discord.Addons.MpGame.html",
+                        "topicUid":"Discord.Addons.MpGame",
+                        "items":[
+                            {
+                                "name":"CurrentlyPlaying",
+                                "href":"Discord.Addons.MpGame.CurrentlyPlaying.html",
+                                "topicHref":"Discord.Addons.MpGame.CurrentlyPlaying.html",
+                                "topicUid":"Discord.Addons.MpGame.CurrentlyPlaying"
+                            },
+                            {
+                                "name":"GameBase<TPlayer>",
+                                "href":"Discord.Addons.MpGame.GameBase-1.html",
+                                "topicHref":"Discord.Addons.MpGame.GameBase-1.html",
+                                "topicUid":"Discord.Addons.MpGame.GameBase`1",
+                                "name.vb":"GameBase(Of TPlayer)"
+                            },
+                            {
+                                "name":"MpGameModuleBase<TService, TGame, TPlayer>",
+                                "href":"Discord.Addons.MpGame.MpGameModuleBase-3.html",
+                                "topicHref":"Discord.Addons.MpGame.MpGameModuleBase-3.html",
+                                "topicUid":"Discord.Addons.MpGame.MpGameModuleBase`3",
+                                "name.vb":"MpGameModuleBase(Of TService, TGame, TPlayer)"
+                            },
+                            {
+                                "name":"MpGameService<TGame, TPlayer>",
+                                "href":"Discord.Addons.MpGame.MpGameService-2.html",
+                                "topicHref":"Discord.Addons.MpGame.MpGameService-2.html",
+                                "topicUid":"Discord.Addons.MpGame.MpGameService`2",
+                                "name.vb":"MpGameService(Of TGame, TPlayer)"
+                            },
+                            {
+                                "name":"MpGameService<TGame, TPlayer>.MpGameData",
+                                "href":"Discord.Addons.MpGame.MpGameService-2.MpGameData.html",
+                                "topicHref":"Discord.Addons.MpGame.MpGameService-2.MpGameData.html",
+                                "topicUid":"Discord.Addons.MpGame.MpGameService`2.MpGameData",
+                                "name.vb":"MpGameService(Of TGame, TPlayer).MpGameData"
+                            },
+                            {
+                                "name":"Player",
+                                "href":"Discord.Addons.MpGame.Player.html",
+                                "topicHref":"Discord.Addons.MpGame.Player.html",
+                                "topicUid":"Discord.Addons.MpGame.Player"
+                            }
+                        ]
+                    },
+                    {
+                        "name":"Discord.Addons.MpGame.Collections",
+                        "href":"Discord.Addons.MpGame.Collections.html",
+                        "topicHref":"Discord.Addons.MpGame.Collections.html",
+                        "topicUid":"Discord.Addons.MpGame.Collections",
+                        "items":[
+                            {
+                                "name":"CircularLinkedList<T>",
+                                "href":"Discord.Addons.MpGame.Collections.CircularLinkedList-1.html",
+                                "topicHref":"Discord.Addons.MpGame.Collections.CircularLinkedList-1.html",
+                                "topicUid":"Discord.Addons.MpGame.Collections.CircularLinkedList`1",
+                                "name.vb":"CircularLinkedList(Of T)"
+                            },
+                            {
+                                "name":"Hand<TCard>",
+                                "href":"Discord.Addons.MpGame.Collections.Hand-1.html",
+                                "topicHref":"Discord.Addons.MpGame.Collections.Hand-1.html",
+                                "topicUid":"Discord.Addons.MpGame.Collections.Hand`1",
+                                "name.vb":"Hand(Of TCard)"
+                            },
+                            {
+                                "name":"ICardWrapper<TCard>",
+                                "href":"Discord.Addons.MpGame.Collections.ICardWrapper-1.html",
+                                "topicHref":"Discord.Addons.MpGame.Collections.ICardWrapper-1.html",
+                                "topicUid":"Discord.Addons.MpGame.Collections.ICardWrapper`1",
+                                "name.vb":"ICardWrapper(Of TCard)"
+                            },
+                            {
+                                "name":"Pile<TCard, TWrapper>",
+                                "href":"Discord.Addons.MpGame.Collections.Pile-2.html",
+                                "topicHref":"Discord.Addons.MpGame.Collections.Pile-2.html",
+                                "topicUid":"Discord.Addons.MpGame.Collections.Pile`2",
+                                "name.vb":"Pile(Of TCard, TWrapper)"
+                            },
+                            {
+                                "name":"Pile<TCard>",
+                                "href":"Discord.Addons.MpGame.Collections.Pile-1.html",
+                                "topicHref":"Discord.Addons.MpGame.Collections.Pile-1.html",
+                                "topicUid":"Discord.Addons.MpGame.Collections.Pile`1",
+                                "name.vb":"Pile(Of TCard)"
+                            }
+                        ]
+                    }
+                ],
+                "_docfxVersion":"2.35.4.0",
+                "_lang":"csharp",
+                "_tocPath":"api/toc",
+                "_navPath":"toc",
+                "_rel":"../",
+                "_path":"api/toc",
+                "_key":"api/toc.yml",
+                "_navRel":"../toc",
+                "_tocRel":"toc",
+                "_navKey":"~/toc.yml",
+                "_tocKey":"~/api/toc.yml"
+            },
+            "~/toc.yml":{
+                "items":[
+                    {
+                        "name":"Articles",
+                        "href":"articles/intro.html",
+                        "tocHref":"articles/toc",
+                        "topicHref":"articles/intro.html"
+                    },
+                    {
+                        "name":"Api Documentation",
+                        "href":"api/index.html",
+                        "tocHref":"api/toc",
+                        "topicHref":"api/index.html",
+                        "homepage":"api/index.html"
+                    }
+                ],
+                "_docfxVersion":"2.35.4.0",
+                "_lang":"csharp",
+                "_tocPath":"toc",
+                "_navPath":"toc",
+                "_rel":"",
+                "_path":"toc",
+                "_key":"toc.yml",
+                "_navRel":"toc",
+                "_tocRel":"toc",
+                "_navKey":"~/toc.yml",
+                "_tocKey":"~/toc.yml"
+            }
+        }
+    }
+}

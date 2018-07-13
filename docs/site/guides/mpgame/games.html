@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Games </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Games ">
+    <meta name="generator" content="docfx 2.35.4.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/master.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/dark.css">
+    <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.6/release/featherlight.min.css" type="text/css" rel="stylesheet">
+    <meta property="docfx:navrel" content="../../toc">
+    <meta property="docfx:tocrel" content="../toc">
+    <meta id="docfx-style:rel" content="../../">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                <ul class="nav level1 navbar-nav">
+                  <li class="active">
+                    <a href="../../guides/intro.html" title="Guides" class="active">Guides</a>
+                  </li>
+                  <li class="">
+                    <a href="../../api/index.html" title="Api Documentation" class="">Api Documentation</a>
+                  </li>
+                </ul>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidefilter">
+                <form class="toc-filter">
+                  <span class="glyphicon glyphicon-filter filter-icon"></span>
+                  <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+                </form>
+              </div>
+              <div class="sidetoc">
+                <div class="toc" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="">
+                      <a href="../intro.html" title="Introduction" class="">Introduction</a>
+                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">MpGame</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../mpgame/intro.html" title="Getting started" class="">Getting started</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/players.html" title="Players" class="">Players</a>
+                          </li>
+                          <li class="active">
+                            <a href="../mpgame/games.html" title="Games" class="active">Games</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/services.html" title="Services" class="">Services</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/modules.html" title="Modules" class="">Modules</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/finalstep.html" title="Final step" class="">Final step</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/extraconsiderations.html" title="Extra considerations" class="">Extra considerations</a>
+                          </li>
+                          <li class="">
+                            <a href="../mpgame/specializedtypes.html" title="Specialized types" class="">Specialized types</a>
+                          </li>
+                        </ul>  </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Addons.MpGame.Games">
+<h2 id="games">Games</h2>
+
+<p>Implementing the game logic is probably one of the hardest things,
+but it's useful to at least acquaint yourself with the shape
+of this type after you have made your <code>Player</code> class.</p>
+<pre><code class="lang-cs">public abstract class GameBase&lt;TPlayer&gt;
+    where TPlayer : Player
+{
+    protected GameBase(IMessageChannel channel, IEnumerable&lt;TPlayer&gt; players, bool setFirstPlayerImmediately = false);
+
+    protected IMessageChannel Channel { get; }
+
+    protected CircularLinkedList&lt;TPlayer&gt; Players { get; }
+
+    public Task&lt;IEnumerable&lt;IDMChannel&gt;&gt; PlayerChannels() { get; }
+
+    public Node&lt;TPlayer&gt; TurnPlayer { get; protected set; }
+
+    protected bool IsTurnPlayerLastPlayer();
+
+    protected virtual void OnPlayerAdded(TPlayer player);
+
+    protected virtual void OnPlayerKicked(TPlayer player);
+
+    public abstract string GetGameState();
+
+    public abstract Embed GetGameStateEmbed();
+
+    public abstract Task SetupGame();
+
+    public abstract Task StartGame();
+
+    public abstract Task NextTurn();
+
+    public virtual async Task EndGame(string endmsg);
+}
+</code></pre>
+<p>This type is abstract, which means it <em>must</em> be inherited before it can be used.
+Any <code>abstract</code> members must also be overridden because the behavior is implementation-specific.
+You'll also have to declare your <code>Player</code> type when you inherit the base class.
+Continuing on with our card game example:</p>
+<pre><code class="lang-cs">public class CardGame : GameBase&lt;CardPlayer&gt; // Any player in a 'CardGame' is of type 'CardPlayer'.
+{
+    // Example property that's needed for the game.
+    private CardDeck Deck { get; }
+
+    // Again, you need to call the base constructor.
+    public CardGame(
+        IMessageChannel channel,
+        IEnumerable&lt;CardPlayer&gt; players,
+        IEnumerable&lt;Card&gt; cards)
+        // Use the 'setFirstPlayerImmediately' flag to control
+        // where or not to set the 'TurnPlayer' to the first player
+        // or to an empty node. Default is 'false' (sets an empty node).
+        : base(channel, players, setFirstPlayerImmediately: false)
+    {
+        Deck = new CardDeck(cards);
+    }
+
+    public override Task SetupGame()
+    {
+        // Use this method to perform pre-game setup, like
+        // shuffling the Deck if you have a method for that at hand.
+
+        // If you're not 'await'ing anything, you can avoid
+        // warnings by using the following:
+        return Task.CompletedTask;
+    }
+
+    public override async Task StartGame()
+    {
+        // This method represents the 'real' start of the game,
+        // for example: dealing out cards to all players.
+        for (int i = 0; i &lt; 5; i++)
+        {
+            foreach (var p in Players)
+            {
+                p.AddCard(Deck.Pop());
+            }
+        }
+
+        foreach (var p in Players)
+        {
+            await Task.Delay(1000);
+            // Ideally, you would have a '.ToString()' override on the 'Card' type for this.
+            await p.SendMessageAsync($&quot;Your hand:\n{String.Join(&quot;\n&quot;, p.Hand)}&quot;);
+        }
+    }
+
+    // Example items for keeping track of the game state:
+    private int _turn = 0;
+    internal GameState State { get; private set; } = GameState.Setup;
+
+    public override Task NextTurn()
+    {
+        // This is where you put the logic that happens
+        // at the start of every turn.
+        _turn++;
+        State = GameState.StartOfTurn;
+
+        // Use 'TurnPlayer.Next' and assign it as the new TurnPlayer.
+        // The list will automatically cycle through once it reaches the end.
+        TurnPlayer = TurnPlayer.Next;
+
+        // On the other hand, if you would like to stop the game
+        // automatically once everyone has had a turn (or a set number of turns),
+        // you can use this method from the base class to check.
+        if (!IsTurnPlayerLastPlayer())
+        {
+            // Use 'TurnPlayer.Value' to get the
+            // actual instance value of the player.
+            TurnPlayer.Value.AddCard(Deck.Draw());
+        }
+    }
+
+    public override string GetGameState()
+    {
+        // This method should provide a summary of the state that the game is in.
+
+        // Starting in v1.2, you can also choose to implement 'GetGameStateEmbed()' instead
+        // if you want to get real fancy.
+        // You do not need to implement *both* methods, just make sure that your
+        // 'GameState' command doesn't call the one that remains unimplemented.
+
+        var sb = new StringBuilder($&quot;State of the board at turn {_turn}:\n&quot;)
+            .AppendLine($&quot;Turn state is {State.ToString()}.&quot;)
+            .AppendLine($&quot;There are {Deck.Count} cards in the deck.&quot;)
+            .AppendLine($&quot;It is {TurnPlayer.Value.User.Username}'s turn.&quot;);
+
+        foreach (var p in Players)
+        {
+            sb.AppendLine($&quot;Player {p.User.Username} has {p.Hand.Count} cards in hand.&quot;);
+        }
+
+        return sb.ToString();
+    }
+
+    // Many more methods...
+}
+// Make an enum like this so you can use it in
+// a custom precondition for your commands (see section 7).
+internal enum GameState
+{
+    Setup,
+    StartOfTurn,
+    //....
+}
+</code></pre>
+<p>The final method from the base class you need to know is <code>EndGame()</code>.
+It's not required to override this, but if you do, you <em><strong>must</strong></em> call
+<code>base.EndGame()</code> in order to make the game instance eligible for garbage collection.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/docs/guides/mpgame/games.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    <script src="//cdn.rawgit.com/noelboss/featherlight/1.7.6/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../../styles/plugin-featherlight.js"></script>
+    <script type="text/javascript" src="//malsup.github.io/jquery.corner.js"></script>
+    <script type="text/javascript" src="../../styles/cornerify.js"></script>  </body>
+</html>

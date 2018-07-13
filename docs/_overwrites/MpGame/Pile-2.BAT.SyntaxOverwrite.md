@@ -7,3 +7,4 @@ syntax:
         Func<TCard, bool> filter = null,
         Func<ImmutableArray<TCard>, IEnumerable<TCard>> shuffleFunc = null)
 ---
+---

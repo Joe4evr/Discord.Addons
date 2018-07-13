@@ -31,11 +31,17 @@ namespace Discord.Addons.MpGame
         ///     when instantiating a <see cref="Dictionary{IMessageChannel, TValue}"/> keyed by channel.<br/>
         ///     This is the same instance as <see cref="DiscordComparers.ChannelComparer"/>.
         /// </summary>
+        /// <example>
+        ///     <code language="c#">
+        ///         private readonly ConcurrentDictionary<IMessageChannel, MyData> _data
+        ///             = new ConcurrentDictionary<IMessageChannel, MyData>(MessageChannelComparer);
+        ///     </code>
+        /// </example>
         protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = DiscordComparers.ChannelComparer;
 
         //private readonly object _lock = new object();
-        private readonly ConcurrentDictionary<IMessageChannel, PersistentGameData> _dataList =
-            new ConcurrentDictionary<IMessageChannel, PersistentGameData>(MessageChannelComparer);
+        private readonly ConcurrentDictionary<IMessageChannel, PersistentGameData> _dataList
+            = new ConcurrentDictionary<IMessageChannel, PersistentGameData>(MessageChannelComparer);
 
         protected Func<LogMessage, Task> Logger { get; }
 
@@ -123,6 +129,12 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     <see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.
         /// </returns>
+        /// <example>
+        ///     <code language="c#">
+        ///         if (await GameService.RemoveUser(Context.Channel, user).ConfigureAwait(false))
+        ///             await ReplyAsync($"**{user.Username}** has been kicked.").ConfigureAwait(false);
+        ///     </code>
+        /// </example>
         public async ValueTask<bool> RemoveUser(IMessageChannel channel, IUser user)
             => _dataList.TryGetValue(channel, out var data)
                 && await data.TryRemoveUser(user);
@@ -139,6 +151,12 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     <see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.
         /// </returns>
+        /// <example>
+        ///     <code language="c#">
+        ///         if (await GameService.AddPlayer(Game, new MyPlayer(Context.User, Context.Channel)).ConfigureAwait(false))
+        ///             await ReplyAsync($"**{Context.User.Username}** has joined.").ConfigureAwait(false);
+        ///     </code>
+        /// </example>
         public async ValueTask<bool> AddPlayer(TGame game, TPlayer player)
         {
             if (!GameTracker.Instance.TryGetGameChannel(await player.User.GetOrCreateDMChannelAsync().ConfigureAwait(false), out var _))
@@ -219,15 +237,12 @@ namespace Discord.Addons.MpGame
         /// <param name="newValue">
         ///     The new value.
         /// </param>
-        /// <param name="comparisonValue">
-        ///     The value that should be compared against.
-        /// </param>
         /// <returns>
         ///     <see langword="true"/> if the value was updated, otherwise <see langword="false"/>.
         /// </returns>
-        public bool TryUpdateOpenToJoin(IMessageChannel channel, bool newValue, bool comparisonValue)
+        public bool TryUpdateOpenToJoin(IMessageChannel channel, bool newValue)
             => TryGetPersistentData(channel, out var data)
-                && data.TryUpdateOpenToJoin(comparisonValue, newValue);
+                && data.TryUpdateOpenToJoin(!newValue, newValue);
 
         /// <summary> 
         /// Retrieve the game instance being played, if any.

@@ -6,3 +6,4 @@ syntax:
         where TGame   : GameBase<TPlayer>
         where TPlayer : Player
 ---
+---

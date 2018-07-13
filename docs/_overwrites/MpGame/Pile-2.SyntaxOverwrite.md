@@ -6,3 +6,4 @@ syntax:
         where TCard    : class
         where TWrapper : struct, ICardWrapper<TCard>
 ---
+---

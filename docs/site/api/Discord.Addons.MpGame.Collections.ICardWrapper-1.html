@@ -52,7 +52,7 @@
               </form>
                 <ul class="nav level1 navbar-nav">
                   <li class="">
-                    <a href="../articles/intro.html" title="Articles" class="">Articles</a>
+                    <a href="../guides/intro.html" title="Guides" class="">Guides</a>
                   </li>
                   <li class="active">
                     <a href="../api/index.html" title="Api Documentation" class="active">Api Documentation</a>
@@ -149,6 +149,7 @@
   <h5 id="Discord_Addons_MpGame_Collections_ICardWrapper_1_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public interface ICardWrapper&lt;TCard&gt;
+
     where TCard : class</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
@@ -183,6 +184,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">void Reset&lt;TWrapper&gt;(Pile&lt;TCard, TWrapper&gt; newPile)
+
     where TWrapper : struct, ICardWrapper&lt;TCard&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>

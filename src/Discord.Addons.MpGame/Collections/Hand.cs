@@ -75,6 +75,15 @@ namespace Discord.Addons.MpGame.Collections
             }
         }
 
+        public IReadOnlyDictionary<int, TCard> AsIndexed()
+        {
+            var builder = ImmutableDictionary.CreateBuilder<int, TCard>();
+            for (int i = 0; i < _hand.Count; i++)
+                builder.Add(i, _hand[i]);
+
+            return builder.ToImmutable();
+        }
+
         /// <summary>
         ///     The cards inside this hand.
         /// </summary>
