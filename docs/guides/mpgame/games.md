@@ -11,7 +11,10 @@ of this type after you have made your `Player` class.
 public abstract class GameBase<TPlayer>
     where TPlayer : Player
 {
-    protected GameBase(IMessageChannel channel, IEnumerable<TPlayer> players, bool setFirstPlayerImmediately = false);
+    protected GameBase(
+        IMessageChannel channel,
+        IEnumerable<TPlayer> players,
+        bool setFirstPlayerImmediately = false);
 
     protected IMessageChannel Channel { get; }
 

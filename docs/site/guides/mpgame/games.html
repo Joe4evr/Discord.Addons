@@ -132,7 +132,10 @@ of this type after you have made your <code>Player</code> class.</p>
 <pre><code class="lang-cs">public abstract class GameBase&lt;TPlayer&gt;
     where TPlayer : Player
 {
-    protected GameBase(IMessageChannel channel, IEnumerable&lt;TPlayer&gt; players, bool setFirstPlayerImmediately = false);
+    protected GameBase(
+        IMessageChannel channel,
+        IEnumerable&lt;TPlayer&gt; players,
+        bool setFirstPlayerImmediately = false);
 
     protected IMessageChannel Channel { get; }
 

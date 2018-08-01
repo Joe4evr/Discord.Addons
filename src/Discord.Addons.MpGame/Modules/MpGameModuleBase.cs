@@ -92,7 +92,8 @@ namespace Discord.Addons.MpGame
         {
             base.OnModuleBuilding(commandService, builder);
 
-            if (RegisterPlayerTypeReader)
+            if (RegisterPlayerTypeReader
+                && !commandService.TypeReaders.Contains(typeof(PlayerTypeReader)))
             {
                 GameService.LogRegisteringPlayerTypeReader();
                 commandService.AddTypeReader<TPlayer>(new PlayerTypeReader());

@@ -6,10 +6,10 @@ title: Specialized types
 
 There are a couple of types for specific purposes shipped in MpGame.
 
-* `CircularLinkedList<T>`: This collection is used to store all the players
-for a given Game instance. It is very unlikely that you'll need to create/manipulate
-an instance of this directly.
-* `Pile<TCard>`: This abstract collection is optimized for storing card types with various
+* [`CircularLinkedList<T>`](Discord.Addons.MpGame.Collections.CircularLinkedList`1): This collection is used to store all the players
+for a given Game instance and allows the navigation to loop around. It is very unlikely that you'll need to create/manipulate
+an instance of this directly, but can be observed for more advanced purposes.
+* [`Pile<TCard>`](xref:Discord.Addons.MpGame.Collections.Pile`1): This abstract collection is optimized for storing card types with various
 rules around how the cards are seen. If you are creating a game that uses cards,
 consider inheriting from `Pile<TCard>` so that the behavior is adequately specified.
 Any attempt to use a method that is outside of the specified behavior,
@@ -69,7 +69,7 @@ internal class CardDeck : Pile<Card>
     public override bool CanTake       => false;
 }
 ```
-* `Hand<TCard>`: A companion type to `Pile<TCard>`, this collection is specifically
+* [`Hand<TCard>`](Discord.Addons.MpGame.Collections.Hand`1): A companion type to `Pile<TCard>`, this collection is specifically
 for representing cards in a player's "hand". This class is sealed because it doesn't
 warrant any customization in behavior. In usage, make sure to never share instances of this
 to types that don't need to know the contents.

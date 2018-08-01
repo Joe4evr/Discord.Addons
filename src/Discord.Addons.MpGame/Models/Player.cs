@@ -52,7 +52,7 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     The message that is sent, or <see langword="null"/> if it couldn't be sent.
         /// </returns>
-        public async ValueTask<IUserMessage> SendMessageAsync(string text, Embed embed = null)
+        public async Task<IUserMessage> SendMessageAsync(string text, Embed embed = null)
         {
             try
             {

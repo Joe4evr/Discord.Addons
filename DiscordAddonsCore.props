@@ -23,16 +23,17 @@
         <DnetVersion>2</DnetVersion>
 
         <MpGameMajor>1</MpGameMajor>
-        <MpGameSuffix>alpha6</MpGameSuffix>
+        <MpGameSuffix>alpha7</MpGameSuffix>
         <SimplePermMajor>1</SimplePermMajor>
         <SimplePermSuffix>alpha3</SimplePermSuffix>
         <PreconMajor>1</PreconMajor>
         <PreconSuffix>alpha2</PreconSuffix>
-</PropertyGroup>
+    </PropertyGroup>
     <ItemGroup>
         <!--<PackageReference Include="System.ValueTuple" Version="4.4.0" />-->
-        <PackageReference Include="Discord.Net.Commands" Version="2.0.0-beta2-00970" />
-        <PackageReference Include="Discord.Net.WebSocket" Version="2.0.0-beta2-00970" />
+        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.1" />
+        <PackageReference Include="Discord.Net.Commands" Version="2.0.0-beta2-00978" />
+        <PackageReference Include="Discord.Net.WebSocket" Version="2.0.0-beta2-00978" />
     </ItemGroup>
     <PropertyGroup Condition="'$(Configuration)' == 'Release'">
         <Optimize>True</Optimize>
@@ -41,5 +42,5 @@
     <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
         <SolutionDir>.\</SolutionDir>
     </PropertyGroup>
-    <Import Project="$(SolutionDir)src\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />
+    <!--<Import Project="$(SolutionDir)src\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />-->
 </Project>

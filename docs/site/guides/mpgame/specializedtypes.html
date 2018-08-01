@@ -128,10 +128,10 @@
 
 <p>There are a couple of types for specific purposes shipped in MpGame.</p>
 <ul>
-<li><code>CircularLinkedList&lt;T&gt;</code>: This collection is used to store all the players
-for a given Game instance. It is very unlikely that you'll need to create/manipulate
-an instance of this directly.</li>
-<li><code>Pile&lt;TCard&gt;</code>: This abstract collection is optimized for storing card types with various
+<li><a href="Discord.Addons.MpGame.Collections.CircularLinkedList%601"><code>CircularLinkedList&lt;T&gt;</code></a>: This collection is used to store all the players
+for a given Game instance and allows the navigation to loop around. It is very unlikely that you'll need to create/manipulate
+an instance of this directly, but can be observed for more advanced purposes.</li>
+<li><a class="xref" href="../../api/Discord.Addons.MpGame.Collections.Pile-1.html"><code>Pile&lt;TCard&gt;</code></a>: This abstract collection is optimized for storing card types with various
 rules around how the cards are seen. If you are creating a game that uses cards,
 consider inheriting from <code>Pile&lt;TCard&gt;</code> so that the behavior is adequately specified.
 Any attempt to use a method that is outside of the specified behavior,
@@ -192,7 +192,7 @@ will throw <code>InvalidOperationException</code>.</li>
 }
 </code></pre>
 <ul>
-<li><code>Hand&lt;TCard&gt;</code>: A companion type to <code>Pile&lt;TCard&gt;</code>, this collection is specifically
+<li><a href="Discord.Addons.MpGame.Collections.Hand%601"><code>Hand&lt;TCard&gt;</code></a>: A companion type to <code>Pile&lt;TCard&gt;</code>, this collection is specifically
 for representing cards in a player's &quot;hand&quot;. This class is sealed because it doesn't
 warrant any customization in behavior. In usage, make sure to never share instances of this
 to types that don't need to know the contents.</li>

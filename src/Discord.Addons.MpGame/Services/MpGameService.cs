@@ -87,7 +87,7 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     <see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.
         /// </returns>
-        public async ValueTask<bool> OpenNewGame(ICommandContext context)
+        public async Task<bool> OpenNewGame(ICommandContext context)
         {
             if (GameTracker.Instance.TryAddGameString(context.Channel, GameName))
             {
@@ -113,7 +113,7 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     <see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.
         /// </returns>
-        public async ValueTask<bool> AddUser(IMessageChannel channel, IUser user)
+        public async Task<bool> AddUser(IMessageChannel channel, IUser user)
             => _dataList.TryGetValue(channel, out var data)
                 && await data.TryAddUser(user);
 
@@ -135,7 +135,7 @@ namespace Discord.Addons.MpGame
         ///             await ReplyAsync($"**{user.Username}** has been kicked.").ConfigureAwait(false);
         ///     </code>
         /// </example>
-        public async ValueTask<bool> RemoveUser(IMessageChannel channel, IUser user)
+        public async Task<bool> RemoveUser(IMessageChannel channel, IUser user)
             => _dataList.TryGetValue(channel, out var data)
                 && await data.TryRemoveUser(user);
 
@@ -157,7 +157,7 @@ namespace Discord.Addons.MpGame
         ///             await ReplyAsync($"**{Context.User.Username}** has joined.").ConfigureAwait(false);
         ///     </code>
         /// </example>
-        public async ValueTask<bool> AddPlayer(TGame game, TPlayer player)
+        public async Task<bool> AddPlayer(TGame game, TPlayer player)
         {
             if (!GameTracker.Instance.TryGetGameChannel(await player.User.GetOrCreateDMChannelAsync().ConfigureAwait(false), out var _))
             {
@@ -180,7 +180,7 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     <see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.
         /// </returns>
-        public ValueTask<bool> KickPlayer(TGame game, TPlayer player)
+        public Task<bool> KickPlayer(TGame game, TPlayer player)
             => RemovePlayer(game, player, _mpconfig.LogStrings.PlayerKicked(player.User));
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     <see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.
         /// </returns>
-        public ValueTask<bool> CancelGame(IMessageChannel channel)
+        public Task<bool> CancelGame(IMessageChannel channel)
             => OnGameEnd(channel);
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     <see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.
         /// </returns>
-        public async ValueTask<bool> TryAddNewGame(IMessageChannel channel, TGame game)
+        public async Task<bool> TryAddNewGame(IMessageChannel channel, TGame game)
         {
             var success = _dataList.TryGetValue(channel, out var data);
             if (success)
@@ -327,7 +327,7 @@ namespace Discord.Addons.MpGame
             }
         }
 
-        private async ValueTask<bool> OnGameEnd(IMessageChannel channel)
+        private async Task<bool> OnGameEnd(IMessageChannel channel)
         {
             var success = _dataList.TryRemove(channel, out var data);
             if (success)
@@ -355,11 +355,11 @@ namespace Discord.Addons.MpGame
         private Task CheckDestroyedChannel(SocketChannel channel)
         {
             return (channel is IMessageChannel msgChannel)
-                ? OnGameEnd(msgChannel).AsTask()
+                ? OnGameEnd(msgChannel)
                 : Task.CompletedTask;
         }
 
-        private static async ValueTask<bool> RemovePlayer(
+        private static async Task<bool> RemovePlayer(
             TGame game,
             TPlayer player,
             string reason)
