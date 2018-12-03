@@ -5,12 +5,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class Hand&lt;TCard&gt;
+    <title>Class Hand&lt;T&gt;
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class Hand&lt;TCard&gt;
+    <meta name="title" content="Class Hand&lt;T&gt;
    ">
-    <meta name="generator" content="docfx 2.35.4.0">
+    <meta name="generator" content="docfx 2.38.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -118,16 +118,16 @@
                             <a href="Discord.Addons.MpGame.Collections.CircularLinkedList-1.html" title="CircularLinkedList&lt;T&gt;" class="">CircularLinkedList&lt;T&gt;</a>
                           </li>
                           <li class="active">
-                            <a href="Discord.Addons.MpGame.Collections.Hand-1.html" title="Hand&lt;TCard&gt;" class="active">Hand&lt;TCard&gt;</a>
+                            <a href="Discord.Addons.MpGame.Collections.Hand-1.html" title="Hand&lt;T&gt;" class="active">Hand&lt;T&gt;</a>
                           </li>
                           <li class="">
-                            <a href="Discord.Addons.MpGame.Collections.ICardWrapper-1.html" title="ICardWrapper&lt;TCard&gt;" class="">ICardWrapper&lt;TCard&gt;</a>
+                            <a href="Discord.Addons.MpGame.Collections.IWrapper-1.html" title="IWrapper&lt;T&gt;" class="">IWrapper&lt;T&gt;</a>
                           </li>
                           <li class="">
-                            <a href="Discord.Addons.MpGame.Collections.Pile-2.html" title="Pile&lt;TCard, TWrapper&gt;" class="">Pile&lt;TCard, TWrapper&gt;</a>
+                            <a href="Discord.Addons.MpGame.Collections.Pile-1.html" title="Pile&lt;T&gt;" class="">Pile&lt;T&gt;</a>
                           </li>
                           <li class="">
-                            <a href="Discord.Addons.MpGame.Collections.Pile-1.html" title="Pile&lt;TCard&gt;" class="">Pile&lt;TCard&gt;</a>
+                            <a href="Discord.Addons.MpGame.Collections.WrappingPile-2.html" title="WrappingPile&lt;T, TWrapper&gt;" class="">WrappingPile&lt;T, TWrapper&gt;</a>
                           </li>
                         </ul>  </li>
                   </ul>        </div>
@@ -140,22 +140,22 @@
             <article class="content wrap" id="_content" data-uid="Discord.Addons.MpGame.Collections.Hand`1">
   
   
-  <h1 id="Discord_Addons_MpGame_Collections_Hand_1" data-uid="Discord.Addons.MpGame.Collections.Hand`1" class="text-break">Class Hand&lt;TCard&gt;
+  <h1 id="Discord_Addons_MpGame_Collections_Hand_1" data-uid="Discord.Addons.MpGame.Collections.Hand`1" class="text-break">Class Hand&lt;T&gt;
   </h1>
-  <div class="markdown level0 summary"><p>Similar to <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html">Pile&lt;TCard&gt;</a> but specialized and optimized for representing a hand of cards.</p>
+  <div class="markdown level0 summary"><p>Similar to <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html">Pile&lt;T&gt;</a> but specialized and optimized for representing a hand of items.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">Hand&lt;TCard&gt;</span></div>
+    <div class="level1"><span class="xref">Hand&lt;T&gt;</span></div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Discord.Addons.MpGame.Collections.html">Discord.Addons.MpGame.Collections</a></h6>
   <h6><strong>Assembly</strong>: Discord.Addons.MpGame.dll</h6>
   <h5 id="Discord_Addons_MpGame_Collections_Hand_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class Hand&lt;TCard&gt;
-    where TCard : class</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class Hand&lt;T&gt;
+    where T : class</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -167,8 +167,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">TCard</span></td>
-        <td><p>The card type.</p>
+        <td><span class="parametername">T</span></td>
+        <td><p>The item type.</p>
 </td>
       </tr>
     </tbody>
@@ -184,7 +184,7 @@
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1__ctor_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.#ctor*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1__ctor" data-uid="Discord.Addons.MpGame.Collections.Hand`1.#ctor">Hand()</h4>
-  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Discord.Addons.MpGame.Collections.Hand-1.html">Hand&lt;TCard&gt;</a> to an empty state.</p>
+  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Discord.Addons.MpGame.Collections.Hand-1.html">Hand&lt;T&gt;</a> to an empty state.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -196,16 +196,16 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1__ctor_System_Collections_Generic_IEnumerable__0__.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.%23ctor(System.Collections.Generic.IEnumerable%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L47">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L48">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1__ctor_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.#ctor*"></a>
-  <h4 id="Discord_Addons_MpGame_Collections_Hand_1__ctor_System_Collections_Generic_IEnumerable__0__" data-uid="Discord.Addons.MpGame.Collections.Hand`1.#ctor(System.Collections.Generic.IEnumerable{`0})">Hand(IEnumerable&lt;TCard&gt;)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Discord.Addons.MpGame.Collections.Hand-1.html">Hand&lt;TCard&gt;</a> with the specified cards.</p>
+  <h4 id="Discord_Addons_MpGame_Collections_Hand_1__ctor_System_Collections_Generic_IEnumerable__0__" data-uid="Discord.Addons.MpGame.Collections.Hand`1.#ctor(System.Collections.Generic.IEnumerable{`0})">Hand(IEnumerable&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new <a class="xref" href="Discord.Addons.MpGame.Collections.Hand-1.html">Hand&lt;T&gt;</a> with the specified items.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Hand(IEnumerable&lt;TCard&gt; cards)</code></pre>
+    <pre><code class="lang-csharp hljs">public Hand(IEnumerable&lt;T&gt; items)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -218,16 +218,17 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;TCard&gt;</td>
-        <td><span class="parametername">cards</span></td>
-        <td><p>The cards to put in the hand.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</td>
+        <td><span class="parametername">items</span></td>
+        <td><p>The items to put in the hand.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_Collections_Hand_1__ctor_System_Collections_Generic_IEnumerable__0___remarks">Remarks</h5>
   <div class="markdown level1 remarks"><div class="NOTE"><h5>note</h5><p>
-    This constructor will filter out any items in <code data-dev-comment-type="paramref" class="paramref">cards</code> that are <span class="xref">null</span>.
+    This constructor will filter out any items in <code data-dev-comment-type="paramref" class="paramref">items</code>
+    that are <span class="xref">null</span> or are pointing to the same object instance.
 </p></div>
 </div>
   <h5 class="exceptions">Exceptions</h5>
@@ -241,7 +242,7 @@
     <tbody>
       <tr>
         <td><span class="xref">System.ArgumentNullException</span></td>
-        <td><p><code data-dev-comment-type="paramref" class="paramref">cards</code> was <span class="xref">null</span>.</p>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">items</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
     </tbody>
@@ -253,11 +254,11 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_Count.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.Count%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L57">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L59">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_Count_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Count*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Count" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Count">Count</h4>
-  <div class="markdown level1 summary"><p>The amount of cards currently in the hand.</p>
+  <div class="markdown level1 summary"><p>The amount of items currently in the hand.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -286,16 +287,16 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_Add__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.Add(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L68">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L70">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_Add_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Add*"></a>
-  <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Add__0_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Add(`0)">Add(TCard)</h4>
-  <div class="markdown level1 summary"><p>Adds a card to the hand.</p>
+  <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Add__0_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Add(`0)">Add(T)</h4>
+  <div class="markdown level1 summary"><p>Adds an item to the hand.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Add(TCard card)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Add(T item)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -308,9 +309,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TCard</span></td>
-        <td><span class="parametername">card</span></td>
-        <td><p>The card to add.</p>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The item to add.</p>
 </td>
       </tr>
     </tbody>
@@ -326,7 +327,7 @@
     <tbody>
       <tr>
         <td><span class="xref">System.ArgumentNullException</span></td>
-        <td><p><code data-dev-comment-type="paramref" class="paramref">card</code> was <span class="xref">null</span>.</p>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">item</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
     </tbody>
@@ -336,7 +337,7 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_AsIndexed.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.AsIndexed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L78">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L81">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_AsIndexed_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.AsIndexed*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_AsIndexed" data-uid="Discord.Addons.MpGame.Collections.Hand`1.AsIndexed">AsIndexed()</h4>
@@ -344,7 +345,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IReadOnlyDictionary&lt;int, TCard&gt; AsIndexed()</code></pre>
+    <pre><code class="lang-csharp hljs">public IReadOnlyDictionary&lt;int, T&gt; AsIndexed()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -356,7 +357,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>, TCard&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>, T&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -366,16 +367,16 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_Browse.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.Browse%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L90">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L93">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_Browse_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Browse*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Browse" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Browse">Browse()</h4>
-  <div class="markdown level1 summary"><p>The cards inside this hand.</p>
+  <div class="markdown level1 summary"><p>The items inside this hand.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ImmutableArray&lt;TCard&gt; Browse()</code></pre>
+    <pre><code class="lang-csharp hljs">public ImmutableArray&lt;T&gt; Browse()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -387,7 +388,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.immutable.immutablearray-1">ImmutableArray</a>&lt;TCard&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.immutable.immutablearray-1">ImmutableArray</a>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -397,16 +398,16 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_Clear.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.Clear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L106">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L109">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_Clear_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Clear*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Clear" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Clear">Clear()</h4>
-  <div class="markdown level1 summary"><p>Clears the entire hand and returns the cards that were in it.</p>
+  <div class="markdown level1 summary"><p>Clears the entire hand and returns the items that were in it.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ImmutableArray&lt;TCard&gt; Clear()</code></pre>
+    <pre><code class="lang-csharp hljs">public ImmutableArray&lt;T&gt; Clear()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -418,7 +419,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.immutable.immutablearray-1">ImmutableArray</a>&lt;TCard&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.immutable.immutablearray-1">ImmutableArray</a>&lt;T&gt;</td>
         <td><p>The collection as it was before it is cleared.</p>
 </td>
       </tr>
@@ -429,16 +430,16 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_Order_System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.Order(System.Func%7BSystem.Collections.Immutable.ImmutableArray%7B%600%7D%2CSystem.Collections.Generic.IEnumerable%7B%600%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L129">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L132">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_Order_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Order*"></a>
-  <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Order_System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})">Order(Func&lt;ImmutableArray&lt;TCard&gt;, IEnumerable&lt;TCard&gt;&gt;)</h4>
-  <div class="markdown level1 summary"><p>Orders the cards using the specified function.</p>
+  <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Order_System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})">Order(Func&lt;ImmutableArray&lt;T&gt;, IEnumerable&lt;T&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Orders the items using the specified function.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Order(Func&lt;ImmutableArray&lt;TCard&gt;, IEnumerable&lt;TCard&gt;&gt; orderFunc)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Order(Func&lt;ImmutableArray&lt;T&gt;, IEnumerable&lt;T&gt;&gt; orderFunc)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -451,10 +452,10 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.immutable.immutablearray-1">ImmutableArray</a>&lt;TCard&gt;, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;TCard&gt;&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.immutable.immutablearray-1">ImmutableArray</a>&lt;T&gt;, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;&gt;</td>
         <td><span class="parametername">orderFunc</span></td>
         <td><p>A function that produces an <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;T&gt;</a> in a new order.<br>
-This function receives the cards currently in the hand as its argument.</p>
+This function receives the items currently in the hand as its argument.</p>
 </td>
       </tr>
     </tbody>
@@ -485,16 +486,16 @@ This function receives the cards currently in the hand as its argument.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_TakeAt_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.TakeAt(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L152">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L156">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_TakeAt_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.TakeAt*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_TakeAt_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.TakeAt(System.Int32)">TakeAt(Int32)</h4>
-  <div class="markdown level1 summary"><p>Takes a card from the given index.</p>
+  <div class="markdown level1 summary"><p>Takes a item from the given index.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TCard TakeAt(int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public T TakeAt(int index)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -509,7 +510,7 @@ This function receives the cards currently in the hand as its argument.</p>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
         <td><span class="parametername">index</span></td>
-        <td><p>The 0-based index of the card to take.</p>
+        <td><p>The 0-based index of the item to take.</p>
 </td>
       </tr>
     </tbody>
@@ -524,7 +525,7 @@ This function receives the cards currently in the hand as its argument.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TCard</span></td>
+        <td><span class="xref">T</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -540,7 +541,7 @@ This function receives the cards currently in the hand as its argument.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
-        <td><p><code data-dev-comment-type="paramref" class="paramref">index</code> was less than 0 or greater than or equal to the pile's current size.</p>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">index</code> was less than 0 or greater than or equal to the hand's current size.</p>
 </td>
       </tr>
     </tbody>
@@ -550,16 +551,16 @@ This function receives the cards currently in the hand as its argument.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_TakeFirstOrDefault_System_Func__0_System_Boolean__.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.TakeFirstOrDefault(System.Func%7B%600%2CSystem.Boolean%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L179">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L183">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_TakeFirstOrDefault_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault*"></a>
-  <h4 id="Discord_Addons_MpGame_Collections_Hand_1_TakeFirstOrDefault_System_Func__0_System_Boolean__" data-uid="Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault(System.Func{`0,System.Boolean})">TakeFirstOrDefault(Func&lt;TCard, Boolean&gt;)</h4>
-  <div class="markdown level1 summary"><p>Takes the first card that matches a given predicate.</p>
+  <h4 id="Discord_Addons_MpGame_Collections_Hand_1_TakeFirstOrDefault_System_Func__0_System_Boolean__" data-uid="Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault(System.Func{`0,System.Boolean})">TakeFirstOrDefault(Func&lt;T, Boolean&gt;)</h4>
+  <div class="markdown level1 summary"><p>Takes the first item that matches a given predicate.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TCard TakeFirstOrDefault(Func&lt;TCard, bool&gt; predicate)</code></pre>
+    <pre><code class="lang-csharp hljs">public T TakeFirstOrDefault(Func&lt;T, bool&gt; predicate)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -572,7 +573,7 @@ This function receives the cards currently in the hand as its argument.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;TCard, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;</td>
         <td><span class="parametername">predicate</span></td>
         <td><p>The predicate to match.</p>
 </td>
@@ -589,8 +590,8 @@ This function receives the cards currently in the hand as its argument.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TCard</span></td>
-        <td><p>The first card to match the given predicate, or <span class="xref">null</span> if no match found.</p>
+        <td><span class="xref">T</span></td>
+        <td><p>The first item to match the given predicate, or <span class="xref">null</span> if no match found.</p>
 </td>
       </tr>
     </tbody>

@@ -5,12 +5,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class Pile&lt;TCard&gt;
+    <title>Class Pile&lt;T&gt;
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class Pile&lt;TCard&gt;
+    <meta name="title" content="Class Pile&lt;T&gt;
    ">
-    <meta name="generator" content="docfx 2.35.4.0">
+    <meta name="generator" content="docfx 2.38.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -118,16 +118,16 @@
                             <a href="Discord.Addons.MpGame.Collections.CircularLinkedList-1.html" title="CircularLinkedList&lt;T&gt;" class="">CircularLinkedList&lt;T&gt;</a>
                           </li>
                           <li class="">
-                            <a href="Discord.Addons.MpGame.Collections.Hand-1.html" title="Hand&lt;TCard&gt;" class="">Hand&lt;TCard&gt;</a>
+                            <a href="Discord.Addons.MpGame.Collections.Hand-1.html" title="Hand&lt;T&gt;" class="">Hand&lt;T&gt;</a>
                           </li>
                           <li class="">
-                            <a href="Discord.Addons.MpGame.Collections.ICardWrapper-1.html" title="ICardWrapper&lt;TCard&gt;" class="">ICardWrapper&lt;TCard&gt;</a>
-                          </li>
-                          <li class="">
-                            <a href="Discord.Addons.MpGame.Collections.Pile-2.html" title="Pile&lt;TCard, TWrapper&gt;" class="">Pile&lt;TCard, TWrapper&gt;</a>
+                            <a href="Discord.Addons.MpGame.Collections.IWrapper-1.html" title="IWrapper&lt;T&gt;" class="">IWrapper&lt;T&gt;</a>
                           </li>
                           <li class="active">
-                            <a href="Discord.Addons.MpGame.Collections.Pile-1.html" title="Pile&lt;TCard&gt;" class="active">Pile&lt;TCard&gt;</a>
+                            <a href="Discord.Addons.MpGame.Collections.Pile-1.html" title="Pile&lt;T&gt;" class="active">Pile&lt;T&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.MpGame.Collections.WrappingPile-2.html" title="WrappingPile&lt;T, TWrapper&gt;" class="">WrappingPile&lt;T, TWrapper&gt;</a>
                           </li>
                         </ul>  </li>
                   </ul>        </div>
@@ -140,119 +140,17 @@
             <article class="content wrap" id="_content" data-uid="Discord.Addons.MpGame.Collections.Pile`1">
   
   
-  <h1 id="Discord_Addons_MpGame_Collections_Pile_1" data-uid="Discord.Addons.MpGame.Collections.Pile`1" class="text-break">Class Pile&lt;TCard&gt;
+  <h1 id="Discord_Addons_MpGame_Collections_Pile_1" data-uid="Discord.Addons.MpGame.Collections.Pile`1" class="text-break">Class Pile&lt;T&gt;
   </h1>
-  <div class="markdown level0 summary"><p>Base type to represent a pile of objects, specifically for use in card games.</p>
+  <div class="markdown level0 summary"><p>Base type to represent a pile of objects, mostly tailored for use in card games.</p>
 </div>
   <div class="markdown level0 conceptual"><hr>
 </div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html">Pile</a>&lt;TCard, <span class="xref">Discord.Addons.MpGame.Collections.Pile.DefaultWrapper</span>&lt;&gt;&gt;</div>
-    <div class="level2"><span class="xref">Pile&lt;TCard&gt;</span></div>
-  </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_CanBrowse">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.CanBrowse</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_CanClear">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.CanClear</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_CanCut">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.CanCut</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_CanDraw">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.CanDraw</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_CanDrawBottom">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.CanDrawBottom</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_CanInsert">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.CanInsert</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_CanPeek">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.CanPeek</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_CanPut">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.CanPut</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_CanPutBottom">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.CanPutBottom</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_CanShuffle">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.CanShuffle</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_CanTake">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.CanTake</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_Count">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.Count</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_Top">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.Top</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_AsEnumerable">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.AsEnumerable()</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_Browse">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.Browse()</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_BrowseAndTake_System_Func_System_Collections_Immutable_ImmutableDictionary_System_Int32__0__System_Threading_Tasks_Task_System_Int32_____System_Func__0_System_Boolean__System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.BrowseAndTake(Func&lt;ImmutableDictionary&lt;Int32, TCard&gt;, Task&lt;Int32[]&gt;&gt;, Func&lt;TCard, Boolean&gt;, Func&lt;ImmutableArray&lt;TCard&gt;, IEnumerable&lt;TCard&gt;&gt;)</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_Clear">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.Clear()</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_Cut_System_Int32_">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.Cut(Int32)</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_Draw">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.Draw()</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_DrawBottom">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.DrawBottom()</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_InsertAt__0_System_Int32_">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.InsertAt(TCard, Int32)</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_Mill_Discord_Addons_MpGame_Collections_Pile__0__1__">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.Mill(Pile&lt;TCard, Pile.DefaultWrapper&lt;&gt;&gt;)</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_PeekAt_System_Int32_">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.PeekAt(Int32)</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_PeekTop_System_Int32_">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.PeekTop(Int32)</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_Put__0_">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.Put(TCard)</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_PutBottom__0_">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.PutBottom(TCard)</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_Shuffle_System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.Shuffle(Func&lt;ImmutableArray&lt;TCard&gt;, IEnumerable&lt;TCard&gt;&gt;)</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_TakeAt_System_Int32_">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.TakeAt(Int32)</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_GetWrapperAndUpdate_System_Int32_System_Func__1__1__">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.GetWrapperAndUpdate(Int32, Func&lt;Pile.DefaultWrapper&lt;&gt;, Pile.DefaultWrapper&lt;&gt;&gt;)</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_GetWrapperAt_System_Int32_">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.GetWrapperAt(Int32)</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_OnLastRemoved">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.OnLastRemoved()</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_OnPut__0_">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.OnPut(TCard)</a>
-    </div>
-    <div>
-      <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html#Discord_Addons_MpGame_Collections_Pile_2_Wrap__0_">Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;.Wrap(TCard)</a>
-    </div>
+    <div class="level1"><span class="xref">Pile&lt;T&gt;</span></div>
+      <div class="level2"><a class="xref" href="Discord.Addons.MpGame.Collections.WrappingPile-2.html">WrappingPile&lt;T, TWrapper&gt;</a></div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Discord.Addons.MpGame.Collections.html">Discord.Addons.MpGame.Collections</a></h6>
   <h6><strong>Assembly</strong>: Discord.Addons.MpGame.dll</h6>
@@ -271,8 +169,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">TCard</span></td>
-        <td><p>The card type.</p>
+        <td><span class="parametername">T</span></td>
+        <td><p>The item type.</p>
 </td>
       </tr>
     </tbody>
@@ -284,7 +182,7 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1__ctor.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile-1.cs/#L20">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L29">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1__ctor_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.#ctor*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1__ctor" data-uid="Discord.Addons.MpGame.Collections.Pile`1.#ctor">Pile()</h4>
@@ -300,16 +198,16 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1__ctor_System_Collections_Generic_IEnumerable__0__.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.%23ctor(System.Collections.Generic.IEnumerable%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile-1.cs/#L35">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L48">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1__ctor_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.#ctor*"></a>
-  <h4 id="Discord_Addons_MpGame_Collections_Pile_1__ctor_System_Collections_Generic_IEnumerable__0__" data-uid="Discord.Addons.MpGame.Collections.Pile`1.#ctor(System.Collections.Generic.IEnumerable{`0})">Pile(IEnumerable&lt;TCard&gt;)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new pile with the specified cards.</p>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1__ctor_System_Collections_Generic_IEnumerable__0__" data-uid="Discord.Addons.MpGame.Collections.Pile`1.#ctor(System.Collections.Generic.IEnumerable{`0})">Pile(IEnumerable&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new pile with the specified items.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected Pile(IEnumerable&lt;TCard&gt; cards)</code></pre>
+    <pre><code class="lang-csharp hljs">protected Pile(IEnumerable&lt;T&gt; items)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -322,16 +220,17 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;TCard&gt;</td>
-        <td><span class="parametername">cards</span></td>
-        <td><p>The cards to put in the pile.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</td>
+        <td><span class="parametername">items</span></td>
+        <td><p>The items to put in the pile.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_Collections_Pile_1__ctor_System_Collections_Generic_IEnumerable__0___remarks">Remarks</h5>
   <div class="markdown level1 remarks"><div class="NOTE"><h5>note</h5><p>
-    This constructor will filter out any items in <code data-dev-comment-type="paramref" class="paramref">cards</code> that are <span class="xref">null</span>.
+    This constructor will filter out any items in <code data-dev-comment-type="paramref" class="paramref">items</code>
+    that are <span class="xref">null</span> or are pointing to the same object instance.
 </p></div>
 </div>
   <h5 class="exceptions">Exceptions</h5>
@@ -345,8 +244,383 @@
     <tbody>
       <tr>
         <td><span class="xref">System.ArgumentNullException</span></td>
-        <td><p><code data-dev-comment-type="paramref" class="paramref">cards</code> was <span class="xref">null</span>.</p>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">items</code> was <span class="xref">null</span>.</p>
 </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanBrowse.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanBrowse%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L74">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_CanBrowse_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanBrowse*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanBrowse" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanBrowse">CanBrowse</h4>
+  <div class="markdown level1 summary"><p>Indicates whether or not this pile is freely browsable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool CanBrowse { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanClear.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanClear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L79">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_CanClear_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanClear*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanClear" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanClear">CanClear</h4>
+  <div class="markdown level1 summary"><p>Indicates whether or not this pile can be cleared.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool CanClear { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanCut.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanCut%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L85">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_CanCut_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanCut*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanCut" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanCut">CanCut</h4>
+  <div class="markdown level1 summary"><p>Indicates whether or not this pile can be cut,<br>
+ie. taking a number of items from the top and putting them underneath the remainder.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool CanCut { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanDraw.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanDraw%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L90">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_CanDraw_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanDraw*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanDraw" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanDraw">CanDraw</h4>
+  <div class="markdown level1 summary"><p>Indicates whether or not this pile allows drawing items from the top.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool CanDraw { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanDrawBottom.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanDrawBottom%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L95">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_CanDrawBottom_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanDrawBottom" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanDrawBottom">CanDrawBottom</h4>
+  <div class="markdown level1 summary"><p>Indicates whether or not this pile allows drawing items from the bottom.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool CanDrawBottom { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanInsert.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanInsert%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L100">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_CanInsert_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanInsert*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanInsert" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanInsert">CanInsert</h4>
+  <div class="markdown level1 summary"><p>Indicates whether or not this pile allows inserting items at an arbitrary index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool CanInsert { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanPeek.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanPeek%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L105">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_CanPeek_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanPeek*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanPeek" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanPeek">CanPeek</h4>
+  <div class="markdown level1 summary"><p>Indicates whether or not this pile allows peeking at items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool CanPeek { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanPut.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanPut%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L110">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_CanPut_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanPut*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanPut" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanPut">CanPut</h4>
+  <div class="markdown level1 summary"><p>Indicates whether or not this pile allows putting items on the top.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool CanPut { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanPutBottom.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanPutBottom%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L115">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_CanPutBottom_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanPutBottom*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanPutBottom" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanPutBottom">CanPutBottom</h4>
+  <div class="markdown level1 summary"><p>Indicates whether or not this pile allows putting items on the bottom.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool CanPutBottom { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanShuffle.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanShuffle%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L120">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_CanShuffle_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanShuffle*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanShuffle" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanShuffle">CanShuffle</h4>
+  <div class="markdown level1 summary"><p>Indicates whether or not this pile can be reshuffled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool CanShuffle { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_CanTake.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.CanTake%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L125">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_CanTake_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanTake*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_CanTake" data-uid="Discord.Addons.MpGame.Collections.Pile`1.CanTake">CanTake</h4>
+  <div class="markdown level1 summary"><p>Indicates whether or not this pile allows taking items from an arbitrary index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool CanTake { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Count.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Count%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L130">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_Count_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Count*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Count" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Count">Count</h4>
+  <div class="markdown level1 summary"><p>The amount of items currently in the pile.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -354,18 +628,125 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Wrap__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Wrap(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_AsEnumerable.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.AsEnumerable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile-1.cs/#L38">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L153">View Source</a>
   </span>
-  <a id="Discord_Addons_MpGame_Collections_Pile_1_Wrap_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Wrap*"></a>
-  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Wrap__0_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Wrap(`0)">Wrap(TCard)</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_AsEnumerable_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.AsEnumerable*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_AsEnumerable" data-uid="Discord.Addons.MpGame.Collections.Pile`1.AsEnumerable">AsEnumerable()</h4>
+  <div class="markdown level1 summary"><p>Iterates the contents of this pile as an <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;T&gt;</a>.<br>
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanBrowse">CanBrowse</a>.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override sealed Pile&lt;TCard&gt;.DefaultWrapper Wrap(TCard card)</code></pre>
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;T&gt; AsEnumerable()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</td>
+        <td><p>The contents of the pile in a lazily-evaluated <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;T&gt;</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Discord_Addons_MpGame_Collections_Pile_1_AsEnumerable_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><div class="WARNING"><h5>warning</h5><p>
+    This method holds a read lock from when you start enumerating until the enumeration ends
+    and should be used only for fairly quick one-shot operations (e.g. LINQ).<br>
+    If you need to hold the data for longer or iterate the same
+    snapshot more than once, use <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Browse">Browse()</a> instead.
+</p></div>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The instance does not allow browsing the items.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Browse.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Browse%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L181">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_Browse_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Browse*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Browse" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Browse">Browse()</h4>
+  <div class="markdown level1 summary"><p>A snapshot of all the items without removing them from the pile.<br>
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanBrowse">CanBrowse</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ImmutableArray&lt;T&gt; Browse()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.immutable.immutablearray-1">ImmutableArray</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The instance does not allow browsing the items.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTakeAsync_System_Func_System_Collections_Generic_IReadOnlyDictionary_System_Int32__0__System_Threading_Tasks_Task_System_Int32_____System_Func__0_System_Boolean__System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.BrowseAndTakeAsync(System.Func%7BSystem.Collections.Generic.IReadOnlyDictionary%7BSystem.Int32%2C%600%7D%2CSystem.Threading.Tasks.Task%7BSystem.Int32%5B%5D%7D%7D%2CSystem.Func%7B%600%2CSystem.Boolean%7D%2CSystem.Func%7BSystem.Collections.Immutable.ImmutableArray%7B%600%7D%2CSystem.Collections.Generic.IEnumerable%7B%600%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L248">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTakeAsync_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTakeAsync*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTakeAsync_System_Func_System_Collections_Generic_IReadOnlyDictionary_System_Int32__0__System_Threading_Tasks_Task_System_Int32_____System_Func__0_System_Boolean__System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___" data-uid="Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTakeAsync(System.Func{System.Collections.Generic.IReadOnlyDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})">BrowseAndTakeAsync(Func&lt;IReadOnlyDictionary&lt;Int32, T&gt;, Task&lt;Int32[]&gt;&gt;, Func&lt;T, Boolean&gt;, Func&lt;ImmutableArray&lt;T&gt;, IEnumerable&lt;T&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Browse for and take one or more items from the pile in a single operation.<br>
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanBrowse">CanBrowse</a> and <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanTake">CanTake</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;ImmutableArray&lt;T&gt;&gt; BrowseAndTakeAsync(Func&lt;IReadOnlyDictionary&lt;int, T&gt;, Task&lt;int[]&gt;&gt; selector, Func&lt;T, bool&gt; filter = null, Func&lt;ImmutableArray&lt;T&gt;, IEnumerable&lt;T&gt;&gt; shuffleFunc = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -378,9 +759,25 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TCard</span></td>
-        <td><span class="parametername">card</span></td>
-        <td></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>, T&gt;, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>[]&gt;&gt;</td>
+        <td><span class="parametername">selector</span></td>
+        <td><p>A function that returns an array of the indeces of the desired items.<br>
+The key of each pair is the index of that item.<br>
+Returning a <span class="xref">null</span> or empty array is considered choosing nothing and will return an empty array.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;T, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;</td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>An optional function to filter to items that can be taken.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.immutable.immutablearray-1">ImmutableArray</a>&lt;T&gt;, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;&gt;</td>
+        <td><span class="parametername">shuffleFunc</span></td>
+        <td><p>An optional function to reshuffle the pile after taking the selected items.<br>
+If provided, requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanShuffle">CanShuffle</a>.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -394,13 +791,865 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Discord.Addons.MpGame.Collections.Pile.DefaultWrapper</span>&lt;&gt;</td>
-        <td></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.immutable.immutablearray-1">ImmutableArray</a>&lt;T&gt;&gt;</td>
+        <td><p>The items at the chosen indeces, or an empty array if it was chosen to not take any.</p>
+</td>
       </tr>
     </tbody>
   </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><span class="xref">Discord.Addons.MpGame.Collections.Pile&lt;TCard, Discord.Addons.MpGame.Collections.Pile&lt;TCard&gt;.DefaultWrapper&gt;.Wrap(TCard)</span></div>
+  <h5 id="Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTakeAsync_System_Func_System_Collections_Generic_IReadOnlyDictionary_System_Int32__0__System_Threading_Tasks_Task_System_Int32_____System_Func__0_System_Boolean__System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0____examples">Examples</h5>
+  <pre><code class="c#">    // An effect was used that allows the user to
+    // search their deck for a number of red items
+    var picked = await deck.BrowseAndTake(async items =>
+    {
+        // Example: Call a method that shows
+        // the available options to the user
+        await ShowUser(items);
+        // Example: Call a method that waits
+        // for the user to make a decision, with &apos;num&apos;
+        // being the max amount of items they can choose
+        return await UserInput(num);
+    },
+    // Only pass in the red items
+    filter: c => c.Color == itemColor.Red,
+    // Shuffle the pile afterwards
+    // with some custom function
+    shuffleFunc: items => items.ShuffleItems());
+    // Add the chosen items to the user&apos;s hand:
+    foreach (var item in picked)
+        player.AddToHand(item);</code></pre>
+
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The pile does not allow browsing AND taking<br>
+-OR-<br>
+The sequence produced from  <code data-dev-comment-type="paramref" class="paramref">shuffleFunc</code> was <span class="xref">null</span>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">selector</code> was <span class="xref">null</span>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.IndexOutOfRangeException</span></td>
+        <td><p>One or more of the selected indices was not within the provided indices.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Clear.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Clear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L281">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_Clear_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Clear*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Clear" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Clear">Clear()</h4>
+  <div class="markdown level1 summary"><p>Clears the entire pile and returns the items that were in it.<br>
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanClear">CanClear</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ImmutableArray&lt;T&gt; Clear()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.immutable.immutablearray-1">ImmutableArray</a>&lt;T&gt;</td>
+        <td><p>The collection as it was before it is cleared.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The instance does not allow clearing all items.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Cut_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Cut(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L312">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_Cut_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Cut*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Cut_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Cut(System.Int32)">Cut(Int32)</h4>
+  <div class="markdown level1 summary"><p>Cuts the pile at a specified number of items from the top and places the taken items on the bottom.<br>
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanCut">CanCut</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Cut(int amount)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">amount</span></td>
+        <td><p>The number of items to send to the bottom.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Discord_Addons_MpGame_Collections_Pile_1_Cut_System_Int32__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><div class="NOTE"><h5>note</h5><p>
+    If <code data-dev-comment-type="paramref" class="paramref">amount</code> is 0 or equal to <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Count">Count</a>, this function is a no-op.
+</p></div>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The instance does not allow cutting the pile.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">amount</code> was less than 0 or greater than the pile's current size.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Draw.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Draw%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L345">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_Draw_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Draw*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Draw" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Draw">Draw()</h4>
+  <div class="markdown level1 summary"><p>Draws the top item from the pile.<br>
+If the last item is drawn, calls <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved">OnLastRemoved()</a>.<br>
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanDraw">CanDraw</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T Draw()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>If the pile's current size is greater than 0, the item currently at the top of the pile. Otherwise will throw.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The instance does not allow drawing items<br>
+-OR-<br>
+There were no items to draw.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_DrawBottom.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.DrawBottom%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L376">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_DrawBottom_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.DrawBottom*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_DrawBottom" data-uid="Discord.Addons.MpGame.Collections.Pile`1.DrawBottom">DrawBottom()</h4>
+  <div class="markdown level1 summary"><p>Draws the bottom item from the pile.<br>
+If the last item is drawn, calls <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved">OnLastRemoved()</a>.<br>
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanDrawBottom">CanDrawBottom</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T DrawBottom()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>If the pile's current size is greater than 0, the item currently at the bottom of the pile. Otherwise will throw.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The instance does not allow drawing items<br>
+-OR-<br>
+There were no items to draw.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_InsertAt__0_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.InsertAt(%600%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L413">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_InsertAt_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.InsertAt*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_InsertAt__0_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)">InsertAt(T, Int32)</h4>
+  <div class="markdown level1 summary"><p>Inserts an item at the given index.<br>
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanInsert">CanInsert</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void InsertAt(T item, int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The item to insert.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>The 0-based index to insert at.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The instance does not allow inserting items at an arbitrary location.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">item</code> was <span class="xref">null</span>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">index</code> was less than 0 or greater than the pile's current size.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Mill_Discord_Addons_MpGame_Collections_Pile__0__.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Mill(Discord.Addons.MpGame.Collections.Pile%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L460">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_Mill_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Mill*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Mill_Discord_Addons_MpGame_Collections_Pile__0__" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Mill(Discord.Addons.MpGame.Collections.Pile{`0})">Mill(Pile&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Puts the top item of <em>this</em> pile on top of another pile.<br>
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanDraw">CanDraw</a> or <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanBrowse">CanBrowse</a> on this pile and <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanPut">CanPut</a> on the target pile.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Mill(Pile&lt;T&gt; targetPile)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html">Pile</a>&lt;T&gt;</td>
+        <td><span class="parametername">targetPile</span></td>
+        <td><p>The pile to place a item on.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Discord_Addons_MpGame_Collections_Pile_1_Mill_Discord_Addons_MpGame_Collections_Pile__0___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><div class="NOTE"><h5>note</h5><p>
+    Calls <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnPut__0_">OnPut(T)</a> on the target pile.<br>
+    If the last item of this pile was taken, calls <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved">OnLastRemoved()</a> as well.
+</p></div>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>This pile does not allow drawing or browsing items<br>
+-OR-<br>
+<code data-dev-comment-type="paramref" class="paramref">targetPile</code> was the same instance as the source<br>
+-OR-<br>
+<code data-dev-comment-type="paramref" class="paramref">targetPile</code> does not allow placing items on top<br>
+-OR-<br>
+This pile was empty.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">targetPile</code> was <span class="xref">null</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.OnLastRemoved%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L705">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved">OnLastRemoved()</h4>
+  <div class="markdown level1 summary"><p>Automatically called when the last item is removed from the pile.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnLastRemoved()</code></pre>
+  </div>
+  <h5 id="Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><div class="NOTE"><h5>note</h5><p>
+    Does nothing by default.
+</p></div>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_OnPut__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.OnPut(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L718">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_OnPut_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnPut*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_OnPut__0_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)">OnPut(T)</h4>
+  <div class="markdown level1 summary"><p>Automatically called when a item is put on top of the pile.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnPut(T item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The item that is placed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Discord_Addons_MpGame_Collections_Pile_1_OnPut__0__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><div class="NOTE"><h5>note</h5><p>
+    Does nothing by default.
+</p></div>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_PeekAt_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.PeekAt(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L506">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_PeekAt_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PeekAt*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_PeekAt_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PeekAt(System.Int32)">PeekAt(Int32)</h4>
+  <div class="markdown level1 summary"><p>Peeks a single item at the specified index without removig it from the pile.
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanBrowse">CanBrowse</a> or <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanPeek">CanPeek</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T PeekAt(int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>The 0-based index to peek at.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>The item at the specified index.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The instance does not allow peeking items.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">index</code> was less than 0 or greater than or equal to the pile's current size.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_PeekTop_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.PeekTop(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L546">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_PeekTop_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PeekTop*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_PeekTop_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PeekTop(System.Int32)">PeekTop(Int32)</h4>
+  <div class="markdown level1 summary"><p>Peeks the top <code data-dev-comment-type="paramref" class="paramref">amount</code> of items without removing them from the pile.<br>
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanBrowse">CanBrowse</a> or <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanPeek">CanPeek</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ImmutableArray&lt;T&gt; PeekTop(int amount)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">amount</span></td>
+        <td><p>The amount of items to peek.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.immutable.immutablearray-1">ImmutableArray</a>&lt;T&gt;</td>
+        <td><p>An array of the items currently at the top of the pile.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Discord_Addons_MpGame_Collections_Pile_1_PeekTop_System_Int32__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><div class="NOTE"><h5>note</h5><p>
+    Peeking the single top item is done better through <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_PeekAt_System_Int32_">PeekAt(Int32)</a>.
+</p></div>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The instance does not allow peeking items.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">amount</code> was less than 0 or greater than the pile's current size.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Put__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Put(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L579">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_Put_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Put*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Put__0_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Put(`0)">Put(T)</h4>
+  <div class="markdown level1 summary"><p>Puts an item on top of the pile.<br>
+Calls <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnPut__0_">OnPut(T)</a>.<br>
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanPut">CanPut</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Put(T item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The item to place on top.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The instance does not allow placing items onto it.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">item</code> was <span class="xref">null</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_PutBottom__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.PutBottom(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L608">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_PutBottom_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PutBottom*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_PutBottom__0_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PutBottom(`0)">PutBottom(T)</h4>
+  <div class="markdown level1 summary"><p>Puts an item on the bottom of the pile.<br>
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanPutBottom">CanPutBottom</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void PutBottom(T item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The item to place on the bottom.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The instance does not allow placing items on the bottom.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">item</code> was <span class="xref">null</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Shuffle_System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Shuffle(System.Func%7BSystem.Collections.Immutable.ImmutableArray%7B%600%7D%2CSystem.Collections.Generic.IEnumerable%7B%600%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L639">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_Shuffle_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Shuffle*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Shuffle_System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})">Shuffle(Func&lt;ImmutableArray&lt;T&gt;, IEnumerable&lt;T&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Reshuffles the pile using the specified function.<br>
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanShuffle">CanShuffle</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Shuffle(Func&lt;ImmutableArray&lt;T&gt;, IEnumerable&lt;T&gt;&gt; shuffleFunc)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.immutable.immutablearray-1">ImmutableArray</a>&lt;T&gt;, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;&gt;</td>
+        <td><span class="parametername">shuffleFunc</span></td>
+        <td><p>A function that produces an <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;T&gt;</a> in a new, random order.<br>
+This function receives the items currently in the pile as its argument.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The instance does not allow reshuffling the items<br>
+-OR-<br>
+The sequence produced from  <code data-dev-comment-type="paramref" class="paramref">shuffleFunc</code> was <span class="xref">null</span>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">shuffleFunc</code> was <span class="xref">null</span>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_TakeAt_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.TakeAt(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L671">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Pile_1_TakeAt_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.TakeAt*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Pile_1_TakeAt_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)">TakeAt(Int32)</h4>
+  <div class="markdown level1 summary"><p>Takes an item from the given index.<br>
+If the last item is taken, calls <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved">OnLastRemoved()</a>.<br>
+Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanTake">CanTake</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T TakeAt(int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>The 0-based index to take.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>The item at the specified index.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><p>The instance does not allow taking items from an arbitrary location.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">index</code> was less than 0 or greater than or equal to the pile's current size.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           
@@ -412,7 +1661,7 @@
                     <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/docs/_overwrites/mpgame/Pile-1.SyntaxOverwrite.md/#L2" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile-1.cs/#L14" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L18" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
