@@ -156,7 +156,7 @@
   <h6><strong>Assembly</strong>: Discord.Addons.MpGame.dll</h6>
   <h5 id="Discord_Addons_MpGame_Collections_Pile_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class Pile&lt;TCard&gt; : Pile&lt;TCard, Pile&lt;TCard&gt;.DefaultWrapper&gt;
+    <pre><code class="lang-csharp hljs">public abstract class Pile&lt;T&gt;
     where TCard : class</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
@@ -733,7 +733,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTakeAsync_System_Func_System_Collections_Generic_IReadOnlyDictionary_System_Int32__0__System_Threading_Tasks_Task_System_Int32_____System_Func__0_System_Boolean__System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.BrowseAndTakeAsync(System.Func%7BSystem.Collections.Generic.IReadOnlyDictionary%7BSystem.Int32%2C%600%7D%2CSystem.Threading.Tasks.Task%7BSystem.Int32%5B%5D%7D%7D%2CSystem.Func%7B%600%2CSystem.Boolean%7D%2CSystem.Func%7BSystem.Collections.Immutable.ImmutableArray%7B%600%7D%2CSystem.Collections.Generic.IEnumerable%7B%600%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/docs/_overwrites/mpgame/Pile.BAT.SyntaxOverwrite.md/#L2">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L248">View Source</a>
@@ -743,10 +743,14 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
   <div class="markdown level1 summary"><p>Browse for and take one or more items from the pile in a single operation.<br>
 Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanBrowse">CanBrowse</a> and <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_CanTake">CanTake</a>.</p>
 </div>
-  <div class="markdown level1 conceptual"></div>
+  <div class="markdown level1 conceptual"><hr>
+</div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;ImmutableArray&lt;T&gt;&gt; BrowseAndTakeAsync(Func&lt;IReadOnlyDictionary&lt;int, T&gt;, Task&lt;int[]&gt;&gt; selector, Func&lt;T, bool&gt; filter = null, Func&lt;ImmutableArray&lt;T&gt;, IEnumerable&lt;T&gt;&gt; shuffleFunc = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;ImmutableArray&lt;T&gt;&gt; BrowseAndTakeAsync(
+    Func&lt;IReadOnlyDictionary&lt;int, T&gt;, Task&lt;int[]&gt;&gt; selector,
+    Func&lt;T, bool&gt; filter = null,
+    Func&lt;ImmutableArray&lt;T&gt;, IEnumerable&lt;T&gt;&gt; shuffleFunc = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1658,7 +1662,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/docs/_overwrites/mpgame/Pile-1.SyntaxOverwrite.md/#L2" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/docs/_overwrites/mpgame/Pile.SyntaxOverwrite.md/#L2" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
                     <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L18" class="contribution-link">View Source</a>

@@ -39,7 +39,6 @@ namespace Discord.Addons.MpGame
         /// </example>
         protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = DiscordComparers.ChannelComparer;
 
-        //private readonly object _lock = new object();
         private readonly ConcurrentDictionary<IMessageChannel, PersistentGameData> _dataList
             = new ConcurrentDictionary<IMessageChannel, PersistentGameData>(MessageChannelComparer);
 
