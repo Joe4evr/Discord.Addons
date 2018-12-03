@@ -9,77 +9,78 @@ using Discord.Addons.Core;
 namespace Discord.Addons.MpGame.Collections
 {
     /// <summary>
-    ///     Similar to <see cref="Pile{TCard}"/> but specialized and optimized for representing a hand of cards.
+    ///     Similar to <see cref="Pile{T}"/> but specialized and optimized for representing a hand of items.
     /// </summary>
-    /// <typeparam name="TCard">
-    ///     The card type.
+    /// <typeparam name="T">
+    ///     The item type.
     /// </typeparam>
     [DebuggerDisplay("Count = {Count}")]
-    public sealed class Hand<TCard>
-        where TCard : class
+    public sealed class Hand<T>
+        where T : class
     {
         private readonly ReaderWriterLockSlim _rwlock = new ReaderWriterLockSlim();
 
-        private List<TCard> _hand;
+        private List<T> _hand;
 
         /// <summary>
-        ///     Initializes a new <see cref="Hand{TCard}"/> to an empty state.
+        ///     Initializes a new <see cref="Hand{T}"/> to an empty state.
         /// </summary>
         public Hand()
         {
-            _hand = new List<TCard>();
+            _hand = new List<T>();
         }
 
         /// <summary>
-        ///     Initializes a new <see cref="Hand{TCard}"/> with the specified cards.
+        ///     Initializes a new <see cref="Hand{T}"/> with the specified items.
         /// </summary>
-        /// <param name="cards">
-        ///     The cards to put in the hand.
+        /// <param name="items">
+        ///     The items to put in the hand.
         /// </param>
         /// <remarks>
         ///     <note type="note">
-        ///         This constructor will filter out any items in <paramref name="cards"/> that are <see langword="null"/>.
+        ///         This constructor will filter out any items in <paramref name="items"/>
+        ///         that are <see langword="null"/> or are pointing to the same object instance.
         ///     </note>
         /// </remarks>
         /// <exception cref="ArgumentNullException">
-        ///     <paramref name="cards"/> was <see langword="null"/>.
+        ///     <paramref name="items"/> was <see langword="null"/>.
         /// </exception>
-        public Hand(IEnumerable<TCard> cards)
+        public Hand(IEnumerable<T> items)
         {
-            if (cards == null)
-                ThrowHelper.ThrowArgNull(nameof(cards));
+            if (items == null)
+                ThrowHelper.ThrowArgNull(nameof(items));
 
-            _hand = new List<TCard>(cards.Where(c => c != null));
+            _hand = new List<T>(items.Where(c => c != null).Distinct(ReferenceComparer<T>.Instance));
         }
 
         /// <summary>
-        ///     The amount of cards currently in the hand.
+        ///     The amount of items currently in the hand.
         /// </summary>
         public int Count => _hand.Count;
 
         /// <summary>
-        ///     Adds a card to the hand.
+        ///     Adds an item to the hand.
         /// </summary>
-        /// <param name="card">
-        ///     The card to add.
+        /// <param name="item">
+        ///     The item to add.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        ///     <paramref name="card"/> was <see langword="null"/>.
+        ///     <paramref name="item"/> was <see langword="null"/>.
         /// </exception>
-        public void Add(TCard card)
+        public void Add(T item)
         {
-            if (card == null)
-                ThrowHelper.ThrowArgNull(nameof(card));
+            if (item == null)
+                ThrowHelper.ThrowArgNull(nameof(item));
 
             using (_rwlock.UsingWriteLock())
             {
-                _hand.Add(card);
+                _hand.Add(item);
             }
         }
 
-        public IReadOnlyDictionary<int, TCard> AsIndexed()
+        public IReadOnlyDictionary<int, T> AsIndexed()
         {
-            var builder = ImmutableDictionary.CreateBuilder<int, TCard>();
+            var builder = ImmutableDictionary.CreateBuilder<int, T>();
             for (int i = 0; i < _hand.Count; i++)
                 builder.Add(i, _hand[i]);
 
@@ -87,25 +88,25 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        ///     The cards inside this hand.
+        ///     The items inside this hand.
         /// </summary>
-        public ImmutableArray<TCard> Browse()
+        public ImmutableArray<T> Browse()
         {
             using (_rwlock.UsingReadLock())
             {
                 return (Count == 0)
-                    ? ImmutableArray<TCard>.Empty
+                    ? ImmutableArray<T>.Empty
                     : _hand.ToImmutableArray();
             }
         }
 
         /// <summary>
-        ///     Clears the entire hand and returns the cards that were in it.
+        ///     Clears the entire hand and returns the items that were in it.
         /// </summary>
         /// <returns>
         ///     The collection as it was before it is cleared.
         /// </returns>
-        public ImmutableArray<TCard> Clear()
+        public ImmutableArray<T> Clear()
         {
             using (_rwlock.UsingWriteLock())
             {
@@ -116,11 +117,11 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        ///     Orders the cards using the specified function.
+        ///     Orders the items using the specified function.
         /// </summary>
         /// <param name="orderFunc">
-        ///     A function that produces an <see cref="IEnumerable{TCard}"/> in a new order.<br/>
-        ///     This function receives the cards currently in the hand as its argument.
+        ///     A function that produces an <see cref="IEnumerable{T}"/> in a new order.<br/>
+        ///     This function receives the items currently in the hand as its argument.
         /// </param>
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="orderFunc"/> was <see langword="null"/>.
@@ -128,7 +129,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <exception cref="InvalidOperationException">
         ///     The sequence produced from <paramref name="orderFunc"/> was <see langword="null"/>.
         /// </exception>
-        public void Order(Func<ImmutableArray<TCard>, IEnumerable<TCard>> orderFunc)
+        public void Order(Func<ImmutableArray<T>, IEnumerable<T>> orderFunc)
         {
             if (orderFunc == null)
                 ThrowHelper.ThrowArgNull(nameof(orderFunc));
@@ -139,20 +140,20 @@ namespace Discord.Addons.MpGame.Collections
                 if (newOrder == null)
                     ThrowHelper.ThrowInvalidOp(ErrorStrings.NewSequenceNull);
 
-                _hand = new List<TCard>(newOrder);
+                _hand = new List<T>(newOrder);
             }
         }
 
         /// <summary>
-        ///     Takes a card from the given index.
+        ///     Takes a item from the given index.
         /// </summary>
         /// <param name="index">
-        ///     The 0-based index of the card to take.
+        ///     The 0-based index of the item to take.
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     <paramref name="index"/> was less than 0 or greater than or equal to the pile's current size.
+        ///     <paramref name="index"/> was less than 0 or greater than or equal to the hand's current size.
         /// </exception>
-        public TCard TakeAt(int index)
+        public T TakeAt(int index)
         {
             if (index < 0)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
@@ -168,18 +169,18 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
-        ///     Takes the first card that matches a given predicate.
+        ///     Takes the first item that matches a given predicate.
         /// </summary>
         /// <param name="predicate">
         ///     The predicate to match.
         /// </param>
         /// <returns>
-        ///     The first card to match the given predicate, or <see langword="null"/> if no match found.
+        ///     The first item to match the given predicate, or <see langword="null"/> if no match found.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="predicate"/> was <see langword="null"/>.
         /// </exception>
-        public TCard TakeFirstOrDefault(Func<TCard, bool> predicate)
+        public T TakeFirstOrDefault(Func<T, bool> predicate)
         {
             if (predicate == null)
                 ThrowHelper.ThrowArgNull(nameof(predicate));

@@ -38,7 +38,8 @@ namespace Discord.Addons.MpGame.Collections
         ///     The items to put in the pile.</param>
         /// <remarks>
         ///     <note type="note">
-        ///         This constructor will filter out any items that are <see langword="null"/>.
+        ///         This constructor will filter out any items in <paramref name="items"/>
+        ///         that are <see langword="null"/> or are pointing to the same object instance.
         ///     </note>
         /// </remarks>
         /// <exception cref="ArgumentNullException">
@@ -391,7 +392,7 @@ namespace Discord.Addons.MpGame.Collections
             => _logic.DrawBottom();
 
         /// <summary>
-        ///     Inserts a item at the given index.<br/>
+        ///     Inserts an item at the given index.<br/>
         ///     Requires <see cref="CanInsert"/>.
         /// </summary>
         /// <param name="item">
@@ -433,19 +434,19 @@ namespace Discord.Addons.MpGame.Collections
 
         /// <summary>
         ///     Puts the top item of *this* pile on top of another pile.<br/>
-        ///     Requires <see cref="CanDraw"/> on this pile and <see cref="CanPut"/> on the target pile.
+        ///     Requires <see cref="CanDraw"/> or <see cref="CanBrowse"/> on this pile and <see cref="CanPut"/> on the target pile.
         /// </summary>
         /// <param name="targetPile">
         ///     The pile to place a item on.
         /// </param>
         /// <remarks>
         ///     <note type="note">
-        ///         Calls <see cref="OnPut(Titem)"/> on the target pile.<br/>
+        ///         Calls <see cref="OnPut(T)"/> on the target pile.<br/>
         ///         If the last item of this pile was taken, calls <see cref="OnLastRemoved"/> as well.
         ///     </note>
         /// </remarks>
         /// <exception cref="InvalidOperationException">
-        ///     This pile does not allow drawing items<br/>
+        ///     This pile does not allow drawing or browsing items<br/>
         ///     -OR-<br/>
         ///     <paramref name="targetPile"/> was the same instance as the source<br/>
         ///     -OR-<br/>
@@ -562,7 +563,7 @@ namespace Discord.Addons.MpGame.Collections
             => _logic.PeekTop(amount, _noOpTransformer);
 
         /// <summary>
-        ///     Puts a item on top of the pile.<br/>
+        ///     Puts an item on top of the pile.<br/>
         ///     Calls <see cref="OnPut(T)"/>.<br/>
         ///     Requires <see cref="CanPut"/>.
         /// </summary>
@@ -592,7 +593,7 @@ namespace Discord.Addons.MpGame.Collections
             => _logic.Put(item);
 
         /// <summary>
-        ///     Puts a item on the bottom of the pile.<br/>
+        ///     Puts an item on the bottom of the pile.<br/>
         ///     Requires <see cref="CanPutBottom"/>.
         /// </summary>
         /// <param name="item">
@@ -651,7 +652,7 @@ namespace Discord.Addons.MpGame.Collections
             => _logic.Shuffle(shuffleFunc, _noOpTransformer);
 
         /// <summary>
-        ///     Takes a item from the given index.<br/>
+        ///     Takes an item from the given index.<br/>
         ///     If the last item is taken, calls <see cref="OnLastRemoved"/>.<br/>
         ///     Requires <see cref="CanTake"/>.
         /// </summary>
