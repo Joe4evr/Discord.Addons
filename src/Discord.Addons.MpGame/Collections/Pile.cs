@@ -128,19 +128,6 @@ namespace Discord.Addons.MpGame.Collections
         /// </summary>
         public int Count => GetCount();
         private protected virtual int GetCount() => _logic.VCount;
-        //{
-        //    get
-        //    {
-        //        using (_rwlock.UsingReadLock())
-        //        {
-        //            return _count;
-        //        }
-        //    }
-        //}
-
-        //private int VCount => Volatile.Read(ref _count);
-        //private Node VHead => Volatile.Read(ref _head);
-        //private Node VTail => Volatile.Read(ref _tail);
 
         internal virtual Action<T> Adder { get; }
 
