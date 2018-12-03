@@ -13,6 +13,12 @@ namespace Discord.Addons.Core
         [DebuggerStepThrough]
         internal static AcquiredWriteLock UsingWriteLock(this ReaderWriterLockSlim readerWriterLock)
             => new AcquiredWriteLock(readerWriterLock);
+        [DebuggerStepThrough]
+        internal static async Task<AcquiredSemaphoreSlim> UsingSemaphore(this SemaphoreSlim semaphore)
+        {
+            await semaphore.WaitAsync().ConfigureAwait(false);
+            return new AcquiredSemaphoreSlim(semaphore);
+        }
 
         internal readonly struct AcquiredReadLock : IDisposable
         {
@@ -41,6 +47,19 @@ namespace Discord.Addons.Core
 
             [DebuggerStepThrough]
             void IDisposable.Dispose() => _lock.ExitWriteLock();
+        }
+        internal readonly struct AcquiredSemaphoreSlim : IDisposable
+        {
+            private readonly SemaphoreSlim _semaphore;
+
+            [DebuggerStepThrough]
+            public AcquiredSemaphoreSlim(SemaphoreSlim semaphore)
+            {
+                _semaphore = semaphore;
+            }
+
+            [DebuggerStepThrough]
+            void IDisposable.Dispose() => _semaphore.Release();
         }
     }
 }

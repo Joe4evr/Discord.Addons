@@ -46,7 +46,8 @@ namespace Discord.Addons.MpGame.Collections
         /// </exception>
         public Hand(IEnumerable<TCard> cards)
         {
-            ThrowHelper.ThrowIfArgNull(cards, nameof(cards));
+            if (cards == null)
+                ThrowHelper.ThrowArgNull(nameof(cards));
 
             _hand = new List<TCard>(cards.Where(c => c != null));
         }
@@ -67,7 +68,8 @@ namespace Discord.Addons.MpGame.Collections
         /// </exception>
         public void Add(TCard card)
         {
-            ThrowHelper.ThrowIfArgNull(card, nameof(card));
+            if (card == null)
+                ThrowHelper.ThrowArgNull(nameof(card));
 
             using (_rwlock.UsingWriteLock())
             {
@@ -128,7 +130,8 @@ namespace Discord.Addons.MpGame.Collections
         /// </exception>
         public void Order(Func<ImmutableArray<TCard>, IEnumerable<TCard>> orderFunc)
         {
-            ThrowHelper.ThrowIfArgNull(orderFunc, nameof(orderFunc));
+            if (orderFunc == null)
+                ThrowHelper.ThrowArgNull(nameof(orderFunc));
 
             using (_rwlock.UsingWriteLock())
             {
@@ -178,7 +181,8 @@ namespace Discord.Addons.MpGame.Collections
         /// </exception>
         public TCard TakeFirstOrDefault(Func<TCard, bool> predicate)
         {
-            ThrowHelper.ThrowIfArgNull(predicate, nameof(predicate));
+            if (predicate == null)
+                ThrowHelper.ThrowArgNull(nameof(predicate));
 
             using (_rwlock.UsingWriteLock())
             {

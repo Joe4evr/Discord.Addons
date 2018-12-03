@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord.WebSocket;
 using Discord.Addons.Core;
-using System.Collections.Immutable;
 
 namespace Discord.Addons.SimpleAudio
 {

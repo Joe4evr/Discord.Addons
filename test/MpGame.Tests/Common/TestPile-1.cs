@@ -8,8 +8,8 @@ namespace MpGame.Tests
     {
         private readonly PilePerms _perms;
 
-        public TestPile(PilePerms withPerms, IEnumerable<ITestCard> cards)
-            : base(cards)
+        public TestPile(PilePerms withPerms, IEnumerable<ITestCard> items)
+            : base(items)
         {
             _perms = withPerms;
         }

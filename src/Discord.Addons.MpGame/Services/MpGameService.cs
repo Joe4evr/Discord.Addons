@@ -87,7 +87,7 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     <see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.
         /// </returns>
-        public async Task<bool> OpenNewGame(ICommandContext context)
+        public async Task<bool> OpenNewGameAsync(ICommandContext context)
         {
             if (GameTracker.Instance.TryAddGameString(context.Channel, GameName))
             {
@@ -113,7 +113,7 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     <see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.
         /// </returns>
-        public async Task<bool> AddUser(IMessageChannel channel, IUser user)
+        public async Task<bool> AddUserAsync(IMessageChannel channel, IUser user)
             => _dataList.TryGetValue(channel, out var data)
                 && await data.TryAddUser(user);
 
@@ -135,7 +135,7 @@ namespace Discord.Addons.MpGame
         ///             await ReplyAsync($"**{user.Username}** has been kicked.").ConfigureAwait(false);
         ///     </code>
         /// </example>
-        public async Task<bool> RemoveUser(IMessageChannel channel, IUser user)
+        public async Task<bool> RemoveUserAsync(IMessageChannel channel, IUser user)
             => _dataList.TryGetValue(channel, out var data)
                 && await data.TryRemoveUser(user);
 
@@ -157,7 +157,7 @@ namespace Discord.Addons.MpGame
         ///             await ReplyAsync($"**{Context.User.Username}** has joined.").ConfigureAwait(false);
         ///     </code>
         /// </example>
-        public async Task<bool> AddPlayer(TGame game, TPlayer player)
+        public async Task<bool> AddPlayerAsync(TGame game, TPlayer player)
         {
             if (!GameTracker.Instance.TryGetGameChannel(await player.User.GetOrCreateDMChannelAsync().ConfigureAwait(false), out var _))
             {
@@ -180,8 +180,8 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     <see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.
         /// </returns>
-        public Task<bool> KickPlayer(TGame game, TPlayer player)
-            => RemovePlayer(game, player, _mpconfig.LogStrings.PlayerKicked(player.User));
+        public Task<bool> KickPlayerAsync(TGame game, TPlayer player)
+            => RemovePlayerAsync(game, player, _mpconfig.LogStrings.PlayerKicked(player.User));
 
         /// <summary>
         ///     Cancel a game that has not yet started.
@@ -192,7 +192,7 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     <see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.
         /// </returns>
-        public Task<bool> CancelGame(IMessageChannel channel)
+        public Task<bool> CancelGameAsync(IMessageChannel channel)
             => OnGameEnd(channel);
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     <see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.
         /// </returns>
-        public async Task<bool> TryAddNewGame(IMessageChannel channel, TGame game)
+        public async Task<bool> TryAddNewGameAsync(IMessageChannel channel, TGame game)
         {
             var success = _dataList.TryGetValue(channel, out var data);
             if (success)
@@ -317,7 +317,7 @@ namespace Discord.Addons.MpGame
 
         private void PrepPlayer(TGame game, TPlayer player, bool addedInOngoig)
         {
-            player.AutoKickCallback = (async reason => await RemovePlayer(game, player, reason).ConfigureAwait(false));
+            player.AutoKickCallback = (async reason => await RemovePlayerAsync(game, player, reason).ConfigureAwait(false));
             player.DMsDisabledMessage = _mpconfig.LogStrings.DMsDisabledMessage(player.User);
             player.DMsDisabledKickMessage = _mpconfig.LogStrings.DMsDisabledKickMessage(player.User);
 
@@ -359,7 +359,7 @@ namespace Discord.Addons.MpGame
                 : Task.CompletedTask;
         }
 
-        private static async Task<bool> RemovePlayer(
+        private static async Task<bool> RemovePlayerAsync(
             TGame game,
             TPlayer player,
             string reason)

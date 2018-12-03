@@ -9,7 +9,7 @@ namespace Discord.Addons.Core
 {
     internal static class Extensions
     {
-        public static Func<LogMessage, Task> NoOpLogger   { get; } = (_ => Task.CompletedTask);
+        public static Func<LogMessage, Task> NoOpLogger { get; } = (_ => Task.CompletedTask);
         public static Func<string, Task> NoOpStringToTask { get; } = (_ => Task.CompletedTask);
         public static Func<string, ValueTask> NoOpStringToVTask { get; } = (_ => new ValueTask(Task.CompletedTask));
 
@@ -27,11 +27,17 @@ namespace Discord.Addons.Core
         //Method for randomizing lists using a Fisher-Yates shuffle.
         //Based on http://stackoverflow.com/questions/273313/
         /// <summary>
-        /// Perform a Fisher-Yates shuffle on a collection implementing <see cref="IEnumerable{T}"/>.
+        ///     Perform a Fisher-Yates shuffle on a collection implementing <see cref="IEnumerable{T}"/>.
         /// </summary>
-        /// <param name="source">The list to shuffle.</param>
-        /// <param name="iterations">The amount of iterations you wish to perform.</param>
-        /// <remarks>Adapted from http://stackoverflow.com/questions/273313/. </remarks>
+        /// <param name="source">
+        ///     The list to shuffle.
+        /// </param>
+        /// <param name="iterations">
+        ///     The amount of iterations you wish to perform.
+        /// </param>
+        /// <remarks>
+        ///     Adapted from http://stackoverflow.com/questions/273313/.
+        /// </remarks>
         public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source, int iterations = 1)
         {
             var provider = RandomNumberGenerator.Create();

@@ -3,7 +3,6 @@
     <PropertyGroup Label="Configuration">
         <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
         <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
-        <WarningLevel>0</WarningLevel>
     </PropertyGroup>
     <PropertyGroup>
         <PackageId>$(AssemblyName)</PackageId>
@@ -27,13 +26,13 @@
         <SimplePermMajor>1</SimplePermMajor>
         <SimplePermSuffix>alpha3</SimplePermSuffix>
         <PreconMajor>1</PreconMajor>
-        <PreconSuffix>alpha2</PreconSuffix>
+        <PreconSuffix>alpha3</PreconSuffix>
     </PropertyGroup>
     <ItemGroup>
         <!--<PackageReference Include="System.ValueTuple" Version="4.4.0" />-->
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.1" />
-        <PackageReference Include="Discord.Net.Commands" Version="2.0.0-beta2-00978" />
-        <PackageReference Include="Discord.Net.WebSocket" Version="2.0.0-beta2-00978" />
+        <PackageReference Include="Discord.Net.Commands" Version="2.0.0-beta2-01023" />
+        <PackageReference Include="Discord.Net.WebSocket" Version="2.0.0-beta2-01023" />
     </ItemGroup>
     <PropertyGroup Condition="'$(Configuration)' == 'Release'">
         <Optimize>True</Optimize>
@@ -42,5 +41,5 @@
     <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
         <SolutionDir>.\</SolutionDir>
     </PropertyGroup>
-    <!--<Import Project="$(SolutionDir)src\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />-->
+    <Import Project="C:\projects\Discord.Addons\src\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />
 </Project>

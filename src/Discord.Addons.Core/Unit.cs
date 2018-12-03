@@ -12,8 +12,7 @@
     internal static class UnitEx
     {
         /// <summary>
-        /// Return a specified value chained after
-        /// a <see cref="Unit"/> returning method.
+        ///     Return a specified value chained after a <see cref="Unit"/> returning method.
         /// </summary>
         public static T ReturnWith<T>(this Unit _, T value) => value;
     }
