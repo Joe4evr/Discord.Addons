@@ -64,8 +64,8 @@ namespace Discord.Addons.MpGame
 #else
             BaseSocketClient client,
 #endif
-            IMpGameServiceConfig mpconfig = null,
-            Func<LogMessage, Task> logger = null)
+            IMpGameServiceConfig? mpconfig = null,
+            Func<LogMessage, Task>? logger = null)
         {
             _mpconfig = mpconfig ?? DefaultConfig.Instance;
             Logger = logger ?? Extensions.NoOpLogger;
@@ -220,7 +220,7 @@ namespace Discord.Addons.MpGame
                     {
                         PrepPlayer(game, player, addedInOngoig: false);
                     }
-                    game.GameEnd = (async c => await OnGameEnd(c).ConfigureAwait(false));
+                    game.GameEnd = (c => OnGameEnd(c));
                 }
                 return gameSet;
             }
@@ -244,15 +244,16 @@ namespace Discord.Addons.MpGame
                 && data.TryUpdateOpenToJoin(!newValue, newValue);
 
         /// <summary> 
-        /// Retrieve the game instance being played, if any.
+        ///     Retrieve the game instance being played, if any.
         /// </summary>
         /// <param name="channel">
-        /// A message channel. Can be both the public-facing channel or the DM channel of one of the players.
+        ///     A message channel. Can be both the public-facing channel or the DM channel of one of the players.
         /// </param>
         /// <returns>
-        /// The <typeparamref name="TGame"/> instance being played in the specified channel, or that the user is playing in, or <see langword="null"/> if there is none.
+        ///     The <typeparamref name="TGame"/> instance being played in the specified channel,
+        ///     or that the user is playing in, or <see langword="null"/> if there is none.
         /// </returns>
-        public TGame GetGameFromChannel(IMessageChannel channel)
+        public TGame? GetGameFromChannel(IMessageChannel channel)
             => (TryGetPersistentData(channel, out var data))
                 ? data.Game : null;
 
@@ -402,8 +403,8 @@ namespace Discord.Addons.MpGame
         /// </param>
         public MpGameService(
             BaseSocketClient client,
-            IMpGameServiceConfig mpconfig = null,
-            Func<LogMessage, Task> logger = null)
+            IMpGameServiceConfig? mpconfig = null,
+            Func<LogMessage, Task>? logger = null)
             : base(client, mpconfig, logger) { }
     }
 }

@@ -10,7 +10,7 @@ namespace Examples.MpGame
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             var p = new Program();
             await p.InitCommands();
@@ -30,10 +30,10 @@ namespace Examples.MpGame
             {
             });
 
-            _services = ConfigureServices(_client, _commands);
+            _services = ConfigureServices(_client);
         }
 
-        private static IServiceProvider ConfigureServices(DiscordSocketClient client, CommandService commands)
+        private static IServiceProvider ConfigureServices(DiscordSocketClient client)
         {
             var map = new ServiceCollection()
                 .AddSingleton(new ExampleGameService(client));

@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-    <Import Project="..\..\DiscordAddonsCore.props" />
-    <PropertyGroup>
-        <AssemblyName>Discord.Addons.Preconditions</AssemblyName>
-        <VersionPrefix>$(PreconMajor).$(DnetVersion).0</VersionPrefix>
-        <VersionSuffix>$(PreconSuffix)</VersionSuffix>
-        <Description>Useful preconditions for Discord.Net 2.0.</Description>
-        <Authors>Joe4evr</Authors>
-        <PackageTags>discord;commands;preconditions</PackageTags>
-    </PropertyGroup>
-    <ItemGroup>
-        <None Include="README.md" />
-    </ItemGroup>
+  <Import Project="..\..\DiscordAddonsCore.props" />
+  <PropertyGroup>
+    <AssemblyName>Discord.Addons.Preconditions</AssemblyName>
+    <VersionPrefix>$(PreconMajor).$(DnetVersion).0</VersionPrefix>
+    <VersionSuffix>$(PreconSuffix)</VersionSuffix>
+    <Description>Useful preconditions for Discord.Net 2.0.</Description>
+    <Authors>Joe4evr</Authors>
+    <PackageTags>discord;commands;preconditions</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+  </ItemGroup>
 </Project>

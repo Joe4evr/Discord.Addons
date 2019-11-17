@@ -12,12 +12,12 @@ namespace Discord.Addons.MpGame.Collections
     internal sealed class PileLogic<T>
     {
         private int _count = 0;
-        private Node _head = null;
-        private Node _tail = null;
+        private Node? _head = null;
+        private Node? _tail = null;
 
         public int VCount => Volatile.Read(ref _count);
-        private Node VHead => Volatile.Read(ref _head);
-        private Node VTail => Volatile.Read(ref _tail);
+        private Node? VHead => Volatile.Read(ref _head);
+        private Node? VTail => Volatile.Read(ref _tail);
 
         public IEnumerable<TOut> AsEnumerable<TOut>(Func<T, TOut> unwrapper)
         {
@@ -32,8 +32,8 @@ namespace Discord.Addons.MpGame.Collections
 
         public async Task<ImmutableArray<TOut>> BrowseAndTakeAsync<TOut>(
             Func<IReadOnlyDictionary<int, TOut>, Task<int[]>> selector,
-            Func<TOut, bool> filter,
-            Func<ImmutableArray<TOut>, IEnumerable<T>> shuffleFunc,
+            Func<TOut, bool>? filter,
+            Func<ImmutableArray<TOut>, IEnumerable<T>>? shuffleFunc,
             Func<T, TOut> unwrapper,
             bool canShuffle)
         {
@@ -58,7 +58,7 @@ namespace Discord.Addons.MpGame.Collections
 
             Node[] BuildSelection(int[] sel, Dictionary<int, TOut> cs, IReadOnlyDictionary<int, TOut> ics)
             {
-                if (sel == null)
+                if (sel is null)
                     return Array.Empty<Node>();
 
                 var un = sel.Distinct().ToArray();
@@ -87,15 +87,15 @@ namespace Discord.Addons.MpGame.Collections
 
         public void Cut(int amount)
         {
-            var oldHead = VHead;
-            var oldTail = VTail;
+            var oldHead = VHead!;
+            var oldTail = VTail!;
             var newHead = GetNodeAt(amount);
-            var newTail = newHead.Previous;
+            var newTail = newHead.Previous!;
 
             oldHead.Previous = oldTail;
             oldTail.Next = oldHead;
-            newHead.Previous = null;
-            newTail.Next = null;
+            newHead.Previous = null!;
+            newTail.Next = null!;
 
             Volatile.Write(ref _head, newHead);
             Volatile.Write(ref _tail, newTail);
@@ -134,7 +134,7 @@ namespace Discord.Addons.MpGame.Collections
             var builder = ImmutableArray.CreateBuilder<TOut>(amount);
 
             for (var (n, i) = (VHead, 0); i < amount; (n, i) = (n.Next, i + 1))
-                builder.Add(unwrapper(n.Value));
+                builder.Add(unwrapper(n!.Value));
 
             return builder.ToImmutable();
         }
@@ -188,7 +188,7 @@ namespace Discord.Addons.MpGame.Collections
         }
         private void Resequence(IEnumerable<T> newSequence)
         {
-            if (newSequence == null)
+            if (newSequence is null)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NewSequenceNull);
 
             Reset();
@@ -210,21 +210,21 @@ namespace Discord.Addons.MpGame.Collections
             => Interlocked.Decrement(ref _count);
         private void Reset()
         {
-            Volatile.Write(ref _head, null);
-            Volatile.Write(ref _tail, null);
+            Volatile.Write(ref _head, null!);
+            Volatile.Write(ref _tail, null!);
             Volatile.Write(ref _count, 0);
         }
 
         private Node GetNodeAt(int index)
         {
             if (index == 0)
-                return VHead;
+                return VHead!;
             if (index == VCount - 1)
-                return VTail;
+                return VTail!;
 
-            var tmp = VHead;
+            var tmp = VHead!;
             for (int i = 0; i < index; i++)
-                tmp = tmp.Next;
+                tmp = tmp.Next!;
 
             return tmp;
         }
@@ -232,7 +232,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             var node = new Node(item);
             var oldHead = Interlocked.Exchange(ref _head, node);
-            Interlocked.CompareExchange(ref _tail, value: node, comparand: null);
+            Interlocked.CompareExchange(ref _tail, value: node, comparand: null!);
             CountIncOne();
             node.Next = oldHead;
 
@@ -243,7 +243,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             var node = new Node(item);
             var oldTail = Interlocked.Exchange(ref _tail, node);
-            Interlocked.CompareExchange(ref _head, value: node, comparand: null);
+            Interlocked.CompareExchange(ref _head, value: node, comparand: null!);
             CountIncOne();
             node.Previous = oldTail;
 
@@ -254,7 +254,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             var tmp = new Node(item)
             {
-                Next = node?.Next,
+                Next = node.Next,
                 Previous = node
             };
 
@@ -264,36 +264,36 @@ namespace Discord.Addons.MpGame.Collections
         private Node RemHead()
         {
             var headNode = Interlocked.Exchange(ref _head, _head?.Next);
-            if (headNode == null)
+            if (headNode is null)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.PileEmpty);
-            Interlocked.CompareExchange(ref _tail, value: null, comparand: headNode);
+            Interlocked.CompareExchange(ref _tail, value: null!, comparand: headNode);
 
             if (VHead != null)
-                VHead.Previous = null;
+                VHead.Previous = null!;
 
             return headNode;
         }
         private Node RemTail()
         {
             var tailNode = Interlocked.Exchange(ref _tail, _tail?.Previous);
-            if (tailNode == null)
+            if (tailNode is null)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.PileEmpty);
-            Interlocked.CompareExchange(ref _head, value: null, comparand: tailNode);
+            Interlocked.CompareExchange(ref _head, value: null!, comparand: tailNode);
 
             if (VHead != null)
-                VHead.Previous = null;
+                VHead.Previous = null!;
 
             return tailNode;
         }
         private T Break(Node node)
         {
-            Interlocked.CompareExchange(ref _head, value: _head?.Next, comparand: node);
-            Interlocked.CompareExchange(ref _tail, value: _tail?.Previous, comparand: node);
+            Interlocked.CompareExchange(ref _head!, value: _head?.Next, comparand: node);
+            Interlocked.CompareExchange(ref _tail!, value: _tail?.Previous, comparand: node);
 
             if (node.Previous != null)
                 node.Previous.Next = node.Next;
             if (node.Next != null)
-                node.Next.Previous = node.Previous;
+                node.Next.Previous = node.Previous!;
 
             CountDecOne();
 
@@ -307,8 +307,8 @@ namespace Discord.Addons.MpGame.Collections
         {
             private T _value;
 
-            internal Node Next { get; set; }
-            internal Node Previous { get; set; }
+            internal Node? Next { get; set; }
+            internal Node? Previous { get; set; }
             internal ref T Value => ref _value;
 
             internal Node(T value)

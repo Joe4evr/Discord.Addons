@@ -43,7 +43,7 @@ namespace MpGame.Tests.CollectionTests
                 seed[5] = null;
                 seed[10] = null;
                 seed[15] = null;
-                var nulls = seed.Count(c => c == null);
+                var nulls = seed.Count(c => c is null);
 
                 foreach (var pile in Piles(withPerms: PilePerms.CanBrowse, items: seed))
                 {
@@ -398,7 +398,7 @@ namespace MpGame.Tests.CollectionTests
                     Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
                 }
 
-                bool LessThanOrEqualToTenFilter(ITestCard c) => c.Id <= 10;
+                static bool LessThanOrEqualToTenFilter(ITestCard c) => c.Id <= 10;
             }
 
             [Fact]

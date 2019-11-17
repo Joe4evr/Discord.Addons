@@ -10,14 +10,10 @@ namespace Discord.Addons.MpGame
         private sealed class PlayerEqualityComparer : EqualityComparer<Player>
         {
             public override bool Equals(Player x, Player y)
-            {
-                return x?.User.Id == y?.User.Id;
-            }
+                => x?.User.Id == y?.User.Id;
 
             public override int GetHashCode(Player obj)
-            {
-                return obj?.User.Id.GetHashCode() ?? 0;
-            }
+                => obj?.User.Id.GetHashCode() ?? 0;
         }
     }
 }

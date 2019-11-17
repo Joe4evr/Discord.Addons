@@ -1,17 +1,17 @@
 ﻿<Project>
-    <ItemGroup>
-        <PackageReference Include="Microsoft.ApiDesignGuidelines.Analyzers" Version="1.2.0-beta2" />
-        <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha" />
-        <!--<PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.6.0" />-->
-        <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.6.0" />
-        <PackageReference Include="Microsoft.QualityGuidelines.Analyzers" Version="1.2.0-beta2" />
-        <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta006" />
-        <!--<PackageReference Include="System.Runtime.Analyzers" Version="1.2.0-beta2" />-->
-        <PackageReference Include="System.Threading.Tasks.Analyzers" Version="1.2.0-beta2" />
-        <PackageReference Include="Text.Analyzers" Version="2.6.0" />
-        <PackageReference Include="XmlDocumentationComments.Analyzers" Version="1.2.0-beta2" />
-    </ItemGroup>
-    <PropertyGroup>
-        <CodeAnalysisRuleSet>$(SolutionDir)Discord.Addons.Rules.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'" Label="DevDependencies">
+    <!--<PackageReference Include="Microsoft.ApiDesignGuidelines.Analyzers" Version="1.2.0-beta2" />
+    <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha" />
+    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.6.0" />
+    <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.6.0" />
+    <PackageReference Include="Microsoft.QualityGuidelines.Analyzers" Version="1.2.0-beta2" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta006" />
+    <PackageReference Include="System.Runtime.Analyzers" Version="1.2.0-beta2" />
+    <PackageReference Include="System.Threading.Tasks.Analyzers" Version="1.2.0-beta2" />
+    <PackageReference Include="Text.Analyzers" Version="2.6.0" />
+    <PackageReference Include="XmlDocumentationComments.Analyzers" Version="1.2.0-beta2" />-->
+  </ItemGroup>
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>$(SolutionDir)Discord.Addons.Rules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
 </Project>

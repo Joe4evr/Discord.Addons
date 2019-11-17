@@ -21,7 +21,7 @@ namespace Discord.Addons.MpGame.Collections
     {
         private static readonly Func<T, T> _noOpTransformer = _ => _;
         private readonly ReaderWriterLockSlim _rwlock = new ReaderWriterLockSlim();
-        private readonly PileLogic<T> _logic;
+        private readonly PileLogic<T> _logic = null!;
 
         /// <summary>
         ///     Initializes a new pile to an empty state.
@@ -57,7 +57,7 @@ namespace Discord.Addons.MpGame.Collections
 
         private Pile(IEnumerable<T> items, bool skipLogicInit)
         {
-            if (items == null)
+            if (items is null)
                 ThrowHelper.ThrowArgNull(nameof(items));
 
             if (!skipLogicInit)
@@ -130,7 +130,7 @@ namespace Discord.Addons.MpGame.Collections
         public int Count => GetCount();
         private protected virtual int GetCount() => _logic.VCount;
 
-        internal virtual Action<T> Adder { get; }
+        internal virtual Action<T> Adder { get; } = null!;
 
         /// <summary>
         ///     Iterates the contents of this pile as an <see cref="IEnumerable{T}"/>.<br/>
@@ -247,12 +247,12 @@ namespace Discord.Addons.MpGame.Collections
         /// </example>
         public async Task<ImmutableArray<T>> BrowseAndTakeAsync(
             Func<IReadOnlyDictionary<int, T>, Task<int[]>> selector,
-            Func<T, bool> filter = null,
-            Func<ImmutableArray<T>, IEnumerable<T>> shuffleFunc = null)
+            Func<T, bool>? filter = null,
+            Func<ImmutableArray<T>, IEnumerable<T>>? shuffleFunc = null)
         {
             if (!(CanBrowse && CanTake))
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoBrowseAndTake);
-            if (selector == null)
+            if (selector is null)
                 ThrowHelper.ThrowArgNull(nameof(selector));
 
             using (_rwlock.UsingWriteLock())
@@ -264,8 +264,8 @@ namespace Discord.Addons.MpGame.Collections
         }
         private protected virtual Task<ImmutableArray<T>> BrowseAndTakeCore(
             Func<IReadOnlyDictionary<int, T>, Task<int[]>> selector,
-            Func<T, bool> filter,
-            Func<ImmutableArray<T>, IEnumerable<T>> shuffleFunc)
+            Func<T, bool>? filter,
+            Func<ImmutableArray<T>, IEnumerable<T>>? shuffleFunc)
             => _logic.BrowseAndTakeAsync(selector, filter, shuffleFunc, _noOpTransformer, CanShuffle);
 
         /// <summary>
@@ -414,7 +414,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             if (!CanInsert)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoInsert);
-            if (item == null)
+            if (item is null)
                 ThrowHelper.ThrowArgNull(nameof(item));
             if (index < 0)
                 ThrowHelper.ThrowArgOutOfRange(ErrorStrings.InsertionNegative, nameof(index));
@@ -461,7 +461,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             if (!(CanDraw || CanBrowse))
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoDraw);
-            if (targetPile == null)
+            if (targetPile is null)
                 ThrowHelper.ThrowArgNull(nameof(targetPile));
             if (ReferenceEquals(this, targetPile))
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.MillTargetSamePile);
@@ -496,6 +496,8 @@ namespace Discord.Addons.MpGame.Collections
         /// </param>
         /// <returns>
         ///     The item at the specified index.
+        ///     - OR -
+        ///     <see langword="null"/> if the pile is empty.
         /// </returns>
         /// <exception cref="InvalidOperationException">
         ///     The instance does not allow peeking items.
@@ -503,7 +505,7 @@ namespace Discord.Addons.MpGame.Collections
         /// <exception cref="ArgumentOutOfRangeException">
         ///     <paramref name="index"/> was less than 0 or greater than or equal to the pile's current size.
         /// </exception>
-        public T PeekAt(int index)
+        public T? PeekAt(int index)
         {
             if (!(CanPeek || CanBrowse))
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoBrowseOrPeek);
@@ -580,7 +582,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             if (!CanPut)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoPut);
-            if (item == null)
+            if (item is null)
                 ThrowHelper.ThrowArgNull(nameof(item));
 
             using (_rwlock.UsingWriteLock())
@@ -609,7 +611,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             if (!CanPutBottom)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoPutBottom);
-            if (item == null)
+            if (item is null)
                 ThrowHelper.ThrowArgNull(nameof(item));
 
             using (_rwlock.UsingWriteLock())
@@ -640,7 +642,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             if (!CanShuffle)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.NoShuffle);
-            if (shuffleFunc == null)
+            if (shuffleFunc is null)
                 ThrowHelper.ThrowArgNull(nameof(shuffleFunc));
 
             using (_rwlock.UsingWriteLock())

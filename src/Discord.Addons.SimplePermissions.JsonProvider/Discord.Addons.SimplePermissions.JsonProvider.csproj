@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-    <Import Project="..\..\DiscordAddonsCore.props" />
-    <PropertyGroup>
-        <AssemblyName>Discord.Addons.SimplePermissions.JsonProvider</AssemblyName>
-        <VersionPrefix>$(SimplePermMajor).$(DnetVersion).0</VersionPrefix>
-        <VersionSuffix>$(SimplePermSuffix)</VersionSuffix>
-        <Description>Json.Net provider for Discord.Addons.SimplePermissions</Description>
-        <Authors>Joe4evr</Authors>
-        <PackageTags>discord</PackageTags>
-    </PropertyGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />
-    </ItemGroup>
+  <Import Project="..\..\DiscordAddonsCore.props" />
+  <PropertyGroup>
+    <AssemblyName>Discord.Addons.SimplePermissions.JsonProvider</AssemblyName>
+    <VersionPrefix>$(SimplePermMajor).$(DnetVersion).0</VersionPrefix>
+    <VersionSuffix>$(SimplePermSuffix)</VersionSuffix>
+    <Description>Json.Net provider for Discord.Addons.SimplePermissions</Description>
+    <Authors>Joe4evr</Authors>
+    <PackageTags>discord</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj" />
+  </ItemGroup>
 </Project>

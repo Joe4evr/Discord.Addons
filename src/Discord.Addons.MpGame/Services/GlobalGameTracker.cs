@@ -10,6 +10,7 @@ namespace Discord.Addons.MpGame
     /// </summary>
     internal sealed class GameTracker
     {
+#nullable disable warnings
         /// <summary>
         ///     The singleton-instance of this class.
         /// </summary>
@@ -20,13 +21,14 @@ namespace Discord.Addons.MpGame
         {
             get
             {
-                if (_instance == null)
+                if (_instance is null)
                     Interlocked.CompareExchange(ref _instance, new GameTracker(), null);
 
                 return _instance;
             }
         }
         private static GameTracker _instance;
+#nullable restore
 
         private GameTracker() { }
 

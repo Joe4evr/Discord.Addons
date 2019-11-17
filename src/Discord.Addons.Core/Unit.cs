@@ -1,6 +1,6 @@
 ﻿namespace Discord.Addons.Core
 {
-    internal struct Unit
+    internal readonly struct Unit
     {
         public override bool Equals(object obj) => obj is Unit;
         public override int GetHashCode() => 0;

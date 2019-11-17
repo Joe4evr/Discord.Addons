@@ -1,45 +1,45 @@
 ﻿<Project>
-    <Import Condition="'$(Configuration)' == 'Debug'" Project=".\Analyzers.props" />
-    <PropertyGroup Label="Configuration">
-        <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-        <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
-    </PropertyGroup>
-    <PropertyGroup>
-        <PackageId>$(AssemblyName)</PackageId>
-        <RootNamespace>$(AssemblyName)</RootNamespace>
-        <Title>$(AssemblyName)</Title>
-        <Authors>Joe4evr</Authors>
-        <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-        <PackageProjectUrl>https://github.com/Joe4evr/Discord.Addons</PackageProjectUrl>
-        <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
-        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <LangVersion>7.2</LangVersion>
-    </PropertyGroup>
-    <PropertyGroup>
-        <DnetVersion>2</DnetVersion>
+  <Import Condition="'$(Configuration)' == 'Debug'" Project=".\Analyzers.props" />
+  <PropertyGroup Label="Configuration">
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PackageId>$(AssemblyName)</PackageId>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <Title>$(AssemblyName)</Title>
+    <Authors>Joe4evr</Authors>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/Joe4evr/Discord.Addons</PackageProjectUrl>
+    <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>Enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DnetVersion>2</DnetVersion>
 
-        <MpGameMajor>1</MpGameMajor>
-        <MpGameSuffix>alpha7</MpGameSuffix>
-        <SimplePermMajor>1</SimplePermMajor>
-        <SimplePermSuffix>alpha3</SimplePermSuffix>
-        <PreconMajor>1</PreconMajor>
-        <PreconSuffix>alpha3</PreconSuffix>
-    </PropertyGroup>
-    <ItemGroup>
-        <!--<PackageReference Include="System.ValueTuple" Version="4.4.0" />-->
-        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.1" />
-        <PackageReference Include="Discord.Net.Commands" Version="2.0.0-beta2-01023" />
-        <PackageReference Include="Discord.Net.WebSocket" Version="2.0.0-beta2-01023" />
-    </ItemGroup>
-    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-        <Optimize>True</Optimize>
-        <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
-        <SolutionDir>.\</SolutionDir>
-    </PropertyGroup>
-    <Import Project="C:\projects\Discord.Addons\src\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />
+    <MpGameMajor>2</MpGameMajor>
+    <MpGameSuffix>dev1</MpGameSuffix>
+    <PreconMajor>2</PreconMajor>
+    <PreconSuffix>dev1</PreconSuffix>
+    <SimplePermMajor>1</SimplePermMajor>
+    <SimplePermSuffix>alpha3</SimplePermSuffix>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.1" />
+    <PackageReference Include="Discord.Net.Commands" Version="2.1.1" />
+    <PackageReference Include="Discord.Net.WebSocket" Version="2.1.1" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <Optimize>True</Optimize>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
+    <SolutionDir>.\</SolutionDir>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\src\Discord.Addons.Core\Discord.Addons.Core.projitems" Label="Shared" />
 </Project>

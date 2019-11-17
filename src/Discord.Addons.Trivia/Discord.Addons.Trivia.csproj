@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-    <Import Project="..\..\DiscordAddonsCore.props" />
-    <PropertyGroup>
-        <AssemblyName>Discord.Addons.Trivia</AssemblyName>
-        <VersionPrefix>1.0.0</VersionPrefix>
-        <VersionSuffix>rc</VersionSuffix>
-        <Description>Base for making trivia games using Discord.Net.</Description>
-        <Authors>Joe4evr</Authors>
-        <TargetFrameworks>$(TargetFrameworks);netstandard1.3</TargetFrameworks>
-        <PackageTags>discord</PackageTags>
-        <TargetFrameworks>netstandard1.3</TargetFrameworks>
-    </PropertyGroup>
+  <Import Project="..\..\DiscordAddonsCore.props" />
+  <PropertyGroup>
+    <AssemblyName>Discord.Addons.Trivia</AssemblyName>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionSuffix>rc</VersionSuffix>
+    <Description>Base for making trivia games using Discord.Net.</Description>
+    <Authors>Joe4evr</Authors>
+    <TargetFrameworks>$(TargetFrameworks);netstandard1.3</TargetFrameworks>
+    <PackageTags>discord</PackageTags>
+    <TargetFrameworks>netstandard1.3</TargetFrameworks>
+  </PropertyGroup>
 </Project>

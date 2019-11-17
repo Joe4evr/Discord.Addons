@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Addons.MpGame;
@@ -34,10 +35,10 @@ namespace Examples.MpGame
         // Call NextTurn() to do the things happening with a new turn
         public override async Task NextTurn()
         {
-            _turn++;
+            var turn = Interlocked.Increment(ref _turn);
             TurnPlayer = TurnPlayer.Next;
             State = GameState.StartOfTurn;
-            await Channel.SendMessageAsync($"It is turn {_turn}, **{TurnPlayer.Value.User.Username}** to play.").ConfigureAwait(false);
+            await Channel.SendMessageAsync($"It is turn {turn}, **{TurnPlayer.Value.User.Username}** to play.").ConfigureAwait(false);
         }
 
         // If you override EndGame() for your own behavior, you MUST call the base implementation

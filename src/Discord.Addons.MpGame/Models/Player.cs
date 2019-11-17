@@ -12,7 +12,7 @@ namespace Discord.Addons.MpGame
     /// </summary>
     public class Player
     {
-        private readonly Queue<(string text, Embed embed)> _unsentDms = new Queue<(string, Embed)>();
+        private readonly Queue<(string text, Embed? embed)> _unsentDms = new Queue<(string, Embed?)>();
 
         /// <summary>
         ///     Creates a <see cref="Player"/> out of an <see cref="IUser"/>.
@@ -52,7 +52,7 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     The message that is sent, or <see langword="null"/> if it couldn't be sent.
         /// </returns>
-        public async Task<IUserMessage> SendMessageAsync(string text, Embed embed = null)
+        public async Task<IUserMessage?> SendMessageAsync(string text, Embed? embed = null)
         {
             try
             {

@@ -20,11 +20,11 @@ namespace Discord.Addons.MpGame
             internal bool OpenToJoin => _openToJoin > 0;
             private int _openToJoin = 0;
 
-            internal TGame Game => _game;
-            private TGame _game;
+            internal TGame? Game => _game;
+            private TGame? _game;
 
             internal ImmutableHashSet<IUser> JoinedUsers => _builder.ToImmutable();
-            private ImmutableHashSet<IUser>.Builder _builder = ImmutableHashSet.CreateBuilder<IUser>(DiscordComparers.UserComparer);
+            private readonly ImmutableHashSet<IUser>.Builder _builder = ImmutableHashSet.CreateBuilder<IUser>(DiscordComparers.UserComparer);
 
             private readonly IMessageChannel _channel;
 
@@ -70,7 +70,7 @@ namespace Discord.Addons.MpGame
 
             internal bool SetGame(TGame game)
             {
-                return (Interlocked.CompareExchange(ref _game, value: game, comparand: null) == null);
+                return (Interlocked.CompareExchange(ref _game, value: game, comparand: null) is null);
             }
         }
 
@@ -86,13 +86,13 @@ namespace Discord.Addons.MpGame
             /// <summary>
             ///     The instance of the game being played (if active).
             /// </summary>
-            public TGame Game { get; }
+            public TGame? Game { get; }
 
             /// <summary>
             ///     The player object that wraps the user executing this command
             ///     (if a game is active AND the user is a player in that game).
             /// </summary>
-            public TPlayer Player { get; }
+            public TPlayer? Player { get; }
 
             /// <summary>
             ///     Determines if a game in the current channel is in progress or not.
@@ -104,7 +104,8 @@ namespace Discord.Addons.MpGame
             /// </summary>
             /// <remarks>
             ///     <note type="note">
-            ///         This is an immutable snapshot, it is not updated until the *next* command invocation.
+            ///         This is an immutable snapshot, it is not updated until the
+            ///         <i>next</i> time an instance of this class is created.
             ///     </note>
             /// </remarks>
             public IReadOnlyCollection<IUser> JoinedUsers { get; }
@@ -125,19 +126,12 @@ namespace Discord.Addons.MpGame
                 Game        = data.Game;
                 Player      = Game?.Players.SingleOrDefault(p => p.User.Id == context.User.Id);
 
-                GameInProgress = GameTracker.Instance.TryGetGameString(context.Channel, out var name)
-                    ? (name == _gameFullName ? CurrentlyPlaying.ThisGame : CurrentlyPlaying.DifferentGame)
-                    : CurrentlyPlaying.None;
-
-                // Prep C# 8.0 pattern matching feature: switch expression
-                // Sure, it'll compile into the exact code I already have,
-                // BUT LOOKIT HOW CLEAN IT IS!
-                //GameInProgress = GameTracker.Instance.TryGetGameString(Context.Channel, out var name) switch
-                //{
-                //    true when name == GameService.GameName => CurrentlyPlaying.ThisGame,
-                //    true  => CurrentlyPlaying.DifferentGame,
-                //    false => CurrentlyPlaying.None
-                //};
+                GameInProgress = GameTracker.Instance.TryGetGameString(context.Channel, out var name) switch
+                {
+                    true when (name == _gameFullName) => CurrentlyPlaying.ThisGame,
+                    true => CurrentlyPlaying.DifferentGame,
+                    false => CurrentlyPlaying.None
+                };
             }
         }
     }

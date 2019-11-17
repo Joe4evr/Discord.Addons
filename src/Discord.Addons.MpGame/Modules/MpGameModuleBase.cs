@@ -1,17 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Discord.Commands.Builders;
 
 namespace Discord.Addons.MpGame
 {
-    /// <summary> Base class to manage a game between Discord users. </summary>
-    /// <typeparam name="TService">The type of the service managing longer lived objects.</typeparam>
-    /// <typeparam name="TGame">The type of game to manage.</typeparam>
-    /// <typeparam name="TPlayer">The type of the <see cref="Player"/> object.</typeparam>
+    /// <summary>
+    ///     Base class to manage a game between Discord users.
+    /// </summary>
+    /// <typeparam name="TService">
+    ///     The type of the service managing longer lived objects.
+    /// </typeparam>
+    /// <typeparam name="TGame">
+    ///     The type of game to manage.
+    /// </typeparam>
+    /// <typeparam name="TPlayer">
+    ///     The type of the <see cref="Player"/> object.
+    /// </typeparam>
     public abstract partial class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<SocketCommandContext>
         where TService : MpGameService<TGame, TPlayer>
         where TGame    : GameBase<TPlayer>
@@ -33,17 +40,16 @@ namespace Discord.Addons.MpGame
             GameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
         }
 
-        // TODO: C# "who-knows-when" feature, nullability annotation
         /// <summary>
         ///     The instance of the game being played (if active).
         /// </summary>
-        protected TGame Game { get; private set; }
+        protected TGame? Game { get; private set; }
 
         /// <summary>
         ///     The player object that wraps the user executing this command
         ///     (if a game is active AND the user is a player in that game).
         /// </summary>
-        protected TPlayer Player { get; private set; }
+        protected TPlayer? Player { get; private set; }
 
         /// <summary>
         ///     Determines if a game in the current channel is in progress or not.
@@ -62,7 +68,7 @@ namespace Discord.Addons.MpGame
         ///     <note type="note">
         ///         This is an immutable snapshot; it is not updated until the <i>next</i> command invocation.
         ///         Alternatively, you can manually call <see cref="MpGameService{TGame, TPlayer}.GetGameData(ICommandContext)"/>
-        ///         to obtain a refreshed snapshot right away.
+        ///         and see its <see cref="MpGameService{TGame, TPlayer}.MpGameData.JoinedUsers"> property to obtain a refreshed snapshot right away.
         ///     </note>
         /// </remarks>
         protected IReadOnlyCollection<IUser> JoinedUsers { get; private set; } = ImmutableHashSet<IUser>.Empty;

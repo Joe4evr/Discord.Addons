@@ -16,7 +16,7 @@ namespace Discord.Addons.Preconditions
         {
             if (value is SocketGuildUser user)
             {
-                return ((context.Guild as SocketGuild).CurrentUser.Hierarchy > user.Hierarchy)
+                return (user.Guild.CurrentUser.Hierarchy > user.Hierarchy)
                     ? Task.FromResult(PreconditionResult.FromSuccess())
                     : Task.FromResult(PreconditionResult.FromError("Specified user must be lower in hierarchy."));
             }

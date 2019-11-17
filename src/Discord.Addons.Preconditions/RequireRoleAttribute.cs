@@ -30,12 +30,12 @@ namespace Discord.Addons.Preconditions
         }
     }
 
-    class Test
-    {
-        [RequireContext(ContextType.Guild)]
-        [RequireRole(12345ul)]
-        void M()
-        {
-        }
-    }
+    //class Test
+    //{
+    //    [RequireContext(ContextType.Guild)]
+    //    [RequireRole(12345ul)]
+    //    void M()
+    //    {
+    //    }
+    //}
 }

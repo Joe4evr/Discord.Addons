@@ -47,7 +47,7 @@ namespace Discord.Addons.MpGame.Collections
         /// </exception>
         public Hand(IEnumerable<T> items)
         {
-            if (items == null)
+            if (items is null)
                 ThrowHelper.ThrowArgNull(nameof(items));
 
             _hand = new List<T>(items.Where(c => c != null).Distinct(ReferenceComparer<T>.Instance));
@@ -69,7 +69,7 @@ namespace Discord.Addons.MpGame.Collections
         /// </exception>
         public void Add(T item)
         {
-            if (item == null)
+            if (item is null)
                 ThrowHelper.ThrowArgNull(nameof(item));
 
             using (_rwlock.UsingWriteLock())
@@ -131,13 +131,13 @@ namespace Discord.Addons.MpGame.Collections
         /// </exception>
         public void Order(Func<ImmutableArray<T>, IEnumerable<T>> orderFunc)
         {
-            if (orderFunc == null)
+            if (orderFunc is null)
                 ThrowHelper.ThrowArgNull(nameof(orderFunc));
 
             using (_rwlock.UsingWriteLock())
             {
                 var newOrder = orderFunc(_hand.ToImmutableArray());
-                if (newOrder == null)
+                if (newOrder is null)
                     ThrowHelper.ThrowInvalidOp(ErrorStrings.NewSequenceNull);
 
                 _hand = new List<T>(newOrder);
@@ -180,9 +180,9 @@ namespace Discord.Addons.MpGame.Collections
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="predicate"/> was <see langword="null"/>.
         /// </exception>
-        public T TakeFirstOrDefault(Func<T, bool> predicate)
+        public T? TakeFirstOrDefault(Func<T, bool> predicate)
         {
-            if (predicate == null)
+            if (predicate is null)
                 ThrowHelper.ThrowArgNull(nameof(predicate));
 
             using (_rwlock.UsingWriteLock())

@@ -11,8 +11,9 @@ namespace Examples.MpGame
     {
         public ExampleGameService(
             BaseSocketClient client,
-            Func<LogMessage, Task> logger = null)
-            : base(client, logger) { }
+            IMpGameServiceConfig? config = null,
+            Func<LogMessage, Task>? logger = null)
+            : base(client, config, logger) { }
 
         internal IReadOnlyDictionary<IMessageChannel, DataType> DataDictionary { get; }
             = new Dictionary<IMessageChannel, DataType>(DiscordComparers.ChannelComparer);

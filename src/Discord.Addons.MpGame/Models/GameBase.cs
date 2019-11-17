@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Discord.Addons.MpGame.Collections;
 
@@ -33,7 +32,7 @@ namespace Discord.Addons.MpGame
             IEnumerable<TPlayer> players,
             bool setFirstPlayerImmediately = false)
         {
-            if (players == null) throw new ArgumentNullException(nameof(players));
+            if (players is null) throw new ArgumentNullException(nameof(players));
             Channel = channel ?? throw new ArgumentNullException(nameof(channel));
 
             Players = new CircularLinkedList<TPlayer>(players, MpGameComparers.PlayerComparer);
@@ -88,11 +87,15 @@ namespace Discord.Addons.MpGame
         /// <param name="endmsg">
         ///     The message that should be displayed announcing the win condition or forced end of the game.
         /// </param>
-        public virtual async Task EndGame(string endmsg)
+        public async Task EndGame(string endmsg)
         {
+            await OnGameEnd();
+
             await Channel.SendMessageAsync(endmsg).ConfigureAwait(false);
             await GameEnd(Channel).ConfigureAwait(false);
         }
+
+        protected virtual Task OnGameEnd() => Task.CompletedTask;
 
         /// <summary>
         ///     Get a string that represents the state of the game.
@@ -130,6 +133,7 @@ namespace Discord.Addons.MpGame
         /// </param>
         protected internal virtual void OnPlayerKicked(TPlayer player) { }
 
-        internal Func<IMessageChannel, ValueTask> GameEnd { private get; set; }
+        internal Func<IMessageChannel, Task> GameEnd { private get; set; } = _defaultend;
+        private static readonly Func<IMessageChannel, Task> _defaultend = (_ => Task.CompletedTask);
     }
 }
