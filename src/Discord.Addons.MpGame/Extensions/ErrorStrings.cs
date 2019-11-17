@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
 namespace Discord.Addons.MpGame.Collections
 {

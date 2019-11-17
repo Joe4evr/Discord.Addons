@@ -78,11 +78,15 @@ namespace Discord.Addons.MpGame.Collections
             }
         }
 
-        public IReadOnlyDictionary<int, T> AsIndexed()
+        /// <summary>
+        ///     Creates a snapshot if the items inside
+        ///     this hand with its respective 0-based index.
+        /// </summary>
+        public ImmutableArray<(int, T)> AsIndexed()
         {
-            var builder = ImmutableDictionary.CreateBuilder<int, T>();
+            var builder = ImmutableArray.CreateBuilder<(int, T)>();
             for (int i = 0; i < _hand.Count; i++)
-                builder.Add(i, _hand[i]);
+                builder.Add((i, _hand[i]));
 
             return builder.ToImmutable();
         }

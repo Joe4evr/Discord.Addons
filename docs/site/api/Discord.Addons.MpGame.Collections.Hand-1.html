@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Hand&lt;T&gt;
    ">
-    <meta name="generator" content="docfx 2.38.0.0">
+    <meta name="generator" content="docfx 2.47.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -50,15 +50,15 @@
                   <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
                 </div>
               </form>
+                
                 <ul class="nav level1 navbar-nav">
-                  <li class="">
-                    <a href="../guides/intro.html" title="Guides" class="">Guides</a>
-                  </li>
-                  <li class="active">
-                    <a href="../api/index.html" title="Api Documentation" class="active">Api Documentation</a>
-                  </li>
-                </ul>
-            </div>
+                      <li>
+                          <a href="../guides/intro.html" title="Guides">Guides</a>
+                      </li>
+                      <li>
+                          <a href="../api/index.html" title="Api Documentation">Api Documentation</a>
+                      </li>
+                </ul>    </div>
           </div>
         </nav>
         
@@ -122,6 +122,9 @@
                           </li>
                           <li class="">
                             <a href="Discord.Addons.MpGame.Collections.IWrapper-1.html" title="IWrapper&lt;T&gt;" class="">IWrapper&lt;T&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.MpGame.Collections.Node-1.html" title="Node&lt;T&gt;" class="">Node&lt;T&gt;</a>
                           </li>
                           <li class="">
                             <a href="Discord.Addons.MpGame.Collections.Pile-1.html" title="Pile&lt;T&gt;" class="">Pile&lt;T&gt;</a>
@@ -241,7 +244,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">items</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
@@ -326,7 +329,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">item</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
@@ -337,15 +340,17 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_AsIndexed.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.AsIndexed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L81">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L85">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_AsIndexed_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.AsIndexed*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_AsIndexed" data-uid="Discord.Addons.MpGame.Collections.Hand`1.AsIndexed">AsIndexed()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Creates a snapshot if the items inside
+this hand with its respective 0-based index.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IReadOnlyDictionary&lt;int, T&gt; AsIndexed()</code></pre>
+    <pre><code class="lang-csharp hljs">public ImmutableArray&lt;(int, T)&gt; AsIndexed()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -357,7 +362,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>, T&gt;</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.immutable.immutablearray-1">ImmutableArray</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.valuetuple-2">ValueTuple</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>, T&gt;&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -367,7 +372,7 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_Browse.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.Browse%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L93">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L97">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_Browse_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Browse*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Browse" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Browse">Browse()</h4>
@@ -398,7 +403,7 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_Clear.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.Clear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L109">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L113">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_Clear_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Clear*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Clear" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Clear">Clear()</h4>
@@ -430,7 +435,7 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_Order_System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.Order(System.Func%7BSystem.Collections.Immutable.ImmutableArray%7B%600%7D%2CSystem.Collections.Generic.IEnumerable%7B%600%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L132">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L136">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_Order_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Order*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_Order_System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___" data-uid="Discord.Addons.MpGame.Collections.Hand`1.Order(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})">Order(Func&lt;ImmutableArray&lt;T&gt;, IEnumerable&lt;T&gt;&gt;)</h4>
@@ -470,12 +475,12 @@ This function receives the items currently in the hand as its argument.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">orderFunc</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The sequence produced from <code data-dev-comment-type="paramref" class="paramref">orderFunc</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
@@ -486,7 +491,7 @@ This function receives the items currently in the hand as its argument.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_TakeAt_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.TakeAt(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L156">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L160">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_TakeAt_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.TakeAt*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_TakeAt_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.TakeAt(System.Int32)">TakeAt(Int32)</h4>
@@ -540,7 +545,7 @@ This function receives the items currently in the hand as its argument.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">index</code> was less than 0 or greater than or equal to the hand's current size.</p>
 </td>
       </tr>
@@ -551,7 +556,7 @@ This function receives the items currently in the hand as its argument.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Hand_1_TakeFirstOrDefault_System_Func__0_System_Boolean__.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Hand%601.TakeFirstOrDefault(System.Func%7B%600%2CSystem.Boolean%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L183">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Hand.cs/#L187">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Hand_1_TakeFirstOrDefault_" data-uid="Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Hand_1_TakeFirstOrDefault_System_Func__0_System_Boolean__" data-uid="Discord.Addons.MpGame.Collections.Hand`1.TakeFirstOrDefault(System.Func{`0,System.Boolean})">TakeFirstOrDefault(Func&lt;T, Boolean&gt;)</h4>
@@ -606,7 +611,7 @@ This function receives the items currently in the hand as its argument.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">predicate</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>

@@ -68,7 +68,7 @@ namespace Discord.Addons.MpGame
         ///     <note type="note">
         ///         This is an immutable snapshot; it is not updated until the <i>next</i> command invocation.
         ///         Alternatively, you can manually call <see cref="MpGameService{TGame, TPlayer}.GetGameData(ICommandContext)"/>
-        ///         and see its <see cref="MpGameService{TGame, TPlayer}.MpGameData.JoinedUsers"> property to obtain a refreshed snapshot right away.
+        ///         and see its <see cref="MpGameService{TGame, TPlayer}.MpGameData.JoinedUsers"/> property to obtain a refreshed snapshot right away.
         ///     </note>
         /// </remarks>
         protected IReadOnlyCollection<IUser> JoinedUsers { get; private set; } = ImmutableHashSet<IUser>.Empty;

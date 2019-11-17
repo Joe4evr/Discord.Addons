@@ -34,7 +34,7 @@ public abstract class GameBase<TPlayer>
 
     public abstract Task NextTurn();
 
-    public virtual async Task EndGame(string endmsg);
+    public virtual Task OnGameEnd();
 }
 ```
 
@@ -155,9 +155,5 @@ internal enum GameState
     //....
 }
 ```
-
-The final method from the base class you need to know is `EndGame()`.
-It's not required to override this, but if you do, you ***must*** call
-`base.EndGame()` in order to make the game instance eligible for garbage collection.
 
 [<- Part 2 - Players](2-Players.md) - Games - [Part 4 - Services ->](4-Services.md)

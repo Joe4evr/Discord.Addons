@@ -1,5 +1,8 @@
 ﻿namespace Discord.Addons.MpGame.Collections
 {
+    /// <summary>
+    ///     Represents the contract for a wrapper.
+    /// </summary>
     public interface IWrapper<out T>
     {
         /// <summary>
@@ -7,7 +10,7 @@
         ///     <i>May</i> do domain-specific checks or operations.
         /// </summary>
         /// <param name="revealing">
-        ///     Indicates if the actual card is required to be returned.
+        ///     Indicates if the actual item is required to be returned.
         /// </param>
         /// <returns>
         ///     The unwrapped item, or a domain-specific placeholder item.

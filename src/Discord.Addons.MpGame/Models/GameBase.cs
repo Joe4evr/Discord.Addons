@@ -89,13 +89,10 @@ namespace Discord.Addons.MpGame
         /// </param>
         public async Task EndGame(string endmsg)
         {
-            await OnGameEnd();
-
+            await OnGameEnd().ConfigureAwait(false);
             await Channel.SendMessageAsync(endmsg).ConfigureAwait(false);
             await GameEnd(Channel).ConfigureAwait(false);
         }
-
-        protected virtual Task OnGameEnd() => Task.CompletedTask;
 
         /// <summary>
         ///     Get a string that represents the state of the game.
@@ -132,6 +129,11 @@ namespace Discord.Addons.MpGame
         ///     The player that is removed.
         /// </param>
         protected internal virtual void OnPlayerKicked(TPlayer player) { }
+
+        /// <summary>
+        ///     Gets called when the game ends.
+        /// </summary>
+        protected virtual Task OnGameEnd() => Task.CompletedTask;
 
         internal Func<IMessageChannel, Task> GameEnd { private get; set; } = _defaultend;
         private static readonly Func<IMessageChannel, Task> _defaultend = (_ => Task.CompletedTask);

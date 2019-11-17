@@ -495,8 +495,8 @@ namespace Discord.Addons.MpGame.Collections
         ///     The 0-based index to peek at.
         /// </param>
         /// <returns>
-        ///     The item at the specified index.
-        ///     - OR -
+        ///     The item at the specified index.<br/>
+        ///     -OR-<br/>
         ///     <see langword="null"/> if the pile is empty.
         /// </returns>
         /// <exception cref="InvalidOperationException">

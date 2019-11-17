@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface IWrapper&lt;T&gt;
+    <title>Class Node&lt;T&gt;
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface IWrapper&lt;T&gt;
+    <meta name="title" content="Class Node&lt;T&gt;
    ">
     <meta name="generator" content="docfx 2.47.0.0">
     
@@ -120,11 +120,11 @@
                           <li class="">
                             <a href="Discord.Addons.MpGame.Collections.Hand-1.html" title="Hand&lt;T&gt;" class="">Hand&lt;T&gt;</a>
                           </li>
-                          <li class="active">
-                            <a href="Discord.Addons.MpGame.Collections.IWrapper-1.html" title="IWrapper&lt;T&gt;" class="active">IWrapper&lt;T&gt;</a>
-                          </li>
                           <li class="">
-                            <a href="Discord.Addons.MpGame.Collections.Node-1.html" title="Node&lt;T&gt;" class="">Node&lt;T&gt;</a>
+                            <a href="Discord.Addons.MpGame.Collections.IWrapper-1.html" title="IWrapper&lt;T&gt;" class="">IWrapper&lt;T&gt;</a>
+                          </li>
+                          <li class="active">
+                            <a href="Discord.Addons.MpGame.Collections.Node-1.html" title="Node&lt;T&gt;" class="active">Node&lt;T&gt;</a>
                           </li>
                           <li class="">
                             <a href="Discord.Addons.MpGame.Collections.Pile-1.html" title="Pile&lt;T&gt;" class="">Pile&lt;T&gt;</a>
@@ -140,19 +140,24 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Discord.Addons.MpGame.Collections.IWrapper`1">
+            <article class="content wrap" id="_content" data-uid="Discord.Addons.MpGame.Collections.Node`1">
   
   
-  <h1 id="Discord_Addons_MpGame_Collections_IWrapper_1" data-uid="Discord.Addons.MpGame.Collections.IWrapper`1" class="text-break">Interface IWrapper&lt;T&gt;
+  <h1 id="Discord_Addons_MpGame_Collections_Node_1" data-uid="Discord.Addons.MpGame.Collections.Node`1" class="text-break">Class Node&lt;T&gt;
   </h1>
-  <div class="markdown level0 summary"><p>Represents the contract for a wrapper.</p>
+  <div class="markdown level0 summary"><p>Represents a node</p>
 </div>
   <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">Node&lt;T&gt;</span></div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Discord.Addons.MpGame.Collections.html">Discord.Addons.MpGame.Collections</a></h6>
   <h6><strong>Assembly</strong>: Discord.Addons.MpGame.dll</h6>
-  <h5 id="Discord_Addons_MpGame_Collections_IWrapper_1_syntax">Syntax</h5>
+  <h5 id="Discord_Addons_MpGame_Collections_Node_1_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IWrapper&lt;out T&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class Node&lt;T&gt;</code></pre>
   </div>
   <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -169,44 +174,87 @@
       </tr>
     </tbody>
   </table>
-  <h3 id="methods">Methods
+  <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_IWrapper_1_Unwrap_System_Boolean_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.IWrapper%601.Unwrap(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Node_1_Next.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Node%601.Next%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/IWrapper.cs/#L25">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs/#L343">View Source</a>
   </span>
-  <a id="Discord_Addons_MpGame_Collections_IWrapper_1_Unwrap_" data-uid="Discord.Addons.MpGame.Collections.IWrapper`1.Unwrap*"></a>
-  <h4 id="Discord_Addons_MpGame_Collections_IWrapper_1_Unwrap_System_Boolean_" data-uid="Discord.Addons.MpGame.Collections.IWrapper`1.Unwrap(System.Boolean)">Unwrap(Boolean)</h4>
-  <div class="markdown level1 summary"><p>Unwraps the wrapped item.<br>
-<em>May</em> do domain-specific checks or operations.</p>
+  <a id="Discord_Addons_MpGame_Collections_Node_1_Next_" data-uid="Discord.Addons.MpGame.Collections.Node`1.Next*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Node_1_Next" data-uid="Discord.Addons.MpGame.Collections.Node`1.Next">Next</h4>
+  <div class="markdown level1 summary"><p>Gets next node</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">T Unwrap(bool revealing)</code></pre>
+    <pre><code class="lang-csharp hljs">public Node&lt;T&gt; Next { get; }</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">revealing</span></td>
-        <td><p>Indicates if the actual item is required to be returned.</p>
-</td>
+        <td><a class="xref" href="Discord.Addons.MpGame.Collections.Node-1.html">Node</a>&lt;T&gt;</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  <h5 class="returns">Returns</h5>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Node_1_Previous.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Node%601.Previous%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs/#L352">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Node_1_Previous_" data-uid="Discord.Addons.MpGame.Collections.Node`1.Previous*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Node_1_Previous" data-uid="Discord.Addons.MpGame.Collections.Node`1.Previous">Previous</h4>
+  <div class="markdown level1 summary"><p>Gets previous node</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Node&lt;T&gt; Previous { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Discord.Addons.MpGame.Collections.Node-1.html">Node</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Node_1_Value.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Node%601.Value%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs/#L338">View Source</a>
+  </span>
+  <a id="Discord_Addons_MpGame_Collections_Node_1_Value_" data-uid="Discord.Addons.MpGame.Collections.Node`1.Value*"></a>
+  <h4 id="Discord_Addons_MpGame_Collections_Node_1_Value" data-uid="Discord.Addons.MpGame.Collections.Node`1.Value">Value</h4>
+  <div class="markdown level1 summary"><p>Gets the Value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T Value { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -217,18 +265,10 @@
     <tbody>
       <tr>
         <td><span class="xref">T</span></td>
-        <td><p>The unwrapped item, or a domain-specific placeholder item.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  <h5 id="Discord_Addons_MpGame_Collections_IWrapper_1_Unwrap_System_Boolean__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><div class="NOTE"><h5>implement</h5><p>
-    If <code data-dev-comment-type="paramref" class="paramref">revealing</code> is <span class="xref">true</span>,
-    any domain-specific checks are required to be skipped
-    and the actual wrapped item must be returned.
-</p></div>
-</div>
 </article>
           </div>
           
@@ -237,10 +277,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_IWrapper_1.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.IWrapper%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Node_1.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Node%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/IWrapper.cs/#L6" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/CircularLinkedList.cs/#L332" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Pile&lt;T&gt;
    ">
-    <meta name="generator" content="docfx 2.38.0.0">
+    <meta name="generator" content="docfx 2.47.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -50,15 +50,15 @@
                   <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
                 </div>
               </form>
+                
                 <ul class="nav level1 navbar-nav">
-                  <li class="">
-                    <a href="../guides/intro.html" title="Guides" class="">Guides</a>
-                  </li>
-                  <li class="active">
-                    <a href="../api/index.html" title="Api Documentation" class="active">Api Documentation</a>
-                  </li>
-                </ul>
-            </div>
+                      <li>
+                          <a href="../guides/intro.html" title="Guides">Guides</a>
+                      </li>
+                      <li>
+                          <a href="../api/index.html" title="Api Documentation">Api Documentation</a>
+                      </li>
+                </ul>    </div>
           </div>
         </nav>
         
@@ -122,6 +122,9 @@
                           </li>
                           <li class="">
                             <a href="Discord.Addons.MpGame.Collections.IWrapper-1.html" title="IWrapper&lt;T&gt;" class="">IWrapper&lt;T&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.MpGame.Collections.Node-1.html" title="Node&lt;T&gt;" class="">Node&lt;T&gt;</a>
                           </li>
                           <li class="active">
                             <a href="Discord.Addons.MpGame.Collections.Pile-1.html" title="Pile&lt;T&gt;" class="active">Pile&lt;T&gt;</a>
@@ -243,7 +246,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">items</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
@@ -677,7 +680,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The instance does not allow browsing the items.</p>
 </td>
       </tr>
@@ -725,7 +728,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The instance does not allow browsing the items.</p>
 </td>
       </tr>
@@ -733,7 +736,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/docs/_overwrites/mpgame/Pile.BAT.SyntaxOverwrite.md/#L2">Improve this Doc</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/docs/_overwrites/MpGame/Pile.BAT.SyntaxOverwrite.md/#L2">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L248">View Source</a>
@@ -749,8 +752,8 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Task&lt;ImmutableArray&lt;T&gt;&gt; BrowseAndTakeAsync(
     Func&lt;IReadOnlyDictionary&lt;int, T&gt;, Task&lt;int[]&gt;&gt; selector,
-    Func&lt;T, bool&gt; filter = null,
-    Func&lt;ImmutableArray&lt;T&gt;, IEnumerable&lt;T&gt;&gt; shuffleFunc = null)</code></pre>
+    Func&lt;T, bool&gt;? filter = null,
+    Func&lt;ImmutableArray&lt;T&gt;, IEnumerable&lt;T&gt;&gt;? shuffleFunc = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -802,7 +805,7 @@ If provided, requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pi
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTakeAsync_System_Func_System_Collections_Generic_IReadOnlyDictionary_System_Int32__0__System_Threading_Tasks_Task_System_Int32_____System_Func__0_System_Boolean__System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0____examples">Examples</h5>
-  <pre><code class="c#">    // An effect was used that allows the user to
+  <pre><code class="lang-c#">    // An effect was used that allows the user to
     // search their deck for a number of red items
     var picked = await deck.BrowseAndTake(async items =>
     {
@@ -833,19 +836,19 @@ If provided, requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pi
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The pile does not allow browsing AND taking<br>
 -OR-<br>
 The sequence produced from  <code data-dev-comment-type="paramref" class="paramref">shuffleFunc</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">selector</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.IndexOutOfRangeException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.indexoutofrangeexception">IndexOutOfRangeException</a></td>
         <td><p>One or more of the selected indices was not within the provided indices.</p>
 </td>
       </tr>
@@ -894,7 +897,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The instance does not allow clearing all items.</p>
 </td>
       </tr>
@@ -950,12 +953,12 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The instance does not allow cutting the pile.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">amount</code> was less than 0 or greater than the pile's current size.</p>
 </td>
       </tr>
@@ -1005,7 +1008,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The instance does not allow drawing items<br>
 -OR-<br>
 There were no items to draw.</p>
@@ -1057,7 +1060,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The instance does not allow drawing items<br>
 -OR-<br>
 There were no items to draw.</p>
@@ -1116,17 +1119,17 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The instance does not allow inserting items at an arbitrary location.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">item</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">index</code> was less than 0 or greater than the pile's current size.</p>
 </td>
       </tr>
@@ -1183,7 +1186,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>This pile does not allow drawing or browsing items<br>
 -OR-<br>
 <code data-dev-comment-type="paramref" class="paramref">targetPile</code> was the same instance as the source<br>
@@ -1194,7 +1197,7 @@ This pile was empty.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">targetPile</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
@@ -1205,7 +1208,7 @@ This pile was empty.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.OnLastRemoved%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L705">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L707">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_OnLastRemoved" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnLastRemoved">OnLastRemoved()</h4>
@@ -1226,7 +1229,7 @@ This pile was empty.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_OnPut__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.OnPut(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L718">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L720">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_OnPut_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnPut*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_OnPut__0_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.OnPut(`0)">OnPut(T)</h4>
@@ -1265,7 +1268,7 @@ This pile was empty.</p>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_PeekAt_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.PeekAt(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L506">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L508">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_PeekAt_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PeekAt*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_PeekAt_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PeekAt(System.Int32)">PeekAt(Int32)</h4>
@@ -1306,7 +1309,9 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     <tbody>
       <tr>
         <td><span class="xref">T</span></td>
-        <td><p>The item at the specified index.</p>
+        <td><p>The item at the specified index.<br>
+-OR-<br>
+<span class="xref">null</span> if the pile is empty.</p>
 </td>
       </tr>
     </tbody>
@@ -1321,12 +1326,12 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The instance does not allow peeking items.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">index</code> was less than 0 or greater than or equal to the pile's current size.</p>
 </td>
       </tr>
@@ -1337,7 +1342,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_PeekTop_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.PeekTop(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L546">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L548">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_PeekTop_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PeekTop*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_PeekTop_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PeekTop(System.Int32)">PeekTop(Int32)</h4>
@@ -1398,12 +1403,12 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The instance does not allow peeking items.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">amount</code> was less than 0 or greater than the pile's current size.</p>
 </td>
       </tr>
@@ -1414,7 +1419,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Put__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Put(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L579">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L581">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_Put_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Put*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Put__0_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Put(`0)">Put(T)</h4>
@@ -1455,12 +1460,12 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The instance does not allow placing items onto it.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">item</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
@@ -1471,7 +1476,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_PutBottom__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.PutBottom(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L608">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L610">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_PutBottom_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PutBottom*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_PutBottom__0_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.PutBottom(`0)">PutBottom(T)</h4>
@@ -1511,12 +1516,12 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The instance does not allow placing items on the bottom.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">item</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
@@ -1527,7 +1532,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_Shuffle_System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.Shuffle(System.Func%7BSystem.Collections.Immutable.ImmutableArray%7B%600%7D%2CSystem.Collections.Generic.IEnumerable%7B%600%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L639">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L641">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_Shuffle_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Shuffle*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_Shuffle_System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___" data-uid="Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})">Shuffle(Func&lt;ImmutableArray&lt;T&gt;, IEnumerable&lt;T&gt;&gt;)</h4>
@@ -1568,14 +1573,14 @@ This function receives the items currently in the pile as its argument.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The instance does not allow reshuffling the items<br>
 -OR-<br>
 The sequence produced from  <code data-dev-comment-type="paramref" class="paramref">shuffleFunc</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.ArgumentNullException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">shuffleFunc</code> was <span class="xref">null</span>.</p>
 </td>
       </tr>
@@ -1586,7 +1591,7 @@ The sequence produced from  <code data-dev-comment-type="paramref" class="paramr
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_Pile_1_TakeAt_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.Pile%601.TakeAt(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L671">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L673">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_Collections_Pile_1_TakeAt_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.TakeAt*"></a>
   <h4 id="Discord_Addons_MpGame_Collections_Pile_1_TakeAt_System_Int32_" data-uid="Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)">TakeAt(Int32)</h4>
@@ -1643,12 +1648,12 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.InvalidOperationException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
         <td><p>The instance does not allow taking items from an arbitrary location.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.ArgumentOutOfRangeException</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></td>
         <td><p><code data-dev-comment-type="paramref" class="paramref">index</code> was less than 0 or greater than or equal to the pile's current size.</p>
 </td>
       </tr>
@@ -1662,7 +1667,7 @@ Requires <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html#Dis
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/docs/_overwrites/mpgame/Pile.SyntaxOverwrite.md/#L2" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/docs/_overwrites/MpGame/Pile.SyntaxOverwrite.md/#L2" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
                     <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/Pile.cs/#L18" class="contribution-link">View Source</a>

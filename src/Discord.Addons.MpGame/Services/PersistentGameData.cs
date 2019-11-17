@@ -74,6 +74,9 @@ namespace Discord.Addons.MpGame
             }
         }
 
+        /// <summary>
+        ///     Contains metadata about a game given a command context.
+        /// </summary>
         public sealed class MpGameData
         {
             internal static MpGameData Default { get; } = new MpGameData();

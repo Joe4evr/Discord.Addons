@@ -54,8 +54,14 @@ namespace Discord.Addons.MpGame.Collections
                 .Select(Wrap));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected abstract TWrapper Wrap(T item);
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected ref TWrapper GetWrapperAt(int index)
             => ref _logic.GetValueAt(index);
 

@@ -33,8 +33,8 @@ namespace Discord.Addons.MpGame
         /// </summary>
         /// <example>
         ///     <code language="c#">
-        ///         private readonly ConcurrentDictionary<IMessageChannel, MyData> _data
-        ///             = new ConcurrentDictionary<IMessageChannel, MyData>(MessageChannelComparer);
+        ///         private readonly ConcurrentDictionary&lt;IMessageChannel, MyData&gt; _data
+        ///             = new ConcurrentDictionary&lt;IMessageChannel, MyData&gt;(MessageChannelComparer);
         ///     </code>
         /// </example>
         protected static IEqualityComparer<IMessageChannel> MessageChannelComparer { get; } = DiscordComparers.ChannelComparer;
@@ -42,6 +42,9 @@ namespace Discord.Addons.MpGame
         private readonly ConcurrentDictionary<IMessageChannel, PersistentGameData> _dataList
             = new ConcurrentDictionary<IMessageChannel, PersistentGameData>(MessageChannelComparer);
 
+        /// <summary>
+        ///     Logger function.
+        /// </summary>
         protected Func<LogMessage, Task> Logger { get; }
 
         private readonly IMpGameServiceConfig _mpconfig;

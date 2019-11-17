@@ -4,6 +4,6 @@ syntax:
   content: |
     public abstract class WrappingPile<T, TWrapper> : Pile<T>
         where T        : class
-        where TWrapper : struct, ICardWrapper<T>
+        where TWrapper : struct, IWrapper<T>
 ---
 ---

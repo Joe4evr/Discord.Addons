@@ -431,6 +431,66 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.IWrapper(Of T).Unwrap
   nameWithType: IWrapper<T>.Unwrap
   nameWithType.vb: IWrapper(Of T).Unwrap
+- uid: Discord.Addons.MpGame.Collections.Node`1
+  name: Node<T>
+  href: api/Discord.Addons.MpGame.Collections.Node-1.html
+  commentId: T:Discord.Addons.MpGame.Collections.Node`1
+  name.vb: Node(Of T)
+  fullName: Discord.Addons.MpGame.Collections.Node<T>
+  fullName.vb: Discord.Addons.MpGame.Collections.Node(Of T)
+  nameWithType: Node<T>
+  nameWithType.vb: Node(Of T)
+- uid: Discord.Addons.MpGame.Collections.Node`1.Next
+  name: Next
+  href: api/Discord.Addons.MpGame.Collections.Node-1.html#Discord_Addons_MpGame_Collections_Node_1_Next
+  commentId: P:Discord.Addons.MpGame.Collections.Node`1.Next
+  fullName: Discord.Addons.MpGame.Collections.Node<T>.Next
+  fullName.vb: Discord.Addons.MpGame.Collections.Node(Of T).Next
+  nameWithType: Node<T>.Next
+  nameWithType.vb: Node(Of T).Next
+- uid: Discord.Addons.MpGame.Collections.Node`1.Next*
+  name: Next
+  href: api/Discord.Addons.MpGame.Collections.Node-1.html#Discord_Addons_MpGame_Collections_Node_1_Next_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Node`1.Next
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Node<T>.Next
+  fullName.vb: Discord.Addons.MpGame.Collections.Node(Of T).Next
+  nameWithType: Node<T>.Next
+  nameWithType.vb: Node(Of T).Next
+- uid: Discord.Addons.MpGame.Collections.Node`1.Previous
+  name: Previous
+  href: api/Discord.Addons.MpGame.Collections.Node-1.html#Discord_Addons_MpGame_Collections_Node_1_Previous
+  commentId: P:Discord.Addons.MpGame.Collections.Node`1.Previous
+  fullName: Discord.Addons.MpGame.Collections.Node<T>.Previous
+  fullName.vb: Discord.Addons.MpGame.Collections.Node(Of T).Previous
+  nameWithType: Node<T>.Previous
+  nameWithType.vb: Node(Of T).Previous
+- uid: Discord.Addons.MpGame.Collections.Node`1.Previous*
+  name: Previous
+  href: api/Discord.Addons.MpGame.Collections.Node-1.html#Discord_Addons_MpGame_Collections_Node_1_Previous_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Node`1.Previous
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Node<T>.Previous
+  fullName.vb: Discord.Addons.MpGame.Collections.Node(Of T).Previous
+  nameWithType: Node<T>.Previous
+  nameWithType.vb: Node(Of T).Previous
+- uid: Discord.Addons.MpGame.Collections.Node`1.Value
+  name: Value
+  href: api/Discord.Addons.MpGame.Collections.Node-1.html#Discord_Addons_MpGame_Collections_Node_1_Value
+  commentId: P:Discord.Addons.MpGame.Collections.Node`1.Value
+  fullName: Discord.Addons.MpGame.Collections.Node<T>.Value
+  fullName.vb: Discord.Addons.MpGame.Collections.Node(Of T).Value
+  nameWithType: Node<T>.Value
+  nameWithType.vb: Node(Of T).Value
+- uid: Discord.Addons.MpGame.Collections.Node`1.Value*
+  name: Value
+  href: api/Discord.Addons.MpGame.Collections.Node-1.html#Discord_Addons_MpGame_Collections_Node_1_Value_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Node`1.Value
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Node<T>.Value
+  fullName.vb: Discord.Addons.MpGame.Collections.Node(Of T).Value
+  nameWithType: Node<T>.Value
+  nameWithType.vb: Node(Of T).Value
 - uid: Discord.Addons.MpGame.Collections.Pile`1
   name: Pile<T>
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html
@@ -1201,6 +1261,23 @@ references:
   fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).NextTurn
   nameWithType: GameBase<TPlayer>.NextTurn
   nameWithType.vb: GameBase(Of TPlayer).NextTurn
+- uid: Discord.Addons.MpGame.GameBase`1.OnGameEnd
+  name: OnGameEnd()
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_OnGameEnd
+  commentId: M:Discord.Addons.MpGame.GameBase`1.OnGameEnd
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.OnGameEnd()
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).OnGameEnd()
+  nameWithType: GameBase<TPlayer>.OnGameEnd()
+  nameWithType.vb: GameBase(Of TPlayer).OnGameEnd()
+- uid: Discord.Addons.MpGame.GameBase`1.OnGameEnd*
+  name: OnGameEnd
+  href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_OnGameEnd_
+  commentId: Overload:Discord.Addons.MpGame.GameBase`1.OnGameEnd
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.GameBase<TPlayer>.OnGameEnd
+  fullName.vb: Discord.Addons.MpGame.GameBase(Of TPlayer).OnGameEnd
+  nameWithType: GameBase<TPlayer>.OnGameEnd
+  nameWithType.vb: GameBase(Of TPlayer).OnGameEnd
 - uid: Discord.Addons.MpGame.GameBase`1.OnPlayerAdded(`0)
   name: OnPlayerAdded(TPlayer)
   href: api/Discord.Addons.MpGame.GameBase-1.html#Discord_Addons_MpGame_GameBase_1_OnPlayerAdded__0_
