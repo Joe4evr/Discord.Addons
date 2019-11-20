@@ -6,7 +6,7 @@ using Discord.Commands;
 namespace Discord.Addons.Preconditions
 {
     /// <summary>
-    ///     Indicates that this command should only be used while the user is in a voice channel.
+    ///     Indicates that this command can only be used while the user is in a voice channel.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class UserMustBeInVoiceAttribute : PreconditionAttribute

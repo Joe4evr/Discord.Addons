@@ -6,8 +6,12 @@ using Discord.Commands;
 
 namespace Discord.Addons.Preconditions
 {
+    /// <summary>
+    ///     Indicates this command or all commands in this module can only
+    ///     be executed if the user has the role with the specified Id.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-    public class RequireRoleAttribute : RequireContextAttribute
+    public sealed class RequireRoleAttribute : RequireContextAttribute
     {
         private readonly ulong _requiredRole;
 
@@ -16,6 +20,7 @@ namespace Discord.Addons.Preconditions
             _requiredRole = requiredRole;
         }
 
+        /// <inheritdoc />
         public override async Task<PreconditionResult> CheckPermissionsAsync(ICommandContext context, CommandInfo command, IServiceProvider services)
         {
             var baseResult = await base.CheckPermissionsAsync(context, command, services);

@@ -6,13 +6,16 @@ using Discord.WebSocket;
 
 namespace Discord.Addons.Preconditions
 {
+    /// <summary>
+    ///     Indicates this parameter must be a Guild User whose
+    ///     <see cref="SocketGuildUser.Hierarchy"/> value must be
+    ///     lower than that of the Bot.
+    /// </summary>
     public sealed class RequireLowerHierarchyAttribute : ParameterPreconditionAttribute
     {
+        /// <inheritdoc />
         public override Task<PreconditionResult> CheckPermissionsAsync(
-            ICommandContext context,
-            ParameterInfo parameter,
-            object value,
-            IServiceProvider services)
+            ICommandContext context, ParameterInfo parameter, object value, IServiceProvider services)
         {
             if (value is SocketGuildUser user)
             {

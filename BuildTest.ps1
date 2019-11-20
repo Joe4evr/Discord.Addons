@@ -30,7 +30,7 @@
         }
         
         Write-Host "Packing project '$name'";
-        dotnet pack $this.ProjectLocation -c Release -o C:\nugetpacks | Write-Host -ForegroundColor DarkGray;
+        dotnet pack $this.ProjectLocation -c Release -o D:\nugets | Write-Host -ForegroundColor DarkGray;
         if ($LastExitCode -ne 0)
         {
             Write-Host "Packing failed" -ForegroundColor Red;
@@ -47,6 +47,7 @@ if ($args.Length -eq 0)
 
 $projects = @{
     "MpGame" = [ProjectRef]::new("src\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj", "test\MpGame.Tests\MpGame.Tests.csproj");
+    "Preconditions" = [ProjectRef]::new("src\Discord.Addons.Preconditions\Discord.Addons.Preconditions.csproj", [String]::Empty);
     "SimplePermissions" = [ProjectRef]::new("src\Discord.Addons.SimplePermissions\Discord.Addons.SimplePermissions.csproj", [String]::Empty);
     "EFProvider" = [ProjectRef]::new("src\Discord.Addons.SimplePermissions.EFProvider\Discord.Addons.SimplePermissions.EFProvider.csproj", [String]::Empty);
 };
