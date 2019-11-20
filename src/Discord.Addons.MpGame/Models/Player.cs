@@ -38,7 +38,7 @@ namespace Discord.Addons.MpGame
 
         internal string DMsDisabledMessage                { private get; set; } = String.Empty;
         internal string DMsDisabledKickMessage            { private get; set; } = String.Empty;
-        internal Func<string, ValueTask> AutoKickCallback { private get; set; } = Extensions.NoOpStringToVTask;
+        internal Func<string, Task> AutoKickCallback { private get; set; } = Extensions.NoOpStringToTask;
 
         /// <summary>
         ///     Sends a message to this <see cref="Player"/>'s DM Channel and will cache the message if the user has DMs disabled.
@@ -99,7 +99,7 @@ namespace Discord.Addons.MpGame
         /// </remarks>
         protected virtual bool ShouldKick(int backstuffedDms) => false;
 
-        internal async ValueTask RetrySendMessagesAsync()
+        internal async Task RetrySendMessagesAsync()
         {
             try
             {

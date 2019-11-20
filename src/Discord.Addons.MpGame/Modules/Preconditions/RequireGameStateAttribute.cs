@@ -7,6 +7,7 @@
 //{
 //    public abstract partial class MpGameModuleBase<TService, TGame, TPlayer>
 //    {
+//        [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
 //        private sealed class RequireGameStateAttribute<TState> //: PreconditionAttribute
 //            where TState : struct//, Enum
 //        {
@@ -18,9 +19,7 @@
 //            }
 
 //            public /*override*/ Task<PreconditionResult> CheckPermissions(
-//                ICommandContext context,
-//                CommandInfo command,
-//                IServiceProvider services)
+//                ICommandContext context, CommandInfo _, IServiceProvider services)
 //            {
 //                var service = services.GetService<TService>();
 //                if (service != null)

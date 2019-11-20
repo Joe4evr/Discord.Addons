@@ -32,7 +32,7 @@ namespace Discord.Addons.Core
             }
 
             [DebuggerStepThrough]
-            void IDisposable.Dispose() => _lock.ExitReadLock();
+            public void Dispose() => _lock.ExitReadLock();
         }
         internal readonly struct AcquiredWriteLock : IDisposable
         {
@@ -46,7 +46,7 @@ namespace Discord.Addons.Core
             }
 
             [DebuggerStepThrough]
-            void IDisposable.Dispose() => _lock.ExitWriteLock();
+            public void Dispose() => _lock.ExitWriteLock();
         }
         internal readonly struct AcquiredSemaphoreSlim : IDisposable
         {
@@ -59,7 +59,7 @@ namespace Discord.Addons.Core
             }
 
             [DebuggerStepThrough]
-            void IDisposable.Dispose() => _semaphore.Release();
+            public void Dispose() => _semaphore.Release();
         }
     }
 }

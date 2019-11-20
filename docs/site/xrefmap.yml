@@ -1678,23 +1678,23 @@ references:
   fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).RegisterPlayerTypeReader
   nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.RegisterPlayerTypeReader
   nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).RegisterPlayerTypeReader
-- uid: Discord.Addons.MpGame.MpGameModuleBase`3.ResendCmd
-  name: ResendCmd()
-  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_ResendCmd
-  commentId: M:Discord.Addons.MpGame.MpGameModuleBase`3.ResendCmd
-  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.ResendCmd()
-  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).ResendCmd()
-  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.ResendCmd()
-  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).ResendCmd()
-- uid: Discord.Addons.MpGame.MpGameModuleBase`3.ResendCmd*
-  name: ResendCmd
-  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_ResendCmd_
-  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.ResendCmd
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.ResendUnsentDMsAsync
+  name: ResendUnsentDMsAsync()
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_ResendUnsentDMsAsync
+  commentId: M:Discord.Addons.MpGame.MpGameModuleBase`3.ResendUnsentDMsAsync
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.ResendUnsentDMsAsync()
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).ResendUnsentDMsAsync()
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.ResendUnsentDMsAsync()
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).ResendUnsentDMsAsync()
+- uid: Discord.Addons.MpGame.MpGameModuleBase`3.ResendUnsentDMsAsync*
+  name: ResendUnsentDMsAsync
+  href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_ResendUnsentDMsAsync_
+  commentId: Overload:Discord.Addons.MpGame.MpGameModuleBase`3.ResendUnsentDMsAsync
   isSpec: "True"
-  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.ResendCmd
-  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).ResendCmd
-  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.ResendCmd
-  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).ResendCmd
+  fullName: Discord.Addons.MpGame.MpGameModuleBase<TService, TGame, TPlayer>.ResendUnsentDMsAsync
+  fullName.vb: Discord.Addons.MpGame.MpGameModuleBase(Of TService, TGame, TPlayer).ResendUnsentDMsAsync
+  nameWithType: MpGameModuleBase<TService, TGame, TPlayer>.ResendUnsentDMsAsync
+  nameWithType.vb: MpGameModuleBase(Of TService, TGame, TPlayer).ResendUnsentDMsAsync
 - uid: Discord.Addons.MpGame.MpGameModuleBase`3.StartGameCmd
   name: StartGameCmd()
   href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html#Discord_Addons_MpGame_MpGameModuleBase_3_StartGameCmd
@@ -2129,3 +2129,203 @@ references:
   isSpec: "True"
   fullName: Discord.Addons.MpGame.Player.User
   nameWithType: Player.User
+- uid: Discord.Addons.Preconditions
+  name: Discord.Addons.Preconditions
+  href: api/Discord.Addons.Preconditions.html
+  commentId: N:Discord.Addons.Preconditions
+  fullName: Discord.Addons.Preconditions
+  nameWithType: Discord.Addons.Preconditions
+- uid: Discord.Addons.Preconditions.Measure
+  name: Measure
+  href: api/Discord.Addons.Preconditions.Measure.html
+  commentId: T:Discord.Addons.Preconditions.Measure
+  fullName: Discord.Addons.Preconditions.Measure
+  nameWithType: Measure
+- uid: Discord.Addons.Preconditions.Measure.Days
+  name: Days
+  href: api/Discord.Addons.Preconditions.Measure.html#Discord_Addons_Preconditions_Measure_Days
+  commentId: F:Discord.Addons.Preconditions.Measure.Days
+  fullName: Discord.Addons.Preconditions.Measure.Days
+  nameWithType: Measure.Days
+- uid: Discord.Addons.Preconditions.Measure.Hours
+  name: Hours
+  href: api/Discord.Addons.Preconditions.Measure.html#Discord_Addons_Preconditions_Measure_Hours
+  commentId: F:Discord.Addons.Preconditions.Measure.Hours
+  fullName: Discord.Addons.Preconditions.Measure.Hours
+  nameWithType: Measure.Hours
+- uid: Discord.Addons.Preconditions.Measure.Minutes
+  name: Minutes
+  href: api/Discord.Addons.Preconditions.Measure.html#Discord_Addons_Preconditions_Measure_Minutes
+  commentId: F:Discord.Addons.Preconditions.Measure.Minutes
+  fullName: Discord.Addons.Preconditions.Measure.Minutes
+  nameWithType: Measure.Minutes
+- uid: Discord.Addons.Preconditions.MinimumOnlineUsersAttribute
+  name: MinimumOnlineUsersAttribute
+  href: api/Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.html
+  commentId: T:Discord.Addons.Preconditions.MinimumOnlineUsersAttribute
+  fullName: Discord.Addons.Preconditions.MinimumOnlineUsersAttribute
+  nameWithType: MinimumOnlineUsersAttribute
+- uid: Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.#ctor(System.UInt32)
+  name: MinimumOnlineUsersAttribute(UInt32)
+  href: api/Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.html#Discord_Addons_Preconditions_MinimumOnlineUsersAttribute__ctor_System_UInt32_
+  commentId: M:Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.#ctor(System.UInt32)
+  fullName: Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.MinimumOnlineUsersAttribute(System.UInt32)
+  nameWithType: MinimumOnlineUsersAttribute.MinimumOnlineUsersAttribute(UInt32)
+- uid: Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.#ctor*
+  name: MinimumOnlineUsersAttribute
+  href: api/Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.html#Discord_Addons_Preconditions_MinimumOnlineUsersAttribute__ctor_
+  commentId: Overload:Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.#ctor
+  isSpec: "True"
+  fullName: Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.MinimumOnlineUsersAttribute
+  nameWithType: MinimumOnlineUsersAttribute.MinimumOnlineUsersAttribute
+- uid: Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.CommandInfo,System.IServiceProvider)
+  name: CheckPermissionsAsync(ICommandContext, CommandInfo, IServiceProvider)
+  href: api/Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.html#Discord_Addons_Preconditions_MinimumOnlineUsersAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_CommandInfo_System_IServiceProvider_
+  commentId: M:Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.CommandInfo,System.IServiceProvider)
+  fullName: Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext, Discord.Commands.CommandInfo, System.IServiceProvider)
+  nameWithType: MinimumOnlineUsersAttribute.CheckPermissionsAsync(ICommandContext, CommandInfo, IServiceProvider)
+- uid: Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.CheckPermissionsAsync*
+  name: CheckPermissionsAsync
+  href: api/Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.html#Discord_Addons_Preconditions_MinimumOnlineUsersAttribute_CheckPermissionsAsync_
+  commentId: Overload:Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.CheckPermissionsAsync
+  isSpec: "True"
+  fullName: Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.CheckPermissionsAsync
+  nameWithType: MinimumOnlineUsersAttribute.CheckPermissionsAsync
+- uid: Discord.Addons.Preconditions.RatelimitAttribute
+  name: RatelimitAttribute
+  href: api/Discord.Addons.Preconditions.RatelimitAttribute.html
+  commentId: T:Discord.Addons.Preconditions.RatelimitAttribute
+  fullName: Discord.Addons.Preconditions.RatelimitAttribute
+  nameWithType: RatelimitAttribute
+- uid: Discord.Addons.Preconditions.RatelimitAttribute.#ctor(System.UInt32,System.Double,Discord.Addons.Preconditions.Measure,Discord.Addons.Preconditions.RatelimitFlags)
+  name: RatelimitAttribute(UInt32, Double, Measure, RatelimitFlags)
+  href: api/Discord.Addons.Preconditions.RatelimitAttribute.html#Discord_Addons_Preconditions_RatelimitAttribute__ctor_System_UInt32_System_Double_Discord_Addons_Preconditions_Measure_Discord_Addons_Preconditions_RatelimitFlags_
+  commentId: M:Discord.Addons.Preconditions.RatelimitAttribute.#ctor(System.UInt32,System.Double,Discord.Addons.Preconditions.Measure,Discord.Addons.Preconditions.RatelimitFlags)
+  fullName: Discord.Addons.Preconditions.RatelimitAttribute.RatelimitAttribute(System.UInt32, System.Double, Discord.Addons.Preconditions.Measure, Discord.Addons.Preconditions.RatelimitFlags)
+  nameWithType: RatelimitAttribute.RatelimitAttribute(UInt32, Double, Measure, RatelimitFlags)
+- uid: Discord.Addons.Preconditions.RatelimitAttribute.#ctor(System.UInt32,System.TimeSpan,Discord.Addons.Preconditions.RatelimitFlags)
+  name: RatelimitAttribute(UInt32, TimeSpan, RatelimitFlags)
+  href: api/Discord.Addons.Preconditions.RatelimitAttribute.html#Discord_Addons_Preconditions_RatelimitAttribute__ctor_System_UInt32_System_TimeSpan_Discord_Addons_Preconditions_RatelimitFlags_
+  commentId: M:Discord.Addons.Preconditions.RatelimitAttribute.#ctor(System.UInt32,System.TimeSpan,Discord.Addons.Preconditions.RatelimitFlags)
+  fullName: Discord.Addons.Preconditions.RatelimitAttribute.RatelimitAttribute(System.UInt32, System.TimeSpan, Discord.Addons.Preconditions.RatelimitFlags)
+  nameWithType: RatelimitAttribute.RatelimitAttribute(UInt32, TimeSpan, RatelimitFlags)
+- uid: Discord.Addons.Preconditions.RatelimitAttribute.#ctor*
+  name: RatelimitAttribute
+  href: api/Discord.Addons.Preconditions.RatelimitAttribute.html#Discord_Addons_Preconditions_RatelimitAttribute__ctor_
+  commentId: Overload:Discord.Addons.Preconditions.RatelimitAttribute.#ctor
+  isSpec: "True"
+  fullName: Discord.Addons.Preconditions.RatelimitAttribute.RatelimitAttribute
+  nameWithType: RatelimitAttribute.RatelimitAttribute
+- uid: Discord.Addons.Preconditions.RatelimitAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.CommandInfo,System.IServiceProvider)
+  name: CheckPermissionsAsync(ICommandContext, CommandInfo, IServiceProvider)
+  href: api/Discord.Addons.Preconditions.RatelimitAttribute.html#Discord_Addons_Preconditions_RatelimitAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_CommandInfo_System_IServiceProvider_
+  commentId: M:Discord.Addons.Preconditions.RatelimitAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.CommandInfo,System.IServiceProvider)
+  fullName: Discord.Addons.Preconditions.RatelimitAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext, Discord.Commands.CommandInfo, System.IServiceProvider)
+  nameWithType: RatelimitAttribute.CheckPermissionsAsync(ICommandContext, CommandInfo, IServiceProvider)
+- uid: Discord.Addons.Preconditions.RatelimitAttribute.CheckPermissionsAsync*
+  name: CheckPermissionsAsync
+  href: api/Discord.Addons.Preconditions.RatelimitAttribute.html#Discord_Addons_Preconditions_RatelimitAttribute_CheckPermissionsAsync_
+  commentId: Overload:Discord.Addons.Preconditions.RatelimitAttribute.CheckPermissionsAsync
+  isSpec: "True"
+  fullName: Discord.Addons.Preconditions.RatelimitAttribute.CheckPermissionsAsync
+  nameWithType: RatelimitAttribute.CheckPermissionsAsync
+- uid: Discord.Addons.Preconditions.RatelimitFlags
+  name: RatelimitFlags
+  href: api/Discord.Addons.Preconditions.RatelimitFlags.html
+  commentId: T:Discord.Addons.Preconditions.RatelimitFlags
+  fullName: Discord.Addons.Preconditions.RatelimitFlags
+  nameWithType: RatelimitFlags
+- uid: Discord.Addons.Preconditions.RatelimitFlags.ApplyPerGuild
+  name: ApplyPerGuild
+  href: api/Discord.Addons.Preconditions.RatelimitFlags.html#Discord_Addons_Preconditions_RatelimitFlags_ApplyPerGuild
+  commentId: F:Discord.Addons.Preconditions.RatelimitFlags.ApplyPerGuild
+  fullName: Discord.Addons.Preconditions.RatelimitFlags.ApplyPerGuild
+  nameWithType: RatelimitFlags.ApplyPerGuild
+- uid: Discord.Addons.Preconditions.RatelimitFlags.NoLimitForAdmins
+  name: NoLimitForAdmins
+  href: api/Discord.Addons.Preconditions.RatelimitFlags.html#Discord_Addons_Preconditions_RatelimitFlags_NoLimitForAdmins
+  commentId: F:Discord.Addons.Preconditions.RatelimitFlags.NoLimitForAdmins
+  fullName: Discord.Addons.Preconditions.RatelimitFlags.NoLimitForAdmins
+  nameWithType: RatelimitFlags.NoLimitForAdmins
+- uid: Discord.Addons.Preconditions.RatelimitFlags.NoLimitInDMs
+  name: NoLimitInDMs
+  href: api/Discord.Addons.Preconditions.RatelimitFlags.html#Discord_Addons_Preconditions_RatelimitFlags_NoLimitInDMs
+  commentId: F:Discord.Addons.Preconditions.RatelimitFlags.NoLimitInDMs
+  fullName: Discord.Addons.Preconditions.RatelimitFlags.NoLimitInDMs
+  nameWithType: RatelimitFlags.NoLimitInDMs
+- uid: Discord.Addons.Preconditions.RatelimitFlags.None
+  name: None
+  href: api/Discord.Addons.Preconditions.RatelimitFlags.html#Discord_Addons_Preconditions_RatelimitFlags_None
+  commentId: F:Discord.Addons.Preconditions.RatelimitFlags.None
+  fullName: Discord.Addons.Preconditions.RatelimitFlags.None
+  nameWithType: RatelimitFlags.None
+- uid: Discord.Addons.Preconditions.RequireLowerHierarchyAttribute
+  name: RequireLowerHierarchyAttribute
+  href: api/Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.html
+  commentId: T:Discord.Addons.Preconditions.RequireLowerHierarchyAttribute
+  fullName: Discord.Addons.Preconditions.RequireLowerHierarchyAttribute
+  nameWithType: RequireLowerHierarchyAttribute
+- uid: Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.ParameterInfo,System.Object,System.IServiceProvider)
+  name: CheckPermissionsAsync(ICommandContext, ParameterInfo, Object, IServiceProvider)
+  href: api/Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.html#Discord_Addons_Preconditions_RequireLowerHierarchyAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_ParameterInfo_System_Object_System_IServiceProvider_
+  commentId: M:Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.ParameterInfo,System.Object,System.IServiceProvider)
+  fullName: Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext, Discord.Commands.ParameterInfo, System.Object, System.IServiceProvider)
+  nameWithType: RequireLowerHierarchyAttribute.CheckPermissionsAsync(ICommandContext, ParameterInfo, Object, IServiceProvider)
+- uid: Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.CheckPermissionsAsync*
+  name: CheckPermissionsAsync
+  href: api/Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.html#Discord_Addons_Preconditions_RequireLowerHierarchyAttribute_CheckPermissionsAsync_
+  commentId: Overload:Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.CheckPermissionsAsync
+  isSpec: "True"
+  fullName: Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.CheckPermissionsAsync
+  nameWithType: RequireLowerHierarchyAttribute.CheckPermissionsAsync
+- uid: Discord.Addons.Preconditions.RequireRoleAttribute
+  name: RequireRoleAttribute
+  href: api/Discord.Addons.Preconditions.RequireRoleAttribute.html
+  commentId: T:Discord.Addons.Preconditions.RequireRoleAttribute
+  fullName: Discord.Addons.Preconditions.RequireRoleAttribute
+  nameWithType: RequireRoleAttribute
+- uid: Discord.Addons.Preconditions.RequireRoleAttribute.#ctor(System.UInt64)
+  name: RequireRoleAttribute(UInt64)
+  href: api/Discord.Addons.Preconditions.RequireRoleAttribute.html#Discord_Addons_Preconditions_RequireRoleAttribute__ctor_System_UInt64_
+  commentId: M:Discord.Addons.Preconditions.RequireRoleAttribute.#ctor(System.UInt64)
+  fullName: Discord.Addons.Preconditions.RequireRoleAttribute.RequireRoleAttribute(System.UInt64)
+  nameWithType: RequireRoleAttribute.RequireRoleAttribute(UInt64)
+- uid: Discord.Addons.Preconditions.RequireRoleAttribute.#ctor*
+  name: RequireRoleAttribute
+  href: api/Discord.Addons.Preconditions.RequireRoleAttribute.html#Discord_Addons_Preconditions_RequireRoleAttribute__ctor_
+  commentId: Overload:Discord.Addons.Preconditions.RequireRoleAttribute.#ctor
+  isSpec: "True"
+  fullName: Discord.Addons.Preconditions.RequireRoleAttribute.RequireRoleAttribute
+  nameWithType: RequireRoleAttribute.RequireRoleAttribute
+- uid: Discord.Addons.Preconditions.RequireRoleAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.CommandInfo,System.IServiceProvider)
+  name: CheckPermissionsAsync(ICommandContext, CommandInfo, IServiceProvider)
+  href: api/Discord.Addons.Preconditions.RequireRoleAttribute.html#Discord_Addons_Preconditions_RequireRoleAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_CommandInfo_System_IServiceProvider_
+  commentId: M:Discord.Addons.Preconditions.RequireRoleAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.CommandInfo,System.IServiceProvider)
+  fullName: Discord.Addons.Preconditions.RequireRoleAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext, Discord.Commands.CommandInfo, System.IServiceProvider)
+  nameWithType: RequireRoleAttribute.CheckPermissionsAsync(ICommandContext, CommandInfo, IServiceProvider)
+- uid: Discord.Addons.Preconditions.RequireRoleAttribute.CheckPermissionsAsync*
+  name: CheckPermissionsAsync
+  href: api/Discord.Addons.Preconditions.RequireRoleAttribute.html#Discord_Addons_Preconditions_RequireRoleAttribute_CheckPermissionsAsync_
+  commentId: Overload:Discord.Addons.Preconditions.RequireRoleAttribute.CheckPermissionsAsync
+  isSpec: "True"
+  fullName: Discord.Addons.Preconditions.RequireRoleAttribute.CheckPermissionsAsync
+  nameWithType: RequireRoleAttribute.CheckPermissionsAsync
+- uid: Discord.Addons.Preconditions.UserMustBeInVoiceAttribute
+  name: UserMustBeInVoiceAttribute
+  href: api/Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.html
+  commentId: T:Discord.Addons.Preconditions.UserMustBeInVoiceAttribute
+  fullName: Discord.Addons.Preconditions.UserMustBeInVoiceAttribute
+  nameWithType: UserMustBeInVoiceAttribute
+- uid: Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.CommandInfo,System.IServiceProvider)
+  name: CheckPermissionsAsync(ICommandContext, CommandInfo, IServiceProvider)
+  href: api/Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.html#Discord_Addons_Preconditions_UserMustBeInVoiceAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_CommandInfo_System_IServiceProvider_
+  commentId: M:Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.CommandInfo,System.IServiceProvider)
+  fullName: Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext, Discord.Commands.CommandInfo, System.IServiceProvider)
+  nameWithType: UserMustBeInVoiceAttribute.CheckPermissionsAsync(ICommandContext, CommandInfo, IServiceProvider)
+- uid: Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.CheckPermissionsAsync*
+  name: CheckPermissionsAsync
+  href: api/Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.html#Discord_Addons_Preconditions_UserMustBeInVoiceAttribute_CheckPermissionsAsync_
+  commentId: Overload:Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.CheckPermissionsAsync
+  isSpec: "True"
+  fullName: Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.CheckPermissionsAsync
+  nameWithType: UserMustBeInVoiceAttribute.CheckPermissionsAsync

@@ -17,55 +17,55 @@ will throw `InvalidOperationException`.
 ```cs
 internal class CardDeck : Pile<Card>
 {
-    //Use the base's IEnumerable constructor so that
-    //the collection always gets populated.
-    //(Not doing this only allows it to be
-    //initialized with an empty collection.)
+    // Use the base's IEnumerable constructor so that
+    // the collection always gets populated.
+    // (Not doing this only allows it to be
+    // initialized with an empty collection.)
     internal CardDeck(IEnumerable<Card> cards)
         : base(cards)
     {
     }
 
-    //A deck is a private zone, it may not
-    //be freely browsed at will.
+    // A deck is a private zone, it may not
+    // be freely browsed at will.
     public override bool CanBrowse     => false;
 
-    //In this game, it's not uncommon to have
-    //the entire deck emptied for some reason.
+    // In this game, it's not uncommon to have
+    // the entire deck emptied for some reason.
     public override bool CanClear      => true;
 
-    //It is allowed to Cut the deck.
+    // It is allowed to Cut the deck.
     public override bool CanCut        => true;
 
-    //It needs to be possible to draw the top card,
-    //otherwise why is this a deck of cards?
+    // It needs to be possible to draw the top card,
+    // otherwise why is this a deck of cards?
     public override bool CanDraw       => true;
 
-    //You can't draw from the bottom card of the deck.
-    //(This is exceeedingly rare, but Exploding Kittens
-    //is one game that would require this.)
+    // You can't draw from the bottom card of the deck.
+    // (This is exceeedingly rare, but Exploding Kittens
+    // is one game that would require this.)
     public override bool CanDrawBottom => false;
 
-    //You can't just insert a card at an arbitrary place.
+    // You can't just insert a card at an arbitrary place.
     public override bool CanInsert     => false;
 
-    //It's common enough that a player can peek
-    //at the top X cards to see what is coming up.
+    // It's common enough that a player can peek
+    // at the top X cards to see what is coming up.
     public override bool CanPeek       => true;
 
-    //You can't put cards on the top of the pile.
-    //(Zones like a "Graveyard"/"Discard pile"/what-have-you
-    //are where you want this.)
+    // You can't put cards on the top of the pile.
+    // (Zones like a "Graveyard"/"Discard pile"/what-have-you
+    // are where you want this.)
     public override bool CanPut        => false;
 
-    //You can't put cards on the bottom of the pile, either.
+    // You can't put cards on the bottom of the pile, either.
     public override bool CanPutBottom  => false;
 
-    //This deck can be reshuffled.
+    // This deck can be reshuffled.
     public override bool CanShuffle    => true;
 
-    //It's not allowed to take a card from an
-    //arbitrary place in the deck.
+    // It's not allowed to take a card from an
+    // arbitrary place in the deck.
     public override bool CanTake       => false;
 }
 ```

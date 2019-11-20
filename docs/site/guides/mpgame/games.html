@@ -145,11 +145,13 @@ of this type after you have made your <code>Player</code> class.</p>
 
     public Node&lt;TPlayer&gt; TurnPlayer { get; protected set; }
 
+    protected bool IsTurnPlayerFirstPlayer();
+    
     protected bool IsTurnPlayerLastPlayer();
 
-    protected virtual void OnPlayerAdded(TPlayer player);
+    protected virtual Task OnPlayerAdded(TPlayer player);
 
-    protected virtual void OnPlayerKicked(TPlayer player);
+    protected virtual Task OnPlayerKicked(TPlayer player);
 
     public abstract string GetGameState();
 
@@ -160,8 +162,10 @@ of this type after you have made your <code>Player</code> class.</p>
     public abstract Task StartGame();
 
     public abstract Task NextTurn();
+    
+    public Task EndGame(string endmsg);
 
-    public virtual async Task EndGame(string endmsg);
+    public virtual async Task OnGameEnd();
 }
 </code></pre>
 <p>This type is abstract, which means it <em>must</em> be inherited before it can be used.
@@ -204,7 +208,7 @@ Continuing on with our card game example:</p>
         {
             foreach (var p in Players)
             {
-                p.AddCard(Deck.Pop());
+                p.AddCard(Deck.Draw());
             }
         }
 
@@ -275,9 +279,6 @@ internal enum GameState
     //....
 }
 </code></pre>
-<p>The final method from the base class you need to know is <code>EndGame()</code>.
-It's not required to override this, but if you do, you <em><strong>must</strong></em> call
-<code>base.EndGame()</code> in order to make the game instance eligible for garbage collection.</p>
 </article>
           </div>
           

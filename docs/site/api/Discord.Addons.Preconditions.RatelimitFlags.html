@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace Discord.Addons.MpGame.Collections
+    <title>Enum RatelimitFlags
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace Discord.Addons.MpGame.Collections
+    <meta name="title" content="Enum RatelimitFlags
    ">
     <meta name="generator" content="docfx 2.47.0.0">
     
@@ -109,9 +109,9 @@
                             <a href="Discord.Addons.MpGame.Player.html" title="Player" class="">Player</a>
                           </li>
                         </ul>  </li>
-                    <li class="active">
+                    <li class="">
                       <span class="expand-stub"></span>
-                      <a href="Discord.Addons.MpGame.Collections.html" title="Discord.Addons.MpGame.Collections" class="active">Discord.Addons.MpGame.Collections</a>
+                      <a href="Discord.Addons.MpGame.Collections.html" title="Discord.Addons.MpGame.Collections" class="">Discord.Addons.MpGame.Collections</a>
                         
                         <ul class="nav level2">
                           <li class="">
@@ -147,8 +147,8 @@
                           <li class="">
                             <a href="Discord.Addons.Preconditions.RatelimitAttribute.html" title="RatelimitAttribute" class="">RatelimitAttribute</a>
                           </li>
-                          <li class="">
-                            <a href="Discord.Addons.Preconditions.RatelimitFlags.html" title="RatelimitFlags" class="">RatelimitFlags</a>
+                          <li class="active">
+                            <a href="Discord.Addons.Preconditions.RatelimitFlags.html" title="RatelimitFlags" class="active">RatelimitFlags</a>
                           </li>
                           <li class="">
                             <a href="Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.html" title="RequireLowerHierarchyAttribute" class="">RequireLowerHierarchyAttribute</a>
@@ -167,35 +167,53 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Discord.Addons.MpGame.Collections">
+            <article class="content wrap" id="_content" data-uid="Discord.Addons.Preconditions.RatelimitFlags">
   
-  <h1 id="Discord_Addons_MpGame_Collections" data-uid="Discord.Addons.MpGame.Collections" class="text-break">Namespace Discord.Addons.MpGame.Collections
+  
+  <h1 id="Discord_Addons_Preconditions_RatelimitFlags" data-uid="Discord.Addons.Preconditions.RatelimitFlags" class="text-break">Enum RatelimitFlags
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Determines the behavior of the <a class="xref" href="Discord.Addons.Preconditions.RatelimitAttribute.html">RatelimitAttribute</a>.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
+  <h6><strong>Namespace</strong>: <a class="xref" href="Discord.Addons.Preconditions.html">Discord.Addons.Preconditions</a></h6>
+  <h6><strong>Assembly</strong>: Discord.Addons.Preconditions.dll</h6>
+  <h5 id="Discord_Addons_Preconditions_RatelimitFlags_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Flags]
+public enum RatelimitFlags</code></pre>
+  </div>
+  <h3 id="fields">Fields
   </h3>
-      <h4><a class="xref" href="Discord.Addons.MpGame.Collections.CircularLinkedList-1.html">CircularLinkedList&lt;T&gt;</a></h4>
-      <section><p>Represents a circular doubly linked list.</p>
-</section>
-      <h4><a class="xref" href="Discord.Addons.MpGame.Collections.Hand-1.html">Hand&lt;T&gt;</a></h4>
-      <section><p>Similar to <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html">Pile&lt;T&gt;</a> but specialized and optimized for representing a hand of items.</p>
-</section>
-      <h4><a class="xref" href="Discord.Addons.MpGame.Collections.Node-1.html">Node&lt;T&gt;</a></h4>
-      <section><p>Represents a node</p>
-</section>
-      <h4><a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html">Pile&lt;T&gt;</a></h4>
-      <section><p>Base type to represent a pile of objects, mostly tailored for use in card games.</p>
-</section>
-      <h4><a class="xref" href="Discord.Addons.MpGame.Collections.WrappingPile-2.html">WrappingPile&lt;T, TWrapper&gt;</a></h4>
-      <section><p>Base type to represent a pile of objects inside a custom wrapper type.</p>
-</section>
-    <h3 id="interfaces">Interfaces
-  </h3>
-      <h4><a class="xref" href="Discord.Addons.MpGame.Collections.IWrapper-1.html">IWrapper&lt;T&gt;</a></h4>
-      <section><p>Represents the contract for a wrapper.</p>
-</section>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    <thead>
+    <tbody>
+      <tr>
+        <td id="Discord_Addons_Preconditions_RatelimitFlags_ApplyPerGuild">ApplyPerGuild</td>
+        <td><p>Set whether or not to apply a limit per guild.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Discord_Addons_Preconditions_RatelimitFlags_NoLimitForAdmins">NoLimitForAdmins</td>
+        <td><p>Set whether or not there is no limit to the command for guild admins.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Discord_Addons_Preconditions_RatelimitFlags_NoLimitInDMs">NoLimitInDMs</td>
+        <td><p>Set whether or not there is no limit to the command in DMs.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Discord_Addons_Preconditions_RatelimitFlags_None">None</td>
+        <td><p>Set none of the flags.</p>
+</td>
+      </tr>
+    </tbody>
+  </thead></thead></table>
 </article>
           </div>
           
@@ -203,6 +221,12 @@
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RatelimitFlags.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RatelimitFlags%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/Ratelimit/RatelimitAttribute.cs/#L157" class="contribution-link">View Source</a>
+                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

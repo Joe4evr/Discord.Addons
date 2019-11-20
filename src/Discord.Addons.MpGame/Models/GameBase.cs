@@ -120,7 +120,7 @@ namespace Discord.Addons.MpGame
         /// <param name="player">
         ///     The player that is added.
         /// </param>
-        protected internal virtual void OnPlayerAdded(TPlayer player) { }
+        protected internal virtual Task OnPlayerAdded(TPlayer player) => Task.CompletedTask;
 
         /// <summary>
         ///     Gets called when a player is forcibly kicked, allowing an opportunity to access some of their properties to put back into the game.
@@ -128,7 +128,7 @@ namespace Discord.Addons.MpGame
         /// <param name="player">
         ///     The player that is removed.
         /// </param>
-        protected internal virtual void OnPlayerKicked(TPlayer player) { }
+        protected internal virtual Task OnPlayerKicked(TPlayer player) => Task.CompletedTask;
 
         /// <summary>
         ///     Gets called when the game ends.

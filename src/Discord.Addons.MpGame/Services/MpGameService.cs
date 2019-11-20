@@ -132,10 +132,10 @@ namespace Discord.Addons.MpGame
         ///     <see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.
         /// </returns>
         /// <example>
-        ///     <code language="c#">
-        ///         if (await GameService.RemoveUser(Context.Channel, user).ConfigureAwait(false))
-        ///             await ReplyAsync($"**{user.Username}** has been kicked.").ConfigureAwait(false);
-        ///     </code>
+        ///   <code language="c#">
+        ///     if (await GameService.RemoveUserAsync(Context.Channel, user).ConfigureAwait(false))
+        ///         await ReplyAsync($"**{user.Username}** has been kicked.").ConfigureAwait(false);
+        ///   </code>
         /// </example>
         public async Task<bool> RemoveUserAsync(IMessageChannel channel, IUser user)
             => _dataList.TryGetValue(channel, out var data)
@@ -154,16 +154,16 @@ namespace Discord.Addons.MpGame
         ///     <see langword="true"/> if the operation succeeded, otherwise <see langword="false"/>.
         /// </returns>
         /// <example>
-        ///     <code language="c#">
-        ///         if (await GameService.AddPlayer(Game, new MyPlayer(Context.User, Context.Channel)).ConfigureAwait(false))
-        ///             await ReplyAsync($"**{Context.User.Username}** has joined.").ConfigureAwait(false);
-        ///     </code>
+        ///   <code language="c#">
+        ///     if (await GameService.AddPlayerAsync(Game, new MyPlayer(Context.User, Context.Channel)).ConfigureAwait(false))
+        ///         await ReplyAsync($"**{Context.User.Username}** has joined.").ConfigureAwait(false);
+        ///   </code>
         /// </example>
         public async Task<bool> AddPlayerAsync(TGame game, TPlayer player)
         {
             if (!GameTracker.Instance.TryGetGameChannel(await player.User.GetOrCreateDMChannelAsync().ConfigureAwait(false), out var _))
             {
-                PrepPlayer(game, player, addedInOngoig: true);
+                await PrepPlayerAsync(game, player, addedInOngoig: true).ConfigureAwait(false);
                 game.Players.AddLast(player);
                 return true;
             }
@@ -221,7 +221,7 @@ namespace Discord.Addons.MpGame
                 {
                     foreach (var player in game.Players)
                     {
-                        PrepPlayer(game, player, addedInOngoig: false);
+                        await PrepPlayerAsync(game, player, addedInOngoig: false).ConfigureAwait(false);
                     }
                     game.GameEnd = (c => OnGameEnd(c));
                 }
@@ -318,7 +318,7 @@ namespace Discord.Addons.MpGame
             return _dataList.TryGetValue(chan, out data);
         }
 
-        private void PrepPlayer(TGame game, TPlayer player, bool addedInOngoig)
+        private async Task PrepPlayerAsync(TGame game, TPlayer player, bool addedInOngoig)
         {
             player.AutoKickCallback = (async reason => await RemovePlayerAsync(game, player, reason).ConfigureAwait(false));
             player.DMsDisabledMessage = _mpconfig.LogStrings.DMsDisabledMessage(player.User);
@@ -326,7 +326,7 @@ namespace Discord.Addons.MpGame
 
             if (addedInOngoig)
             {
-                game.OnPlayerAdded(player);
+                await game.OnPlayerAdded(player).ConfigureAwait(false);
             }
         }
 
@@ -363,14 +363,12 @@ namespace Discord.Addons.MpGame
         }
 
         private static async Task<bool> RemovePlayerAsync(
-            TGame game,
-            TPlayer player,
-            string reason)
+            TGame game, TPlayer player, string reason)
         {
             var success = game.Players.RemoveItem(player);
             if (success)
             {
-                game.OnPlayerKicked(player);
+                await game.OnPlayerKicked(player).ConfigureAwait(false);
                 GameTracker.Instance.TryRemoveGameChannel(await player.User.GetOrCreateDMChannelAsync().ConfigureAwait(false));
                 await game.Channel.SendMessageAsync(reason).ConfigureAwait(false);
             }

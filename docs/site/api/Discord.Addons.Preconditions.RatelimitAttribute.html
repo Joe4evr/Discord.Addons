@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class Player
+    <title>Class RatelimitAttribute
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class Player
+    <meta name="title" content="Class RatelimitAttribute
    ">
     <meta name="generator" content="docfx 2.47.0.0">
     
@@ -105,8 +105,8 @@
                           <li class="">
                             <a href="Discord.Addons.MpGame.MpGameService-2.MpGameData.html" title="MpGameService&lt;TGame, TPlayer&gt;.MpGameData" class="">MpGameService&lt;TGame, TPlayer&gt;.MpGameData</a>
                           </li>
-                          <li class="active">
-                            <a href="Discord.Addons.MpGame.Player.html" title="Player" class="active">Player</a>
+                          <li class="">
+                            <a href="Discord.Addons.MpGame.Player.html" title="Player" class="">Player</a>
                           </li>
                         </ul>  </li>
                     <li class="">
@@ -144,8 +144,8 @@
                           <li class="">
                             <a href="Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.html" title="MinimumOnlineUsersAttribute" class="">MinimumOnlineUsersAttribute</a>
                           </li>
-                          <li class="">
-                            <a href="Discord.Addons.Preconditions.RatelimitAttribute.html" title="RatelimitAttribute" class="">RatelimitAttribute</a>
+                          <li class="active">
+                            <a href="Discord.Addons.Preconditions.RatelimitAttribute.html" title="RatelimitAttribute" class="active">RatelimitAttribute</a>
                           </li>
                           <li class="">
                             <a href="Discord.Addons.Preconditions.RatelimitFlags.html" title="RatelimitFlags" class="">RatelimitFlags</a>
@@ -167,42 +167,61 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Discord.Addons.MpGame.Player">
+            <article class="content wrap" id="_content" data-uid="Discord.Addons.Preconditions.RatelimitAttribute">
   
   
-  <h1 id="Discord_Addons_MpGame_Player" data-uid="Discord.Addons.MpGame.Player" class="text-break">Class Player
+  <h1 id="Discord_Addons_Preconditions_RatelimitAttribute" data-uid="Discord.Addons.Preconditions.RatelimitAttribute" class="text-break">Class RatelimitAttribute
   </h1>
-  <div class="markdown level0 summary"><p>Represents a Discord user as a Player.</p>
+  <div class="markdown level0 summary"><p>Sets how often a user is allowed to use this command
+or any command in this module.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">Player</span></div>
+    <div class="level1"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.attribute">Attribute</a></div>
+    <div class="level2"><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.PreconditionAttribute.html">PreconditionAttribute</a></div>
+    <div class="level3"><span class="xref">RatelimitAttribute</span></div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Discord.Addons.MpGame.html">Discord.Addons.MpGame</a></h6>
-  <h6><strong>Assembly</strong>: Discord.Addons.MpGame.dll</h6>
-  <h5 id="Discord_Addons_MpGame_Player_syntax">Syntax</h5>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.PreconditionAttribute.html#Discord_Commands_PreconditionAttribute_Group">PreconditionAttribute.Group</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.PreconditionAttribute.html#Discord_Commands_PreconditionAttribute_ErrorMessage">PreconditionAttribute.ErrorMessage</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Discord.Addons.Preconditions.html">Discord.Addons.Preconditions</a></h6>
+  <h6><strong>Assembly</strong>: Discord.Addons.Preconditions.dll</h6>
+  <h5 id="Discord_Addons_Preconditions_RatelimitAttribute_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Player</code></pre>
+    <pre><code class="lang-csharp hljs">[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
+public sealed class RatelimitAttribute : PreconditionAttribute</code></pre>
   </div>
+  <h5 id="Discord_Addons_Preconditions_RatelimitAttribute_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><div class="WARNING"><h5>warning</h5><p>
+    This is backed by an in-memory collection
+    and will not persist with restarts.
+</p></div>
+</div>
   <h3 id="constructors">Constructors
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Player__ctor_Discord_IUser_Discord_IMessageChannel_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Player.%23ctor(Discord.IUser%2CDiscord.IMessageChannel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RatelimitAttribute__ctor_System_UInt32_System_Double_Discord_Addons_Preconditions_Measure_Discord_Addons_Preconditions_RatelimitFlags_.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RatelimitAttribute.%23ctor(System.UInt32%2CSystem.Double%2CDiscord.Addons.Preconditions.Measure%2CDiscord.Addons.Preconditions.RatelimitFlags)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/Player.cs/#L26">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/Ratelimit/RatelimitAttribute.cs/#L42">View Source</a>
   </span>
-  <a id="Discord_Addons_MpGame_Player__ctor_" data-uid="Discord.Addons.MpGame.Player.#ctor*"></a>
-  <h4 id="Discord_Addons_MpGame_Player__ctor_Discord_IUser_Discord_IMessageChannel_" data-uid="Discord.Addons.MpGame.Player.#ctor(Discord.IUser,Discord.IMessageChannel)">Player(IUser, IMessageChannel)</h4>
-  <div class="markdown level1 summary"><p>Creates a <a class="xref" href="Discord.Addons.MpGame.Player.html">Player</a> out of an <a class="xref" href="https://docs.stillu.cc/api/Discord.IUser.html">IUser</a>.</p>
+  <a id="Discord_Addons_Preconditions_RatelimitAttribute__ctor_" data-uid="Discord.Addons.Preconditions.RatelimitAttribute.#ctor*"></a>
+  <h4 id="Discord_Addons_Preconditions_RatelimitAttribute__ctor_System_UInt32_System_Double_Discord_Addons_Preconditions_Measure_Discord_Addons_Preconditions_RatelimitFlags_" data-uid="Discord.Addons.Preconditions.RatelimitAttribute.#ctor(System.UInt32,System.Double,Discord.Addons.Preconditions.Measure,Discord.Addons.Preconditions.RatelimitFlags)">RatelimitAttribute(UInt32, Double, Measure, RatelimitFlags)</h4>
+  <div class="markdown level1 summary"><p>Sets how often a user is allowed to use this command.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Player(IUser user, IMessageChannel channel)</code></pre>
+    <pre><code class="lang-csharp hljs">public RatelimitAttribute(uint times, double period, Measure measure, RatelimitFlags flags = RatelimitFlags.None)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -215,69 +234,99 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.stillu.cc/api/Discord.IUser.html">IUser</a></td>
-        <td><span class="parametername">user</span></td>
-        <td><p>The user represented.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></td>
+        <td><span class="parametername">times</span></td>
+        <td><p>The number of times a user may use the command within a certain period.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.stillu.cc/api/Discord.IMessageChannel.html">IMessageChannel</a></td>
-        <td><span class="parametername">channel</span></td>
-        <td><p>The channel where this game is played.</p>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.double">Double</a></td>
+        <td><span class="parametername">period</span></td>
+        <td><p>The amount of time since first invoke a user has until the limit is lifted.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Discord.Addons.Preconditions.Measure.html">Measure</a></td>
+        <td><span class="parametername">measure</span></td>
+        <td><p>The scale in which the <code data-dev-comment-type="paramref" class="paramref">period</code> parameter should be measured.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Discord.Addons.Preconditions.RatelimitFlags.html">RatelimitFlags</a></td>
+        <td><span class="parametername">flags</span></td>
+        <td><p>Flags to set behavior of the ratelimit.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h3 id="properties">Properties
-  </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Player_User.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Player.User%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RatelimitAttribute__ctor_System_UInt32_System_TimeSpan_Discord_Addons_Preconditions_RatelimitFlags_.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RatelimitAttribute.%23ctor(System.UInt32%2CSystem.TimeSpan%2CDiscord.Addons.Preconditions.RatelimitFlags)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/Player.cs/#L35">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/Ratelimit/RatelimitAttribute.cs/#L79">View Source</a>
   </span>
-  <a id="Discord_Addons_MpGame_Player_User_" data-uid="Discord.Addons.MpGame.Player.User*"></a>
-  <h4 id="Discord_Addons_MpGame_Player_User" data-uid="Discord.Addons.MpGame.Player.User">User</h4>
-  <div class="markdown level1 summary"><p>The underlying <a class="xref" href="https://docs.stillu.cc/api/Discord.IUser.html">IUser</a> instance.</p>
+  <a id="Discord_Addons_Preconditions_RatelimitAttribute__ctor_" data-uid="Discord.Addons.Preconditions.RatelimitAttribute.#ctor*"></a>
+  <h4 id="Discord_Addons_Preconditions_RatelimitAttribute__ctor_System_UInt32_System_TimeSpan_Discord_Addons_Preconditions_RatelimitFlags_" data-uid="Discord.Addons.Preconditions.RatelimitAttribute.#ctor(System.UInt32,System.TimeSpan,Discord.Addons.Preconditions.RatelimitFlags)">RatelimitAttribute(UInt32, TimeSpan, RatelimitFlags)</h4>
+  <div class="markdown level1 summary"><p>Sets how often a user is allowed to use this command.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IUser User { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public RatelimitAttribute(uint times, TimeSpan period, RatelimitFlags flags = RatelimitFlags.None)</code></pre>
   </div>
-  <h5 class="propertyValue">Property Value</h5>
+  <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
+        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.stillu.cc/api/Discord.IUser.html">IUser</a></td>
-        <td></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></td>
+        <td><span class="parametername">times</span></td>
+        <td><p>The number of times a user may use the command within a certain period.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">period</span></td>
+        <td><p>The amount of time since first invoke a user has until the limit is lifted.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Discord.Addons.Preconditions.RatelimitFlags.html">RatelimitFlags</a></td>
+        <td><span class="parametername">flags</span></td>
+        <td><p>Flags to set bahavior of the ratelimit.</p>
+</td>
       </tr>
     </tbody>
   </table>
+  <h5 id="Discord_Addons_Preconditions_RatelimitAttribute__ctor_System_UInt32_System_TimeSpan_Discord_Addons_Preconditions_RatelimitFlags__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><div class="WARNING"><h5>warning</h5><p>
+    This is a convinience constructor overload for use with the dynamic
+    command builders, but not with the Class &amp; Method-style commands.
+</p></div>
+</div>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Player_SendMessageAsync_System_String_Discord_Embed_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Player.SendMessageAsync(System.String%2CDiscord.Embed)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RatelimitAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_CommandInfo_System_IServiceProvider_.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RatelimitAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext%2CDiscord.Commands.CommandInfo%2CSystem.IServiceProvider)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/Player.cs/#L55">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/Ratelimit/RatelimitAttribute.cs/#L92">View Source</a>
   </span>
-  <a id="Discord_Addons_MpGame_Player_SendMessageAsync_" data-uid="Discord.Addons.MpGame.Player.SendMessageAsync*"></a>
-  <h4 id="Discord_Addons_MpGame_Player_SendMessageAsync_System_String_Discord_Embed_" data-uid="Discord.Addons.MpGame.Player.SendMessageAsync(System.String,Discord.Embed)">SendMessageAsync(String, Embed)</h4>
-  <div class="markdown level1 summary"><p>Sends a message to this <a class="xref" href="Discord.Addons.MpGame.Player.html">Player</a>'s DM Channel and will cache the message if the user has DMs disabled.</p>
-</div>
+  <a id="Discord_Addons_Preconditions_RatelimitAttribute_CheckPermissionsAsync_" data-uid="Discord.Addons.Preconditions.RatelimitAttribute.CheckPermissionsAsync*"></a>
+  <h4 id="Discord_Addons_Preconditions_RatelimitAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_CommandInfo_System_IServiceProvider_" data-uid="Discord.Addons.Preconditions.RatelimitAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.CommandInfo,System.IServiceProvider)">CheckPermissionsAsync(ICommandContext, CommandInfo, IServiceProvider)</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;IUserMessage&gt; SendMessageAsync(string text, Embed embed = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public override Task&lt;PreconditionResult&gt; CheckPermissionsAsync(ICommandContext context, CommandInfo command, IServiceProvider services)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -290,16 +339,19 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">text</span></td>
-        <td><p>The text to send.</p>
-</td>
+        <td><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.ICommandContext.html">ICommandContext</a></td>
+        <td><span class="parametername">context</span></td>
+        <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://docs.stillu.cc/api/Discord.Embed.html">Embed</a></td>
-        <td><span class="parametername">embed</span></td>
-        <td><p>If provided, an embed to send.</p>
-</td>
+        <td><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.CommandInfo.html">CommandInfo</a></td>
+        <td><span class="parametername">command</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></td>
+        <td><span class="parametername">services</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -313,67 +365,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.stillu.cc/api/Discord.IUserMessage.html">IUserMessage</a>&gt;</td>
-        <td><p>The message that is sent, or <span class="xref">null</span> if it couldn't be sent.</p>
-</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.PreconditionResult.html">PreconditionResult</a>&gt;</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Player_ShouldKick_System_Int32_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Player.ShouldKick(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/Player.cs/#L100">View Source</a>
-  </span>
-  <a id="Discord_Addons_MpGame_Player_ShouldKick_" data-uid="Discord.Addons.MpGame.Player.ShouldKick*"></a>
-  <h4 id="Discord_Addons_MpGame_Player_ShouldKick_System_Int32_" data-uid="Discord.Addons.MpGame.Player.ShouldKick(System.Int32)">ShouldKick(Int32)</h4>
-  <div class="markdown level1 summary"><p>Can be overriden to determine if a player should be kicked for not having DMs enabled for too long.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual bool ShouldKick(int backstuffedDms)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
-        <td><span class="parametername">backstuffedDms</span></td>
-        <td><p>The amount of DMs that are currently not sent to this player.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p><span class="xref">true</span> if the player should be kicked, otherwise <span class="xref">false</span>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Discord_Addons_MpGame_Player_ShouldKick_System_Int32__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><div class="NOTE"><h5>note</h5><p>
-    The default implementation always returns <span class="xref">false</span>.
-</p></div>
-</div>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Discord.Commands.PreconditionAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext, Discord.Commands.CommandInfo, System.IServiceProvider)</span></div>
 </article>
           </div>
           
@@ -382,10 +380,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Player.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Player%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RatelimitAttribute.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RatelimitAttribute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Models/Player.cs/#L13" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/Ratelimit/RatelimitAttribute.cs/#L18" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

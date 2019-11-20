@@ -165,7 +165,7 @@
 
     public abstract Task EndGameCmd();
 
-    public virtual async Task ResendCmd();
+    protected Task ResendUnsentDMsAsync();
 }
 
 public enum CurrentlyPlaying
@@ -203,6 +203,8 @@ from this class as follows:</p>
     {
     }
 
+    private DataType _data;
+    
     protected override void BeforeExecute(CommandInfo command)
     {
         // If you choose to override this method, you *must* call the base version first.
@@ -213,7 +215,6 @@ from this class as follows:</p>
         // the result in a private field.
         GameService.SomeDataDictionary.TryGetValue(Context.Channel.Id, out _data);
     }
-    private DataType _data;
 }
 </code></pre>
 <p>While having an explicit service class will make it easier to expand in the future,

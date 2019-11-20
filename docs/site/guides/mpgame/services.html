@@ -142,8 +142,8 @@ outside of a module lifetime instead.</p>
 
     public MpGameService(
         BaseSocketClient client,
-        IMpGameServiceConfig mpconfig = null,
-        Func&lt;LogMessage, Task&gt; logger = null);
+        IMpGameServiceConfig? mpconfig = null,
+        Func&lt;LogMessage, Task&gt;? logger = null);
 
     public bool OpenNewGame(ICommandContext context);
 
@@ -159,7 +159,8 @@ outside of a module lifetime instead.</p>
 
     public bool TryAddNewGame(IMessageChannel channel, TGame game);
 
-    public bool TryUpdateOpenToJoin(IMessageChannel channel, bool newValue, bool comparisonValue);
+    public bool TryUpdateOpenToJoin(
+        IMessageChannel channel, bool newValue, bool comparisonValue);
 
     public TGame GetGameFromChannel(IMessageChannel channel);
 
@@ -201,8 +202,8 @@ add the same parameter to your constructor in the derived class.</p>
 {
     public CardGameService(
         BaseSocketClient client,
-        IMpGameServiceConfig mpconfig = null,
-        Func&lt;LogMessage, Task&gt; logger = null)
+        IMpGameServiceConfig? mpconfig = null,
+        Func&lt;LogMessage, Task&gt;? logger = null)
         : base(client, mpconfig, logger)
     {
         // You can now log anything you like by invoking the 'Logger'

@@ -133,6 +133,33 @@
                             <a href="Discord.Addons.MpGame.Collections.WrappingPile-2.html" title="WrappingPile&lt;T, TWrapper&gt;" class="">WrappingPile&lt;T, TWrapper&gt;</a>
                           </li>
                         </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Discord.Addons.Preconditions.html" title="Discord.Addons.Preconditions" class="">Discord.Addons.Preconditions</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.Measure.html" title="Measure" class="">Measure</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.html" title="MinimumOnlineUsersAttribute" class="">MinimumOnlineUsersAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.RatelimitAttribute.html" title="RatelimitAttribute" class="">RatelimitAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.RatelimitFlags.html" title="RatelimitFlags" class="">RatelimitFlags</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.html" title="RequireLowerHierarchyAttribute" class="">RequireLowerHierarchyAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.RequireRoleAttribute.html" title="RequireRoleAttribute" class="">RequireRoleAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.html" title="UserMustBeInVoiceAttribute" class="">UserMustBeInVoiceAttribute</a>
+                          </li>
+                        </ul>  </li>
                   </ul>        </div>
               </div>
             </div>
@@ -361,8 +388,8 @@ This is the same instance as <a href="https://docs.stillu.cc/api/Discord.Discord
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameService_2_AddPlayerAsync__0__1__examples">Examples</h5>
-  <pre><code class="lang-c#">    if (await GameService.AddPlayer(Game, new MyPlayer(Context.User, Context.Channel)).ConfigureAwait(false))
-        await ReplyAsync($&quot;**{Context.User.Username}** has joined.&quot;).ConfigureAwait(false);</code></pre>
+  <pre><code class="lang-c#">  if (await GameService.AddPlayerAsync(Game, new MyPlayer(Context.User, Context.Channel)).ConfigureAwait(false))
+      await ReplyAsync($&quot;**{Context.User.Username}** has joined.&quot;).ConfigureAwait(false);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
@@ -834,8 +861,8 @@ or that the user is playing in, or <span class="xref">null</span> if there is no
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameService_2_RemoveUserAsync_Discord_IMessageChannel_Discord_IUser__examples">Examples</h5>
-  <pre><code class="lang-c#">    if (await GameService.RemoveUser(Context.Channel, user).ConfigureAwait(false))
-        await ReplyAsync($&quot;**{user.Username}** has been kicked.&quot;).ConfigureAwait(false);</code></pre>
+  <pre><code class="lang-c#">  if (await GameService.RemoveUserAsync(Context.Channel, user).ConfigureAwait(false))
+      await ReplyAsync($&quot;**{user.Username}** has been kicked.&quot;).ConfigureAwait(false);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>

@@ -7,13 +7,11 @@
 //{
 //    public abstract partial class MpGameModuleBase<TService, TGame, TPlayer>
 //    {
-//        [AttributeUsage(AttributeTargets.Method)]
+//        [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
 //        private sealed class RequireTurnPlayerAttribute : PreconditionAttribute
 //        {
 //            public override Task<PreconditionResult> CheckPermissions(
-//                ICommandContext context,
-//                CommandInfo command,
-//                IServiceProvider services)
+//                ICommandContext context, CommandInfo _, IServiceProvider services)
 //            {
 //                var service = services.GetService<TService>();
 //                if (service != null)

@@ -2,7 +2,10 @@ apiRules:
 - exclude:
     uidRegex: ^System\.Object$
 - exclude:
-    uidRegex: ^System\.ValueType
+    uidRegex: ^System\.ValueType$
+- exclude:
+    uidRegex: ^System\.Attribute$
+    type: Type
 - include:
     uidRegex: '^System\.[^.]*Exception$'
     type: Type

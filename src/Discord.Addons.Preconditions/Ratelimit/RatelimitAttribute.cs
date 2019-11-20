@@ -10,8 +10,10 @@ namespace Discord.Addons.Preconditions
     ///     or any command in this module.
     /// </summary>
     /// <remarks>
-    ///     This is backed by an in-memory collection
-    ///     and will not persist with restarts.
+    ///     <note type="warning">
+    ///         This is backed by an in-memory collection
+    ///         and will not persist with restarts.
+    ///     </note>
     /// </remarks>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class RatelimitAttribute : PreconditionAttribute
@@ -68,6 +70,12 @@ namespace Discord.Addons.Preconditions
         /// <param name="flags">
         ///     Flags to set bahavior of the ratelimit.
         /// </param>
+        /// <remarks>
+        ///     <note type="warning">
+        ///         This is a convinience constructor overload for use with the dynamic
+        ///         command builders, but not with the Class &amp; Method-style commands.
+        ///     </note>
+        /// </remarks>
         public RatelimitAttribute(
             uint times, TimeSpan period,
             RatelimitFlags flags = RatelimitFlags.None)
@@ -144,7 +152,7 @@ namespace Discord.Addons.Preconditions
     }
 
     /// <summary>
-    ///     Determines the behavior of the ratelimit
+    ///     Determines the behavior of the <see cref="RatelimitAttribute"/>.
     /// </summary>
     [Flags]
     public enum RatelimitFlags

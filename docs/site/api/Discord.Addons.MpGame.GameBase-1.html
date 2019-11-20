@@ -133,6 +133,33 @@
                             <a href="Discord.Addons.MpGame.Collections.WrappingPile-2.html" title="WrappingPile&lt;T, TWrapper&gt;" class="">WrappingPile&lt;T, TWrapper&gt;</a>
                           </li>
                         </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Discord.Addons.Preconditions.html" title="Discord.Addons.Preconditions" class="">Discord.Addons.Preconditions</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.Measure.html" title="Measure" class="">Measure</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.html" title="MinimumOnlineUsersAttribute" class="">MinimumOnlineUsersAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.RatelimitAttribute.html" title="RatelimitAttribute" class="">RatelimitAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.RatelimitFlags.html" title="RatelimitFlags" class="">RatelimitFlags</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.html" title="RequireLowerHierarchyAttribute" class="">RequireLowerHierarchyAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.RequireRoleAttribute.html" title="RequireRoleAttribute" class="">RequireRoleAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.html" title="UserMustBeInVoiceAttribute" class="">UserMustBeInVoiceAttribute</a>
+                          </li>
+                        </ul>  </li>
                   </ul>        </div>
               </div>
             </div>
@@ -582,7 +609,7 @@ otherwise it will be set to an empty Node and you will have to set it to Turnpla
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnPlayerAdded(TPlayer player)</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual Task OnPlayerAdded(TPlayer player)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -602,6 +629,21 @@ otherwise it will be set to an empty Node and you will have to set it to Turnpla
       </tr>
     </tbody>
   </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_GameBase_1_OnPlayerKicked__0_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.GameBase%601.OnPlayerKicked(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
@@ -616,7 +658,7 @@ otherwise it will be set to an empty Node and you will have to set it to Turnpla
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnPlayerKicked(TPlayer player)</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual Task OnPlayerKicked(TPlayer player)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -633,6 +675,21 @@ otherwise it will be set to an empty Node and you will have to set it to Turnpla
         <td><span class="parametername">player</span></td>
         <td><p>The player that is removed.</p>
 </td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td></td>
       </tr>
     </tbody>
   </table>

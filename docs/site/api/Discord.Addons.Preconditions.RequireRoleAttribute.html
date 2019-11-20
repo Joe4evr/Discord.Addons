@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace Discord.Addons.MpGame.Collections
+    <title>Class RequireRoleAttribute
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace Discord.Addons.MpGame.Collections
+    <meta name="title" content="Class RequireRoleAttribute
    ">
     <meta name="generator" content="docfx 2.47.0.0">
     
@@ -109,9 +109,9 @@
                             <a href="Discord.Addons.MpGame.Player.html" title="Player" class="">Player</a>
                           </li>
                         </ul>  </li>
-                    <li class="active">
+                    <li class="">
                       <span class="expand-stub"></span>
-                      <a href="Discord.Addons.MpGame.Collections.html" title="Discord.Addons.MpGame.Collections" class="active">Discord.Addons.MpGame.Collections</a>
+                      <a href="Discord.Addons.MpGame.Collections.html" title="Discord.Addons.MpGame.Collections" class="">Discord.Addons.MpGame.Collections</a>
                         
                         <ul class="nav level2">
                           <li class="">
@@ -153,8 +153,8 @@
                           <li class="">
                             <a href="Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.html" title="RequireLowerHierarchyAttribute" class="">RequireLowerHierarchyAttribute</a>
                           </li>
-                          <li class="">
-                            <a href="Discord.Addons.Preconditions.RequireRoleAttribute.html" title="RequireRoleAttribute" class="">RequireRoleAttribute</a>
+                          <li class="active">
+                            <a href="Discord.Addons.Preconditions.RequireRoleAttribute.html" title="RequireRoleAttribute" class="active">RequireRoleAttribute</a>
                           </li>
                           <li class="">
                             <a href="Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.html" title="UserMustBeInVoiceAttribute" class="">UserMustBeInVoiceAttribute</a>
@@ -167,35 +167,137 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Discord.Addons.MpGame.Collections">
+            <article class="content wrap" id="_content" data-uid="Discord.Addons.Preconditions.RequireRoleAttribute">
   
-  <h1 id="Discord_Addons_MpGame_Collections" data-uid="Discord.Addons.MpGame.Collections" class="text-break">Namespace Discord.Addons.MpGame.Collections
+  
+  <h1 id="Discord_Addons_Preconditions_RequireRoleAttribute" data-uid="Discord.Addons.Preconditions.RequireRoleAttribute" class="text-break">Class RequireRoleAttribute
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Indicates this command or all commands in this module can only
+be executed if the user has the role with the specified Id.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.attribute">Attribute</a></div>
+    <div class="level2"><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.PreconditionAttribute.html">PreconditionAttribute</a></div>
+    <div class="level3"><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.RequireContextAttribute.html">RequireContextAttribute</a></div>
+    <div class="level4"><span class="xref">RequireRoleAttribute</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.RequireContextAttribute.html#Discord_Commands_RequireContextAttribute_Contexts">RequireContextAttribute.Contexts</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.RequireContextAttribute.html#Discord_Commands_RequireContextAttribute_ErrorMessage">RequireContextAttribute.ErrorMessage</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.PreconditionAttribute.html#Discord_Commands_PreconditionAttribute_Group">PreconditionAttribute.Group</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Discord.Addons.Preconditions.html">Discord.Addons.Preconditions</a></h6>
+  <h6><strong>Assembly</strong>: Discord.Addons.Preconditions.dll</h6>
+  <h5 id="Discord_Addons_Preconditions_RequireRoleAttribute_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+public sealed class RequireRoleAttribute : RequireContextAttribute</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
   </h3>
-      <h4><a class="xref" href="Discord.Addons.MpGame.Collections.CircularLinkedList-1.html">CircularLinkedList&lt;T&gt;</a></h4>
-      <section><p>Represents a circular doubly linked list.</p>
-</section>
-      <h4><a class="xref" href="Discord.Addons.MpGame.Collections.Hand-1.html">Hand&lt;T&gt;</a></h4>
-      <section><p>Similar to <a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html">Pile&lt;T&gt;</a> but specialized and optimized for representing a hand of items.</p>
-</section>
-      <h4><a class="xref" href="Discord.Addons.MpGame.Collections.Node-1.html">Node&lt;T&gt;</a></h4>
-      <section><p>Represents a node</p>
-</section>
-      <h4><a class="xref" href="Discord.Addons.MpGame.Collections.Pile-1.html">Pile&lt;T&gt;</a></h4>
-      <section><p>Base type to represent a pile of objects, mostly tailored for use in card games.</p>
-</section>
-      <h4><a class="xref" href="Discord.Addons.MpGame.Collections.WrappingPile-2.html">WrappingPile&lt;T, TWrapper&gt;</a></h4>
-      <section><p>Base type to represent a pile of objects inside a custom wrapper type.</p>
-</section>
-    <h3 id="interfaces">Interfaces
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RequireRoleAttribute__ctor_System_UInt64_.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RequireRoleAttribute.%23ctor(System.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/RequireRoleAttribute.cs/#L21">View Source</a>
+  </span>
+  <a id="Discord_Addons_Preconditions_RequireRoleAttribute__ctor_" data-uid="Discord.Addons.Preconditions.RequireRoleAttribute.#ctor*"></a>
+  <h4 id="Discord_Addons_Preconditions_RequireRoleAttribute__ctor_System_UInt64_" data-uid="Discord.Addons.Preconditions.RequireRoleAttribute.#ctor(System.UInt64)">RequireRoleAttribute(UInt64)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RequireRoleAttribute(ulong requiredRole)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td><span class="parametername">requiredRole</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
   </h3>
-      <h4><a class="xref" href="Discord.Addons.MpGame.Collections.IWrapper-1.html">IWrapper&lt;T&gt;</a></h4>
-      <section><p>Represents the contract for a wrapper.</p>
-</section>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RequireRoleAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_CommandInfo_System_IServiceProvider_.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RequireRoleAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext%2CDiscord.Commands.CommandInfo%2CSystem.IServiceProvider)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/RequireRoleAttribute.cs/#L27">View Source</a>
+  </span>
+  <a id="Discord_Addons_Preconditions_RequireRoleAttribute_CheckPermissionsAsync_" data-uid="Discord.Addons.Preconditions.RequireRoleAttribute.CheckPermissionsAsync*"></a>
+  <h4 id="Discord_Addons_Preconditions_RequireRoleAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_CommandInfo_System_IServiceProvider_" data-uid="Discord.Addons.Preconditions.RequireRoleAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.CommandInfo,System.IServiceProvider)">CheckPermissionsAsync(ICommandContext, CommandInfo, IServiceProvider)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task&lt;PreconditionResult&gt; CheckPermissionsAsync(ICommandContext context, CommandInfo command, IServiceProvider services)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.ICommandContext.html">ICommandContext</a></td>
+        <td><span class="parametername">context</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.CommandInfo.html">CommandInfo</a></td>
+        <td><span class="parametername">command</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></td>
+        <td><span class="parametername">services</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.PreconditionResult.html">PreconditionResult</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Discord.Commands.RequireContextAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext, Discord.Commands.CommandInfo, System.IServiceProvider)</span></div>
 </article>
           </div>
           
@@ -203,6 +305,12 @@
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RequireRoleAttribute.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RequireRoleAttribute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/RequireRoleAttribute.cs/#L12" class="contribution-link">View Source</a>
+                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

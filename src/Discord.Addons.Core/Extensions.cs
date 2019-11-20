@@ -11,7 +11,7 @@ namespace Discord.Addons.Core
     {
         public static Func<LogMessage, Task> NoOpLogger { get; } = (_ => Task.CompletedTask);
         public static Func<string, Task> NoOpStringToTask { get; } = (_ => Task.CompletedTask);
-        public static Func<string, ValueTask> NoOpStringToVTask { get; } = (_ => new ValueTask(Task.CompletedTask));
+        //public static Func<string, ValueTask> NoOpStringToVTask { get; } = (_ => new ValueTask(Task.CompletedTask));
 
         internal static string ToNiceString(this TimeSpan ts)
         {
@@ -40,7 +40,7 @@ namespace Discord.Addons.Core
         /// </remarks>
         public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source, int iterations = 1)
         {
-            var provider = RandomNumberGenerator.Create();
+            using var provider = RandomNumberGenerator.Create();
             var buffer = source.ToList();
             int n = buffer.Count;
             for (int i = 0; i < iterations; i++)

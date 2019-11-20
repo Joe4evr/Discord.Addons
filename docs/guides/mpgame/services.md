@@ -23,8 +23,8 @@ public class MpGameService<TGame, TPlayer>
 
     public MpGameService(
         BaseSocketClient client,
-        IMpGameServiceConfig mpconfig = null,
-        Func<LogMessage, Task> logger = null);
+        IMpGameServiceConfig? mpconfig = null,
+        Func<LogMessage, Task>? logger = null);
 
     public bool OpenNewGame(ICommandContext context);
 
@@ -40,7 +40,8 @@ public class MpGameService<TGame, TPlayer>
 
     public bool TryAddNewGame(IMessageChannel channel, TGame game);
 
-    public bool TryUpdateOpenToJoin(IMessageChannel channel, bool newValue, bool comparisonValue);
+    public bool TryUpdateOpenToJoin(
+        IMessageChannel channel, bool newValue, bool comparisonValue);
 
     public TGame GetGameFromChannel(IMessageChannel channel);
 
@@ -88,8 +89,8 @@ public sealed class CardGameService : MpGameService<CardGame, CardPlayer>
 {
     public CardGameService(
         BaseSocketClient client,
-        IMpGameServiceConfig mpconfig = null,
-        Func<LogMessage, Task> logger = null)
+        IMpGameServiceConfig? mpconfig = null,
+        Func<LogMessage, Task>? logger = null)
         : base(client, mpconfig, logger)
     {
         // You can now log anything you like by invoking the 'Logger'

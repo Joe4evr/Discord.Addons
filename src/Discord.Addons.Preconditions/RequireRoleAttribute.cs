@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord.Commands;
@@ -15,6 +14,10 @@ namespace Discord.Addons.Preconditions
     {
         private readonly ulong _requiredRole;
 
+        /// <summary>
+        /// </summary>
+        /// <param name="requiredRole">
+        /// </param>
         public RequireRoleAttribute(ulong requiredRole) : base(ContextType.Guild)
         {
             _requiredRole = requiredRole;

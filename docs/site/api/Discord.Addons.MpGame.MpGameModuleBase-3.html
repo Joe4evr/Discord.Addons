@@ -133,6 +133,33 @@
                             <a href="Discord.Addons.MpGame.Collections.WrappingPile-2.html" title="WrappingPile&lt;T, TWrapper&gt;" class="">WrappingPile&lt;T, TWrapper&gt;</a>
                           </li>
                         </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Discord.Addons.Preconditions.html" title="Discord.Addons.Preconditions" class="">Discord.Addons.Preconditions</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.Measure.html" title="Measure" class="">Measure</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.html" title="MinimumOnlineUsersAttribute" class="">MinimumOnlineUsersAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.RatelimitAttribute.html" title="RatelimitAttribute" class="">RatelimitAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.RatelimitFlags.html" title="RatelimitFlags" class="">RatelimitFlags</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.html" title="RequireLowerHierarchyAttribute" class="">RequireLowerHierarchyAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.RequireRoleAttribute.html" title="RequireRoleAttribute" class="">RequireRoleAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.html" title="UserMustBeInVoiceAttribute" class="">UserMustBeInVoiceAttribute</a>
+                          </li>
+                        </ul>  </li>
                   </ul>        </div>
               </div>
             </div>
@@ -439,11 +466,12 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameModuleBase_3_RegisterPlayerTypeReader.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameModuleBase%603.RegisterPlayerTypeReader%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L94">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L95">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameModuleBase_3_RegisterPlayerTypeReader_" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.RegisterPlayerTypeReader*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameModuleBase_3_RegisterPlayerTypeReader" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.RegisterPlayerTypeReader">RegisterPlayerTypeReader</h4>
-  <div class="markdown level1 summary"><p>Override this to return <span class="xref">false</span> if you don't want to register a type reader for the <code data-dev-comment-type="typeparamref" class="typeparamref">TPlayer</code> type.</p>
+  <div class="markdown level1 summary"><p>Override this to return <span class="xref">false</span> if you don't want
+to register a type reader for the <code data-dev-comment-type="typeparamref" class="typeparamref">TPlayer</code> type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -507,7 +535,7 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameModuleBase_3_CancelGameCmd.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameModuleBase%603.CancelGameCmd%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L219">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L220">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameModuleBase_3_CancelGameCmd_" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.CancelGameCmd*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameModuleBase_3_CancelGameCmd" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.CancelGameCmd">CancelGameCmd()</h4>
@@ -534,32 +562,32 @@
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_CancelGameCmd_examples">Examples</h5>
-  <pre><code class="lang-c#">    [Command(&quot;cancel&quot;)]
-    public override async Task CancelGameCmd()
+  <pre><code class="lang-c#">  [Command(&quot;cancel&quot;)]
+  public override async Task CancelGameCmd()
+  {
+    if (Game != null)
     {
-        if (Game != null)
-        {
-            await ReplyAsync(&quot;Cannot cancel a game already in progress.&quot;).ConfigureAwait(false);
-        }
-        else if (!OpenToJoin)
-        {
-            await ReplyAsync(&quot;No game open to cancel.&quot;).ConfigureAwait(false);
-        }
-        else
-        {
-            if (await GameService.CancelGame(Context.Channel))
-            {
-                await ReplyAsync(&quot;Game was canceled.&quot;).ConfigureAwait(false);
-            }
-        }
-    }</code></pre>
+      await ReplyAsync(&quot;Cannot cancel a game already in progress.&quot;).ConfigureAwait(false);
+    }
+    else if (!OpenToJoin)
+    {
+      await ReplyAsync(&quot;No game open to cancel.&quot;).ConfigureAwait(false);
+    }
+    else
+    {
+      if (await GameService.CancelGameAsync(Context.Channel))
+      {
+        await ReplyAsync(&quot;Game was canceled.&quot;).ConfigureAwait(false);
+      }
+    }
+  }</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameModuleBase_3_EndGameCmd.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameModuleBase%603.EndGameCmd%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L308">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L310">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameModuleBase_3_EndGameCmd_" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.EndGameCmd*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameModuleBase_3_EndGameCmd" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.EndGameCmd">EndGameCmd()</h4>
@@ -586,20 +614,20 @@
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_EndGameCmd_examples">Examples</h5>
-  <pre><code class="lang-c#">    [Command(&quot;end&quot;)] //Should be restricted to mods/admins to prevent abuse
-    public override Task EndGameCmd()
-        => (Game != null)
-            ? Game.EndGame(&quot;Game ended early by moderator.&quot;)
-            : GameInProgress == CurrentlyPlaying.DifferentGame
-                ? ReplyAsync(&quot;Different game in progress.&quot;)
-                : ReplyAsync(&quot;No game in progress.&quot;);</code></pre>
+  <pre><code class="lang-c#">  [Command(&quot;end&quot;)] //Should be restricted to mods/admins to prevent abuse
+  public override Task EndGameCmd()
+    => (Game != null)
+      ? Game.EndGame(&quot;Game ended early by moderator.&quot;)
+      : GameInProgress == CurrentlyPlaying.DifferentGame
+        ? ReplyAsync(&quot;Different game in progress.&quot;)
+        : ReplyAsync(&quot;No game in progress.&quot;);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameModuleBase_3_GameStateCmd.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameModuleBase%603.GameStateCmd%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L292">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L294">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameModuleBase_3_GameStateCmd_" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.GameStateCmd*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameModuleBase_3_GameStateCmd" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.GameStateCmd">GameStateCmd()</h4>
@@ -626,21 +654,21 @@
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_GameStateCmd_examples">Examples</h5>
-  <pre><code class="lang-c#">    [Command(&quot;state&quot;)]
-    public override Task GameStateCmd()
-        => (Game != null)
-            ? ReplyAsync(Game.GetGameState())
-            //Alternatively: ReplyAsync(&quot;&quot;, embed: Game.GetGameStateEmbed())
-            : (GameInProgress == CurrentlyPlaying.DifferentGame)
-                ? ReplyAsync(&quot;Different game in progress.&quot;)
-                : ReplyAsync(&quot;No game in progress.&quot;);</code></pre>
+  <pre><code class="lang-c#">  [Command(&quot;state&quot;)]
+  public override Task GameStateCmd()
+    => (Game != null)
+      ? ReplyAsync(Game.GetGameState())
+      // Alternatively: ReplyAsync(&quot;&quot;, embed: Game.GetGameStateEmbed())
+      : (GameInProgress == CurrentlyPlaying.DifferentGame)
+        ? ReplyAsync(&quot;Different game in progress.&quot;)
+        : ReplyAsync(&quot;No game in progress.&quot;);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameModuleBase_3_JoinGameCmd.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameModuleBase%603.JoinGameCmd%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L163">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L164">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameModuleBase_3_JoinGameCmd_" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.JoinGameCmd*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameModuleBase_3_JoinGameCmd" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.JoinGameCmd">JoinGameCmd()</h4>
@@ -667,32 +695,32 @@
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_JoinGameCmd_examples">Examples</h5>
-  <pre><code class="lang-c#">    [Command(&quot;join&quot;)]
-    public override async Task JoinGameCmd()
+  <pre><code class="lang-c#">  [Command(&quot;join&quot;)]
+  public override async Task JoinGameCmd()
+  {
+    if (Game != null)
     {
-        if (Game != null)
-        {
-            await ReplyAsync(&quot;Cannot join a game already in progress.&quot;).ConfigureAwait(false);
-        }
-        else if (!OpenToJoin)
-        {
-            await ReplyAsync(&quot;No game open to join.&quot;).ConfigureAwait(false);
-        }
-        else
-        {
-            if (await GameService.AddUser(Context.Channel, Context.User).ConfigureAwait(false))
-            {
-                await ReplyAsync($&quot;**{Context.User.Username}** has joined.&quot;).ConfigureAwait(false);
-            }
-        }
-    }</code></pre>
+      await ReplyAsync(&quot;Cannot join a game already in progress.&quot;).ConfigureAwait(false);
+    }
+    else if (!OpenToJoin)
+    {
+      await ReplyAsync(&quot;No game open to join.&quot;).ConfigureAwait(false);
+    }
+    else
+    {
+      if (await GameService.AddUserAsync(Context.Channel, Context.User).ConfigureAwait(false))
+      {
+        await ReplyAsync($&quot;**{Context.User.Username}** has joined.&quot;).ConfigureAwait(false);
+      }
+    }
+  }</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameModuleBase_3_LeaveGameCmd.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameModuleBase%603.LeaveGameCmd%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L191">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L192">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameModuleBase_3_LeaveGameCmd_" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.LeaveGameCmd*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameModuleBase_3_LeaveGameCmd" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.LeaveGameCmd">LeaveGameCmd()</h4>
@@ -719,32 +747,32 @@
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_LeaveGameCmd_examples">Examples</h5>
-  <pre><code class="lang-c#">    [Command(&quot;leave&quot;)]
-    public override async Task LeaveGameCmd()
+  <pre><code class="lang-c#">  [Command(&quot;leave&quot;)]
+  public override async Task LeaveGameCmd()
+  {
+    if (Game != null)
     {
-        if (Game != null)
-        {
-            await ReplyAsync(&quot;Cannot leave a game already in progress.&quot;).ConfigureAwait(false);
-        }
-        else if (!OpenToJoin)
-        {
-            await ReplyAsync(&quot;No game open to leave.&quot;).ConfigureAwait(false);
-        }
-        else
-        {
-            if (await GameService.RemoveUser(Context.Channel, Context.User))
-            {
-                await ReplyAsync($&quot;**{Context.User.Username}** has left.&quot;).ConfigureAwait(false);
-            }
-        }
-    }</code></pre>
+      await ReplyAsync(&quot;Cannot leave a game already in progress.&quot;).ConfigureAwait(false);
+    }
+    else if (!OpenToJoin)
+    {
+      await ReplyAsync(&quot;No game open to leave.&quot;).ConfigureAwait(false);
+    }
+    else
+    {
+      if (await GameService.RemoveUserAsync(Context.Channel, Context.User))
+      {
+          await ReplyAsync($&quot;**{Context.User.Username}** has left.&quot;).ConfigureAwait(false);
+      }
+    }
+  }</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameModuleBase_3_NextTurnCmd.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameModuleBase%603.NextTurnCmd%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L275">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L277">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameModuleBase_3_NextTurnCmd_" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.NextTurnCmd*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameModuleBase_3_NextTurnCmd" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.NextTurnCmd">NextTurnCmd()</h4>
@@ -771,20 +799,20 @@
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_NextTurnCmd_examples">Examples</h5>
-  <pre><code class="lang-c#">    [Command(&quot;turn&quot;)]
-    public override Task NextTurnCmd()
-        => (Game != null)
-            ? Game.NextTurn()
-            : (GameInProgress == CurrentlyPlaying.DifferentGame)
-                ? ReplyAsync(&quot;Different game in progress.&quot;)
-                : ReplyAsync(&quot;No game in progress.&quot;);</code></pre>
+  <pre><code class="lang-c#">  [Command(&quot;turn&quot;)]
+  public override Task NextTurnCmd()
+    => (Game != null)
+      ? Game.NextTurn()
+      : (GameInProgress == CurrentlyPlaying.DifferentGame)
+        ? ReplyAsync(&quot;Different game in progress.&quot;)
+        : ReplyAsync(&quot;No game in progress.&quot;);</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameModuleBase_3_OnModuleBuilding_Discord_Commands_CommandService_Discord_Commands_Builders_ModuleBuilder_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameModuleBase%603.OnModuleBuilding(Discord.Commands.CommandService%2CDiscord.Commands.Builders.ModuleBuilder)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L97">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L98">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameModuleBase_3_OnModuleBuilding_" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.OnModuleBuilding*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameModuleBase_3_OnModuleBuilding_Discord_Commands_CommandService_Discord_Commands_Builders_ModuleBuilder_" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.OnModuleBuilding(Discord.Commands.CommandService,Discord.Commands.Builders.ModuleBuilder)">OnModuleBuilding(CommandService, ModuleBuilder)</h4>
@@ -823,7 +851,7 @@
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameModuleBase_3_OpenGameCmd.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameModuleBase%603.OpenGameCmd%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L135">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L136">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameModuleBase_3_OpenGameCmd_" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.OpenGameCmd*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameModuleBase_3_OpenGameCmd" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.OpenGameCmd">OpenGameCmd()</h4>
@@ -850,41 +878,41 @@
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_OpenGameCmd_examples">Examples</h5>
-  <pre><code class="lang-c#">    [Command(&quot;opengame&quot;)]
-    public override async Task OpenGameCmd()
+  <pre><code class="lang-c#">  [Command(&quot;opengame&quot;)]
+  public override async Task OpenGameCmd()
+  {
+    if (OpenToJoin)
     {
-        if (OpenToJoin)
-        {
-            await ReplyAsync(&quot;There is already a game open to join.&quot;).ConfigureAwait(false);
-        }
-        else if (GameInProgress != CurrentlyPlaying.None)
-        {
-            await ReplyAsync(&quot;Another game already in progress.&quot;).ConfigureAwait(false);
-        }
-        else
-        {
-            if (await GameService.OpenNewGame(Context).ConfigureAwait(false))
-            {
-                await ReplyAsync(&quot;Opening for a game.&quot;).ConfigureAwait(false);
-            }
-        }
-    }</code></pre>
+      await ReplyAsync(&quot;There is already a game open to join.&quot;).ConfigureAwait(false);
+    }
+    else if (GameInProgress != CurrentlyPlaying.None)
+    {
+      await ReplyAsync(&quot;Another game already in progress.&quot;).ConfigureAwait(false);
+    }
+    else
+    {
+      if (await GameService.OpenNewGame(Context).ConfigureAwait(false))
+      {
+        await ReplyAsync(&quot;Opening for a game.&quot;).ConfigureAwait(false);
+      }
+    }
+  }</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameModuleBase_3_ResendCmd.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameModuleBase%603.ResendCmd%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameModuleBase_3_ResendUnsentDMsAsync.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameModuleBase%603.ResendUnsentDMsAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L319">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L321">View Source</a>
   </span>
-  <a id="Discord_Addons_MpGame_MpGameModuleBase_3_ResendCmd_" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.ResendCmd*"></a>
-  <h4 id="Discord_Addons_MpGame_MpGameModuleBase_3_ResendCmd" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.ResendCmd">ResendCmd()</h4>
-  <div class="markdown level1 summary"><p>Command to resend a message to someone who had their DMs disabled.</p>
+  <a id="Discord_Addons_MpGame_MpGameModuleBase_3_ResendUnsentDMsAsync_" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.ResendUnsentDMsAsync*"></a>
+  <h4 id="Discord_Addons_MpGame_MpGameModuleBase_3_ResendUnsentDMsAsync" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.ResendUnsentDMsAsync">ResendUnsentDMsAsync()</h4>
+  <div class="markdown level1 summary"><p>Convinience method to resend the stored messages to someone who had their DMs disabled.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual Task ResendCmd()</code></pre>
+    <pre><code class="lang-csharp hljs">protected Task ResendUnsentDMsAsync()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -901,16 +929,16 @@
       </tr>
     </tbody>
   </table>
-  <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_ResendCmd_examples">Examples</h5>
-  <pre><code class="lang-c#">    [Command(&quot;resend&quot;)]
-    public override Task ResendCmd() => base.ResendCmd();</code></pre>
+  <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_ResendUnsentDMsAsync_examples">Examples</h5>
+  <pre><code class="lang-c#">  [Command(&quot;resend&quot;)]
+  public override Task ResendCmd() => ResendUnsentDMsAsync();</code></pre>
 
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_MpGameModuleBase_3_StartGameCmd.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.MpGameModuleBase%603.StartGameCmd%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L259">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Modules/MpGameModuleBase.cs/#L261">View Source</a>
   </span>
   <a id="Discord_Addons_MpGame_MpGameModuleBase_3_StartGameCmd_" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.StartGameCmd*"></a>
   <h4 id="Discord_Addons_MpGame_MpGameModuleBase_3_StartGameCmd" data-uid="Discord.Addons.MpGame.MpGameModuleBase`3.StartGameCmd">StartGameCmd()</h4>
@@ -937,37 +965,38 @@
     </tbody>
   </table>
   <h5 id="Discord_Addons_MpGame_MpGameModuleBase_3_StartGameCmd_examples">Examples</h5>
-  <pre><code class="lang-c#">    [Command(&quot;start&quot;)]
-    public override async Task StartGameCmd()
+  <pre><code class="lang-c#">  [Command(&quot;start&quot;)]
+  public override async Task StartGameCmd()
+  {
+    if (Game != null)
     {
-        if (Game != null)
+      await ReplyAsync(&quot;Another game already in progress.&quot;).ConfigureAwait(false);
+    }
+    else if (!OpenToJoin)
+    {
+      await ReplyAsync(&quot;No game has been opened at this time.&quot;).ConfigureAwait(false);
+    }
+    else if (JoinedUsers.Count &lt; 2) // Example value if a game has a minimum player requirement
+    {
+      await ReplyAsync(&quot;Not enough players have joined.&quot;).ConfigureAwait(false);
+    }
+    else
+    {
+      if (GameService.TryUpdateOpenToJoin(Context.Channel,
+          newValue: false, comparisonValue: true))
+      {
+        // Tip: Shuffle the players before projecting them
+        var players = JoinedUsers.Select(u => new ExamplePlayer(u, Context.Channel));
+        // The Player class can also be extended for additional properties
+        var game = new ExampleGame(Context.Channel, players);
+        if (await GameService.TryAddNewGameAsync(Context.Channel, game).ConfigureAwait(false))
         {
-            await ReplyAsync(&quot;Another game already in progress.&quot;).ConfigureAwait(false);
+          await game.SetupGame().ConfigureAwait(false);
+          await game.StartGame().ConfigureAwait(false);
         }
-        else if (!OpenToJoin)
-        {
-            await ReplyAsync(&quot;No game has been opened at this time.&quot;).ConfigureAwait(false);
-        }
-        else if (JoinedUsers.Count &lt; 2) // Example value if a game has a minimum player requirement
-        {
-            await ReplyAsync(&quot;Not enough players have joined.&quot;).ConfigureAwait(false);
-        }
-        else
-        {
-            if (GameService.TryUpdateOpenToJoin(Context.Channel, newValue: false, comparisonValue: true))
-            {
-                // Tip: Shuffle the players before projecting them
-                var players = JoinedUsers.Select(u => new ExamplePlayer(u, Context.Channel));
-                // The Player class can also be extended for additional properties
-                var game = new ExampleGame(Context.Channel, players);
-                if (await GameService.TryAddNewGame(Context.Channel, game).ConfigureAwait(false))
-                {
-                    await game.SetupGame().ConfigureAwait(false);
-                    await game.StartGame().ConfigureAwait(false);
-                }
-            }
-        }
-    }</code></pre>
+      }
+    }
+  }</code></pre>
 
 </article>
           </div>

@@ -45,7 +45,7 @@ public abstract class MpGameModuleBase<TService, TGame, TPlayer> : ModuleBase<So
 
     public abstract Task EndGameCmd();
 
-    public virtual async Task ResendCmd();
+    protected Task ResendUnsentDMsAsync();
 }
 
 public enum CurrentlyPlaying
@@ -90,6 +90,8 @@ public class CardGameModule : MpGameModuleBase<CardGameService, CardGame, CardPl
     {
     }
 
+    private DataType _data;
+    
     protected override void BeforeExecute(CommandInfo command)
     {
         // If you choose to override this method, you *must* call the base version first.
@@ -100,7 +102,6 @@ public class CardGameModule : MpGameModuleBase<CardGameService, CardGame, CardPl
         // the result in a private field.
         GameService.SomeDataDictionary.TryGetValue(Context.Channel.Id, out _data);
     }
-    private DataType _data;
 }
 ```
 

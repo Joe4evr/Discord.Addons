@@ -24,11 +24,13 @@ public abstract class GameBase<TPlayer>
 
     public Node<TPlayer> TurnPlayer { get; protected set; }
 
+    protected bool IsTurnPlayerFirstPlayer();
+    
     protected bool IsTurnPlayerLastPlayer();
 
-    protected virtual void OnPlayerAdded(TPlayer player);
+    protected virtual Task OnPlayerAdded(TPlayer player);
 
-    protected virtual void OnPlayerKicked(TPlayer player);
+    protected virtual Task OnPlayerKicked(TPlayer player);
 
     public abstract string GetGameState();
 
@@ -39,8 +41,10 @@ public abstract class GameBase<TPlayer>
     public abstract Task StartGame();
 
     public abstract Task NextTurn();
+    
+    public Task EndGame(string endmsg);
 
-    public virtual async Task EndGame(string endmsg);
+    public virtual async Task OnGameEnd();
 }
 ```
 
@@ -85,7 +89,7 @@ public class CardGame : GameBase<CardPlayer> // Any player in a 'CardGame' is of
         {
             foreach (var p in Players)
             {
-                p.AddCard(Deck.Pop());
+                p.AddCard(Deck.Draw());
             }
         }
 
@@ -157,6 +161,3 @@ internal enum GameState
 }
 ```
 
-The final method from the base class you need to know is `EndGame()`.
-It's not required to override this, but if you do, you ***must*** call
-`base.EndGame()` in order to make the game instance eligible for garbage collection.

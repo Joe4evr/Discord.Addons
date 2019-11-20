@@ -5,12 +5,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface ICardWrapper&lt;TCard&gt;
+    <title>Class RequireLowerHierarchyAttribute
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface ICardWrapper&lt;TCard&gt;
+    <meta name="title" content="Class RequireLowerHierarchyAttribute
    ">
-    <meta name="generator" content="docfx 2.35.4.0">
+    <meta name="generator" content="docfx 2.47.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -50,15 +50,15 @@
                   <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
                 </div>
               </form>
+                
                 <ul class="nav level1 navbar-nav">
-                  <li class="">
-                    <a href="../guides/intro.html" title="Guides" class="">Guides</a>
-                  </li>
-                  <li class="active">
-                    <a href="../api/index.html" title="Api Documentation" class="active">Api Documentation</a>
-                  </li>
-                </ul>
-            </div>
+                      <li>
+                          <a href="../guides/intro.html" title="Guides">Guides</a>
+                      </li>
+                      <li>
+                          <a href="../api/index.html" title="Api Documentation">Api Documentation</a>
+                      </li>
+                </ul>    </div>
           </div>
         </nav>
         
@@ -118,16 +118,46 @@
                             <a href="Discord.Addons.MpGame.Collections.CircularLinkedList-1.html" title="CircularLinkedList&lt;T&gt;" class="">CircularLinkedList&lt;T&gt;</a>
                           </li>
                           <li class="">
-                            <a href="Discord.Addons.MpGame.Collections.Hand-1.html" title="Hand&lt;TCard&gt;" class="">Hand&lt;TCard&gt;</a>
+                            <a href="Discord.Addons.MpGame.Collections.Hand-1.html" title="Hand&lt;T&gt;" class="">Hand&lt;T&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.MpGame.Collections.IWrapper-1.html" title="IWrapper&lt;T&gt;" class="">IWrapper&lt;T&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.MpGame.Collections.Node-1.html" title="Node&lt;T&gt;" class="">Node&lt;T&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.MpGame.Collections.Pile-1.html" title="Pile&lt;T&gt;" class="">Pile&lt;T&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.MpGame.Collections.WrappingPile-2.html" title="WrappingPile&lt;T, TWrapper&gt;" class="">WrappingPile&lt;T, TWrapper&gt;</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Discord.Addons.Preconditions.html" title="Discord.Addons.Preconditions" class="">Discord.Addons.Preconditions</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.Measure.html" title="Measure" class="">Measure</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.html" title="MinimumOnlineUsersAttribute" class="">MinimumOnlineUsersAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.RatelimitAttribute.html" title="RatelimitAttribute" class="">RatelimitAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.Preconditions.RatelimitFlags.html" title="RatelimitFlags" class="">RatelimitFlags</a>
                           </li>
                           <li class="active">
-                            <a href="Discord.Addons.MpGame.Collections.ICardWrapper-1.html" title="ICardWrapper&lt;TCard&gt;" class="active">ICardWrapper&lt;TCard&gt;</a>
+                            <a href="Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.html" title="RequireLowerHierarchyAttribute" class="active">RequireLowerHierarchyAttribute</a>
                           </li>
                           <li class="">
-                            <a href="Discord.Addons.MpGame.Collections.Pile-2.html" title="Pile&lt;TCard, TWrapper&gt;" class="">Pile&lt;TCard, TWrapper&gt;</a>
+                            <a href="Discord.Addons.Preconditions.RequireRoleAttribute.html" title="RequireRoleAttribute" class="">RequireRoleAttribute</a>
                           </li>
                           <li class="">
-                            <a href="Discord.Addons.MpGame.Collections.Pile-1.html" title="Pile&lt;TCard&gt;" class="">Pile&lt;TCard&gt;</a>
+                            <a href="Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.html" title="UserMustBeInVoiceAttribute" class="">UserMustBeInVoiceAttribute</a>
                           </li>
                         </ul>  </li>
                   </ul>        </div>
@@ -137,53 +167,45 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Discord.Addons.MpGame.Collections.ICardWrapper`1">
+            <article class="content wrap" id="_content" data-uid="Discord.Addons.Preconditions.RequireLowerHierarchyAttribute">
   
   
-  <h1 id="Discord_Addons_MpGame_Collections_ICardWrapper_1" data-uid="Discord.Addons.MpGame.Collections.ICardWrapper`1" class="text-break">Interface ICardWrapper&lt;TCard&gt;
+  <h1 id="Discord_Addons_Preconditions_RequireLowerHierarchyAttribute" data-uid="Discord.Addons.Preconditions.RequireLowerHierarchyAttribute" class="text-break">Class RequireLowerHierarchyAttribute
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Indicates this parameter must be a Guild User whose
+<a class="xref" href="https://docs.stillu.cc/api/Discord.WebSocket.SocketGuildUser.html#Discord_WebSocket_SocketGuildUser_Hierarchy">Hierarchy</a> value must be
+lower than that of the Bot.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Discord.Addons.MpGame.Collections.html">Discord.Addons.MpGame.Collections</a></h6>
-  <h6><strong>Assembly</strong>: Discord.Addons.MpGame.dll</h6>
-  <h5 id="Discord_Addons_MpGame_Collections_ICardWrapper_1_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface ICardWrapper&lt;TCard&gt;
-    where TCard : class</code></pre>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.attribute">Attribute</a></div>
+    <div class="level2"><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.ParameterPreconditionAttribute.html">ParameterPreconditionAttribute</a></div>
+    <div class="level3"><span class="xref">RequireLowerHierarchyAttribute</span></div>
   </div>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TCard</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Discord.Addons.Preconditions.html">Discord.Addons.Preconditions</a></h6>
+  <h6><strong>Assembly</strong>: Discord.Addons.Preconditions.dll</h6>
+  <h5 id="Discord_Addons_Preconditions_RequireLowerHierarchyAttribute_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class RequireLowerHierarchyAttribute : ParameterPreconditionAttribute</code></pre>
+  </div>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_ICardWrapper_1_Reset__1_Discord_Addons_MpGame_Collections_Pile__0___0__.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.ICardWrapper%601.Reset%60%601(Discord.Addons.MpGame.Collections.Pile%7B%600%2C%60%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RequireLowerHierarchyAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_ParameterInfo_System_Object_System_IServiceProvider_.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext%2CDiscord.Commands.ParameterInfo%2CSystem.Object%2CSystem.IServiceProvider)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/ICardWrapper.cs/#L29">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/RequireLowerHierarchyAttribute.cs/#L17">View Source</a>
   </span>
-  <a id="Discord_Addons_MpGame_Collections_ICardWrapper_1_Reset_" data-uid="Discord.Addons.MpGame.Collections.ICardWrapper`1.Reset*"></a>
-  <h4 id="Discord_Addons_MpGame_Collections_ICardWrapper_1_Reset__1_Discord_Addons_MpGame_Collections_Pile__0___0__" data-uid="Discord.Addons.MpGame.Collections.ICardWrapper`1.Reset``1(Discord.Addons.MpGame.Collections.Pile{`0,``0})">Reset&lt;TWrapper&gt;(Pile&lt;TCard, TWrapper&gt;)</h4>
-  <div class="markdown level1 summary"><p>Called when ownership of the wrapper has transfered from one pile to a different pile.</p>
-</div>
+  <a id="Discord_Addons_Preconditions_RequireLowerHierarchyAttribute_CheckPermissionsAsync_" data-uid="Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.CheckPermissionsAsync*"></a>
+  <h4 id="Discord_Addons_Preconditions_RequireLowerHierarchyAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_ParameterInfo_System_Object_System_IServiceProvider_" data-uid="Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.ParameterInfo,System.Object,System.IServiceProvider)">CheckPermissionsAsync(ICommandContext, ParameterInfo, Object, IServiceProvider)</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Reset&lt;TWrapper&gt;(Pile&lt;TCard, TWrapper&gt; newPile)
-    where TWrapper : struct, ICardWrapper&lt;TCard&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public override Task&lt;PreconditionResult&gt; CheckPermissionsAsync(ICommandContext context, ParameterInfo parameter, object value, IServiceProvider services)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -196,60 +218,24 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Discord.Addons.MpGame.Collections.Pile-2.html">Pile</a>&lt;TCard, TWrapper&gt;</td>
-        <td><span class="parametername">newPile</span></td>
-        <td><p>The new Pile that now owns this wrapper.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">TWrapper</span></td>
+        <td><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.ICommandContext.html">ICommandContext</a></td>
+        <td><span class="parametername">context</span></td>
         <td></td>
       </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_ICardWrapper_1_Unwrap_System_Boolean_.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.ICardWrapper%601.Unwrap(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/ICardWrapper.cs/#L21">View Source</a>
-  </span>
-  <a id="Discord_Addons_MpGame_Collections_ICardWrapper_1_Unwrap_" data-uid="Discord.Addons.MpGame.Collections.ICardWrapper`1.Unwrap*"></a>
-  <h4 id="Discord_Addons_MpGame_Collections_ICardWrapper_1_Unwrap_System_Boolean_" data-uid="Discord.Addons.MpGame.Collections.ICardWrapper`1.Unwrap(System.Boolean)">Unwrap(Boolean)</h4>
-  <div class="markdown level1 summary"><p>Unwraps the wrapped card.<br>
-<em>May</em> do domain-specific checks or operations.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">TCard Unwrap(bool revealing)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
+        <td><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.ParameterInfo.html">ParameterInfo</a></td>
+        <td><span class="parametername">parameter</span></td>
+        <td></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">revealing</span></td>
-        <td><p>Indicates if the actual card is required to be returned.</p>
-</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></td>
+        <td><span class="parametername">services</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -263,17 +249,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TCard</span></td>
-        <td><p>The unwrapped <code data-dev-comment-type="typeparamref" class="typeparamref">TCard</code>.</p>
-</td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.PreconditionResult.html">PreconditionResult</a>&gt;</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  <h5 id="Discord_Addons_MpGame_Collections_ICardWrapper_1_Unwrap_System_Boolean__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><div class="NOTE"><h5>implement</h5><p>
-    If <code data-dev-comment-type="paramref" class="paramref">revealing</code> is <span class="xref">true</span>, any domain-specific checks are required to be skipped and the actual wrapped card must be returned.
-</p></div>
-</div>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Discord.Commands.ParameterPreconditionAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext, Discord.Commands.ParameterInfo, System.Object, System.IServiceProvider)</span></div>
 </article>
           </div>
           
@@ -282,10 +264,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_MpGame_Collections_ICardWrapper_1.md&amp;value=---%0Auid%3A%20Discord.Addons.MpGame.Collections.ICardWrapper%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RequireLowerHierarchyAttribute.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RequireLowerHierarchyAttribute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.MpGame/Collections/ICardWrapper.cs/#L3" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/RequireLowerHierarchyAttribute.cs/#L14" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

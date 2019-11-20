@@ -5,7 +5,8 @@
         {
           "src": "../src",
           "files": [
-            "Discord.Addons.MpGame/Discord.Addons.MpGame.csproj"
+            "Discord.Addons.MpGame/Discord.Addons.MpGame.csproj",
+            "Discord.Addons.Preconditions/Discord.Addons.Preconditions.csproj"
           ]
         }
       ],
