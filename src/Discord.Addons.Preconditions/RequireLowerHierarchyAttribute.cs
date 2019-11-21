@@ -7,8 +7,8 @@ using Discord.WebSocket;
 namespace Discord.Addons.Preconditions
 {
     /// <summary>
-    ///     Indicates this parameter must be a Guild User whose
-    ///     <see cref="SocketGuildUser.Hierarchy"/> value must be
+    ///     Indicates this parameter must be a <see cref="SocketGuildUser"/>
+    ///     whose <see cref="SocketGuildUser.Hierarchy"/> value must be
     ///     lower than that of the Bot.
     /// </summary>
     public sealed class RequireLowerHierarchyAttribute : ParameterPreconditionAttribute

@@ -108,7 +108,7 @@
           "hash": "KIK74ZQjBxqxosgbziB9fA=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -168,7 +168,7 @@
           "hash": "LU93oByPdORbggpeAcLGcw=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -192,7 +192,7 @@
           "hash": "7ThmIORWxxUx2gTjN0WRfQ=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -204,7 +204,7 @@
           "hash": "DK73tjCMqz7porcMcTAo4g=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -216,7 +216,7 @@
           "hash": "8PDlyhtGo9u61cYFYRHm3w=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -225,7 +225,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.html",
-          "hash": "rRemB+cTrNY5qOoQTF8uxA=="
+          "hash": "VufKMsWwG1Kn5LkuSFttHg=="
         }
       },
       "is_incremental": false,
@@ -240,7 +240,7 @@
           "hash": "eezViJR/DceNfj7kzAtU+w=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -252,7 +252,7 @@
           "hash": "csRxIoBINBBfjjjkbaJlVg=="
         }
       },
-      "is_incremental": false,
+      "is_incremental": true,
       "version": ""
     },
     {
@@ -261,7 +261,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.html",
-          "hash": "qNqjVuPBaGTrf24FU5KdhA=="
+          "hash": "5qu9JdJcCpEY3+yydwh9vQ=="
         }
       },
       "is_incremental": false,
@@ -443,24 +443,24 @@
         "skipped_file_count": 0
       },
       "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 12,
+          "skipped_file_count": 12
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 29,
+          "skipped_file_count": 28
+        },
         "ResourceDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
           "skipped_file_count": 0
-        },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
-          "incrementalPhase": "build",
-          "total_file_count": 29,
-          "skipped_file_count": 23
-        },
-        "ConceptualDocumentProcessor": {
-          "can_incremental": true,
-          "incrementalPhase": "build",
-          "total_file_count": 12,
-          "skipped_file_count": 12
         },
         "TocDocumentProcessor": {
           "can_incremental": false,
