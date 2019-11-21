@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Discord.Addons.Core;
 using Discord.Addons.MpGame.Collections;
 
 namespace Discord.Addons.MpGame
@@ -120,6 +121,17 @@ namespace Discord.Addons.MpGame
         /// <param name="player">
         ///     The player that is added.
         /// </param>
+        /// <example>
+        ///   <code language="c#">
+        ///     protected override async Task OnPlayerAdded(CardPlayer player)
+        ///     {
+        ///       for (var i = 0; i &lt; 5; i++)
+        ///         player.AddCard(Deck.Draw());
+        ///
+        ///       await Channel.SendMessageAsync($"**{player.User.Username}** has joined.");
+        ///     }
+        ///   </code>
+        /// </example>
         protected internal virtual Task OnPlayerAdded(TPlayer player) => Task.CompletedTask;
 
         /// <summary>
@@ -128,6 +140,21 @@ namespace Discord.Addons.MpGame
         /// <param name="player">
         ///     The player that is removed.
         /// </param>
+        /// <example>
+        ///   <code language="c#">
+        ///     protected override async Task OnPlayerKicked(CardPlayer player)
+        ///     {
+        ///       var card = player.TakeCard(0);
+        ///       while (card != null)
+        ///       {
+        ///         Deck.PutBottom(card);
+        ///         card = player.TakeCard(0);
+        ///       }
+        ///
+        ///       await Channel.SendMessageAsync($"**{player.User.Username}** has left.");
+        ///     }
+        ///   </code>
+        /// </example>
         protected internal virtual Task OnPlayerKicked(TPlayer player) => Task.CompletedTask;
 
         /// <summary>
@@ -135,7 +162,6 @@ namespace Discord.Addons.MpGame
         /// </summary>
         protected virtual Task OnGameEnd() => Task.CompletedTask;
 
-        internal Func<IMessageChannel, Task> GameEnd { private get; set; } = _defaultend;
-        private static readonly Func<IMessageChannel, Task> _defaultend = (_ => Task.CompletedTask);
+        internal Func<IMessageChannel, Task> GameEnd { private get; set; } = Extensions.NoOpChannelToTask;
     }
 }

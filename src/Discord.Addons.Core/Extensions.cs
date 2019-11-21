@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using Discord;
 
 namespace Discord.Addons.Core
 {
@@ -11,7 +10,7 @@ namespace Discord.Addons.Core
     {
         public static Func<LogMessage, Task> NoOpLogger { get; } = (_ => Task.CompletedTask);
         public static Func<string, Task> NoOpStringToTask { get; } = (_ => Task.CompletedTask);
-        //public static Func<string, ValueTask> NoOpStringToVTask { get; } = (_ => new ValueTask(Task.CompletedTask));
+        public static Func<IMessageChannel, Task> NoOpChannelToTask { get; } = (_ => Task.CompletedTask);
 
         internal static string ToNiceString(this TimeSpan ts)
         {
