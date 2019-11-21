@@ -2,19 +2,19 @@
   topicUid: Addons.Introduction
 - name: MpGame
   items:
-    - name: Getting started
+    - name: 1 - Getting started
       topicUid: Addons.MpGame.Introduction
-    - name: Players
+    - name: 2 - Players
       topicUid: Addons.MpGame.Players
-    - name: Games
+    - name: 3 - Games
       topicUid: Addons.MpGame.Games
-    - name: Services
+    - name: 4 - Services
       topicUid: Addons.MpGame.Services
-    - name: Modules
+    - name: 5 - Modules
       topicUid: Addons.MpGame.Modules
-    - name: Final step
+    - name: 6 - Final step
       topicUid: Addons.MpGame.Final
-    - name: Extra considerations
+    - name: 7 - Extra considerations
       topicUid: Addons.MpGame.Extra
-    - name: Specialized types
+    - name: 8 - Specialized types
       topicUid: Addons.MpGame.Specialized
