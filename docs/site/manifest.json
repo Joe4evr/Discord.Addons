@@ -9,10 +9,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html",
-          "hash": "ZUjgivbvD0mgSx7mIU4D4A=="
+          "hash": "qCrPAwVcoGDGjLJsVsK6jQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -21,10 +21,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.Hand-1.html",
-          "hash": "PorLWRkpeY4HmwWf8EzKZQ=="
+          "hash": "QjN7N82Mubapj5MPFbCZog=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -33,10 +33,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.IWrapper-1.html",
-          "hash": "vjRUavPBurXhNzjyJfNu8Q=="
+          "hash": "ij8Z09+WB9OLdLUKEQQJ7w=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -45,10 +45,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.Node-1.html",
-          "hash": "vN0ZspS0h4nH80hNmjfZWg=="
+          "hash": "qMJqFx1dRCWE8nFORBMG4Q=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -57,10 +57,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.Pile-1.html",
-          "hash": "wecjmuks8QhrlBobs5HAGA=="
+          "hash": "NbcGaDASPns+7uB9r4x/4g=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -69,10 +69,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.WrappingPile-2.html",
-          "hash": "ZdCaaufuNGOKEXZ2/ak56Q=="
+          "hash": "x590QPKcrcxo7fweSntphw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -81,10 +81,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.html",
-          "hash": "YFI/w1GYRzRAfZSAQ8scbQ=="
+          "hash": "cH/oPREwGRb7ZA4D4zAiqQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -93,10 +93,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.CurrentlyPlaying.html",
-          "hash": "ey+T7Z6S3vAF4OMbyw0Wmw=="
+          "hash": "R9Mv6IQBxMwemCHB+j19ug=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -105,10 +105,22 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.GameBase-1.html",
-          "hash": "KIK74ZQjBxqxosgbziB9fA=="
+          "hash": "2a4k1GLMesXR0rBv5zUATQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Discord.Addons.MpGame.IMpGameData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Discord.Addons.MpGame.IMpGameData.html",
+          "hash": "BeCaR0cUkToxytzq4H58hQ=="
+        }
+      },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -117,10 +129,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.MpGameModuleBase-3.html",
-          "hash": "B4p1xbFQzpAeA6NLAsPgXA=="
+          "hash": "br9KWncL8M7qZ6K8K9t8ow=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -129,10 +141,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html",
-          "hash": "RuGcOHCbSfCAPvSZq0UTiA=="
+          "hash": "DRMuHAtc4umC6hdT9BK3fQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -141,10 +153,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.MpGameService-2.html",
-          "hash": "1R5NqOvXoeFV1ObEYCr9PA=="
+          "hash": "afjbVFNsVeQ0agkbivvJ6w=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -153,10 +165,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Player.html",
-          "hash": "jsLABBlzPBHQwHkax1aVIg=="
+          "hash": "f1O8yVLXAdDx0L8ZL9c1fQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -165,10 +177,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.html",
-          "hash": "LU93oByPdORbggpeAcLGcw=="
+          "hash": "7DWkbCJSh3NO/NADIkFhmQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -177,10 +189,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.Measure.html",
-          "hash": "k+cGjkT1d8WwZ0CtDF/02g=="
+          "hash": "cczINV3oh5tfjYBVfImHOQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -189,10 +201,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.html",
-          "hash": "7ThmIORWxxUx2gTjN0WRfQ=="
+          "hash": "IBFR8e3c5JOzjM6BzPWmjw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -201,10 +213,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.RatelimitAttribute.html",
-          "hash": "DK73tjCMqz7porcMcTAo4g=="
+          "hash": "5fe191pZcvRt6ksO3x9NLw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -213,10 +225,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.RatelimitFlags.html",
-          "hash": "8PDlyhtGo9u61cYFYRHm3w=="
+          "hash": "CalbXCtNZEwORfM2chXZkg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -225,10 +237,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.html",
-          "hash": "VufKMsWwG1Kn5LkuSFttHg=="
+          "hash": "O1mhuSYwbvmW4qOKtJksbA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -237,10 +249,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.RequireRoleAttribute.html",
-          "hash": "eezViJR/DceNfj7kzAtU+w=="
+          "hash": "Y76P1UL3sA+tW2SF7WaHvw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -249,10 +261,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.html",
-          "hash": "csRxIoBINBBfjjjkbaJlVg=="
+          "hash": "BtCp6HcAanA0wqeaEIMoFg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -261,10 +273,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.html",
-          "hash": "5qu9JdJcCpEY3+yydwh9vQ=="
+          "hash": "emB6E5qAq1J6bqDhANK+FA=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -273,10 +285,10 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "zNkrCEAGGlZbzbqj8xFR7g=="
+          "hash": "5TqpT1J7uKUIg29D6YacJg=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -285,10 +297,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/intro.html",
-          "hash": "wW7EvnaexX7irgXntJBWWA=="
+          "hash": "P7GOHXCcjih4/YZjKts3Zw=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -297,7 +309,7 @@
       "output": {
         ".html": {
           "relative_path": "guides/intro.html",
-          "hash": "GqdKBQ0Tgv31gvMDw3y61Q=="
+          "hash": "N5FKkggpNR/zfkYct4f0/A=="
         }
       },
       "is_incremental": false,
@@ -309,7 +321,7 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/extraconsiderations.html",
-          "hash": "CiK9sMUMTLo+F6fmuSZk3w=="
+          "hash": "FZ6mFNTeVbz8SFI6zrtI6Q=="
         }
       },
       "is_incremental": false,
@@ -321,7 +333,7 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/finalstep.html",
-          "hash": "Gtp1rZV8Uz3ybWdbLOMP2w=="
+          "hash": "XU2yE6SyAzAYQ+u+HnSRSA=="
         }
       },
       "is_incremental": false,
@@ -333,7 +345,7 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/games.html",
-          "hash": "2RhK53FqQ84m7L2WtsYDDQ=="
+          "hash": "Be2vwOgA+jzQVniSs5AKew=="
         }
       },
       "is_incremental": false,
@@ -345,7 +357,7 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/intro.html",
-          "hash": "7ih762akoa1P+L5Sk0dCxg=="
+          "hash": "aVpOTRvG/z9lV4OOzbn0pw=="
         }
       },
       "is_incremental": false,
@@ -357,7 +369,7 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/modules.html",
-          "hash": "8J7FtlOlWIep0bVFHiK9rA=="
+          "hash": "2FyC6/gA6uAEPoW+e73xBw=="
         }
       },
       "is_incremental": false,
@@ -369,7 +381,7 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/players.html",
-          "hash": "WgfGCVsRWr0KU8mlfYUhBg=="
+          "hash": "E/hMSfsi4YTzABk6f1yFSg=="
         }
       },
       "is_incremental": false,
@@ -381,7 +393,7 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/services.html",
-          "hash": "QfwKYwDrDnJYmbT8lpKX5w=="
+          "hash": "x2CmHmGFpudHZYiEfIZooQ=="
         }
       },
       "is_incremental": false,
@@ -393,7 +405,7 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/specializedtypes.html",
-          "hash": "1vcBjasqSS2xTObtat2Eow=="
+          "hash": "AR18iiv9Ik7T1DxxobvBJA=="
         }
       },
       "is_incremental": false,
@@ -416,10 +428,10 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "kSDRX33H/c3JbUtkweaJqA=="
+          "hash": "RHNLdubEkw/cM52u8kiUUQ=="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -437,10 +449,12 @@
   "incremental_info": [
     {
       "status": {
-        "can_incremental": true,
+        "can_incremental": false,
+        "details": "Cannot build incrementally because docfx version changed from 2.47.0.0 to 2.48.1.0.",
         "incrementalPhase": "build",
         "total_file_count": 0,
-        "skipped_file_count": 0
+        "skipped_file_count": 0,
+        "full_build_reason_code": "DocfxVersionChanged"
       },
       "processors": {
         "ResourceDocumentProcessor": {
@@ -450,23 +464,23 @@
           "total_file_count": 0,
           "skipped_file_count": 0
         },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": true,
-          "incrementalPhase": "build",
-          "total_file_count": 29,
-          "skipped_file_count": 29
-        },
-        "ConceptualDocumentProcessor": {
-          "can_incremental": true,
-          "incrementalPhase": "build",
-          "total_file_count": 12,
-          "skipped_file_count": 11
-        },
         "TocDocumentProcessor": {
           "can_incremental": false,
           "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
           "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 12,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 30,
           "skipped_file_count": 0
         }
       }

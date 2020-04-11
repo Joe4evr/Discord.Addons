@@ -15,7 +15,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.1;netcoreapp3.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
     <Nullable>Enable</Nullable>
   </PropertyGroup>
@@ -23,9 +23,9 @@
     <DnetVersion>2</DnetVersion>
 
     <MpGameMajor>2</MpGameMajor>
-    <MpGameSuffix>dev1</MpGameSuffix>
+    <MpGameSuffix>dev2</MpGameSuffix>
     <PreconMajor>2</PreconMajor>
-    <PreconSuffix>dev1</PreconSuffix>
+    <PreconSuffix>dev3</PreconSuffix>
     <SimplePermMajor>1</SimplePermMajor>
     <SimplePermSuffix>alpha3</SimplePermSuffix>
   </PropertyGroup>

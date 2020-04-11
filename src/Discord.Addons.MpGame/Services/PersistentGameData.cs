@@ -2,12 +2,12 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Discord.Addons.Core;
 using Discord.Commands;
+using Discord.WebSocket;
 
 namespace Discord.Addons.MpGame
 {
@@ -77,57 +77,51 @@ namespace Discord.Addons.MpGame
         /// <summary>
         ///     Contains metadata about a game given a command context.
         /// </summary>
-        public sealed class MpGameData
+        public sealed class MpGameData : IMpGameData
         {
             internal static MpGameData Default { get; } = new MpGameData();
 
-            /// <summary>
-            ///     Determines if a game in the current channel is open to join or not.
-            /// </summary>
-            public bool OpenToJoin { get; }
+            /// <inheritdoc/>
+            public bool OpenToJoin { get; private set; }
 
             /// <summary>
             ///     The instance of the game being played (if active).
             /// </summary>
-            public TGame? Game { get; }
+            public TGame? Game { get; private set; }
 
             /// <summary>
             ///     The player object that wraps the user executing this command
             ///     (if a game is active AND the user is a player in that game).
             /// </summary>
-            public TPlayer? Player { get; }
+            public TPlayer? Player { get; private set; }
 
-            /// <summary>
-            ///     Determines if a game in the current channel is in progress or not.
-            /// </summary>
-            public CurrentlyPlaying GameInProgress { get; }
+            /// <inheritdoc/>
+            public CurrentlyPlaying GameInProgress { get; private set; }
 
-            /// <summary>
-            ///     The list of users ready to play.
-            /// </summary>
+            /// <inheritdoc/>
             /// <remarks>
             ///     <note type="note">
             ///         This is an immutable snapshot, it is not updated until the
             ///         <i>next</i> time an instance of this class is created.
             ///     </note>
             /// </remarks>
-            public IReadOnlyCollection<IUser> JoinedUsers { get; }
+            public IReadOnlyCollection<IUser> JoinedUsers { get; private set; }
 
             private MpGameData()
             {
-                OpenToJoin  = false;
+                OpenToJoin = false;
                 JoinedUsers = ImmutableHashSet<IUser>.Empty;
-                Game        = null;
-                Player      = null;
+                Game = null;
+                Player = null;
                 GameInProgress = CurrentlyPlaying.None;
             }
 
             internal MpGameData(PersistentGameData data, ICommandContext context)
             {
-                OpenToJoin  = data.OpenToJoin;
+                OpenToJoin = data.OpenToJoin;
                 JoinedUsers = data.JoinedUsers;
-                Game        = data.Game;
-                Player      = Game?.Players.SingleOrDefault(p => p.User.Id == context.User.Id);
+                Game = data.Game;
+                Player = Game?.Players.SingleOrDefault(p => p.User.Id == context.User.Id);
 
                 GameInProgress = GameTracker.Instance.TryGetGameString(context.Channel, out var name) switch
                 {
@@ -135,6 +129,32 @@ namespace Discord.Addons.MpGame
                     true => CurrentlyPlaying.DifferentGame,
                     false => CurrentlyPlaying.None
                 };
+            }
+
+            /// <inheritdoc/>
+            ulong? IMpGameData.PlayerUserId => Player?.User.Id;
+            /// <inheritdoc/>
+            ulong? IMpGameData.GameChannelId => Game?.Channel.Id;
+            /// <inheritdoc/>
+            IReadOnlyCollection<ulong> IMpGameData.JoinedUsers => JoinedUsers.Select(u => u.Id).ToImmutableArray();
+
+            [return: NotNullIfNotNull("other")]
+            internal static MpGameData? CopyFrom(IMpGameData? other, TGame? game, BaseSocketClient client)
+            {
+                if (other is null) return null;
+
+                if (!(other is MpGameData data))
+                {
+                    data = new MpGameData
+                    {
+                        OpenToJoin = other.OpenToJoin,
+                        Game = game,
+                        Player = game?.Players.SingleOrDefault(p => p.User.Id == other.PlayerUserId),
+                        GameInProgress = other.GameInProgress,
+                        JoinedUsers = other.JoinedUsers.Select(id => client.GetUser(id)).ToImmutableArray()
+                    };
+                }
+                return data;
             }
         }
     }

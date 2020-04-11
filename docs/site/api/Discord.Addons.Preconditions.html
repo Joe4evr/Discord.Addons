@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Namespace Discord.Addons.Preconditions
    ">
-    <meta name="generator" content="docfx 2.47.0.0">
+    <meta name="generator" content="docfx 2.48.1.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -97,6 +97,9 @@
                             <a href="Discord.Addons.MpGame.GameBase-1.html" title="GameBase&lt;TPlayer&gt;" class="">GameBase&lt;TPlayer&gt;</a>
                           </li>
                           <li class="">
+                            <a href="Discord.Addons.MpGame.IMpGameData.html" title="IMpGameData" class="">IMpGameData</a>
+                          </li>
+                          <li class="">
                             <a href="Discord.Addons.MpGame.MpGameModuleBase-3.html" title="MpGameModuleBase&lt;TService, TGame, TPlayer&gt;" class="">MpGameModuleBase&lt;TService, TGame, TPlayer&gt;</a>
                           </li>
                           <li class="">
@@ -178,7 +181,8 @@
   </h3>
       <h4><a class="xref" href="Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.html">MinimumOnlineUsersAttribute</a></h4>
       <section><p>Sets how many users must be online in order to run the command.
-This precondition ignores BOT accounts.</p>
+This precondition ignores BOT accounts.
+This precondition automatically applies <a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.RequireContextAttribute.html">RequireContextAttribute</a>.</p>
 </section>
       <h4><a class="xref" href="Discord.Addons.Preconditions.RatelimitAttribute.html">RatelimitAttribute</a></h4>
       <section><p>Sets how often a user is allowed to use this command
@@ -191,10 +195,13 @@ lower than that of the Bot.</p>
 </section>
       <h4><a class="xref" href="Discord.Addons.Preconditions.RequireRoleAttribute.html">RequireRoleAttribute</a></h4>
       <section><p>Indicates this command or all commands in this module can only
-be executed if the user has the role with the specified Id.</p>
+be executed if the user has the role with the specified Id.
+This precondition automatically applies <a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.RequireContextAttribute.html">RequireContextAttribute</a>.</p>
 </section>
       <h4><a class="xref" href="Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.html">UserMustBeInVoiceAttribute</a></h4>
-      <section><p>Indicates that this command can only be used while the user is in a voice channel.</p>
+      <section><p>Indicates that this command can only be used while
+the user is in a voice channel in the same Guild.
+This precondition automatically applies <a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.RequireContextAttribute.html">RequireContextAttribute</a>.</p>
 </section>
     <h3 id="enums">Enums
   </h3>

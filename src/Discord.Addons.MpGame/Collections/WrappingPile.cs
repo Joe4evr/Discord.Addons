@@ -27,19 +27,12 @@ namespace Discord.Addons.MpGame.Collections
 
         /// <inheritdoc />
         protected WrappingPile()
-            : this(Enumerable.Empty<T>(), unwrapper: null)
+            : this(Enumerable.Empty<T>())
         {
         }
 
         /// <inheritdoc />
         protected WrappingPile(IEnumerable<T> items)
-            : this(items, unwrapper: null)
-        {
-        }
-
-        private protected WrappingPile(
-            IEnumerable<T> items,
-            Func<TWrapper, T>? unwrapper = null)
             : base(skipLogicInit: true)
         {
             if (items is null)

@@ -5,14 +5,15 @@ namespace Discord.Addons.MpGame
     /// <summary>
     ///     Contract for the log strings used in a <see cref="MpGameService{TGame, TPlayer}"/>.
     /// </summary>
-    public /*partial*/ interface ILogStrings
+    public partial interface ILogStrings
     {
-        //public static ILogStrings Default { get; } = new DefaultLogStrings();
-
         //MpGameService.ctor()
         /// <summary>
-        /// 
+        ///     Called when the game service is registered.
         /// </summary>
+        /// <param name="gameName">
+        ///     Name of the gametype for which this service is registered.
+        /// </param>
         string LogRegistration(string gameName);
 
         //MpGameService.OnGameEnd()

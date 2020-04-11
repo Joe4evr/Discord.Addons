@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Discord.Commands;
 using Discord.WebSocket;
@@ -11,11 +10,12 @@ namespace Discord.Addons.Preconditions
     ///     whose <see cref="SocketGuildUser.Hierarchy"/> value must be
     ///     lower than that of the Bot.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = true)]
     public sealed class RequireLowerHierarchyAttribute : ParameterPreconditionAttribute
     {
         /// <inheritdoc />
         public override Task<PreconditionResult> CheckPermissionsAsync(
-            ICommandContext context, ParameterInfo parameter, object value, IServiceProvider services)
+            ICommandContext _, ParameterInfo __, object value, IServiceProvider ___)
         {
             if (value is SocketGuildUser user)
             {

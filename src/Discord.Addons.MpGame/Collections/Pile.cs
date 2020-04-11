@@ -500,7 +500,7 @@ namespace Discord.Addons.MpGame.Collections
         ///     <see langword="null"/> if the pile is empty.
         /// </returns>
         /// <exception cref="InvalidOperationException">
-        ///     The instance does not allow peeking items.
+        ///     The instance does not allow browsing or peeking items.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     <paramref name="index"/> was less than 0 or greater than or equal to the pile's current size.
@@ -521,6 +521,7 @@ namespace Discord.Addons.MpGame.Collections
                 return PeekAtCore(index);
             }
         }
+        //public T? PeekAt(Index index)
         private protected virtual T PeekAtCore(int index)
             => _logic.PeekAt(index);
 
@@ -533,7 +534,8 @@ namespace Discord.Addons.MpGame.Collections
         /// </param>
         /// <remarks>
         ///     <note type="note">
-        ///         Peeking the single top item is done better through <see cref="PeekAt(int)"/>.
+        ///         Peeking the single top item is done better
+        ///         through <see cref="PeekAt(Int32)"/>.
         ///     </note>
         /// </remarks>
         /// <returns>

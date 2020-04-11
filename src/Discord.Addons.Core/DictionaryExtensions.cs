@@ -7,11 +7,13 @@ namespace Discord.Addons.Core
     internal static class DictionaryExtensions
     {
         public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue = default)
+            where TKey : notnull
         {
             return dictionary.TryGetValue(key, out var ret) ? ret : defaultValue;
         }
 
         public static TValue GetValueOrDefault<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue = default)
+            where TKey : notnull
         {
             return dictionary.TryGetValue(key, out var ret) ? ret : defaultValue;
         }

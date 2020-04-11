@@ -2,18 +2,36 @@
 
 namespace Discord.Addons.MpGame
 {
-    //public partial interface IMpGameServiceConfig
-    //{
-    internal sealed class DefaultConfig : IMpGameServiceConfig
+    public partial interface IMpGameServiceConfig
     {
-        public static IMpGameServiceConfig Instance { get; } = new DefaultConfig();
-        private DefaultConfig() { }
+#if NETCOREAPP3_0
+        /// <summary>
+        ///     The default config if none specified.
+        /// </summary>
+        public static IMpGameServiceConfig Default { get; } = new DefaultConfig();
+        
+        private sealed class DefaultConfig : IMpGameServiceConfig
+        {
+#else
+        internal sealed class DefaultConfig : IMpGameServiceConfig
+        {
+            public static IMpGameServiceConfig Instance { get; } = new DefaultConfig();
 
-        ILogStrings IMpGameServiceConfig.LogStrings { get; } = DefaultLogStrings.Instance;
-        //ILogStrings IMpGameServiceConfig.LogStrings { get; } = ILogStrings.Default;
+            private DefaultConfig() { }
+#endif
+            /// <inheritdoc/>
+            ILogStrings IMpGameServiceConfig.LogStrings { get; }
+#if NETCOREAPP3_0
+                = ILogStrings.Default;
+#else
+                = ILogStrings.DefaultLogStrings.Instance;
+#endif
 
-        //bool IMpGameServiceConfig.AllowJoinMidGame  { get; } = false;
-        //bool IMpGameServiceConfig.AllowLeaveMidGame { get; } = false;
+            /// <inheritdoc/>
+            bool IMpGameServiceConfig.AllowJoinMidGame { get; } = false;
+
+            /// <inheritdoc/>
+            bool IMpGameServiceConfig.AllowLeaveMidGame { get; } = false;
+        }
     }
-    //}
 }

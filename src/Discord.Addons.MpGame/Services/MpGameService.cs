@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord.Commands;
@@ -47,6 +47,7 @@ namespace Discord.Addons.MpGame
         /// </summary>
         protected Func<LogMessage, Task> Logger { get; }
 
+        private readonly BaseSocketClient _client;
         private readonly IMpGameServiceConfig _mpconfig;
 
         /// <summary>
@@ -62,21 +63,20 @@ namespace Discord.Addons.MpGame
         ///     An optional logging method.
         /// </param>
         public MpGameService(
-#if TEST
-            IDiscordClient iclient,
-#else
             BaseSocketClient client,
-#endif
             IMpGameServiceConfig? mpconfig = null,
             Func<LogMessage, Task>? logger = null)
         {
-            _mpconfig = mpconfig ?? DefaultConfig.Instance;
+            _client = client ?? throw new ArgumentNullException(nameof(client));
+            _mpconfig = mpconfig ??
+#if NETCOREAPP3_0
+                IMpGameServiceConfig.Default;
+#else
+                IMpGameServiceConfig.DefaultConfig.Instance;
+#endif
             Logger = logger ?? Extensions.NoOpLogger;
             Logger(new LogMessage(LogSeverity.Debug, LogSource, _mpconfig.LogStrings.LogRegistration(_gameName)));
 
-#if TEST
-            if (iclient is BaseSocketClient client)
-#endif
             client.ChannelDestroyed += CheckDestroyedChannel;
         }
 
@@ -161,7 +161,7 @@ namespace Discord.Addons.MpGame
         /// </example>
         public async Task<bool> AddPlayerAsync(TGame game, TPlayer player)
         {
-            if (!GameTracker.Instance.TryGetGameChannel(await player.User.GetOrCreateDMChannelAsync().ConfigureAwait(false), out var _))
+            if (!TryGetGameChannel(await player.User.GetOrCreateDMChannelAsync().ConfigureAwait(false), out var _))
             {
                 await PrepPlayerAsync(game, player, addedInOngoig: true).ConfigureAwait(false);
                 game.Players.AddLast(player);
@@ -210,8 +210,7 @@ namespace Discord.Addons.MpGame
         /// </returns>
         public async Task<bool> TryAddNewGameAsync(IMessageChannel channel, TGame game)
         {
-            var success = _dataList.TryGetValue(channel, out var data);
-            if (success)
+            if (_dataList.TryGetValue(channel, out var data))
             {
                 await Logger(new LogMessage(LogSeverity.Verbose, LogSource,
                     _mpconfig.LogStrings.SettingGame(channel, _gameName))).ConfigureAwait(false);
@@ -227,7 +226,7 @@ namespace Discord.Addons.MpGame
                 }
                 return gameSet;
             }
-            return success;
+            return false;
         }
 
         /// <summary>
@@ -299,7 +298,7 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     A snapshot of the current game metadata.
         /// </returns>
-        public MpGameData GetGameData(ICommandContext context)
+        public MpGameData GetGameData(SocketCommandContext context)
         {
             return (TryGetPersistentData(context.Channel, out var internalData))
                 ? new MpGameData(internalData, context)
@@ -310,9 +309,12 @@ namespace Discord.Addons.MpGame
             => Logger(new LogMessage(LogSeverity.Info, LogSource,
                 _mpconfig.LogStrings.RegisteringPlayerTypeReader(typeof(TPlayer).Name))).ConfigureAwait(false);
 
-        private bool TryGetPersistentData(IMessageChannel channel, out PersistentGameData data)
+        protected static bool TryGetGameChannel(IDMChannel dmChannel, [NotNullWhen(true)] out IMessageChannel? publicChannel)
+            => GameTracker.Instance.TryGetGameChannel(dmChannel, out publicChannel);
+
+        private bool TryGetPersistentData(IMessageChannel channel, [NotNullWhen(true)] out PersistentGameData? data)
         {
-            var chan = (channel is IDMChannel dm && GameTracker.Instance.TryGetGameChannel(dm, out var pubc))
+            var chan = (channel is IDMChannel dm && TryGetGameChannel(dm, out var pubc))
                 ? pubc : channel;
 
             return _dataList.TryGetValue(chan, out data);
@@ -332,8 +334,7 @@ namespace Discord.Addons.MpGame
 
         private async Task<bool> OnGameEnd(IMessageChannel channel)
         {
-            var success = _dataList.TryRemove(channel, out var data);
-            if (success)
+            if (_dataList.TryRemove(channel, out var data))
             {
                 await Logger(new LogMessage(LogSeverity.Verbose, LogSource,
                     _mpconfig.LogStrings.CleaningGameData(channel, _gameName))).ConfigureAwait(false);
@@ -351,8 +352,9 @@ namespace Discord.Addons.MpGame
                     _mpconfig.LogStrings.CleaningGameString(channel))).ConfigureAwait(false);
 
                 tracker.TryRemoveGameString(channel);
+                return true;
             }
-            return success;
+            return false;
         }
 
         private Task CheckDestroyedChannel(SocketChannel channel)
@@ -377,12 +379,13 @@ namespace Discord.Addons.MpGame
 
         //micro-optimization
         private static readonly string _gameName = typeof(TGame).Name;
-        private static readonly string _gameFullName = typeof(TGame).FullName;
+        private static readonly string _gameFullName = typeof(TGame).FullName!;
         internal string GameName => _gameFullName;
     }
 
     /// <summary>
-    ///     Service managing games for <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/> using the default <see cref="Player"/> type.
+    ///     Service managing games for <see cref="MpGameModuleBase{TService, TGame, TPlayer}"/>
+    ///     with the default <see cref="Player"/> type.
     /// </summary>
     /// <typeparam name="TGame">
     ///     The type of game to manage.

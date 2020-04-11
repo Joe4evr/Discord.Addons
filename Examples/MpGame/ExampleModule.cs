@@ -148,7 +148,7 @@ namespace Examples.MpGame
         [Command("turn")] // Advance to the next turn
         public override Task NextTurnCmd()
             => GameInProgress == CurrentlyPlaying.ThisGame
-                ? Game.NextTurn()
+                ? Game!.NextTurn()
                 : GameInProgress == CurrentlyPlaying.DifferentGame
                     ? ReplyAsync("Different game in progress.")
                     : ReplyAsync("No game in progress.");

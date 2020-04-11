@@ -18,6 +18,9 @@ namespace Discord.Addons.Preconditions
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class RatelimitAttribute : PreconditionAttribute
     {
+        /// <inheritdoc />
+        public override string? ErrorMessage { get; set; }
+
         private readonly uint _invokeLimit;
         private readonly bool _noLimitInDMs;
         private readonly bool _noLimitForAdmins;
@@ -90,7 +93,7 @@ namespace Discord.Addons.Preconditions
 
         /// <inheritdoc />
         public override Task<PreconditionResult> CheckPermissionsAsync(
-            ICommandContext context, CommandInfo command, IServiceProvider services)
+            ICommandContext context, CommandInfo _, IServiceProvider __)
         {
             if (_noLimitInDMs && context.Channel is IPrivateChannel)
                 return Task.FromResult(PreconditionResult.FromSuccess());
@@ -114,7 +117,8 @@ namespace Discord.Addons.Preconditions
             }
             else
             {
-                return Task.FromResult(PreconditionResult.FromError("You are currently in Timeout."));
+                return Task.FromResult(PreconditionResult.FromError(
+                    ErrorMessage ?? "You are currently in Timeout."));
             }
         }
 

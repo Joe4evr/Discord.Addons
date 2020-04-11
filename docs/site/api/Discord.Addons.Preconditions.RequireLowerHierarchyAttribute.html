@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class RequireLowerHierarchyAttribute
    ">
-    <meta name="generator" content="docfx 2.47.0.0">
+    <meta name="generator" content="docfx 2.48.1.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -95,6 +95,9 @@
                           </li>
                           <li class="">
                             <a href="Discord.Addons.MpGame.GameBase-1.html" title="GameBase&lt;TPlayer&gt;" class="">GameBase&lt;TPlayer&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.MpGame.IMpGameData.html" title="IMpGameData" class="">IMpGameData</a>
                           </li>
                           <li class="">
                             <a href="Discord.Addons.MpGame.MpGameModuleBase-3.html" title="MpGameModuleBase&lt;TService, TGame, TPlayer&gt;" class="">MpGameModuleBase&lt;TService, TGame, TPlayer&gt;</a>
@@ -188,7 +191,8 @@ lower than that of the Bot.</p>
   <h6><strong>Assembly</strong>: Discord.Addons.Preconditions.dll</h6>
   <h5 id="Discord_Addons_Preconditions_RequireLowerHierarchyAttribute_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class RequireLowerHierarchyAttribute : ParameterPreconditionAttribute</code></pre>
+    <pre><code class="lang-csharp hljs">[AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = true)]
+public sealed class RequireLowerHierarchyAttribute : ParameterPreconditionAttribute</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
@@ -205,7 +209,7 @@ lower than that of the Bot.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override Task&lt;PreconditionResult&gt; CheckPermissionsAsync(ICommandContext context, ParameterInfo parameter, object value, IServiceProvider services)</code></pre>
+    <pre><code class="lang-csharp hljs">public override Task&lt;PreconditionResult&gt; CheckPermissionsAsync(ICommandContext _, ParameterInfo __, object value, IServiceProvider ___)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -219,12 +223,12 @@ lower than that of the Bot.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.ICommandContext.html">ICommandContext</a></td>
-        <td><span class="parametername">context</span></td>
+        <td><span class="parametername">_</span></td>
         <td></td>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.ParameterInfo.html">ParameterInfo</a></td>
-        <td><span class="parametername">parameter</span></td>
+        <td><span class="parametername">__</span></td>
         <td></td>
       </tr>
       <tr>
@@ -234,7 +238,7 @@ lower than that of the Bot.</p>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></td>
-        <td><span class="parametername">services</span></td>
+        <td><span class="parametername">___</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -255,7 +259,7 @@ lower than that of the Bot.</p>
     </tbody>
   </table>
   <h5 class="overrides">Overrides</h5>
-  <div><span class="xref">Discord.Commands.ParameterPreconditionAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext, Discord.Commands.ParameterInfo, System.Object, System.IServiceProvider)</span></div>
+  <div><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.ParameterPreconditionAttribute.html#Discord_Commands_ParameterPreconditionAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_ParameterInfo_System_Object_System_IServiceProvider_">ParameterPreconditionAttribute.CheckPermissionsAsync(ICommandContext, ParameterInfo, Object, IServiceProvider)</a></div>
 </article>
           </div>
           
@@ -267,7 +271,7 @@ lower than that of the Bot.</p>
                     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RequireLowerHierarchyAttribute.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RequireLowerHierarchyAttribute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/RequireLowerHierarchyAttribute.cs/#L14" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/RequireLowerHierarchyAttribute.cs/#L13" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

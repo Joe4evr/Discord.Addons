@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
-using Discord.Addons.Core;
 
 namespace Discord.Addons.MpGame
 {
@@ -11,6 +11,7 @@ namespace Discord.Addons.MpGame
     internal sealed class GameTracker
     {
 #nullable disable warnings
+        private static GameTracker _instance;
         /// <summary>
         ///     The singleton-instance of this class.
         /// </summary>
@@ -27,7 +28,6 @@ namespace Discord.Addons.MpGame
                 return _instance;
             }
         }
-        private static GameTracker _instance;
 #nullable restore
 
         private GameTracker() { }
@@ -39,7 +39,7 @@ namespace Discord.Addons.MpGame
         /// <summary>
         ///     Determines whether the DM Channel tracker contains the specified key.
         /// </summary>
-        public bool TryGetGameChannel(IDMChannel channel, out IMessageChannel value)
+        public bool TryGetGameChannel(IDMChannel channel, [NotNullWhen(true)] out IMessageChannel? value)
             => _dmList.TryGetValue(channel.Id, out value);
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Discord.Addons.MpGame
         /// <summary>
         ///     Determines whether the game string tracker contains the specified key.
         /// </summary>
-        public bool TryGetGameString(IMessageChannel channel, out string value)
+        public bool TryGetGameString(IMessageChannel channel, [NotNullWhen(true)]  out string? value)
             => _channelGames.TryGetValue(channel.Id, out value);
 
         /// <summary>

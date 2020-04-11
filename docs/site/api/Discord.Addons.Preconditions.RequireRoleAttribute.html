@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class RequireRoleAttribute
    ">
-    <meta name="generator" content="docfx 2.47.0.0">
+    <meta name="generator" content="docfx 2.48.1.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -97,6 +97,9 @@
                             <a href="Discord.Addons.MpGame.GameBase-1.html" title="GameBase&lt;TPlayer&gt;" class="">GameBase&lt;TPlayer&gt;</a>
                           </li>
                           <li class="">
+                            <a href="Discord.Addons.MpGame.IMpGameData.html" title="IMpGameData" class="">IMpGameData</a>
+                          </li>
+                          <li class="">
                             <a href="Discord.Addons.MpGame.MpGameModuleBase-3.html" title="MpGameModuleBase&lt;TService, TGame, TPlayer&gt;" class="">MpGameModuleBase&lt;TService, TGame, TPlayer&gt;</a>
                           </li>
                           <li class="">
@@ -173,7 +176,8 @@
   <h1 id="Discord_Addons_Preconditions_RequireRoleAttribute" data-uid="Discord.Addons.Preconditions.RequireRoleAttribute" class="text-break">Class RequireRoleAttribute
   </h1>
   <div class="markdown level0 summary"><p>Indicates this command or all commands in this module can only
-be executed if the user has the role with the specified Id.</p>
+be executed if the user has the role with the specified Id.
+This precondition automatically applies <a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.RequireContextAttribute.html">RequireContextAttribute</a>.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -210,7 +214,7 @@ public sealed class RequireRoleAttribute : RequireContextAttribute</code></pre>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RequireRoleAttribute__ctor_System_UInt64_.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RequireRoleAttribute.%23ctor(System.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/RequireRoleAttribute.cs/#L21">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/RequireRoleAttribute.cs/#L22">View Source</a>
   </span>
   <a id="Discord_Addons_Preconditions_RequireRoleAttribute__ctor_" data-uid="Discord.Addons.Preconditions.RequireRoleAttribute.#ctor*"></a>
   <h4 id="Discord_Addons_Preconditions_RequireRoleAttribute__ctor_System_UInt64_" data-uid="Discord.Addons.Preconditions.RequireRoleAttribute.#ctor(System.UInt64)">RequireRoleAttribute(UInt64)</h4>
@@ -244,7 +248,7 @@ public sealed class RequireRoleAttribute : RequireContextAttribute</code></pre>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RequireRoleAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_CommandInfo_System_IServiceProvider_.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RequireRoleAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext%2CDiscord.Commands.CommandInfo%2CSystem.IServiceProvider)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/RequireRoleAttribute.cs/#L27">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/RequireRoleAttribute.cs/#L28">View Source</a>
   </span>
   <a id="Discord_Addons_Preconditions_RequireRoleAttribute_CheckPermissionsAsync_" data-uid="Discord.Addons.Preconditions.RequireRoleAttribute.CheckPermissionsAsync*"></a>
   <h4 id="Discord_Addons_Preconditions_RequireRoleAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_CommandInfo_System_IServiceProvider_" data-uid="Discord.Addons.Preconditions.RequireRoleAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.CommandInfo,System.IServiceProvider)">CheckPermissionsAsync(ICommandContext, CommandInfo, IServiceProvider)</h4>
@@ -297,7 +301,7 @@ public sealed class RequireRoleAttribute : RequireContextAttribute</code></pre>
     </tbody>
   </table>
   <h5 class="overrides">Overrides</h5>
-  <div><span class="xref">Discord.Commands.RequireContextAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext, Discord.Commands.CommandInfo, System.IServiceProvider)</span></div>
+  <div><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.RequireContextAttribute.html#Discord_Commands_RequireContextAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_CommandInfo_System_IServiceProvider_">RequireContextAttribute.CheckPermissionsAsync(ICommandContext, CommandInfo, IServiceProvider)</a></div>
 </article>
           </div>
           
@@ -309,7 +313,7 @@ public sealed class RequireRoleAttribute : RequireContextAttribute</code></pre>
                     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RequireRoleAttribute.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RequireRoleAttribute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/RequireRoleAttribute.cs/#L12" class="contribution-link">View Source</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/RequireRoleAttribute.cs/#L13" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

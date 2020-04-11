@@ -8,7 +8,6 @@ namespace MpGame.Tests
     {
         public int Id { get; private set; }
         public CardColor Color { get; private set; }
-        //bool ITestCard.IsFaceDown { get; set; }
 
         private TestCard() { }
         public TestCard(int id)
@@ -34,8 +33,6 @@ namespace MpGame.Tests
 
         public CardColor Color => CardColor.None;
         public int Id          => -1;
-
-        //bool ITestCard.IsFaceDown { get => true; set { } }
     }
 
     public enum CardColor

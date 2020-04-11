@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class RatelimitAttribute
    ">
-    <meta name="generator" content="docfx 2.47.0.0">
+    <meta name="generator" content="docfx 2.48.1.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -95,6 +95,9 @@
                           </li>
                           <li class="">
                             <a href="Discord.Addons.MpGame.GameBase-1.html" title="GameBase&lt;TPlayer&gt;" class="">GameBase&lt;TPlayer&gt;</a>
+                          </li>
+                          <li class="">
+                            <a href="Discord.Addons.MpGame.IMpGameData.html" title="IMpGameData" class="">IMpGameData</a>
                           </li>
                           <li class="">
                             <a href="Discord.Addons.MpGame.MpGameModuleBase-3.html" title="MpGameModuleBase&lt;TService, TGame, TPlayer&gt;" class="">MpGameModuleBase&lt;TService, TGame, TPlayer&gt;</a>
@@ -188,9 +191,6 @@ or any command in this module.</p>
     <div>
       <a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.PreconditionAttribute.html#Discord_Commands_PreconditionAttribute_Group">PreconditionAttribute.Group</a>
     </div>
-    <div>
-      <a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.PreconditionAttribute.html#Discord_Commands_PreconditionAttribute_ErrorMessage">PreconditionAttribute.ErrorMessage</a>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Discord.Addons.Preconditions.html">Discord.Addons.Preconditions</a></h6>
   <h6><strong>Assembly</strong>: Discord.Addons.Preconditions.dll</h6>
@@ -212,7 +212,7 @@ public sealed class RatelimitAttribute : PreconditionAttribute</code></pre>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RatelimitAttribute__ctor_System_UInt32_System_Double_Discord_Addons_Preconditions_Measure_Discord_Addons_Preconditions_RatelimitFlags_.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RatelimitAttribute.%23ctor(System.UInt32%2CSystem.Double%2CDiscord.Addons.Preconditions.Measure%2CDiscord.Addons.Preconditions.RatelimitFlags)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/Ratelimit/RatelimitAttribute.cs/#L42">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/Ratelimit/RatelimitAttribute.cs/#L45">View Source</a>
   </span>
   <a id="Discord_Addons_Preconditions_RatelimitAttribute__ctor_" data-uid="Discord.Addons.Preconditions.RatelimitAttribute.#ctor*"></a>
   <h4 id="Discord_Addons_Preconditions_RatelimitAttribute__ctor_System_UInt32_System_Double_Discord_Addons_Preconditions_Measure_Discord_Addons_Preconditions_RatelimitFlags_" data-uid="Discord.Addons.Preconditions.RatelimitAttribute.#ctor(System.UInt32,System.Double,Discord.Addons.Preconditions.Measure,Discord.Addons.Preconditions.RatelimitFlags)">RatelimitAttribute(UInt32, Double, Measure, RatelimitFlags)</h4>
@@ -264,7 +264,7 @@ public sealed class RatelimitAttribute : PreconditionAttribute</code></pre>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RatelimitAttribute__ctor_System_UInt32_System_TimeSpan_Discord_Addons_Preconditions_RatelimitFlags_.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RatelimitAttribute.%23ctor(System.UInt32%2CSystem.TimeSpan%2CDiscord.Addons.Preconditions.RatelimitFlags)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/Ratelimit/RatelimitAttribute.cs/#L79">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/Ratelimit/RatelimitAttribute.cs/#L82">View Source</a>
   </span>
   <a id="Discord_Addons_Preconditions_RatelimitAttribute__ctor_" data-uid="Discord.Addons.Preconditions.RatelimitAttribute.#ctor*"></a>
   <h4 id="Discord_Addons_Preconditions_RatelimitAttribute__ctor_System_UInt32_System_TimeSpan_Discord_Addons_Preconditions_RatelimitFlags_" data-uid="Discord.Addons.Preconditions.RatelimitAttribute.#ctor(System.UInt32,System.TimeSpan,Discord.Addons.Preconditions.RatelimitFlags)">RatelimitAttribute(UInt32, TimeSpan, RatelimitFlags)</h4>
@@ -311,6 +311,40 @@ public sealed class RatelimitAttribute : PreconditionAttribute</code></pre>
     command builders, but not with the Class &amp; Method-style commands.
 </p></div>
 </div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RatelimitAttribute_ErrorMessage.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RatelimitAttribute.ErrorMessage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/Ratelimit/RatelimitAttribute.cs/#L22">View Source</a>
+  </span>
+  <a id="Discord_Addons_Preconditions_RatelimitAttribute_ErrorMessage_" data-uid="Discord.Addons.Preconditions.RatelimitAttribute.ErrorMessage*"></a>
+  <h4 id="Discord_Addons_Preconditions_RatelimitAttribute_ErrorMessage" data-uid="Discord.Addons.Preconditions.RatelimitAttribute.ErrorMessage">ErrorMessage</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ErrorMessage { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.PreconditionAttribute.html#Discord_Commands_PreconditionAttribute_ErrorMessage">PreconditionAttribute.ErrorMessage</a></div>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
@@ -318,7 +352,7 @@ public sealed class RatelimitAttribute : PreconditionAttribute</code></pre>
     <a href="https://github.com/Joe4evr/Discord.Addons/new/master/apiSpec/new?filename=Discord_Addons_Preconditions_RatelimitAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_CommandInfo_System_IServiceProvider_.md&amp;value=---%0Auid%3A%20Discord.Addons.Preconditions.RatelimitAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext%2CDiscord.Commands.CommandInfo%2CSystem.IServiceProvider)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/Ratelimit/RatelimitAttribute.cs/#L92">View Source</a>
+    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/src/Discord.Addons.Preconditions/Ratelimit/RatelimitAttribute.cs/#L95">View Source</a>
   </span>
   <a id="Discord_Addons_Preconditions_RatelimitAttribute_CheckPermissionsAsync_" data-uid="Discord.Addons.Preconditions.RatelimitAttribute.CheckPermissionsAsync*"></a>
   <h4 id="Discord_Addons_Preconditions_RatelimitAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_CommandInfo_System_IServiceProvider_" data-uid="Discord.Addons.Preconditions.RatelimitAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext,Discord.Commands.CommandInfo,System.IServiceProvider)">CheckPermissionsAsync(ICommandContext, CommandInfo, IServiceProvider)</h4>
@@ -326,7 +360,7 @@ public sealed class RatelimitAttribute : PreconditionAttribute</code></pre>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override Task&lt;PreconditionResult&gt; CheckPermissionsAsync(ICommandContext context, CommandInfo command, IServiceProvider services)</code></pre>
+    <pre><code class="lang-csharp hljs">public override Task&lt;PreconditionResult&gt; CheckPermissionsAsync(ICommandContext context, CommandInfo _, IServiceProvider __)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -345,12 +379,12 @@ public sealed class RatelimitAttribute : PreconditionAttribute</code></pre>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.CommandInfo.html">CommandInfo</a></td>
-        <td><span class="parametername">command</span></td>
+        <td><span class="parametername">_</span></td>
         <td></td>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></td>
-        <td><span class="parametername">services</span></td>
+        <td><span class="parametername">__</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -371,7 +405,7 @@ public sealed class RatelimitAttribute : PreconditionAttribute</code></pre>
     </tbody>
   </table>
   <h5 class="overrides">Overrides</h5>
-  <div><span class="xref">Discord.Commands.PreconditionAttribute.CheckPermissionsAsync(Discord.Commands.ICommandContext, Discord.Commands.CommandInfo, System.IServiceProvider)</span></div>
+  <div><a class="xref" href="https://docs.stillu.cc/api/Discord.Commands.PreconditionAttribute.html#Discord_Commands_PreconditionAttribute_CheckPermissionsAsync_Discord_Commands_ICommandContext_Discord_Commands_CommandInfo_System_IServiceProvider_">PreconditionAttribute.CheckPermissionsAsync(ICommandContext, CommandInfo, IServiceProvider)</a></div>
 </article>
           </div>
           

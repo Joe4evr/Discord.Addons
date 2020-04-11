@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Discord.Addons.Core;
@@ -204,10 +205,13 @@ namespace Discord.Addons.MpGame.Collections
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CountIncOne()
             => Interlocked.Increment(ref _count);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CountDecOne()
             => Interlocked.Decrement(ref _count);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void Reset()
         {
             Volatile.Write(ref _head, null!);
@@ -266,8 +270,8 @@ namespace Discord.Addons.MpGame.Collections
             var headNode = Interlocked.Exchange(ref _head, _head?.Next);
             if (headNode is null)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.PileEmpty);
-            Interlocked.CompareExchange(ref _tail, value: null!, comparand: headNode);
 
+            Interlocked.CompareExchange(ref _tail, value: null!, comparand: headNode);
             if (VHead != null)
                 VHead.Previous = null!;
 
@@ -278,8 +282,8 @@ namespace Discord.Addons.MpGame.Collections
             var tailNode = Interlocked.Exchange(ref _tail, _tail?.Previous);
             if (tailNode is null)
                 ThrowHelper.ThrowInvalidOp(ErrorStrings.PileEmpty);
-            Interlocked.CompareExchange(ref _head, value: null!, comparand: tailNode);
 
+            Interlocked.CompareExchange(ref _head, value: null!, comparand: tailNode);
             if (VHead != null)
                 VHead.Previous = null!;
 
@@ -318,6 +322,7 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         private static ReadOnlyDictionary<TKey, TValue> Freeze<TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> values, int cap)
+            where TKey : notnull
         {
             var d = new Dictionary<TKey, TValue>(capacity: cap);
             foreach (var kvp in values)
