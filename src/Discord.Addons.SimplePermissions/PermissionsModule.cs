@@ -9,6 +9,9 @@ using Discord.Commands;
 
 namespace Discord.Addons.SimplePermissions
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Name(PermModuleName)]
     public sealed class PermissionsModule : ModuleBase<ICommandContext>
     {

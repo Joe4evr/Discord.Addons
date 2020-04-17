@@ -2,6 +2,9 @@
 
 namespace Discord.Addons.MpGame
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IMpGameData
     {
         /// <summary>

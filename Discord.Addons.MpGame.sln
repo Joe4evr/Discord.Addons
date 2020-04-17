@@ -1,15 +1,18 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2DCF3AAD-5F8A-4ADD-B1DA-77D33D7E6FBC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discord.Addons.MpGame", "src\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj", "{3DA40D0D-C637-4B3E-A85D-D1736AA56028}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discord.Addons.MpGame.ShardedBridge", "src\Discord.Addons.MpGame.ShardedBridge\Discord.Addons.MpGame.ShardedBridge.csproj", "{45AB4855-6E8E-454C-8978-C254A97A7D11}"
+EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Discord.Addons.Core", "src\Discord.Addons.Core\Discord.Addons.Core.shproj", "{5B64B425-B901-4249-A189-ACC033579086}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{94E33904-9F71-41EB-86ED-6EBD504380E7}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		Analyzers.props = Analyzers.props
 		Discord.Addons.Rules.ruleset = Discord.Addons.Rules.ruleset
 		DiscordAddonsCore.props = DiscordAddonsCore.props
@@ -19,11 +22,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples", "Examples\Exampl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1D7A22FC-E08A-4B93-92A0-9AFAD82AECD8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discord.TestFramework", "..\Discord.TestFramework\Discord.TestFramework.csproj", "{03DD33DF-5E17-43B8-AA84-97BACC717B25}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MpGame.Tests", "test\MpGame.Tests\MpGame.Tests.csproj", "{9FB50AE4-07D8-4D98-B692-C1D4C088CACE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MpGame.Bench", "test\MpGame.Bench\MpGame.Bench.csproj", "{455C1A43-168E-40D5-B7B9-779FB1B828BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MpGame.Bench", "test\MpGame.Bench\MpGame.Bench.csproj", "{455C1A43-168E-40D5-B7B9-779FB1B828BE}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -38,14 +39,18 @@ Global
 		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DA40D0D-C637-4B3E-A85D-D1736AA56028}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45AB4855-6E8E-454C-8978-C254A97A7D11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45AB4855-6E8E-454C-8978-C254A97A7D11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45AB4855-6E8E-454C-8978-C254A97A7D11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45AB4855-6E8E-454C-8978-C254A97A7D11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B64B425-B901-4249-A189-ACC033579086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B64B425-B901-4249-A189-ACC033579086}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B64B425-B901-4249-A189-ACC033579086}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B64B425-B901-4249-A189-ACC033579086}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3F1BD0CF-A61A-4439-B90E-B62E09123817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3F1BD0CF-A61A-4439-B90E-B62E09123817}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F1BD0CF-A61A-4439-B90E-B62E09123817}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F1BD0CF-A61A-4439-B90E-B62E09123817}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03DD33DF-5E17-43B8-AA84-97BACC717B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03DD33DF-5E17-43B8-AA84-97BACC717B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03DD33DF-5E17-43B8-AA84-97BACC717B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03DD33DF-5E17-43B8-AA84-97BACC717B25}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9FB50AE4-07D8-4D98-B692-C1D4C088CACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9FB50AE4-07D8-4D98-B692-C1D4C088CACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FB50AE4-07D8-4D98-B692-C1D4C088CACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -60,8 +65,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3DA40D0D-C637-4B3E-A85D-D1736AA56028} = {2DCF3AAD-5F8A-4ADD-B1DA-77D33D7E6FBC}
+		{45AB4855-6E8E-454C-8978-C254A97A7D11} = {2DCF3AAD-5F8A-4ADD-B1DA-77D33D7E6FBC}
 		{5B64B425-B901-4249-A189-ACC033579086} = {2DCF3AAD-5F8A-4ADD-B1DA-77D33D7E6FBC}
-		{03DD33DF-5E17-43B8-AA84-97BACC717B25} = {1D7A22FC-E08A-4B93-92A0-9AFAD82AECD8}
 		{9FB50AE4-07D8-4D98-B692-C1D4C088CACE} = {1D7A22FC-E08A-4B93-92A0-9AFAD82AECD8}
 		{455C1A43-168E-40D5-B7B9-779FB1B828BE} = {1D7A22FC-E08A-4B93-92A0-9AFAD82AECD8}
 	EndGlobalSection

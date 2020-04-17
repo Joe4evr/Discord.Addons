@@ -20,11 +20,11 @@ namespace Discord.Addons.MpGame
     /// <typeparam name="TPlayer">
     ///     The type of the <see cref="Player"/> object.
     /// </typeparam>
-    public partial class MpGameService<TGame, TPlayer>
+    public partial class MpGameService<TGame, TPlayer> : IDisposable
         where TGame   : GameBase<TPlayer>
         where TPlayer : Player
     {
-        private const string LogSource = "MpGame";
+        internal const string LogSource = "MpGame";
 
         /// <summary>
         ///     A cached <see cref="IEqualityComparer{IMessageChannel}"/> instance to use
@@ -309,6 +309,12 @@ namespace Discord.Addons.MpGame
             => Logger(new LogMessage(LogSeverity.Info, LogSource,
                 _mpconfig.LogStrings.RegisteringPlayerTypeReader(typeof(TPlayer).Name))).ConfigureAwait(false);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dmChannel"></param>
+        /// <param name="publicChannel"></param>
+        /// <returns></returns>
         protected static bool TryGetGameChannel(IDMChannel dmChannel, [NotNullWhen(true)] out IMessageChannel? publicChannel)
             => GameTracker.Instance.TryGetGameChannel(dmChannel, out publicChannel);
 
@@ -381,6 +387,16 @@ namespace Discord.Addons.MpGame
         private static readonly string _gameName = typeof(TGame).Name;
         private static readonly string _gameFullName = typeof(TGame).FullName!;
         internal string GameName => _gameFullName;
+
+        /// <summary>
+        ///     
+        /// </summary>
+        protected virtual void Dispose() { }
+        void IDisposable.Dispose()
+        {
+            _client.ChannelDestroyed -= CheckDestroyedChannel;
+            Dispose();
+        }
     }
 
     /// <summary>

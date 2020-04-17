@@ -33,12 +33,12 @@ namespace Discord.Addons.SimplePermissions
 
         /// <summary> Sets the ID of the group that is considered
         /// the Admin role in a specified guild. </summary>
-        /// <returns><see cref="true"/> if the operation succeeded.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded.</returns>
         Task<bool> SetGuildAdminRole(IRole role);
 
         /// <summary> Sets the ID of the group that is considered
         /// the Moderator role in a specified guild. </summary>
-        /// <returns><see cref="true"/> if the operation succeeded.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded.</returns>
         Task<bool> SetGuildModRole(IRole role);
 
         /// <summary> Gets the list of modules that are
@@ -50,19 +50,19 @@ namespace Discord.Addons.SimplePermissions
         IEnumerable<ModuleInfo> GetGuildModuleWhitelist(IGuild guild);
 
         /// <summary> Whitelist a module in this channel. </summary>
-        /// <returns><see cref="true"/> if the operation succeeded.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded.</returns>
         Task<bool> WhitelistModule(ITextChannel channel, ModuleInfo module);
 
         /// <summary> Blacklist a module in this channel. </summary>
-        /// <returns><see cref="true"/> if the operation succeeded.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded.</returns>
         Task<bool> BlacklistModule(ITextChannel channel, ModuleInfo module);
 
         /// <summary> Whitelist a module in this guild. </summary>
-        /// <returns><see cref="true"/> if the operation succeeded.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded.</returns>
         Task<bool> WhitelistModuleGuild(IGuild guild, ModuleInfo module);
 
         /// <summary> Blacklist a module in this guild. </summary>
-        /// <returns><see cref="true"/> if the operation succeeded.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded.</returns>
         Task<bool> BlacklistModuleGuild(IGuild guild, ModuleInfo module);
 
         /// <summary> Gets the users that are allowed to use
@@ -74,11 +74,11 @@ namespace Discord.Addons.SimplePermissions
         Task AddUser(IGuildUser user);
 
         /// <summary> Give a user Special command privileges in a channel. </summary>
-        /// <returns><see cref="true"/> if the operation succeeded.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded.</returns>
         Task<bool> AddSpecialUser(ITextChannel channel, IGuildUser user);
 
         /// <summary> Revoke a user's Special command privileges in a channel. </summary>
-        /// <returns><see cref="true"/> if the operation succeeded.</returns>
+        /// <returns><see langword="true"/> if the operation succeeded.</returns>
         Task<bool> RemoveSpecialUser(ITextChannel channel, IGuildUser user);
 
         /// <summary> Sets whether to hide the Permission commands from help. </summary>

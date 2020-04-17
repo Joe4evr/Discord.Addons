@@ -32,11 +32,12 @@ namespace Discord.Addons.SimplePermissions
         /// <param name="configstore"></param>
         /// <param name="commands"></param>
         /// <param name="client"></param>
+        /// <param name="logAction"></param>
         public PermissionsService(
             IConfigStore<IPermissionConfig> configstore,
             CommandService commands,
             BaseSocketClient client,
-            Func<LogMessage, Task> logAction = null)
+            Func<LogMessage, Task>? logAction = null)
         {
             Logger = logAction ?? Extensions.NoOpLogger;
             Log(LogSeverity.Info, "Creating Permission service.");
@@ -357,8 +358,8 @@ namespace Discord.Addons.SimplePermissions
 
         internal static int GetMessageCacheSize(DiscordSocketClient client)
         {
-            var p = typeof(DiscordSocketClient).GetProperty("MessageCacheSize", BindingFlags.Instance | BindingFlags.NonPublic);
-            return (int)p.GetMethod.Invoke(client, Array.Empty<object>());
+            var p = typeof(DiscordSocketClient).GetProperty("MessageCacheSize", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            return (int)p.GetMethod!.Invoke(client, Array.Empty<object>())!;
         }
     }
 }

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\DiscordAddonsCore.props" />
+  <PropertyGroup>
+    <VersionPrefix>$(MpGameMajor).$(DnetVersion).0</VersionPrefix>
+    <VersionSuffix>$(MpGameSuffix)</VersionSuffix>
+    <Description>Base classes for text-based games in Discord</Description>
+    <PackageTags>discord;commands;game</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.10.0" />
+    <PackageReference Include="Grpc.Core" Version="2.24.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.24.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="Protos\RemoteMpGameService.proto" GrpcServices="Both" Generator="MSBuild:Compile" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Discord.Addons.MpGame\Discord.Addons.MpGame.csproj" />
+  </ItemGroup>
+</Project>

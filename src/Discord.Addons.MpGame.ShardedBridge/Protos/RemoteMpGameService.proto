@@ -1,0 +1,29 @@
+﻿syntax = "proto3";
+
+package Discord.Addons.MpGame.Remotes;
+
+service RemoteMpGameService {
+    rpc GetGameData (CommandContext) returns (GameData);
+}
+
+message CommandContext {
+    int32 SourceShardId    = 1;
+    uint64 SourceUserId    = 2;
+    uint64 SourceMessageId = 3;
+    uint64 SourceChannelId = 4;
+    uint64 SourceGuildId   = 5;
+}
+
+message GameData {
+    bool OpenToJoin = 1;
+    uint64 GameChannelId = 2;
+    uint64 PlayerUserId = 3;
+    CurrentlyPlaying GameInProgress = 4;
+    repeated uint64 JoinedUsers = 5;
+}
+
+enum CurrentlyPlaying {
+    None = 0;
+    ThisGame = 1;
+    DifferentGame = 2;
+}

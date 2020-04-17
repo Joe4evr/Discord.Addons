@@ -1293,7 +1293,7 @@ namespace MpGame.Tests.CollectionTests
                 foreach (var pile in Piles(withPerms: PilePerms.CanTake, items: seed))
                 {
                     var priorSize = pile.Count;
-                    var taken = pile.TakeAt(10);
+                    _ = pile.TakeAt(10);
 
                     Assert.Equal(expected: priorSize - 1, actual: pile.Count);
                 }
