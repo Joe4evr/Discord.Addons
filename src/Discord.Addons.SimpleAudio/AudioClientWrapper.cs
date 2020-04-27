@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
+using JiiLib.Media;
 using Discord.Audio;
 
 namespace Discord.Addons.SimpleAudio
@@ -32,18 +33,16 @@ namespace Discord.Addons.SimpleAudio
         private int _pause = 0;
         private float _playingVolume = 0.5f;
         private CancellationTokenSource _cancelToken = new CancellationTokenSource();
-        private CancellationTokenSource _pauseToken = new CancellationTokenSource();
+        private TaskCompletionSource<bool> _pauseTask = new TaskCompletionSource<bool>();
 
-        private string? _song;
+        private IMediaTag? _songTags;
         private IEmote _statusEmote = _stopEmote;
         private Color _statusColor;
         private Process? _ffmpeg;
 
         public AudioClientWrapper(
-            IAudioClient client,
-            IUserMessage message,
-            AudioConfig globalConfig,
-            IAudioGuildConfig? guildConfig = null)
+            IAudioClient client, IUserMessage message,
+            IAudioConfig globalConfig, IAudioGuildConfig? guildConfig = null)
         {
             Message = message;
             Client = client;
@@ -58,7 +57,7 @@ namespace Discord.Addons.SimpleAudio
         {
             while (Playlist.TryDequeue(out var path))
             {
-                _song = Path.GetFileNameWithoutExtension(path.Name);
+                _songTags = IMediaTag.Parse(path);
                 _statusEmote = _playEmote;
                 _statusColor = Color.Green;
                 await RefreshEmbed().ConfigureAwait(false);
@@ -94,7 +93,7 @@ namespace Discord.Addons.SimpleAudio
             }
 
             _ffmpeg = null;
-            _song = null;
+            _songTags = null;
             _statusEmote = _stopEmote;
             _statusColor = Color.Red;
             await RefreshEmbed().ConfigureAwait(false);
@@ -132,11 +131,10 @@ namespace Discord.Addons.SimpleAudio
         {
             if (Interlocked.Exchange(ref _pause, value: 0) == 1)
             {
-                using (_pauseToken)
+                if (_pauseTask.TrySetResult(true))
                 {
-                    _pauseToken.Cancel();
+                    _pauseTask = new TaskCompletionSource<bool>();
                 }
-                _pauseToken = new CancellationTokenSource();
                 _statusEmote = _playEmote;
                 _statusColor = Color.Green;
                 return RefreshEmbed();
@@ -193,11 +191,7 @@ namespace Discord.Addons.SimpleAudio
             {
                 if (_pause > 0)
                 {
-                    try
-                    {
-                        await Task.Delay(Timeout.Infinite, _pauseToken.Token);
-                    }
-                    catch (OperationCanceledException) { }
+                    await _pauseTask.Task;
                 }
 
                 ScaleVolumeSpanOfT(buffer, _playingVolume, count);
@@ -210,7 +204,7 @@ namespace Discord.Addons.SimpleAudio
             var emb = new EmbedBuilder
             {
                 Title = "Now playing:",
-                Description = $"{_statusEmote ?? _stopEmote} {_song ?? "*Stopped*"}",
+                Description = $"{_statusEmote ?? _stopEmote} {_songTags?.Title ?? "*Stopped*"}",
                 Color = _statusColor,
                 Fields =
                 {
@@ -224,11 +218,22 @@ namespace Discord.Addons.SimpleAudio
                     {
                         IsInline = true,
                         Name = "Next song:",
-                        Value = (Playlist.TryPeek(out var n) ? Path.GetFileNameWithoutExtension(n.FullName) : "*(None)*")
+                        Value = PeekNextSongTitle() ?? "*(None)*"
                     }
                 }
             }.Build();
             return Message.ModifyAsync(m => m.Embed = emb);
+
+            string? PeekNextSongTitle()
+            {
+                if (Playlist.TryPeek(out var next))
+                {
+                    var tags = IMediaTag.Parse(next);
+                    return tags?.Title;
+                }
+
+                return null;
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

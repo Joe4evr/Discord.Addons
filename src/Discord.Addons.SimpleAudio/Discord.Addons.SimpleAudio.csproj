@@ -8,7 +8,9 @@
     <Description>Simple usage of Audio for Discord.Net 2.0.</Description>
     <Authors>Joe4evr</Authors>
     <PackageTags>discord;commands;audio</PackageTags>
-    <!--<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>-->
+    <!--<AllowUnsafeBlocks>true</AllowUnsafeBlocks>-->
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="JiiLib.Media" Version="1.0.0" />
+  </ItemGroup>
 </Project>

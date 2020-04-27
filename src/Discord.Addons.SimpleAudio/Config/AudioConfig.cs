@@ -1,22 +1,34 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Discord.Addons.Core;
 
 namespace Discord.Addons.SimpleAudio
 {
     /// <summary>
-    /// Global configuration for SimpleAudio.
+    ///     Global configuration for SimpleAudio.
     /// </summary>
-    public sealed class AudioConfig
+    internal sealed class AudioConfig : IAudioConfig
     {
-        private IDictionary<ulong, IAudioGuildConfig> _guildConfigs = new Dictionary<ulong, IAudioGuildConfig>();
+        private readonly IDictionary<ulong, IAudioGuildConfig> _guildConfigs = new Dictionary<ulong, IAudioGuildConfig>();
 
-        /// <summary> Initializes a new instance of the global configuration. </summary>
-        /// <param name="ffmpegPath">Path to 'ffmpeg.exe'.</param>
-        /// <param name="musicBasePath">Base path to find music files.</param>
-        /// <exception cref="AggregateException">Argument '<paramref name="ffmpegPath"/>' did not point to a valid file path
-        /// or '<paramref name="musicBasePath"/>' did not point to a valid directory path.</exception>
-        /// <exception cref="ArgumentException">Argument '<paramref name="ffmpegPath"/>' did not point to 'ffmpeg.exe'.</exception>
+        /// <summary>
+        ///     Initializes a new instance of the global configuration.
+        /// </summary>
+        /// <param name="ffmpegPath">
+        ///     Path to 'ffmpeg.exe'.
+        /// </param>
+        /// <param name="musicBasePath">
+        ///     Base path to find music files.
+        /// </param>
+        /// <exception cref="AggregateException">
+        ///     Argument '<paramref name="ffmpegPath"/>' did not point to a valid file path
+        ///     or '<paramref name="musicBasePath"/>' did not point to a valid directory path.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     Argument '<paramref name="ffmpegPath"/>' did not point to 'ffmpeg.exe'.
+        /// </exception>
         public AudioConfig(string ffmpegPath, string musicBasePath)
         {
             try
@@ -41,34 +53,28 @@ namespace Discord.Addons.SimpleAudio
             }
         }
 
-        /// <summary> Gets the path to FFMpeg. </summary>
+        /// <inheritdoc />
         public FileInfo FFMpegPath { get; }
 
-        /// <summary> Gets the base path to find music files. </summary>
+        /// <inheritdoc />
         public DirectoryInfo MusicBasePath { get; }
 
-        /// <summary> Gets or sets a map of Guild IDs to Guild-specific configurations. </summary>
-        /// <exception cref="ArgumentNullException">Value was set to <see langword="null"/>.</exception>
-        public IDictionary<ulong, IAudioGuildConfig> GuildConfigs
-        {
-            get => _guildConfigs;
-            set => _guildConfigs = (value ?? throw new ArgumentNullException($"May not set {nameof(GuildConfigs)} to 'null'."));
-        }
+        /// <inheritdoc />
+        public Task<IAudioGuildConfig?> GetConfigForGuildAsync(IGuild guild)
+            => (_guildConfigs.TryGetValue(guild.Id, out var conf))
+                ? Task.FromResult<IAudioGuildConfig?>(conf)
+                : Task.FromResult<IAudioGuildConfig?>(null);
 
-        /// <summary> Gets or sets the global option of whether or
-        /// not to start auto-playing songs upon connecting. </summary>
+        /// <inheritdoc />
         public bool AutoPlay { get; set; } = false;
 
-        /// <summary> Gets or sets the global option whether or not to allow control via commands.
-        /// Requires an implementation of <see cref="AudioModule"/>. </summary>
+        /// <inheritdoc />
         public bool AllowCommands { get; set; } = true;
 
-        /// <summary> Gets or sets the global option of whether
-        /// or not to allow control via reactions. </summary>
+        /// <inheritdoc />
         public bool AllowReactions { get; set; } = true;
 
-        /// <summary> Gets or sets the global option whether or not to show the available
-        /// list of songs right after joining a voice channel. </summary>
+        /// <inheritdoc />
         public bool ShowSongListOnJoin { get; set; } = false;
     }
 }

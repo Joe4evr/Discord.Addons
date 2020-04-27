@@ -17,7 +17,7 @@ namespace Discord.Addons.SimpleAudio
         //private readonly Timer _presenceChecker;
         private DiscordSocketClient Client { get; }
 
-        internal AudioConfig Config { get; }
+        internal IAudioConfig Config { get; }
         internal ConcurrentDictionary<ulong, AudioClientWrapper> Clients { get; }
             = new ConcurrentDictionary<ulong, AudioClientWrapper>();
 
@@ -25,8 +25,7 @@ namespace Discord.Addons.SimpleAudio
             = new ConcurrentDictionary<ulong, EmbedList>();
 
         public AudioService(
-            DiscordSocketClient client,
-            AudioConfig config,
+            DiscordSocketClient client, IAudioConfig config,
             Func<LogMessage, Task>? logger = null)
         {
             Client = client ?? throw new ArgumentNullException(nameof(client));
@@ -34,10 +33,7 @@ namespace Discord.Addons.SimpleAudio
             Logger = logger ?? Extensions.NoOpLogger;
 
             Client.ReactionAdded += Client_ReactionAdded;
-            if (Config.GuildConfigs.Count > 0)
-            {
-                Client.GuildAvailable += Client_GuildAvailable;
-            }
+            Client.GuildAvailable += Client_GuildAvailable;
 
             Log(LogSeverity.Info, "Created Audio service.");
 
@@ -53,18 +49,18 @@ namespace Discord.Addons.SimpleAudio
             //}, null, TimeSpan.FromSeconds(10), TimeSpan.FromMinutes(1));
         }
 
-        private Task Client_GuildAvailable(SocketGuild guild)
+        private async Task Client_GuildAvailable(SocketGuild guild)
         {
-            if (Config.GuildConfigs.TryGetValue(guild.Id, out var guildConfig) && guildConfig.AutoConnect)
+            var guildConfig = await Config.GetConfigForGuildAsync(guild);
+            if (guildConfig != null && guildConfig.AutoConnect)
             {
                 var vChannel = guild.GetVoiceChannel(guildConfig.VoiceChannelId);
                 var msgChannel = guild.GetTextChannel(guildConfig.MessageChannelId);
                 if (vChannel != null && msgChannel != null)
                 {
-                    Task.Run(() => JoinAudio(guild, msgChannel, vChannel).ConfigureAwait(false));
+                    _ = Task.Run(() => JoinAudio(guild, msgChannel, vChannel).ConfigureAwait(false));
                 }
             }
-            return Task.CompletedTask;
         }
 
         private Task Client_ReactionAdded(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
@@ -102,10 +98,8 @@ namespace Discord.Addons.SimpleAudio
         }
 
         private async Task UpdateWrapper(
-            AudioClientWrapper wrapper,
-            IUserMessage msg,
-            IGuild guild,
-            SocketReaction reaction)
+            AudioClientWrapper wrapper, IUserMessage msg,
+            IGuild guild, SocketReaction reaction)
         {
             await msg.RemoveReactionAsync(reaction.Emote, reaction.User.Value).ConfigureAwait(false);
             await GetAction(reaction.Emote).ConfigureAwait(false);
@@ -179,9 +173,8 @@ namespace Discord.Addons.SimpleAudio
                 return;
             }
 
-#pragma warning disable CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
-            var guildConfig = Config.GuildConfigs.GetValueOrDefault(guild.Id);
-#pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
+
+            var guildConfig = await Config.GetConfigForGuildAsync(guild);
             var audioClient = await target.ConnectAsync().ConfigureAwait(false);
             var message = await channel.SendMessageAsync("", embed: _initEmbed).ConfigureAwait(false);
             var wrapper = new AudioClientWrapper(audioClient, message, Config, guildConfig);
