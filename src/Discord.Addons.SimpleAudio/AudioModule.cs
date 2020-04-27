@@ -18,9 +18,9 @@ namespace Discord.Addons.SimpleAudio
         }
 
         [ClientNotInVoice]
-        public virtual Task JoinCmd([ValidateVoiceChannel] IVoiceChannel target = null)
+        public virtual Task JoinCmd([ValidateVoiceChannel] IVoiceChannel? target = null)
         {
-            target = target ?? (Context.User as IVoiceState).VoiceChannel;
+            target ??= ((IVoiceState)Context.User).VoiceChannel;
             var channelPerms = Context.Guild.CurrentUser.GetPermissions(target);
             if (!channelPerms.Connect)
             {

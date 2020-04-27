@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+#nullable disable warnings
 namespace Discord.Addons.SimplePermissions
 {
     public sealed class GuildModule<TGuild, TChannel, TUser>

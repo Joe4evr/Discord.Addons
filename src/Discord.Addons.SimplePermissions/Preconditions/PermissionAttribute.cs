@@ -33,70 +33,68 @@ namespace Discord.Addons.SimplePermissions
             if (context.Channel is IPrivateChannel)
                 return PreconditionResult.FromSuccess();
 
-            var chan = context.Channel as ITextChannel;
-            var user = context.User as IGuildUser;
+            var chan = (context.Channel as ITextChannel)!;
+            var user = (context.User as IGuildUser)!;
             var svc = services.GetService<PermissionsService>();
             if (svc != null)
             {
                 //using (var config = svc.ReadOnlyConfig)
-                using (var config = svc.LoadConfig())
-                {
-                    var adminRoleId = config.GetGuildAdminRole(context.Guild)?.Id;
-                    var modRoleId = config.GetGuildModRole(context.Guild)?.Id;
+                using var config = svc.LoadConfig();
+                var adminRoleId = config.GetGuildAdminRole(context.Guild)?.Id;
+                var modRoleId = config.GetGuildModRole(context.Guild)?.Id;
 
-                    var wlms = config.GetChannelModuleWhitelist(chan).Concat(config.GetGuildModuleWhitelist(context.Guild));
-                    if (IsModuleWhitelisted(wlms, command.Module))
+                var wlms = config.GetChannelModuleWhitelist(chan).Concat(config.GetGuildModuleWhitelist(context.Guild));
+                if (IsModuleWhitelisted(wlms, command.Module))
+                {
+                    // Candidate switch expression
+                    if (Permission == MinimumPermission.BotOwner)
                     {
-                        // Candidate switch expression
-                        if (Permission == MinimumPermission.BotOwner)
+                        try
                         {
-                            try
-                            {
-                                var ownerId = (await context.Client.GetApplicationInfoAsync().ConfigureAwait(false)).Owner.Id;
-                                return user.Id == ownerId
-                                    ? PreconditionResult.FromSuccess()
-                                    : PreconditionResult.FromError("Insufficient permission.");
-                            }
-                            catch (HttpException)
-                            {
-                                return PreconditionResult.FromError("Not logged in as a bot.");
-                            }
+                            var ownerId = (await context.Client.GetApplicationInfoAsync().ConfigureAwait(false)).Owner.Id;
+                            return user.Id == ownerId
+                                ? PreconditionResult.FromSuccess()
+                                : PreconditionResult.FromError("Insufficient permission.");
                         }
-                        else if (Permission == MinimumPermission.Special
-                            && config.GetSpecialPermissionUsersList(chan).Contains(user, DiscordComparers.UserComparer))
+                        catch (HttpException)
                         {
-                            return PreconditionResult.FromSuccess();
+                            return PreconditionResult.FromError("Not logged in as a bot.");
                         }
-                        else if (Permission <= MinimumPermission.GuildOwner
-                            && context.Guild.OwnerId == user.Id)
-                        {
-                            return PreconditionResult.FromSuccess();
-                        }
-                        else if (Permission <= MinimumPermission.AdminRole
-                            && adminRoleId.HasValue
-                            && user.RoleIds.Contains(adminRoleId.Value))
-                        {
-                            return PreconditionResult.FromSuccess();
-                        }
-                        else if (Permission <= MinimumPermission.ModRole
-                            && modRoleId.HasValue
-                            && user.RoleIds.Contains(modRoleId.Value))
-                        {
-                            return PreconditionResult.FromSuccess();
-                        }
-                        else if (Permission == MinimumPermission.Everyone)
-                        {
-                            return PreconditionResult.FromSuccess();
-                        }
-                        else
-                        {
-                            return PreconditionResult.FromError("Insufficient permission.");
-                        }
+                    }
+                    else if (Permission == MinimumPermission.Special
+                        && config.GetSpecialPermissionUsersList(chan).Contains(user, DiscordComparers.UserComparer))
+                    {
+                        return PreconditionResult.FromSuccess();
+                    }
+                    else if (Permission <= MinimumPermission.GuildOwner
+                        && context.Guild.OwnerId == user.Id)
+                    {
+                        return PreconditionResult.FromSuccess();
+                    }
+                    else if (Permission <= MinimumPermission.AdminRole
+                        && adminRoleId.HasValue
+                        && user.RoleIds.Contains(adminRoleId.Value))
+                    {
+                        return PreconditionResult.FromSuccess();
+                    }
+                    else if (Permission <= MinimumPermission.ModRole
+                        && modRoleId.HasValue
+                        && user.RoleIds.Contains(modRoleId.Value))
+                    {
+                        return PreconditionResult.FromSuccess();
+                    }
+                    else if (Permission == MinimumPermission.Everyone)
+                    {
+                        return PreconditionResult.FromSuccess();
                     }
                     else
                     {
-                        return PreconditionResult.FromError("Command not whitelisted");
+                        return PreconditionResult.FromError("Insufficient permission.");
                     }
+                }
+                else
+                {
+                    return PreconditionResult.FromError("Command not whitelisted");
                 }
             }
             else

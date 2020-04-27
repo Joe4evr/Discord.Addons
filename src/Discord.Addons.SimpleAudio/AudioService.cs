@@ -27,7 +27,7 @@ namespace Discord.Addons.SimpleAudio
         public AudioService(
             DiscordSocketClient client,
             AudioConfig config,
-            Func<LogMessage, Task> logger = null)
+            Func<LogMessage, Task>? logger = null)
         {
             Client = client ?? throw new ArgumentNullException(nameof(client));
             Config = config ?? throw new ArgumentNullException(nameof(config));
@@ -179,7 +179,9 @@ namespace Discord.Addons.SimpleAudio
                 return;
             }
 
+#pragma warning disable CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
             var guildConfig = Config.GuildConfigs.GetValueOrDefault(guild.Id);
+#pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
             var audioClient = await target.ConnectAsync().ConfigureAwait(false);
             var message = await channel.SendMessageAsync("", embed: _initEmbed).ConfigureAwait(false);
             var wrapper = new AudioClientWrapper(audioClient, message, Config, guildConfig);
@@ -242,7 +244,7 @@ namespace Discord.Addons.SimpleAudio
 
         internal async Task SendAudio(IGuild guild, IMessageChannel channel, string path)
         {
-            if (!Clients.TryGetValue(guild.Id, out var acw))
+            if (!Clients.TryGetValue(guild.Id, out _))
             {
                 await channel.SendMessageAsync("Not connected to voice in this guild.").ConfigureAwait(false);
                 return;

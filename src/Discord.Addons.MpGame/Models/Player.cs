@@ -36,8 +36,8 @@ namespace Discord.Addons.MpGame
 
         private IMessageChannel PubChannel { get; }
 
-        internal string DMsDisabledMessage                { private get; set; } = String.Empty;
-        internal string DMsDisabledKickMessage            { private get; set; } = String.Empty;
+        internal string DMsDisabledMessage           { private get; set; } = String.Empty;
+        internal string DMsDisabledKickMessage       { private get; set; } = String.Empty;
         internal Func<string, Task> AutoKickCallback { private get; set; } = Extensions.NoOpStringToTask;
 
         /// <summary>
@@ -105,8 +105,9 @@ namespace Discord.Addons.MpGame
             {
                 while (_unsentDms.Count > 0)
                 {
-                    var (t, e) = _unsentDms.Dequeue();
+                    var (t, e) = _unsentDms.Peek();
                     await User.SendMessageAsync(t, embed: e).ConfigureAwait(false);
+                    _ = _unsentDms.Dequeue();
                 }
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)

@@ -7,14 +7,23 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Discord;
 using Discord.Commands;
 
+#nullable disable warnings
 namespace Discord.Addons.SimplePermissions
 {
-    /// <summary> Implementation of an <see cref="IPermissionConfig"/>
-    /// using an Entity Framework
-    /// <see cref="DbContext"/> as a backing store. </summary>
-    /// <typeparam name="TGuild">The Guild configuration type.</typeparam>
-    /// <typeparam name="TChannel">The Channel configuration type.</typeparam>
-    /// <typeparam name="TUser">The User configuration type.</typeparam>
+    /// <summary>
+    ///     Implementation of an <see cref="IPermissionConfig"/>
+    ///     using an Entity Framework
+    ///     <see cref="DbContext"/> as a backing store.
+    /// </summary>
+    /// <typeparam name="TGuild">
+    ///     The Guild configuration type.
+    /// </typeparam>
+    /// <typeparam name="TChannel">
+    ///     The Channel configuration type.
+    /// </typeparam>
+    /// <typeparam name="TUser">
+    ///     The User configuration type.
+    /// </typeparam>
     public abstract partial class EFBaseConfigContext<TGuild, TChannel, TUser> : DbContext
         where TGuild : ConfigGuild<TChannel, TUser>, new()
         where TChannel : ConfigChannel<TUser>, new()

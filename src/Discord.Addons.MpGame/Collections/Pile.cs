@@ -153,7 +153,7 @@ namespace Discord.Addons.MpGame.Collections
         public IEnumerable<T> AsEnumerable()
         {
             if (!CanBrowse)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoBrowse);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoBrowse);
 
             return Iterate();
 
@@ -181,7 +181,7 @@ namespace Discord.Addons.MpGame.Collections
         public ImmutableArray<T> Browse()
         {
             if (!CanBrowse)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoBrowse);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoBrowse);
 
             using (_rwlock.UsingReadLock())
             {
@@ -251,7 +251,7 @@ namespace Discord.Addons.MpGame.Collections
             Func<ImmutableArray<T>, IEnumerable<T>>? shuffleFunc = null)
         {
             if (!(CanBrowse && CanTake))
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoBrowseAndTake);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoBrowseAndTake);
             if (selector is null)
                 ThrowHelper.ThrowArgNull(nameof(selector));
 
@@ -281,7 +281,7 @@ namespace Discord.Addons.MpGame.Collections
         public ImmutableArray<T> Clear()
         {
             if (!CanClear)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoClear);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoClear);
 
             using (_rwlock.UsingWriteLock())
             {
@@ -312,11 +312,11 @@ namespace Discord.Addons.MpGame.Collections
         public void Cut(int amount)
         {
             if (!CanCut)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoCut);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoCut);
             if (amount < 0)
-                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.CutAmountNegative, nameof(amount));
+                ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.CutAmountNegative, nameof(amount));
             if (amount > Count)
-                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.CutAmountTooHigh, nameof(amount));
+                ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.CutAmountTooHigh, nameof(amount));
 
             if (amount == 0 || amount == Count)
                 return; //no changes
@@ -345,7 +345,7 @@ namespace Discord.Addons.MpGame.Collections
         public T Draw()
         {
             if (!CanDraw)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoDraw);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoDraw);
 
             using (_rwlock.UsingWriteLock())
             {
@@ -376,7 +376,7 @@ namespace Discord.Addons.MpGame.Collections
         public T DrawBottom()
         {
             if (!CanDrawBottom)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoDraw);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoDraw);
 
             using (_rwlock.UsingWriteLock())
             {
@@ -413,13 +413,13 @@ namespace Discord.Addons.MpGame.Collections
         public void InsertAt(T item, int index)
         {
             if (!CanInsert)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoInsert);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoInsert);
             if (item is null)
                 ThrowHelper.ThrowArgNull(nameof(item));
             if (index < 0)
-                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.InsertionNegative, nameof(index));
+                ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.InsertionNegative, nameof(index));
             if (index > Count)
-                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.InsertionTooHigh, nameof(index));
+                ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.InsertionTooHigh, nameof(index));
 
             using (_rwlock.UsingWriteLock())
             {
@@ -460,13 +460,13 @@ namespace Discord.Addons.MpGame.Collections
         public void Mill(Pile<T> targetPile)
         {
             if (!(CanDraw || CanBrowse))
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoDraw);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoDraw);
             if (targetPile is null)
                 ThrowHelper.ThrowArgNull(nameof(targetPile));
             if (ReferenceEquals(this, targetPile))
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.MillTargetSamePile);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.MillTargetSamePile);
             if (!targetPile.CanPut)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoPutTarget);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoPutTarget);
 
             using (_rwlock.UsingWriteLock())
             using (targetPile._rwlock.UsingWriteLock())
@@ -508,11 +508,11 @@ namespace Discord.Addons.MpGame.Collections
         public T? PeekAt(int index)
         {
             if (!(CanPeek || CanBrowse))
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoBrowseOrPeek);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoBrowseOrPeek);
             if (index < 0)
-                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.PeekAmountNegative, nameof(index));
+                ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.PeekAmountNegative, nameof(index));
             if (index > Count)
-                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.PeekAmountTooHigh, nameof(index));
+                ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.PeekAmountTooHigh, nameof(index));
             if (Count == 0)
                 return null;
 
@@ -550,13 +550,13 @@ namespace Discord.Addons.MpGame.Collections
         public ImmutableArray<T> PeekTop(int amount)
         {
             if (!(CanPeek || CanBrowse))
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoBrowseOrPeek);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoBrowseOrPeek);
             if (Count == 0 || amount == 0)
                 return ImmutableArray<T>.Empty;
             if (amount < 0)
-                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.PeekAmountNegative, nameof(amount));
+                ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.PeekAmountNegative, nameof(amount));
             if (amount > Count)
-                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.PeekAmountTooHigh, nameof(amount));
+                ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.PeekAmountTooHigh, nameof(amount));
 
             using (_rwlock.UsingReadLock())
             {
@@ -583,7 +583,7 @@ namespace Discord.Addons.MpGame.Collections
         public void Put(T item)
         {
             if (!CanPut)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoPut);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoPut);
             if (item is null)
                 ThrowHelper.ThrowArgNull(nameof(item));
 
@@ -612,7 +612,7 @@ namespace Discord.Addons.MpGame.Collections
         public void PutBottom(T item)
         {
             if (!CanPutBottom)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoPutBottom);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoPutBottom);
             if (item is null)
                 ThrowHelper.ThrowArgNull(nameof(item));
 
@@ -643,7 +643,7 @@ namespace Discord.Addons.MpGame.Collections
         public void Shuffle(Func<ImmutableArray<T>, IEnumerable<T>> shuffleFunc)
         {
             if (!CanShuffle)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoShuffle);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoShuffle);
             if (shuffleFunc is null)
                 ThrowHelper.ThrowArgNull(nameof(shuffleFunc));
 
@@ -675,11 +675,11 @@ namespace Discord.Addons.MpGame.Collections
         public T TakeAt(int index)
         {
             if (!CanTake)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NoTake);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoTake);
             if (index < 0)
-                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
+                ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.RetrievalNegative, nameof(index));
             if (index >= Count)
-                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalTooHighP, nameof(index));
+                ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.RetrievalTooHighP, nameof(index));
 
             using (_rwlock.UsingWriteLock())
             {

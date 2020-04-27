@@ -9,13 +9,11 @@ namespace Discord.Addons.SimpleAudio
     {
         private static readonly RequireContextAttribute _contextCheck = new RequireContextAttribute(ContextType.Guild);
 
-        public override async Task<PreconditionResult> CheckPermissions(
-            ICommandContext context,
-            ParameterInfo parameter,
-            object value,
-            IServiceProvider services)
+        public override async Task<PreconditionResult> CheckPermissionsAsync(
+            ICommandContext context, ParameterInfo parameter,
+            object value, IServiceProvider services)
         {
-            var isGuildResult = await _contextCheck.CheckPermissions(context, parameter.Command, services);
+            var isGuildResult = await _contextCheck.CheckPermissionsAsync(context, parameter.Command, services);
             if (!isGuildResult.IsSuccess)
                 return isGuildResult;
 

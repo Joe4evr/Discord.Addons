@@ -2,7 +2,7 @@
     <Import Project="..\..\DiscordAddonsCore.props" />
     <PropertyGroup>
         <AssemblyName>Discord.Addons.MpGame</AssemblyName>
-        <VersionPrefix>$(MpGameMajor).$(DnetVersion).0</VersionPrefix>
+        <VersionPrefix>$(MpGameMajor).$(DnetMajor).0</VersionPrefix>
         <VersionSuffix>$(MpGameSuffix)</VersionSuffix>
         <Description>Base classes for text-based games in Discord</Description>
         <PackageTags>discord;commands;game</PackageTags>

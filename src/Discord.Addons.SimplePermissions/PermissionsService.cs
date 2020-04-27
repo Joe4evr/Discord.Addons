@@ -77,12 +77,10 @@ namespace Discord.Addons.SimplePermissions
         {
             Task.Run(async () =>
             {
-                using (var config = ConfigStore.Load())
-                {
-                    await guild.DownloadUsersAsync().ConfigureAwait(false);
-                    await config.AddNewGuild(guild, guild.Users).ConfigureAwait(false);
-                    config.Save();
-                }
+                using var config = ConfigStore.Load();
+                await guild.DownloadUsersAsync().ConfigureAwait(false);
+                await config.AddNewGuild(guild, guild.Users).ConfigureAwait(false);
+                config.Save();
             });
             return Task.CompletedTask;
         }
@@ -91,11 +89,9 @@ namespace Discord.Addons.SimplePermissions
         {
             Task.Run(async () =>
             {
-                using (var config = ConfigStore.Load())
-                {
-                    await config.AddUser(user).ConfigureAwait(false);
-                    config.Save();
-                }
+                using var config = ConfigStore.Load();
+                await config.AddUser(user).ConfigureAwait(false);
+                config.Save();
             });
             return Task.CompletedTask;
         }
@@ -106,11 +102,9 @@ namespace Discord.Addons.SimplePermissions
             {
                 if (channel is SocketTextChannel textChannel)
                 {
-                    using (var config = ConfigStore.Load())
-                    {
-                        await config.AddChannel(textChannel).ConfigureAwait(false);
-                        config.Save();
-                    }
+                    using var config = ConfigStore.Load();
+                    await config.AddChannel(textChannel).ConfigureAwait(false);
+                    config.Save();
                 }
             });
             return Task.CompletedTask;
@@ -122,11 +116,9 @@ namespace Discord.Addons.SimplePermissions
             {
                 if (channel is SocketTextChannel textChannel)
                 {
-                    using (var config = ConfigStore.Load())
-                    {
-                        await config.RemoveChannel(textChannel).ConfigureAwait(false);
-                        config.Save();
-                    }
+                    using var config = ConfigStore.Load();
+                    await config.RemoveChannel(textChannel).ConfigureAwait(false);
+                    config.Save();
                 }
             });
             return Task.CompletedTask;
@@ -238,122 +230,106 @@ namespace Discord.Addons.SimplePermissions
 
         internal Task AddNewFancy(FancyHelpMessage fhm)
         {
-            Helpmsgs.TryAdd(fhm.MsgId, fhm);
+            if (fhm.MsgId > 0UL)
+                Helpmsgs.TryAdd(fhm.MsgId, fhm);
+
             return Task.CompletedTask;
         }
 
         internal async Task<bool> SetGuildAdminRole(IRole role)
         {
-            using (var config = ConfigStore.Load())
-            {
-                await _lock.WaitAsync();
-                var result = await config.SetGuildAdminRole(role).ConfigureAwait(false);
-                config.Save();
-                _lock.Release();
-                return result;
-            }
+            using var config = ConfigStore.Load();
+            await _lock.WaitAsync();
+            var result = await config.SetGuildAdminRole(role).ConfigureAwait(false);
+            config.Save();
+            _lock.Release();
+            return result;
         }
 
         internal async Task<bool> SetGuildModRole(IRole role)
         {
-            using (var config = ConfigStore.Load())
-            {
-                await _lock.WaitAsync();
-                var result = await config.SetGuildModRole(role).ConfigureAwait(false);
-                config.Save();
-                _lock.Release();
-                return result;
-            }
+            using var config = ConfigStore.Load();
+            await _lock.WaitAsync();
+            var result = await config.SetGuildModRole(role).ConfigureAwait(false);
+            config.Save();
+            _lock.Release();
+            return result;
         }
 
         internal async Task<bool> AddSpecialUser(ITextChannel channel, IGuildUser user)
         {
-            using (var config = ConfigStore.Load())
-            {
-                await _lock.WaitAsync();
-                var result = await config.AddSpecialUser(channel, user).ConfigureAwait(false);
-                config.Save();
-                //await ReadOnlyConfig.AddSpecialUser(channel, user).ConfigureAwait(false);
-                _lock.Release();
-                return result;
-            }
+            using var config = ConfigStore.Load();
+            await _lock.WaitAsync();
+            var result = await config.AddSpecialUser(channel, user).ConfigureAwait(false);
+            config.Save();
+            //await ReadOnlyConfig.AddSpecialUser(channel, user).ConfigureAwait(false);
+            _lock.Release();
+            return result;
         }
 
         internal async Task<bool> RemoveSpecialUser(ITextChannel channel, IGuildUser user)
         {
-            using (var config = ConfigStore.Load())
-            {
-                await _lock.WaitAsync();
-                var result = await config.RemoveSpecialUser(channel, user).ConfigureAwait(false);
-                config.Save();
-                //await ReadOnlyConfig.RemoveSpecialUser(channel, user).ConfigureAwait(false);
-                _lock.Release();
-                return result;
-            }
+            using var config = ConfigStore.Load();
+            await _lock.WaitAsync();
+            var result = await config.RemoveSpecialUser(channel, user).ConfigureAwait(false);
+            config.Save();
+            //await ReadOnlyConfig.RemoveSpecialUser(channel, user).ConfigureAwait(false);
+            _lock.Release();
+            return result;
         }
 
         internal async Task<bool> WhitelistModule(ITextChannel channel, ModuleInfo module)
         {
-            using (var config = ConfigStore.Load())
-            {
-                await _lock.WaitAsync();
-                var result = await config.WhitelistModule(channel, module).ConfigureAwait(false);
-                config.Save();
-                //await ReadOnlyConfig.WhitelistModule(channel, module).ConfigureAwait(false);
-                _lock.Release();
-                return result;
-            }
+            using var config = ConfigStore.Load();
+            await _lock.WaitAsync();
+            var result = await config.WhitelistModule(channel, module).ConfigureAwait(false);
+            config.Save();
+            //await ReadOnlyConfig.WhitelistModule(channel, module).ConfigureAwait(false);
+            _lock.Release();
+            return result;
         }
 
         internal async Task<bool> BlacklistModule(ITextChannel channel, ModuleInfo module)
         {
-            using (var config = ConfigStore.Load())
-            {
-                await _lock.WaitAsync();
-                var result = await config.BlacklistModule(channel, module).ConfigureAwait(false);
-                config.Save();
-                //await ReadOnlyConfig.BlacklistModule(channel, module).ConfigureAwait(false);
-                _lock.Release();
-                return result;
-            }
+            using var config = ConfigStore.Load();
+            await _lock.WaitAsync();
+            var result = await config.BlacklistModule(channel, module).ConfigureAwait(false);
+            config.Save();
+            //await ReadOnlyConfig.BlacklistModule(channel, module).ConfigureAwait(false);
+            _lock.Release();
+            return result;
         }
 
         internal async Task<bool> WhitelistModuleGuild(IGuild guild, ModuleInfo module)
         {
-            using (var config = ConfigStore.Load())
-            {
-                await _lock.WaitAsync();
-                var result = await config.WhitelistModuleGuild(guild, module).ConfigureAwait(false);
-                config.Save();
-                //await ReadOnlyConfig.WhitelistModuleGuild(guild, module).ConfigureAwait(false);
-                _lock.Release();
-                return result;
-            }
+            using var config = ConfigStore.Load();
+            await _lock.WaitAsync();
+            var result = await config.WhitelistModuleGuild(guild, module).ConfigureAwait(false);
+            config.Save();
+            //await ReadOnlyConfig.WhitelistModuleGuild(guild, module).ConfigureAwait(false);
+            _lock.Release();
+            return result;
         }
 
         internal async Task<bool> BlacklistModuleGuild(IGuild guild, ModuleInfo module)
         {
-            using (var config = ConfigStore.Load())
-            {
-                await _lock.WaitAsync();
-                var result = await config.BlacklistModuleGuild(guild, module).ConfigureAwait(false);
-                config.Save();
-                //await ReadOnlyConfig.BlacklistModuleGuild(guild, module).ConfigureAwait(false);
-                _lock.Release();
-                return result;
-            }
+            using var config = ConfigStore.Load();
+            await _lock.WaitAsync();
+            var result = await config.BlacklistModuleGuild(guild, module).ConfigureAwait(false);
+            config.Save();
+            //await ReadOnlyConfig.BlacklistModuleGuild(guild, module).ConfigureAwait(false);
+            _lock.Release();
+            return result;
         }
 
         internal async Task SetHidePermCommands(IGuild guild, bool newValue)
         {
-            using (var config = ConfigStore.Load())
-            {
-                await _lock.WaitAsync();
-                await config.SetHidePermCommands(guild, newValue).ConfigureAwait(false);
-                config.Save();
-                //await ReadOnlyConfig.SetHidePermCommands(guild, newValue).ConfigureAwait(false);
-                _lock.Release();
-            }
+            using var config = ConfigStore.Load();
+            await _lock.WaitAsync();
+            await config.SetHidePermCommands(guild, newValue).ConfigureAwait(false);
+            config.Save();
+            //await ReadOnlyConfig.SetHidePermCommands(guild, newValue).ConfigureAwait(false);
+            _lock.Release();
         }
 
         internal static int GetMessageCacheSize(DiscordSocketClient client)

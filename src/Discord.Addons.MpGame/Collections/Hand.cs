@@ -142,7 +142,7 @@ namespace Discord.Addons.MpGame.Collections
             {
                 var newOrder = orderFunc(_hand.ToImmutableArray());
                 if (newOrder is null)
-                    ThrowHelper.ThrowInvalidOp(ErrorStrings.NewSequenceNull);
+                    ThrowHelper.ThrowInvalidOp(PileErrorStrings.NewSequenceNull);
 
                 _hand = new List<T>(newOrder);
             }
@@ -160,9 +160,9 @@ namespace Discord.Addons.MpGame.Collections
         public T TakeAt(int index)
         {
             if (index < 0)
-                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalNegative, nameof(index));
+                ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.RetrievalNegative, nameof(index));
             if (index >= Count)
-                ThrowHelper.ThrowArgOutOfRange(ErrorStrings.RetrievalTooHighH, nameof(index));
+                ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.RetrievalTooHighH, nameof(index));
 
             using (_rwlock.UsingWriteLock())
             {

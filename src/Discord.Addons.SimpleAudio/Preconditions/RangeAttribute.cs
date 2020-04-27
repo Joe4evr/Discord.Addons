@@ -18,7 +18,9 @@ namespace Discord.Addons.SimpleAudio
             _max = max;
         }
 
-        public override Task<PreconditionResult> CheckPermissions(ICommandContext context, ParameterInfo parameter, object value, IServiceProvider map)
+        public override Task<PreconditionResult> CheckPermissionsAsync(
+            ICommandContext _, ParameterInfo __,
+            object value, IServiceProvider ___)
         {
             if (value is int v && (v < _min || v > _max))
             {

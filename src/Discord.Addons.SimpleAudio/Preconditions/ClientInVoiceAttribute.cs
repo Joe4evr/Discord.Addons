@@ -10,9 +10,10 @@ namespace Discord.Addons.SimpleAudio
     {
         //private readonly RequireContextAttribute _ctx = new RequireContextAttribute(ContextType.Guild);
 
-        public override Task<PreconditionResult> CheckPermissions(ICommandContext context, CommandInfo command, IServiceProvider map)
+        public override Task<PreconditionResult> CheckPermissionsAsync(
+            ICommandContext context, CommandInfo _, IServiceProvider services)
         {
-            var service = map.GetService<AudioService>();
+            var service = services.GetService<AudioService>();
             if (service != null)
             {
                 if (CheckAllowCommands(service, context))

@@ -190,7 +190,7 @@ namespace Discord.Addons.MpGame.Collections
         private void Resequence(IEnumerable<T> newSequence)
         {
             if (newSequence is null)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.NewSequenceNull);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NewSequenceNull);
 
             Reset();
 
@@ -269,7 +269,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             var headNode = Interlocked.Exchange(ref _head, _head?.Next);
             if (headNode is null)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.PileEmpty);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.PileEmpty);
 
             Interlocked.CompareExchange(ref _tail, value: null!, comparand: headNode);
             if (VHead != null)
@@ -281,7 +281,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             var tailNode = Interlocked.Exchange(ref _tail, _tail?.Previous);
             if (tailNode is null)
-                ThrowHelper.ThrowInvalidOp(ErrorStrings.PileEmpty);
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.PileEmpty);
 
             Interlocked.CompareExchange(ref _head, value: null!, comparand: tailNode);
             if (VHead != null)
