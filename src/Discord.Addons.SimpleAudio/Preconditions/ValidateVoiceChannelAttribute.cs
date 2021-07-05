@@ -5,7 +5,7 @@ using Discord.Commands;
 
 namespace Discord.Addons.SimpleAudio
 {
-    internal class ValidateVoiceChannelAttribute : ParameterPreconditionAttribute
+    internal sealed class ValidateVoiceChannelAttribute : ParameterPreconditionAttribute
     {
         private static readonly RequireContextAttribute _contextCheck = new RequireContextAttribute(ContextType.Guild);
 

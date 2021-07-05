@@ -9,7 +9,14 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using JiiLib.Media;
+using Discord.Addons.Core;
 using Discord.Audio;
+
+#if NETCOREAPP3_0_OR_GREATER
+using System.Runtime.Intrinsics.X86;
+#else
+using System.Numerics;
+#endif
 
 namespace Discord.Addons.SimpleAudio
 {
@@ -23,17 +30,18 @@ namespace Discord.Addons.SimpleAudio
         private static readonly IEmote _ejectEmote = new Emoji("\u23CF");
         private static readonly IEmote[] _emotes = new[] { _stopEmote, _playEmote, _pauseEmote, _fwdEmote, _ejectEmote };
 
-        private readonly object _cancelLock = new object();
-        private ConcurrentQueue<FileInfo> Playlist { get; } = new ConcurrentQueue<FileInfo>();
+        private readonly object _cancelLock = new();
+        private ConcurrentQueue<FileInfo> Playlist { get; } = new();
 
         internal IAudioClient Client { get; }
         internal IUserMessage Message { get; }
+        //internal ulong MessageId => Message.Id;
 
         private bool _next = false;
         private int _pause = 0;
         private float _playingVolume = 0.5f;
-        private CancellationTokenSource _cancelToken = new CancellationTokenSource();
-        private TaskCompletionSource<bool> _pauseTask = new TaskCompletionSource<bool>();
+        private CancellationTokenSource _cancelToken = new();
+        private TaskCompletionSource<bool> _pauseTask = new();
 
         private IMediaTag? _songTags;
         private IEmote _statusEmote = _stopEmote;
@@ -57,7 +65,7 @@ namespace Discord.Addons.SimpleAudio
         {
             while (Playlist.TryDequeue(out var path))
             {
-                _songTags = IMediaTag.Parse(path);
+                MediaTag.Parse(path, out _songTags);
                 _statusEmote = _playEmote;
                 _statusColor = Color.Green;
                 await RefreshEmbed().ConfigureAwait(false);
@@ -72,23 +80,17 @@ namespace Discord.Addons.SimpleAudio
                     CreateNoWindow = false
                 }))
                 //using (var input = _ffmpeg.StandardInput.BaseStream)
-                using (var stream = Client.CreatePCMStream(AudioApplication.Music))
+                await using (var stream = Client.CreatePCMStream(AudioApplication.Music))
                 {
-                    try
-                    {
-                        await PausableCopyToAsync(_ffmpeg.StandardOutput.BaseStream, stream, 8192).ConfigureAwait(false);
-                    }
-                    catch (OperationCanceledException)
-                    {
-                        if (!_next)
-                            Playlist.Clear();
-                        else
-                            _next = false;
-                    }
-                    finally
-                    {
-                        await stream.FlushAsync().ConfigureAwait(false);
-                    }
+                    await PausableCopyToAsync(_ffmpeg.StandardOutput.BaseStream, stream, 8192)
+                        .OnCancellation(static (_, @this) =>
+                            {
+                                if (@this._next)
+                                    @this._next = false;
+                                else
+                                    @this.Playlist.Clear();
+                            }, this)
+                        .ConfigureAwait(false);
                 }
             }
 
@@ -131,10 +133,8 @@ namespace Discord.Addons.SimpleAudio
         {
             if (Interlocked.Exchange(ref _pause, value: 0) == 1)
             {
-                if (_pauseTask.TrySetResult(true))
-                {
-                    _pauseTask = new TaskCompletionSource<bool>();
-                }
+                _pauseTask.SetResult(true);
+                _pauseTask = new TaskCompletionSource<bool>();
                 _statusEmote = _playEmote;
                 _statusColor = Color.Green;
                 return RefreshEmbed();
@@ -180,22 +180,22 @@ namespace Discord.Addons.SimpleAudio
 
         private async Task PausableCopyToAsync(Stream source, Stream destination, int buffersize)
         {
-            Contract.Requires(source != null && source.CanRead, $"{nameof(source)} is null or not readable.");
-            Contract.Requires(destination != null && destination.CanWrite, $"{nameof(destination)} is null or not writable.");
-            Contract.Requires(buffersize > 0 && IsAligned(buffersize), $"{nameof(buffersize)} is 0 or less or not even.");
+            //Contract.Requires(source != null && source.CanRead, $"{nameof(source)} is null or not readable.");
+            //Contract.Requires(destination != null && destination.CanWrite, $"{nameof(destination)} is null or not writable.");
+            Contract.Requires(buffersize > 0 && IsAligned((uint)buffersize), $"{nameof(buffersize)} is 0 or less or not a multiple of 4.");
 
             byte[] buffer = new byte[buffersize];
             int count;
 
-            while ((count = await source!.ReadAsync(buffer, 0, buffersize, _cancelToken.Token).ConfigureAwait(false)) > 0)
+            while ((count = await source.ReadAsync(buffer, 0, buffersize, _cancelToken.Token).ConfigureAwait(false)) > 0)
             {
                 if (_pause > 0)
                 {
                     await _pauseTask.Task;
                 }
 
-                ScaleVolumeSpanOfT(buffer, _playingVolume, count);
-                await destination!.WriteAsync(buffer, 0, count, _cancelToken.Token).ConfigureAwait(false);
+                ScaleVolumeSpanOfT(buffer.AsSpan()[..count], _playingVolume);
+                await destination.WriteAsync(buffer, 0, count, _cancelToken.Token).ConfigureAwait(false);
             }
         }
 
@@ -228,8 +228,8 @@ namespace Discord.Addons.SimpleAudio
             {
                 if (Playlist.TryPeek(out var next))
                 {
-                    var tags = IMediaTag.Parse(next);
-                    return tags?.Title;
+                    MediaTag.Parse(next, out var tags);
+                    return tags?.Title ?? next.Name;
                 }
 
                 return null;
@@ -237,9 +237,14 @@ namespace Discord.Addons.SimpleAudio
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private bool IsAligned(int number)
+        private static bool IsAligned(uint number)
         {
-            const int magic = ~0b11;
+#if NETCOREAPP3_0_OR_GREATER
+            if (Bmi1.IsSupported)
+                return Bmi1.TrailingZeroCount(number) >= 2;
+#endif
+
+            const uint magic = ~0b11u;
             return (number | magic) == magic;
         }
 
@@ -269,7 +274,7 @@ namespace Discord.Addons.SimpleAudio
         //}
 
         //https://gist.github.com/Joe4evr/e102d8d8627989a61624237e44210838
-        private static void ScaleVolumeSpanOfT(Span<byte> audioSamples, float volume, int count)
+        private static void ScaleVolumeSpanOfT(Span<byte> audioSamples, float volume)
         {
             Contract.Requires(volume >= 0f && volume <= 1f);
             Contract.Assert(BitConverter.IsLittleEndian);
@@ -282,12 +287,12 @@ namespace Discord.Addons.SimpleAudio
             int volumeFixed = (int)Math.Round(volume * 65536d);
 
             // Reinterpret the bytes as shorts
-            var asShorts = MemoryMarshal.Cast<byte, short>(audioSamples[..count]);
+            var asShorts = MemoryMarshal.Cast<byte, ushort>(audioSamples);
 
             // JIT actually elides bounds-checks when iterating forwards
             // See: https://github.com/dotnet/runtime/issues/9505
             for (int i = 0; i < asShorts.Length; i++)
-                asShorts[i] = (short)((asShorts[i] * volumeFixed) >> 16);
+                asShorts[i] = (ushort)((asShorts[i] * volumeFixed) >> 16);
         }
     }
 }

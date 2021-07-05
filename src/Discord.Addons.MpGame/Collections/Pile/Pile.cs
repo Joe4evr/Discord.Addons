@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using Discord.Addons.Core;
@@ -20,14 +21,15 @@ namespace Discord.Addons.MpGame.Collections
         where T : class
     {
         private static readonly Func<T, T> _noOpTransformer = _ => _;
-        private readonly ReaderWriterLockSlim _rwlock = new ReaderWriterLockSlim();
-        private readonly PileLogic<T> _logic = null!;
+
+        private protected readonly ReaderWriterLockSlim _rwlock = new();
+        private readonly PileLogic<T, T> _logic = null!;
 
         /// <summary>
         ///     Initializes a new pile to an empty state.
         /// </summary>
         protected Pile()
-            : this(Enumerable.Empty<T>(), skipLogicInit: false)
+            : this(Enumerable.Empty<T>(), skipLogicInit: false, initShuffle: false)
         {
         }
 
@@ -35,7 +37,8 @@ namespace Discord.Addons.MpGame.Collections
         ///     Initializes a new pile with the specified items.
         /// </summary>
         /// <param name="items">
-        ///     The items to put in the pile.</param>
+        ///     The items to put in the pile.
+        /// </param>
         /// <remarks>
         ///     <note type="note">
         ///         This constructor will filter out any items in <paramref name="items"/>
@@ -46,25 +49,49 @@ namespace Discord.Addons.MpGame.Collections
         ///     <paramref name="items"/> was <see langword="null"/>.
         /// </exception>
         protected Pile(IEnumerable<T> items)
-            : this(items, skipLogicInit: false)
+            : this(items, skipLogicInit: false, initShuffle: false)
+        {
+        }
+
+        /// <summary>
+        ///     Initializes a new pile with the specified items
+        ///     and a flag to determine if those should be shuffled beforehand.
+        /// </summary>
+        /// <param name="items">
+        ///     The items to put in the pile.
+        /// </param>
+        /// <param name="initShuffle">
+        ///     A flag to indicate the items
+        ///     should be shuffled by the Pile.
+        /// </param>
+        /// <remarks>
+        ///     <note type="note">
+        ///         This constructor will filter out any items in <paramref name="items"/>
+        ///         that are <see langword="null"/> or are pointing to the same object instance.
+        ///     </note>
+        /// </remarks>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="items"/> was <see langword="null"/>.
+        /// </exception>
+        protected Pile(IEnumerable<T> items, bool initShuffle)
+            : this(items, skipLogicInit: false, initShuffle: initShuffle)
         {
         }
 
         private protected Pile(bool skipLogicInit)
-            : this(Enumerable.Empty<T>(), skipLogicInit)
+            : this(Enumerable.Empty<T>(), skipLogicInit: skipLogicInit, initShuffle: false)
         {
         }
 
-        private Pile(IEnumerable<T> items, bool skipLogicInit)
+        private Pile(IEnumerable<T> items, bool skipLogicInit, bool initShuffle)
         {
             if (items is null)
                 ThrowHelper.ThrowArgNull(nameof(items));
 
             if (!skipLogicInit)
             {
-                _logic = new PileLogic<T>();
-                _logic.AddSequence(items);
-                Adder = _logic.AddHead;
+                _logic = new PileLogic<T, T>();
+                _logic.AddSequence((initShuffle ? ShuffleItems(items) : items), _noOpTransformer);
             }
         }
 
@@ -130,7 +157,8 @@ namespace Discord.Addons.MpGame.Collections
         public int Count => GetCount();
         private protected virtual int GetCount() => _logic.VCount;
 
-        internal virtual Action<T> Adder { get; } = null!;
+        internal Action<T> Adder => AddItemCore;
+        private protected virtual void AddItemCore(T item) => _logic.AddHead(item);
 
         /// <summary>
         ///     Iterates the contents of this pile as an <see cref="IEnumerable{T}"/>.<br/>
@@ -155,13 +183,13 @@ namespace Discord.Addons.MpGame.Collections
             if (!CanBrowse)
                 ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoBrowse);
 
-            return Iterate();
+            return Iterate(this);
 
-            IEnumerable<T> Iterate()
+            static IEnumerable<T> Iterate(Pile<T> @this)
             {
-                using (_rwlock.UsingReadLock())
+                using (@this._rwlock.UsingReadLock())
                 {
-                    foreach (var item in AsEnumerableCore())
+                    foreach (var item in @this.AsEnumerableCore())
                     {
                         yield return item;
                     }
@@ -198,22 +226,22 @@ namespace Discord.Addons.MpGame.Collections
         /// <param name="selector">
         ///     A function that returns an array of the indeces of the desired items.<br/>
         ///     The key of each pair is the index of that item.<br/>
-        ///     Returning a <see langword="null"/> or empty array is considered choosing nothing and will return an empty array.
+        ///     Returning a <see langword="null"/> or empty array is
+        ///     considered choosing nothing and will return an empty array.
         /// </param>
         /// <param name="filter">
         ///     An optional function to filter to items that can be taken.
         /// </param>
-        /// <param name="shuffleFunc">
-        ///     An optional function to reshuffle the pile after taking the selected items.<br/>
-        ///     If provided, requires <see cref="CanShuffle"/>.
+        /// <param name="shuffle">
+        ///     A flag to reshuffle the pile after taking the selected items.<br/>
+        ///     If set, will use the implementation provided by <see cref="ShuffleItems"/><br/>
+        ///     Will be ignored if <see cref="CanShuffle"/> returns <see langword="false"/>.
         /// </param>
         /// <returns>
         ///     The items at the chosen indeces, or an empty array if it was chosen to not take any.
         /// </returns>
         /// <exception cref="InvalidOperationException">
         ///     The pile does not allow browsing AND taking<br/>
-        ///     -OR-<br/>
-        ///     The sequence produced from  <paramref name="shuffleFunc"/> was <see langword="null"/>.
         /// </exception>
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="selector"/> was <see langword="null"/>.
@@ -226,29 +254,29 @@ namespace Discord.Addons.MpGame.Collections
         ///         // An effect was used that allows the user to
         ///         // search their deck for a number of red items
         ///         var picked = await deck.BrowseAndTake(async items =>
-        ///         {
-        ///             // Example: Call a method that shows
-        ///             // the available options to the user
-        ///             await ShowUser(items);
-        ///             // Example: Call a method that waits
-        ///             // for the user to make a decision, with 'num'
-        ///             // being the max amount of items they can choose
-        ///             return await UserInput(num);
-        ///         },
-        ///         // Only pass in the red items
-        ///         filter: c => c.Color == itemColor.Red,
-        ///         // Shuffle the pile afterwards
-        ///         // with some custom function
-        ///         shuffleFunc: items => items.ShuffleItems());
+        ///             {
+        ///                 // Example: Call a method that shows
+        ///                 // the available options to the user
+        ///                 await ShowUser(items);
+        ///                 
+        ///                 // Example: Call a method that waits
+        ///                 // for the user to make a decision, with 'num'
+        ///                 // being the max amount of items they can choose
+        ///                 return await UserInput(num);
+        ///             },
+        ///             // Only pass in the red items
+        ///             filter: c => c.Color == itemColor.Red,
+        ///             // Shuffle the pile afterwards
+        ///             shuffle: true);
+        ///             
         ///         // Add the chosen items to the user's hand:
-        ///         foreach (var item in picked)
-        ///             player.AddToHand(item);
+        ///         player.AddToHand(picked);
         ///     </code>
         /// </example>
         public async Task<ImmutableArray<T>> BrowseAndTakeAsync(
             Func<IReadOnlyDictionary<int, T>, Task<int[]>> selector,
             Func<T, bool>? filter = null,
-            Func<ImmutableArray<T>, IEnumerable<T>>? shuffleFunc = null)
+            bool shuffle = false)
         {
             if (!(CanBrowse && CanTake))
                 ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoBrowseAndTake);
@@ -259,14 +287,13 @@ namespace Discord.Addons.MpGame.Collections
             {
                 //ReaderWriterLockSlim has thread affinity, so
                 //force continuation back onto *this* context.
-                return await BrowseAndTakeCore(selector, filter, shuffleFunc).ConfigureAwait(true);
+                return await BrowseAndTakeCore(selector, filter, shuffle).ConfigureAwait(true);
             }
         }
         private protected virtual Task<ImmutableArray<T>> BrowseAndTakeCore(
             Func<IReadOnlyDictionary<int, T>, Task<int[]>> selector,
-            Func<T, bool>? filter,
-            Func<ImmutableArray<T>, IEnumerable<T>>? shuffleFunc)
-            => _logic.BrowseAndTakeAsync(selector, filter, shuffleFunc, _noOpTransformer, CanShuffle);
+            Func<T, bool>? filter, bool shuffle)
+            => _logic.BrowseAndTakeAsync(selector, filter, ShuffleItems, _noOpTransformer, _noOpTransformer, (CanShuffle && shuffle));
 
         /// <summary>
         ///     Clears the entire pile and returns the items that were in it.<br/>
@@ -326,6 +353,8 @@ namespace Discord.Addons.MpGame.Collections
                 CutCore(amount);
             }
         }
+        public void Cut(Index index)
+            => Cut(index.GetOffset(Count));
         private protected virtual void CutCore(int amount)
             => _logic.Cut(amount);
 
@@ -335,7 +364,9 @@ namespace Discord.Addons.MpGame.Collections
         ///     Requires <see cref="CanDraw"/>.
         /// </summary>
         /// <returns>
-        ///     If the pile's current size is greater than 0, the item currently at the top of the pile. Otherwise will throw.
+        ///     If the pile's current size is greater than 0,
+        ///     the item currently at the top of the pile.
+        ///     Otherwise will throw.
         /// </returns>
         /// <exception cref="InvalidOperationException">
         ///     The instance does not allow drawing items<br/>
@@ -392,6 +423,50 @@ namespace Discord.Addons.MpGame.Collections
             => _logic.DrawBottom();
 
         /// <summary>
+        ///     Draws the top <paramref name="amount"/> of items from the pile.<br/>
+        ///     If the last item is drawn, calls <see cref="OnLastRemoved"/>.<br/>
+        ///     Requires <see cref="CanDraw"/>.
+        /// </summary>
+        /// <param name="amount">
+        ///     The amount of items to draw.
+        /// </param>
+        /// <returns>
+        ///     If the pile's current size is greater than or equal to <paramref name="amount"/>,
+        ///     the first that many items currently at the top of the pile.
+        ///     Otherwise will throw.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        ///     The instance does not allow drawing items<br/>
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <paramref name="amount"/> was less than 0 or greater than the pile's current size.
+        /// </exception>
+        public ImmutableArray<T> DrawMultiple(int amount)
+        {
+            if (!CanDraw)
+                ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoDraw);
+            if (amount == 0)
+                return ImmutableArray<T>.Empty;
+            if (amount < 0)
+                ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.RetrievalNegative, nameof(amount));
+            if (amount > Count)
+                ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.RetrievalTooHighP, nameof(amount));
+
+            using (_rwlock.UsingWriteLock())
+            {
+                var tmp = MultiDrawCore(amount);
+
+                if (Count == 0)
+                    OnLastRemoved();
+
+                return tmp;
+            }
+        }
+
+        private protected virtual ImmutableArray<T> MultiDrawCore(int amount)
+            => _logic.MultiDraw(amount, _noOpTransformer);
+
+        /// <summary>
         ///     Inserts an item at the given index.<br/>
         ///     Requires <see cref="CanInsert"/>.
         /// </summary>
@@ -426,11 +501,10 @@ namespace Discord.Addons.MpGame.Collections
                 InsertCore(item, index);
             }
         }
+        public void InsertAt(T item, Index index)
+            => InsertAt(item, index.GetOffset(Count));
         private protected virtual void InsertCore(T item, int index)
             => _logic.InsertAt(item, index);
-
-        //public void InsertAt(T item, Index index)
-        //    => InsertAt(item, index.FromEnd ? (VCount - index.Value) : index.Value);
 
         /// <summary>
         ///     Puts the top item of *this* pile on top of another pile.<br/>
@@ -521,7 +595,8 @@ namespace Discord.Addons.MpGame.Collections
                 return PeekAtCore(index);
             }
         }
-        //public T? PeekAt(Index index)
+        public T? PeekAt(Index index)
+            => PeekAt(index.GetOffset(Count));
         private protected virtual T PeekAtCore(int index)
             => _logic.PeekAt(index);
 
@@ -551,7 +626,7 @@ namespace Discord.Addons.MpGame.Collections
         {
             if (!(CanPeek || CanBrowse))
                 ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoBrowseOrPeek);
-            if (Count == 0 || amount == 0)
+            if (amount == 0)
                 return ImmutableArray<T>.Empty;
             if (amount < 0)
                 ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.PeekAmountNegative, nameof(amount));
@@ -624,36 +699,26 @@ namespace Discord.Addons.MpGame.Collections
         private protected virtual void PutBottomCore(T item)
             => _logic.PutBottom(item);
 
+        //private protected Func<IEnumerable<T>, IEnumerable<T>> Shuffler { get; }
         /// <summary>
-        ///     Reshuffles the pile using the specified function.<br/>
+        ///     Reshuffles the pile using <see cref="ShuffleItems"/>.<br/>
         ///     Requires <see cref="CanShuffle"/>.
         /// </summary>
-        /// <param name="shuffleFunc">
-        ///     A function that produces an <see cref="IEnumerable{Titem}"/> in a new, random order.<br/>
-        ///     This function receives the items currently in the pile as its argument.
-        /// </param>
         /// <exception cref="InvalidOperationException">
         ///     The instance does not allow reshuffling the items<br/>
-        ///     -OR-<br/>
-        ///     The sequence produced from  <paramref name="shuffleFunc"/> was <see langword="null"/>.
         /// </exception>
-        /// <exception cref="ArgumentNullException">
-        ///     <paramref name="shuffleFunc"/> was <see langword="null"/>.
-        /// </exception>
-        public void Shuffle(Func<ImmutableArray<T>, IEnumerable<T>> shuffleFunc)
+        public void Shuffle()
         {
             if (!CanShuffle)
                 ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoShuffle);
-            if (shuffleFunc is null)
-                ThrowHelper.ThrowArgNull(nameof(shuffleFunc));
 
             using (_rwlock.UsingWriteLock())
             {
-                ShuffleCore(shuffleFunc);
+                ShuffleCore();
             }
         }
-        private protected virtual void ShuffleCore(Func<ImmutableArray<T>, IEnumerable<T>> shuffleFunc)
-            => _logic.Shuffle(shuffleFunc, _noOpTransformer);
+        private protected virtual void ShuffleCore()
+            => _logic.Shuffle(ShuffleItems, _noOpTransformer, _noOpTransformer);
 
         /// <summary>
         ///     Takes an item from the given index.<br/>
@@ -691,13 +756,49 @@ namespace Discord.Addons.MpGame.Collections
                 return tmp;
             }
         }
+        public T TakeAt(Index index)
+            => TakeAt(index.GetOffset(Count));
         private protected virtual T TakeCore(int index)
             => _logic.TakeAt(index);
 
 
-        //public T TakeAt(Index index)
-        //    => TakeAt(index.FromEnd ? (VCount - index.Value) : index.Value);
 
+        /// <summary>
+        ///     Default implementation for shuffling this pile's items.
+        /// </summary>
+        /// <param name="items">
+        ///     The items contained in this pile.
+        /// </param>
+        /// <returns>
+        ///     A new sequence of the same items in randomized order.
+        /// </returns>
+        protected virtual IEnumerable<T> ShuffleItems(IEnumerable<T> items)
+        {
+            var buffer = items.ToArray();
+            int n = buffer.Length;
+            Span<byte> bytes = new byte[(n / Byte.MaxValue) + 1];
+
+            while (n > 1)
+            {
+                var box = bytes[..((n / Byte.MaxValue) + 1)];
+                int boxSum = 0;
+                do
+                {
+                    RandomNumberGenerator.Fill(box);
+                    for (int i = 0; i < box.Length; i++)
+                        boxSum += box[i];
+                }
+                while (!(boxSum < n * ((Byte.MaxValue * box.Length) / n)));
+
+                int k = (boxSum % n);
+                n--;
+                var value = buffer[k];
+                buffer[k] = buffer[n];
+                buffer[n] = value;
+            }
+
+            return buffer;
+        }
         /// <summary>
         ///     Automatically called when the last item is removed from the pile.
         /// </summary>
@@ -709,7 +810,7 @@ namespace Discord.Addons.MpGame.Collections
         protected virtual void OnLastRemoved() { }
 
         /// <summary>
-        ///     Automatically called when a item is put on top of the pile.
+        ///     Automatically called when an item is put on top of the pile.
         /// </summary>
         /// <param name="item">
         ///     The item that is placed.

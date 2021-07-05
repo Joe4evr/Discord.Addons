@@ -69,7 +69,6 @@ namespace Discord.Addons.SimpleAudio
             if (_currentPage == 0) return;
 
             await Message.ModifyAsync(m => m.Embed = GetPage((int)(_currentPage = 0)));
-
         }
 
         public async Task Next(IUser user)

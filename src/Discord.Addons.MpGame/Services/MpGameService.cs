@@ -298,7 +298,7 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     A snapshot of the current game metadata.
         /// </returns>
-        public MpGameData GetGameData(SocketCommandContext context)
+        public MpGameData GetGameData(ICommandContext context)
         {
             return (TryGetPersistentData(context.Channel, out var internalData))
                 ? new MpGameData(internalData, context)

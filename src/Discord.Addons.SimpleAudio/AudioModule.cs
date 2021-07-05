@@ -57,9 +57,10 @@ namespace Discord.Addons.SimpleAudio
         }
 
         [ClientInVoice]
-        public virtual Task PlayCmd([Remainder] string song)
+        public virtual async Task PlayCmd([Remainder] string song)
         {
-            return _service.SendAudio(Context.Guild, Context.Channel, song);
+            await _service.SendAudio(Context.Guild, Context.Channel, song);
+            await Context.Message.DeleteAsync();
         }
 
         [ClientInVoice]

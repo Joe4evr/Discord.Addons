@@ -21,7 +21,7 @@ namespace Discord.Addons.MpGame.Collections
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal IEqualityComparer<T> Comparer { get; }
 
-        private readonly object _lock = new object();
+        private readonly object _lock = new();
 
         /// <summary>
         ///     Initializes a new instance of <see cref="CircularLinkedList{T}"/>
@@ -387,6 +387,6 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         internal static Node<T> CreateNextOnlyNode(Node<T> next)
-            => new Node<T>(nextOnly: true) { Next = next };
+            => new(nextOnly: true) { Next = next };
     }
 }

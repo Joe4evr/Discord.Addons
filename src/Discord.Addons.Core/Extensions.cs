@@ -12,15 +12,19 @@ namespace Discord.Addons.Core
         public static Func<string, Task> NoOpStringToTask { get; } = (_ => Task.CompletedTask);
         public static Func<IMessageChannel, Task> NoOpChannelToTask { get; } = (_ => Task.CompletedTask);
 
-        internal static string ToNiceString(this TimeSpan ts)
+        public static string ToNiceString(this TimeSpan ts)
         {
-            var d = ts.TotalDays == 1 ? "day" : "days";
-            var h = ts.Hours == 1 ? "hour" : "hours";
-            var m = ts.Minutes == 1 ? "minute" : "minutes";
+            //var d = ts.TotalDays == 1 ? "day" : "days";
+            //var h = ts.Hours == 1 ? "hour" : "hours";
+            //var m = ts.Minutes == 1 ? "minute" : "minutes";
+
+            //return (ts.TotalHours > 24)
+            //    ? $"{ts.Days} {d} and {ts.Hours} {h}"
+            //    : $"{ts.Hours} {h} and {ts.Minutes} {m}";
 
             return (ts.TotalHours > 24)
-                ? $"{ts.Days} {d} and {ts.Hours} {h}"
-                : $"{ts.Hours} {h} and {ts.Minutes} {m}";
+                ? ts.ToString(@"%d' day(s) and '%h' hour(s)'")
+                : ts.ToString(@"%h' hour(s) and '%m' minute(s)'");
         }
 
         //Method for randomizing lists using a Fisher-Yates shuffle.

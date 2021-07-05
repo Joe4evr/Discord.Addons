@@ -113,7 +113,7 @@ namespace MpGame.Tests.CollectionTests
                 var priorSize = hand.Count;
 
                 var ex = Assert.Throws<InvalidOperationException>(() => hand.Order(orderFunc: cards => null));
-                Assert.Equal(expected: ErrorStrings.NewSequenceNull, actual: ex.Message);
+                Assert.Equal(expected: PileErrorStrings.NewSequenceNull, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: hand.Count);
             }
 
@@ -145,7 +145,7 @@ namespace MpGame.Tests.CollectionTests
                 var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
                 var ex = Assert.Throws<ArgumentOutOfRangeException>(() => hand.TakeAt(index: -1));
-                Assert.StartsWith(expectedStartString: ErrorStrings.RetrievalNegative, actualString: ex.Message);
+                Assert.StartsWith(expectedStartString: PileErrorStrings.RetrievalNegative, actualString: ex.Message);
                 Assert.Equal(expected: "index", actual: ex.ParamName);
                 Assert.Equal(expected: priorSize, actual: hand.Count);
             }
@@ -156,7 +156,7 @@ namespace MpGame.Tests.CollectionTests
                 var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
                 var ex = Assert.Throws<ArgumentOutOfRangeException>(() => hand.TakeAt(index: hand.Count + 1));
-                Assert.StartsWith(expectedStartString: ErrorStrings.RetrievalTooHighH, actualString: ex.Message);
+                Assert.StartsWith(expectedStartString: PileErrorStrings.RetrievalTooHighH, actualString: ex.Message);
                 Assert.Equal(expected: "index", actual: ex.ParamName);
                 Assert.Equal(expected: priorSize, actual: hand.Count);
             }

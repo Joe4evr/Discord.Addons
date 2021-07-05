@@ -15,25 +15,25 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <TargetFrameworks>netstandard2.1;netcoreapp3.0</TargetFrameworks>
-    <LangVersion>8.0</LangVersion>
+    <TargetFrameworks>netstandard2.1;netcoreapp3.1</TargetFrameworks>
+    <LangVersion>9.0</LangVersion>
     <Nullable>Enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
     <DnetMajor>2</DnetMajor>
     <DnetMinor>2</DnetMinor>
 
-    <MpGameMajor>2</MpGameMajor>
-    <MpGameSuffix>dev3</MpGameSuffix>
+    <MpGameMajor>3</MpGameMajor>
+    <MpGameSuffix>dev1</MpGameSuffix>
     <PreconMajor>2</PreconMajor>
-    <PreconSuffix>dev3</PreconSuffix>
+    <PreconSuffix>dev4</PreconSuffix>
     <SimpleMusicMajor>2</SimpleMusicMajor>
     <SimpleMusicSuffix>alpha</SimpleMusicSuffix>
     <SimplePermMajor>1</SimplePermMajor>
-    <SimplePermSuffix>alpha3</SimplePermSuffix>
+    <SimplePermSuffix>alpha4</SimplePermSuffix>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.6" />
     <PackageReference Include="Discord.Net.Commands" Version="$(DnetMajor).$(DnetMinor).0" />
     <PackageReference Include="Discord.Net.WebSocket" Version="$(DnetMajor).$(DnetMinor).0" />
   </ItemGroup>

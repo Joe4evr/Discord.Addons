@@ -284,6 +284,24 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of T).Add
   nameWithType: Hand<T>.Add
   nameWithType.vb: Hand(Of T).Add
+- uid: Discord.Addons.MpGame.Collections.Hand`1.AddRange(System.Collections.Generic.IEnumerable{`0})
+  name: AddRange(IEnumerable<T>)
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_AddRange_System_Collections_Generic_IEnumerable__0__
+  commentId: M:Discord.Addons.MpGame.Collections.Hand`1.AddRange(System.Collections.Generic.IEnumerable{`0})
+  name.vb: AddRange(IEnumerable(Of T))
+  fullName: Discord.Addons.MpGame.Collections.Hand<T>.AddRange(System.Collections.Generic.IEnumerable<T>)
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of T).AddRange(System.Collections.Generic.IEnumerable(Of T))
+  nameWithType: Hand<T>.AddRange(IEnumerable<T>)
+  nameWithType.vb: Hand(Of T).AddRange(IEnumerable(Of T))
+- uid: Discord.Addons.MpGame.Collections.Hand`1.AddRange*
+  name: AddRange
+  href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_AddRange_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Hand`1.AddRange
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Hand<T>.AddRange
+  fullName.vb: Discord.Addons.MpGame.Collections.Hand(Of T).AddRange
+  nameWithType: Hand<T>.AddRange
+  nameWithType.vb: Hand(Of T).AddRange
 - uid: Discord.Addons.MpGame.Collections.Hand`1.AsIndexed
   name: AsIndexed()
   href: api/Discord.Addons.MpGame.Collections.Hand-1.html#Discord_Addons_MpGame_Collections_Hand_1_AsIndexed
@@ -560,15 +578,15 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).Browse
   nameWithType: Pile<T>.Browse
   nameWithType.vb: Pile(Of T).Browse
-- uid: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTakeAsync(System.Func{System.Collections.Generic.IReadOnlyDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
-  name: BrowseAndTakeAsync(Func<IReadOnlyDictionary<Int32, T>, Task<Int32[]>>, Func<T, Boolean>, Func<ImmutableArray<T>, IEnumerable<T>>)
-  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTakeAsync_System_Func_System_Collections_Generic_IReadOnlyDictionary_System_Int32__0__System_Threading_Tasks_Task_System_Int32_____System_Func__0_System_Boolean__System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTakeAsync(System.Func{System.Collections.Generic.IReadOnlyDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
-  name.vb: BrowseAndTakeAsync(Func(Of IReadOnlyDictionary(Of Int32, T), Task(Of Int32())), Func(Of T, Boolean), Func(Of ImmutableArray(Of T), IEnumerable(Of T)))
-  fullName: Discord.Addons.MpGame.Collections.Pile<T>.BrowseAndTakeAsync(System.Func<System.Collections.Generic.IReadOnlyDictionary<System.Int32, T>, System.Threading.Tasks.Task<System.Int32[]>>, System.Func<T, System.Boolean>, System.Func<System.Collections.Immutable.ImmutableArray<T>, System.Collections.Generic.IEnumerable<T>>)
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).BrowseAndTakeAsync(System.Func(Of System.Collections.Generic.IReadOnlyDictionary(Of System.Int32, T), System.Threading.Tasks.Task(Of System.Int32())), System.Func(Of T, System.Boolean), System.Func(Of System.Collections.Immutable.ImmutableArray(Of T), System.Collections.Generic.IEnumerable(Of T)))
-  nameWithType: Pile<T>.BrowseAndTakeAsync(Func<IReadOnlyDictionary<Int32, T>, Task<Int32[]>>, Func<T, Boolean>, Func<ImmutableArray<T>, IEnumerable<T>>)
-  nameWithType.vb: Pile(Of T).BrowseAndTakeAsync(Func(Of IReadOnlyDictionary(Of Int32, T), Task(Of Int32())), Func(Of T, Boolean), Func(Of ImmutableArray(Of T), IEnumerable(Of T)))
+- uid: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTakeAsync(System.Func{System.Collections.Generic.IReadOnlyDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Boolean)
+  name: BrowseAndTakeAsync(Func<IReadOnlyDictionary<Int32, T>, Task<Int32[]>>, Func<T, Boolean>, Boolean)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTakeAsync_System_Func_System_Collections_Generic_IReadOnlyDictionary_System_Int32__0__System_Threading_Tasks_Task_System_Int32_____System_Func__0_System_Boolean__System_Boolean_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTakeAsync(System.Func{System.Collections.Generic.IReadOnlyDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Boolean)
+  name.vb: BrowseAndTakeAsync(Func(Of IReadOnlyDictionary(Of Int32, T), Task(Of Int32())), Func(Of T, Boolean), Boolean)
+  fullName: Discord.Addons.MpGame.Collections.Pile<T>.BrowseAndTakeAsync(System.Func<System.Collections.Generic.IReadOnlyDictionary<System.Int32, T>, System.Threading.Tasks.Task<System.Int32[]>>, System.Func<T, System.Boolean>, System.Boolean)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).BrowseAndTakeAsync(System.Func(Of System.Collections.Generic.IReadOnlyDictionary(Of System.Int32, T), System.Threading.Tasks.Task(Of System.Int32())), System.Func(Of T, System.Boolean), System.Boolean)
+  nameWithType: Pile<T>.BrowseAndTakeAsync(Func<IReadOnlyDictionary<Int32, T>, Task<Int32[]>>, Func<T, Boolean>, Boolean)
+  nameWithType.vb: Pile(Of T).BrowseAndTakeAsync(Func(Of IReadOnlyDictionary(Of Int32, T), Task(Of Int32())), Func(Of T, Boolean), Boolean)
 - uid: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTakeAsync*
   name: BrowseAndTakeAsync
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTakeAsync_
@@ -799,6 +817,14 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).Count
   nameWithType: Pile<T>.Count
   nameWithType.vb: Pile(Of T).Count
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Cut(System.Index)
+  name: Cut(Index)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Cut_System_Index_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Cut(System.Index)
+  fullName: Discord.Addons.MpGame.Collections.Pile<T>.Cut(System.Index)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).Cut(System.Index)
+  nameWithType: Pile<T>.Cut(Index)
+  nameWithType.vb: Pile(Of T).Cut(Index)
 - uid: Discord.Addons.MpGame.Collections.Pile`1.Cut(System.Int32)
   name: Cut(Int32)
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Cut_System_Int32_
@@ -850,6 +876,31 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).DrawBottom
   nameWithType: Pile<T>.DrawBottom
   nameWithType.vb: Pile(Of T).DrawBottom
+- uid: Discord.Addons.MpGame.Collections.Pile`1.DrawMultiple(System.Int32)
+  name: DrawMultiple(Int32)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_DrawMultiple_System_Int32_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.DrawMultiple(System.Int32)
+  fullName: Discord.Addons.MpGame.Collections.Pile<T>.DrawMultiple(System.Int32)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).DrawMultiple(System.Int32)
+  nameWithType: Pile<T>.DrawMultiple(Int32)
+  nameWithType.vb: Pile(Of T).DrawMultiple(Int32)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.DrawMultiple*
+  name: DrawMultiple
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_DrawMultiple_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.DrawMultiple
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<T>.DrawMultiple
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).DrawMultiple
+  nameWithType: Pile<T>.DrawMultiple
+  nameWithType.vb: Pile(Of T).DrawMultiple
+- uid: Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Index)
+  name: InsertAt(T, Index)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_InsertAt__0_System_Index_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Index)
+  fullName: Discord.Addons.MpGame.Collections.Pile<T>.InsertAt(T, System.Index)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).InsertAt(T, System.Index)
+  nameWithType: Pile<T>.InsertAt(T, Index)
+  nameWithType.vb: Pile(Of T).InsertAt(T, Index)
 - uid: Discord.Addons.MpGame.Collections.Pile`1.InsertAt(`0,System.Int32)
   name: InsertAt(T, Int32)
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_InsertAt__0_System_Int32_
@@ -919,6 +970,14 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).OnPut
   nameWithType: Pile<T>.OnPut
   nameWithType.vb: Pile(Of T).OnPut
+- uid: Discord.Addons.MpGame.Collections.Pile`1.PeekAt(System.Index)
+  name: PeekAt(Index)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_PeekAt_System_Index_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.PeekAt(System.Index)
+  fullName: Discord.Addons.MpGame.Collections.Pile<T>.PeekAt(System.Index)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).PeekAt(System.Index)
+  nameWithType: Pile<T>.PeekAt(Index)
+  nameWithType.vb: Pile(Of T).PeekAt(Index)
 - uid: Discord.Addons.MpGame.Collections.Pile`1.PeekAt(System.Int32)
   name: PeekAt(Int32)
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_PeekAt_System_Int32_
@@ -987,15 +1046,14 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).PutBottom
   nameWithType: Pile<T>.PutBottom
   nameWithType.vb: Pile(Of T).PutBottom
-- uid: Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
-  name: Shuffle(Func<ImmutableArray<T>, IEnumerable<T>>)
-  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Shuffle_System_Func_System_Collections_Immutable_ImmutableArray__0__System_Collections_Generic_IEnumerable__0___
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Shuffle(System.Func{System.Collections.Immutable.ImmutableArray{`0},System.Collections.Generic.IEnumerable{`0}})
-  name.vb: Shuffle(Func(Of ImmutableArray(Of T), IEnumerable(Of T)))
-  fullName: Discord.Addons.MpGame.Collections.Pile<T>.Shuffle(System.Func<System.Collections.Immutable.ImmutableArray<T>, System.Collections.Generic.IEnumerable<T>>)
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).Shuffle(System.Func(Of System.Collections.Immutable.ImmutableArray(Of T), System.Collections.Generic.IEnumerable(Of T)))
-  nameWithType: Pile<T>.Shuffle(Func<ImmutableArray<T>, IEnumerable<T>>)
-  nameWithType.vb: Pile(Of T).Shuffle(Func(Of ImmutableArray(Of T), IEnumerable(Of T)))
+- uid: Discord.Addons.MpGame.Collections.Pile`1.Shuffle
+  name: Shuffle()
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Shuffle
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.Shuffle
+  fullName: Discord.Addons.MpGame.Collections.Pile<T>.Shuffle()
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).Shuffle()
+  nameWithType: Pile<T>.Shuffle()
+  nameWithType.vb: Pile(Of T).Shuffle()
 - uid: Discord.Addons.MpGame.Collections.Pile`1.Shuffle*
   name: Shuffle
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_Shuffle_
@@ -1005,6 +1063,32 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).Shuffle
   nameWithType: Pile<T>.Shuffle
   nameWithType.vb: Pile(Of T).Shuffle
+- uid: Discord.Addons.MpGame.Collections.Pile`1.ShuffleItems(System.Collections.Immutable.ImmutableArray{`0})
+  name: ShuffleItems(ImmutableArray<T>)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_ShuffleItems_System_Collections_Immutable_ImmutableArray__0__
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.ShuffleItems(System.Collections.Immutable.ImmutableArray{`0})
+  name.vb: ShuffleItems(ImmutableArray(Of T))
+  fullName: Discord.Addons.MpGame.Collections.Pile<T>.ShuffleItems(System.Collections.Immutable.ImmutableArray<T>)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).ShuffleItems(System.Collections.Immutable.ImmutableArray(Of T))
+  nameWithType: Pile<T>.ShuffleItems(ImmutableArray<T>)
+  nameWithType.vb: Pile(Of T).ShuffleItems(ImmutableArray(Of T))
+- uid: Discord.Addons.MpGame.Collections.Pile`1.ShuffleItems*
+  name: ShuffleItems
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_ShuffleItems_
+  commentId: Overload:Discord.Addons.MpGame.Collections.Pile`1.ShuffleItems
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.Collections.Pile<T>.ShuffleItems
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).ShuffleItems
+  nameWithType: Pile<T>.ShuffleItems
+  nameWithType.vb: Pile(Of T).ShuffleItems
+- uid: Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Index)
+  name: TakeAt(Index)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_TakeAt_System_Index_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Index)
+  fullName: Discord.Addons.MpGame.Collections.Pile<T>.TakeAt(System.Index)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).TakeAt(System.Index)
+  nameWithType: Pile<T>.TakeAt(Index)
+  nameWithType.vb: Pile(Of T).TakeAt(Index)
 - uid: Discord.Addons.MpGame.Collections.Pile`1.TakeAt(System.Int32)
   name: TakeAt(Int32)
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_TakeAt_System_Int32_
@@ -1057,23 +1141,23 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.WrappingPile(Of T, TWrapper).WrappingPile
   nameWithType: WrappingPile<T, TWrapper>.WrappingPile
   nameWithType.vb: WrappingPile(Of T, TWrapper).WrappingPile
-- uid: Discord.Addons.MpGame.Collections.WrappingPile`2.GetWrapperAt(System.Int32)
-  name: GetWrapperAt(Int32)
-  href: api/Discord.Addons.MpGame.Collections.WrappingPile-2.html#Discord_Addons_MpGame_Collections_WrappingPile_2_GetWrapperAt_System_Int32_
-  commentId: M:Discord.Addons.MpGame.Collections.WrappingPile`2.GetWrapperAt(System.Int32)
-  fullName: Discord.Addons.MpGame.Collections.WrappingPile<T, TWrapper>.GetWrapperAt(System.Int32)
-  fullName.vb: Discord.Addons.MpGame.Collections.WrappingPile(Of T, TWrapper).GetWrapperAt(System.Int32)
-  nameWithType: WrappingPile<T, TWrapper>.GetWrapperAt(Int32)
-  nameWithType.vb: WrappingPile(Of T, TWrapper).GetWrapperAt(Int32)
-- uid: Discord.Addons.MpGame.Collections.WrappingPile`2.GetWrapperAt*
-  name: GetWrapperAt
-  href: api/Discord.Addons.MpGame.Collections.WrappingPile-2.html#Discord_Addons_MpGame_Collections_WrappingPile_2_GetWrapperAt_
-  commentId: Overload:Discord.Addons.MpGame.Collections.WrappingPile`2.GetWrapperAt
+- uid: Discord.Addons.MpGame.Collections.WrappingPile`2.GetWrapperRefAt(System.Int32)
+  name: GetWrapperRefAt(Int32)
+  href: api/Discord.Addons.MpGame.Collections.WrappingPile-2.html#Discord_Addons_MpGame_Collections_WrappingPile_2_GetWrapperRefAt_System_Int32_
+  commentId: M:Discord.Addons.MpGame.Collections.WrappingPile`2.GetWrapperRefAt(System.Int32)
+  fullName: Discord.Addons.MpGame.Collections.WrappingPile<T, TWrapper>.GetWrapperRefAt(System.Int32)
+  fullName.vb: Discord.Addons.MpGame.Collections.WrappingPile(Of T, TWrapper).GetWrapperRefAt(System.Int32)
+  nameWithType: WrappingPile<T, TWrapper>.GetWrapperRefAt(Int32)
+  nameWithType.vb: WrappingPile(Of T, TWrapper).GetWrapperRefAt(Int32)
+- uid: Discord.Addons.MpGame.Collections.WrappingPile`2.GetWrapperRefAt*
+  name: GetWrapperRefAt
+  href: api/Discord.Addons.MpGame.Collections.WrappingPile-2.html#Discord_Addons_MpGame_Collections_WrappingPile_2_GetWrapperRefAt_
+  commentId: Overload:Discord.Addons.MpGame.Collections.WrappingPile`2.GetWrapperRefAt
   isSpec: "True"
-  fullName: Discord.Addons.MpGame.Collections.WrappingPile<T, TWrapper>.GetWrapperAt
-  fullName.vb: Discord.Addons.MpGame.Collections.WrappingPile(Of T, TWrapper).GetWrapperAt
-  nameWithType: WrappingPile<T, TWrapper>.GetWrapperAt
-  nameWithType.vb: WrappingPile(Of T, TWrapper).GetWrapperAt
+  fullName: Discord.Addons.MpGame.Collections.WrappingPile<T, TWrapper>.GetWrapperRefAt
+  fullName.vb: Discord.Addons.MpGame.Collections.WrappingPile(Of T, TWrapper).GetWrapperRefAt
+  nameWithType: WrappingPile<T, TWrapper>.GetWrapperRefAt
+  nameWithType.vb: WrappingPile(Of T, TWrapper).GetWrapperRefAt
 - uid: Discord.Addons.MpGame.Collections.WrappingPile`2.Wrap(`0)
   name: Wrap(T)
   href: api/Discord.Addons.MpGame.Collections.WrappingPile-2.html#Discord_Addons_MpGame_Collections_WrappingPile_2_Wrap__0_
@@ -1861,14 +1945,31 @@ references:
   fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).CancelGameAsync
   nameWithType: MpGameService<TGame, TPlayer>.CancelGameAsync
   nameWithType.vb: MpGameService(Of TGame, TPlayer).CancelGameAsync
-- uid: Discord.Addons.MpGame.MpGameService`2.GetGameData(Discord.Commands.SocketCommandContext)
-  name: GetGameData(SocketCommandContext)
-  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_GetGameData_Discord_Commands_SocketCommandContext_
-  commentId: M:Discord.Addons.MpGame.MpGameService`2.GetGameData(Discord.Commands.SocketCommandContext)
-  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetGameData(Discord.Commands.SocketCommandContext)
-  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetGameData(Discord.Commands.SocketCommandContext)
-  nameWithType: MpGameService<TGame, TPlayer>.GetGameData(SocketCommandContext)
-  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetGameData(SocketCommandContext)
+- uid: Discord.Addons.MpGame.MpGameService`2.Dispose
+  name: Dispose()
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_Dispose
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.Dispose
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.Dispose()
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).Dispose()
+  nameWithType: MpGameService<TGame, TPlayer>.Dispose()
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).Dispose()
+- uid: Discord.Addons.MpGame.MpGameService`2.Dispose*
+  name: Dispose
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_Dispose_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.Dispose
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.Dispose
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).Dispose
+  nameWithType: MpGameService<TGame, TPlayer>.Dispose
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).Dispose
+- uid: Discord.Addons.MpGame.MpGameService`2.GetGameData(Discord.Commands.ICommandContext)
+  name: GetGameData(ICommandContext)
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_GetGameData_Discord_Commands_ICommandContext_
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.GetGameData(Discord.Commands.ICommandContext)
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.GetGameData(Discord.Commands.ICommandContext)
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).GetGameData(Discord.Commands.ICommandContext)
+  nameWithType: MpGameService<TGame, TPlayer>.GetGameData(ICommandContext)
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).GetGameData(ICommandContext)
 - uid: Discord.Addons.MpGame.MpGameService`2.GetGameData*
   name: GetGameData
   href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_GetGameData_
@@ -2165,6 +2266,25 @@ references:
   fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).RemoveUserAsync
   nameWithType: MpGameService<TGame, TPlayer>.RemoveUserAsync
   nameWithType.vb: MpGameService(Of TGame, TPlayer).RemoveUserAsync
+- uid: Discord.Addons.MpGame.MpGameService`2.System#IDisposable#Dispose
+  name: IDisposable.Dispose()
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_System_IDisposable_Dispose
+  commentId: M:Discord.Addons.MpGame.MpGameService`2.System#IDisposable#Dispose
+  name.vb: System.IDisposable.Dispose()
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.System.IDisposable.Dispose()
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).System.IDisposable.Dispose()
+  nameWithType: MpGameService<TGame, TPlayer>.IDisposable.Dispose()
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).System.IDisposable.Dispose()
+- uid: Discord.Addons.MpGame.MpGameService`2.System#IDisposable#Dispose*
+  name: IDisposable.Dispose
+  href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_System_IDisposable_Dispose_
+  commentId: Overload:Discord.Addons.MpGame.MpGameService`2.System#IDisposable#Dispose
+  isSpec: "True"
+  name.vb: System.IDisposable.Dispose
+  fullName: Discord.Addons.MpGame.MpGameService<TGame, TPlayer>.System.IDisposable.Dispose
+  fullName.vb: Discord.Addons.MpGame.MpGameService(Of TGame, TPlayer).System.IDisposable.Dispose
+  nameWithType: MpGameService<TGame, TPlayer>.IDisposable.Dispose
+  nameWithType.vb: MpGameService(Of TGame, TPlayer).System.IDisposable.Dispose
 - uid: Discord.Addons.MpGame.MpGameService`2.TryAddNewGameAsync(Discord.IMessageChannel,`0)
   name: TryAddNewGameAsync(IMessageChannel, TGame)
   href: api/Discord.Addons.MpGame.MpGameService-2.html#Discord_Addons_MpGame_MpGameService_2_TryAddNewGameAsync_Discord_IMessageChannel__0_

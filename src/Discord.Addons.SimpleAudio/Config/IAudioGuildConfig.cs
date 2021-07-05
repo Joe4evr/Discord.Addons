@@ -1,6 +1,7 @@
 ﻿namespace Discord.Addons.SimpleAudio
 {
-    /// <summary>  </summary>
+    /// <summary>
+    /// </summary>
     public interface IAudioGuildConfig
     {
         /// <summary>

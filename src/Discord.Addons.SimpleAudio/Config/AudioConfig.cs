@@ -2,14 +2,13 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Discord.Addons.Core;
 
 namespace Discord.Addons.SimpleAudio
 {
     /// <summary>
     ///     Global configuration for SimpleAudio.
     /// </summary>
-    internal sealed class AudioConfig : IAudioConfig
+    public sealed class AudioConfig : IAudioConfig
     {
         private readonly IDictionary<ulong, IAudioGuildConfig> _guildConfigs = new Dictionary<ulong, IAudioGuildConfig>();
 
@@ -60,12 +59,6 @@ namespace Discord.Addons.SimpleAudio
         public DirectoryInfo MusicBasePath { get; }
 
         /// <inheritdoc />
-        public Task<IAudioGuildConfig?> GetConfigForGuildAsync(IGuild guild)
-            => (_guildConfigs.TryGetValue(guild.Id, out var conf))
-                ? Task.FromResult<IAudioGuildConfig?>(conf)
-                : Task.FromResult<IAudioGuildConfig?>(null);
-
-        /// <inheritdoc />
         public bool AutoPlay { get; set; } = false;
 
         /// <inheritdoc />
@@ -76,5 +69,17 @@ namespace Discord.Addons.SimpleAudio
 
         /// <inheritdoc />
         public bool ShowSongListOnJoin { get; set; } = false;
+
+        /// <inheritdoc />
+        public Task<IAudioGuildConfig?> GetConfigForGuildAsync(IGuild guild)
+            => (_guildConfigs.TryGetValue(guild.Id, out var conf))
+                ? Task.FromResult<IAudioGuildConfig?>(conf)
+                : Task.FromResult<IAudioGuildConfig?>(null);
+
+        public AudioConfig AddGuildConfig(ulong guildId, IAudioGuildConfig config)
+        {
+            _guildConfigs.Add(guildId, config);
+            return this;
+        }
     }
 }

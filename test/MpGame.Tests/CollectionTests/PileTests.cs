@@ -79,7 +79,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.AsEnumerable());
-                    Assert.Equal(expected: ErrorStrings.NoBrowse, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoBrowse, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -105,14 +105,14 @@ namespace MpGame.Tests.CollectionTests
             public void ThrowsWhenAttemptingToChangeDuringEnumeration()
             {
                 var seed = TestCard.Factory(20).ToArray();
+                var expectedSeq = new[]
+                {
+                     1, 2, 3, 4, 5, 6, 7, 8, 9,10,
+                    11,12,13,14,15,16,17,18,19,20
+                };
+
                 foreach (var pile in Piles(withPerms: PilePerms.CanBrowse | PilePerms.CanDraw, items: seed))
                 {
-                    var expectedSeq = new[]
-                    {
-                         1, 2, 3, 4, 5, 6, 7, 8, 9,10,
-                        11,12,13,14,15,16,17,18,19,20
-                    };
-
                     int i = 0;
                     foreach (var item in pile.AsEnumerable())
                     {
@@ -140,7 +140,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.Browse());
-                    Assert.Equal(expected: ErrorStrings.NoBrowse, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoBrowse, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -202,7 +202,7 @@ namespace MpGame.Tests.CollectionTests
                             return Task.FromResult(new[] { 5, 10 });
                         }));
                     Assert.False(selectorCalled);
-                    Assert.Equal(expected: ErrorStrings.NoBrowseAndTake, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoBrowseAndTake, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -224,7 +224,7 @@ namespace MpGame.Tests.CollectionTests
                             return Task.FromResult(new[] { 5, 10 });
                         }));
                     Assert.False(selectorCalled);
-                    Assert.Equal(expected: ErrorStrings.NoBrowseAndTake, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoBrowseAndTake, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -330,27 +330,25 @@ namespace MpGame.Tests.CollectionTests
                 {
                     var priorSize = pile.Count;
                     bool selectorCalled = false;
-                    bool shuffleFuncCalled = false;
-                    var picks = await pile.BrowseAndTakeAsync(
-                        selector: cards =>
-                        {
-                            selectorCalled = true;
-                            Assert.NotEmpty(cards);
+                    ImmutableArray<ITestCard> picks;
+                    var events = (ITestPileEvents)pile;
 
-                            return Task.FromResult(new[] { 5, 10 });
-                        },
-                        shuffleFunc: cards =>
-                        {
-                            shuffleFuncCalled = true;
+                    await AssertEx.DoesNotRaiseAsync<ShuffleEventArgs>(
+                        attach: handler => events.ShuffleCalled += handler,
+                        detach: handler => events.ShuffleCalled -= handler,
+                        async () => picks = await pile.BrowseAndTakeAsync(
+                            selector: cards =>
+                            {
+                                selectorCalled = true;
+                                Assert.NotEmpty(cards);
 
-                            return cards.Reverse();
-                        });
+                                return Task.FromResult(new[] { 5, 10 });
+                            },
+                            shuffle: true));
 
                     Assert.True(selectorCalled);
-                    Assert.False(shuffleFuncCalled);
                     Assert.False(picks.IsDefault);
                     Assert.NotEmpty(picks);
-                    //Assert.Equal(expected: 2, actual: picks.Length);
                     Assert.Equal(expected: new[] { 6, 11 }, actual: picks.Select(c => c.Id));
                     Assert.Equal(expected: priorSize - 2, actual: pile.Count);
                     Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
@@ -415,28 +413,28 @@ namespace MpGame.Tests.CollectionTests
                 {
                     var priorSize = pile.Count;
                     bool selectorCalled = false;
-                    bool shuffleFuncCalled = false;
-                    var picks = await pile.BrowseAndTakeAsync(
-                        selector: cards =>
-                        {
-                            selectorCalled = true;
-                            Assert.NotNull(cards);
-                            Assert.NotEmpty(cards);
+                    ImmutableArray<ITestCard> picks;
+                    var events = (ITestPileEvents)pile;
 
-                            return Task.FromResult(new[] { 5, 10 });
-                        },
-                        shuffleFunc: cards =>
-                        {
-                            shuffleFuncCalled = true;
+                    var ev = await Assert.RaisesAsync<ShuffleEventArgs>(
+                        attach: handler => events.ShuffleCalled += handler,
+                        detach: handler => events.ShuffleCalled -= handler,
+                        async () => picks = await pile.BrowseAndTakeAsync(
+                            selector: cards =>
+                            {
+                                selectorCalled = true;
+                                Assert.NotNull(cards);
+                                Assert.NotEmpty(cards);
 
-                            return cards.Reverse();
-                        });
+                                return Task.FromResult(new[] { 5, 10 });
+                            },
+                            shuffle: true));
 
                     Assert.True(selectorCalled);
-                    Assert.True(shuffleFuncCalled);
                     Assert.False(picks.IsDefault);
                     Assert.NotEmpty(picks);
-                    //Assert.Equal(expected: 2, actual: picks.Length);
+                    Assert.Equal(expected: expectedSeq, actual: ev.Arguments.NewSequence.Select(c => c.Id));
+                    Assert.Equal(expected: 2, actual: picks.Length);
                     Assert.Equal(expected: new[] { 6, 11 }, actual: picks.Select(c => c.Id));
                     Assert.Equal(expected: priorSize - 2, actual: pile.Count);
                     Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
@@ -456,32 +454,31 @@ namespace MpGame.Tests.CollectionTests
                 {
                     var priorSize = pile.Count;
                     bool selectorCalled = false;
-                    bool shuffleFuncCalled = false;
                     bool filterCalled = false;
-                    var picks = await pile.BrowseAndTakeAsync(
-                        selector: cards =>
-                        {
-                            selectorCalled = true;
-                            Assert.NotNull(cards);
-                            Assert.NotEmpty(cards);
+                    ImmutableArray<ITestCard> picks;
+                    var events = (ITestPileEvents)pile;
 
-                            return Task.FromResult(new[] { cards.First().Key });
-                        },
-                        shuffleFunc: cards =>
-                        {
-                            shuffleFuncCalled = true;
+                    var ev = await Assert.RaisesAsync<ShuffleEventArgs>(
+                        attach: handler => events.ShuffleCalled += handler,
+                        detach: handler => events.ShuffleCalled -= handler,
+                        async () => picks = await pile.BrowseAndTakeAsync(
+                            selector: cards =>
+                            {
+                                selectorCalled = true;
+                                Assert.NotNull(cards);
+                                Assert.NotEmpty(cards);
 
-                            return cards.Reverse();
-                        },
-                        filter: card =>
-                        {
-                            filterCalled = true;
+                                return Task.FromResult(new[] { cards.First().Key });
+                            },
+                            filter: card =>
+                            {
+                                filterCalled = true;
 
-                            return card.Color == CardColor.Green;
-                        });
+                                return card.Color == CardColor.Green;
+                            },
+                            shuffle: true));
 
                     Assert.True(selectorCalled);
-                    Assert.True(shuffleFuncCalled);
                     Assert.True(filterCalled);
                     Assert.False(picks.IsDefault);
                     Assert.NotEmpty(picks);
@@ -530,10 +527,11 @@ namespace MpGame.Tests.CollectionTests
                 var seed = TestCard.Factory(20).ToArray();
                 foreach (var pile in Piles(withPerms: PilePerms.All ^ PilePerms.CanClear, items: seed))
                 {
+                    Assert.False(pile.CanClear);
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.Clear());
-                    Assert.Equal(expected: ErrorStrings.NoClear, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoClear, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -544,6 +542,7 @@ namespace MpGame.Tests.CollectionTests
                 var seed = TestCard.Factory(20).ToArray();
                 foreach (var pile in Piles(withPerms: PilePerms.CanClear, items: seed))
                 {
+                    Assert.True(pile.CanClear);
                     var priorSize = pile.Count;
                     var cleared = pile.Clear();
 
@@ -564,7 +563,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.Cut(amount: 10));
-                    Assert.Equal(expected: ErrorStrings.NoCut, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoCut, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -578,7 +577,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.Cut(amount: -1));
-                    Assert.StartsWith(expectedStartString: ErrorStrings.CutAmountNegative, actualString: ex.Message);
+                    Assert.StartsWith(expectedStartString: PileErrorStrings.CutAmountNegative, actualString: ex.Message);
                     Assert.Equal(expected: "amount", actual: ex.ParamName);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
@@ -593,7 +592,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.Cut(amount: pile.Count + 1));
-                    Assert.StartsWith(expectedStartString: ErrorStrings.CutAmountTooHigh, actualString: ex.Message);
+                    Assert.StartsWith(expectedStartString: PileErrorStrings.CutAmountTooHigh, actualString: ex.Message);
                     Assert.Equal(expected: "amount", actual: ex.ParamName);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
@@ -630,7 +629,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.Draw());
-                    Assert.Equal(expected: ErrorStrings.NoDraw, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoDraw, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -650,17 +649,22 @@ namespace MpGame.Tests.CollectionTests
                 }
             }
 
-            //[Fact]
-            //public void LastDrawCallsOnLastRemoved()
-            //{
-            //    var seed = TestCard.Factory(1).ToArray();
-            //    foreach (var pile in Piles(withPerms: PilePerms.CanDraw, items: seed))
-            //    {
-            //        var ev = Assert.Raises<EventArgs>(handler => pile.LastRemoveCalled += handler, handler => pile.LastRemoveCalled -= handler, () => pile.Draw());
-            //        Assert.Same(expected: pile, actual: ev.Sender);
-            //        Assert.Equal(expected: 0, actual: pile.Count);
-            //    }
-            //}
+            [Fact]
+            public void LastDrawCallsOnLastRemoved()
+            {
+                var seed = TestCard.Factory(1).ToArray();
+                foreach (var pile in Piles(withPerms: PilePerms.CanDraw, items: seed))
+                {
+                    var events = (ITestPileEvents)pile;
+                    var ev = Assert.Raises<EventArgs>(
+                        attach: handler => events.LastRemoveCalled += handler,
+                        detach: handler => events.LastRemoveCalled -= handler,
+                        () => pile.Draw());
+
+                    Assert.Same(expected: pile, actual: ev.Sender);
+                    Assert.Equal(expected: 0, actual: pile.Count);
+                }
+            }
 
             [Fact]
             public void DrawingOnEmptyPileThrows()
@@ -670,7 +674,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.Draw());
-                    Assert.Equal(expected: ErrorStrings.PileEmpty, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.PileEmpty, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -687,7 +691,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.DrawBottom());
-                    Assert.Equal(expected: ErrorStrings.NoDraw, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoDraw, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -707,21 +711,22 @@ namespace MpGame.Tests.CollectionTests
                 }
             }
 
-            //[Fact]
-            //public void LastDrawCallsOnLastRemoved()
-            //{
-            //    var seed = TestCard.Factory(1).ToArray();
-            //    var pile = new TestPile(withPerms: PilePerms.CanDrawBottom, items: seed);
-            //    {
-            //        var ev = Assert.Raises<EventArgs>(
-            //            handler => pile.LastRemoveCalled += handler,
-            //            handler => pile.LastRemoveCalled -= handler,
-            //            () => pile.DrawBottom());
+            [Fact]
+            public void LastDrawCallsOnLastRemoved()
+            {
+                var seed = TestCard.Factory(1).ToArray();
+                foreach (var pile in Piles(withPerms: PilePerms.CanDrawBottom, items: seed))
+                {
+                    var events = (ITestPileEvents)pile;
+                    var ev = Assert.Raises<EventArgs>(
+                        attach: handler => events.LastRemoveCalled += handler,
+                        detach: handler => events.LastRemoveCalled -= handler,
+                        () => pile.DrawBottom());
 
-            //        Assert.Same(expected: pile, actual: ev.Sender);
-            //        Assert.Equal(expected: 0, actual: pile.Count);
-            //    }
-            //}
+                    Assert.Same(expected: pile, actual: ev.Sender);
+                    Assert.Equal(expected: 0, actual: pile.Count);
+                }
+            }
 
             [Fact]
             public void ThrowsOnEmptyPile()
@@ -731,7 +736,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.DrawBottom());
-                    Assert.Equal(expected: ErrorStrings.PileEmpty, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.PileEmpty, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -748,7 +753,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.InsertAt(item: new TestCard(id: 2), index: 15));
-                    Assert.Equal(expected: ErrorStrings.NoInsert, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoInsert, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -776,7 +781,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.InsertAt(item: new TestCard(id: 2), index: -1));
-                    Assert.StartsWith(expectedStartString: ErrorStrings.InsertionNegative, actualString: ex.Message);
+                    Assert.StartsWith(expectedStartString: PileErrorStrings.InsertionNegative, actualString: ex.Message);
                     Assert.Equal(expected: "index", actual: ex.ParamName);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
@@ -791,7 +796,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.InsertAt(new TestCard(id: 2), index: pile.Count + 1));
-                    Assert.StartsWith(expectedStartString: ErrorStrings.InsertionTooHigh, actualString: ex.Message);
+                    Assert.StartsWith(expectedStartString: PileErrorStrings.InsertionTooHigh, actualString: ex.Message);
                     Assert.Equal(expected: "index", actual: ex.ParamName);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
@@ -825,7 +830,7 @@ namespace MpGame.Tests.CollectionTests
                     var targetSize = target.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => source.Mill(target));
-                    Assert.Equal(expected: ErrorStrings.NoDraw, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoDraw, actual: ex.Message);
                     Assert.Equal(expected: sourceSize, actual: source.Count);
                     Assert.Equal(expected: targetSize, actual: target.Count);
                 }
@@ -856,7 +861,7 @@ namespace MpGame.Tests.CollectionTests
                     var targetSize = target.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => source.Mill(target));
-                    Assert.Equal(expected: ErrorStrings.NoPutTarget, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoPutTarget, actual: ex.Message);
                     Assert.Equal(expected: sourceSize, actual: source.Count);
                     Assert.Equal(expected: targetSize, actual: target.Count);
                 }
@@ -871,7 +876,7 @@ namespace MpGame.Tests.CollectionTests
                     var sourceSize = source.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => source.Mill(source));
-                    Assert.Equal(expected: ErrorStrings.MillTargetSamePile, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.MillTargetSamePile, actual: ex.Message);
                     Assert.Equal(expected: sourceSize, actual: source.Count);
                 }
             }
@@ -886,46 +891,46 @@ namespace MpGame.Tests.CollectionTests
                     var targetSize = target.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => source.Mill(target));
-                    Assert.Equal(expected: ErrorStrings.PileEmpty, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.PileEmpty, actual: ex.Message);
                     Assert.Equal(expected: sourceSize, actual: source.Count);
                     Assert.Equal(expected: targetSize, actual: target.Count);
                 }
             }
 
-            //[Fact]
-            //public void DecreasesSourseSizeIncreasesTargetSizeByOne()
-            //{
-            //    var sourceSeed = TestCard.Factory(1).ToArray();
-            //    foreach (var source in Piles(withPerms: PilePerms.CanDraw | PilePerms.CanPeek, items: sourceSeed))
-            //    foreach (var target in Piles(withPerms: PilePerms.CanPut | PilePerms.CanBrowse, items: Enumerable.Empty<TestCard>()))
-            //    {
-            //        var sourceSize = source.Count;
-            //        var targetSize = target.Count;
-            //        var topcard = source.PeekAt(0);
-            //        int firstCall = 0;
-            //        bool putCalled = false;
-            //        bool lastRmCalled = false;
+            [Fact]
+            public void DecreasesSourseSizeIncreasesTargetSizeByOne()
+            {
+                var sourceSeed = TestCard.Factory(1).ToArray();
+                foreach (var target in Piles(withPerms: PilePerms.CanPut | PilePerms.CanBrowse, items: Enumerable.Empty<TestCard>()))
+                foreach (var source in Piles(withPerms: PilePerms.CanDraw | PilePerms.CanPeek, items: sourceSeed))
+                {
+                    var sourceSize = source.Count;
+                    var targetSize = target.Count;
+                    var topcard = source.PeekAt(0);
+                    int firstCall = 0;
+                    bool lastRmCalled = false;
+                    bool putCalled = false;
 
-            //        source.LastRemoveCalled += (s, e) =>
-            //        {
-            //            lastRmCalled = true;
-            //            Interlocked.CompareExchange(ref firstCall, value: 1, comparand: 0);
-            //        };
-            //        target.PutCalled += (s, e) =>
-            //        {
-            //            putCalled = true;
-            //            Interlocked.CompareExchange(ref firstCall, value: 2, comparand: 0);
-            //        };
+                    (source as ITestPileEvents).LastRemoveCalled += (s, e) =>
+                    {
+                        lastRmCalled = true;
+                        Interlocked.CompareExchange(ref firstCall, value: 1, comparand: 0);
+                    };
+                    (target as ITestPileEvents).PutCalled += (s, e) =>
+                    {
+                        putCalled = true;
+                        Interlocked.CompareExchange(ref firstCall, value: 2, comparand: 0);
+                    };
 
-            //        source.Mill(target);
-            //        Assert.True(lastRmCalled);
-            //        Assert.True(putCalled);
-            //        Assert.Equal(expected: 1, actual: firstCall);
-            //        Assert.Equal(expected: sourceSize - 1, actual: source.Count);
-            //        Assert.Equal(expected: targetSize + 1, actual: target.Count);
-            //        Assert.Same(expected: topcard, actual: target.PeekAt(0));
-            //    }
-            //}
+                    source.Mill(target);
+                    Assert.True(lastRmCalled);
+                    Assert.True(putCalled);
+                    Assert.Equal(expected: 1, actual: firstCall);
+                    Assert.Equal(expected: sourceSize - 1, actual: source.Count);
+                    Assert.Equal(expected: targetSize + 1, actual: target.Count);
+                    Assert.Same(expected: topcard, actual: target.PeekAt(0));
+                }
+            }
         }
 
         public sealed class PeekAt
@@ -939,7 +944,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.PeekAt(index: 5));
-                    Assert.Equal(expected: ErrorStrings.NoBrowseOrPeek, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoBrowseOrPeek, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -953,7 +958,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.PeekAt(index: -1));
-                    Assert.StartsWith(expectedStartString: ErrorStrings.PeekAmountNegative, actualString: ex.Message);
+                    Assert.StartsWith(expectedStartString: PileErrorStrings.PeekAmountNegative, actualString: ex.Message);
                     Assert.Equal(expected: "index", actual: ex.ParamName);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
@@ -968,7 +973,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.PeekAt(index: pile.Count + 1));
-                    Assert.StartsWith(expectedStartString: ErrorStrings.PeekAmountTooHigh, actualString: ex.Message);
+                    Assert.StartsWith(expectedStartString: PileErrorStrings.PeekAmountTooHigh, actualString: ex.Message);
                     Assert.Equal(expected: "index", actual: ex.ParamName);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
@@ -1014,7 +1019,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.PeekTop(amount: 5));
-                    Assert.Equal(expected: ErrorStrings.NoBrowseOrPeek, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoBrowseOrPeek, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -1028,7 +1033,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.PeekTop(amount: -1));
-                    Assert.StartsWith(expectedStartString: ErrorStrings.PeekAmountNegative, actualString: ex.Message);
+                    Assert.StartsWith(expectedStartString: PileErrorStrings.PeekAmountNegative, actualString: ex.Message);
                     Assert.Equal(expected: "amount", actual: ex.ParamName);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
@@ -1043,7 +1048,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.PeekTop(amount: pile.Count + 1));
-                    Assert.StartsWith(expectedStartString: ErrorStrings.PeekAmountTooHigh, actualString: ex.Message);
+                    Assert.StartsWith(expectedStartString: PileErrorStrings.PeekAmountTooHigh, actualString: ex.Message);
                     Assert.Equal(expected: "amount", actual: ex.ParamName);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
@@ -1065,16 +1070,6 @@ namespace MpGame.Tests.CollectionTests
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
-
-
-            //[Fact]
-            //public void MathMinTest()
-            //{
-            //    var pile = new TestPile(withPerms: PilePerms.CanPeek, cards: TestCard.Factory(3));
-            //    var peeked = pile.PeekTop(Math.Min(4, pile.Count));
-
-            //    Assert.False(peeked.IsDefault);
-            //}
         }
 
         public sealed class Put
@@ -1088,7 +1083,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.Put(item: new TestCard(id: 2)));
-                    Assert.Equal(expected: ErrorStrings.NoPut, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoPut, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -1107,21 +1102,26 @@ namespace MpGame.Tests.CollectionTests
                 }
             }
 
-            //[Fact]
-            //public void CallsOnPut()
-            //{
-            //    foreach (var pile in Piles(withPerms: PilePerms.CanPut, items: Enumerable.Empty<TestCard>()))
-            //    {
-            //        var priorSize = pile.Count;
-            //        var newcard = new TestCard(id: 1);
+            [Fact]
+            public void CallsOnPut()
+            {
+                foreach (var pile in Piles(withPerms: PilePerms.CanPut, items: Enumerable.Empty<TestCard>()))
+                {
+                    var priorSize = pile.Count;
+                    var newcard = new TestCard(id: 1);
+                    var events = (ITestPileEvents)pile;
 
-            //        var ev = Assert.Raises<PutEventArgs>(handler => pile.PutCalled += handler, handler => pile.PutCalled -= handler, () => pile.Put(item: newcard));
-            //        Assert.Same(expected: pile, actual: ev.Sender);
-            //        Assert.NotNull(ev.Arguments.Card);
-            //        Assert.Same(expected: newcard, actual: ev.Arguments.Card);
-            //        Assert.Equal(expected: priorSize + 1, actual: pile.Count);
-            //    }
-            //}
+                    var ev = Assert.Raises<PutEventArgs>(
+                        attach: handler => events.PutCalled += handler,
+                        detach: handler => events.PutCalled -= handler,
+                        () => pile.Put(item: newcard));
+
+                    Assert.Same(expected: pile, actual: ev.Sender);
+                    Assert.NotNull(ev.Arguments.Card);
+                    Assert.Same(expected: newcard, actual: ev.Arguments.Card);
+                    Assert.Equal(expected: priorSize + 1, actual: pile.Count);
+                }
+            }
         }
 
         public sealed class PutBottom
@@ -1135,7 +1135,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.PutBottom(item: new TestCard(id: 2)));
-                    Assert.Equal(expected: ErrorStrings.NoPutBottom, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoPutBottom, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -1178,22 +1178,8 @@ namespace MpGame.Tests.CollectionTests
                 {
                     var priorSize = pile.Count;
 
-                    var ex = Assert.Throws<InvalidOperationException>(() => pile.Shuffle(shuffleFunc: c => c.Reverse()));
-                    Assert.Equal(expected: ErrorStrings.NoShuffle, actual: ex.Message);
-                    Assert.Equal(expected: priorSize, actual: pile.Count);
-                }
-            }
-
-            [Fact]
-            public void ThrowsOnNullFunc()
-            {
-                var seed = TestCard.Factory(20).ToArray();
-                foreach (var pile in Piles(withPerms: PilePerms.CanShuffle, items: seed))
-                {
-                    var priorSize = pile.Count;
-
-                    var ex = Assert.Throws<ArgumentNullException>(() => pile.Shuffle(shuffleFunc: null));
-                    Assert.Equal(expected: "shuffleFunc", actual: ex.ParamName);
+                    var ex = Assert.Throws<InvalidOperationException>(() => pile.Shuffle());
+                    Assert.Equal(expected: PileErrorStrings.NoShuffle, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -1206,14 +1192,16 @@ namespace MpGame.Tests.CollectionTests
                 {
                     var priorSize = pile.Count;
                     bool funcCalled = false;
-
-                    var ex = Assert.Throws<InvalidOperationException>(() => pile.Shuffle(shuffleFunc: cards =>
+                    var events = (ITestPileEvents)pile;
+                    events.ShuffleFuncOverride = _ =>
                     {
                         funcCalled = true;
                         return null;
-                    }));
+                    };
+
+                    var ex = Assert.Throws<InvalidOperationException>(() => pile.Shuffle());
                     Assert.True(funcCalled);
-                    Assert.Equal(expected: ErrorStrings.NewSequenceNull, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NewSequenceNull, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -1221,21 +1209,18 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void ShuffleFuncDoesNotGiveDefaultArray()
             {
-                const int added = 10;
-
                 foreach (var pile in Piles(withPerms: PilePerms.CanShuffle, items: Enumerable.Empty<TestCard>()))
                 {
                     var priorSize = pile.Count;
-                    bool funcCalled = false;
-                    pile.Shuffle(shuffleFunc: cards =>
-                    {
-                        funcCalled = true;
-                        Assert.False(cards.IsDefault);
-                        return cards.Concat(TestCard.Factory(added));
-                    });
+                    var events = (ITestPileEvents)pile;
 
-                    Assert.True(funcCalled);
-                    Assert.Equal(expected: priorSize + added, actual: pile.Count);
+                    var ev = Assert.Raises<ShuffleEventArgs>(
+                        attach: handler => events.ShuffleCalled += handler,
+                        detach: handler => events.ShuffleCalled -= handler,
+                        () => pile.Shuffle());
+
+                    Assert.False(ev.Arguments.OriginalSequence.IsDefault,
+                        "A default(ImmutableArray<T>) was passed into the shuffle function");
                 }
             }
         }
@@ -1251,7 +1236,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.TakeAt(index: 14));
-                    Assert.Equal(expected: ErrorStrings.NoTake, actual: ex.Message);
+                    Assert.Equal(expected: PileErrorStrings.NoTake, actual: ex.Message);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -1265,7 +1250,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.TakeAt(index: -1));
-                    Assert.StartsWith(expectedStartString: ErrorStrings.RetrievalNegative, actualString: ex.Message);
+                    Assert.StartsWith(expectedStartString: PileErrorStrings.RetrievalNegative, actualString: ex.Message);
                     Assert.Equal(expected: "index", actual: ex.ParamName);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
@@ -1280,7 +1265,7 @@ namespace MpGame.Tests.CollectionTests
                     var priorSize = pile.Count;
 
                     var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.TakeAt(index: pile.Count));
-                    Assert.StartsWith(expectedStartString: ErrorStrings.RetrievalTooHighP, actualString: ex.Message);
+                    Assert.StartsWith(expectedStartString: PileErrorStrings.RetrievalTooHighP, actualString: ex.Message);
                     Assert.Equal(expected: "index", actual: ex.ParamName);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
@@ -1299,17 +1284,22 @@ namespace MpGame.Tests.CollectionTests
                 }
             }
 
-            //[Fact]
-            //public void LastTakeCallsOnLastRemoved()
-            //{
-            //    var seed = TestCard.Factory(1).ToArray();
-            //    foreach (var pile in Piles(withPerms: PilePerms.CanTake, items: seed))
-            //    {
-            //        var ev = Assert.Raises<EventArgs>(handler => pile.LastRemoveCalled += handler, handler => pile.LastRemoveCalled -= handler, () => pile.TakeAt(0));
-            //        Assert.Same(expected: pile, actual: ev.Sender);
-            //        Assert.Equal(expected: 0, actual: pile.Count);
-            //    }
-            //}
+            [Fact]
+            public void LastTakeCallsOnLastRemoved()
+            {
+                var seed = TestCard.Factory(1).ToArray();
+                foreach (var pile in Piles(withPerms: PilePerms.CanTake, items: seed))
+                {
+                    var events = (ITestPileEvents)pile;
+                    var ev = Assert.Raises<EventArgs>(
+                        attach: handler => events.LastRemoveCalled += handler,
+                        detach: handler => events.LastRemoveCalled -= handler,
+                        () => pile.TakeAt(0));
+
+                    Assert.Same(expected: pile, actual: ev.Sender);
+                    Assert.Equal(expected: 0, actual: pile.Count);
+                }
+            }
         }
     }
 }

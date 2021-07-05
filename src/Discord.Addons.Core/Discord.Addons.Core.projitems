@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)CodeAnalysisPolyfills.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Result.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RWEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TaskExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ThrowHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Unit.cs" />
   </ItemGroup>

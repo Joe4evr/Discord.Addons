@@ -15,7 +15,7 @@ namespace Discord.Addons.SimpleAudio
         private static readonly Embed _initEmbed = new EmbedBuilder { Title = "Connected", Description = "Initializing..." }.Build();
         private Func<LogMessage, Task> Logger { get; }
         //private readonly Timer _presenceChecker;
-        private DiscordSocketClient Client { get; }
+        private BaseSocketClient Client { get; }
 
         internal IAudioConfig Config { get; }
         internal ConcurrentDictionary<ulong, AudioClientWrapper> Clients { get; }
@@ -25,7 +25,7 @@ namespace Discord.Addons.SimpleAudio
             = new ConcurrentDictionary<ulong, EmbedList>();
 
         public AudioService(
-            DiscordSocketClient client, IAudioConfig config,
+            BaseSocketClient client, IAudioConfig config,
             Func<LogMessage, Task>? logger = null)
         {
             Client = client ?? throw new ArgumentNullException(nameof(client));
@@ -63,38 +63,42 @@ namespace Discord.Addons.SimpleAudio
             }
         }
 
-        private Task Client_ReactionAdded(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
+        private async Task Client_ReactionAdded(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
         {
-            if (!message.HasValue)
-            {
-                return Log(LogSeverity.Debug, $"Message with id {message.Id} was not in cache.");
-            }
+            //if (!message.HasValue)
+            //{
+            //    return Log(LogSeverity.Debug, $"Message with id {message.Id} was not in cache.");
+            //}
             if (!reaction.User.IsSpecified)
             {
-                return Log(LogSeverity.Debug, $"Message with id {message.Id} had an unspecified user.");
+                await Log(LogSeverity.Debug, $"Message with id {message.Id} had an unspecified user.");
+                return;
             }
             if (reaction.User.Value.Id == Client.CurrentUser.Id)
             {
-                return Task.CompletedTask;
+                return;
             }
 
-            var msg = message.Value;
+            var msg = await message.GetOrDownloadAsync();
             if (!(msg.Channel is IGuildChannel gch))
             {
-                return Task.CompletedTask;
+                return;
             }
 
-            if (Clients.TryGetValue(gch.GuildId, out var wrapper) && msg.Id == wrapper.Message.Id)
+            // Please tell me this restriction on
+            // patterns will lift in C# 9.0... ><
+            if (GetWrapper(gch.Guild) is { } wrapper
+                && msg.Id == wrapper.Message.Id)
             {
-                return UpdateWrapper(wrapper, msg, gch.Guild, reaction);
+                await UpdateWrapper(wrapper, msg, gch.Guild, reaction);
+                return;
             }
 
             if (Lists.TryGetValue(msg.Id, out var embedList))
             {
-                return UpdateEmbedList(embedList, reaction);
+                await UpdateEmbedList(embedList, reaction);
+                return;
             }
-
-            return Task.CompletedTask;
         }
 
         private async Task UpdateWrapper(
@@ -242,15 +246,17 @@ namespace Discord.Addons.SimpleAudio
                 await channel.SendMessageAsync("Not connected to voice in this guild.").ConfigureAwait(false);
                 return;
             }
+
             try
             {
-                var file = Config.MusicBasePath.EnumerateFiles($"*{path}*", SearchOption.AllDirectories).FirstOrDefault();
-
+                var file = Config.MusicBasePath.EnumerateFiles($"*{path}*", SearchOption.AllDirectories)
+                    .FirstOrDefault();
                 if (file == null)
                 {
                     await channel.SendMessageAsync("Could not find that file.").ConfigureAwait(false);
                     return;
                 }
+
                 if (Clients.TryGetValue(guild.Id, out var client))
                 {
                     await client.AddToPlaylist(file).ConfigureAwait(false);
@@ -293,6 +299,12 @@ namespace Discord.Addons.SimpleAudio
                 await client.SetVolume(newVolume).ConfigureAwait(false);
         }
 
+        internal AudioClientWrapper? GetWrapper(IGuild guild)
+        {
+            return Clients.TryGetValue(guild.Id, out var client)
+                ? client : null;
+        }
+
         internal void StopPlaying(IGuild guild)
         {
             if (Clients.TryGetValue(guild.Id, out var client))
@@ -315,7 +327,7 @@ namespace Discord.Addons.SimpleAudio
         }
 
         private static readonly ImmutableArray<string> _supportedExts
-            = ImmutableArray.Create(".mp3", ".flac", ".wav", ".aac", ".ogg");
+            = ImmutableArray.Create(".mp3", ".flac"/*, ".wav", ".aac", ".ogg"*/);
 
         internal IEnumerable<FileInfo> GetAvailableFiles()
             => Config.MusicBasePath.EnumerateFiles("*", SearchOption.AllDirectories)

@@ -18,7 +18,7 @@ namespace Discord.Addons.MpGame.Collections
     public sealed class Hand<T>
         where T : class
     {
-        private readonly ReaderWriterLockSlim _rwlock = new ReaderWriterLockSlim();
+        private readonly ReaderWriterLockSlim _rwlock = new();
 
         private List<T> _hand;
 
@@ -79,16 +79,39 @@ namespace Discord.Addons.MpGame.Collections
         }
 
         /// <summary>
+        ///     Adds multiple items to the hand.
+        /// </summary>
+        /// <param name="items">
+        ///     The items to add.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="items"/> was <see langword="null"/>.
+        /// </exception>
+        public void AddRange(IEnumerable<T> items)
+        {
+            if (items is null)
+                ThrowHelper.ThrowArgNull(nameof(items));
+
+            using (_rwlock.UsingWriteLock())
+            {
+                _hand.AddRange(items);
+            }
+        }
+
+        /// <summary>
         ///     Creates a snapshot if the items inside
         ///     this hand with its respective 0-based index.
         /// </summary>
         public ImmutableArray<(int, T)> AsIndexed()
         {
-            var builder = ImmutableArray.CreateBuilder<(int, T)>();
-            for (int i = 0; i < _hand.Count; i++)
-                builder.Add((i, _hand[i]));
+            using (_rwlock.UsingReadLock())
+            {
+                var builder = ImmutableArray.CreateBuilder<(int, T)>(_hand.Count);
+                for (int i = 0; i < _hand.Count; i++)
+                    builder.Add((i, _hand[i]));
 
-            return builder.ToImmutable();
+                return builder.MoveToImmutable();
+            }
         }
 
         /// <summary>

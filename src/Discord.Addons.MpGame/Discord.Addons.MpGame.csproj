@@ -1,17 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-    <Import Project="..\..\DiscordAddonsCore.props" />
-    <PropertyGroup>
-        <AssemblyName>Discord.Addons.MpGame</AssemblyName>
-        <VersionPrefix>$(MpGameMajor).$(DnetMajor).0</VersionPrefix>
-        <VersionSuffix>$(MpGameSuffix)</VersionSuffix>
-        <Description>Base classes for text-based games in Discord</Description>
-        <PackageTags>discord;commands;game</PackageTags>
-    </PropertyGroup>
-    <!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <CodeAnalysisRuleSet>Discord.Addons.MpGame.ruleset</CodeAnalysisRuleSet>
-    </PropertyGroup>-->
-    <ItemGroup>
-        <None Include="Documentation\*.md" />
-        <None Include="README.md" />
-    </ItemGroup>
+  <Import Project="..\..\DiscordAddonsCore.props" />
+  <PropertyGroup>
+    <AssemblyName>Discord.Addons.MpGame</AssemblyName>
+    <VersionPrefix>$(MpGameMajor).$(DnetMajor).0</VersionPrefix>
+    <VersionSuffix>$(MpGameSuffix)</VersionSuffix>
+    <Description>Base classes for text-based games in Discord</Description>
+    <PackageTags>discord;commands;game</PackageTags>
+  </PropertyGroup>
+  <!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <CodeAnalysisRuleSet>Discord.Addons.MpGame.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>-->
+  <ItemGroup>
+    <!--<PackageReference Include="JiiLib.Constraints" Version="1.0.0-rc1" />
+    <Analyzer Include="JiiLib.Constraints" />-->
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Documentation\*.md" />
+    <None Include="README.md" />
+  </ItemGroup>
 </Project>

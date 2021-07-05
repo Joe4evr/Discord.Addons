@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using Discord.Addons.MpGame.Collections;
 
 namespace MpGame.Tests
 {
-    internal sealed class TestPile : Pile<ITestCard>
+    internal sealed class TestPile : Pile<ITestCard>, ITestPileEvents
     {
         private readonly PilePerms _perms;
 
@@ -25,39 +27,38 @@ namespace MpGame.Tests
         public override bool CanPutBottom  => HasPerm(PilePerms.CanPutBottom);
         public override bool CanShuffle    => HasPerm(PilePerms.CanShuffle);
         public override bool CanTake       => HasPerm(PilePerms.CanTake);
-        //public bool CanTake { override get; internal set; }
-        //public override bool CanTake { get; new internal set; }
 
-        internal event EventHandler<EventArgs> LastRemoveCalled;
 
+        public event EventHandler<EventArgs> LastRemoveCalled;
         protected override void OnLastRemoved()
         {
             base.OnLastRemoved();
             LastRemoveCalled?.Invoke(this, EventArgs.Empty);
         }
 
-        internal event EventHandler<PutEventArgs> PutCalled;
-
+        public event EventHandler<PutEventArgs> PutCalled;
         protected override void OnPut(ITestCard card)
         {
             base.OnPut(card);
             PutCalled?.Invoke(this, new PutEventArgs(card));
         }
 
-        //internal void SetBufferStrat(IBufferStrategy<TestCard> bufferStrategy)
-        //    => BufferStrategy = bufferStrategy;
-
-        private bool HasPerm(PilePerms perm) => (_perms & perm) == perm;
-    }
-
-    internal class PutEventArgs : EventArgs
-    {
-        public PutEventArgs(ITestCard card)
+        public Func<ImmutableArray<ITestCard>, IEnumerable<ITestCard>> ShuffleFuncOverride { private get; set; }
+        public event EventHandler<ShuffleEventArgs> ShuffleCalled;
+        protected override IEnumerable<ITestCard> ShuffleItems(ImmutableArray<ITestCard> items)
         {
-            Card = card;
+            var shuffled = (ShuffleFuncOverride is null)
+                ? items.Reverse()
+                : ShuffleFuncOverride.Invoke(items);
+            ShuffleCalled?.Invoke(this,
+                new ShuffleEventArgs(originalSequence: items, newSequence: shuffled));
+
+            return shuffled;
         }
 
-        public ITestCard Card { get; }
+
+
+        private bool HasPerm(PilePerms perm) => (_perms & perm) == perm;
     }
 
     [Flags]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Discord.Addons.MpGame
 {
@@ -9,7 +10,7 @@ namespace Discord.Addons.MpGame
 
         private ReferenceComparer() { }
 
-        bool IEqualityComparer<T>.Equals(T x, T y) 
+        bool IEqualityComparer<T>.Equals([AllowNull] T x, [AllowNull] T y) 
             => ReferenceEquals(x, y);
 
         int IEqualityComparer<T>.GetHashCode(T obj)

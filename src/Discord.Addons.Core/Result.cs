@@ -9,7 +9,7 @@
 //    ///     Represents the result of an operation that can succeed or fail,
 //    ///     but does not produce a value.
 //    /// </summary>
-//    internal readonly struct Result
+//    public readonly struct Result
 //    {
 //        /// <summary>
 //        ///     Indicates whether the operation was successful.
@@ -34,14 +34,14 @@
 //            _exception = exception;
 //        }
 
-//        /// <summary>
-//        ///     Copies this <see cref="Result"/> instance to a <see cref="Result{T}"/>
-//        ///     specified by <typeparamref name="T"/>.
-//        /// </summary>
-//        public Result<T> Of<T>([AllowNull] T value = default)
-//            => _isInited
-//                ? new Result<T>(value, _isSuccess, _message, _exception)
-//                : default;
+//        ///// <summary>
+//        /////     Copies this <see cref="Result"/> instance to a <see cref="Result{T}"/>
+//        /////     specified by <typeparamref name="T"/>.
+//        ///// </summary>
+//        //internal Result<T> Of<T>([AllowNull] T value = default)
+//        //    => _isInited
+//        //        ? new Result<T>(value, _isSuccess, _message, _exception)
+//        //        : default;
 
 //        /// <summary>
 //        ///     Indicates if this result contains a wrapped exception.
@@ -141,7 +141,7 @@
 //    /// <typeparam name="T">
 //    ///     Type of the result object, if successful.
 //    /// </typeparam>
-//    internal readonly struct Result<T>
+//    public readonly struct Result<T>
 //    {
 //        /// <summary>
 //        ///     Message that communicates additional information about the operation.
