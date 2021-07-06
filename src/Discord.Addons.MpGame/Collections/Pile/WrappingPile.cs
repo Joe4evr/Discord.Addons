@@ -16,6 +16,13 @@ namespace Discord.Addons.MpGame.Collections
     /// <typeparam name="TWrapper">
     ///     The wrapper type.
     /// </typeparam>
+    /// <remarks>
+    ///     <note type="warning">
+    ///         This type is for advanced scenarios only.
+    ///         Consider inheriting from <see cref="Pile{T}"/> directly
+    ///         for the most common use-cases.
+    ///     </note>
+    /// </remarks>
     public abstract class WrappingPile<T, TWrapper> : Pile<T>
         where T : class
         where TWrapper : struct, IWrapper<T>
@@ -100,7 +107,7 @@ namespace Discord.Addons.MpGame.Collections
             => _logic.Draw().Unwrap(true);
         private protected sealed override T DrawBottomCore()
             => _logic.DrawBottom().Unwrap(true);
-        private protected override ImmutableArray<T> MultiDrawCore(int amount)
+        private protected sealed override ImmutableArray<T> MultiDrawCore(int amount)
             => _logic.MultiDraw(amount, _truthyUnwrapper);
 
         private protected sealed override void InsertCore(T item, int index)

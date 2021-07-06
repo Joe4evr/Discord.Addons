@@ -535,6 +535,15 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).Pile(System.Collections.Generic.IEnumerable(Of T))
   nameWithType: Pile<T>.Pile(IEnumerable<T>)
   nameWithType.vb: Pile(Of T).Pile(IEnumerable(Of T))
+- uid: Discord.Addons.MpGame.Collections.Pile`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Boolean)
+  name: Pile(IEnumerable<T>, Boolean)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1__ctor_System_Collections_Generic_IEnumerable__0__System_Boolean_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.#ctor(System.Collections.Generic.IEnumerable{`0},System.Boolean)
+  name.vb: Pile(IEnumerable(Of T), Boolean)
+  fullName: Discord.Addons.MpGame.Collections.Pile<T>.Pile(System.Collections.Generic.IEnumerable<T>, System.Boolean)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).Pile(System.Collections.Generic.IEnumerable(Of T), System.Boolean)
+  nameWithType: Pile<T>.Pile(IEnumerable<T>, Boolean)
+  nameWithType.vb: Pile(Of T).Pile(IEnumerable(Of T), Boolean)
 - uid: Discord.Addons.MpGame.Collections.Pile`1.#ctor*
   name: Pile
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1__ctor_
@@ -1063,15 +1072,15 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).Shuffle
   nameWithType: Pile<T>.Shuffle
   nameWithType.vb: Pile(Of T).Shuffle
-- uid: Discord.Addons.MpGame.Collections.Pile`1.ShuffleItems(System.Collections.Immutable.ImmutableArray{`0})
-  name: ShuffleItems(ImmutableArray<T>)
-  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_ShuffleItems_System_Collections_Immutable_ImmutableArray__0__
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.ShuffleItems(System.Collections.Immutable.ImmutableArray{`0})
-  name.vb: ShuffleItems(ImmutableArray(Of T))
-  fullName: Discord.Addons.MpGame.Collections.Pile<T>.ShuffleItems(System.Collections.Immutable.ImmutableArray<T>)
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).ShuffleItems(System.Collections.Immutable.ImmutableArray(Of T))
-  nameWithType: Pile<T>.ShuffleItems(ImmutableArray<T>)
-  nameWithType.vb: Pile(Of T).ShuffleItems(ImmutableArray(Of T))
+- uid: Discord.Addons.MpGame.Collections.Pile`1.ShuffleItems(System.Collections.Generic.IEnumerable{`0})
+  name: ShuffleItems(IEnumerable<T>)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_ShuffleItems_System_Collections_Generic_IEnumerable__0__
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.ShuffleItems(System.Collections.Generic.IEnumerable{`0})
+  name.vb: ShuffleItems(IEnumerable(Of T))
+  fullName: Discord.Addons.MpGame.Collections.Pile<T>.ShuffleItems(System.Collections.Generic.IEnumerable<T>)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).ShuffleItems(System.Collections.Generic.IEnumerable(Of T))
+  nameWithType: Pile<T>.ShuffleItems(IEnumerable<T>)
+  nameWithType.vb: Pile(Of T).ShuffleItems(IEnumerable(Of T))
 - uid: Discord.Addons.MpGame.Collections.Pile`1.ShuffleItems*
   name: ShuffleItems
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_ShuffleItems_
@@ -1132,6 +1141,15 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.WrappingPile(Of T, TWrapper).WrappingPile(System.Collections.Generic.IEnumerable(Of T))
   nameWithType: WrappingPile<T, TWrapper>.WrappingPile(IEnumerable<T>)
   nameWithType.vb: WrappingPile(Of T, TWrapper).WrappingPile(IEnumerable(Of T))
+- uid: Discord.Addons.MpGame.Collections.WrappingPile`2.#ctor(System.Collections.Generic.IEnumerable{`0},System.Boolean)
+  name: WrappingPile(IEnumerable<T>, Boolean)
+  href: api/Discord.Addons.MpGame.Collections.WrappingPile-2.html#Discord_Addons_MpGame_Collections_WrappingPile_2__ctor_System_Collections_Generic_IEnumerable__0__System_Boolean_
+  commentId: M:Discord.Addons.MpGame.Collections.WrappingPile`2.#ctor(System.Collections.Generic.IEnumerable{`0},System.Boolean)
+  name.vb: WrappingPile(IEnumerable(Of T), Boolean)
+  fullName: Discord.Addons.MpGame.Collections.WrappingPile<T, TWrapper>.WrappingPile(System.Collections.Generic.IEnumerable<T>, System.Boolean)
+  fullName.vb: Discord.Addons.MpGame.Collections.WrappingPile(Of T, TWrapper).WrappingPile(System.Collections.Generic.IEnumerable(Of T), System.Boolean)
+  nameWithType: WrappingPile<T, TWrapper>.WrappingPile(IEnumerable<T>, Boolean)
+  nameWithType.vb: WrappingPile(Of T, TWrapper).WrappingPile(IEnumerable(Of T), Boolean)
 - uid: Discord.Addons.MpGame.Collections.WrappingPile`2.#ctor*
   name: WrappingPile
   href: api/Discord.Addons.MpGame.Collections.WrappingPile-2.html#Discord_Addons_MpGame_Collections_WrappingPile_2__ctor_

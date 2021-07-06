@@ -66,6 +66,27 @@ namespace MpGame.Tests.CollectionTests
                     Assert.Equal(expected: expectedIds, actual: pile.AsEnumerable().Select(t => t.Id));
                 }
             }
+
+            [Fact]
+            public void ShufflingCtorWorks()
+            {
+                var seed = TestCard.Factory(20).ToArray();
+                var pile = new TestPile(withPerms: PilePerms.All, items: seed, initShuffle: true);
+                var events = (ITestPileEvents)pile;
+
+                var ev = Assert.Raises<ShuffleEventArgs>(
+                    attach: handler => events.ShuffleCalled += handler,
+                    detach: handler => events.ShuffleCalled -= handler,
+                    () => pile.Shuffle());
+
+                Assert.Equal(expected: seed.Length, actual: pile.Count);
+
+                Assert.NotNull(ev.Arguments.OriginalSequence);
+                Assert.NotEmpty(ev.Arguments.OriginalSequence);
+
+                Assert.NotNull(ev.Arguments.NewSequence);
+                Assert.NotEmpty(ev.Arguments.NewSequence);
+            }
         }
 
         public sealed class AsEnumerable
@@ -667,7 +688,7 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Fact]
-            public void DrawingOnEmptyPileThrows()
+            public void ThrowsOnEmptyPile()
             {
                 foreach (var pile in Piles(withPerms: PilePerms.CanDraw, items: Enumerable.Empty<TestCard>()))
                 {
@@ -737,6 +758,90 @@ namespace MpGame.Tests.CollectionTests
 
                     var ex = Assert.Throws<InvalidOperationException>(() => pile.DrawBottom());
                     Assert.Equal(expected: PileErrorStrings.PileEmpty, actual: ex.Message);
+                    Assert.Equal(expected: priorSize, actual: pile.Count);
+                }
+            }
+        }
+
+        public sealed class MultiDraw
+        {
+            [Fact]
+            public void ThrowsWhenNotDrawable()
+            {
+                var seed = TestCard.Factory(20).ToArray();
+                foreach (var pile in Piles(withPerms: PilePerms.All ^ PilePerms.CanDraw, items: seed))
+                {
+                    var priorSize = pile.Count;
+
+                    var ex = Assert.Throws<InvalidOperationException>(() => pile.DrawMultiple(3));
+                    Assert.Equal(expected: PileErrorStrings.NoDraw, actual: ex.Message);
+                    Assert.Equal(expected: priorSize, actual: pile.Count);
+                }
+            }
+
+            [Fact]
+            public void DecreasesPileByAmount()
+            {
+                const int amount = 4;
+                var seed = TestCard.Factory(20).ToArray();
+                foreach (var pile in Piles(withPerms: PilePerms.CanDraw, items: seed))
+                {
+                    var priorSize = pile.Count;
+                    var drawn = pile.DrawMultiple(amount);
+
+                    Assert.NotEmpty(drawn);
+                    Assert.Equal(expected: amount, actual: drawn.Length);
+                    Assert.Equal(expected: priorSize - amount, actual: pile.Count);
+                }
+            }
+
+            [Fact]
+            public void LastDrawCallsOnLastRemoved()
+            {
+                var seed = TestCard.Factory(4).ToArray();
+                foreach (var pile in Piles(withPerms: PilePerms.CanDraw, items: seed))
+                {
+                    var events = (ITestPileEvents)pile;
+                    var ev = Assert.Raises<EventArgs>(
+                        attach: handler => events.LastRemoveCalled += handler,
+                        detach: handler => events.LastRemoveCalled -= handler,
+                        () => pile.DrawMultiple(4));
+
+                    Assert.Same(expected: pile, actual: ev.Sender);
+                    Assert.Equal(expected: 0, actual: pile.Count);
+                }
+            }
+
+            [Fact]
+            public void ThrowsWhenArgOutOfRange()
+            {
+                foreach (var pile in Piles(withPerms: PilePerms.CanDraw, items: Enumerable.Empty<TestCard>()))
+                {
+                    var priorSize = pile.Count;
+
+                    var ex1 = Assert.Throws<ArgumentOutOfRangeException>(() => pile.DrawMultiple(amount: 3));
+                    Assert.StartsWith(expectedStartString: PileErrorStrings.RetrievalTooHighP, actualString: ex1.Message);
+                    Assert.Equal(expected: "amount", actual: ex1.ParamName);
+                    Assert.Equal(expected: priorSize, actual: pile.Count);
+
+
+                    var ex2 = Assert.Throws<ArgumentOutOfRangeException>(() => pile.DrawMultiple(amount: - 3));
+                    Assert.StartsWith(expectedStartString: PileErrorStrings.RetrievalNegative, actualString: ex2.Message);
+                    Assert.Equal(expected: "amount", actual: ex2.ParamName);
+                    Assert.Equal(expected: priorSize, actual: pile.Count);
+                }
+            }
+
+            [Fact]
+            public void AmountOfZeroReturnsAnEmptyArray()
+            {
+                var seed = TestCard.Factory(20).ToArray();
+                foreach (var pile in Piles(withPerms: PilePerms.CanDraw, items: seed))
+                {
+                    var priorSize = pile.Count;
+                    var drawn = pile.DrawMultiple(amount: 0);
+
+                    Assert.Empty(drawn);
                     Assert.Equal(expected: priorSize, actual: pile.Count);
                 }
             }
@@ -1219,8 +1324,7 @@ namespace MpGame.Tests.CollectionTests
                         detach: handler => events.ShuffleCalled -= handler,
                         () => pile.Shuffle());
 
-                    Assert.False(ev.Arguments.OriginalSequence.IsDefault,
-                        "A default(ImmutableArray<T>) was passed into the shuffle function");
+                    Assert.NotNull(ev.Arguments.OriginalSequence);
                 }
             }
         }

@@ -275,8 +275,7 @@ namespace Discord.Addons.MpGame.Collections
         /// </example>
         public async Task<ImmutableArray<T>> BrowseAndTakeAsync(
             Func<IReadOnlyDictionary<int, T>, Task<int[]>> selector,
-            Func<T, bool>? filter = null,
-            bool shuffle = false)
+            Func<T, bool>? filter = null, bool shuffle = false)
         {
             if (!(CanBrowse && CanTake))
                 ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoBrowseAndTake);

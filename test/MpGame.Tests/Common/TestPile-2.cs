@@ -57,9 +57,9 @@ namespace MpGame.Tests
             PutCalled?.Invoke(this, new PutEventArgs(card));
         }
 
-        public Func<ImmutableArray<ITestCard>, IEnumerable<ITestCard>> ShuffleFuncOverride { private get; set; }
+        public Func<IEnumerable<ITestCard>, IEnumerable<ITestCard>> ShuffleFuncOverride { private get; set; }
         public event EventHandler<ShuffleEventArgs> ShuffleCalled;
-        protected override IEnumerable<ITestCard> ShuffleItems(ImmutableArray<ITestCard> items)
+        protected override IEnumerable<ITestCard> ShuffleItems(IEnumerable<ITestCard> items)
         {
             var shuffled = (ShuffleFuncOverride is null)
                 ? items.Reverse()

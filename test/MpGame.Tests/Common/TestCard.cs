@@ -21,7 +21,7 @@ namespace MpGame.Tests
         }
 
 
-        private static readonly int _colorCount = Enum.GetValues(typeof(CardColor)).Length;
+        private static readonly int _colorCount = Enum.GetValues(typeof(CardColor)).Length - 1;
         internal static IEnumerable<TestCard> Factory(int amount, int start = 1)
             => Enumerable.Range(start, amount).Select(i => new TestCard { Id = i, Color = (CardColor)(i % _colorCount) });
     }

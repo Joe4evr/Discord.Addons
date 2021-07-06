@@ -11,7 +11,12 @@ namespace MpGame.Tests
         private readonly PilePerms _perms;
 
         public TestPile(PilePerms withPerms, IEnumerable<ITestCard> items)
-            : base(items)
+            : this(withPerms, items, false)
+        {
+        }
+
+        public TestPile(PilePerms withPerms, IEnumerable<ITestCard> items, bool initShuffle)
+            : base(items, initShuffle: initShuffle)
         {
             _perms = withPerms;
         }
@@ -43,13 +48,14 @@ namespace MpGame.Tests
             PutCalled?.Invoke(this, new PutEventArgs(card));
         }
 
-        public Func<ImmutableArray<ITestCard>, IEnumerable<ITestCard>> ShuffleFuncOverride { private get; set; }
+        public Func<IEnumerable<ITestCard>, IEnumerable<ITestCard>> ShuffleFuncOverride { private get; set; }
         public event EventHandler<ShuffleEventArgs> ShuffleCalled;
-        protected override IEnumerable<ITestCard> ShuffleItems(ImmutableArray<ITestCard> items)
+        protected override IEnumerable<ITestCard> ShuffleItems(IEnumerable<ITestCard> items)
         {
             var shuffled = (ShuffleFuncOverride is null)
                 ? items.Reverse()
                 : ShuffleFuncOverride.Invoke(items);
+
             ShuffleCalled?.Invoke(this,
                 new ShuffleEventArgs(originalSequence: items, newSequence: shuffled));
 
