@@ -6,6 +6,7 @@
     <VersionSuffix>$(MpGameSuffix)</VersionSuffix>
     <Description>Base classes for text-based games in Discord</Description>
     <PackageTags>discord;commands;game</PackageTags>
+    <!--<TargetFrameworks>$(TargetFrameworks);net6.0</TargetFrameworks>-->
   </PropertyGroup>
   <!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CodeAnalysisRuleSet>Discord.Addons.MpGame.ruleset</CodeAnalysisRuleSet>

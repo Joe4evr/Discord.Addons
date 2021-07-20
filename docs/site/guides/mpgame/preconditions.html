@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Modules </title>
+    <title>Preconditions </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Modules ">
+    <meta name="title" content="Preconditions ">
     <meta name="generator" content="docfx 2.58.0.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
@@ -103,14 +103,14 @@
                           <li class="">
                             <a href="../mpgame/services.html" title="4 - Services" class="">4 - Services</a>
                           </li>
-                          <li class="active">
-                            <a href="../mpgame/modules.html" title="5 - Modules" class="active">5 - Modules</a>
+                          <li class="">
+                            <a href="../mpgame/modules.html" title="5 - Modules" class="">5 - Modules</a>
                           </li>
                           <li class="">
                             <a href="../mpgame/finalstep.html" title="6 - Final step" class="">6 - Final step</a>
                           </li>
-                          <li class="">
-                            <a href="../mpgame/preconditions.html" title="7 - Preconditions" class="">7 - Preconditions</a>
+                          <li class="active">
+                            <a href="../mpgame/preconditions.html" title="7 - Preconditions" class="active">7 - Preconditions</a>
                           </li>
                           <li class="">
                             <a href="../mpgame/specializedtypes.html" title="8 - Specialized types" class="">8 - Specialized types</a>
@@ -123,125 +123,59 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Addons.MpGame.Modules">
-<h2 id="modules">Modules</h2>
+            <article class="content wrap" id="_content" data-uid="Addons.MpGame.Preconditions">
+<h2 id="preconditions">Preconditions</h2>
 
-<p>The Module is the final piece, and is what is needed to move a game forward.</p>
-<p>The <code>MpGameModule</code> class looks like this:</p>
-<pre><code class="lang-cs">public abstract class MpGameModuleBase&lt;TService, TGame, TPlayer&gt; : ModuleBase&lt;SocketCommandContext&gt;
-    where TService : MpGameService&lt;TGame, TPlayer&gt;
-    where TGame    : GameBase&lt;TPlayer&gt;
-    where TPlayer  : Player
+<p>Starting with v4, when targeting .NET 6 or greater and using C# 10 or higher, a number of common preconditions can be used out of the box, through the magic of Generic Attributes. These preconditions are provided from the <code>MpGameModuleBase&lt;&gt;</code> class and include:</p>
+<ul>
+<li><code>[RequirePlayer]</code>: A command can only be invoked by a player in the current game.</li>
+<li><code>[RequireTurnPlayer]</code>: A command can only be invoked by the turn player in the current game.</li>
+<li><code>[GameStateBase]</code>: A command can only be invoked if the current game is in a specific state. This precondition is abstract, but one concrete implementation is included:
+<ul>
+<li><code>[RequireSimpleGameState&lt;TState&gt;]</code>: Determines the current game state by an enum property. This requires that your game type also implements <code>ISimpleStateProvider&lt;TState&gt;</code>.</li>
+<li>If you wish to determine the current state in a custom way, you can write your own logic in a class that inherits from <code>[GameStateBase]</code>:</li>
+</ul>
+<pre><code class="lang-cs">// It's easier to list the base type here through your own module type,
+// so that you don't have to write out all the type arguments.
+public sealed class RequireElapsedTurnsAttribute : CardGameModule.GameStateBaseAttribute
 {
-    protected MpGameModuleBase(TService gameService);
+    private readonly int _minTurns;
 
-    protected TService GameService { get; }
+    public RequireElapsedTurnsAttribute(int minTurns) =&gt; _minTurns = minTurns;
 
-    protected TGame Game { get; }
-
-    protected TPlayer Player { get; }
-
-    protected CurrentlyPlaying GameInProgress { get; }
-
-    protected bool OpenToJoin { get; }
-
-    protected IReadOnlyCollection&lt;IUser&gt; JoinedUsers { get; }
-
-    protected virtual bool RegisterPlayerTypeReader { get; }
-
-    public abstract Task OpenGameCmd();
-
-    public abstract Task CancelGameCmd();
-
-    public abstract Task JoinGameCmd();
-
-    public abstract Task LeaveGameCmd();
-
-    public abstract Task StartGameCmd();
-
-    public abstract Task NextTurnCmd();
-
-    public abstract Task GameStateCmd();
-
-    public abstract Task EndGameCmd();
-
-    protected Task ResendUnsentDMsAsync();
-}
-
-public enum CurrentlyPlaying
-{
-    None,
-    ThisGame,
-    DifferentGame
+    protected override Task&lt;PreconditionResult&gt; CheckStateAsync(TGame game, ICommandContext context)
+    {
+        return (game.Turns &gt;= _minTurns)
+            ? Task.FromResult(PreconditionResult.FromSuccess())
+            : Task.FromResult(PreconditionResult.FromError(&quot;Not enough turns have elapsed yet.&quot;));
+    }
 }
 </code></pre>
-<p>Other versions of this class with less generic parameters also exist,
-so you don't <em>need</em> to supply all the type parameters. Consult
-IntelliSense for the details.</p>
-<p><a class="xref" href="../../api/Discord.Addons.MpGame.CurrentlyPlaying.html"><code>CurrentlyPlaying</code></a> is an enum that indicates if the channel already
-has a game going on, and if it is the game type that this module handles
-or another game type. You can use this to ensure that you won't get
-two different games being played simultaniously in the same channel.</p>
-<p><code>RegisterPlayerTypeReader</code> is an overridable flag with which you can specify
-to add a TypeReader for your <code>Player</code> type so that you can take in that type
-as a command parameter directly. The default value of this flag is <code>true</code>.</p>
-<p>There are 8 methods you can implement, corresponding to the
-actions needed in most games. When you implement these, you decorate them with <code>[Command]</code>
-so that the command system recognizes them. There may be methods you don't want or need to
-implement, in which case you can omit the <code>[Command]</code> attribute so it can't be called.
-Likewise, you'll most likely be adding <em>more</em> commands in order to control your game.</p>
-<p>One command is predefined which will retry sending a DM
-to a user after they have been notified to enable DMs.
-If you want to make use of this command, you will need to override
-it just to call the base method and add the <code>[Command]</code> attribute.</p>
-<p>With your own service class and a data type for persistent data, you should derive
-from this class as follows:</p>
+</li>
+<li><code>[GameStateParameterBase]</code>: A variation of the <code>GameStateBaseAttribute</code> for parameter preconditions. This precondition is also abstract. There are no implementations included, but it's not hard to build one:</li>
+</ul>
+<pre><code class="lang-cs">public sealed class RequireLessThanCurrentDeckSizeAttribute : CardGameModule.GameStateParameterBaseAttribute
+{
+    protected override Task&lt;PreconditionResult&gt; CheckValueAsync(TGame game, object value, ICommandContext context)
+    {
+        return (value is uint num &amp;&amp; num &lt;= game.DeckSize)
+            ? Task.FromResult(PreconditionResult.FromSuccess())
+            : Task.FromResult(PreconditionResult.FromError(&quot;Value out of range.&quot;));
+    }
+}
+</code></pre>
+<p>The built-in preconditions can be easily applied when inside your module class:</p>
 <pre><code class="lang-cs">public class CardGameModule : MpGameModuleBase&lt;CardGameService, CardGame, CardPlayer&gt;
 {
-    public CardGameModule(CardGameService service)
-        : base(service)
+    [Command(&quot;demo&quot;)]
+    [RequireTurnPlayer] // Restrict to usage only by the turn player
+    [RequireSimpleGameState&lt;CardGameState&gt;(CardGameState.StartOfTurn)] // Restrict to usage only when it's the start of the turn
+    public Task SomeRestrictedCommand()
     {
-    }
-
-    private DataType _data;
-    
-    protected override void BeforeExecute(CommandInfo command)
-    {
-        // If you choose to override this method, you *must* call the base version first.
-        base.BeforeExecute(command);
-        // If you have any persistent data of your own, load
-        // the relevant instance from the dictionary
-        // in your service class here and store
-        // the result in a private field.
-        GameService.SomeDataDictionary.TryGetValue(Context.Channel.Id, out _data);
+        //....
     }
 }
 </code></pre>
-<p>While having an explicit service class will make it easier to expand in the future,
-you <em>can</em> omit the type parameter to use the default if you have no other persistent
-data to store for your game:</p>
-<pre><code class="lang-cs">public class CardGameModule : MpGameModuleBase&lt;CardGame, CardPlayer&gt;
-{
-    public CardGameModule(MpGameService&lt;CardGame, CardPlayer&gt; service)
-        : base(service)
-    {
-    }
-}
-</code></pre>
-<p>Example implementations for the abstract methods can be found
-<a class="xref" href="../../api/Discord.Addons.MpGame.MpGameModuleBase-3.html">on the API documentation page</a>.
-An extensive example can be found as my implementation of
-<a href="https://github.com/Joe4evr/MechHisui/tree/master/src/MechHisui.SecretHitler">Secret Hitler</a>.</p>
-<h3 id="inheriting-a-different-modulebase">Inheriting a different ModuleBase</h3>
-<p>To aid in composability, starting in version 1.2.0, <code>MpGameModuleBase&lt;&gt;</code>
-is decoupled from the <code>MpGameService&lt;&gt;</code>. So if you wish to combine MpGame
-with a different ModuleBase (or inherit only <code>ModuleBase&lt;T&gt;</code> directly),
-you can do that by</p>
-<ol>
-<li>injecting the instance of the service into your module</li>
-<li>overriding <code>BeforeExecute()</code> where you can call <code>GetGameData()</code>
-to get the associated data for that context.</li>
-</ol>
 </article>
           </div>
           
@@ -250,7 +184,7 @@ to get the associated data for that context.</li>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/docs/guides/mpgame/modules.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/MpGame4/docs/guides/mpgame/preconditions.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

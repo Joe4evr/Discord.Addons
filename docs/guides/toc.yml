@@ -14,7 +14,7 @@
       topicUid: Addons.MpGame.Modules
     - name: 6 - Final step
       topicUid: Addons.MpGame.Final
-    - name: 7 - Extra considerations
-      topicUid: Addons.MpGame.Extra
+    - name: 7 - Preconditions
+      topicUid: Addons.MpGame.Preconditions
     - name: 8 - Specialized types
       topicUid: Addons.MpGame.Specialized

@@ -16,14 +16,14 @@
     <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <TargetFrameworks>netstandard2.1;netcoreapp3.1</TargetFrameworks>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <Nullable>Enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
     <DnetMajor>2</DnetMajor>
     <DnetMinor>2</DnetMinor>
 
-    <MpGameMajor>3</MpGameMajor>
+    <MpGameMajor>4</MpGameMajor>
     <MpGameSuffix>dev1</MpGameSuffix>
     <PreconMajor>2</PreconMajor>
     <PreconSuffix>dev4</PreconSuffix>

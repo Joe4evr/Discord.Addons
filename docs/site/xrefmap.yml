@@ -22,6 +22,9 @@ references:
 - uid: Addons.MpGame.Players
   name: Players
   href: guides/mpgame/players.html
+- uid: Addons.MpGame.Preconditions
+  name: Preconditions
+  href: guides/mpgame/preconditions.html
 - uid: Addons.MpGame.Services
   name: Services
   href: guides/mpgame/services.html

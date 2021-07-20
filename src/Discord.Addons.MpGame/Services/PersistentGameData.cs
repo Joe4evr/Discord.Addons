@@ -143,7 +143,7 @@ namespace Discord.Addons.MpGame
             {
                 if (other is null) return null;
 
-                if (!(other is MpGameData data))
+                if (other is not MpGameData data)
                 {
                     data = new MpGameData
                     {

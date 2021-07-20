@@ -1,6 +1,6 @@
-﻿//using System;
+﻿//#if NET6_0_OR_GREATER
+//using System;
 //using System.Threading.Tasks;
-//using Microsoft.Extensions.DependencyInjection;
 //using Discord.Commands;
 
 //namespace Discord.Addons.MpGame
@@ -8,15 +8,11 @@
 //    public abstract partial class MpGameModuleBase<TService, TGame, TPlayer>
 //    {
 //        //[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-//        private sealed class RequireGameOrganizerAttribute : MpGamePreconditionAttribute //: PreconditionAttribute
+//        private sealed class RequireGameOrganizerAttribute //: PreconditionAttribute
 //        {
-//            public /* override */ Task<PreconditionResult> CheckPermissions(
+//            public /* override */ Task<PreconditionResult> CheckPermissionsAsync(
 //                ICommandContext context, CommandInfo _, IServiceProvider services)
 //            {
-//                //var service = services.GetService<TService>();
-//                //if (service is null)
-//                //    return Task.FromResult(PreconditionResult.FromError("No service."));
-
 //                var result = GetGameData(context, services);
 //                if (!result.IsSuccess(out var data))
 //                    return Task.FromResult(PreconditionResult.FromError(result.Message));
@@ -28,3 +24,4 @@
 //        }
 //    }
 //}
+//#endif

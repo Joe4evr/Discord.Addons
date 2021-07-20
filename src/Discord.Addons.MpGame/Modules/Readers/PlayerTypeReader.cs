@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Discord.Commands;
 using Discord.Rest;
 using Discord.WebSocket;
-using Discord.Addons.Core;
 
 namespace Discord.Addons.MpGame
 {
