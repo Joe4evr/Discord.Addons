@@ -21,7 +21,8 @@ namespace Discord.Addons.MpGame.Remotes
         where TGame : GameBase<TPlayer>
         where TPlayer : Player
     {
-        public override Task<GameData> GetGameData(CommandContext request, ServerCallContext context)
+        public override Task<GameData> GetGameData(
+            CommandContext request, ServerCallContext context)
         {
             return base.GetGameData(request, context);
         }

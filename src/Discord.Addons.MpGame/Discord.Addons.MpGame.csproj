@@ -13,6 +13,7 @@
   <ItemGroup>
     <!--<PackageReference Include="JiiLib.Constraints" Version="1.0.0-rc1" />
     <Analyzer Include="JiiLib.Constraints" />-->
+    <!--<PackageReference Include="Nito.AsyncEx.Coordination" Version="5.1.0" />-->
   </ItemGroup>
   <ItemGroup>
     <None Include="Documentation\*.md" />

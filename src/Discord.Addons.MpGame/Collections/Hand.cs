@@ -50,7 +50,7 @@ namespace Discord.Addons.MpGame.Collections
             if (items is null)
                 ThrowHelper.ThrowArgNull(nameof(items));
 
-            _hand = new List<T>(items.Where(c => c != null).Distinct(ReferenceComparer<T>.Instance));
+            _hand = new List<T>(items.Where(c => c != null).Distinct<T>(ReferenceComparer.Instance));
         }
 
         /// <summary>

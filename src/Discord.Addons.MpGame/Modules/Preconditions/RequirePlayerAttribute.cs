@@ -8,6 +8,7 @@
 //{
 //    public abstract partial class MpGameModuleBase<TService, TGame, TPlayer>
 //    {
+//        [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
 //        protected sealed class RequirePlayerAttribute : PreconditionAttribute
 //        {
 //            public override Task<PreconditionResult> CheckPermissionsAsync(

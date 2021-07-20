@@ -4,16 +4,16 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Discord.Addons.MpGame
 {
-    internal sealed class ReferenceComparer<T> : IEqualityComparer<T>
+    internal sealed class ReferenceComparer : IEqualityComparer<object>
     {
-        public static IEqualityComparer<T> Instance { get; } = new ReferenceComparer<T>();
+        public static IEqualityComparer<object> Instance { get; } = new ReferenceComparer();
 
         private ReferenceComparer() { }
 
-        bool IEqualityComparer<T>.Equals([AllowNull] T x, [AllowNull] T y) 
+        bool IEqualityComparer<object>.Equals([AllowNull] object x, [AllowNull] object y) 
             => ReferenceEquals(x, y);
 
-        int IEqualityComparer<T>.GetHashCode(T obj)
+        int IEqualityComparer<object>.GetHashCode(object obj)
             => obj?.GetHashCode() ?? 0;
     }
 }

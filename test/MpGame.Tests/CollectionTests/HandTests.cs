@@ -14,7 +14,7 @@ namespace MpGame.Tests.CollectionTests
             [Fact]
             public void SeedingCtorThrowsOnNullSequence()
             {
-                var ex = Assert.Throws<ArgumentNullException>(() => new Hand<TestCard>(items: null));
+                var ex = Assert.Throws<ArgumentNullException>(() => new Hand<TestCard>(items: null!));
                 Assert.Equal(expected: "items", actual: ex.ParamName);
             }
 
@@ -22,8 +22,8 @@ namespace MpGame.Tests.CollectionTests
             public void SeedingCtorFiltersOutNulls()
             {
                 var seed = TestCard.Factory(5).ToArray();
-                seed[1] = null;
-                seed[3] = null;
+                seed[1] = null!;
+                seed[3] = null!;
                 var nulls = seed.Count(c => c is null);
                 var hand = new Hand<TestCard>(seed);
 
@@ -38,7 +38,7 @@ namespace MpGame.Tests.CollectionTests
             public void ThrowsOnNullCard()
             {
                 var hand = new Hand<TestCard>(TestCard.Factory(5));
-                var ex = Assert.Throws<ArgumentNullException>(() => hand.Add(item: null));
+                var ex = Assert.Throws<ArgumentNullException>(() => hand.Add(item: null!));
                 Assert.Equal(expected: "item", actual: ex.ParamName);
             }
 
@@ -101,7 +101,7 @@ namespace MpGame.Tests.CollectionTests
                 var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
 
-                var ex = Assert.Throws<ArgumentNullException>(() => hand.Order(orderFunc: null));
+                var ex = Assert.Throws<ArgumentNullException>(() => hand.Order(orderFunc: null!));
                 Assert.Equal(expected: "orderFunc", actual: ex.ParamName);
                 Assert.Equal(expected: priorSize, actual: hand.Count);
             }
@@ -112,7 +112,7 @@ namespace MpGame.Tests.CollectionTests
                 var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
 
-                var ex = Assert.Throws<InvalidOperationException>(() => hand.Order(orderFunc: cards => null));
+                var ex = Assert.Throws<InvalidOperationException>(() => hand.Order(orderFunc: cards => null!));
                 Assert.Equal(expected: PileErrorStrings.NewSequenceNull, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: hand.Count);
             }
@@ -180,7 +180,7 @@ namespace MpGame.Tests.CollectionTests
                 var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var priorSize = hand.Count;
 
-                var ex = Assert.Throws<ArgumentNullException>(() => hand.TakeFirstOrDefault(predicate: null));
+                var ex = Assert.Throws<ArgumentNullException>(() => hand.TakeFirstOrDefault(predicate: null!));
                 Assert.Equal(expected: "predicate", actual: ex.ParamName);
                 Assert.Equal(expected: priorSize, actual: hand.Count);
             }

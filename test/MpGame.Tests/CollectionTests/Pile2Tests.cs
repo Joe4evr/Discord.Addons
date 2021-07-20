@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Discord.Addons.MpGame.Collections;
 using Xunit;
 
@@ -11,20 +7,6 @@ namespace MpGame.Tests.CollectionTests
 {
     public sealed class Pile2Tests
     {
-        //public sealed class GetWrapperAndUpdate
-        //{
-        //    [Fact]
-        //    public void ThrowsOnReferenceTypeWrapper()
-        //    {
-        //        var pile = new WrappingTestPile(withPerms: PilePerms.None, items: TestCard.Factory(20));
-        //        var priorSize = pile.Count;
-
-        //        var ex = Assert.Throws<InvalidOperationException>(() => pile.IncrementCounterAt(index: 5));
-        //        Assert.Equal(expected: PileErrorStrings.WrapperTypeNotStruct, actual: ex.Message);
-        //        Assert.Equal(expected: priorSize, actual: pile.Count);
-        //    }
-        //}
-
         public sealed class GetWrapperAt
         {
             [Fact]

@@ -18,9 +18,11 @@ namespace Discord.Addons.MpGame.Collections
     /// </typeparam>
     /// <remarks>
     ///     <note type="warning">
-    ///         This type is for advanced scenarios only.
+    ///         This type is for advanced scenarios that require intercepting
+    ///         the insertion/removal of items (for example: a single
+    ///         pile that has mixed visibility of its contents).<br/>
     ///         Consider inheriting from <see cref="Pile{T}"/> directly
-    ///         for the most common use-cases.
+    ///         for the common use-cases.
     ///     </note>
     /// </remarks>
     public abstract class WrappingPile<T, TWrapper> : Pile<T>
@@ -30,9 +32,7 @@ namespace Discord.Addons.MpGame.Collections
         private static readonly Func<TWrapper, T> _truthyUnwrapper = w => w.Unwrap(true);
         private static readonly Func<TWrapper, T> _falseyUnwrapper = w => w.Unwrap(false);
 
-        private readonly PileLogic<TWrapper, T> _logic = new();
-
-        private readonly Func<T, TWrapper> _wrapper;
+        private readonly PileLogic<TWrapper, T> _logic;
 
         /// <inheritdoc />
         protected WrappingPile()
@@ -53,9 +53,8 @@ namespace Discord.Addons.MpGame.Collections
             if (items is null)
                 ThrowHelper.ThrowArgNull(nameof(items));
 
-            _wrapper = Wrap;
-
-            _logic.AddSequence((initShuffle ? ShuffleItems(items) : items), _wrapper);
+            _logic = new(Wrap, ShuffleItems);
+            _logic.AddSequence(items, initShuffle);
         }
 
         /// <summary>
@@ -78,7 +77,7 @@ namespace Discord.Addons.MpGame.Collections
             if (index >= Count)
                 ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.RetrievalTooHighP, nameof(index));
 
-            using (_rwlock.UsingReadLock())
+            using (_rwlock.AcquireReadLock())
             {
                 return ref _logic.GetValueRefAt(index);
             }
@@ -88,16 +87,16 @@ namespace Discord.Addons.MpGame.Collections
             => _logic.VCount;
 
         private protected sealed override void AddItemCore(T item)
-            => _logic.AddHead(Wrap(item));
+            => _logic.AddHead(item);
 
         private protected sealed override IEnumerable<T> AsEnumerableCore()
             => _logic.AsEnumerable(_falseyUnwrapper);
         private protected sealed override ImmutableArray<T> BrowseCore()
             => _logic.Browse(_falseyUnwrapper);
         private protected sealed override Task<ImmutableArray<T>> BrowseAndTakeCore(
-            Func<IReadOnlyDictionary<int, T>, Task<int[]>> selector,
+            Func<IReadOnlyDictionary<int, T>, Task<int[]?>> selector,
             Func<T, bool>? filter, bool shuffle)
-            => _logic.BrowseAndTakeAsync(selector, filter, ShuffleItems, _truthyUnwrapper, _wrapper, (CanShuffle && shuffle));
+            => _logic.BrowseAndTakeAsync(selector, filter, _truthyUnwrapper, (CanShuffle && shuffle));
 
         private protected sealed override ImmutableArray<T> ClearCore()
             => _logic.Clear(_truthyUnwrapper);
@@ -111,7 +110,7 @@ namespace Discord.Addons.MpGame.Collections
             => _logic.MultiDraw(amount, _truthyUnwrapper);
 
         private protected sealed override void InsertCore(T item, int index)
-            => _logic.InsertAt(Wrap(item), index);
+            => _logic.InsertAt(item, index);
         private protected sealed override T MillCore(Pile<T> targetPile)
             => _logic.Mill(_truthyUnwrapper, targetPile.Adder);
         private protected sealed override T PeekAtCore(int index)
@@ -119,11 +118,11 @@ namespace Discord.Addons.MpGame.Collections
         private protected sealed override ImmutableArray<T> PeekTopCore(int amount)
             => _logic.PeekTop(amount, _truthyUnwrapper);
         private protected sealed override void PutCore(T item)
-            => _logic.Put(Wrap(item));
+            => _logic.Put(item);
         private protected sealed override void PutBottomCore(T item)
-            => _logic.PutBottom(Wrap(item));
+            => _logic.PutBottom(item);
         private protected sealed override void ShuffleCore()
-            => _logic.Shuffle(ShuffleItems, _truthyUnwrapper, _wrapper);
+            => _logic.Shuffle(_truthyUnwrapper);
         private protected sealed override T TakeCore(int index)
             => _logic.TakeAt(index).Unwrap(true);
     }

@@ -6,11 +6,11 @@ namespace MpGame.Tests
 {
     internal interface ITestPileEvents
     {
-        event EventHandler<EventArgs> LastRemoveCalled;
-        event EventHandler<PutEventArgs> PutCalled;
-        event EventHandler<ShuffleEventArgs> ShuffleCalled;
+        event EventHandler<EventArgs>? LastRemoveCalled;
+        event EventHandler<PutEventArgs>? PutCalled;
+        event EventHandler<ShuffleEventArgs>? ShuffleCalled;
 
-        Func<IEnumerable<ITestCard>, IEnumerable<ITestCard>> ShuffleFuncOverride { set; }
+        Func<IEnumerable<ITestCard>, IEnumerable<ITestCard>>? ShuffleFuncOverride { set; }
     }
 
     //internal class PileEventArgs : EventArgs

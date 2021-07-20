@@ -9,10 +9,10 @@ namespace Discord.Addons.Core
     {
         [DebuggerStepThrough]
         internal static AcquiredReadLock UsingReadLock(this ReaderWriterLockSlim readerWriterLock)
-            => new AcquiredReadLock(readerWriterLock);
+            => new(readerWriterLock);
         [DebuggerStepThrough]
         internal static AcquiredWriteLock UsingWriteLock(this ReaderWriterLockSlim readerWriterLock)
-            => new AcquiredWriteLock(readerWriterLock);
+            => new(readerWriterLock);
         [DebuggerStepThrough]
         internal static async Task<AcquiredSemaphoreSlim> UsingSemaphore(this SemaphoreSlim semaphore)
         {

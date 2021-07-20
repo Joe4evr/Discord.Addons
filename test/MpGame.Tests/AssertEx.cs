@@ -13,8 +13,8 @@ namespace MpGame.Tests
             Action testCode)
             where T : EventArgs
         {
-            Assert.RaisedEvent<T> raised = null;
-            void handler(object s, T args) => raised = new Assert.RaisedEvent<T>(s, args);
+            Assert.RaisedEvent<T>? raised = null;
+            void handler(object? s, T args) => raised = new Assert.RaisedEvent<T>(s, args);
 
             attach(handler);
             testCode();
@@ -28,8 +28,8 @@ namespace MpGame.Tests
             Func<Task> testCode)
             where T : EventArgs
         {
-            Assert.RaisedEvent<T> raised = null;
-            void handler(object s, T args) => raised = new Assert.RaisedEvent<T>(s, args);
+            Assert.RaisedEvent<T>? raised = null;
+            void handler(object? s, T args) => raised = new Assert.RaisedEvent<T>(s, args);
 
             attach(handler);
             await testCode();

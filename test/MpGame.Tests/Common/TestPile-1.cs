@@ -34,22 +34,22 @@ namespace MpGame.Tests
         public override bool CanTake       => HasPerm(PilePerms.CanTake);
 
 
-        public event EventHandler<EventArgs> LastRemoveCalled;
+        public event EventHandler<EventArgs>? LastRemoveCalled;
         protected override void OnLastRemoved()
         {
             base.OnLastRemoved();
             LastRemoveCalled?.Invoke(this, EventArgs.Empty);
         }
 
-        public event EventHandler<PutEventArgs> PutCalled;
+        public event EventHandler<PutEventArgs>? PutCalled;
         protected override void OnPut(ITestCard card)
         {
             base.OnPut(card);
             PutCalled?.Invoke(this, new PutEventArgs(card));
         }
 
-        public Func<IEnumerable<ITestCard>, IEnumerable<ITestCard>> ShuffleFuncOverride { private get; set; }
-        public event EventHandler<ShuffleEventArgs> ShuffleCalled;
+        public Func<IEnumerable<ITestCard>, IEnumerable<ITestCard>>? ShuffleFuncOverride { private get; set; }
+        public event EventHandler<ShuffleEventArgs>? ShuffleCalled;
         protected override IEnumerable<ITestCard> ShuffleItems(IEnumerable<ITestCard> items)
         {
             var shuffled = (ShuffleFuncOverride is null)
@@ -68,7 +68,7 @@ namespace MpGame.Tests
     }
 
     [Flags]
-    internal enum PilePerms
+    public enum PilePerms
     {
         None          = 0,
         CanBrowse     = 1 << 0,

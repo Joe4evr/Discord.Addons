@@ -11,16 +11,26 @@ using Discord.Addons.Core;
 namespace Discord.Addons.MpGame.Collections
 {
     internal sealed class PileLogic<TIn, TOut>
+        where TOut : class
     {
+        private readonly Func<TOut, TIn> _wrapper;
+        private readonly Func<IEnumerable<TOut>, IEnumerable<TOut>> _shuffleFunc;
+
         private int _count = 0;
         private Node? _head = null;
         private Node? _tail = null;
 
-        public int VCount => Volatile.Read(ref _count);
+        internal int VCount => Volatile.Read(ref _count);
         private Node? VHead => Volatile.Read(ref _head);
         private Node? VTail => Volatile.Read(ref _tail);
 
-        public IEnumerable<TOut> AsEnumerable(Func<TIn, TOut> unwrapper)
+        internal PileLogic(Func<TOut, TIn> wrapper, Func<IEnumerable<TOut>, IEnumerable<TOut>> shuffleFunc)
+        {
+            _wrapper = wrapper;
+            _shuffleFunc = shuffleFunc;
+        }
+
+        internal IEnumerable<TOut> AsEnumerable(Func<TIn, TOut> unwrapper)
         {
             for (var n = VHead; n != null; n = n.Next)
             {
@@ -28,15 +38,12 @@ namespace Discord.Addons.MpGame.Collections
             }
         }
 
-        public ImmutableArray<TOut> Browse(Func<TIn, TOut> unwrapper)
+        internal ImmutableArray<TOut> Browse(Func<TIn, TOut> unwrapper)
             => GetAllInternal(clear: false, unwrapper);
 
-        public async Task<ImmutableArray<TOut>> BrowseAndTakeAsync(
-            Func<IReadOnlyDictionary<int, TOut>, Task<int[]>> selector,
-            Func<TOut, bool>? filter,
-            Func<IEnumerable<TOut>, IEnumerable<TOut>> shuffleFunc,
-            Func<TIn, TOut> unwrapper, Func<TOut, TIn> wrapper,
-            bool shouldShuffle)
+        internal async Task<ImmutableArray<TOut>> BrowseAndTakeAsync(
+            Func<IReadOnlyDictionary<int, TOut>, Task<int[]?>> selector,
+            Func<TOut, bool>? filter, Func<TIn, TOut> unwrapper, bool shouldShuffle)
         {
             var items = GetAllDictionary(unwrapper);
             var imm = Freeze(
@@ -44,12 +51,17 @@ namespace Discord.Addons.MpGame.Collections
                 VCount);
 
             var selection = await selector(imm).ConfigureAwait(false);
+
+            // 'items' gets mutated to remove the
+            // user's selection of item nodes
             var nodes = BuildSelection(this, selection, items, imm);
 
             if (shouldShuffle)
             {
-                Resequence(shuffleFunc(ImmutableArray.CreateRange(items.Values)), wrapper);
+                Resequence(_shuffleFunc(items.Values));
 
+                // We've reset all of the nodes here,
+                // so don't bother breaking them
                 return ImmutableArray.CreateRange(nodes.Select(n => unwrapper(n.Value)));
             }
             else
@@ -58,7 +70,7 @@ namespace Discord.Addons.MpGame.Collections
             }
 
             static Node[] BuildSelection(PileLogic<TIn, TOut> @this,
-                int[] sel, Dictionary<int, TOut> cs,
+                int[]? sel, Dictionary<int, TOut> cs,
                 IReadOnlyDictionary<int, TOut> ics)
             {
                 if (sel is null || sel.Length == 0)
@@ -73,19 +85,19 @@ namespace Discord.Addons.MpGame.Collections
 
                 for (int i = 0; i < un.Length; i++)
                 {
-                    var s = un[i];
-                    arr[i] = @this.GetNodeAt(s);
-                    cs.Remove(s);
+                    var selectedIndex = un[i];
+                    arr[i] = @this.GetNodeAt(selectedIndex);
+                    cs.Remove(selectedIndex);
                 }
 
                 return arr;
             }
         }
 
-        public ImmutableArray<TOut> Clear(Func<TIn, TOut> unwrapper)
+        internal ImmutableArray<TOut> Clear(Func<TIn, TOut> unwrapper)
             => GetAllInternal(clear: true, unwrapper);
 
-        public void Cut(int amount)
+        internal void Cut(int amount)
         {
             var oldHead = VHead!;
             var oldTail = VTail!;
@@ -101,13 +113,13 @@ namespace Discord.Addons.MpGame.Collections
             Volatile.Write(ref _tail, newTail);
         }
 
-        public TIn Draw()
+        internal TIn Draw()
             => Break(RemHead());
 
-        public TIn DrawBottom()
+        internal TIn DrawBottom()
             => Break(RemTail());
 
-        public ImmutableArray<TOut> MultiDraw(int amount, Func<TIn, TOut> unwrapper)
+        internal ImmutableArray<TOut> MultiDraw(int amount, Func<TIn, TOut> unwrapper)
         {
             var builder = ImmutableArray.CreateBuilder<TOut>(amount);
             var node = VHead!;
@@ -119,7 +131,7 @@ namespace Discord.Addons.MpGame.Collections
             return builder.MoveToImmutable();
         }
 
-        public void InsertAt(TIn item, int index)
+        internal void InsertAt(TOut item, int index)
         {
             if (index == 0)
                 AddHead(item);
@@ -129,7 +141,7 @@ namespace Discord.Addons.MpGame.Collections
                 AddAfter(GetNodeAt(index), item);
         }
 
-        public TOut Mill(Func<TIn, TOut> unwrapper, Action<TOut> targetAdder)
+        internal TOut Mill(Func<TIn, TOut> unwrapper, Action<TOut> targetAdder)
         {
             var millNode = Break(RemHead());
             var item = unwrapper(millNode);
@@ -137,10 +149,10 @@ namespace Discord.Addons.MpGame.Collections
             return item;
         }
 
-        public TIn PeekAt(int index)
+        internal TIn PeekAt(int index)
             => GetNodeAt(index).Value;
 
-        public ImmutableArray<TOut> PeekTop(int amount, Func<TIn, TOut> unwrapper)
+        internal ImmutableArray<TOut> PeekTop(int amount, Func<TIn, TOut> unwrapper)
         {
             var builder = ImmutableArray.CreateBuilder<TOut>(amount);
 
@@ -150,18 +162,16 @@ namespace Discord.Addons.MpGame.Collections
             return builder.MoveToImmutable();
         }
 
-        public void Put(TIn item)
+        internal void Put(TOut item)
             => AddHead(item);
 
-        public void PutBottom(TIn item)
+        internal void PutBottom(TOut item)
             => AddTail(item);
 
-        public void Shuffle(
-            Func<IEnumerable<TOut>, IEnumerable<TOut>> shuffleFunc,
-            Func<TIn, TOut> unwrapper, Func<TOut, TIn> wrapper)
-            => Resequence(shuffleFunc(GetAllInternal(clear: false, unwrapper)), wrapper);
+        internal void Shuffle(Func<TIn, TOut> unwrapper)
+            => Resequence(_shuffleFunc(GetAllInternal(clear: false, unwrapper)));
 
-        public TIn TakeAt(int index)
+        internal TIn TakeAt(int index)
             => Break(GetNodeAt(index));
 
         private Dictionary<int, TOut> GetAllDictionary(Func<TIn, TOut> unwrapper)
@@ -197,21 +207,24 @@ namespace Discord.Addons.MpGame.Collections
 
             return builder.ToImmutable();
         }
-        private void Resequence(IEnumerable<TOut> newSequence, Func<TOut, TIn> wrapper)
+        private void Resequence(IEnumerable<TOut> newSequence)
         {
             if (newSequence is null)
                 ThrowHelper.ThrowInvalidOp(PileErrorStrings.NewSequenceNull);
 
             Reset();
 
-            AddSequence(newSequence, wrapper);
+            AddSequence(newSequence, false);
         }
-        public void AddSequence(IEnumerable<TOut> sequence, Func<TOut, TIn> wrapper)
+        internal void AddSequence(IEnumerable<TOut> sequence, bool shuffle)
         {
-            foreach (var item in sequence.Distinct(ReferenceComparer<TOut>.Instance))
+            if (shuffle)
+                sequence = _shuffleFunc(sequence);
+
+            foreach (var item in sequence.Distinct<TOut>(ReferenceComparer.Instance))
             {
                 if (item != null)
-                    AddTail(wrapper(item));
+                    AddTail(item);
             }
         }
 
@@ -242,9 +255,9 @@ namespace Discord.Addons.MpGame.Collections
 
             return tmp;
         }
-        internal void AddHead(TIn item)
+        internal void AddHead(TOut item)
         {
-            var node = new Node(item);
+            var node = new Node(_wrapper(item));
             var oldHead = Interlocked.Exchange(ref _head, node);
             Interlocked.CompareExchange(ref _tail, value: node, comparand: null!);
             CountIncOne();
@@ -253,9 +266,9 @@ namespace Discord.Addons.MpGame.Collections
             if (oldHead != null)
                 oldHead.Previous = node;
         }
-        private void AddTail(TIn item)
+        private void AddTail(TOut item)
         {
-            var node = new Node(item);
+            var node = new Node(_wrapper(item));
             var oldTail = Interlocked.Exchange(ref _tail, node);
             Interlocked.CompareExchange(ref _head, value: node, comparand: null!);
             CountIncOne();
@@ -264,9 +277,9 @@ namespace Discord.Addons.MpGame.Collections
             if (oldTail != null)
                 oldTail.Next = node;
         }
-        private void AddAfter(Node node, TIn item)
+        private void AddAfter(Node node, TOut item)
         {
-            var tmp = new Node(item)
+            var tmp = new Node(_wrapper(item))
             {
                 Next = node.Next,
                 Previous = node

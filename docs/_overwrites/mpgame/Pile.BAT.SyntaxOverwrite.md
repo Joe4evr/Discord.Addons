@@ -3,7 +3,7 @@ uid: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTakeAsync(System.Func{Sys
 syntax:
   content: |
     public Task<ImmutableArray<T>> BrowseAndTakeAsync(
-        Func<IReadOnlyDictionary<int, T>, Task<int[]>> selector,
+        Func<IReadOnlyDictionary<int, T>, Task<int[]?>> selector,
         Func<T, bool>? filter = null,
         bool shuffle = false)
 ---

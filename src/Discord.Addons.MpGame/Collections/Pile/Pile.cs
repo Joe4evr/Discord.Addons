@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using Discord.Addons.Core;
+//using Nito.AsyncEx;
 
 namespace Discord.Addons.MpGame.Collections
 {
@@ -22,7 +23,7 @@ namespace Discord.Addons.MpGame.Collections
     {
         private static readonly Func<T, T> _noOpTransformer = _ => _;
 
-        private protected readonly ReaderWriterLockSlim _rwlock = new();
+        private protected readonly AsyncReaderWriterLock _rwlock = new();
         private readonly PileLogic<T, T> _logic = null!;
 
         /// <summary>
@@ -90,8 +91,8 @@ namespace Discord.Addons.MpGame.Collections
 
             if (!skipLogicInit)
             {
-                _logic = new PileLogic<T, T>();
-                _logic.AddSequence((initShuffle ? ShuffleItems(items) : items), _noOpTransformer);
+                _logic = new PileLogic<T, T>(_noOpTransformer, ShuffleItems);
+                _logic.AddSequence(items, initShuffle);
             }
         }
 
@@ -187,7 +188,7 @@ namespace Discord.Addons.MpGame.Collections
 
             static IEnumerable<T> Iterate(Pile<T> @this)
             {
-                using (@this._rwlock.UsingReadLock())
+                using (@this._rwlock.AcquireReadLock())
                 {
                     foreach (var item in @this.AsEnumerableCore())
                     {
@@ -211,7 +212,7 @@ namespace Discord.Addons.MpGame.Collections
             if (!CanBrowse)
                 ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoBrowse);
 
-            using (_rwlock.UsingReadLock())
+            using (_rwlock.AcquireReadLock())
             {
                 return BrowseCore();
             }
@@ -224,7 +225,8 @@ namespace Discord.Addons.MpGame.Collections
         ///     Requires <see cref="CanBrowse"/> and <see cref="CanTake"/>.
         /// </summary>
         /// <param name="selector">
-        ///     A function that returns an array of the indeces of the desired items.<br/>
+        ///     An asynchronous function that returns an array
+        ///     of the indeces of the desired items.<br/>
         ///     The key of each pair is the index of that item.<br/>
         ///     Returning a <see langword="null"/> or empty array is
         ///     considered choosing nothing and will return an empty array.
@@ -274,7 +276,7 @@ namespace Discord.Addons.MpGame.Collections
         ///     </code>
         /// </example>
         public async Task<ImmutableArray<T>> BrowseAndTakeAsync(
-            Func<IReadOnlyDictionary<int, T>, Task<int[]>> selector,
+            Func<IReadOnlyDictionary<int, T>, Task<int[]?>> selector,
             Func<T, bool>? filter = null, bool shuffle = false)
         {
             if (!(CanBrowse && CanTake))
@@ -282,17 +284,15 @@ namespace Discord.Addons.MpGame.Collections
             if (selector is null)
                 ThrowHelper.ThrowArgNull(nameof(selector));
 
-            using (_rwlock.UsingWriteLock())
+            using (_rwlock.AcquireWriteLock())
             {
-                //ReaderWriterLockSlim has thread affinity, so
-                //force continuation back onto *this* context.
                 return await BrowseAndTakeCore(selector, filter, shuffle).ConfigureAwait(true);
             }
         }
         private protected virtual Task<ImmutableArray<T>> BrowseAndTakeCore(
-            Func<IReadOnlyDictionary<int, T>, Task<int[]>> selector,
+            Func<IReadOnlyDictionary<int, T>, Task<int[]?>> selector,
             Func<T, bool>? filter, bool shuffle)
-            => _logic.BrowseAndTakeAsync(selector, filter, ShuffleItems, _noOpTransformer, _noOpTransformer, (CanShuffle && shuffle));
+            => _logic.BrowseAndTakeAsync(selector, filter, _noOpTransformer, (CanShuffle && shuffle));
 
         /// <summary>
         ///     Clears the entire pile and returns the items that were in it.<br/>
@@ -309,7 +309,7 @@ namespace Discord.Addons.MpGame.Collections
             if (!CanClear)
                 ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoClear);
 
-            using (_rwlock.UsingWriteLock())
+            using (_rwlock.AcquireWriteLock())
             {
                 return ClearCore();
             }
@@ -318,7 +318,8 @@ namespace Discord.Addons.MpGame.Collections
             => _logic.Clear(_noOpTransformer);
 
         /// <summary>
-        ///     Cuts the pile at a specified number of items from the top and places the taken items on the bottom.<br/>
+        ///     Cuts the pile at a specified number of items from
+        ///     the top and places the taken items on the bottom.<br/>
         ///     Requires <see cref="CanCut"/>.
         /// </summary>
         /// <param name="amount">
@@ -347,11 +348,15 @@ namespace Discord.Addons.MpGame.Collections
             if (amount == 0 || amount == Count)
                 return; //no changes
 
-            using (_rwlock.UsingWriteLock())
+            using (_rwlock.AcquireWriteLock())
             {
                 CutCore(amount);
             }
         }
+        /// <inheritdoc cref="Cut(Int32)"/>
+        /// <param name="index">
+        ///     The index of where to split.
+        /// </param>
         public void Cut(Index index)
             => Cut(index.GetOffset(Count));
         private protected virtual void CutCore(int amount)
@@ -377,7 +382,7 @@ namespace Discord.Addons.MpGame.Collections
             if (!CanDraw)
                 ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoDraw);
 
-            using (_rwlock.UsingWriteLock())
+            using (_rwlock.AcquireWriteLock())
             {
                 var tmp = DrawCore();
 
@@ -408,7 +413,7 @@ namespace Discord.Addons.MpGame.Collections
             if (!CanDrawBottom)
                 ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoDraw);
 
-            using (_rwlock.UsingWriteLock())
+            using (_rwlock.AcquireWriteLock())
             {
                 var tmp = DrawBottomCore();
 
@@ -451,7 +456,7 @@ namespace Discord.Addons.MpGame.Collections
             if (amount > Count)
                 ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.RetrievalTooHighP, nameof(amount));
 
-            using (_rwlock.UsingWriteLock())
+            using (_rwlock.AcquireWriteLock())
             {
                 var tmp = MultiDrawCore(amount);
 
@@ -495,11 +500,12 @@ namespace Discord.Addons.MpGame.Collections
             if (index > Count)
                 ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.InsertionTooHigh, nameof(index));
 
-            using (_rwlock.UsingWriteLock())
+            using (_rwlock.AcquireWriteLock())
             {
                 InsertCore(item, index);
             }
         }
+        /// <inheritdoc cref="InsertAt(T, Int32)"/>
         public void InsertAt(T item, Index index)
             => InsertAt(item, index.GetOffset(Count));
         private protected virtual void InsertCore(T item, int index)
@@ -541,8 +547,8 @@ namespace Discord.Addons.MpGame.Collections
             if (!targetPile.CanPut)
                 ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoPutTarget);
 
-            using (_rwlock.UsingWriteLock())
-            using (targetPile._rwlock.UsingWriteLock())
+            using (_rwlock.AcquireWriteLock())
+            using (targetPile._rwlock.AcquireWriteLock())
             {
                 var milled = MillCore(targetPile);
 
@@ -589,11 +595,12 @@ namespace Discord.Addons.MpGame.Collections
             if (Count == 0)
                 return null;
 
-            using (_rwlock.UsingReadLock())
+            using (_rwlock.AcquireReadLock())
             {
                 return PeekAtCore(index);
             }
         }
+        /// <inheritdoc cref="PeekAt(Int32)"/>
         public T? PeekAt(Index index)
             => PeekAt(index.GetOffset(Count));
         private protected virtual T PeekAtCore(int index)
@@ -632,7 +639,7 @@ namespace Discord.Addons.MpGame.Collections
             if (amount > Count)
                 ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.PeekAmountTooHigh, nameof(amount));
 
-            using (_rwlock.UsingReadLock())
+            using (_rwlock.AcquireReadLock())
             {
                 return PeekTopCore(amount);
             }
@@ -661,7 +668,7 @@ namespace Discord.Addons.MpGame.Collections
             if (item is null)
                 ThrowHelper.ThrowArgNull(nameof(item));
 
-            using (_rwlock.UsingWriteLock())
+            using (_rwlock.AcquireWriteLock())
             {
                 PutCore(item);
                 OnPut(item);
@@ -690,7 +697,7 @@ namespace Discord.Addons.MpGame.Collections
             if (item is null)
                 ThrowHelper.ThrowArgNull(nameof(item));
 
-            using (_rwlock.UsingWriteLock())
+            using (_rwlock.AcquireWriteLock())
             {
                 PutBottomCore(item);
             }
@@ -698,7 +705,6 @@ namespace Discord.Addons.MpGame.Collections
         private protected virtual void PutBottomCore(T item)
             => _logic.PutBottom(item);
 
-        //private protected Func<IEnumerable<T>, IEnumerable<T>> Shuffler { get; }
         /// <summary>
         ///     Reshuffles the pile using <see cref="ShuffleItems"/>.<br/>
         ///     Requires <see cref="CanShuffle"/>.
@@ -711,13 +717,13 @@ namespace Discord.Addons.MpGame.Collections
             if (!CanShuffle)
                 ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoShuffle);
 
-            using (_rwlock.UsingWriteLock())
+            using (_rwlock.AcquireWriteLock())
             {
                 ShuffleCore();
             }
         }
         private protected virtual void ShuffleCore()
-            => _logic.Shuffle(ShuffleItems, _noOpTransformer, _noOpTransformer);
+            => _logic.Shuffle(_noOpTransformer);
 
         /// <summary>
         ///     Takes an item from the given index.<br/>
@@ -745,7 +751,7 @@ namespace Discord.Addons.MpGame.Collections
             if (index >= Count)
                 ThrowHelper.ThrowArgOutOfRange(PileErrorStrings.RetrievalTooHighP, nameof(index));
 
-            using (_rwlock.UsingWriteLock())
+            using (_rwlock.AcquireWriteLock())
             {
                 var tmp = TakeCore(index);
 
@@ -755,6 +761,7 @@ namespace Discord.Addons.MpGame.Collections
                 return tmp;
             }
         }
+        /// <inheritdoc cref="TakeAt(Int32)"/>
         public T TakeAt(Index index)
             => TakeAt(index.GetOffset(Count));
         private protected virtual T TakeCore(int index)
@@ -771,6 +778,11 @@ namespace Discord.Addons.MpGame.Collections
         /// <returns>
         ///     A new sequence of the same items in randomized order.
         /// </returns>
+        /// <remarks>
+        ///     This implementation is a Fisher-Yates shuffle slightly
+        ///     adapted from <a href="https://stackoverflow.com/a/1262619">
+        ///     this StackOverflow answer</a>.
+        /// </remarks>
         protected virtual IEnumerable<T> ShuffleItems(IEnumerable<T> items)
         {
             var buffer = items.ToArray();
