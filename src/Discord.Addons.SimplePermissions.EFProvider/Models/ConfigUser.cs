@@ -9,24 +9,14 @@ namespace Discord.Addons.SimplePermissions
     /// <summary> </summary>
     public class ConfigUser
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /// <summary> </summary>
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         /// <summary> </summary>
-        //[Column(TypeName = "BIGINT")]
-        [NotMapped]
-        public ulong UserId
-        {
-            get => unchecked((ulong)_uid);
-            set => _uid = unchecked((long)value);
-        }
+        public ulong UserId { get; set; }
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Browsable(false)]
-        internal long _uid;
-
+        /// <summary> </summary>
         public override string ToString() => $"{base.ToString()} ({UserId})";
     }
 }

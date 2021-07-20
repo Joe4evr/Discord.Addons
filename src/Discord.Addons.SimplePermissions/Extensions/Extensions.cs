@@ -14,7 +14,7 @@ namespace Discord.Addons.SimplePermissions
             this IEnumerable<CommandInfo> commands,
             ICommandContext ctx,
             IServiceProvider svcs,
-            PermissionsService permsvc)
+            IPermissionConfig config)
         {
             var ret = new List<CommandInfo>();
             foreach (var cmd in commands)
@@ -25,7 +25,7 @@ namespace Discord.Addons.SimplePermissions
                     if (cmd.Module.Name == PermissionsModule.PermModuleName)
                     {
                         //using (var config = permsvc.ReadOnlyConfig)
-                        using (var config = permsvc.LoadConfig())
+                        //using (var config = permsvc.LoadConfig())
                         {
                             bool shouldHide = await config.GetHidePermCommands(ctx.Guild).ConfigureAwait(false);
                             if (cmd.Name != nameof(PermissionsModule.HelpCmd) && shouldHide)

@@ -8,6 +8,7 @@ using System.Diagnostics;
 #nullable disable warnings
 namespace Discord.Addons.SimplePermissions
 {
+    /// <summary> </summary>
     [NotMapped]
     public abstract class ConfigGuild<TGuild, TChannel, TUser>
         where TGuild : ConfigGuild<TChannel, TUser>
@@ -29,60 +30,36 @@ namespace Discord.Addons.SimplePermissions
         where TChannel : ConfigChannel<TUser>
         where TUser : ConfigUser
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /// <summary> </summary>
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         /// <summary> </summary>
-        [NotMapped]
-        public ulong GuildId
-        {
-            get => unchecked((ulong)_gid);
-            set => _gid = unchecked((long)value);
-        }
+        public ulong GuildId { get; set; }
 
         /// <summary> </summary>
-        [NotMapped]
-        public ulong ModRoleId
-        {
-            get => unchecked((ulong)_mid);
-            set => _mid = unchecked((long)value);
-        }
+        public ulong ModRoleId { get; set; }
 
         /// <summary> </summary>
-        [NotMapped]
-        public ulong AdminRoleId
-        {
-            get => unchecked((ulong)_aid);
-            set => _aid = unchecked((long)value);
-        }
+        public ulong AdminRoleId { get; set; }
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Browsable(false)]
-        internal long _gid;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Browsable(false)]
-        internal long _mid;
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Browsable(false)]
-        internal long _aid;
-
+        /// <summary> </summary>
         public bool UseFancyHelp { get; set; }
 
+        /// <summary> </summary>
         public bool HidePermCommands { get; set; }
 
         /// <summary> </summary>
         public ICollection<TChannel> Channels { get; set; }
     }
 
+    /// <summary> </summary>
     public class ConfigGuild<TUser> : ConfigGuild<ConfigChannel<TUser>, TUser>
         where TUser : ConfigUser
     {
     }
 
+    /// <summary> </summary>
     public class ConfigGuild : ConfigGuild<ConfigUser>
     {
     }

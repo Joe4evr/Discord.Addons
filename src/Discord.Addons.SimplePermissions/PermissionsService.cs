@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Discord.Commands;
 using Discord.WebSocket;
 using Discord.Addons.Core;
+using Techsola;
 
 namespace Discord.Addons.SimplePermissions
 {
@@ -17,67 +18,49 @@ namespace Discord.Addons.SimplePermissions
         private static readonly Emoji _litter = new Emoji("\uD83D\uDEAE");
 
         private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
-        //private readonly CachedConfig _cachedConfig;
+        private readonly IServiceProvider _serviceProvider;
 
         private BaseSocketClient SocketClient { get; }
         private Func<LogMessage, Task> Logger { get; }
-        private IConfigStore<IPermissionConfig> ConfigStore { get; }
         private ConcurrentDictionary<ulong, FancyHelpMessage> Helpmsgs { get; }
             = new ConcurrentDictionary<ulong, FancyHelpMessage>();
 
         internal CommandService CService { get; }
-        //internal IPermissionConfig ReadOnlyConfig => _cachedConfig;
 
         /// <summary> </summary>
-        /// <param name="configstore"></param>
         /// <param name="commands"></param>
         /// <param name="client"></param>
+        /// <param name="serviceProvider"></param>
         /// <param name="logAction"></param>
         public PermissionsService(
-            IConfigStore<IPermissionConfig> configstore,
             CommandService commands,
             BaseSocketClient client,
+            IServiceProvider serviceProvider,
             Func<LogMessage, Task>? logAction = null)
         {
             Logger = logAction ?? Extensions.NoOpLogger;
             Log(LogSeverity.Info, "Creating Permission service.");
 
-            ConfigStore  = configstore ?? throw new ArgumentNullException(nameof(configstore));
             CService     = commands    ?? throw new ArgumentNullException(nameof(commands));
             SocketClient = client      ?? throw new ArgumentNullException(nameof(client));
+            _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
 
             //client.Ready += CheckDuplicateModuleNames;
-            client.GuildAvailable   += GuildAvailable;
-            client.UserJoined       += UserJoined;
-            client.ChannelCreated   += ChannelCreated;
+            client.GuildAvailable += GuildAvailable;
+            client.UserJoined += UserJoined;
+            client.ChannelCreated += ChannelCreated;
             client.ChannelDestroyed += ChannelDestroyed;
             client.ReactionAdded    += ReactionAdded;
             client.MessageDeleted   += MessageDeleted;
         }
 
-        //public PermissionsService(
-        //    IConfigStore<IPermissionConfig> configstore,
-        //    CommandService commands,
-        //    DiscordShardedClient client,
-        //    Func<LogMessage, Task> logAction = null) : this(configstore, commands, logAction)
-        //{
-        //    ShardedClient = client ?? throw new ArgumentNullException(nameof(client));
-
-        //    client.GetShard(0).Ready += CheckDuplicateModuleNames;
-        //    client.GuildAvailable += GuildAvailable;
-        //    client.UserJoined += UserJoined;
-        //    client.ChannelCreated += ChannelCreated;
-        //    client.ChannelDestroyed += ChannelDestroyed;
-        //    client.ReactionAdded += ReactionAdded;
-        //    client.MessageDeleted += MessageDeleted;
-        //}
-
         #region PermissionEvents
         private Task GuildAvailable(SocketGuild guild)
         {
-            Task.Run(async () =>
+            AmbientTasks.Add(async () =>
             {
-                using var config = ConfigStore.Load();
+                using var scope = _serviceProvider.CreateScope();
+                using var config = scope.ServiceProvider.GetRequiredService<IPermissionConfig>();
                 await guild.DownloadUsersAsync().ConfigureAwait(false);
                 await config.AddNewGuild(guild, guild.Users).ConfigureAwait(false);
                 config.Save();
@@ -87,9 +70,10 @@ namespace Discord.Addons.SimplePermissions
 
         private Task UserJoined(SocketGuildUser user)
         {
-            Task.Run(async () =>
+            AmbientTasks.Add(async () =>
             {
-                using var config = ConfigStore.Load();
+                using var scope = _serviceProvider.CreateScope();
+                using var config = scope.ServiceProvider.GetRequiredService<IPermissionConfig>();
                 await config.AddUser(user).ConfigureAwait(false);
                 config.Save();
             });
@@ -98,11 +82,12 @@ namespace Discord.Addons.SimplePermissions
 
         private Task ChannelCreated(SocketChannel channel)
         {
-            Task.Run(async () =>
+            AmbientTasks.Add(async () =>
             {
                 if (channel is SocketTextChannel textChannel)
                 {
-                    using var config = ConfigStore.Load();
+                    using var scope = _serviceProvider.CreateScope();
+                    using var config = scope.ServiceProvider.GetRequiredService<IPermissionConfig>();
                     await config.AddChannel(textChannel).ConfigureAwait(false);
                     config.Save();
                 }
@@ -112,11 +97,12 @@ namespace Discord.Addons.SimplePermissions
 
         private Task ChannelDestroyed(SocketChannel channel)
         {
-            Task.Run(async () =>
+            AmbientTasks.Add(async () =>
             {
                 if (channel is SocketTextChannel textChannel)
                 {
-                    using var config = ConfigStore.Load();
+                    using var scope = _serviceProvider.CreateScope();
+                    using var config = scope.ServiceProvider.GetRequiredService<IPermissionConfig>();
                     await config.RemoveChannel(textChannel).ConfigureAwait(false);
                     config.Save();
                 }
@@ -125,33 +111,27 @@ namespace Discord.Addons.SimplePermissions
         }
         #endregion
 
-        private Task ReactionAdded(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
+        private Task ReactionAdded(
+            Cacheable<IUserMessage, ulong> message,
+            ISocketMessageChannel channel,
+            SocketReaction reaction)
         {
             Task.Run(async () =>
             {
-                if (!message.HasValue)
-                {
-                    await Log(LogSeverity.Debug, $"Message with id {message.Id} was not in cache.");
-                    return;
-                }
+                //if (!message.HasValue)
+                //{
+                //    await Log(LogSeverity.Debug, $"Message with id {message.Id} was not in cache.");
+                //    return;
+                //}
                 if (!reaction.User.IsSpecified)
                 {
                     await Log(LogSeverity.Debug, $"Reaction on message with id {message.Id} had invalid user.");
                     return;
                 }
 
-                var msg = message.Value;
-                var iclient = (SocketClient as IDiscordClient); //?? (ShardedClient as IDiscordClient);
-                if (reaction.UserId == iclient.CurrentUser.Id)
+                var msg = await message.GetOrDownloadAsync();
+                if (reaction.UserId == SocketClient.CurrentUser.Id)
                 {
-                    return;
-                }
-                if (msg.Author.Id == iclient.CurrentUser.Id
-                    && reaction.UserId == (await iclient.GetApplicationInfoAsync()).Owner.Id
-                    && reaction.Emote.Name == _litter.Name)
-                {
-
-                    await msg.DeleteAsync();
                     return;
                 }
 
@@ -159,36 +139,26 @@ namespace Discord.Addons.SimplePermissions
                 {
                     if (reaction.UserId != fhm.UserId)
                     {
-                        var _ = msg.RemoveReactionAsync(reaction.Emote, reaction.User.Value);
+                        _ = msg.RemoveReactionAsync(reaction.Emote, reaction.User.Value);
                         return;
                     }
 
-                    switch (reaction.Emote.Name)
+                    await (reaction.Emote.Name switch
                     {
-                        case FancyHelpMessage.SFirst:
-                            await fhm.First();
-                            break;
-                        case FancyHelpMessage.SBack:
-                            await fhm.Back();
-                            break;
-                        case FancyHelpMessage.SNext:
-                            await fhm.Next();
-                            break;
-                        case FancyHelpMessage.SLast:
-                            await fhm.Last();
-                            break;
-                        case FancyHelpMessage.SDelete:
-                            await fhm.Delete();
-                            break;
-                        default:
-                            break;
-                    }
+                        FancyHelpMessage.SFirst  => fhm.First(),
+                        FancyHelpMessage.SBack   => fhm.Back(),
+                        FancyHelpMessage.SNext   => fhm.Next(),
+                        FancyHelpMessage.SLast   => fhm.Last(),
+                        FancyHelpMessage.SDelete => fhm.Delete(),
+                        _ => Task.CompletedTask
+                    });
                 }
             });
             return Task.CompletedTask;
         }
 
-        private Task MessageDeleted(Cacheable<IMessage, ulong> message, ISocketMessageChannel channel)
+        private Task MessageDeleted(
+            Cacheable<IMessage, ulong> message, ISocketMessageChannel channel)
         {
             return Task.FromResult(Helpmsgs.TryRemove(message.Id, out _));
         }
@@ -221,7 +191,7 @@ namespace Discord.Addons.SimplePermissions
 
     //    }
 
-        internal IPermissionConfig LoadConfig() => ConfigStore.Load();
+        //internal IPermissionConfig LoadConfig() => ConfigStore.Load();
 
         internal Task Log(LogSeverity severity, string msg)
         {
@@ -236,9 +206,8 @@ namespace Discord.Addons.SimplePermissions
             return Task.CompletedTask;
         }
 
-        internal async Task<bool> SetGuildAdminRole(IRole role)
+        internal async Task<bool> SetGuildAdminRole(IRole role, IPermissionConfig config)
         {
-            using var config = ConfigStore.Load();
             await _lock.WaitAsync();
             var result = await config.SetGuildAdminRole(role).ConfigureAwait(false);
             config.Save();
@@ -246,9 +215,8 @@ namespace Discord.Addons.SimplePermissions
             return result;
         }
 
-        internal async Task<bool> SetGuildModRole(IRole role)
+        internal async Task<bool> SetGuildModRole(IRole role, IPermissionConfig config)
         {
-            using var config = ConfigStore.Load();
             await _lock.WaitAsync();
             var result = await config.SetGuildModRole(role).ConfigureAwait(false);
             config.Save();
@@ -256,9 +224,8 @@ namespace Discord.Addons.SimplePermissions
             return result;
         }
 
-        internal async Task<bool> AddSpecialUser(ITextChannel channel, IGuildUser user)
+        internal async Task<bool> AddSpecialUser(ITextChannel channel, IGuildUser user, IPermissionConfig config)
         {
-            using var config = ConfigStore.Load();
             await _lock.WaitAsync();
             var result = await config.AddSpecialUser(channel, user).ConfigureAwait(false);
             config.Save();
@@ -267,68 +234,56 @@ namespace Discord.Addons.SimplePermissions
             return result;
         }
 
-        internal async Task<bool> RemoveSpecialUser(ITextChannel channel, IGuildUser user)
+        internal async Task<bool> RemoveSpecialUser(ITextChannel channel, IGuildUser user, IPermissionConfig config)
         {
-            using var config = ConfigStore.Load();
             await _lock.WaitAsync();
             var result = await config.RemoveSpecialUser(channel, user).ConfigureAwait(false);
             config.Save();
-            //await ReadOnlyConfig.RemoveSpecialUser(channel, user).ConfigureAwait(false);
             _lock.Release();
             return result;
         }
 
-        internal async Task<bool> WhitelistModule(ITextChannel channel, ModuleInfo module)
+        internal async Task<bool> WhitelistModule(ITextChannel channel, ModuleInfo module, IPermissionConfig config)
         {
-            using var config = ConfigStore.Load();
             await _lock.WaitAsync();
             var result = await config.WhitelistModule(channel, module).ConfigureAwait(false);
             config.Save();
-            //await ReadOnlyConfig.WhitelistModule(channel, module).ConfigureAwait(false);
             _lock.Release();
             return result;
         }
 
-        internal async Task<bool> BlacklistModule(ITextChannel channel, ModuleInfo module)
+        internal async Task<bool> BlacklistModule(ITextChannel channel, ModuleInfo module, IPermissionConfig config)
         {
-            using var config = ConfigStore.Load();
             await _lock.WaitAsync();
             var result = await config.BlacklistModule(channel, module).ConfigureAwait(false);
             config.Save();
-            //await ReadOnlyConfig.BlacklistModule(channel, module).ConfigureAwait(false);
             _lock.Release();
             return result;
         }
 
-        internal async Task<bool> WhitelistModuleGuild(IGuild guild, ModuleInfo module)
+        internal async Task<bool> WhitelistModuleGuild(IGuild guild, ModuleInfo module, IPermissionConfig config)
         {
-            using var config = ConfigStore.Load();
             await _lock.WaitAsync();
             var result = await config.WhitelistModuleGuild(guild, module).ConfigureAwait(false);
             config.Save();
-            //await ReadOnlyConfig.WhitelistModuleGuild(guild, module).ConfigureAwait(false);
             _lock.Release();
             return result;
         }
 
-        internal async Task<bool> BlacklistModuleGuild(IGuild guild, ModuleInfo module)
+        internal async Task<bool> BlacklistModuleGuild(IGuild guild, ModuleInfo module, IPermissionConfig config)
         {
-            using var config = ConfigStore.Load();
             await _lock.WaitAsync();
             var result = await config.BlacklistModuleGuild(guild, module).ConfigureAwait(false);
             config.Save();
-            //await ReadOnlyConfig.BlacklistModuleGuild(guild, module).ConfigureAwait(false);
             _lock.Release();
             return result;
         }
 
-        internal async Task SetHidePermCommands(IGuild guild, bool newValue)
+        internal async Task SetHidePermCommands(IGuild guild, bool newValue, IPermissionConfig config)
         {
-            using var config = ConfigStore.Load();
             await _lock.WaitAsync();
             await config.SetHidePermCommands(guild, newValue).ConfigureAwait(false);
             config.Save();
-            //await ReadOnlyConfig.SetHidePermCommands(guild, newValue).ConfigureAwait(false);
             _lock.Release();
         }
 

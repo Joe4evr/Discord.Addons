@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Discord;
 using Discord.Commands;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable warnings
 namespace Discord.Addons.SimplePermissions
@@ -42,15 +43,21 @@ namespace Discord.Addons.SimplePermissions
         public DbSet<ConfigModule> Modules { get; set; }
 
         //Cross tables
+        /// <summary> </summary>
         public DbSet<ChannelUser<TChannel, TUser>> ChannelUsers { get; set; }
+        /// <summary> </summary>
         public DbSet<ChannelModule<TChannel, TUser>> ChannelModules { get; set; }
+        /// <summary> </summary>
         public DbSet<GuildModule<TGuild, TChannel, TUser>> GuildModules { get; set; }
 
-        internal IReadOnlyDictionary<string, ModuleInfo> ModuleInfos { get; set; }
+        private IReadOnlyDictionary<string, ModuleInfo> ModuleInfos { get; }
 
+        /// <summary> </summary>
         protected EFBaseConfigContext(DbContextOptions options)
             : base(options)
         {
+            //var cmds = options.FindExtension<EFCommandServiceExtension>()?.CommandService;
+            //ModuleInfos = (cmds?.Modules ?? Enumerable.Empty<ModuleInfo>()).ToDictionary(m => m.Name, StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary> </summary>
@@ -71,26 +78,32 @@ namespace Discord.Addons.SimplePermissions
             return Task.CompletedTask;
         }
 
+        /// <summary> </summary>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var longUlongConverter = new ValueConverter<ulong, long>(
+                ul => unchecked((long)ul),
+                l => unchecked((ulong)l));
+
+
             modelBuilder.Entity<TGuild>(guild =>
             {
-                guild.Property<long>("GuildSnowflake")
-                    .HasField(nameof(ConfigGuild._gid))
+                guild.Property(g => g.GuildId)
+                    .HasConversion(longUlongConverter)
                     .IsRequired(true);
 
-                guild.HasIndex("GuildSnowflake")
+                guild.HasIndex(g => g.GuildId)
                     .IsUnique(true);
 
-                guild.Property<long>("AdminRoleSnowflake")
-                    .HasField(nameof(ConfigGuild._aid))
+                guild.Property(g => g.AdminRoleId)
                     .HasDefaultValue(0L)
+                    .HasConversion(longUlongConverter)
                     .ValueGeneratedNever()
                     .IsRequired(true);
 
-                guild.Property<long>("ModRoleSnowflake")
-                    .HasField(nameof(ConfigGuild._mid))
+                guild.Property(g => g.ModRoleId)
                     .HasDefaultValue(0L)
+                    .HasConversion(longUlongConverter)
                     .ValueGeneratedNever()
                     .IsRequired(true);
 
@@ -101,11 +114,11 @@ namespace Discord.Addons.SimplePermissions
 
             modelBuilder.Entity<TChannel>(channel =>
             {
-                channel.Property<long>("ChannelSnowflake")
-                    .HasField(nameof(ConfigChannel._cid))
+                channel.Property(c => c.ChannelId)
+                    .HasConversion(longUlongConverter)
                     .IsRequired(true);
 
-                channel.HasIndex("ChannelSnowflake")
+                channel.HasIndex(c => c.ChannelId)
                     .IsUnique(true);
 
                 channel.HasMany(c => c.SpecialUsers);
@@ -115,11 +128,11 @@ namespace Discord.Addons.SimplePermissions
 
             modelBuilder.Entity<TUser>(user =>
             {
-                user.Property<long>("UserSnowflake")
-                    .HasField(nameof(ConfigUser._uid))
+                user.Property(u => u.UserId)
+                    .HasConversion(longUlongConverter)
                     .IsRequired(true);
 
-                user.HasIndex("UserSnowflake")
+                user.HasIndex(u => u.UserId)
                     .IsUnique(true);
             });
 
@@ -167,7 +180,7 @@ namespace Discord.Addons.SimplePermissions
         where TChannel : ConfigChannel<TUser>, new()
         where TUser : ConfigUser, new()
     {
-
+        /// <summary> </summary>
         public EFBaseConfigContext(DbContextOptions options)
             : base(options)
         {
@@ -182,7 +195,7 @@ namespace Discord.Addons.SimplePermissions
     public abstract class EFBaseConfigContext<TUser> : EFBaseConfigContext<ConfigChannel<TUser>, TUser>
         where TUser : ConfigUser, new()
     {
-
+        /// <summary> </summary>
         public EFBaseConfigContext(DbContextOptions options)
             : base(options)
         {
@@ -195,7 +208,7 @@ namespace Discord.Addons.SimplePermissions
     /// using the default Guild, Channel and User types. </summary>
     public abstract class EFBaseConfigContext : EFBaseConfigContext<ConfigUser>
     {
-
+        /// <summary> </summary>
         public EFBaseConfigContext(DbContextOptions options)
             : base(options)
         {

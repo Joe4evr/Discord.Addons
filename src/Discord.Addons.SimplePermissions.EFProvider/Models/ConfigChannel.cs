@@ -8,6 +8,7 @@ using System.Diagnostics;
 #nullable disable warnings
 namespace Discord.Addons.SimplePermissions
 {
+    /// <summary> </summary>
     [NotMapped]
     public abstract class ConfigChannel<TChannel, TUser>
         where TChannel : ConfigChannel<TUser>
@@ -29,24 +30,15 @@ namespace Discord.Addons.SimplePermissions
     public class ConfigChannel<TUser> : ConfigChannel<ConfigChannel<TUser>, TUser>
         where TUser : ConfigUser
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /// <summary> </summary>
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         /// <summary> </summary>
-        [NotMapped]
-        public ulong ChannelId
-        {
-            get => unchecked((ulong)_cid);
-            set => _cid = unchecked((long)value);
-        }
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Browsable(false)]
-        internal long _cid;
+        public ulong ChannelId { get; set; }
     }
 
+    /// <summary> </summary>
     public class ConfigChannel : ConfigChannel<ConfigUser>
     {
     }

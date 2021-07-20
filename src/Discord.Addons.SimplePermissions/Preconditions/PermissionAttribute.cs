@@ -35,11 +35,9 @@ namespace Discord.Addons.SimplePermissions
 
             var chan = (context.Channel as ITextChannel)!;
             var user = (context.User as IGuildUser)!;
-            var svc = services.GetService<PermissionsService>();
-            if (svc != null)
+            var config = services.GetService<IPermissionConfig>();
+            if (config != null)
             {
-                //using (var config = svc.ReadOnlyConfig)
-                using var config = svc.LoadConfig();
                 var adminRoleId = config.GetGuildAdminRole(context.Guild)?.Id;
                 var modRoleId = config.GetGuildModRole(context.Guild)?.Id;
 

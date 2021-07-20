@@ -271,6 +271,7 @@ namespace Discord.Addons.SimplePermissions
         }
 
 
+        /// <summary> </summary>
         public void Save() => SaveChanges();
 
 
@@ -281,6 +282,10 @@ namespace Discord.Addons.SimplePermissions
                 GuildId = guild.Id,
                 AdminRoleId = 0ul,
                 ModRoleId = 0ul,
+                Channels = new List<TChannel>(),
+                WhiteListedModules = new List<GuildModule<ConfigGuild<TChannel, TUser>, TChannel, TUser>>(),
+                UseFancyHelp = true,
+                HidePermCommands = false
             };
 
             var tChannels = await guild.GetTextChannelsAsync().ConfigureAwait(false);
@@ -292,7 +297,12 @@ namespace Discord.Addons.SimplePermissions
 
         private async Task<TChannel> AddChannelInternal(ITextChannel channel)
         {
-            var cChannel = new TChannel { ChannelId = channel.Id };
+            var cChannel = new TChannel
+            {
+                ChannelId = channel.Id,
+                SpecialUsers = new List<ChannelUser<ConfigChannel<TUser>, TUser>>(),
+                WhiteListedModules = new List<ChannelModule<ConfigChannel<TUser>, TUser>>()
+            };
             await OnChannelAdd(cChannel, channel).ConfigureAwait(false);
             return cChannel;
         }

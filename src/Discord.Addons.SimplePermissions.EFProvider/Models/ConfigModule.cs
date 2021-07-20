@@ -7,8 +7,8 @@ namespace Discord.Addons.SimplePermissions
     /// <summary> </summary>
     public sealed class ConfigModule
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /// <summary> </summary>
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         /// <summary> </summary>
