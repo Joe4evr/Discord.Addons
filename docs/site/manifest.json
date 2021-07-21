@@ -9,10 +9,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.CircularLinkedList-1.html",
-          "hash": "hjdLtuO64b3WHK4+6IeaqgHBdw526BkON9rwB+0pous="
+          "hash": "9iLA5KVBjVV/dnn/cUyRmzKU/vWEAMxo3UJchV9xS/c="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -21,10 +21,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.Hand-1.html",
-          "hash": "lQQcuVIutPP4pOPA9Ao6D+UViuuiLfcMFKH/fwLgnbQ="
+          "hash": "4bBaFMqXTaa4eRZ+76UZfHSl/9Tzmim4/LJgxGCb/6g="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -33,10 +33,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.IWrapper-1.html",
-          "hash": "5TLfjegjltDTzRMpeQETTNPyfiXkbNlEuEJVuiFQlQU="
+          "hash": "meG2NsSDJF0XlbLtU32/YDC4Ealvr5I5xrC7laOvlxc="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -45,10 +45,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.Node-1.html",
-          "hash": "IzjcqRsANCOClsH+PFhOyaTHBmdLHkayOJRf7BPLOvk="
+          "hash": "AEtnYVAsI+tE0K/R/oOF0N+WSf8ppU1SA5QkCjKgvf0="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -57,10 +57,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.Pile-1.html",
-          "hash": "/PnTy19uzYhBFYmFM5xQvRl3IGbgcnphXkjeHkbvejo="
+          "hash": "2IfDps1hi1Q/oCFwh4W5M0ThG4bbKnjTTHg41cr9bx0="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -69,10 +69,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.WrappingPile-2.html",
-          "hash": "7Mr208tRUsqVUt7lVXbVvaLSlLck74N0cxTBBdyOdR4="
+          "hash": "bm0abrpSPByts9C3PF/vHABdI6H3tk0G6QZXB4hLVnw="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -81,10 +81,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Collections.html",
-          "hash": "IKLYzyXhjihS7xaTzFSyvbYIM4vUxal3pNZYNx4j8fA="
+          "hash": "OWuxljugrt9nXKA+02uF9+NbZITgcDEMKnP+EpyI8HA="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -93,10 +93,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.CurrentlyPlaying.html",
-          "hash": "E7tWhXGc6PmrcptTzugRwf7DydIVGVvw8khQhguvu1U="
+          "hash": "CwUmJEvX1z9v8RzScdrNupXAmBA8grRTIuwxsSWB9N8="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -105,10 +105,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.GameBase-1.html",
-          "hash": "FS+g2mLajTtrivcjPhJuU5Kqu4AcNeE057ya2CVKr2k="
+          "hash": "NwzRuAsqHd5wxxZwy2ZhbhHGY3iVuD1XhiARefTdGC8="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -117,10 +117,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.IMpGameData.html",
-          "hash": "eTTuuCZNCGTRjCt9iPaKkhKo70sgQ78gErOOG8sWjD4="
+          "hash": "4ygS1RdOyfIyd61YVGZGn2H7iUbQ25nv1XmsOBXhwAY="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -129,10 +129,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.MpGameModuleBase-3.html",
-          "hash": "iDmxKoAdlIuxXZgwNQ1ylBCWEQvl5xc346AT0/GSqv0="
+          "hash": "KDEjcs01JmxvFcIiT20szbkrwVntzRW3ecC0ZTzKoQU="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -141,10 +141,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.MpGameService-2.MpGameData.html",
-          "hash": "hteJofn6ReTjCzSDVBZxGSMDmY91UWRQNCqYd3W1vtk="
+          "hash": "RnOr7EdYSh3r3XzoiY4Kqs42wHqbVhFIrVCpbr4KzzU="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -153,10 +153,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.MpGameService-2.html",
-          "hash": "gols4KcP6DsUErBSMxIzMmlPD69uK19rnLxGm0hR+sI="
+          "hash": "9oEGPxBq4BeOK72SuwftFSOKUFboSoFFiNojYGB0m54="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -165,10 +165,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.Player.html",
-          "hash": "fmVtoU7R3pveJY1m92lAdIJHVWwQ2wr6gBUKKD3Vfw4="
+          "hash": "zHPvDhZ+UQ8I2WamOyLwxCuZWLvMSRhD1XznC9sfaxw="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -177,10 +177,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.MpGame.html",
-          "hash": "kx4Nemngy1W7JUKRRF+dUiGO8s592Lu741rJV7jWfD0="
+          "hash": "GYZkvHpQFtvZcpF+IJDsNQEJOfsD6ullRzNTIkmVMps="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -189,10 +189,10 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.Measure.html",
-          "hash": "p3wAoAhR96XaKzcaUHOQuPU2aJUl02aHD/nrpJZOdTc="
+          "hash": "Xe+xVXC1RqnuT+iZz6E2zVajh6Q6KsgmjkrHrS8R8fs="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -201,7 +201,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.MinimumOnlineUsersAttribute.html",
-          "hash": "yGPE8V/+A4r+u+OSwe7gNukwCBQhOmnLJfSHrn9gkWM="
+          "hash": "65th9ggikt4lo0KasLNe43YW6o40UEyALliwXLzvHUQ="
         }
       },
       "is_incremental": false,
@@ -213,7 +213,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.RatelimitAttribute.html",
-          "hash": "VzVQi8V1Oymb2WhfZZpsXKHpGHaJIPf4c2vvqjntQ0w="
+          "hash": "qvugu269valixztI0JWocDZJko/WsuGvpF9Ofqea9RA="
         }
       },
       "is_incremental": false,
@@ -225,7 +225,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.RatelimitFlags.html",
-          "hash": "Ltro3jypXVkar0AcljJRbxvE6P//PuBaQU+PC26Nlhs="
+          "hash": "mLXfiCo8qXTDTbhFmRbm+MlSVJUrwljSYE3eebne6vM="
         }
       },
       "is_incremental": false,
@@ -237,7 +237,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.RequireLowerHierarchyAttribute.html",
-          "hash": "JhFVHu60q7o52qtaxzVvlF3+8WZMTCIiPjcBc8m0KBE="
+          "hash": "cNHthOtoCiMAJA1fx+Ln6wIlRtRZUSk0VQyjUtX+tWA="
         }
       },
       "is_incremental": false,
@@ -249,7 +249,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.RequireRoleAttribute.html",
-          "hash": "9VMQhj8yaSHECtRMQSNnDzgcdX4Pxfql4BYO2Ml/sZE="
+          "hash": "PKv7jX50SxyrTcFPydr45Xi1GxryyRHAhDIbVsGrfHU="
         }
       },
       "is_incremental": false,
@@ -261,7 +261,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.UserMustBeInVoiceAttribute.html",
-          "hash": "leXZgCILeAAzVOstWb/qE1XFsXxuEC4i8cfGQ4bS/NM="
+          "hash": "HzuAoIXf72hnF1SAm1h3Kw/3X0BVykcKmr6UPVo7eRo="
         }
       },
       "is_incremental": false,
@@ -273,7 +273,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Discord.Addons.Preconditions.html",
-          "hash": "KbqC6V2IOoPKeciRb2ykPhfsKUY2ryaxejSlLvMKCQI="
+          "hash": "CPXY4QD/CWifr0Ne7q+gzrFpRXQk8pY5yN7JYrkGM28="
         }
       },
       "is_incremental": false,
@@ -285,10 +285,10 @@
       "output": {
         ".html": {
           "relative_path": "api/index.html",
-          "hash": "ouDsGNXOuWPRfig2rX1Fk7tYre8OFKfEDJXbnsaesCA="
+          "hash": "5CdEvoPzwlPXFLLCAZQ2Bn96Bsv33K59yKsq6Ap8WyQ="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -297,10 +297,10 @@
       "output": {
         ".html": {
           "relative_path": "articles/intro.html",
-          "hash": "YQJ+JJ1gS0ZyKv4igaXqCp0Yma7+wj7L+xqcdYbHpSE="
+          "hash": "tG76QeA6vDc6FHjc/hctEEJxKDoBilwhFL+PQRKj9b4="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -309,10 +309,10 @@
       "output": {
         ".html": {
           "relative_path": "guides/intro.html",
-          "hash": "oAkkdWs+XlUUOTVD9M3/L/pqaQrSYKmzidk3J0FAPIA="
+          "hash": "g1IGyqyP5cMm23P//omKrKMIKJAorCmUlECnlo0Zdn0="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -321,10 +321,10 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/extraconsiderations.html",
-          "hash": "R3QN+OsbEnNNBPqW9v8aCVtbCQMXdu5XCvdc1WEzasc="
+          "hash": "dOTed1CxNS4ZGjfNkSqUmFBbkMvaoWzywq9b4Tt0vDw="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -333,10 +333,10 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/finalstep.html",
-          "hash": "PMtkHW+NSVT/+ZltI+UIU34qqlCbRUrfnTHpODhasCA="
+          "hash": "p/9oO6uV5wZxsrDcB3r5JxOcaRi43/MeXbvQCa1/yZI="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -345,10 +345,10 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/games.html",
-          "hash": "F7Vp/TFwxEL7l/Mmd7TMC0XeKtWTt0Ptgr/1oQWTN/w="
+          "hash": "AdUSuDe1QhIXKVJMbAU54UdyYWM/u9FQMDHbaa1n1Fo="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -357,10 +357,10 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/intro.html",
-          "hash": "Fq0PAn4blU3o/FhS4xkqNTgIGe9UxutQ8fyYnCCW/l4="
+          "hash": "qz7PbO2QqvEHWeJ/x7s8nNM3Ega/cZfK/mY7ir5HkFA="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -369,10 +369,10 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/modules.html",
-          "hash": "y03bottIjaAoSG19jkqfKu0DG+CbSZqje30wzFv3mac="
+          "hash": "4f3b6BNC9RCIyV9DGC9wrJCHHNYqSHCUu3cwp4n//0s="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -381,10 +381,10 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/players.html",
-          "hash": "IgofUMDCJSlzHvkPpK25cI+NisvP9bWGqwWlRnemsmg="
+          "hash": "m+xpVZWAIXdfsn/V8BzyukwHYiCc8sfihpUtqTBc5FM="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -393,10 +393,10 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/preconditions.html",
-          "hash": "sEjYtqGmLgbGGKH0vnDKK0Eqa0VDwnNOKv3fUgL1ltU="
+          "hash": "0eFUz1fsGHE/yIbuq8Twxe6gYtAsDUchPDg1gav3pXM="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -405,10 +405,10 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/services.html",
-          "hash": "UNYF0duKrJvjqTQCXEAEXN0sOHu10rrvzeYkuVKRrd8="
+          "hash": "2PvzUCFVqItg2jXDjHwW1UKcX4WPyp74iMWDwjLBm9c="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -417,10 +417,10 @@
       "output": {
         ".html": {
           "relative_path": "guides/mpgame/specializedtypes.html",
-          "hash": "Xy5KYOasafFUaFq757djnWzo5NYnQ6Q4q6WY56SxSik="
+          "hash": "a7jBQQIz32W8sqds1VKd3ZVV1ZO+g0HjW8WjZPtZg/k="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -440,10 +440,10 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "ncJn1YJDw6APPtWD/W1D1Sy8/NDj9HwbFHtT+Ilmxt4="
+          "hash": "n+CU86rGXRzyrOpAnPFnjl066F/EQU08qk1vk24F2vU="
         }
       },
-      "is_incremental": true,
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -477,7 +477,7 @@
           "can_incremental": true,
           "incrementalPhase": "build",
           "total_file_count": 30,
-          "skipped_file_count": 25
+          "skipped_file_count": 30
         },
         "ResourceDocumentProcessor": {
           "can_incremental": false,

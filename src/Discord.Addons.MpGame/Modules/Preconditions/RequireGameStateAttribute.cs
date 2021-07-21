@@ -48,7 +48,7 @@ namespace Discord.Addons.MpGame
 
         /// <summary>
         ///     Checks the current state of a game
-        ///     by an Enum property.
+        ///     based on an Enum property.
         /// </summary>
         /// <remarks>
         ///     Requires the Game type to implement
