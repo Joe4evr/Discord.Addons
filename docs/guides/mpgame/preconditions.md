@@ -8,13 +8,13 @@ Starting with v4, when targeting .NET 6 or greater and using C# 10 or higher, a 
 
 * `[RequirePlayer]`: A command can only be invoked by a player in the current game.
 * `[RequireTurnPlayer]`: A command can only be invoked by the turn player in the current game.
-* `[GameStateBase]`: A command can only be invoked if the current game is in a specific state. This precondition is abstract, but one concrete implementation is included:
+* `[GameStatePrecondition]`: A command can only be invoked if the current game is in a specific state. This precondition is abstract, but one concrete implementation is included:
   * `[RequireSimpleGameState<TState>]`: Determines the current game state by an enum property. This requires that your game type also implements `ISimpleStateProvider<TState>`.
-  * If you wish to determine the current state in a custom way, you can write your own logic in a class that inherits from `[GameStateBase]`:
+  * If you wish to determine the current state in a custom way, you can write your own logic in a class that inherits from `GameStatePreconditionAttribute`:
   ```cs
   // It's easier to list the base type here through your own module type,
   // so that you don't have to write out all the type arguments.
-  public sealed class RequireElapsedTurnsAttribute : CardGameModule.GameStateBaseAttribute
+  public sealed class RequireElapsedTurnsAttribute : CardGameModule.GameStatePreconditionAttribute
   {
       private readonly int _minTurns;
       
@@ -28,9 +28,9 @@ Starting with v4, when targeting .NET 6 or greater and using C# 10 or higher, a 
       }
   }
   ```
-* `[GameStateParameterBase]`: A variation of the `GameStateBaseAttribute` for parameter preconditions. This precondition is also abstract. There are no implementations included, but it's not hard to build one:
+* `[GameStateParameterPrecondition]`: A variation of the `GameStatePreconditionAttribute` for parameter preconditions. This precondition is also abstract. There are no implementations included, but it's not hard to build one:
 ```cs
-public sealed class RequireLessThanCurrentDeckSizeAttribute : CardGameModule.GameStateParameterBaseAttribute
+public sealed class RequireLessThanCurrentDeckSizeAttribute : CardGameModule.GameStateParameterPreconditionAttribute
 {
     protected override Task<PreconditionResult> CheckValueAsync(TGame game, object value, ICommandContext context)
     {

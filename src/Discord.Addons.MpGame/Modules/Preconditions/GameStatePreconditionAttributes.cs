@@ -17,7 +17,7 @@ namespace Discord.Addons.MpGame
         ///     <see cref="RequireSimpleGameStateAttribute{TState}"/>.
         /// </remarks>
         [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
-        public abstract class GameStateBaseAttribute : PreconditionAttribute
+        public abstract class GameStatePreconditionAttribute : PreconditionAttribute
         {
             public sealed override Task<PreconditionResult> CheckPermissionsAsync(
                 ICommandContext context, CommandInfo _, IServiceProvider services)
@@ -55,7 +55,7 @@ namespace Discord.Addons.MpGame
         ///     <see cref="ISimpleStateProvider{TState}"/>.
         /// </remarks>
         [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
-        protected sealed class RequireSimpleGameStateAttribute<TState> : GameStateBaseAttribute
+        protected sealed class RequireSimpleGameStateAttribute<TState> : GameStatePreconditionAttribute
             where TState : struct, Enum
         {
             private readonly TState _state;
@@ -86,12 +86,8 @@ namespace Discord.Addons.MpGame
         ///     Base precondition to require a command parameter
         ///     be valid given the state a game is in to execute the command.
         /// </summary>
-        /// <remarks>
-        ///     The simplest implementation of this is
-        ///     <see cref="RequireSimpleGameStateAttribute{TState}"/>.
-        /// </remarks>
         [AttributeUsage(AttributeTargets.Parameter)]
-        public abstract class GameStateParameterBaseAttribute : ParameterPreconditionAttribute
+        public abstract class GameStateParameterPreconditionAttribute : ParameterPreconditionAttribute
         {
             public sealed override Task<PreconditionResult> CheckPermissionsAsync(
                 ICommandContext context, ParameterInfo parameter, object value, IServiceProvider services)

@@ -131,14 +131,14 @@
 <ul>
 <li><code>[RequirePlayer]</code>: A command can only be invoked by a player in the current game.</li>
 <li><code>[RequireTurnPlayer]</code>: A command can only be invoked by the turn player in the current game.</li>
-<li><code>[GameStateBase]</code>: A command can only be invoked if the current game is in a specific state. This precondition is abstract, but one concrete implementation is included:
+<li><code>[GameStatePrecondition]</code>: A command can only be invoked if the current game is in a specific state. This precondition is abstract, but one concrete implementation is included:
 <ul>
 <li><code>[RequireSimpleGameState&lt;TState&gt;]</code>: Determines the current game state by an enum property. This requires that your game type also implements <code>ISimpleStateProvider&lt;TState&gt;</code>.</li>
-<li>If you wish to determine the current state in a custom way, you can write your own logic in a class that inherits from <code>[GameStateBase]</code>:</li>
+<li>If you wish to determine the current state in a custom way, you can write your own logic in a class that inherits from <code>GameStatePreconditionAttribute</code>:</li>
 </ul>
 <pre><code class="lang-cs">// It's easier to list the base type here through your own module type,
 // so that you don't have to write out all the type arguments.
-public sealed class RequireElapsedTurnsAttribute : CardGameModule.GameStateBaseAttribute
+public sealed class RequireElapsedTurnsAttribute : CardGameModule.GameStatePreconditionAttribute
 {
     private readonly int _minTurns;
 
@@ -153,9 +153,9 @@ public sealed class RequireElapsedTurnsAttribute : CardGameModule.GameStateBaseA
 }
 </code></pre>
 </li>
-<li><code>[GameStateParameterBase]</code>: A variation of the <code>GameStateBaseAttribute</code> for parameter preconditions. This precondition is also abstract. There are no implementations included, but it's not hard to build one:</li>
+<li><code>[GameStateParameterPrecondition]</code>: A variation of the <code>GameStatePreconditionAttribute</code> for parameter preconditions. This precondition is also abstract. There are no implementations included, but it's not hard to build one:</li>
 </ul>
-<pre><code class="lang-cs">public sealed class RequireLessThanCurrentDeckSizeAttribute : CardGameModule.GameStateParameterBaseAttribute
+<pre><code class="lang-cs">public sealed class RequireLessThanCurrentDeckSizeAttribute : CardGameModule.GameStateParameterPreconditionAttribute
 {
     protected override Task&lt;PreconditionResult&gt; CheckValueAsync(TGame game, object value, ICommandContext context)
     {
