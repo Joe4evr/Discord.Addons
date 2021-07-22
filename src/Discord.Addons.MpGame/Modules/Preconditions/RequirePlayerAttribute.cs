@@ -12,17 +12,12 @@ namespace Discord.Addons.MpGame
         ///     Requires the user to be a player in the current game.
         /// </summary>
         [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
-        protected sealed class RequirePlayerAttribute : PreconditionAttribute
+        protected sealed class RequirePlayerAttribute : GameStatePreconditionAttribute
         {
-            public override Task<PreconditionResult> CheckPermissionsAsync(
-                ICommandContext context, CommandInfo _, IServiceProvider services)
+            protected override Task<PreconditionResult> CheckStateAsync(TGame game, ICommandContext _)
             {
-                var result = GetGameData(context, services);
-                if (!result.IsSuccess(out var data))
-                    return Task.FromResult(PreconditionResult.FromError(result.Message));
-
                 var authorId = context.User.Id;
-                return (data.Game is { } game && game.Players.Select(p => p.User.Id).Contains(authorId))
+                return (game.Players.Any(p => p.User.Id == authorId))
                     ? Task.FromResult(PreconditionResult.FromSuccess())
                     : Task.FromResult(PreconditionResult.FromError("User must be a Player in this game."));
             }
