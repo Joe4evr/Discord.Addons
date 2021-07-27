@@ -6,18 +6,24 @@
     <VersionSuffix>$(MpGameSuffix)</VersionSuffix>
     <Description>Base classes for text-based games in Discord</Description>
     <PackageTags>discord;commands;game</PackageTags>
-    <!--<TargetFrameworks>$(TargetFrameworks);net6.0</TargetFrameworks>-->
+    <LangVersion>preview</LangVersion>
+    <TargetFrameworks>$(TargetFrameworks);net6.0</TargetFrameworks>
   </PropertyGroup>
   <!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CodeAnalysisRuleSet>Discord.Addons.MpGame.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>-->
   <ItemGroup>
-    <!--<PackageReference Include="JiiLib.Constraints" Version="1.0.0-rc1" />
-    <Analyzer Include="JiiLib.Constraints" />-->
-    <!--<PackageReference Include="Nito.AsyncEx.Coordination" Version="5.1.0" />-->
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.3.1" PrivateAssets="all" />
+    <PackageReference Update="NETStandard.Library" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="tools\*.ps1" CopyToOutputDirectory="Always" Pack="True" PackagePath="tools" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Documentation\*.md" />
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="tools\" />
   </ItemGroup>
 </Project>

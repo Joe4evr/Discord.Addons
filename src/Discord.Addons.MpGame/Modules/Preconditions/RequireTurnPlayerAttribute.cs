@@ -10,15 +10,20 @@ namespace Discord.Addons.MpGame
         /// <summary>
         ///     Requires the user to be the turn player in the current game.
         /// </summary>
-        [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
-        protected sealed class RequireTurnPlayerAttribute : GameStatePreconditionAttribute
+        /// <remarks>
+        ///     <inheritdoc />
+        /// </remarks>
+        //[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
+        protected sealed class RequireTurnPlayerAttribute //: GameStatePreconditionAttribute
         {
-            protected override Task<PreconditionResult> CheckStateAsync(TGame game, ICommandContext _)
-            {
-                return (game.TurnPlayer.Value.User.Id == context.User.Id)
-                    ? Task.FromResult(PreconditionResult.FromSuccess())
-                    : Task.FromResult(PreconditionResult.FromError("Command can only be used by the turn player."));
-            }
+            //public override string? ErrorMessage { get; set; }
+
+            //protected override Task<PreconditionResult> CheckStateAsync(TGame game, ICommandContext _)
+            //{
+            //    return (game.TurnPlayer.Value.User.Id == context.User.Id)
+            //        ? Task.FromResult(PreconditionResult.FromSuccess())
+            //        : Task.FromResult(PreconditionResult.FromError(ErrorMessage ?? "Command can only be used by the turn player."));
+            //}
         }
     }
 }
