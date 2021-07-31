@@ -17,6 +17,7 @@ namespace Discord.Addons.MpGame
         //[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
         protected sealed class RequirePlayerAttribute //: GameStatePreconditionAttribute
         {
+            ///// <inheritdoc />
             //public override string? ErrorMessage { get; set; }
 
             //protected override Task<PreconditionResult> CheckStateAsync(TGame game, ICommandContext _)

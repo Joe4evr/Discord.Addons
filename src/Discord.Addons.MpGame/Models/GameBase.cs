@@ -36,7 +36,7 @@ namespace Discord.Addons.MpGame
             if (players is null) throw new ArgumentNullException(nameof(players));
             Channel = channel ?? throw new ArgumentNullException(nameof(channel));
 
-            Players = new CircularLinkedList<TPlayer>(players, MpGameComparers.PlayerComparer);
+            Players = new(players, MpGameComparers.PlayerComparer);
             TurnPlayer = setFirstPlayerImmediately ? Players.Head : Node<TPlayer>.CreateNextOnlyNode(Players.Head);
         }
 
@@ -144,11 +144,9 @@ namespace Discord.Addons.MpGame
         ///   <code language="c#">
         ///     protected override async Task OnPlayerKicked(CardPlayer player)
         ///     {
-        ///       var card = player.TakeCard(0);
-        ///       while (card != null)
+        ///       while (player.CardsInHand > 0)
         ///       {
-        ///         Deck.PutBottom(card);
-        ///         card = player.TakeCard(0);
+        ///         Deck.PutBottom(player.TakeCard(0));
         ///       }
         ///
         ///       await Channel.SendMessageAsync($"**{player.User.Username}** has left.");

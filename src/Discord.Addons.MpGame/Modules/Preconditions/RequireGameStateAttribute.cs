@@ -14,7 +14,6 @@ namespace Discord.Addons.MpGame
         /// <remarks>
         ///     Requires the Game type to implement
         ///     <see cref="ISimpleStateProvider{TState}"/>.
-        /////     <inheritdoc />
         /// </remarks>
         /// <typeparam name="TState">
         ///     The state type. This must be an <see langword="enum"/> type

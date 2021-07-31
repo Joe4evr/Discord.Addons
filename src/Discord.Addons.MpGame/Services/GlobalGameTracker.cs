@@ -32,9 +32,9 @@ namespace Discord.Addons.MpGame
 
         private GameTracker() { }
 
-        private readonly ConcurrentDictionary<ulong, string> _channelGames = new ConcurrentDictionary<ulong, string>();
+        private readonly ConcurrentDictionary<ulong, string> _channelGames = new();
 
-        private readonly ConcurrentDictionary<ulong, IMessageChannel> _dmList = new ConcurrentDictionary<ulong, IMessageChannel>();
+        private readonly ConcurrentDictionary<ulong, IMessageChannel> _dmList = new();
 
         /// <summary>
         ///     Determines whether the DM Channel tracker contains the specified key.

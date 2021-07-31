@@ -69,7 +69,7 @@ namespace Discord.Addons.MpGame
         {
             _client = client ?? throw new ArgumentNullException(nameof(client));
             _mpconfig = mpconfig ??
-#if NETCOREAPP3_0
+#if !NETCOREAPP3_1_OR_GREATER
                 IMpGameServiceConfig.Default;
 #else
                 IMpGameServiceConfig.DefaultConfig.Instance;

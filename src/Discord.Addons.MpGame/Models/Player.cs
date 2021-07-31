@@ -12,7 +12,7 @@ namespace Discord.Addons.MpGame
     /// </summary>
     public class Player
     {
-        private readonly Queue<(string text, Embed? embed)> _unsentDms = new Queue<(string, Embed?)>();
+        private readonly Queue<(string? text, Embed? embed)> _unsentDms = new();
 
         /// <summary>
         ///     Creates a <see cref="Player"/> out of an <see cref="IUser"/>.
@@ -44,7 +44,7 @@ namespace Discord.Addons.MpGame
         ///     Sends a message to this <see cref="Player"/>'s DM Channel and will cache the message if the user has DMs disabled.
         /// </summary>
         /// <param name="text">
-        ///     The text to send.
+        ///     If provided, the text to send.
         /// </param>
         /// <param name="embed">
         ///     If provided, an embed to send.
@@ -52,13 +52,13 @@ namespace Discord.Addons.MpGame
         /// <returns>
         ///     The message that is sent, or <see langword="null"/> if it couldn't be sent.
         /// </returns>
-        public async Task<IUserMessage?> SendMessageAsync(string text, Embed? embed = null)
+        public async Task<IUserMessage?> SendMessageAsync(string? text = null, Embed? embed = null)
         {
             try
             {
                 if (!User.IsBot)
                 {
-                    return await User.SendMessageAsync(text, embed: embed).ConfigureAwait(false);
+                    return await User.SendMessageAsync(text: text, embed: embed).ConfigureAwait(false);
                 }
             }
             catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
@@ -106,7 +106,7 @@ namespace Discord.Addons.MpGame
                 while (_unsentDms.Count > 0)
                 {
                     var (t, e) = _unsentDms.Peek();
-                    await User.SendMessageAsync(t, embed: e).ConfigureAwait(false);
+                    await User.SendMessageAsync(text: t, embed: e).ConfigureAwait(false);
                     _ = _unsentDms.Dequeue();
                 }
             }

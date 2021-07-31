@@ -21,7 +21,16 @@ namespace Discord.Addons.MpGame
         //[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
         public abstract class GameStatePreconditionAttribute //: PreconditionAttribute
         {
+            /// <summary>
+            ///     The error message desired if the game service was not found.<br/>
+            ///     If not provided, will use a default error message.
+            /// </summary>
             public string? NoServiceError { get; init; }
+
+            /// <summary>
+            ///     The error message desired if there was no game data available.<br/>
+            ///     If not provided, will use a default error message.
+            /// </summary>
             public string? NoGameError { get; init; }
 
             //public sealed override Task<PreconditionResult> CheckPermissionsAsync(
@@ -65,7 +74,16 @@ namespace Discord.Addons.MpGame
         //[AttributeUsage(AttributeTargets.Parameter)]
         public abstract class GameStateParameterPreconditionAttribute //: ParameterPreconditionAttribute
         {
+            /// <summary>
+            ///     The error message desired if the game service was not found.<br/>
+            ///     If not provided, will use a default error message.
+            /// </summary>
             public string? NoServiceError { get; init; }
+
+            /// <summary>
+            ///     The error message desired if there was no game data available.<br/>
+            ///     If not provided, will use a default error message.
+            /// </summary>
             public string? NoGameError { get; init; }
 
             //public sealed override Task<PreconditionResult> CheckPermissionsAsync(

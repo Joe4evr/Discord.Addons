@@ -323,7 +323,7 @@ namespace MpGame.Tests.CollectionTests
 
                 var priorSize = pile.Count;
                 bool selectorCalled = false;
-                ImmutableArray<ITestCard> picks;
+                ImmutableArray<ITestCard> picks = default;
                 var events = (ITestPileEvents)pile;
 
                 await AssertEx.DoesNotRaiseAsync<ShuffleEventArgs>(
@@ -400,7 +400,7 @@ namespace MpGame.Tests.CollectionTests
 
                 var priorSize = pile.Count;
                 bool selectorCalled = false;
-                ImmutableArray<ITestCard> picks;
+                ImmutableArray<ITestCard> picks = default;
                 var events = (ITestPileEvents)pile;
 
                 var ev = await Assert.RaisesAsync<ShuffleEventArgs>(
@@ -439,7 +439,7 @@ namespace MpGame.Tests.CollectionTests
                 var priorSize = pile.Count;
                 bool selectorCalled = false;
                 bool filterCalled = false;
-                ImmutableArray<ITestCard> picks;
+                ImmutableArray<ITestCard> picks = default;
                 var events = (ITestPileEvents)pile;
 
                 var ev = await Assert.RaisesAsync<ShuffleEventArgs>(

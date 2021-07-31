@@ -4,7 +4,7 @@ namespace Discord.Addons.MpGame
 {
     public partial interface IMpGameServiceConfig
     {
-#if NETCOREAPP3_0
+#if !NETCOREAPP3_1_OR_GREATER
         /// <summary>
         ///     The default config if none specified.
         /// </summary>
@@ -21,7 +21,7 @@ namespace Discord.Addons.MpGame
 #endif
             /// <inheritdoc/>
             ILogStrings IMpGameServiceConfig.LogStrings { get; }
-#if NETCOREAPP3_0
+#if !NETCOREAPP3_1_OR_GREATER
                 = ILogStrings.Default;
 #else
                 = ILogStrings.DefaultLogStrings.Instance;

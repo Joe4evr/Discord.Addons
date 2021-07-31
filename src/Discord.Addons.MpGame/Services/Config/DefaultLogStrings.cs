@@ -4,7 +4,7 @@ namespace Discord.Addons.MpGame
 {
     public partial interface ILogStrings
     {
-#if NETCOREAPP3_0
+#if !NETCOREAPP3_1_OR_GREATER
         /// <summary>
         ///     The default set of log strings if none specified.
         /// </summary>
