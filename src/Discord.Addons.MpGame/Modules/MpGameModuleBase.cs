@@ -94,7 +94,8 @@ namespace Discord.Addons.MpGame
         /// </summary>
         protected virtual bool RegisterPlayerTypeReader => true;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// </summary>
         protected override void OnModuleBuilding(CommandService commandService, ModuleBuilder builder)
         {
             base.OnModuleBuilding(commandService, builder);

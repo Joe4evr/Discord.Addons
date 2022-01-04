@@ -24,7 +24,8 @@ namespace Discord.Addons.Preconditions
             _requiredRole = requiredRole;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// </summary>
         public override async Task<PreconditionResult> CheckPermissionsAsync(
             ICommandContext context, CommandInfo command, IServiceProvider services)
         {

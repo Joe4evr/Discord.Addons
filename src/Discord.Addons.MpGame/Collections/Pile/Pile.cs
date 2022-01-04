@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using Discord.Addons.Core;
-//using Nito.AsyncEx;
 
 namespace Discord.Addons.MpGame.Collections
 {
@@ -91,7 +90,7 @@ namespace Discord.Addons.MpGame.Collections
 
             if (!skipLogicInit)
             {
-                _logic = new PileLogic<T, T>(_noOpTransformer, ShuffleItems);
+                _logic = new PileLogic<T, T>(this, _noOpTransformer);
                 _logic.AddSequence(items, initShuffle);
             }
         }
@@ -158,7 +157,6 @@ namespace Discord.Addons.MpGame.Collections
         public int Count => GetCount();
         private protected virtual int GetCount() => _logic.VCount;
 
-        internal Action<T> Adder => AddItemCore;
         private protected virtual void AddItemCore(T item) => _logic.AddHead(item);
 
         /// <summary>
@@ -267,7 +265,7 @@ namespace Discord.Addons.MpGame.Collections
         ///                 return await UserInput(num);
         ///             },
         ///             // Only pass in the red items
-        ///             filter: c => c.Color == itemColor.Red,
+        ///             filter: (c, i) => c.Color == itemColor.Red,
         ///             // Shuffle the pile afterwards
         ///             shuffle: true);
         ///             
@@ -277,7 +275,7 @@ namespace Discord.Addons.MpGame.Collections
         /// </example>
         public async Task<ImmutableArray<T>> BrowseAndTakeAsync(
             Func<IReadOnlyDictionary<int, T>, Task<int[]?>> selector,
-            Func<T, bool>? filter = null, bool shuffle = false)
+            Func<T, int, bool>? filter = null, bool shuffle = false)
         {
             if (!(CanBrowse && CanTake))
                 ThrowHelper.ThrowInvalidOp(PileErrorStrings.NoBrowseAndTake);
@@ -291,7 +289,7 @@ namespace Discord.Addons.MpGame.Collections
         }
         private protected virtual Task<ImmutableArray<T>> BrowseAndTakeCore(
             Func<IReadOnlyDictionary<int, T>, Task<int[]?>> selector,
-            Func<T, bool>? filter, bool shuffle)
+            Func<T, int, bool>? filter, bool shuffle)
             => _logic.BrowseAndTakeAsync(selector, filter, _noOpTransformer, (CanShuffle && shuffle));
 
         /// <summary>
@@ -559,7 +557,7 @@ namespace Discord.Addons.MpGame.Collections
             }
         }
         private protected virtual T MillCore(Pile<T> targetPile)
-            => _logic.Mill(_noOpTransformer, targetPile.Adder);
+            => _logic.Mill(_noOpTransformer, targetPile);
 
         //private ImmutableArray<TItem> MultiMill(Pile<TItem> targetPile, int amount)
         //{
@@ -767,6 +765,8 @@ namespace Discord.Addons.MpGame.Collections
         private protected virtual T TakeCore(int index)
             => _logic.TakeAt(index);
 
+        internal void AddInternal(T item) => AddItemCore(item);
+        internal IEnumerable<T> ShuffleInternal(IEnumerable<T> items) => ShuffleItems(items);
 
 
         /// <summary>
@@ -778,11 +778,6 @@ namespace Discord.Addons.MpGame.Collections
         /// <returns>
         ///     A new sequence of the same items in randomized order.
         /// </returns>
-        /// <remarks>
-        ///     This implementation is a Fisher-Yates shuffle slightly
-        ///     adapted from <a href="https://stackoverflow.com/a/1262619">
-        ///     this StackOverflow answer</a>.
-        /// </remarks>
         protected virtual IEnumerable<T> ShuffleItems(IEnumerable<T> items)
         {
             var buffer = items.ToArray();

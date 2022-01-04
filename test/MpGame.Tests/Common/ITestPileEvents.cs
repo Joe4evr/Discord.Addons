@@ -18,7 +18,7 @@ namespace MpGame.Tests
 
     //}
 
-    internal sealed class PutEventArgs : EventArgs
+    public sealed class PutEventArgs : EventArgs
     {
         public PutEventArgs(ITestCard card)
         {
@@ -28,7 +28,7 @@ namespace MpGame.Tests
         public ITestCard Card { get; }
     }
 
-    internal sealed class ShuffleEventArgs : EventArgs
+    public sealed class ShuffleEventArgs : EventArgs
     {
         public ShuffleEventArgs(
             IEnumerable<ITestCard> originalSequence,

@@ -8,8 +8,8 @@ namespace Discord.Addons.MpGame.Remotes
 {
     public sealed partial class GameData : IMpGameData
     {
-        ulong? IMpGameData.GameChannelId => (GameChannelId == 0ul) ? null : (ulong?)GameChannelId;
-        ulong? IMpGameData.PlayerUserId => (PlayerUserId == 0ul) ? null : (ulong?)PlayerUserId;
+        ulong? IMpGameData.GameChannelId => (GameChannelId == 0ul) ? null : GameChannelId;
+        ulong? IMpGameData.PlayerUserId => (PlayerUserId == 0ul) ? null : PlayerUserId;
         BasePlaying IMpGameData.GameInProgress => (BasePlaying)GameInProgress;
         IReadOnlyCollection<ulong> IMpGameData.JoinedUsers => JoinedUsers;
 

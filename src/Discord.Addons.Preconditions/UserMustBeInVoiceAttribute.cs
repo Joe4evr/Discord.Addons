@@ -20,7 +20,8 @@ namespace Discord.Addons.Preconditions
         {
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// </summary>
         public override async Task<PreconditionResult> CheckPermissionsAsync(
             ICommandContext context, CommandInfo command, IServiceProvider services)
         {

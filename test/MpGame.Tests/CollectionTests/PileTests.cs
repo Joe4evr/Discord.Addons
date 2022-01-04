@@ -174,7 +174,7 @@ namespace MpGame.Tests.CollectionTests
                 var priorSize = pile.Count;
                 var cards = pile.Browse();
 
-                Assert.False(cards.IsDefault);
+                Assert.False(cards.IsDefault, "Returned array was defaulted.");
                 Assert.NotEmpty(cards);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
                 Assert.Equal(expected: priorSize, actual: cards.Length);
@@ -188,8 +188,8 @@ namespace MpGame.Tests.CollectionTests
                 var cards = pile.Browse();
 
                 Assert.Equal(expected: 0, actual: pile.Count);
-                Assert.False(cards.IsDefault);
-                Assert.True(cards.IsEmpty);
+                Assert.False(cards.IsDefault, "Returned array was defaulted.");
+                Assert.Empty(cards);
             }
         }
 
@@ -209,7 +209,7 @@ namespace MpGame.Tests.CollectionTests
 
                         return Task.FromResult<int[]?>(new[] { 5, 10 });
                     }));
-                Assert.False(selectorCalled);
+                Assert.False(selectorCalled, "Selector function was called.");
                 Assert.Equal(expected: PileErrorStrings.NoBrowseAndTake, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
@@ -228,7 +228,7 @@ namespace MpGame.Tests.CollectionTests
 
                         return Task.FromResult<int[]?>(new[] { 5, 10 });
                     }));
-                Assert.False(selectorCalled);
+                Assert.False(selectorCalled, "Selector function was called.");
                 Assert.Equal(expected: PileErrorStrings.NoBrowseAndTake, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
@@ -274,7 +274,7 @@ namespace MpGame.Tests.CollectionTests
 
                         return Task.FromResult<int[]?>(new[] { 25 });
                     }));
-                Assert.True(selectorCalled);
+                Assert.True(selectorCalled, "Selector function was not called.");
                 Assert.Equal(expected: "Selected indeces '25' must be one of the provided item indices.", actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
@@ -302,10 +302,10 @@ namespace MpGame.Tests.CollectionTests
                         return Task.FromResult<int[]?>(new[] { 5, 10, 5, 10 });
                     });
 
-                Assert.True(selectorCalled);
-                Assert.False(picks.IsDefault);
+                Assert.True(selectorCalled, "Selector function was not called.");
+                Assert.False(picks.IsDefault, "Returned array was defaulted.");
                 Assert.NotEmpty(picks);
-                //Assert.Equal(expected: 2, actual: picks.Length);
+                Assert.Equal(expected: 2, actual: picks.Length);
                 Assert.Equal(expected: new[] { 6, 11 }, actual: picks.Select(c => c.Id));
                 Assert.Equal(expected: priorSize - 2, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
@@ -339,8 +339,8 @@ namespace MpGame.Tests.CollectionTests
                         },
                         shuffle: true));
 
-                Assert.True(selectorCalled);
-                Assert.False(picks.IsDefault);
+                Assert.True(selectorCalled, "Selector function was not called.");
+                Assert.False(picks.IsDefault, "Returned array was defaulted.");
                 Assert.NotEmpty(picks);
                 Assert.Equal(expected: new[] { 6, 11 }, actual: picks.Select(c => c.Id));
                 Assert.Equal(expected: priorSize - 2, actual: pile.Count);
@@ -365,22 +365,23 @@ namespace MpGame.Tests.CollectionTests
                     {
                         selectorCalled = true;
                         Assert.NotEmpty(cards);
-                        Assert.All(cards.Values, c => Assert.True(LessThanOrEqualToTenFilter(c)));
+                        Assert.All(cards.Values, c => Assert.True(LessThanOrEqualToTenFilter(c),
+                            $"Item passed that did not pass predicate. Value: '{c.Id}'"));
 
                         return Task.FromResult<int[]?>(new[] { 5 });
                     },
-                    filter: c =>
+                    filter: (c, _) =>
                     {
                         filterCalled = true;
 
                         return LessThanOrEqualToTenFilter(c);
                     });
 
-                Assert.True(selectorCalled);
-                Assert.True(filterCalled);
-                Assert.False(picks.IsDefault);
+                Assert.True(selectorCalled, "Selector function was not called.");
+                Assert.True(filterCalled, "Filter function was not called.");
+                Assert.False(picks.IsDefault, "Returned array was defaulted.");
                 Assert.NotEmpty(picks);
-                //Assert.Single(picks);
+                Assert.Single(picks);
                 Assert.Equal(expected: new[] { 6 }, actual: picks.Select(c => c.Id));
                 Assert.Equal(expected: priorSize - 1, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
@@ -417,8 +418,8 @@ namespace MpGame.Tests.CollectionTests
                         },
                         shuffle: true));
 
-                Assert.True(selectorCalled);
-                Assert.False(picks.IsDefault);
+                Assert.True(selectorCalled, "Selector function was not called.");
+                Assert.False(picks.IsDefault, "Returned array was defaulted.");
                 Assert.NotEmpty(picks);
                 Assert.Equal(expected: expectedSeq, actual: ev.Arguments.NewSequence.Select(c => c.Id));
                 Assert.Equal(expected: 2, actual: picks.Length);
@@ -454,7 +455,7 @@ namespace MpGame.Tests.CollectionTests
 
                             return Task.FromResult<int[]?>(new[] { cards.First().Key });
                         },
-                        filter: card =>
+                        filter: (card, _) =>
                         {
                             filterCalled = true;
 
@@ -462,9 +463,9 @@ namespace MpGame.Tests.CollectionTests
                         },
                         shuffle: true));
 
-                Assert.True(selectorCalled);
-                Assert.True(filterCalled);
-                Assert.False(picks.IsDefault);
+                Assert.True(selectorCalled, "Selector function was not called.");
+                Assert.True(filterCalled, "Filter function was not called.");
+                Assert.False(picks.IsDefault, "Returned array was defaulted.");
                 Assert.NotEmpty(picks);
                 Assert.Equal(expected: new[] { 1 }, actual: picks.Select(c => c.Id));
                 Assert.Equal(expected: priorSize - 1, actual: pile.Count);
@@ -492,9 +493,9 @@ namespace MpGame.Tests.CollectionTests
                         return Task.FromResult<int[]?>(Array.Empty<int>());
                     });
 
-                Assert.True(selectorCalled);
-                Assert.False(picks.IsDefault);
-                Assert.True(picks.IsEmpty);
+                Assert.True(selectorCalled, "Selector function was not called.");
+                Assert.False(picks.IsDefault, "Returned array was defaulted.");
+                Assert.Empty(picks);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
 
@@ -508,9 +509,9 @@ namespace MpGame.Tests.CollectionTests
                         return Task.FromResult((int[]?)null);
                     });
 
-                Assert.True(selectorCalled);
-                Assert.False(picks.IsDefault);
-                Assert.True(picks.IsEmpty);
+                Assert.True(selectorCalled, "Selector function was not called.");
+                Assert.False(picks.IsDefault, "Returned array was defaulted.");
+                Assert.Empty(picks);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
                 Assert.Equal(expected: expectedSeq, actual: pile.Browse().Select(c => c.Id));
             }
@@ -522,7 +523,7 @@ namespace MpGame.Tests.CollectionTests
             [MemberData(nameof(TheoryPiles), (PilePerms.All ^ PilePerms.CanClear), 20)]
             public void ThrowsWhenNotClearable(Pile<ITestCard> pile)
             {
-                Assert.False(pile.CanClear);
+                Assert.False(pile.CanClear, "Input pile had CanClear.");
                 var priorSize = pile.Count;
 
                 var ex = Assert.Throws<InvalidOperationException>(() => pile.Clear());
@@ -534,7 +535,7 @@ namespace MpGame.Tests.CollectionTests
             [MemberData(nameof(TheoryPiles), PilePerms.CanClear, 20)]
             public void ClearingEmptiesPile(Pile<ITestCard> pile)
             {
-                Assert.True(pile.CanClear);
+                Assert.True(pile.CanClear, "Input pile did not have CanClear.");
                 var priorSize = pile.Count;
                 var cleared = pile.Clear();
 
@@ -927,8 +928,8 @@ namespace MpGame.Tests.CollectionTests
                     };
 
                     source.Mill(target);
-                    Assert.True(lastRmCalled);
-                    Assert.True(putCalled);
+                    Assert.True(lastRmCalled, "OnLastRemove function was not called.");
+                    Assert.True(putCalled, "OnPut function was not called.");
                     Assert.Equal(expected: 1, actual: firstCall);
                     Assert.Equal(expected: sourceSize - 1, actual: source.Count);
                     Assert.Equal(expected: targetSize + 1, actual: target.Count);
@@ -1044,7 +1045,7 @@ namespace MpGame.Tests.CollectionTests
 
                 var peeked = pile.PeekTop(amount: 3);
 
-                Assert.False(peeked.IsDefault);
+                Assert.False(peeked.IsDefault, "Returned array was defaulted.");
                 Assert.Equal(expected: expectedSeq, actual: peeked.Select(c => c.Id));
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
@@ -1157,7 +1158,7 @@ namespace MpGame.Tests.CollectionTests
                 };
 
                 var ex = Assert.Throws<InvalidOperationException>(() => pile.Shuffle());
-                Assert.True(funcCalled);
+                Assert.True(funcCalled, "Shuffle function was not called.");
                 Assert.Equal(expected: PileErrorStrings.NewSequenceNull, actual: ex.Message);
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }

@@ -8,7 +8,7 @@
     <title>Preconditions </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Preconditions ">
-    <meta name="generator" content="docfx 2.58.0.0">
+    <meta name="generator" content="docfx 2.58.9.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -127,34 +127,46 @@
             <article class="content wrap" id="_content" data-uid="Addons.MpGame.Preconditions">
 <h2 id="preconditions">Preconditions</h2>
 
-<p>Starting with v4, when targeting .NET 6 or greater and using C# 10 or higher, a number of common preconditions can be used out of the box, through the magic of Generic Attributes. These preconditions are provided from the <code>MpGameModuleBase&lt;&gt;</code> class and include:</p>
+<p>Starting with v4, when targeting .NET 6 or greater and using a compatible language version, a number of common preconditions can be used out of the box, through the magic of Generic Attributes. These preconditions are provided from the <a class="xref" href="../../api/Discord.Addons.MpGame.MpGameModuleBase-3.html"><code>MpGameModuleBase&lt;&gt;</code></a> class and include:</p>
 <ul>
-<li><code>[RequirePlayer]</code>: A command can only be invoked by a player in the current game.</li>
-<li><code>[RequireTurnPlayer]</code>: A command can only be invoked by the turn player in the current game.</li>
-<li><code>[GameStatePrecondition]</code>: A command can only be invoked if the current game is in a specific state. This precondition is abstract, but one concrete implementation is included:
+<li><code>[RequirePlayer]</code>: A command can only be invoked by <strong>a</strong> player in the current game.</li>
+<li><code>[RequireTurnPlayer]</code>: A command can only be invoked by <strong>the turn player</strong> in the current game.</li>
+<li><code>[RequireGameState&lt;TState&gt;]</code>: A command can only be invoked if the current game is in a particular state as determined by an enum value. This precondition requires that your game type also implements <a class="xref" href="../../api/Discord.Addons.MpGame.ISimpleStateProvider-1.html"><code>ISimpleStateProvider&lt;TState&gt;</code></a>.
 <ul>
-<li><code>[RequireSimpleGameState&lt;TState&gt;]</code>: Determines the current game state by an enum property. This requires that your game type also implements <code>ISimpleStateProvider&lt;TState&gt;</code>.</li>
-<li>If you wish to determine the current state in a custom way, you can write your own logic in a class that inherits from <code>GameStatePreconditionAttribute</code>:</li>
+<li><code>[RequireGameStateOneOf&lt;TState&gt;]</code>: Variation of the above, but checks the state against one of multiple provided values.</li>
 </ul>
+</li>
+</ul>
+<p>Example:</p>
+<pre><code class="lang-cs">public class CardGameModule : MpGameModuleBase&lt;CardGameService, CardGame, CardPlayer&gt;
+{
+    [Command(&quot;demo&quot;)]
+    [RequireTurnPlayer] // Restrict to usage only by the turn player
+    [RequireSimpleGameState&lt;CardGameState&gt;(CardGameState.StartOfTurn)] // Restrict to usage only when it's the start of the turn
+    public async Task ExampleAction()
+    {
+        //.....
+    }
+}
+</code></pre>
+<p>All of these have the same base type: <code>GameStatePreconditionAttribute</code>, which you can also use to write a custom precondition.</p>
 <pre><code class="lang-cs">// It's easier to list the base type here through your own module type,
 // so that you don't have to write out all the type arguments.
 public sealed class RequireElapsedTurnsAttribute : CardGameModule.GameStatePreconditionAttribute
 {
-    private readonly int _minTurns;
-
-    public RequireElapsedTurnsAttribute(int minTurns) =&gt; _minTurns = minTurns;
-
-    protected override Task&lt;PreconditionResult&gt; CheckStateAsync(TGame game, ICommandContext context)
-    {
-        return (game.Turns &gt;= _minTurns)
-            ? Task.FromResult(PreconditionResult.FromSuccess())
-            : Task.FromResult(PreconditionResult.FromError(&quot;Not enough turns have elapsed yet.&quot;));
-    }
+  private readonly int _minTurns;
+  
+  public RequireElapsedTurnsAttribute(int minTurns) =&gt; _minTurns = minTurns;
+  
+  protected override Task&lt;PreconditionResult&gt; CheckStateAsync(CardGame game, ICommandContext context)
+  {
+      return (game.Turn &gt;= _minTurns)
+          ? Task.FromResult(PreconditionResult.FromSuccess())
+          : Task.FromResult(PreconditionResult.FromError(&quot;Not enough turns have elapsed yet.&quot;));
+  }
 }
 </code></pre>
-</li>
-<li><code>[GameStateParameterPrecondition]</code>: A variation of the <code>GameStatePreconditionAttribute</code> for parameter preconditions. This precondition is also abstract. There are no implementations included, but it's not hard to build one:</li>
-</ul>
+<p>There is also a variation for parameter preconditions; <code>GameStateParameterPreconditionAttribute</code>. There are no implementations included, but it's not hard to build one yourself:</p>
 <pre><code class="lang-cs">public sealed class RequireLessThanCurrentDeckSizeAttribute : CardGameModule.GameStateParameterPreconditionAttribute
 {
     protected override Task&lt;PreconditionResult&gt; CheckValueAsync(TGame game, object value, ICommandContext context)
@@ -165,13 +177,13 @@ public sealed class RequireElapsedTurnsAttribute : CardGameModule.GameStatePreco
     }
 }
 </code></pre>
-<p>The built-in preconditions can be easily applied when inside your module class:</p>
+<p>This can then be applied to a command that for example inserts a card into an arbitrary position of the deck:</p>
 <pre><code class="lang-cs">public class CardGameModule : MpGameModuleBase&lt;CardGameService, CardGame, CardPlayer&gt;
 {
-    [Command(&quot;demo&quot;)]
-    [RequireTurnPlayer] // Restrict to usage only by the turn player
-    [RequireSimpleGameState&lt;CardGameState&gt;(CardGameState.StartOfTurn)] // Restrict to usage only when it's the start of the turn
-    public Task SomeRestrictedCommand()
+    [Command(&quot;insert&quot;)]
+    [RequireTurnPlayer]
+    [RequireSimpleGameState&lt;CardGameState&gt;(CardGameState.InsertCard)]
+    public Task InsertCardCommand([RequireLessThanCurrentDeckSize] uint insertionIndex)
     {
         //....
     }

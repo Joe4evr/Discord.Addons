@@ -590,15 +590,15 @@ references:
   fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).Browse
   nameWithType: Pile<T>.Browse
   nameWithType.vb: Pile(Of T).Browse
-- uid: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTakeAsync(System.Func{System.Collections.Generic.IReadOnlyDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Boolean)
-  name: BrowseAndTakeAsync(Func<IReadOnlyDictionary<Int32, T>, Task<Int32[]>>, Func<T, Boolean>, Boolean)
-  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTakeAsync_System_Func_System_Collections_Generic_IReadOnlyDictionary_System_Int32__0__System_Threading_Tasks_Task_System_Int32_____System_Func__0_System_Boolean__System_Boolean_
-  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTakeAsync(System.Func{System.Collections.Generic.IReadOnlyDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Boolean},System.Boolean)
-  name.vb: BrowseAndTakeAsync(Func(Of IReadOnlyDictionary(Of Int32, T), Task(Of Int32())), Func(Of T, Boolean), Boolean)
-  fullName: Discord.Addons.MpGame.Collections.Pile<T>.BrowseAndTakeAsync(System.Func<System.Collections.Generic.IReadOnlyDictionary<System.Int32, T>, System.Threading.Tasks.Task<System.Int32[]>>, System.Func<T, System.Boolean>, System.Boolean)
-  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).BrowseAndTakeAsync(System.Func(Of System.Collections.Generic.IReadOnlyDictionary(Of System.Int32, T), System.Threading.Tasks.Task(Of System.Int32())), System.Func(Of T, System.Boolean), System.Boolean)
-  nameWithType: Pile<T>.BrowseAndTakeAsync(Func<IReadOnlyDictionary<Int32, T>, Task<Int32[]>>, Func<T, Boolean>, Boolean)
-  nameWithType.vb: Pile(Of T).BrowseAndTakeAsync(Func(Of IReadOnlyDictionary(Of Int32, T), Task(Of Int32())), Func(Of T, Boolean), Boolean)
+- uid: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTakeAsync(System.Func{System.Collections.Generic.IReadOnlyDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Int32,System.Boolean},System.Boolean)
+  name: BrowseAndTakeAsync(Func<IReadOnlyDictionary<Int32, T>, Task<Int32[]>>, Func<T, Int32, Boolean>, Boolean)
+  href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTakeAsync_System_Func_System_Collections_Generic_IReadOnlyDictionary_System_Int32__0__System_Threading_Tasks_Task_System_Int32_____System_Func__0_System_Int32_System_Boolean__System_Boolean_
+  commentId: M:Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTakeAsync(System.Func{System.Collections.Generic.IReadOnlyDictionary{System.Int32,`0},System.Threading.Tasks.Task{System.Int32[]}},System.Func{`0,System.Int32,System.Boolean},System.Boolean)
+  name.vb: BrowseAndTakeAsync(Func(Of IReadOnlyDictionary(Of Int32, T), Task(Of Int32())), Func(Of T, Int32, Boolean), Boolean)
+  fullName: Discord.Addons.MpGame.Collections.Pile<T>.BrowseAndTakeAsync(System.Func<System.Collections.Generic.IReadOnlyDictionary<System.Int32, T>, System.Threading.Tasks.Task<System.Int32[]>>, System.Func<T, System.Int32, System.Boolean>, System.Boolean)
+  fullName.vb: Discord.Addons.MpGame.Collections.Pile(Of T).BrowseAndTakeAsync(System.Func(Of System.Collections.Generic.IReadOnlyDictionary(Of System.Int32, T), System.Threading.Tasks.Task(Of System.Int32())), System.Func(Of T, System.Int32, System.Boolean), System.Boolean)
+  nameWithType: Pile<T>.BrowseAndTakeAsync(Func<IReadOnlyDictionary<Int32, T>, Task<Int32[]>>, Func<T, Int32, Boolean>, Boolean)
+  nameWithType.vb: Pile(Of T).BrowseAndTakeAsync(Func(Of IReadOnlyDictionary(Of Int32, T), Task(Of Int32())), Func(Of T, Int32, Boolean), Boolean)
 - uid: Discord.Addons.MpGame.Collections.Pile`1.BrowseAndTakeAsync*
   name: BrowseAndTakeAsync
   href: api/Discord.Addons.MpGame.Collections.Pile-1.html#Discord_Addons_MpGame_Collections_Pile_1_BrowseAndTakeAsync_
@@ -1556,6 +1556,32 @@ references:
   isSpec: "True"
   fullName: Discord.Addons.MpGame.IMpGameData.PlayerUserId
   nameWithType: IMpGameData.PlayerUserId
+- uid: Discord.Addons.MpGame.ISimpleStateProvider`1
+  name: ISimpleStateProvider<TState>
+  href: api/Discord.Addons.MpGame.ISimpleStateProvider-1.html
+  commentId: T:Discord.Addons.MpGame.ISimpleStateProvider`1
+  name.vb: ISimpleStateProvider(Of TState)
+  fullName: Discord.Addons.MpGame.ISimpleStateProvider<TState>
+  fullName.vb: Discord.Addons.MpGame.ISimpleStateProvider(Of TState)
+  nameWithType: ISimpleStateProvider<TState>
+  nameWithType.vb: ISimpleStateProvider(Of TState)
+- uid: Discord.Addons.MpGame.ISimpleStateProvider`1.State
+  name: State
+  href: api/Discord.Addons.MpGame.ISimpleStateProvider-1.html#Discord_Addons_MpGame_ISimpleStateProvider_1_State
+  commentId: P:Discord.Addons.MpGame.ISimpleStateProvider`1.State
+  fullName: Discord.Addons.MpGame.ISimpleStateProvider<TState>.State
+  fullName.vb: Discord.Addons.MpGame.ISimpleStateProvider(Of TState).State
+  nameWithType: ISimpleStateProvider<TState>.State
+  nameWithType.vb: ISimpleStateProvider(Of TState).State
+- uid: Discord.Addons.MpGame.ISimpleStateProvider`1.State*
+  name: State
+  href: api/Discord.Addons.MpGame.ISimpleStateProvider-1.html#Discord_Addons_MpGame_ISimpleStateProvider_1_State_
+  commentId: Overload:Discord.Addons.MpGame.ISimpleStateProvider`1.State
+  isSpec: "True"
+  fullName: Discord.Addons.MpGame.ISimpleStateProvider<TState>.State
+  fullName.vb: Discord.Addons.MpGame.ISimpleStateProvider(Of TState).State
+  nameWithType: ISimpleStateProvider<TState>.State
+  nameWithType.vb: ISimpleStateProvider(Of TState).State
 - uid: Discord.Addons.MpGame.MpGameModuleBase`3
   name: MpGameModuleBase<TService, TGame, TPlayer>
   href: api/Discord.Addons.MpGame.MpGameModuleBase-3.html

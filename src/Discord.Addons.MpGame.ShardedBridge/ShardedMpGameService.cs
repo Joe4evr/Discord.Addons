@@ -27,7 +27,7 @@ namespace Discord.Addons.MpGame.ShardedBridge
     {
         //private readonly RemoteMpGameServer<TGame, TPlayer> _server;
         private readonly ConcurrentDictionary<IMessageChannel, TServer> _servers
-            = new ConcurrentDictionary<IMessageChannel, TServer>(MessageChannelComparer);
+            = new(MessageChannelComparer);
 
         /// <summary>
         ///     Instantiates the MpGameService for the specified Game and Player type.

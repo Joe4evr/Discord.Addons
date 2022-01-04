@@ -7,7 +7,6 @@ using Grpc.Core;
 
 namespace Discord.Addons.MpGame.Remotes
 {
-#nullable disable warnings
     /// <summary>
     /// 
     /// </summary>
@@ -21,10 +20,7 @@ namespace Discord.Addons.MpGame.Remotes
         where TGame : GameBase<TPlayer>
         where TPlayer : Player
     {
-        public override Task<GameData> GetGameData(
-            CommandContext request, ServerCallContext context)
-        {
-            return base.GetGameData(request, context);
-        }
+        public abstract override Task<GameData> GetGameData(
+            CommandContext request, ServerCallContext context);
     }
 }

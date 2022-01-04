@@ -59,3 +59,9 @@ references:
 - uid: langword_vb_Async/Await
   name.csharp: async/await
   name.vb: Async/Await
+- uid: langword_csharp_enum
+  name.csharp: enum
+  name.vb: Enum
+- uid: langword_vb_Enum
+  name.csharp: enum
+  name.vb: Enum

@@ -14,19 +14,19 @@ namespace Discord.Addons.MpGame
         /// <remarks>
         ///     <inheritdoc />
         /// </remarks>
-        //[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
-        protected sealed class RequirePlayerAttribute //: GameStatePreconditionAttribute
+        [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
+        protected sealed class RequirePlayerAttribute : GameStatePreconditionAttribute
         {
-            ///// <inheritdoc />
-            //public override string? ErrorMessage { get; set; }
+            /// <inheritdoc />
+            public override string? ErrorMessage { get; set; }
 
-            //protected override Task<PreconditionResult> CheckStateAsync(TGame game, ICommandContext _)
-            //{
-            //    var authorId = context.User.Id;
-            //    return (game.Players.Any(p => p.User.Id == authorId))
-            //        ? Task.FromResult(PreconditionResult.FromSuccess())
-            //        : Task.FromResult(PreconditionResult.FromError(ErrorMessage ?? "User must be a Player in this game."));
-            //}
+            protected override Task<PreconditionResult> CheckStateAsync(TGame game, ICommandContext context)
+            {
+                var authorId = context.User.Id;
+                return (game.Players.Any(p => p.User.Id == authorId))
+                    ? Task.FromResult(PreconditionResult.FromSuccess())
+                    : Task.FromResult(PreconditionResult.FromError(ErrorMessage ?? "User must be a Player in this game."));
+            }
         }
     }
 }

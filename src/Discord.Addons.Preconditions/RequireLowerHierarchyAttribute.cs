@@ -13,7 +13,8 @@ namespace Discord.Addons.Preconditions
     [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = true)]
     public sealed class RequireLowerHierarchyAttribute : ParameterPreconditionAttribute
     {
-        /// <inheritdoc />
+        /// <summary>
+        /// </summary>
         public override Task<PreconditionResult> CheckPermissionsAsync(
             ICommandContext _, ParameterInfo __, object value, IServiceProvider ___)
         {

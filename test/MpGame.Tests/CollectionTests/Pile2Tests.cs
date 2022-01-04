@@ -1,18 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Discord.Addons.MpGame.Collections;
 using Xunit;
 
 namespace MpGame.Tests.CollectionTests
 {
-    public sealed class Pile2Tests
+    public class Pile2Tests
     {
-        public sealed class GetWrapperAt
+        protected static IEnumerable<object[]> TheoryPiles(PilePerms withPerms, int num)
         {
-            [Fact]
-            public void ThrowsNegativeIndex()
+            var seed = TestCard.Factory(num).ToArray();
+            yield return new object[] { new WrappingTestPile(withPerms, seed) };
+        }
+
+        public sealed class GetWrapperAt : Pile2Tests
+        {
+            [Theory]
+            [MemberData(nameof(TheoryPiles), PilePerms.All, 20)]
+            public void ThrowsNegativeIndex(WrappingTestPile pile)
             {
-                var pile = new WrappingTestPile(withPerms: PilePerms.All, items: TestCard.Factory(20));
                 var priorSize = pile.Count;
 
                 var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.FlipCardAt(index: -1));
@@ -21,10 +28,10 @@ namespace MpGame.Tests.CollectionTests
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
 
-            [Fact]
-            public void ThrowsTooHighIndex()
+            [Theory]
+            [MemberData(nameof(TheoryPiles), PilePerms.All, 20)]
+            public void ThrowsTooHighIndex(WrappingTestPile pile)
             {
-                var pile = new WrappingTestPile(withPerms: PilePerms.All, items: TestCard.Factory(20));
                 var priorSize = pile.Count;
 
                 var ex = Assert.Throws<ArgumentOutOfRangeException>(() => pile.FlipCardAt(index: pile.Count + 1));
@@ -33,10 +40,10 @@ namespace MpGame.Tests.CollectionTests
                 Assert.Equal(expected: priorSize, actual: pile.Count);
             }
 
-            [Fact]
-            public void DoesNotChangePileSize()
+            [Theory]
+            [MemberData(nameof(TheoryPiles), PilePerms.All, 20)]
+            public void DoesNotChangePileSize(WrappingTestPile pile)
             {
-                var pile = new WrappingTestPile(withPerms: PilePerms.All, items: TestCard.Factory(20));
                 var priorSize = pile.Count;
 
                 pile.FlipCardAt(index: 4);

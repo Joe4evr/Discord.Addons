@@ -14,7 +14,7 @@ namespace Discord.Addons.MpGame.Collections
         where TOut : class
     {
         private readonly Func<TOut, TIn> _wrapper;
-        private readonly Func<IEnumerable<TOut>, IEnumerable<TOut>> _shuffleFunc;
+        private readonly Pile<TOut> _pile;
 
         private int _count = 0;
         private Node? _head = null;
@@ -24,10 +24,10 @@ namespace Discord.Addons.MpGame.Collections
         private Node? VHead => Volatile.Read(ref _head);
         private Node? VTail => Volatile.Read(ref _tail);
 
-        internal PileLogic(Func<TOut, TIn> wrapper, Func<IEnumerable<TOut>, IEnumerable<TOut>> shuffleFunc)
+        internal PileLogic(Pile<TOut> pile, Func<TOut, TIn> wrapper)
         {
+            _pile = pile;
             _wrapper = wrapper;
-            _shuffleFunc = shuffleFunc;
         }
 
         internal IEnumerable<TOut> AsEnumerable(Func<TIn, TOut> unwrapper)
@@ -43,11 +43,11 @@ namespace Discord.Addons.MpGame.Collections
 
         internal async Task<ImmutableArray<TOut>> BrowseAndTakeAsync(
             Func<IReadOnlyDictionary<int, TOut>, Task<int[]?>> selector,
-            Func<TOut, bool>? filter, Func<TIn, TOut> unwrapper, bool shouldShuffle)
+            Func<TOut, int, bool>? filter, Func<TIn, TOut> unwrapper, bool shouldShuffle)
         {
             var items = GetAllDictionary(unwrapper);
             var imm = Freeze(
-                (filter != null ? items.Where(kv => filter(kv.Value)) : items),
+                (filter != null ? items.Where(kv => filter(kv.Value, kv.Key)) : items),
                 VCount);
 
             var selection = await selector(imm).ConfigureAwait(false);
@@ -58,7 +58,7 @@ namespace Discord.Addons.MpGame.Collections
 
             if (shouldShuffle)
             {
-                Resequence(_shuffleFunc(items.Values));
+                Resequence(_pile.ShuffleInternal(items.Values));
 
                 // We've reset all of the nodes here,
                 // so don't bother breaking them
@@ -113,11 +113,9 @@ namespace Discord.Addons.MpGame.Collections
             Volatile.Write(ref _tail, newTail);
         }
 
-        internal TIn Draw()
-            => Break(RemHead());
+        internal TIn Draw() => Break(RemHead());
 
-        internal TIn DrawBottom()
-            => Break(RemTail());
+        internal TIn DrawBottom() => Break(RemTail());
 
         internal ImmutableArray<TOut> MultiDraw(int amount, Func<TIn, TOut> unwrapper)
         {
@@ -141,11 +139,11 @@ namespace Discord.Addons.MpGame.Collections
                 AddAfter(GetNodeAt(index), item);
         }
 
-        internal TOut Mill(Func<TIn, TOut> unwrapper, Action<TOut> targetAdder)
+        internal TOut Mill(Func<TIn, TOut> unwrapper, Pile<TOut> target)
         {
             var millNode = Break(RemHead());
             var item = unwrapper(millNode);
-            targetAdder(item);
+            target.AddInternal(item);
             return item;
         }
 
@@ -162,17 +160,31 @@ namespace Discord.Addons.MpGame.Collections
             return builder.MoveToImmutable();
         }
 
-        internal void Put(TOut item)
-            => AddHead(item);
+        internal ImmutableArray<TOut> PeekBottom(int amount, Func<TIn, TOut> unwrapper)
+        {
+            var builder = ImmutableArray.CreateBuilder<TOut>(amount);
 
-        internal void PutBottom(TOut item)
-            => AddTail(item);
+            for (var (n, i) = (VTail, 0); i < amount; (n, i) = (n.Previous, i + 1))
+                builder.Add(unwrapper(n!.Value)); // Nodes are kept in place for peeking
+
+            return builder.MoveToImmutable();
+        }
+
+        //internal Task<ImmutableArray<TOut>> PeekAndTakeAsync(
+        //    Func<IReadOnlyDictionary<int, TOut>, Task<int[]?>> selector,
+        //    int peekAmount, Func<TIn, TOut> unwrapper)
+        //{
+
+        //}
+
+        internal void Put(TOut item) => AddHead(item);
+
+        internal void PutBottom(TOut item) => AddTail(item);
 
         internal void Shuffle(Func<TIn, TOut> unwrapper)
-            => Resequence(_shuffleFunc(GetAllInternal(clear: false, unwrapper)));
+            => Resequence(_pile.ShuffleInternal(GetAllInternal(clear: false, unwrapper)));
 
-        internal TIn TakeAt(int index)
-            => Break(GetNodeAt(index));
+        internal TIn TakeAt(int index) => Break(GetNodeAt(index));
 
         private Dictionary<int, TOut> GetAllDictionary(Func<TIn, TOut> unwrapper)
         {
@@ -219,7 +231,7 @@ namespace Discord.Addons.MpGame.Collections
         internal void AddSequence(IEnumerable<TOut> sequence, bool shuffle)
         {
             if (shuffle)
-                sequence = _shuffleFunc(sequence);
+                sequence = _pile.ShuffleInternal(sequence);
 
             foreach (var item in sequence.Distinct<TOut>(ReferenceComparer.Instance))
             {
@@ -327,8 +339,7 @@ namespace Discord.Addons.MpGame.Collections
             return node.Value;
         }
 
-        internal ref TIn GetValueRefAt(int index)
-            => ref GetNodeAt(index).Value;
+        internal ref TIn GetValueRefAt(int index) => ref GetNodeAt(index).Value;
 
         private sealed class Node
         {

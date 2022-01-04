@@ -8,7 +8,7 @@
     <title>Games </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Games ">
-    <meta name="generator" content="docfx 2.58.0.0">
+    <meta name="generator" content="docfx 2.58.9.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -173,10 +173,17 @@ of this type after you have made your <code>Player</code> class.</p>
 Any <code>abstract</code> members must also be overridden because the behavior is implementation-specific.
 You'll also have to declare your <code>Player</code> type when you inherit the base class.
 Continuing on with our card game example:</p>
-<pre><code class="lang-cs">public class CardGame : GameBase&lt;CardPlayer&gt; // Any player in a 'CardGame' is of type 'CardPlayer'.
+<pre><code class="lang-cs">public class CardGame : GameBase&lt;CardPlayer&gt;, // Any player in a 'CardGame' is of type 'CardPlayer'.
+    ISimpleStateProvider&lt;CardGameState&gt; // Implementing this interface is required for some of the built-in
+                                        // preconditions (see section 7), but otherwise optional.
 {
-    // Example property that's needed for the game.
+    // Example property that's needed for your game.
     private CardDeck Deck { get; }
+
+    // Example items for keeping track of the game state:
+    public CardGameState State { get; private set; } = CardGameState.Setup;
+    internal int Turn { get; private set; } = 0;
+    internal uint DeckSize =&gt; (uint)Deck.Count;
 
     // Again, you need to call the base constructor.
     public CardGame(
@@ -221,16 +228,12 @@ Continuing on with our card game example:</p>
         }
     }
 
-    // Example items for keeping track of the game state:
-    private int _turn = 0;
-    internal GameState State { get; private set; } = GameState.Setup;
-
     public override Task NextTurn()
     {
         // This is where you put the logic that happens
         // at the start of every turn.
-        _turn++;
-        State = GameState.StartOfTurn;
+        Turn++;
+        State = CardGameState.StartOfTurn;
 
         // Use 'TurnPlayer.Next' and assign it as the new TurnPlayer.
         // The list will automatically cycle through once it reaches the end.
@@ -256,7 +259,7 @@ Continuing on with our card game example:</p>
         // You do not need to implement *both* methods, just make sure that your
         // 'GameState' command doesn't call the one that remains unimplemented.
 
-        var sb = new StringBuilder($&quot;State of the board at turn {_turn}:\n&quot;)
+        var sb = new StringBuilder($&quot;State of the board at turn {Turn}:\n&quot;)
             .AppendLine($&quot;Turn state is {State.ToString()}.&quot;)
             .AppendLine($&quot;There are {Deck.Count} cards in the deck.&quot;)
             .AppendLine($&quot;It is {TurnPlayer.Value.User.Username}'s turn.&quot;);
@@ -273,7 +276,7 @@ Continuing on with our card game example:</p>
 }
 // Make an enum like this so you can use it in
 // a custom precondition for your commands (see section 7).
-internal enum GameState
+public enum CardGameState
 {
     Setup,
     StartOfTurn,
@@ -288,7 +291,7 @@ internal enum GameState
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/master/docs/guides/mpgame/games.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Joe4evr/Discord.Addons/blob/MpGame4/docs/guides/mpgame/games.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

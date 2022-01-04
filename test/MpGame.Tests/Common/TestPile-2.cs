@@ -8,7 +8,7 @@ using Discord.Addons.MpGame.Collections;
 
 namespace MpGame.Tests
 {
-    internal class WrappingTestPile : WrappingPile<ITestCard, WrappingTestPile.FlipWrapper>, ITestPileEvents
+    public class WrappingTestPile : WrappingPile<ITestCard, WrappingTestPile.FlipWrapper>, ITestPileEvents
     {
         private readonly PilePerms _perms;
 
@@ -31,7 +31,7 @@ namespace MpGame.Tests
         public override bool CanTake => HasPerm(PilePerms.CanTake);
 
         protected override FlipWrapper Wrap(ITestCard card)
-            => new FlipWrapper(card, faceDownByDefault: false);
+            => new(card, faceDownByDefault: false);
 
         private bool HasPerm(PilePerms perm) => (_perms & perm) == perm;
 
@@ -98,7 +98,7 @@ namespace MpGame.Tests
         }
     }
 
-    internal class FacedownWrappingTestPile : WrappingTestPile
+    public sealed class FacedownWrappingTestPile : WrappingTestPile
     {
         public FacedownWrappingTestPile(PilePerms withPerms, IEnumerable<ITestCard> items)
             : base(withPerms, items)
@@ -106,7 +106,7 @@ namespace MpGame.Tests
         }
 
         protected override FlipWrapper Wrap(ITestCard card)
-            => new FlipWrapper(card, faceDownByDefault: true);
+            => new(card, faceDownByDefault: true);
     }
 
 }

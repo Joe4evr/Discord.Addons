@@ -18,7 +18,8 @@ namespace Discord.Addons.Preconditions
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class RatelimitAttribute : PreconditionAttribute
     {
-        /// <inheritdoc />
+        /// <summary>
+        /// </summary>
         public override string? ErrorMessage { get; set; }
 
         private readonly uint _invokeLimit;
@@ -91,7 +92,8 @@ namespace Discord.Addons.Preconditions
             _invokeLimitPeriod = period;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// </summary>
         public override Task<PreconditionResult> CheckPermissionsAsync(
             ICommandContext context, CommandInfo _, IServiceProvider __)
         {

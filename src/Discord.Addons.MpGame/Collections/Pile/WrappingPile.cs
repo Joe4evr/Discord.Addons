@@ -53,7 +53,7 @@ namespace Discord.Addons.MpGame.Collections
             if (items is null)
                 ThrowHelper.ThrowArgNull(nameof(items));
 
-            _logic = new(Wrap, ShuffleItems);
+            _logic = new(this, Wrap);
             _logic.AddSequence(items, initShuffle);
         }
 
@@ -95,7 +95,7 @@ namespace Discord.Addons.MpGame.Collections
             => _logic.Browse(_falseyUnwrapper);
         private protected sealed override Task<ImmutableArray<T>> BrowseAndTakeCore(
             Func<IReadOnlyDictionary<int, T>, Task<int[]?>> selector,
-            Func<T, bool>? filter, bool shuffle)
+            Func<T, int, bool>? filter, bool shuffle)
             => _logic.BrowseAndTakeAsync(selector, filter, _truthyUnwrapper, (CanShuffle && shuffle));
 
         private protected sealed override ImmutableArray<T> ClearCore()
@@ -112,7 +112,7 @@ namespace Discord.Addons.MpGame.Collections
         private protected sealed override void InsertCore(T item, int index)
             => _logic.InsertAt(item, index);
         private protected sealed override T MillCore(Pile<T> targetPile)
-            => _logic.Mill(_truthyUnwrapper, targetPile.Adder);
+            => _logic.Mill(_truthyUnwrapper, targetPile);
         private protected sealed override T PeekAtCore(int index)
             => _logic.PeekAt(index).Unwrap(true);
         private protected sealed override ImmutableArray<T> PeekTopCore(int amount)
@@ -125,5 +125,7 @@ namespace Discord.Addons.MpGame.Collections
             => _logic.Shuffle(_truthyUnwrapper);
         private protected sealed override T TakeCore(int index)
             => _logic.TakeAt(index).Unwrap(true);
+
+        internal TWrapper WrapInternal(T item) => Wrap(item);
     }
 }

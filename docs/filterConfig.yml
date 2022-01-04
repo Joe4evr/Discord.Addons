@@ -3,21 +3,15 @@ apiRules:
     uidRegex: ^System\.Object$
 - exclude:
     uidRegex: ^System\.ValueType$
-- exclude:
-    uidRegex: ^System\.Attribute$
-    type: Type
+# - exclude:
+    # uidRegex: ^System\.Attribute$
+    # type: Type
 - include:
     uidRegex: '^System\.[^.]*Exception$'
     type: Type
-# CLL Node
-# - exclude:
-    # uidRegex: ^Discord\.Addons\.MpGame\.Collections\.Node`1$
-# - exclude:
-    # uidRegex: ^Discord\.Addons\.MpGame\.Collections\.Pile`1\.DefaultWrapper$
-# - exclude:
-    # uidRegex: ^Discord\.Addons\.MpGame\.Collections\.Pile`2\.Wrap*$
-# - exclude:
-    # uidRegex: ^Discord\.Addons\.MpGame\.Collections\.Pile`1\.Wrap*$
+- include:
+    uidRegex: ^Discord\.Addons\.MpGame\.[^.]*Attribute$
+    type: Type
 - exclude:
     uidRegex: ^Discord\.Addons\.MpGame\.MpGameModuleBase`1$
 - exclude:

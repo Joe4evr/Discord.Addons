@@ -27,7 +27,8 @@ namespace Discord.Addons.Preconditions
             _minimumUsers = minimumUsers;
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// </summary>
         public override async Task<PreconditionResult> CheckPermissionsAsync(
             ICommandContext context, CommandInfo command, IServiceProvider services)
         {

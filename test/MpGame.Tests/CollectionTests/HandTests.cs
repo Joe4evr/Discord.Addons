@@ -61,7 +61,7 @@ namespace MpGame.Tests.CollectionTests
                 var hand = new Hand<TestCard>(TestCard.Factory(5));
                 var cards = hand.Browse();
 
-                Assert.False(cards.IsDefault);
+                Assert.False(cards.IsDefault, "Returned array was defaulted.");
                 Assert.NotEmpty(cards);
                 Assert.Equal(expected: cards.Length, actual: hand.Count);
             }
@@ -73,8 +73,8 @@ namespace MpGame.Tests.CollectionTests
                 var cards = hand.Browse();
 
                 Assert.Equal(expected: 0, actual: hand.Count);
-                Assert.False(cards.IsDefault);
-                Assert.True(cards.IsEmpty);
+                Assert.False(cards.IsDefault, "Returned array was defaulted.");
+                Assert.Empty(cards);
             }
         }
 
@@ -87,7 +87,7 @@ namespace MpGame.Tests.CollectionTests
                 var priorSize = hand.Count;
                 var cleared = hand.Clear();
 
-                Assert.False(cleared.IsDefault);
+                Assert.False(cleared.IsDefault, "Returned array was defaulted.");
                 Assert.Equal(expected: 0, actual: hand.Count);
                 Assert.Equal(expected: priorSize, actual: cleared.Length);
             }
@@ -128,11 +128,11 @@ namespace MpGame.Tests.CollectionTests
                 hand.Order(orderFunc: cards =>
                 {
                     funcCalled = true;
-                    Assert.False(cards.IsDefault);
+                    Assert.False(cards.IsDefault, "Returned array was defaulted.");
                     return cards.Concat(TestCard.Factory(added));
                 });
 
-                Assert.True(funcCalled);
+                Assert.True(funcCalled, "Order function was not called.");
                 Assert.Equal(expected: init + added, actual: hand.Count);
             }
         }
@@ -197,7 +197,7 @@ namespace MpGame.Tests.CollectionTests
                     return c.Id == 3;
                 });
 
-                Assert.True(funcCalled);
+                Assert.True(funcCalled, "Predicate function was not called.");
                 Assert.NotNull(taken);
                 Assert.Equal(expected: priorSize - 1, actual: hand.Count);
             }
@@ -214,7 +214,7 @@ namespace MpGame.Tests.CollectionTests
                     return c.Id == 10;
                 });
 
-                Assert.True(funcCalled);
+                Assert.True(funcCalled, "Predicate function was not called.");
                 Assert.Null(taken);
                 Assert.Equal(expected: priorSize, actual: hand.Count);
             }
