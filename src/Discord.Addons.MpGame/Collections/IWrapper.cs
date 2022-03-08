@@ -1,27 +1,26 @@
-﻿namespace Discord.Addons.MpGame.Collections
+﻿namespace Discord.Addons.MpGame.Collections;
+
+/// <summary>
+///     Represents the contract for a wrapper.
+/// </summary>
+public interface IWrapper<out T>
 {
     /// <summary>
-    ///     Represents the contract for a wrapper.
+    ///     Unwraps the wrapped item.<br/>
+    ///     <i>May</i> do domain-specific checks or operations.
     /// </summary>
-    public interface IWrapper<out T>
-    {
-        /// <summary>
-        ///     Unwraps the wrapped item.<br/>
-        ///     <i>May</i> do domain-specific checks or operations.
-        /// </summary>
-        /// <param name="revealing">
-        ///     Indicates if the actual item is required to be returned.
-        /// </param>
-        /// <returns>
-        ///     The unwrapped item, or a domain-specific placeholder item.
-        /// </returns>
-        /// <remarks>
-        ///     <note type="implement">
-        ///         If <paramref name="revealing"/> is <see langword="true"/>,
-        ///         any domain-specific checks are required to be skipped
-        ///         and the actual wrapped item must be returned.
-        ///     </note>
-        /// </remarks>
-        T Unwrap(bool revealing);
-    }
+    /// <param name="revealing">
+    ///     Indicates if the actual item is required to be returned.
+    /// </param>
+    /// <returns>
+    ///     The unwrapped item, or a domain-specific placeholder item.
+    /// </returns>
+    /// <remarks>
+    ///     <note type="implement">
+    ///         If <paramref name="revealing"/> is <see langword="true"/>,
+    ///         any domain-specific checks are required to be skipped
+    ///         and the actual wrapped item must be returned.
+    ///     </note>
+    /// </remarks>
+    T Unwrap(bool revealing);
 }

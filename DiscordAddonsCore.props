@@ -16,7 +16,7 @@
     <RepositoryUrl>git://github.com/Joe4evr/Discord.Addons</RepositoryUrl>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <TargetFrameworks>netstandard2.1;netcoreapp3.1</TargetFrameworks>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <Nullable>Enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>

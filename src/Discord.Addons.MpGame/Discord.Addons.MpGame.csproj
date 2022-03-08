@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\DiscordAddonsCore.props" />
   <PropertyGroup>
     <AssemblyName>Discord.Addons.MpGame</AssemblyName>
@@ -6,14 +6,25 @@
     <VersionSuffix>$(MpGameSuffix)</VersionSuffix>
     <Description>Base classes for text-based games in Discord</Description>
     <PackageTags>discord;commands;game</PackageTags>
-    <LangVersion>preview</LangVersion>
     <TargetFrameworks>$(TargetFrameworks);net6.0</TargetFrameworks>
   </PropertyGroup>
+  <Choose>
+    <When Condition="'$(TargetFramework)' == 'net6.0'">
+      <PropertyGroup>
+        <LangVersion>preview</LangVersion>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
   <!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CodeAnalysisRuleSet>Discord.Addons.MpGame.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>-->
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.3.1" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.1.0" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <None Update="tools\*.ps1" CopyToOutputDirectory="Always" Pack="True" PackagePath="tools" />
