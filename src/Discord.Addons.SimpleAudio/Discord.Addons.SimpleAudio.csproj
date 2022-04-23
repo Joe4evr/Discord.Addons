@@ -3,12 +3,13 @@
   <Import Project="..\..\DiscordAddonsCore.props" />
   <PropertyGroup>
     <AssemblyName>Discord.Addons.SimpleAudio</AssemblyName>
+    <TargetFrameworks>net5.0</TargetFrameworks>
     <VersionPrefix>$(SimpleMusicMajor).$(DnetMajor).0</VersionPrefix>
     <VersionSuffix>$(SimpleMusicSuffix)</VersionSuffix>
     <Description>Simple usage of Audio for Discord.Net 2.0.</Description>
     <Authors>Joe4evr</Authors>
     <PackageTags>discord;commands;audio</PackageTags>
-    <!--<AllowUnsafeBlocks>true</AllowUnsafeBlocks>-->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="JiiLib.Media" Version="1.0.0" />
