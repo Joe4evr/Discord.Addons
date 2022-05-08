@@ -59,7 +59,11 @@ namespace TestHelper
             var diagnostics = new List<Diagnostic>();
             foreach (var project in projects)
             {
-                var compilationWithAnalyzers = (await project.GetCompilationAsync()).WithAnalyzers(ImmutableArray.Create(analyzer));
+                var compilation = await project.GetCompilationAsync();
+                if (compilation is null)
+                    continue;
+
+                var compilationWithAnalyzers = compilation.WithAnalyzers(ImmutableArray.Create(analyzer));
                 var diags = await compilationWithAnalyzers.GetAnalyzerDiagnosticsAsync();
                 foreach (var diag in diags)
                 {
@@ -146,7 +150,6 @@ namespace TestHelper
             string fileExt = language == LanguageNames.CSharp ? CSharpDefaultFileExt : VisualBasicDefaultExt;
 
             var projectId = ProjectId.CreateNewId(debugName: TestProjectName);
-
             var solution = new AdhocWorkspace()
                 .CurrentSolution
                 .AddProject(projectId, TestProjectName, TestProjectName, language)

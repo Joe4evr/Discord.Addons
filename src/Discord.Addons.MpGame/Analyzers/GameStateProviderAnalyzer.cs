@@ -25,7 +25,11 @@ internal sealed class GameStateProviderAnalyzer : DiagnosticAnalyzer
 #pragma warning restore RS2008 // Enable analyzer release tracking
     private static readonly Type _stateProviderType = typeof(ISimpleStateProvider<>);
     private static readonly Type _moduleBaseType = typeof(MpGameModuleBase<,,>);
-    private static readonly Type _attributeType = _moduleBaseType.GetNestedType("RequireGameStateAttribute", BindingFlags.NonPublic)!;
+    private static readonly Type[] _attributeTypes = new[]
+    {
+        _moduleBaseType.GetNestedType("RequireGameStateAttribute`1", BindingFlags.NonPublic)!,
+        _moduleBaseType.GetNestedType("RequireGameStateOneOfAttribute`1", BindingFlags.NonPublic)!,
+    };
 
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(_rule);
 
@@ -44,7 +48,7 @@ internal sealed class GameStateProviderAnalyzer : DiagnosticAnalyzer
             return;
 
         var attrTypeInfo = context.SemanticModel.GetTypeInfo(attributeSyntax);
-        if (attrTypeInfo.Type?.OriginalDefinition.MetadataName != _attributeType.Name)
+        if (!_attributeTypes.Any(a => attrTypeInfo.Type?.OriginalDefinition.MetadataName == a.Name))
             return;
 
         var containingClassSyntax = context.Node.FirstAncestorOrSelf<ClassDeclarationSyntax>();
@@ -55,16 +59,15 @@ internal sealed class GameStateProviderAnalyzer : DiagnosticAnalyzer
         if (containingClass is null || !IsMpGameModuleClass(containingClass, out var mpGameModuleSymbol))
             return;
 
+        var tstateType = ((INamedTypeSymbol)attrTypeInfo.Type!).TypeArguments[0];
         var gameTypeSymbol = mpGameModuleSymbol.TypeArguments[1];
         var stateProvSymbol = gameTypeSymbol.AllInterfaces.FirstOrDefault(i => i.OriginalDefinition.MetadataName == _stateProviderType.Name);
-        if (stateProvSymbol == null)
+        if (stateProvSymbol is null || !SymbolEqualityComparer.Default.Equals(stateProvSymbol.TypeArguments[0], tstateType))
         {
-            var diag = Diagnostic.Create(_rule, attributeSyntax.GetLocation(), gameTypeSymbol.Name, "TState");
+            var diag = Diagnostic.Create(_rule, attributeSyntax.GetLocation(), gameTypeSymbol.Name, tstateType.Name);
             context.ReportDiagnostic(diag);
             return;
         }
-
-        var tstateTypeSymbol = stateProvSymbol.TypeArguments[0];
     }
 
     private static bool IsMpGameModuleClass(INamedTypeSymbol typeSymbol,

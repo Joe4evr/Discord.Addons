@@ -10,32 +10,55 @@ namespace MpGame.Tests.Analyzers
 {
     public sealed class GameStateProviderAnalyzerTests : DiagnosticVerifier
     {
-        [Fact]
-        public async Task VerifyDiagnostic()
+        [Theory]
+        [InlineData(SourceTexts.MockGameNoStateDiag)]
+        [InlineData(SourceTexts.MockGameWrongStateDiag)]
+        public async Task VerifyDiagnostic(string gameSourceText)
         {
             var expected = new DiagnosticResult[]
             {
                 new()
                 {
                     Id = "MG0001",
-                    Message = "Game type 'MockGame' does not implement 'ISimpleStateProvider<MockGameState>'.",
+                    Message = "Game type 'MockGame' does not implement 'ISimpleStateProvider<MockGameState>'",
                     Severity = DiagnosticSeverity.Warning,
                     Locations = new[]
                     {
-                        new DiagnosticResultLocation(path: "Test3.cs", line: 8, column: 68)
+                        new DiagnosticResultLocation(path: "Test3.cs", line: 15, column: 6)
+                    }
+                },
+                new()
+                {
+                    Id = "MG0001",
+                    Message = "Game type 'MockGame' does not implement 'ISimpleStateProvider<MockGameState>'",
+                    Severity = DiagnosticSeverity.Warning,
+                    Locations = new[]
+                    {
+                        new DiagnosticResultLocation(path: "Test3.cs", line: 17, column: 6)
                     }
                 }
             };
 
             await VerifyCSharpDiagnostic(sources: new[]
             {
-                SourceTexts.MockGame,
+                gameSourceText,
                 SourceTexts.MockService,
                 SourceTexts.MockGameState,
-                SourceTexts.MockModuleWithDiag
+                SourceTexts.MockModule
             }, expected);
         }
 
+        [Fact]
+        public async Task VerifyNoDiagnostic()
+        {
+            await VerifyCSharpDiagnostic(sources: new[]
+            {
+                SourceTexts.MockGameValid,
+                SourceTexts.MockService,
+                SourceTexts.MockGameState,
+                SourceTexts.MockModule
+            }, Array.Empty<DiagnosticResult>());
+        }
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
             => (Activator.CreateInstance(
