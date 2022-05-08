@@ -8,19 +8,17 @@ using Xunit;
 
 namespace MpGame.Tests.Analyzers;
 
-public sealed class GameStateProviderAnalyzerTests : DiagnosticVerifier
+public sealed class GameStateOneOfAnalyzerTests : DiagnosticVerifier
 {
-    [Theory]
-    [InlineData(SourceTexts.MockGameNoStateDiag)]
-    [InlineData(SourceTexts.MockGameWrongStateDiag)]
-    public async Task VerifyDiagnostic(string gameSourceText)
+    [Fact]
+    public async Task VerifyDiagnostic()
     {
         var expected = new DiagnosticResult[]
         {
             new()
             {
-                Id = "MG0001",
-                Message = "Game type 'MockGame' does not implement 'ISimpleStateProvider<MockGameState>'",
+                Id = "MG0002",
+                Message = "Use more than 1 value in RequireGameStateOneOfAttribute",
                 Severity = DiagnosticSeverity.Warning,
                 Locations = new[]
                 {
@@ -29,22 +27,32 @@ public sealed class GameStateProviderAnalyzerTests : DiagnosticVerifier
             },
             new()
             {
-                Id = "MG0001",
-                Message = "Game type 'MockGame' does not implement 'ISimpleStateProvider<MockGameState>'",
+                Id = "MG0002",
+                Message = "Use more than 1 value in RequireGameStateOneOfAttribute",
                 Severity = DiagnosticSeverity.Warning,
                 Locations = new[]
                 {
                     new DiagnosticResultLocation(path: "Test3.cs", line: 17, column: 6)
+                }
+            },
+            new()
+            {
+                Id = "MG0002",
+                Message = "Use more than 1 value in RequireGameStateOneOfAttribute",
+                Severity = DiagnosticSeverity.Warning,
+                Locations = new[]
+                {
+                    new DiagnosticResultLocation(path: "Test3.cs", line: 19, column: 6)
                 }
             }
         };
 
         await VerifyCSharpDiagnostic(sources: new[]
         {
-            gameSourceText,
+            SourceTexts.MockGameValid,
             SourceTexts.MockService,
             SourceTexts.MockGameState,
-            SourceTexts.MockModule
+            SourceTexts.MockModuleOneOfError
         }, expected);
     }
 
@@ -63,6 +71,6 @@ public sealed class GameStateProviderAnalyzerTests : DiagnosticVerifier
     protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         => (Activator.CreateInstance(
             assemblyName: "Discord.Addons.MpGame",
-            typeName: "Discord.Addons.MpGame.Analyzers.GameStateProviderAnalyzer")?.Unwrap() as DiagnosticAnalyzer)!;
+            typeName: "Discord.Addons.MpGame.Analyzers.GameStateOneOfAnalyzer")?.Unwrap() as DiagnosticAnalyzer)!;
 }
 #endif

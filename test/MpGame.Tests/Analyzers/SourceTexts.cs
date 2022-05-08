@@ -29,6 +29,33 @@ public sealed class MockModule : MpGameModuleBase<MockService, MockGame, Player>
     public override Task StartGameCmd() => throw new NotImplementedException();
 }
 ";
+    internal static string MockModuleOneOfError => @"using System;
+using System.Threading.Tasks;
+using Discord;
+using Discord.Addons.MpGame;
+
+namespace MpGame.Tests.ResourceMocks;
+
+public sealed class MockModule : MpGameModuleBase<MockService, MockGame, Player>
+{
+    public MockModule(MockService gameService)
+        : base(gameService)
+    {
+    }
+
+    [RequireGameStateOneOf<MockGameState>(MockGameState.Things)]
+    public override Task CancelGameCmd() => throw new NotImplementedException();
+    [RequireGameStateOneOf<MockGameState>()]
+    public override Task EndGameCmd() => throw new NotImplementedException();
+    [RequireGameStateOneOf<MockGameState>]
+    public override Task GameStateCmd() => throw new NotImplementedException();
+    public override Task JoinGameCmd() => throw new NotImplementedException();
+    public override Task LeaveGameCmd() => throw new NotImplementedException();
+    public override Task NextTurnCmd() => throw new NotImplementedException();
+    public override Task OpenGameCmd() => throw new NotImplementedException();
+    public override Task StartGameCmd() => throw new NotImplementedException();
+}
+";
 
     internal static string MockGameState => @"namespace MpGame.Tests.ResourceMocks;
 
