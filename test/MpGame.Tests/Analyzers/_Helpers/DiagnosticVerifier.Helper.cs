@@ -172,29 +172,31 @@ namespace TestHelper
         #endregion
 
         /// <summary>
-        /// Get the <see cref="MetadataReference"/> for <paramref name="assembly"/> and all assemblies referenced by <paramref name="assembly"/>
+        ///     Get the <see cref="MetadataReference"/> for <paramref name="assembly"/> and
+        ///     all assemblies referenced by <paramref name="assembly"/>
         /// </summary>
         /// <param name="assembly">The assembly.</param>
         /// <returns><see cref="MetadataReference"/>s.</returns>
         private static IEnumerable<MetadataReference> Transitive(Assembly assembly)
         {
-            foreach (var a in RecursiveReferencedAssemblies(assembly))
+            var domainAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var a in RecursiveReferencedAssemblies(assembly, domainAssemblies))
             {
                 yield return MetadataReference.CreateFromFile(a.Location);
             }
         }
 
-        private static HashSet<Assembly> RecursiveReferencedAssemblies(Assembly a, HashSet<Assembly>? assemblies = null)
+        private static HashSet<Assembly> RecursiveReferencedAssemblies(Assembly a, Assembly[] domainAssemblies, HashSet<Assembly>? assemblies = null)
         {
             assemblies ??= new HashSet<Assembly>();
             if (assemblies.Add(a))
             {
                 foreach (var referencedAssemblyName in a.GetReferencedAssemblies())
                 {
-                    var referencedAssembly = AppDomain.CurrentDomain.GetAssemblies()
-                                                      .SingleOrDefault(x => x.GetName() == referencedAssemblyName) ??
-                                             Assembly.Load(referencedAssemblyName);
-                    RecursiveReferencedAssemblies(referencedAssembly, assemblies);
+                    if (domainAssemblies.FirstOrDefault(x => x.GetName() == referencedAssemblyName) is { }  referencedAssembly)
+                    {
+                        RecursiveReferencedAssemblies(referencedAssembly, domainAssemblies, assemblies);
+                    }
                 }
             }
 
@@ -202,4 +204,3 @@ namespace TestHelper
         }
     }
 }
-

@@ -3,7 +3,7 @@ namespace MpGame.Tests.Analyzers;
 
 internal static class SourceTexts
 {
-    internal static string MockModule => @"using System;
+    internal const string MockModule = @"using System;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Addons.MpGame;
@@ -29,7 +29,7 @@ public sealed class MockModule : MpGameModuleBase<MockService, MockGame, Player>
     public override Task StartGameCmd() => throw new NotImplementedException();
 }
 ";
-    internal static string MockModuleOneOfError => @"using System;
+    internal const string MockModuleOneOfError = @"using System;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Addons.MpGame;
@@ -57,7 +57,7 @@ public sealed class MockModule : MpGameModuleBase<MockService, MockGame, Player>
 }
 ";
 
-    internal static string MockGameState => @"namespace MpGame.Tests.ResourceMocks;
+    internal const string MockGameState = @"namespace MpGame.Tests.ResourceMocks;
 
 public enum MockGameState
 {
@@ -144,7 +144,7 @@ public sealed class MockGame : GameBase<Player>, ISimpleStateProvider<MockGameSt
 }
 ";
 
-    internal static string MockService => @"using System;
+    internal const string MockService = @"using System;
 using Discord;
 using Discord.WebSocket;
 using Discord.Addons.MpGame;

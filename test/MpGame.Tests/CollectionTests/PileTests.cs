@@ -1164,6 +1164,13 @@ namespace MpGame.Tests.CollectionTests
             }
 
             [Theory]
+            [MemberData(nameof(TheoryPiles), PilePerms.CanShuffle, 200)]
+            public void Test(Pile<ITestCard> pile)
+            {
+                pile.Shuffle();
+            }
+
+            [Theory]
             [MemberData(nameof(TheoryPiles), PilePerms.CanShuffle, 0)]
             public void ShuffleFuncDoesNotGiveDefaultArray(Pile<ITestCard> pile)
             {

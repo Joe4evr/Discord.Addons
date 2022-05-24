@@ -14,7 +14,7 @@ namespace Discord.Addons.MpGame.Analyzers;
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 internal sealed class GameStateProviderAnalyzer : DiagnosticAnalyzer
 {
-    private const string DiagnosticId = "MG0001";
+    internal const string DiagnosticId = "MG0001";
     private const string Title = "Game type should implement ISimpleStateProvider";
     private const string MessageFormat = "Game type '{0}' does not implement 'ISimpleStateProvider<{1}>'";
     private const string Description = "Game type has to implement ISimpleStateProvider to make use of this precondition.";
@@ -57,6 +57,8 @@ internal sealed class GameStateProviderAnalyzer : DiagnosticAnalyzer
         if (containingClass is null || !containingClass.IsMpGameModuleClass(_moduleBaseType, out var mpGameModuleSymbol))
             return;
 
+        // BUG: Should return the symbol for the used state type
+        // Actual: Returns the symbol for 'TState'
         var tstateType = ((INamedTypeSymbol)attrTypeInfo.Type!).TypeArguments[0];
         var gameTypeSymbol = mpGameModuleSymbol.TypeArguments[1];
         var stateProvSymbol = gameTypeSymbol.AllInterfaces.FirstOrDefault(i => i.OriginalDefinition.MetadataName == _stateProviderType.Name);
