@@ -45,8 +45,8 @@ internal sealed class GameStateProviderAnalyzer : DiagnosticAnalyzer
         if (context.Node is not AttributeSyntax attributeSyntax)
             return;
 
-        var attrTypeInfo = context.SemanticModel.GetTypeInfo(attributeSyntax);
-        if (!_attributeTypes.Any(a => attrTypeInfo.Type?.OriginalDefinition.MetadataName == a.Name))
+        var attrTypeSymbol = (context.SemanticModel.GetTypeInfo(attributeSyntax).Type as INamedTypeSymbol);
+        if (!_attributeTypes.Any(a => attrTypeSymbol?.OriginalDefinition.MetadataName == a.Name))
             return;
 
         var containingClassSyntax = context.Node.FirstAncestorOrSelf<ClassDeclarationSyntax>();
@@ -57,14 +57,12 @@ internal sealed class GameStateProviderAnalyzer : DiagnosticAnalyzer
         if (containingClass is null || !containingClass.IsMpGameModuleClass(_moduleBaseType, out var mpGameModuleSymbol))
             return;
 
-        // BUG: Should return the symbol for the used state type
-        // Actual: Returns the symbol for 'TState'
-        var tstateType = ((INamedTypeSymbol)attrTypeInfo.Type!).TypeArguments[0];
+        var stateType = context.SemanticModel.GetTypeInfo(((GenericNameSyntax)attributeSyntax.Name).TypeArgumentList.Arguments[0]).Type!;
         var gameTypeSymbol = mpGameModuleSymbol.TypeArguments[1];
         var stateProvSymbol = gameTypeSymbol.AllInterfaces.FirstOrDefault(i => i.OriginalDefinition.MetadataName == _stateProviderType.Name);
-        if (stateProvSymbol is null || !SymbolEqualityComparer.Default.Equals(stateProvSymbol.TypeArguments[0], tstateType))
+        if (stateProvSymbol is null || !SymbolEqualityComparer.Default.Equals(stateProvSymbol.TypeArguments[0], stateType))
         {
-            var diag = Diagnostic.Create(_rule, attributeSyntax.GetLocation(), gameTypeSymbol.Name, tstateType.Name);
+            var diag = Diagnostic.Create(_rule, attributeSyntax.GetLocation(), gameTypeSymbol.Name, stateType.Name);
             context.ReportDiagnostic(diag);
             return;
         }
